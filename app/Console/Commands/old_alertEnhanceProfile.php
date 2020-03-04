@@ -14,7 +14,7 @@ use App\OpportunitySellOffer;
 use App\Unsubscribe;
 use Config;
 
-class alertEnhanceProfile extends Command
+class oldAlertEnhanceProfile extends Command
 {
 
     protected $signature = 'alertEnhanceProfile:prokakis';
