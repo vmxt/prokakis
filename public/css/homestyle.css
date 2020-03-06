@@ -1,0 +1,105 @@
+/*
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+        padding: 0px;
+        margi-left:0px !important;
+
+    }
+    .navbar-header {
+        padding-left: 10px;
+    }
+    .navbar-header a {
+        float: none !important;
+        display:inline-table;
+    }
+    .btn {
+        min-width: 150px !important;
+        max-width: 200px !important;
+    }
+
+
+}    */
+
+
+/*
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .container {
+        max-width: 100%;
+    }
+    .card-body {
+        position: relative !important;
+        padding: 0px;
+        max-width: 480px;
+        min-width:320px;
+    }
+    .jumbotron {
+        position: relative;
+        padding: 0px;
+        margin: 0px;
+        max-width: 450px;
+        min-width: 300px;
+    }
+    td > .alert {
+        padding: 0px;
+        margin-top: 5px;
+        text-align:center;
+    }
+
+    td > .pie {
+        position: relative;
+        float: left;
+
+    }
+    .btn {
+        position: relative;
+        min-width: 100px !important;
+        font-size: 8px !important;
+        margi-left: 15px;
+        margin-top: 0px !important;
+        margin-bottom: 15px;
+        margi-left: 15px !important;
+    }
+}
+
+
+
+
+.card {
+    margin-top: 15px;
+} */
+
+<!-- below are css codes Victor -->
+.niceDisplay{
+    font-family: 'PT Sans Narrow', sans-serif;
+    background-color: white;
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.btn-x4 {
+    font-size: 15px;
+    border-radius: 5px;
+    width: 15%;
+    background-color: orangered;
+}
+
+.active{
+    background-color: orangered;
+    padding: 5px;
+    border-radius: 7px;
+}
+
+.navbar-brand{
+    font-size: 0.98rem;
+}
+.navbar{
+    padding: 0.2rem;
+}

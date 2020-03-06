@@ -1,0 +1,13 @@
+[   {"keyword":"Manufacturer"},
+    {"keyword":"Non_Profit"},
+    {"keyword":"Retailer"},
+    {"keyword":"Warehouse_Logistics"},
+    {"keyword": "Consultant"},
+    {"keyword": "Contractor"},
+    {"keyword":"Distributor"},
+    {"keyword": "Holding_Company_Investments"},
+    {"keyword": "Import_Export"},
+    {"keyword": "Service_Provider"},
+    {"keyword":"Institution"},
+    {"keyword":"Wholesaler"}
+ ]
