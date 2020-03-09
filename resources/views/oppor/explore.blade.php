@@ -394,7 +394,19 @@ foreach ($build as $item) {
                                 </tr>
                                 <tr>
                                     <td><b>Industry Keyword </b></td>
-                                    <td> <?php echo $item->ideal_partner_business; ?></td>
+                                    <td> <?php 
+                                          $string = explode(",",$item->ideal_partner_business);
+                                          $i=0;
+                                          foreach( $string as $val ){
+                                            if(trim($val) != ''){
+                                                echo $val;
+                                                $i++;
+                                                if($i != count($string)){
+                                                    echo ", ";
+                                                }
+                                            }
+                                          } ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><b>Why partner with this company?</b></td>
