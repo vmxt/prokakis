@@ -7,9 +7,7 @@
     <?php //echo Route::getFacadeRoot()->current()->uri(); ?>
 
     <link href="{{ asset('public/mini-upload/assets/css/style.css') }}" rel="stylesheet">
-
     <link href="{{ asset('public/img-cropper/css/style.css') }}" rel="stylesheet">
-
     <link rel="stylesheet" href="{{asset('public/css/profileedit.css')}}">
 
 
@@ -19,133 +17,75 @@
 <style>
 
         html, body {
-
             width: 100%;
-
             height: 100%;
-
             margin: 0px;
-
             padding: 0px;
-
             overflow-x: hidden;
-
             overflow: visible;
-
         }
 
        .containerCimg
 
        {
 
-
-
        }
 
-       .actionCimg
-
-       {
-
+       .actionCimg {
            width: 300px;
-
            height: 30px;
-
            margin: 5px 0;
-
            float: left;
-
        }
 
        .croppedCimg>img
-
        {
-
            margin-right: 10px;
-
        }
 
-
-
        .niceDisplay{
-
                   font-family: 'PT Sans Narrow', sans-serif;
-
                    font-weight: bold;
-
                    font-size: 15px;
-
                    background-color: white;
-
                    padding: 30px;
-
                    border-radius: 3px;
-
                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-
                    text-align: center;
-
                    color: orangered;
-
         }
-
-
 
         #edit_icon{
-
             cursor: pointer;
-
         }
-
 
 
         /* Outer */
 
         .popup {
-
         width:100%;
-
         height:100%;
-
         display:none;
-
         position:fixed;
-
         top:0px;
-
         left:0px;
-
         background:rgba(0,0,0,0.75);
-
         }
-
-
 
         /* Inner */
 
         .popup-inner {
-
         max-width:700px;
-
         width:90%;
-
         padding:40px;
-
         position:absolute;
-
         top:50%;
-
         left:50%;
-
         -webkit-transform:translate(-50%, -50%);
-
         transform:translate(-50%, -50%);
-
         box-shadow:0px 2px 6px rgba(0,0,0,1);
-
         border-radius:3px;
-
         background:#fff;
-
         }
 
 
@@ -153,58 +93,33 @@
         /* Close Button */
 
         .popup-close {
-
         width:30px;
-
         height:30px;
-
         padding-top:4px;
-
         display:inline-block;
-
         position:absolute;
-
         top:0px;
-
         right:0px;
-
         transition:ease 0.25s all;
-
         -webkit-transform:translate(50%, -50%);
-
         transform:translate(50%, -50%);
-
         border-radius:1000px;
-
         background:rgba(0,0,0,0.8);
-
         font-family:Arial, Sans-Serif;
-
         font-size:20px;
-
         text-align:center;
-
         line-height:100%;
-
         color:#fff;
-
         }
 
 
 
         .popup-close:hover {
-
         -webkit-transform:translate(50%, -50%) rotate(180deg);
-
         transform:translate(50%, -50%) rotate(180deg);
-
         background:rgba(0,0,0,1);
-
         text-decoration:none;
-
         }
-
-
 
 </style>
 
@@ -345,7 +260,7 @@
                                         </div>
 
                                         <br/>
-                                        <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p>
+                                       <!-- <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p> -->
                                         <ul>
                                             <?php if(isset($completenessMessages)){
                                             foreach($completenessMessages as $d){

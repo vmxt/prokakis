@@ -10,11 +10,11 @@
     <head>
         <!-- from the original code -->
         <!-- CSRF Token -->
-        <meta property="og:url"           content="http://ebos-app.prokakis.com" />
+        <meta property="og:url"           content="https://app.prokakis.com/" />
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Prokakis Ebos-SG App 2109" />
         <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
-        <meta property="og:image"         content="https://prokakis.com/wp-content/uploads/2018/06/New-ProKakis-1b.jpg" />
+        <meta property="og:image"         content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" />
         <!-- end from the original code -->
 
         <meta charset="utf-8" />
@@ -28,7 +28,7 @@
         <meta content="Ebos-SG App 2019" name="author" />
 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('public/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -55,6 +55,7 @@
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
             -->
         <!-- END HEAD -->
+        <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
 
     <!-- override the css values above -->
      <style>
@@ -155,6 +156,20 @@
 }
 
      </style>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5bc03b2d61d0b770925118d4/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 
     <?php
 
@@ -395,7 +410,7 @@
                                                 </a>
                                                 <ul class="dropdown-menu pull-left">
                                                         <li aria-haspopup="true" class=" ">
-                                                               <a href="{{ url('/businessnews') }}" class="nav-link  ">
+                                                               <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
                                                                <i class="icon-bulb" style="color: white"></i> Business News</a>
                                                         </li>
 
@@ -419,17 +434,17 @@
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a class="nav-link" href="{{ url('/profile/view') }}"> <i class="fa fa-video-camera" style="color: white"></i> View Profile</a>
+                                                    <a class="nav-link" href="{{ url('/profile/view') }}"> <i class="fa fa-video-camera" style="color: white"></i> View Company</a>
                                                 </li>
                                                 <li aria-haspopup="true" class=" ">
-                                                        <a class="nav-link" href="{{ url('/profile/edit') }}"> <i class="fa fa-edit" style="color: white"></i> Edit Profile</a>
+                                                        <a class="nav-link" href="{{ url('/profile/edit') }}"> <i class="fa fa-edit" style="color: white"></i> Edit Company</a>
                                                 </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{ url('/profile/contacts') }}" class="nav-link "><i class="fa fa-phone-square" style="color: white"></i> Contacts </a>
                                                 </li>
-                                                <li aria-haspopup="true" class=" ">
+                                               <!-- <li aria-haspopup="true" class=" ">
                                                     <a href="{{ url('/profile/billing') }}" class="nav-link  "><i class="fa fa-money" style="color:white;"></i> Billing</a>
-                                                </li>
+                                                </li> -->
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{ url('/profile/paymentHistory') }}" class="nav-link"><i class="fa fa-cc-paypal" style="color: white"></i> Payments History</a>
                                                 </li>
@@ -437,7 +452,7 @@
                                                     <a href="{{ url('/profile/socialAccounts') }}" class="nav-link"> <i class="fa fa-facebook-official" style="color: white"></i> Social Media Accounts</a>
                                                 </li> -->
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Profile</a>
+                                                    <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Company</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -519,9 +534,9 @@
                                                         <a href="{{ url('/consultants/editprofile') }}" class="nav-link  "> <i class="icon-note"></i> Edit Profile </a>
                                                     </li>
 
-                                                    <li aria-haspopup="true" class=" ">
+                                                  <!--  <li aria-haspopup="true" class=" ">
                                                         <a href="{{ url('/consultants/billing') }}" class="nav-link  "> <i class="icon-map"></i> Billing </a>
-                                                    </li>
+                                                    </li> -->
 
                                                     <li aria-haspopup="true" class=" ">
                                                         <a href="{{ url('/consultants/commission') }}" class="nav-link  "> <i class=" icon-layers"></i> Commission History </a>
@@ -717,14 +732,14 @@
                 <!-- Menu for login and register -->
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
+                    <!--<ul class="nav navbar-nav">
                         &nbsp;
-                    </ul>
+                    </ul> -->
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <!-- <ul class="navbar-nav ml-auto"> -->
                         <!-- Authentication Links -->
-                        @guest
+                    <!-- @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -734,12 +749,12 @@
                                 @endif
                             </li>
                         @else
-                            <li class="nav-item">
+                            <li class="nav-item"> -->
                             <!-- <a href="#">
                                     {{ Auth::user()->firtsname }} <span class="caret"></span>
                                 </a> -->
 
-                                <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <!-- <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -748,7 +763,7 @@
 
                             </li>
                         @endguest
-                    </ul>
+                    </ul> -->
                 </div>
                 <!-- End Menu for login and register -->
             </div>
@@ -810,7 +825,7 @@
 
                         <!-- BEGIN INNER FOOTER -->
                         <div class="page-footer">
-                            <div class="container"> 2018 &copy; Prokakis
+                            <div class="container"> 2020 &copy; Prokakis
                             </div>
                         </div>
                         <div class="scroll-to-top">
@@ -960,7 +975,6 @@
 
     <!-- START NEW SCRIPTS FOR FIXING OF MENU BAR -->
         <!-- BEGIN CORE PLUGINS -->
-        <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>

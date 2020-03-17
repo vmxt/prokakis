@@ -232,11 +232,11 @@
 
                                    <!-- <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Generated Report Status </th> -->
 
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Download </th>
+                                   <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Status </th>
 
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Mark </th>
-
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Request </th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Download Report </th>
+                                   
+                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Request Update </th>
 
                                 </tr>
 
@@ -321,6 +321,23 @@
                                     </td>
 
 
+                                    <td>
+
+                                        <?php 
+
+                                       $today = date('Y-m-d');
+
+                                       $karunAdlawa =  strtotime($today);  
+
+                                       $endTime = strtotime($data->month_subscription_end);
+
+                                        if($endTime < $karunAdlawa)
+                                        {
+                                         echo  '<div class="alert alert-info"><b>Completed</b></div>';
+                                        } 
+                                        ?>
+
+                                    </td>
 
 
 
@@ -334,50 +351,13 @@
 
                                                onclick="return confirm('Are you sure you want to download the company report of <?php echo App\CompanyProfile::getCompanyName($data->source_company_id); ?> ?')"
 
-                                               class="btn btn-primary">Download</a>
+                                               class="btn btn-danger">Download</a>
 
     
 
                                         </td>
 
     
-
-                                        <td>
-
-
-
-                                            <?php 
-
-                                           $today = date('Y-m-d');
-
-                                           $karunAdlawa =  strtotime($today);  
-
-                                           $endTime = strtotime($data->month_subscription_end);
-
-                                            if($endTime > $karunAdlawa){
-
-                                            ?>
-
-                                            <a href="{{ url('/reports/requestDiscontinue/') }}/<?php echo $data->id; ?>"
-
-                                               onclick="return confirm('Are you sure to discontinue your subscription and monitoring to this company <?php echo App\CompanyProfile::getCompanyName($data->source_company_id); ?> ?')"
-
-                                               class="btn btn-primary btn-x3">Discontinue</a>
-
-                                           <?php }else { ?>
-
-                                            <a href="{{ url('/reports/requestCompleted/') }}/<?php echo $data->id; ?>"
-
-                                                onclick="return confirm('Are you sure to mark completed your subscription and monitoring to this company <?php echo App\CompanyProfile::getCompanyName($data->source_company_id); ?> ?')"
-
-                                                class="btn btn-primary btn-x3">Mark Completed</a>
-
-                                            
-
-                                           <?php } ?>
-
-                                        </td>
-
     
 
                                         <td>
@@ -386,15 +366,16 @@
 
                                                onclick="return confirm('Are you sure to send request update of the company details? This will deduct one token to process.')"
 
-                                               class="btn btn-primary">Request Update</a>
+                                               class="btn btn-success">Request</a>
 
                                         </td>
 
-
-
-
-
                                 </tr>
+                                <tr><td colspan="8">
+                                    <div class="note note-danger"><b> Download Report</b>; "Please download your KYB Due Diligence report within <?php echo $freq->description; ?>. There will be no replacement or refund after the link expires"</div>
+                                    <div class="note note-success"><b> Request Update</b>; "User can request provider to update their current information to request for their latest report"</div>
+                                </td></tr>
+                             
 
                                 <?php } ?>
 

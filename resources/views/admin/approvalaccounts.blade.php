@@ -54,7 +54,7 @@
 
 
 
-            <div class="col-md-12">
+       
 
 
 
@@ -268,7 +268,7 @@
 
                                                             case 1:
 
-                                                                echo '<i>Active</i>';
+                                                                echo 'Active';
 
                                                                 break;
 
@@ -410,7 +410,7 @@
 
 
 
-                </div>
+               
 
                 </div>
 
@@ -440,7 +440,9 @@
 
         $(document).ready(function () {
 
-            $('#system_data').DataTable();
+            $('#system_data123').DataTable( {
+                "order": [[ 3, "desc" ]]
+            } );
 
 
 

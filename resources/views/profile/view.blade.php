@@ -17,11 +17,19 @@
 
     <link href="{{ asset('public/mini-upload/assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('public/img-cropper/css/style.css') }}" rel="stylesheet">
+    
 
 
     <style>
-        html {
-            overflow-y: hidden;
+        html, body {
+
+            width: 100%;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+            overflow-x: hidden;
+            overflow: visible;
+
         }
 
             a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, td, textarea, th, ul {
@@ -524,7 +532,7 @@
                             </div>
 
                             <br/>
-                            <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p>
+                           <!-- <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p> -->
                             <ul>
                                 <?php if(isset($completenessMessages)){
                                 foreach($completenessMessages as $d){

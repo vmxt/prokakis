@@ -9,6 +9,7 @@ use Auth;
 use Config;
 use App\Buytoken;
 use App\CompanySpentTokens;
+use PDF;
 
 class CompanyPaymentController extends Controller
 {
@@ -81,6 +82,32 @@ class CompanyPaymentController extends Controller
          } else{
           return redirect('/profile/paymentHistory')->with('message', 'Unauthorised printing of company information.');
          }
+      }
+    }
+
+
+    public function generatePdf(Request $request){
+
+        if(isset($request['companyId'])){
+         $company_id = $request['companyId'];
+
+         $user_id = Auth::id();
+         $company_id_result = CompanyProfile::getCompanyId($user_id);
+         
+         if($company_id == $company_id_result){
+          $rs_buy = Buytoken::where('company_id', $company_id) //'company id'
+          ->orderBy('id', 'asc')
+          ->get();
+         
+          $data = ['title' => 'Welcome to HDTuto.com'];
+          $pdf = PDF::loadView('profile.printPreviewPurchased', compact('rs_buy','company_id_result'));
+  
+          return $pdf->download('purchase history.pdf');
+
+         } else{
+          return redirect('/profile/paymentHistory')->with('message', 'Unauthorised printing of company information.');  
+         }
+
       }
     }
  

@@ -2,70 +2,263 @@
 
 namespace App\Http\Controllers;
 
+
 use App\BusinessOpportunitiesNews;
 use App\CompanyProfile;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
+use App\SpentTokens;
+
 
 class BusinessOpportunityNewsController extends Controller {
 
+
+
 	/**
+
 	 * Create a new controller instance.
+
 	 *
+
 	 * @return void
+
 	 */
+
 	public function __construct() {
+
 		$this->middleware('auth');
+
 	}
 
+
+
 	public function index() {
+
 		return view('businessnews.index');
+
 	}
+
 
 	public function store(Request $request) {
 
 		if ($request->isMethod('post')) {
+
 			// var_dump($_POST); exit;
+
 			if ($request->input('btnSubmit') == "Save") {
 
+
+
 				$user_id = Auth::id();
+
 				$company_id = CompanyProfile::getCompanyId($user_id);
+
+
 
 				$businessnewsArea = $request->input('businessnewsArea');
+
 				$businessTitle = $request->input('businessTitle');
 
+
+
 				$ok = BusinessOpportunitiesNews::where('user_id', $user_id)->where('company_id', $company_id)->first();
 
-				if ($ok->count() > 0) {
+
+
+				if ($ok != null) {
+
 					$o = BusinessOpportunitiesNews::find($ok->id);
+
 					$o->content_business = $businessnewsArea;
+
 					$o->business_title = $businessTitle;
+
 					$o->save();
 
+
+
 				} else {
+
 					BusinessOpportunitiesNews::create([
+
 						'user_id' => $user_id,
+
 						'company_id' => $company_id,
+
 						'content_business' => $businessnewsArea,
+
 						'business_title' => $businessTitle,
+
 						'created_at' => date('Y-m-d'),
+
 					]);
+
 				}
+
+
 
 				return redirect('businessnews')->with('status', 'You have succesfully saved the content for Business News.');
+
 			}
 
+
+
 			if ($request->input('btnSubmit') == "Delete") {
+
 				$user_id = Auth::id();
+
 				$company_id = CompanyProfile::getCompanyId($user_id);
+
 				$ok = BusinessOpportunitiesNews::where('user_id', $user_id)->where('company_id', $company_id)->first();
+
 				if ($ok->count() > 0) {
+
 					$ok->delete();
+
 					return redirect('businessnews')->with('status', 'You have succesfully deleted the content for Business News.');
+
 				}
+
+			}
+
+
+
+		}
+
+	}
+
+	public function retNewsContent(Request $request){
+
+		if($request->isMethod('get')) {
+			$id = $request['id'];
+			$bn = BusinessOpportunitiesNews::find($id);
+			if($bn != null){
+				return $bn->content_business;
+			}
+		}
+
+
+	}
+
+	public function delNews(Request $request){
+
+		if ($request->isMethod('post')) {
+			
+			$user_id = Auth::id();
+			$company_id = CompanyProfile::getCompanyId($user_id);
+			$newsId = $request->input('newsId');
+			$rs = BusinessOpportunitiesNews::where('id', $newsId)->where('company_id', $company_id)->where('user_id', $user_id)->first();
+
+			if($rs != null){
+				$rs->status = 0;
+				$rs->save();
+			}
+	
+		}
+
+	}
+
+	public function saveNews(Request $request){
+
+		if ($request->isMethod('post')) {
+			
+			$user_id = Auth::id();
+			$company_id = CompanyProfile::getCompanyId($user_id);
+			
+			$businessnewsArea = $request->input('newsContent');
+			$businessTitle = $request->input('newsTitle');
+
+			$token = SpentTokens::validateLeftBehindToken($company_id);
+			
+			$countNews = 0;
+
+			if($token == false){ //free account
+
+				$countNews = BusinessOpportunitiesNews::where('company_id', $company_id)->where('status', 1)->count();
+
+				if($countNews < 10){
+					BusinessOpportunitiesNews::create([
+
+						'user_id' => $user_id,
+
+						'company_id' => $company_id,
+
+						'content_business' => $businessnewsArea,
+
+						'business_title' => $businessTitle,
+
+						'created_at' => date('Y-m-d'),
+
+						'status' => '1',
+
+					]);
+				} else {
+
+					return 'Exceed to the allowed number of news content as FREE account';
+				}
+
+			} else { //premium account
+
+				BusinessOpportunitiesNews::create([
+
+					'user_id' => $user_id,
+
+					'company_id' => $company_id,
+
+					'content_business' => $businessnewsArea,
+
+					'business_title' => $businessTitle,
+
+					'created_at' => date('Y-m-d'),
+
+					'status' => '1',
+
+				]);
+
+			}	
+
+
+		}
+
+	}
+
+	public function updateNews(Request $request){
+
+		if ($request->isMethod('post')) {
+			
+			$user_id = Auth::id();
+			$company_id = CompanyProfile::getCompanyId($user_id);
+			
+			$businessnewsArea = $request->input('newsContent');
+			$businessTitle = $request->input('newsTitle');
+			$newsId = $request->input('newsId');
+		
+			$rs = BusinessOpportunitiesNews::where('id', $newsId)->where('company_id', $company_id)->where('user_id', $user_id)->first();
+
+			if($rs != null){
+				$rs->business_title = $businessTitle;
+				$rs->content_business = $businessnewsArea;
+				$rs->save();
 			}
 
 		}
+
 	}
+
+
+	public function list(Request $request){
+	
+		$user_id = Auth::id();
+		
+		$company_id = CompanyProfile::getCompanyId($user_id);
+	
+			$rs = BusinessOpportunitiesNews::where('company_id',$company_id)->where('status', '1')->get();
+
+			return view('businessnews.list', compact('rs'));
+
+
+	}
+
 }
+

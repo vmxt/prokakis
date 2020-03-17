@@ -296,7 +296,6 @@
 
 Fight identity theft by monitoring and reviewing your vendors credit report. It's a quick easy and secure. 
 
-Note: 1 Token will be deducted to buy subscription plan in One-time, Quarterly, Bi-annually or Annually.
 
 
 

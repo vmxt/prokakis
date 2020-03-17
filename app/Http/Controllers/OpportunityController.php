@@ -16,6 +16,7 @@ use App\RequestReport;
 use App\SpentTokens;
 use App\User;
 use Auth;
+use App\PremiumOpportunityPurchased;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -55,6 +56,8 @@ class OpportunityController extends Controller {
 
 		$company_id = CompanyProfile::getCompanyId(Auth::id());
 
+		$company_rs = CompanyProfile::find($company_id);
+
 		$oppType = $request['oppType'];
 
 		if (!in_array($oppType, array('buy', 'build', 'sell', 'company'))) {
@@ -71,7 +74,7 @@ class OpportunityController extends Controller {
 
 			$requestReport = new RequestReport;
 
-			return view('oppor.request', compact('requestReport', 'oppType', 'oppId', 'company_id'));
+			return view('oppor.request', compact('requestReport', 'oppType', 'oppId', 'company_id', 'company_rs'));
 
 		} elseif ($oppType == 'company') {
 
@@ -79,7 +82,7 @@ class OpportunityController extends Controller {
 
 			$requestReport = new RequestReport;
 
-			return view('oppor.companyrequest', compact('requestReport', 'oppType', 'oppId', 'company_id'));
+			return view('oppor.companyrequest', compact('requestReport', 'oppType', 'oppId', 'company_id', 'company_rs'));
 
 		}
 
@@ -95,11 +98,13 @@ class OpportunityController extends Controller {
 
 			$company_id = CompanyProfile::getCompanyId(Auth::id());
 
+			$company_rs = CompanyProfile::find($company_id);
+
 			$oppType = $request->opportunity_type;
 
 			$oppId = $request->fk_opportunity_id;
 
-			return view('oppor.request', compact('requestReport', 'oppType', 'oppId', 'company_id'))->withErrors($validator);
+			return view('oppor.request', compact('requestReport', 'oppType', 'oppId', 'company_id', 'company_rs'))->withErrors($validator);
 
 		} else {
 
@@ -120,8 +125,8 @@ class OpportunityController extends Controller {
 			} else {
 
 				$getTotalTokensLeft = SpentTokens::validateLeftBehindToken($requestor_companyId);
-				if ($getTotalTokensLeft < 10) {
-					return redirect('/search-company')->with('message', 'Insufficient token value this process requires 10 token, please re-fill.');
+				if ($getTotalTokensLeft < 12) {
+					return redirect('opportunity/explore')->with('message', 'Insufficient token value this process requires 12 token, please re-fill.');
 					exit;
 				}
 
@@ -192,7 +197,7 @@ class OpportunityController extends Controller {
 
 					if (count((array) $cons) > 0) {
 
-						SpentTokens::spendTokenByrequest($isok->id, $requestor_companyId, $requestor_profile->user_id, 10); //deduct 1 token
+						SpentTokens::spendTokenByrequest($isok->id, $requestor_companyId, $requestor_profile->user_id, 12); //deduct 12 token
 
 						$usr = User::find($cons->consultant_main);
 
@@ -738,6 +743,11 @@ class OpportunityController extends Controller {
 			$idealPartnerBusiness = implode(",",$request->input('checkboxes2'));
 			}
 
+			$idealPartnerBase = '';
+			if( $request->input('ideal_partner_base') !== null){
+				$idealPartnerBase = implode(",",$request->input('ideal_partner_base'));
+			}
+
 			$businessGoal = '';
 			if($request->input('businessGoal') !== null){
 				$businessGoal = $request->input('businessGoal');
@@ -755,6 +765,14 @@ class OpportunityController extends Controller {
 
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
+
+			$this->validateAccLimits($company_id, 'build');
+
+			$view_type = $request->input('viewtype_value');
+
+			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+				$view_type == '1';	
+			}
 
 			//$opp = OpportunityBuildingCapability::where('company_id', $company_id)->first();
 
@@ -778,13 +796,15 @@ class OpportunityController extends Controller {
 
 				$opp->approx_large = $request->input('approx_large');
 
-				$opp->ideal_partner_base = $request->input('ideal_partner_base');
+				$opp->ideal_partner_base = $idealPartnerBase;
 
 				$opp->ideal_partner_business = $idealPartnerBusiness; //rtrim($request->input('ideal_partner_business'), ',');
 
 				$opp->relevant_describing_partner = $request->input('relevant_describing_partner');
 
 				$opp->edited_by = $user_id;
+
+				$opp->view_type = $view_type;
 
 				if ($opp->save()) {
 
@@ -814,7 +834,7 @@ class OpportunityController extends Controller {
 
 					'approx_large' => $request->input('approx_large'),
 
-					'ideal_partner_base' => $request->input('ideal_partner_base'),
+					'ideal_partner_base' => $idealPartnerBase,
 
 					'ideal_partner_business' => $idealPartnerBusiness,   //rtrim($request->input('ideal_partner_business'), ','),
 
@@ -824,7 +844,7 @@ class OpportunityController extends Controller {
 
 					'status' => 1,
 
-					'view_type' => 1,
+					'view_type' => $view_type,
 
 				]);
 
@@ -887,6 +907,11 @@ class OpportunityController extends Controller {
 			$idealPartnerBusiness = implode(",",$request->input('checkboxes2'));
 			}
 
+			$idealPartnerBase = '';
+			if( $request->input('ideal_partner_base') !== null){
+				$idealPartnerBase = implode(",",$request->input('ideal_partner_base'));
+			}
+
 			$whatSellOffer = '';
 			if($request->input('checkboxes1') !== null){
 			$whatSellOffer = implode(",",$request->input('checkboxes1'));
@@ -904,9 +929,17 @@ class OpportunityController extends Controller {
 			}
 			$opTitle = ( trim($request->input('opp_title')) != '')? $request->input('opp_title') : '';
 	
+			$view_type = $request->input('viewtype_value');
 
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
+
+			$this->validateAccLimits($company_id, 'sell');
+
+			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+				$view_type == '1';	
+			}
+
 			$opp = OpportunitySellOffer::find($request->input("id"));
 
 			if ($opp != null) {
@@ -925,13 +958,15 @@ class OpportunityController extends Controller {
 
 				$opp->approx_large = $request->input('approx_large');
 
-				$opp->ideal_partner_base = $request->input('ideal_partner_base');
+				$opp->ideal_partner_base = $idealPartnerBase;
 
 				$opp->ideal_partner_business = $idealPartnerBusiness; //rtrim($request->input('ideal_partner_business'), ',');
 
 				$opp->relevant_describing_partner = $request->input('relevant_describing_partner');
 
 				$opp->edited_by = $user_id;
+
+				$opp->view_type = $view_type;
 
 				if ($opp->save()) {
 					AuditLog::ok(array($user_id, 'opportunity', 'update sell', 'edited an opportunity under sell'));
@@ -959,7 +994,7 @@ class OpportunityController extends Controller {
 
 					'approx_large' => $request->input('approx_large'),
 
-					'ideal_partner_base' => $request->input('ideal_partner_base'),
+					'ideal_partner_base' => $idealPartnerBase,
 
 					'ideal_partner_business' => $idealPartnerBusiness, //rtrim($request->input('ideal_partner_business'), ','),
 
@@ -969,7 +1004,7 @@ class OpportunityController extends Controller {
 
 					'status' => 1,
 
-					'view_type' => 1,
+					'view_type' => $view_type,
 
 				]);
 
@@ -1025,6 +1060,11 @@ class OpportunityController extends Controller {
 			$idealPartnerBusiness = implode(",",$request->input('checkboxes2'));
 			}
 
+			$idealPartnerBase = '';
+			if( $request->input('ideal_partner_base') !== null){
+				$idealPartnerBase = implode(",",$request->input('ideal_partner_base'));
+			}
+
 			$whatSellOffer = '';
 			if($request->input('checkboxes1') !== null){
 			$whatSellOffer = implode(",",$request->input('checkboxes1'));
@@ -1042,8 +1082,17 @@ class OpportunityController extends Controller {
 			
 			}	
 
+			$view_type = $request->input('viewtype_value');
+
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
+
+			$this->validateAccLimits($company_id, 'buy');
+
+			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+				$view_type == '1';	
+			}
+
 			$opp = OpportunityBuy::find($request->input("id"));
 
 			if ($opp != null) {
@@ -1062,7 +1111,7 @@ class OpportunityController extends Controller {
 
 				$opp->approx_large = $request->input('approx_large');
 
-				$opp->ideal_partner_base = $request->input('ideal_partner_base');
+				$opp->ideal_partner_base = $idealPartnerBase;
 
 				$opp->ideal_partner_business = $idealPartnerBusiness; //rtrim($request->input('ideal_partner_business'), ',');
 
@@ -1098,7 +1147,7 @@ class OpportunityController extends Controller {
 
 					'approx_large' => $request->input('approx_large'),
 
-					'ideal_partner_base' => $request->input('ideal_partner_base'),
+					'ideal_partner_base' => $idealPartnerBase,
 
 					'ideal_partner_business' => $idealPartnerBusiness, //rtrim($request->input('ideal_partner_business'), ','),
 
@@ -1357,5 +1406,101 @@ class OpportunityController extends Controller {
 		} //end of method post
 
 	}
+
+	public function premiumPurchase(Request $request) {
+
+		if ($request->isMethod('post')) {
+
+			$user_id = Auth::id();
+			$company_id = CompanyProfile::getCompanyId($user_id);
+
+			$companyID = $request->input("companyID"); //opportunity owner
+			$opp_type = $request->input("ptype");
+			$opp_id = $request->input("oppId");
+
+			PremiumOpportunityPurchased::topUp($company_id, $opp_id, $opp_type);
+			SpentTokens::spendTokenByPremium("Spent for premium data", $company_id, $user_id, 1); //1 token deduction
+			
+			$viewer = base64_encode('viewer' . $companyID);
+			$token = base64_encode(date('YmdHis'));
+			return url('/company/'.$viewer.'/'.$companyID.'/'.$opp_id.'/'.$token);
+ 
+		}
+	
+	}
+
+	public function alertFreeAccount(Request $request)
+	{
+		if ($request->isMethod('post')) {
+			$company_opp = $request->input("companyOpp"); //opportunity owner
+			$company_viewer = $request->input("companyViewer"); //viewer
+
+			$user_id = Auth::id();
+			$rs = CompanyProfile::find($company_opp);
+
+			AuditLog::ok(array($user_id, 'opportunity', 'express interest to a company at explore page', 'company id:'. $company_viewer.' express interest to company id:' . $company_opp));
+
+			$message = "
+
+                  Dear  $rs->registered_company_name,
+
+                  <br />
+                  <br />
+
+				  We would like to inform you that there was an expression of interest from a Prokakis premium account company, 
+				  to one of your opportunity post.
+				  				  
+                  <br />
+				  In order to interact with the premium account company we encourage you to buy or top up a token in your Prokakis account.
+				  
+				  <br />
+				  To respond please login to : https://prokakis.com/
+                  <br />
+
+                  Best Regards, <br />
+
+                  Prokakis Web Admin
+                  ";
+
+						//send the email here
+
+				Mailbox::sendMail($message, $usr->email, ".", "");
+
+		}
+
+	}
+
+public function validateAccLimits($company_id, $oppType){
+
+		$acc_limits = Configurations::getJsonValue('account_limits');
+		$token = SpentTokens::validateLeftBehindToken($company_id);
+		
+		if($token == false){ 
+			
+			$countOpp = 0;
+
+			switch ($oppType) {
+				case 'build':
+					$countOpp = OpportunityBuildingCapability::where('company_id', $company_id)->where('status', 1)->count();
+				break;
+
+				case 'buy':
+					$countOpp = OpportunityBuy::where('company_id', $company_id)->where('status', 1)->count();
+					break;
+
+				case 'sell':
+					$countOpp = OpportunitySellOffer::where('company_id', $company_id)->where('status', 1)->count();
+					break;
+			}
+
+			if( (int)$acc_limits['FREE'] >= $countOpp ){ //exceeded
+				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+				exit;
+			}
+
+		}
+
+	}
+
 
 }

@@ -31,6 +31,7 @@
             font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
 
         }
+        
 
         .niceDisplay {
 
@@ -322,7 +323,7 @@ foreach ($build as $item) {
                                       <td><b>Title</b></td>
 
 				      <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>		
-                                      <td class="alert alert-info bold uppercase"><?php echo $item->opp_title; ?></td>
+                                  <td class="alert alert-dark bold uppercase"><h4><strong><?php echo $item->opp_title; ?></strong></h4></td>
 				      <?php } else { ?>
 				      <td> </td>
 				      <?php } ?>		
@@ -384,7 +385,18 @@ foreach ($build as $item) {
                                     <td><b>This company is seeking</b></td>
                                     <td><?php echo $item->business_goal; ?><br>
                                         <?php echo $item->audience_target; ?><br>
-                                        <?php echo $item->ideal_partner_base; ?> </td>
+                                      <?php 
+                                          $string = explode(",",$item->ideal_partner_base);
+                                          $i=0;
+                                          foreach( $string as $val ){
+                                            if(trim($val) != ''){
+                                                echo $val;
+                                                $i++;
+                                                if($i != count($string)){
+                                                    echo ", ";
+                                                }
+                                            }
+                                        } ?>
                                 </tr>
                                 <tr>
                                     <td><b>Expectation</b></td>
@@ -399,10 +411,10 @@ foreach ($build as $item) {
                                           $i=0;
                                           foreach( $string as $val ){
                                             if(trim($val) != ''){
-                                                echo $val;
+                                                echo $val." ";
                                                 $i++;
                                                 if($i != count($string)){
-                                                    echo ", ";
+                                                    echo ",";
                                                 }
                                             }
                                           } ?>
@@ -434,15 +446,51 @@ foreach ($build as $item) {
                         <div class="card-footer" style="text-align: center"><p>
                                 <a onclick="processReq('build', '<?php echo $item->id; ?>');"
                                    class="btn blue"><span class="fa fa-check"></span> Interested</a>
-                                <?php $viewer = base64_encode('viewer' . $company->id);?>
 
-                                <?php if ($item->view_type == 2) {?>
-                                <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id) }}"
-                                   class="btn default"><span class="fa fa-credit-card"></span> View Profile</a>
-                                <?php } else {?>
-                                <a href="#"
-                                   class="btn default"><span class="fa fa-credit-card"></span> View Profile</a>
-                                <?php }?>
+                                <?php 
+                                $viewer = base64_encode('viewer' . $company->id);
+                                $token = base64_encode(date('YmdHis'));
+                                
+                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+
+                                if ($item->view_type == 2) 
+                                {
+                                     if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false && App\SpentTokens::validateLeftBehindToken($company->id) != false)
+                                    {
+                                    ?>
+                                 <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                                class="btn btn-success yellow"><span class="fa fa-credit-card"></span> View Profile</a>
+                                   <?php 
+                                   } else {
+                                   ?> 
+                                   <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                   <?php
+                                   }
+
+
+                                } else {
+                                
+                                  
+                                   /* if(App\PremiumOpportunityPurchased::checkIfPremium($company_id_result, $item->id, 'build') != false)
+                                    {
+                                    ?>
+                                    <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}" class="btn default yellow"> <span class="fa fa-credit-card"></span> Premium View Profile </a>
+                                    <?php
+                                    } 
+                                    else { //if free company to premium user
+                                        */
+                                        if(App\SpentTokens::validateLeftBehindToken($company->id) == false 
+                                        && App\SpentTokens::validateLeftBehindToken($company_id_result) != false) 
+                                        {
+                                        ?>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <?php 
+                                        }
+
+                                  //  } 
+                                
+                                }    
+                                ?>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                 <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
@@ -509,7 +557,7 @@ foreach ($sell as $item) {
                                   <td><b>Title</b></td>
                                 
   				      <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>		
-                                      <td class="alert alert-info bold uppercase"><?php echo $item->opp_title; ?></td>
+                                      <td class="alert alert-dark bold uppercase"><h4><strong><?php echo $item->opp_title; ?></strong></h4></td>
 				      <?php } else { ?>
 				      <td> </td>
 				      <?php } ?>
@@ -572,7 +620,19 @@ foreach ($sell as $item) {
                                     <td><b>This company is seeking</b></td>
                                     <td><?php echo $item->what_sell_offer; ?><br>
                                         <?php echo $item->audience_target; ?><br>
-                                        <?php echo $item->ideal_partner_base; ?> </td>
+                                        <?php 
+                                          $string = explode(",",$item->ideal_partner_base);
+                                          $i=0;
+                                          foreach( $string as $val ){
+                                            if(trim($val) != ''){
+                                                echo $val;
+                                                $i++;
+                                                if($i != count($string)){
+                                                    echo ", ";
+                                                }
+                                            }
+                                        } ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><b>Expectation</b></td>
@@ -582,7 +642,19 @@ foreach ($sell as $item) {
                                 </tr>
                                 <tr>
                                     <td><b>Industry Keyword </b></td>
-                                    <td> <?php echo $item->ideal_partner_business; ?></td>
+                                    <td> <?php 
+                                          $string = explode(",",$item->ideal_partner_business);
+                                          $i=0;
+                                          foreach( $string as $val ){
+                                            if(trim($val) != ''){
+                                                echo $val." ";
+                                                $i++;
+                                                if($i != count($string)){
+                                                    echo ",";
+                                                }
+                                            }
+                                          } ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><b>Why partner with this company?</b></td>
@@ -610,15 +682,48 @@ foreach ($sell as $item) {
                         <div class="card-footer" style="text-align: center"><p>
                                 <a onclick="processReq('sell', '<?php echo $item->id; ?>');"
                                    class="btn blue"><span class="fa fa-check"></span> Interested</a>
-                                <?php $viewer = base64_encode('viewer' . $company->id);?>
 
-                                <?php if ($item->view_type == 2) {?>
-                                <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id) }}"
-                                   class="btn default"><span class="fa fa-credit-card"></span> View Profile</a>
-                                <?php } else {?>
-                                <a href="#"
-                                   class="btn default"><span class="fa fa-credit-card"></span> View Profile</a>
-                                <?php }?>
+                                <?php 
+                                $viewer = base64_encode('viewer' . $company->id);
+                                $token = base64_encode(date('YmdHis'));
+
+                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+
+                                if ($item->view_type == 2) {
+                                    
+                                       if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false && App\SpentTokens::validateLeftBehindToken($company->id) != false)
+                                    {
+                                    ?>
+                                 <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                                class="btn btn-success yellow"><span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php 
+                                    } else {
+                                    ?> 
+                                    <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php
+                                    }
+ 
+                                } else {
+                                
+                                   /* if(App\PremiumOpportunityPurchased::checkIfPremium($company_id_result, $item->id, 'sell') != false)
+                                    {
+                                    ?>
+                                    <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}" class="btn default yellow"> <span class="fa fa-credit-card"></span> Premium View Profile </a>
+                                    <?php
+                                    } else { //if free company to premium user
+                                     */   
+                                        if(App\SpentTokens::validateLeftBehindToken($company->id) == false 
+                                        && App\SpentTokens::validateLeftBehindToken($company_id_result) != false) 
+                                        {
+                                        ?>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <?php 
+                                        }
+
+                                   // } 
+                                 
+                                }    
+                                ?>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                 <a href="{{ url('/opportunity/deleteSell/'.$item->id) }}"
@@ -699,7 +804,7 @@ foreach ($buy as $item) {
                 
  
 	   			 <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>	
-                                      <td class="alert alert-info bold uppercase"><?php echo $item->opp_title; ?></td>
+                                      <td class="alert alert-dark bold uppercase"><h4><strong><?php echo $item->opp_title; ?></strong></h4></td>
 				      <?php } else { ?>
 				      <td> </td>
 				      <?php } ?>
@@ -762,7 +867,20 @@ foreach ($buy as $item) {
                                     <td><b>This company is seeking</b></td>
                                     <td><?php echo $item->what_sell_offer; ?><br>
                                         <?php echo $item->audience_target; ?><br>
-                                        <?php echo $item->ideal_partner_base; ?> </td>
+                                        <?php 
+                                          $string = explode(",",$item->ideal_partner_base);
+                                          $i=0;
+                                          foreach( $string as $val ){
+                                            if(trim($val) != ''){
+                                                echo $val;
+                                                $i++;
+                                                if($i != count($string)){
+                                                    echo ", ";
+                                                }
+                                            }
+                                        } ?>
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><b>Expectation</b></td>
@@ -772,7 +890,19 @@ foreach ($buy as $item) {
                                 </tr>
                                 <tr>
                                     <td><b>Industry Keyword </b></td>
-                                    <td> <?php echo $item->ideal_partner_business; ?></td>
+                                    <td> <?php 
+                                          $string = explode(",",$item->ideal_partner_business);
+                                          $i=0;
+                                          foreach( $string as $val ){
+                                            if(trim($val) != ''){
+                                                echo $val." ";
+                                                $i++;
+                                                if($i != count($string)){
+                                                    echo ",";
+                                                }
+                                            }
+                                          } ?>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><b>Why partner with this company?</b></td>
@@ -801,16 +931,49 @@ foreach ($buy as $item) {
                             <p>
                                 <a onclick="processReq('buy', '<?php echo $item->id; ?>');"
                                    class="btn blue"><span class="fa fa-check"></span> Interested </a>
-                                <?php $viewer = base64_encode('viewer' . $company->id);?>
 
-                                <?php if ($item->view_type == 2) {?>
-                                <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id) }}"
-                                   class="btn default"><span class="fa fa-credit-card"></span> View Profile
-                                </a>
-                                <?php } else {?>
-                                <a href="#"
-                                   class="btn default"><span class="fa fa-credit-card"></span> View Profile</a>
-                                <?php }?>
+                                 <?php 
+                                $viewer = base64_encode('viewer' . $company->id);
+                                $token = base64_encode(date('YmdHis'));
+
+                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+
+                                if ($item->view_type == 2) {
+                                    
+                                      if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false && App\SpentTokens::validateLeftBehindToken($company->id) != false)
+                                    {
+                                    ?>
+                                 <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                                class="btn btn-success yellow"><span class="fa fa-credit-card"></span> View Profile</a>
+                                     <?php 
+                                     } else {
+                                     ?> 
+                                     <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                     <?php
+                                     }
+                                
+                                } else {
+                          
+                                    /*if(App\PremiumOpportunityPurchased::checkIfPremium($company_id_result, $item->id, 'buy') != false)
+                                    {
+                                    ?>
+                                    <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}" class="btn default yellow"> <span class="fa fa-credit-card"></span> Premium View Profile </a>
+                                    <?php
+                                    } else { //if free company to premium user
+                                     */   
+                                        if(App\SpentTokens::validateLeftBehindToken($company->id) == false 
+                                        && App\SpentTokens::validateLeftBehindToken($company_id_result) != false) 
+                                        {
+                                        ?>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <?php 
+                                        }
+
+                                  //  } 
+                                 
+                                }    
+                                ?>
+
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                 <a href="{{ url('/opportunity/deleteBuy/'.$item->id) }}"
@@ -835,24 +998,10 @@ foreach ($buy as $item) {
         <div class="card-columns1">
 
 
-
-
-
-
-
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
+    <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             $("#filterKeywords").click(function () {
@@ -909,6 +1058,138 @@ foreach ($buy as $item) {
         };
         $("#keywordCountry").easyAutocomplete(optionsCountry);
 
+        
+        function checkPremium(companyID, ptype, oppId, linker){
+            swal({
+                title: "Are you sure to open this profile, published Anonymously? ", 
+                text: "You are about to open a profile using your premuim account which will cost you 1 token.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                  swal({
+                    title: 'Premium Account',
+                    text:  'Done on setting 1 token to spent with premium account.',
+                    icon:  'success'
+                  }).then(function() {
+
+                    formData = new FormData();
+
+                    formData.append("companyID", companyID);
+                    formData.append("ptype", ptype);
+                    formData.append("oppId", oppId);
+                    
+                        $.ajax({
+                            url: "{{ route('PremiumPurchase') }}",
+                            type: "POST",
+                            data: formData,
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            processData: false,
+                            contentType: false,
+
+                            success: function (data) {
+                                console.log(data);
+                                window.open(data, '_blank');
+                                document.location = '{{ url("opportunity/explore") }}';
+                                
+                              
+                            }
+                        });
+                   
+
+                  });
+                } else {
+                  swal("Cancelled", "Opening a premium data was cancelled :)", "error");
+                }
+              });
+
+
+        }
+
+        function encourageToPremium(){
+            swal({
+                title:"This requires premium account to open this profile.", 
+                text: "Are you sure to proceed? I will redirect you to 'Buy Token' page.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                  swal({
+                    title: 'You need to re-fill your token to become a Premium Account',
+                    text:  'This will cost you 1 token, to open this profile.',
+                    icon:  'success'
+                  }).then(function() {
+                         document.location = '{{ url("reports/buyTokens") }}';
+                  
+                  });
+                } else {
+                  swal("Cancelled", "To become premium account was cancelled :)", "error");
+                }
+              });
+
+        }
+
+        function checkAlertByPremium(companyOpp, companyViewer)
+        {   
+            swal({
+                title: "This profile is a free account.", 
+                text:  "Are you sure to proceed? Because we will send an email notification to this profile. As soon as possible to buy token to become a premium account.",
+                icon:  "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                  swal({
+                    title: 'Email will be sent to this profile, to encourage them to become premium account.',
+                    text:  'To interact fully and avail the system priviledge must become a premium account',
+                    icon:  'success'
+                  }).then(function() {
+                    
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    
+                        $.ajax({
+                            url: "{{ route('AlertFreeAccount') }}",
+                            type: "POST",
+                            data: formData,
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            processData: false,
+                            contentType: false,
+
+                            success: function (data) {
+                                console.log(data);
+                                window.open(data, '_blank');
+                                document.location = '{{ url("opportunity/explore") }}';
+                                
+                              
+                            }
+                        });
+                  
+                  });
+                } else {
+                  swal("Cancelled", "Alerting this profile to become premium account was cancelled :)", "error");
+                }
+              });
+
+        }
 
     </script>
 

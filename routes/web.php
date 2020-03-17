@@ -18,7 +18,8 @@ Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D
 Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsubscribeMe');
 
 //for social media. public usage
-Route::get('/company/{brand}/{id}', 'CompanyController@index')->name('companySocialsharing');
+Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing');
+Route::get('/fbshare/{id}/{brand}', 'FbshareController@shareOnFB')->name('fbcompanyshare');
 
 Auth::routes();
 Route::post('/accounts-switch', 'HomeController@switchAccount')->name('switchAccount');
@@ -87,16 +88,22 @@ Route::get('/mconsultants/projectCompleted', 'MasterConsultantsController@projec
 Route::post('/mconsultants/saveProject', 'MasterConsultantsController@saveProject')->name('saveProjectMC');
 Route::post('/mconsultants-profile/uploadProfileImgMC', 'MasterConsultantsController@uploadProfileMC')->name('uploadProfileImgMC');
 Route::post('/mconsultants/uploadCertificationsMC', 'MasterConsultantsController@uploadCertificationsMC')->name('uploadCertificationsMC');
-
 Route::post('/mconsultants/updateDuedate', 'MasterConsultantsController@updateDuedate')->name('updateDuedateMC');
 
 //business new and opportunities
+Route::get('/businessnews/list', 'BusinessOpportunityNewsController@list')->name('businessnewsList');
 Route::get('/businessnews', 'BusinessOpportunityNewsController@index')->name('businessnewsIndex');
 Route::post('/businessnews/store', 'BusinessOpportunityNewsController@store')->name('businessnewsStore');
+Route::post('/businessnews/save', 'BusinessOpportunityNewsController@saveNews')->name('saveBusinessNews');
+Route::post('/businessnews/del', 'BusinessOpportunityNewsController@delNews')->name('delBusinessNews');
+Route::get('/businessnews/retcontent/{id}', 'BusinessOpportunityNewsController@retNewsContent')->name('retNewsContent');
+Route::post('/businessnews/update', 'BusinessOpportunityNewsController@updateNews')->name('updateNews');
 
 //opportunities
 Route::get('/opportunity', 'OpportunityController@index')->name('opportunityIndex');
 Route::get('/opportunity/select', 'OpportunityController@select')->name('opportunitySelect');
+Route::post('/opportunity/premium', 'OpportunityController@premiumPurchase')->name('PremiumPurchase');
+Route::post('/opportunity/alertFreeAccount', 'OpportunityController@alertFreeAccount')->name('AlertFreeAccount');
 
 Route::get('/opportunity/build', 'OpportunityController@buildNew')->name('opportunityNewBuild');
 Route::get('/opportunity/editBuild/{id}', 'OpportunityController@editBuild')->name('opportunityEditBuild');
@@ -150,6 +157,9 @@ Route::post('/profile/billing/create', 'CompanyBillingController@store')->name('
 Route::get('/profile/billing/create', 'CompanyBillingController@index')->name('createBill');
 Route::post('/profile/billing/update', 'CompanyBillingController@update')->name('updateBilling');
 Route::get('/profile/paymentHistory', 'CompanyPaymentController@index')->name('indexPaymentHistory');
+
+Route::get('/profile/paymentHistoryPdf/{companyId}', 'CompanyPaymentController@generatePdf')->name('PaymentHistoryPdf'); //added by daryl 3-16-2020
+
 Route::get('/profile/socialAccounts', 'CompanySocialAccountsController@index')->name('indexSocialAccounts');
 Route::post('/profile/socialAccounts/create', 'CompanySocialAccountsController@store')->name('createSocialAccounts');
 

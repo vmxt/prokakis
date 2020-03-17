@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessOpportunitiesNews extends Model
 {
      
-     protected $table = 'opportunites_business_news';
+     protected $table = 'opportunities_business_news';
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +16,7 @@ class BusinessOpportunitiesNews extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'company_id', 'content_business', 'business_title', 'created_at', 'updated_at' 
+        'user_id', 'company_id', 'content_business', 'business_title', 'created_at', 'updated_at', 'status' 
     ];
 
     /**

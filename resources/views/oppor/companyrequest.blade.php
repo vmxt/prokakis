@@ -34,9 +34,22 @@
                    <div class="card-header"><b>Request Report</b> </div> <br />
 
                    <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
-                   Please enter your details so that we can contact you once the report is ready.
+                   <b>This request report requires a 12 token, please enter your details so that we can contact you once the report is ready.</b>
+                   <br />
+                                                We preload your company data to the following text fields, if you wish to request in behalf of other company please do update
+                                                the data in the textfields.
                                             </p>
                                         </div>
+                                        <?php
+                                        $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                                        $token = App\SpentTokens::validateLeftBehindToken($company_id_result);
+                                            if($token != false){
+                                                echo '<div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> You have <b> '.$token.' </b>token left. </div>';
+                                            } else{
+                                                echo '<div class="alert alert-danger" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> You have <b> 0 </b>token left. </div>';
+                                            }
+                                        ?>                     
+
                     <div class="card-body center">
                           
                           
@@ -58,12 +71,12 @@
                        
                        <div class="form-group">
                         {!! Form::label('make', 'Company UEN') !!}
-                        {!! Form::text('company_UEN', '', ['class' => 'form-control']) !!}
+                        <input type="text" name="company_UEN" class="form-control" value="<?php echo $company_rs->unique_entity_number; ?>">
                       </div>
 
                       <div class="form-group">
                         {!! Form::label('company_name', 'Company Name') !!}
-                        {!! Form::text('company_name', '', ['class' => 'form-control']) !!}
+                        <input type="text" name="company_name" class="form-control" value="<?php echo $company_rs->registered_company_name; ?>">
                       </div>
                        
                       <div class="form-group">
@@ -73,12 +86,12 @@
                        
                        <div class="form-group">
                         {!! Form::label('email_address', 'Email') !!}
-                        {!! Form::text('email_address', '', ['class' => 'form-control', 'placeholder'=>'Ex. example@gmail.com']) !!}
+                        <input type="text" name="email_address" class="form-control" value="<?php echo $company_rs->company_email; ?>">
                       </div>
                        
                        <div class="form-group">
                         {!! Form::label('mobile_number', 'Mobile Number') !!}
-                        {!! Form::text('mobile_number', '', ['class' => 'form-control']) !!}
+                        <input type="text" name="mobile_number" class="form-control" value="<?php echo $company_rs->mobile_phone; ?>">
                       </div>
 
                        <button class="btn btn-success" type="submit">Send Request</button>

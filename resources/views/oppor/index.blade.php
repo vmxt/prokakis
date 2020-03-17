@@ -139,22 +139,7 @@
                                                                             class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                                             style="color: white">Delete</a>
 
-                                            <?php if( App\SpentTokens::validateLeftBehindToken($company_id) != false ){
-                                             $bWCI = '';
-                                             $bKP = '';
-
-                                               if( $b->view_type == 1 ){
-                                                $bWCI = '';
-                                                $bKP = 'disabled';
-                                               } else {
-                                                $bWCI = 'disabled';
-                                                $bKP = '';
-                                               }
-
-                                            ?>
-                                            <button <?php echo $bWCI; ?> class="btn default" onclick="privacyOption('build', 'company_info', '<?php echo $b->id; ?>');" style="color: black"><span class="fa fa-credit-card" /></span> With Company Info</button>
-                                            <button <?php echo $bKP; ?> class="btn default" onclick="privacyOption('build', 'keep_private', '<?php echo $b->id; ?>')" style="color: black"><span class="fa fa-lock"></span> Keep Private</button>
-                                            <?php } ?>
+                                       
 
                                         </td>
                                     </tr>
@@ -190,23 +175,6 @@
                                                      class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                     style="color: white">Delete</a>
 
-                                            <?php if( App\SpentTokens::validateLeftBehindToken($company_id) != false ){
-                                                $sWCI = '';
-                                                $sKP = '';
-
-                                                  if( $s->view_type == 1 ){
-                                                   $sWCI = '';
-                                                   $sKP = 'disabled';
-                                                  } else {
-                                                   $sWCI = 'disabled';
-                                                   $sKP = '';
-                                                  }
-                                            ?>
-                                            <button <?php echo $sWCI; ?> class="btn default" onclick="privacyOption('sell', 'company_info', '<?php echo $s->id; ?>');" style="color: black"><span class="fa fa-credit-card" /></span> With Company Info</button>
-                                            <button <?php echo $sKP; ?> class="btn default" onclick="privacyOption('sell', 'keep_private', '<?php echo $s->id; ?>')" style="color: black"><span class="fa fa-lock"></span> Keep Private</button>
-
-
-                                            <?php } ?>
 
                                             </td>
                                     </tr>
@@ -241,24 +209,6 @@
                                                              class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                             style="color: white">Delete</a>
 
-                                            <?php if( App\SpentTokens::validateLeftBehindToken($company_id) != false ){
-                                                $byWCI = '';
-                                                $byKP = '';
-
-                                                  if( $bb->view_type == 1 ){
-                                                   $byWCI = '';
-                                                   $byKP = 'disabled';
-                                                  } else {
-                                                   $byWCI = 'disabled';
-                                                   $byKP = '';
-                                                  }
-                                            ?>
-
-                                            <button <?php echo $byWCI; ?> class="btn default" onclick="privacyOption('buy', 'company_info', '<?php echo $bb->id; ?>');" style="color: black"><span class="fa fa-credit-card" /></span> With Company Info</button>
-                                            <button <?php echo $byKP; ?> class="btn default" onclick="privacyOption('buy', 'keep_private', '<?php echo $bb->id; ?>')" style="color: black"><span class="fa fa-lock"></span> Keep Private</button>
-
-
-                                            <?php } ?>
 
                                         </td>
                                     </tr>

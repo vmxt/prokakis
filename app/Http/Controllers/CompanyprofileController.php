@@ -171,9 +171,11 @@ class CompanyprofileController extends Controller {
 
 			$brand_slogan = CompanyProfile::getBrandSlogan($user_id, $company_id_result);
 
-			$viewer = base64_encode('viewer' . $company_id_result);
+			//$viewer = base64_encode('viewer' . $company_id_result);
+			//$urlFB = url('/company') . '/' . $viewer . '/' . $company_id_result;
 
-			$urlFB = url('/company') . '/' . $viewer . '/' . $company_id_result;
+			$viewer = base64_encode($brand_slogan[0]);
+			$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
 
 			$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 
@@ -297,9 +299,11 @@ class CompanyprofileController extends Controller {
 
 				$brand_slogan = CompanyProfile::getBrandSlogan($user_id, $company_id_result);
 
-				$viewer = base64_encode('viewer' . $company_id_result);
+				//$viewer = base64_encode('viewer' . $company_id_result);
+				//$urlFB = url('/company') . '/' . $viewer . '/' . $company_id_result;
 
-				$urlFB = url('/company') . '/' . $viewer . '/' . $company_id_result;
+				$viewer = base64_encode($brand_slogan[0]);
+				$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
 
 				$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 
@@ -417,9 +421,8 @@ class CompanyprofileController extends Controller {
 
 		$brand_slogan = CompanyProfile::getBrandSlogan($user_id, $company_id_result);
 
-		$viewer = base64_encode('viewer' . $company_id_result);
-
-		$urlFB = url('/company') . '/' . $viewer . '/' . $company_id_result;
+		$viewer = base64_encode($brand_slogan[0]);
+		$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
 
 		$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 

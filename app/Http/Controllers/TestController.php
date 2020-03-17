@@ -62,7 +62,7 @@ class TestController extends Controller {
 					$url_token = url('/unsubscribeMe/' . $token);
 					$data = str_replace("[UNSUBSCRIBE LINK]", $url_token, $data);
 
-					$this->alertNotify($data, $email_address, 'Enahance Company Profile, Prokakis');
+					$this->alertNotify($data, $email_address, 'Enhance Company Profile, Prokakis');
 
 				} elseif ($res > 50) {
 
@@ -113,7 +113,7 @@ class TestController extends Controller {
 			        echo $url_token .'<br />';
 			        //exit;
 			        $data = str_replace("[UNSUBSCRIBE LINK]", $url_token, $data);
-			        $this->alertNotify($data, 'vicsaints3rd@gmail.com', 'Enahance Company Profile, Prokakis');
+			        $this->alertNotify($data, 'vicsaints3rd@gmail.com', 'Enhance Company Profile, Prokakis');
 		*/
 
 	}

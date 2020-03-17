@@ -348,7 +348,7 @@
                     <div class="panel-body">
                         <?php
                         $log = App\AuditLog::where('user_id', Auth::id())->orderBy('id', 'desc')->take(100)->get();
-                        if (count((array)$log) - 1 > 0) {
+                        if (count((array)$log) > 0) {
                         foreach ($log as $l) {
                         $date = date("F j, Y, g:i a", strtotime($l->created_at));
                         $activity = $l->action . ' ' . $l->model;

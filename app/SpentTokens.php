@@ -16,7 +16,7 @@ class SpentTokens extends Model {
 	 * @var array
 	 */
 	protected $fillable = [
-		'company_id', 'user_id', 'num_tokens', 'request_id', 'created_at', 'updated_at',
+		'company_id', 'user_id', 'num_tokens', 'request_id', 'remarks', 'created_at', 'updated_at',
 	];
 
 	/**
@@ -29,19 +29,20 @@ class SpentTokens extends Model {
 	];
 
 	public static function validateLeftBehindToken($companyId) {
-		$company = CompanyProfile::find($companyId);
-		if ( $company->count() > 0 && $company->user_id != 0) {
+		//$company = CompanyProfile::find($companyId);
+		//if ( $company->count() > 0 && $company->user_id != 0) {
 
 			$inTokens = Buytoken::where('company_id', $companyId)->sum('num_tokens');
 			$outTokens = SpentTokens::where('company_id', $companyId)->sum('num_tokens');
+		
 
-			$result = ($inTokens - $outTokens);
+			$result = (int)($inTokens - $outTokens);
 			if ($result > 0) {
 				return $result;
 			} else {
 				return false;
 			}
-		}
+		//}
 
 	}
 
@@ -59,5 +60,21 @@ class SpentTokens extends Model {
 		}
 
 	}
+
+	public static function spendTokenByPremium($remarks, $companyId, $userId, $numTokens) {
+	
+			SpentTokens::create([
+				'company_id' => $companyId,
+				'user_id' => $userId,
+				'num_tokens' => $numTokens,
+				'remarks'	 => $remarks,
+				'token_startdate', 
+				'token_enddate',
+				'created_at' => date('Y-m-d'),
+			]);
+	
+	}
+	
+
 
 }

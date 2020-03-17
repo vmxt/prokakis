@@ -1,0 +1,642 @@
+
+
+div.flaticon {
+    font-family: Proxima Nova;
+    background-color: #f8fafb;
+
+    display: block;
+
+    -webkit-font-smoothing: antialiased;
+    background-color: #fff;
+    color: #5f7d95;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.wrapper .container {
+    max-width: 1200px;
+    /*margin: 2em auto auto;*/
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.row {
+    margin: 0 -5px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.col-6 {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 48.82117%;
+    clear: none!important;
+}
+
+.col-6:last-child {
+    margin-right: 0;
+}
+
+.col-12:last-child, .omega {
+    margin-right: 0;
+}
+
+.box {
+    padding: 24px;
+
+    margin: 0 0 10px;
+    /*padding: 0;*/
+    /*border-radius: 3px;*/
+    box-shadow: 0 1px 5px rgba(134,159,178,.6);
+    /*background-color: #fff;*/
+    color: #5f7d95;
+    font-size: 15px;
+}
+
+
+
+table {
+    border-collapse: collapse;
+    margin: .75em 0;
+    table-layout: fixed;
+    width: 100%;
+
+    border-spacing: 0;
+
+    display: table;
+    /*border-collapse: separate;*/
+    /*border-spacing: 2px;*/
+    border-color: grey;
+
+    border-spacing: 0;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+td, th, tr {
+    vertical-align: middle;
+}
+
+tr {
+    display: table-row;
+    /*vertical-align: inherit;*/
+    border-color: inherit;
+}
+
+td, th {
+    padding: .75em 0;
+}
+
+th {
+    border-bottom: 1px solid #c0c3c9;
+    font-weight: 700;
+    text-align: left;
+}
+
+div.payment .pricing-tables {
+    background-color: #f5f8f9;
+}
+
+div.payment .pricing-tables .container {
+    margin: 0 auto;
+    padding: 1.5em;
+}
+
+div.payment .box.table {
+    padding: 0;
+}
+
+div.payment .box {
+    border: 1px solid #e5edef;
+    border-radius: 3px;
+    background: #fff;
+}
+
+div.payment .box.table thead{
+    padding-bottom: 1em;
+    border-bottom: 2px solid #e5edef;
+}
+
+div.payment .box.table tbody tr {
+    padding-bottom: .75em;
+    border-bottom: 1px solid #e5edef;
+}
+
+div.payment .box.table tbody tr:last-child {
+    /*padding-bottom: .75em;*/
+    border-bottom: none;
+}
+
+div.payment .pricing-tables .row .box.table td, 
+div.payment .pricing-tables .row .box.table th {
+    padding: 0 0 0 1em;
+    line-height: 18px;
+}
+
+div.payment .box.table td, 
+div.payment .box.table th {
+    height: 44px;
+    border: none;
+    padding: 0 1.5em;
+    font-size: .875em;
+    vertical-align: middle;
+
+}
+
+div.payment .pricing-tables .row .box.table th:nth-child(2), 
+div.payment .pricing-tables .row .box.table th:nth-child(3) {
+    width: 20%;
+    padding: .75em .5em 0;
+}
+
+
+div.payment .box.table td:nth-child(2), 
+div.payment .box.table td:nth-child(3), 
+div.payment .box.table th:nth-child(2), 
+div.payment .box.table th:nth-child(3) {
+    width: 124px;
+    text-align: center;
+    line-height: 44px;
+}
+
+div.payment .box.table td, 
+div.payment .box.table th {
+    height: 44px;
+    border: none;
+    padding: 0 1.5em;
+    font-size: .875em;
+    vertical-align: middle;
+}
+
+div.payment .box.table tr:first-child td {
+    padding-top: .75em;
+}
+
+/*div.payment .pricing-tables table td {
+    color: #374957;
+    font-size: 14px!important;
+}*/
+
+div.payment .pricing-tables .row .box.table td:nth-child(2), 
+div.payment .pricing-tables .row .box.table td:nth-child(3) {
+    padding: .75em 0 0;
+}
+
+div.payment .box.plans {
+    margin: 0 0 1.5em;
+    padding: 0;
+    display: block;
+    cursor: pointer;
+}
+
+div.payment .box.plans a {
+    color: #0e2a47;
+}
+
+div.flaticon .link,
+div.flaticon a {
+    color: #4ad295;
+}
+
+div.payment .box.plans .badge+.content {
+    padding-top: .75em;
+}
+
+div.payment .box.plans .content {
+    position: relative;
+    padding: 1.5em 190px 1.5em 1.5em;
+}
+
+div.payment .box.plans .title {
+    font-size: 1em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+div.payment .box.plans span {
+    display: block;
+}
+
+div.payment .box.plans .price strong {
+    color: #1bcc87;
+    font-size: 1.625em;
+}
+
+div.payment .box.plans .price small {
+    font-size: .875em;
+}
+
+div.payment .box.plans .info {
+    font-size: .75em;
+    color: #5f7d95;
+}
+
+b, strong {
+    font-weight: 700;
+}
+
+a {
+    position: relative;
+    color: #1273eb;
+
+    -webkit-transition: color .1s linear;
+    -moz-transition: color .1s linear;
+    transition: color .1s linear;
+    color: #006df0;
+    text-decoration: none;
+
+    background-color: transparent;
+}
+
+a:hover {
+    color: #004aa4;
+    text-decoration: none
+}
+
+a:active,
+a:focus {
+    color: #004aa4;
+    outline: none
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid #e9eaec;
+    margin: 1.5em 0
+}
+
+div.payment .box.plans .btn-subscribe {
+    position: absolute;
+    top: 50%;
+    right: 1.5em;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+div.payment .box.plans:hover {
+    border: 1px solid #9bafbf
+}
+
+div.flaticon .btn-subscribe {
+    background-color: #69e781;
+}
+
+div.flaticon .btn-subscribe:hover {
+    background-color: #64db7b
+}
+
+.img_icon{
+    margin: 0;
+    max-width: 100%;
+    border: 0;
+}
+
+.btn-subscribe{
+    padding: 1em;
+    color: #fff!important;
+    text-align: center;
+    background-color: #1273eb;
+    cursor: pointer;
+}
+
+.btn-subscribe, .modal .btn, button, input[type=submit] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.btn-subscribe, .modal .btn, button, input[type=submit] {
+    -webkit-font-smoothing: antialiased;
+    background-color: #006df0;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 700;
+    line-height: 1;
+    padding: .75em 1em;
+    text-decoration: none;
+}
+
+.btn-subscribe, .modal .btn, button, html input[type=button], input[type=reset], input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    overflow: visible;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+.btn-subscribe, .modal .btn, button, select {
+    text-transform: none;
+}
+
+.btn-subscribe:hover,
+input:hover[type=submit] {
+    background-color: #004aa4;
+    color: #fff
+}
+
+.btn-subscribe:disabled,
+input:disabled[type=submit] {
+    cursor: not-allowed;
+    opacity: .5
+}
+
+
+@media screen and (min-width:480px) {
+
+    .row {
+        margin: 0 -5px;
+        width: 100%
+    }
+      
+}
+
+@media screen and (min-width:640px) {
+
+  
+    :after,
+    :before {
+        box-sizing: initial;
+    }
+
+   .row {
+    margin: 0 -5px;
+    width: 100%
+    }
+}
+
+@media screen and (min-width:768px) {
+    .row {
+    margin: 0 -5px;
+    width: 100%
+    }
+}
+
+@media screen and (min-width:992px) {
+    .row {
+    margin: 0 -5px;
+    width: 100%
+    }
+}
+
+@media screen and (min-width:1400px) {
+    .row {
+    margin: 0 -5px;
+    width: 100%
+    }
+}
+
+
+@media screen and (max-width:960px) {
+    div.payment .pricing-tables .container {
+        padding: 1em;
+    }
+}
+
+@media screen and (max-width:320px) {
+    div.payment .pricing-tables .container--mobile-mg-x-none {
+        padding: 1em 0
+    }
+
+    .img_icon{
+         width: 15px !important;
+         height: 15px !important;
+    }
+}
+
+
+
+@media screen and (max-width:320px) {
+    div.payment .pricing-tables .row .box.table td,
+    div.payment .pricing-tables .row .box.table th {
+        font-size: .8125em;
+    }
+}
+
+@media screen and (max-width:400px) {
+
+    div.payment .pricing-tables .row .box.table td {
+        font-size: .8125em;
+        padding: 20px;
+    }
+
+    div.payment .pricing-tables .row .box.plans .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5em 0
+    }
+    div.payment .pricing-tables .row .box.plans .content .btn-subscribe {
+        position: relative;
+        transform: none;
+        top: inherit;
+        right: inherit;
+        margin-top: 10px
+    }
+    div.payment .pricing-tables .row .box.plans#box-annual .content {
+        padding: 0 0 1.5em;
+    }
+
+    div.payment .pricing-tables .row .box {
+        overflow: hidden
+    }
+
+    div.payment .box.table tbody tr td {
+       padding-bottom: : 50px;
+       padding-top: : : 50px;
+    }
+
+}
+
+
+@media screen and (max-width:960px) {
+    div.payment .pricing-tables .row .col-6 {
+        width: 100%;
+        margin: 0 0 1.5em
+    }
+    div.payment .pricing-tables .row .col-6:last-child {
+        margin-bottom: 0
+    }
+}
+
+
+@media screen and (max-width:768px) {
+    div.payment .feedback h2 {
+        font-size: 1.6em
+    }
+}
+
+
+
+@media screen and (max-width:960px) {
+    div.payment .reviews .review {
+        float: none;
+        width: 100%;
+        margin: 0 auto 20px
+    }
+    div.payment .reviews .col-4>* {
+        margin: auto
+    }
+}
+
+
+
+
+div.payment .advantages-block {
+    margin: 0 0 1.5em;
+    background-color: #fff;
+}
+
+div.payment .advantages-block .container {
+    margin-top: 0;
+    padding: 48px 1.5em;
+}
+
+.wrapper .container {
+    max-width: 1200px;
+    margin: 2em auto auto;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+div.payment .advantages-block .col-4 {
+    margin-bottom: 40px;
+}
+
+div.payment .advantages-block .col-3, div.payment .advantages-block .col-4 {
+    text-align: center;
+}
+
+.col-4 {
+    float: left;
+    display: block;
+    margin-right: 2.35765%;
+    width: 30%;
+    clear: none!important;
+}
+
+div.payment .advantages-block .advantages-img {
+    max-width: 96px;
+    height: 96px;
+}
+
+.advantages-img {
+    border: 0;
+}
+
+.advantages-img, picture {
+    margin: 0;
+    max-width: 100%;
+}
+
+div.payment .advantages-block h3 {
+    margin: 0 0 .75em;
+    font-size: 22px;
+}
+
+div.payment .advantages-block p {
+    font-size: 14px;
+    margin: 25px 10px .75em;
+}
+
+.col-foot {
+    /*float: left;*/
+    display: block;
+    /*margin-right: 2.35765%;*/
+    /*width: 23.23176%;*/
+    clear: none!important;
+}
+
+
+@media screen and (max-width: 960px){
+    div.payment .advantages-block .col-foot:nth-child(odd) {
+        margin-right: 4%;
+    }
+}
+
+@media screen and (max-width: 320px){
+    div.payment .advantages-block .col-foot {
+        padding-left: 77px;
+    }
+
+    div.payment .advantages-block .advantages-img {
+        max-width: 55px;
+        height: 55px;
+    }
+
+    div.payment .advantages-block h3 {
+        font-size: 18px;
+    }
+
+    div.payment .advantages-block p {
+        font-size: 14px;
+        margin: 20px -50px 0;
+    }
+}
+
+@media screen and (max-width: 767px){
+    div.payment .advantages-block .col-foot {
+        width: 100%;
+        text-align: left;
+        float: none;
+        position: relative;
+        padding-left: 116px;
+        margin-bottom: 40px;
+        min-height: none;
+    }
+
+    div.payment .advantages-block img {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    div.payment .advantages-block h3, body.payment .advantages-block p {
+        margin: 0;
+    }
+
+}
+
+
+@media screen and (max-width: 960px){
+    div.payment .advantages-block .col-foot {
+        width: 85%;
+        margin: 0 0 40px;
+    }
+}
+

@@ -35,11 +35,11 @@ class RequestApproval extends Model {
 
 		$apr = RequestApproval::where('req_rep_id', $requestId)->first();
 
-		if ( $apr->count() > 0) {
+		if ( $apr != null) {
 
 			$p = ProcessedReport::where('approval_id', $apr->id)->first();
 
-			if (count((array)$p) - 1 > 0) {
+			if (count((array)$p)  > 0) {
 				return true;
 			} else {
 				return false;
@@ -54,7 +54,7 @@ class RequestApproval extends Model {
 	public static function getRequestId($requestId) {
 		$apr = RequestApproval::find($requestId);
 
-		if ($apr->count() > 0) {
+		if ($apr != null) {
 			return $apr->req_rep_id;
 		}
 
@@ -63,7 +63,7 @@ class RequestApproval extends Model {
 	public static function getRequestApprovalId($requestId) {
 		$apr = RequestApproval::where('req_rep_id', $requestId)->first();
 
-		if ( $apr->count() > 0) {
+		if ( $apr != null) {
 			return $apr->id;
 		} else {
 			return false;

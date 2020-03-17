@@ -5,7 +5,7 @@
 
 <!-- metronic links -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('public/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('public/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -274,6 +274,7 @@
             font-size: 0px;
             line-height: 0px;
             margin: 0px 8px;
+        }
     </style>
 
 
@@ -362,6 +363,7 @@
                                 <span class="caption-subject bold uppercase"> business news</span>
                             </div>
                         </div>
+                        
                         <div class="portlet-body">
                             <?php
                             if (isset($businessNewsOpportunity->content_business)) {
