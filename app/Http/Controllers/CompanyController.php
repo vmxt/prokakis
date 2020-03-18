@@ -125,7 +125,7 @@ class CompanyController extends Controller {
 
 			// Session::put('brandName', $brand_slogan[0]);
 
-			$businessNewsOpportunity = BusinessOpportunitiesNews::where('company_id', $request['id'])->first();
+			$businessNewsOpportunity = BusinessOpportunitiesNews::where('company_id', $request['id'])->get();
 
 			$companyProfile = CompanyProfile::find($rs->company_id);
 

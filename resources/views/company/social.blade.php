@@ -213,7 +213,7 @@ p {
 
 .nav-pills .nav-item .nav-link.active {
     color: #fff;
-    background-color: #9c27b0;
+    background-color: #009688;
     box-shadow: 0 5px 20px 0 rgba(0,0,0,.2), 0 13px 24px -11px rgba(156,39,176,.6);
 }
 
@@ -414,6 +414,9 @@ footer p a:hover {
     text-decoration: none;
 }
 
+.profile-content{
+    padding-bottom: 250px;
+}
 
 
    </style>
@@ -460,67 +463,35 @@ footer p a:hover {
                     <div class="col-md-12 ml-auto mr-auto">
                         <div class="profile-tabs">
                           <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                            @foreach($businessNewsOpportunity as $key => $newsOpportunityDetails)
                             <li class="nav-item">
-                                <a class="nav-link active" href="#studio" role="tab" data-toggle="tab">
-                                  <!-- <i class="material-icons">camera</i> -->
-                                  Studio
+                                <a class="nav-link <?= $key==0?'active':'' ?>"  href="#news{{ $newsOpportunityDetails->id }}" role="tab" data-toggle="tab">
+                                 {{ $newsOpportunityDetails->business_title }}
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#works" role="tab" data-toggle="tab">
-                                  <!-- <i class="material-icons">palette</i> -->
-                                    Work
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
-                                  <!-- <i class="material-icons">favorite</i> -->
-                                    Favorite
-                                </a>
-                            </li>
+                            @endforeach
 
-                                                        <li class="nav-item">
-                                <a class="nav-link active" href="#studio" role="tab" data-toggle="tab">
-                                  <!-- <i class="material-icons">camera</i> -->
-                                  Studio
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#works" role="tab" data-toggle="tab">
-                                  <!-- <i class="material-icons">palette</i> -->
-                                    Work
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
-                                  <!-- <i class="material-icons">favorite</i> -->
-                                    Favorite
-                                </a>
-                            </li>
+                        
                           </ul>
                         </div>
-                </div>
-            </div>
-          <div class="tab-content tab-space">
-            <div class="tab-pane active " id="studio">
-                <div class="row">
-                    <div class="col-md-9 mr-auto ml-auto business_content">
-                         <?php
-                            if (isset($businessNewsOpportunity->content_business)) {
-                                echo $businessNewsOpportunity->content_business;
-                            }
-                            else {
-                                echo '<span style=\"text-align: center\"> -- No Business News Available --</span>';
-                            }
-                            ?>
                     </div>
-                   
                 </div>
-            </div>
-           
-          </div>
 
-        
+                <div class="tab-content tab-space">
+                    @foreach($businessNewsOpportunity as $key => $newsOpportunityDetails)
+                    <div class="tab-pane <?= $key==0?'active':'' ?> text-center gallery" id="news{{ $newsOpportunityDetails->id }}">
+                        <div class="row">
+                            <div class="col-md-9 mr-auto ml-auto business_content">
+                                @if (empty($newsOpportunityDetails->content_business))
+                                    <span style="text-align: center"> -- No Business News Available --</span>
+                                @else
+                                    {!! $newsOpportunityDetails->content_business !!}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
