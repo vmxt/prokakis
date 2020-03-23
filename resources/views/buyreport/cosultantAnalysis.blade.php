@@ -1,0 +1,1 @@
+<p>Consultants’ Analysis : Financial Statement Information obtained from June 2017</p>

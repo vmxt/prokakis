@@ -11,6 +11,7 @@ use App\ProcessedReport;
 use App\RequestApproval;
 use App\RequestReport;
 use App\UploadImages;
+use App\ReportGenerationTemplate;
 use Auth;
 use Config;
 use Illuminate\Http\Request;
@@ -524,17 +525,22 @@ class BuyreportController extends Controller {
 
 		$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 
-		/* return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+		$ReportGenerationTemplate = ReportGenerationTemplate::where('status', 1)->get();
+		$reportTemplates = [];
 
-			      'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+		foreach ($ReportGenerationTemplate as $key => $value) {
+			$reportTemplates[ $value['variable_name'] ]  = $value['content'];
+		}
 
-			      'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+		 // return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
-			      'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB'));
+			//       'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
 
-			      echo 'here'; exit;
+			//       'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-		*/
+			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates'));
+
+			  
 
 		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
@@ -542,11 +548,11 @@ class BuyreportController extends Controller {
 
 			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons'));
+			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates'));
 
 		return $pdf->download($company_data->company_name . '.pdf');
 
-		//return $pdf->download('.pdf');
+		// return $pdf->download('.pdf');
 
 	}
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,8 +12,11 @@
 
     <!-- Styles -->
    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet"> 
-
+    <link href="{{ asset('public/css/monitoring.css') }}" rel="stylesheet">
 </head>
+
+          @include('buyreport.footer.disclaimer', ['footer_content'=>$footer_content ] )
+
 <body>
     <style>
     .btn-x4 {
@@ -25,8 +28,6 @@
 </style>
 
     <div id="app">
-       
-
             @yield('content')
     </div>
 
