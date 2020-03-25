@@ -101,40 +101,32 @@
       </div>
     </div> --}}
 
+<div id="social_card">
 
+
+@foreach( $response_twitter->rs_twit as $social_val )
     <div class=" card">
       <div class="card-body">
-      <table class="table social-table" >
-        <tbody>
-          <tr >
-            <td class='social-table1'>
-              <img src="{{ asset('public/img-resources/ProKakisNewLogo.png') }}" width="150px">
-
-              <p class="content1-days"><small class="h6">3 days ago</small></p>
-
-              <p class="content1-link h6"><a href="#"><small class="h6">sample.org</small></a> </p>
-
-            </td>
-            <td class='social-table2'>
-         
-                <a  href="#">https://twitter.com/theGIIN/status/1105465317738856449</a>
-         
-           
-              <p >Former Blue Streak Breaks 4-Minute Mile, Saratoga Hospital Revisiting 2015               Expansion     Plan, Soil Cleanup, Road Closure
-                to
-                Continue Through June on Excelsior Ave. Spring Forward - Set Your Clocks Ahead 1 Hour on March 10th. https://t.co/
-                OvSHgIolxA htt
-              </p>
-
-            </td>
-          
-          </tr>
-         
-        </tbody>
-      </table>
+        <table class="table social-table" >
+          <tbody>
+            <tr >
+              <td class='social-table1'>
+                <img src="{{ $social_val->profile_image_url }}" width="150px" alt="twitter_image">
+                <p ><small class="h6">{{ $social_val->name }}</small></p>
+                <p ><small class="h6">{{ $social_val->t_created_at }}</small></p>
+                <p class="content1-link h6"><a href="#"><small class="h6">{{ $social_val->url }}</small></a> </p>
+              </td>
+              <td class='social-table2'>
+                  <a class="h6" href="{{ $social_val->t_expanded_url }}">{{ $social_val->t_expanded_url }}</a>
+                  <p class="m-4 h6" >{{ $social_val->t_text }} </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    </div>
-
+@endforeach
+</div>
 
 
   </div>

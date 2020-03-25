@@ -16,6 +16,7 @@ use Auth;
 use Config;
 use Illuminate\Http\Request;
 use PDF;
+use Ixudra\Curl\Facades\Curl;
 
 class BuyreportController extends Controller {
 
@@ -532,25 +533,32 @@ class BuyreportController extends Controller {
 			$reportTemplates[ $value['variable_name'] ]  = $value['content'];
 		}
 
-		 // return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+		$twitter_token = env('APP_ENV');
 
-			//       'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+  		$response_twitter = Curl::to('https://reputation.prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections=Donald+Trump')
+        ->get();
 
-			//       'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+		$response_twitter = json_decode($response_twitter);
 
-			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates'));
+		 return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+
+			      'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+
+			      'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+
+			      'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter'));
 
 			  
 
-		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+		// $pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
-			'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+		// 	'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
 
-			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+		// 	'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates'));
+		// 	'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates'));
 
-		return $pdf->download($company_data->company_name . '.pdf');
+		// return $pdf->download($company_data->company_name . '.pdf');
 
 		// return $pdf->download('.pdf');
 
