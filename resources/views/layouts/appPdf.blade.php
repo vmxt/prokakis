@@ -16,6 +16,7 @@
 </head>
 
           @include('buyreport.footer.disclaimer', ['footer_content'=>$footer_content ] )
+          @include('buyreport.header.trackNumber' )
 
 <body>
     <style>

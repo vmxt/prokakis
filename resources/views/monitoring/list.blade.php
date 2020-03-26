@@ -277,7 +277,7 @@
                                         $rc = App\ProcessedReport::getReqRepId($data->approval_id);
 
                                         if($rc != false){
-
+                                                $reportTrackNumber = $rc->id."-".$rc->source_company_id."-".$rc->fk_opportunity_id."-".date("Y");
                                             echo '<b>'.$rc->id . '-' . $rc->source_company_id . '-' . $rc->fk_opportunity_id.'</b>';
 
                                         }
@@ -347,7 +347,7 @@
 
                                             
 
-                                            <a href="{{ url('/buyReport/download/') }}/<?php echo base64_encode($data->source_company_id) . '/' . base64_encode($req_id); ?>"
+                                            <a href="{{ url('/buyReport/download/') }}/<?php echo base64_encode($data->source_company_id) . '/' . base64_encode($req_id) .'?aprvl='.$data->approval_id ; ?>"
 
                                                onclick="return confirm('Are you sure you want to download the company report of <?php echo App\CompanyProfile::getCompanyName($data->source_company_id); ?> ?')"
 

@@ -19,14 +19,14 @@ hr.page2-hr{
     color: white;
 }
 
-.footer{
+/*.footer{
     position: fixed;
     bottom: -10px;
     left: 0px;
     right: 0px;
     background-color: lightblue;
     height: 50px;
-}
+}*/
 
 .page-break {
     page-break-after: always;
@@ -66,6 +66,24 @@ footer {
     margin-right: 10%;
     margin-left: 10%;
     text-align: left;
+}
+
+footer p{
+    font-size: 9px !important;
+}
+
+header {
+    position: fixed;
+    top: .5cm;
+    left: 0cm;
+    right: 0cm;
+    height: 2cm;
+     bottom: 0cm;
+    margin-right: 10%;
+    margin-left: 10%;
+     text-align: right;
+    /** Extra personal styles **/
+
 }
 
 .pagenum:before {
