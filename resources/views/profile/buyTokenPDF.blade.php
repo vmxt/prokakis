@@ -3,7 +3,7 @@
 
 @section('content')
  <?php 
- $invoiceNumber = $companyD->id.$companyD->user_id;
+ $invoiceNumber = $companyD->id.$companyD->user_id."-1";
  ?>
 <div class="container">
     <div class="row">
@@ -101,15 +101,5 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-
-         $(document).ready(function() {
-            window.print();
-           // $("#print_button").hide();
-          });
-
-
-
-    </script>
 
 @endsection

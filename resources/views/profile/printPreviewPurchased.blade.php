@@ -26,7 +26,7 @@
 
  </style>
  <?php 
- $invoiceNumber = $companyD->id.$companyD->user_id;
+ $invoiceNumber = $companyD->id.$companyD->user_id."-1";
  ?>
 <div class="container" id="printSection">
     <div class="row">

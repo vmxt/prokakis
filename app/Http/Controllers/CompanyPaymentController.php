@@ -74,12 +74,13 @@ class CompanyPaymentController extends Controller
 
          $user_id = Auth::id();
          $company_id_result = CompanyProfile::getCompanyId($user_id);
-
+         $companyD = CompanyProfile::find($company_id);
+         $userD = User::find($user_id);
          if($company_id == $company_id_result){
           $rs_spent = CompanySpentTokens::where('company_id', $company_id)
           ->orderBy('id', 'asc')
           ->get();
-          return view('profile.printPreviewTokenSpent', compact('rs_spent'));
+          return view('profile.printPreviewTokenSpent', compact('rs_spent', 'companyD', 'userD'));
          } else{
           return redirect('/profile/paymentHistory')->with('message', 'Unauthorised printing of company information.');
          }
