@@ -12,7 +12,7 @@
         <!-- CSRF Token -->
         <meta property="og:url"           content="https://app.prokakis.com/" />
         <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Prokakis Ebos-SG App 2109" />
+        <meta property="og:title"         content="Prokakis Ebos-SG App 2020" />
         <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
         <meta property="og:image"         content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" />
         <!-- end from the original code -->
@@ -25,7 +25,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <meta content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" name="description" />
-        <meta content="Ebos-SG App 2019" name="author" />
+        <meta content="Ebos-SG App 2020" name="author" />
 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
@@ -320,7 +320,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li>
 
                                                     <a href="{{ route('viewingProfile') }}">
-                                                        <i class="icon-user"></i> My Profile </a>
+                                                        <i class="icon-user"></i> My Company </a>
                                                 </li>
 
 
@@ -346,6 +346,12 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                     <a href="{{ route('referralsList') }}" >
                                                         <i class="icon-rocket"></i> Referrals </a>
+                                                </li>
+
+						<li>
+
+                                                    <a href="{{ route('createReferals') }}" >
+                                                        <i class="icon-heart"></i> Share to Friend </a>
                                                 </li>
 
 
@@ -430,7 +436,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         (request()->segment(2) == 'deactivatePage') ? 'active' : '' }}">
 
                                             <a  href="#">
-                                                <i class="fa fa-user" style="color: white"></i> Profile <span class="arrow"></span>
+                                                <i class="fa fa-user" style="color: white"></i> Company <span class="arrow"></span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">

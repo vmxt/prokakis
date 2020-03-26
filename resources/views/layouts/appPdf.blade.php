@@ -14,10 +14,9 @@
    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet"> 
     <link href="{{ asset('public/css/monitoring.css') }}" rel="stylesheet">
 </head>
-
           @include('buyreport.footer.disclaimer', ['footer_content'=>$footer_content ] )
           @include('buyreport.header.trackNumber' )
-
+          
 <body>
     <style>
     .btn-x4 {
@@ -29,6 +28,8 @@
 </style>
 
     <div id="app">
+       
+
             @yield('content')
     </div>
 

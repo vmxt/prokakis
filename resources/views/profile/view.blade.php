@@ -92,6 +92,22 @@
             border-radius: 3px;
             background: #fff;
         }
+	
+  	.popup-inner-previewcompany {
+            /*max-width: 800px;*/
+            width: 60%;
+            height: 950px;
+            padding: 40px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 1);
+            border-radius: 3px;
+            background: #fff;
+            z-index: 5;
+        }
 
         /* Close Button */
         .popup-close {
@@ -305,7 +321,7 @@
                 height: 160px;
                 width: 160px;
                 background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
-                z-index: 9;
+                z-index: 0;
             }
 
             .profile-img img {
@@ -624,8 +640,11 @@
                                                 Be sure to include accurate information.
                                             </p>
                                         </div>
-                                        <a href="{{ route('editProfile') }}" class="btn red-mint" style="margin-top: 15px; width: 200px;">Enhance
+                                        <a href="{{ route('editProfile') }}" class="btn red-mint" style="margin-top: 15px; width: 200px;">Enhance Company
                                             Profile</a>
+					
+  <a data-popup-open="popup-previewcompany" id="companyProfilePreview" class="btn yellow" style="margin-top: 15px; width: 220px; cursor: zoom-in;">
+                                                Company Preview</a>
                                     </div>
                                 </div>
 
@@ -995,6 +1014,13 @@
 
                             <!-- START TAB-4 -->
                             <div class="tab-pane" id="tab-4">
+                              
+                                <?php  
+                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                                if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                ?>
+  
+
                                 <div class="form-group">
                                     <label for="awards"><b>Awards</b></label> <br />
 
@@ -1078,6 +1104,9 @@
 
                                     </div>
                                 </div>
+
+                                <?php } ?>
+
                             </div>
                             <!-- END TAB-4 -->
                             <!-- START TAB-5 -->
@@ -1124,10 +1153,25 @@
         </div>
 
     </div>
+
+  <div class="popup" data-popup="popup-previewcompany">
+        <div class="popup-inner-previewcompany">
+           
+            <div id="preview_company">
+            </div>
+        
+            <a class="popup-close" data-popup-close="popup-previewcompany" href="#">x</a>
+        </div>
+    </div>
     <!-- END CONTAINER -->
 
     <div class="popup" data-popup="popup-1">
         <div class="popup-inner">
+
+            <?php  
+            $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+            if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+            ?>
 
             <h2>Find a file to upload as your new cover photo.</h2>
 
@@ -1136,7 +1180,9 @@
                 <p><span style="font-size: 12px;">For a better result please upload image at least in width of 851 pixels.</span>
                 </p>
             </div>
+
             <br/>
+            <?php } ?>
             <div class="form-group">
                 <label for="bannerBrandName">Company Brand</label> <br/><span style="font-size: 12px;">For best result limit your characters upto 50</span>
                 <p><input type="text" style="width:100%" name="bannerBrandName" id="bannerBrandName"
@@ -1268,7 +1314,7 @@
             });
 
 
-            //----- OPEN
+         /*   //----- OPEN
             $('[data-popup-open]').on('click', function (e) {
                 var targeted_popup_class = jQuery(this).attr('data-popup-open');
                 $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
@@ -1282,7 +1328,11 @@
                 $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
 
                 e.preventDefault();
-            });
+            }); */
+	
+	 $(function(){
+            $("#preview_company").html('<object class="popup-inner-previewcompany" width="900" height="900" data="<?php if(isset($urlPreview)){ echo $urlPreview; } ?>">');
+          });
 
 
         });

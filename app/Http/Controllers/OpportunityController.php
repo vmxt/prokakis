@@ -766,7 +766,10 @@ class OpportunityController extends Controller {
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			$this->validateAccLimits($company_id, 'build');
+			if(OpportunityController::validateAccLimits($company_id) == false){
+				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+				exit;
+			}
 
 			$view_type = $request->input('viewtype_value');
 
@@ -934,7 +937,10 @@ class OpportunityController extends Controller {
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			$this->validateAccLimits($company_id, 'sell');
+			if(OpportunityController::validateAccLimits($company_id) == false){
+				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+				exit;
+			}
 
 			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
 				$view_type == '1';	
@@ -1087,7 +1093,11 @@ class OpportunityController extends Controller {
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			$this->validateAccLimits($company_id, 'buy');
+			if( OpportunityController::validateAccLimits($company_id) == false){
+
+				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+				exit;
+			}
 
 			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
 				$view_type == '1';	
@@ -1470,7 +1480,8 @@ class OpportunityController extends Controller {
 
 	}
 
-public function validateAccLimits($company_id, $oppType){
+
+public static function validateAccLimits($company_id){
 
 		$acc_limits = Configurations::getJsonValue('account_limits');
 		$token = SpentTokens::validateLeftBehindToken($company_id);
@@ -1478,29 +1489,27 @@ public function validateAccLimits($company_id, $oppType){
 		if($token == false){ 
 			
 			$countOpp = 0;
+			$cBuy = 0;
+			$cSell = 0;
+			$cBuild = 0;
 
-			switch ($oppType) {
-				case 'build':
-					$countOpp = OpportunityBuildingCapability::where('company_id', $company_id)->where('status', 1)->count();
-				break;
-
-				case 'buy':
-					$countOpp = OpportunityBuy::where('company_id', $company_id)->where('status', 1)->count();
-					break;
-
-				case 'sell':
-					$countOpp = OpportunitySellOffer::where('company_id', $company_id)->where('status', 1)->count();
-					break;
+					$cBuild = OpportunityBuildingCapability::where('company_id', $company_id)->where('status', 1)->count();
+					$cBuy = OpportunityBuy::where('company_id', $company_id)->where('status', 1)->count();
+					$cSell = OpportunitySellOffer::where('company_id', $company_id)->where('status', 1)->count();
+		
+			$countOpp = ($cBuy + $cBuild + $cSell);
+		
+			//echo $countOpp .'  '.(int)$acc_limits['FREE']; exit;
+			if( (int)$countOpp >= (int)$acc_limits['FREE'] ){ //exceeded
+				return false;
+			} else {
+				return true;
 			}
 
-			if( (int)$acc_limits['FREE'] >= $countOpp ){ //exceeded
-				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
-				exit;
-			}
-
+		} else{
+			return true;
 		}
 
 	}
-
 
 }

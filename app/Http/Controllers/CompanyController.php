@@ -159,6 +159,71 @@ class CompanyController extends Controller {
 
 	}
 
+
+	public function previewPremiumCompany(Request $request){
+	
+		$user_id = Auth::id();
+		$company_id = CompanyProfile::getCompanyId($user_id);
+		
+		if($request['id'] == $company_id){
+
+			$rs = BrandSlogan::where('company_id', $request['id'])->first(); //page owner
+
+			if ($rs->count() > 0 && isset($rs->user_id) && isset($rs->company_id)) {
+
+				$profileAvatar = UploadImages::getFileNames($rs->user_id, $rs->company_id, Config::get('constants.options.profile'), 1);
+				
+				if(trim($profileAvatar) == ''){
+					$profileAvatar = "robot.jpg";
+				}
+
+				$profileCoverPhoto = UploadImages::getFileNames($rs->user_id, $rs->company_id, Config::get('constants.options.banner'), 1);
+	
+				$brand_slogan = CompanyProfile::getBrandSlogan($rs->user_id, $rs->company_id);
+	
+				// Session::put('brandName', $brand_slogan[0]);
+	
+				$businessNewsOpportunity = BusinessOpportunitiesNews::where('company_id', $request['id'])->get();
+	
+				$companyProfile = CompanyProfile::find($rs->company_id);
+	
+				if ($request['id'] != $company_id && $company_id != null) {
+	
+					WhoViewedMe::create([
+	
+						'presenter_company_id' => $request['id'],
+	
+						'viewer_company_id' => $company_id,
+	
+						'is_request' => 'no',
+	
+						'created_at' => date('Y-m-d'),
+	
+						'status' => 1,
+	
+					]);
+	
+				}
+	
+				return view("company.social", compact('profileAvatar', 'profileCoverPhoto', 'brand_slogan', 'businessNewsOpportunity', 'companyProfile'));
+	
+			} else {
+	
+				echo 'As of moment the company has not setup a public page.';
+	
+				return redirect('opportunity/explore')->with('message', 'As of moment the company has not setup a public page.');
+	
+			}
+
+		} else {
+
+			return redirect('profile/edit')->with('message', 'Company ID does not match.');
+
+
+		}
+
+	}
+
 	public function showRegistrationForm(Request $request) {
 
 		if (isset($request['usertype']) && isset($request['token'])) {

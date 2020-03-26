@@ -20,6 +20,7 @@ Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsub
 //for social media. public usage
 Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing');
 Route::get('/fbshare/{id}/{brand}', 'FbshareController@shareOnFB')->name('fbcompanyshare');
+Route::get('/company/{id}', 'CompanyController@previewPremiumCompany')->name('PreviewPremiumCompany');
 
 Auth::routes();
 Route::post('/accounts-switch', 'HomeController@switchAccount')->name('switchAccount');
@@ -200,6 +201,9 @@ Route::get('/mailbox/setReply/{id}', 'MailboxController@setReply')->name('mailSe
 //Route::get('/mailbox/compose', 'MailboxController@compose')->name('mailCompose');
 Route::get('/mailbox/createCompose', 'MailboxController@createCompose')->name('mailCreateCompose');
 Route::get('/mailbox/emails', 'MailboxController@emailList')->name('getEmailList');
+
+Route::get('/mailbox/createReferal', 'MailboxController@createReferal')->name('createReferals');
+Route::post('/mailbox/sendReferal', 'MailboxController@sendReferal')->name('sendReferals');
 
 //request report approve page
 Route::get('/reports/approve/{reqID}/{companyID}/{sourceID}', 'ConfigurationController@reqApprovalPage')->name('reqApprovalPage');

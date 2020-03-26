@@ -176,6 +176,7 @@ class CompanyprofileController extends Controller {
 
 			$viewer = base64_encode($brand_slogan[0]);
 			$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
+			$urlPreview = url('company/'.$company_id_result);
 
 			$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 
@@ -191,7 +192,7 @@ class CompanyprofileController extends Controller {
 
 				'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons',
 
-				'user_id', 'businessNewsOpportunity'));
+				'user_id', 'businessNewsOpportunity', 'urlPreview'));
 
 		} else {
 
@@ -304,6 +305,7 @@ class CompanyprofileController extends Controller {
 
 				$viewer = base64_encode($brand_slogan[0]);
 				$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
+				$urlPreview = url('company/'.$company_id_result);
 
 				$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 
@@ -335,7 +337,7 @@ class CompanyprofileController extends Controller {
 
 					'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons',
 
-					'user_id', 'businessNewsOpportunity'));
+					'user_id', 'businessNewsOpportunity', 'urlPreview'));
 
 			}
 
@@ -423,6 +425,8 @@ class CompanyprofileController extends Controller {
 
 		$viewer = base64_encode($brand_slogan[0]);
 		$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
+		
+		$urlPreview = url('company/'.$company_id_result);
 
 		$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 
@@ -440,7 +444,7 @@ class CompanyprofileController extends Controller {
 
 			'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons',
 
-			'user_id', 'businessNewsOpportunity'));
+			'user_id', 'businessNewsOpportunity', 'urlPreview'));
 
 		//}
 
@@ -1188,7 +1192,7 @@ class CompanyprofileController extends Controller {
 
 	}
 
-	public function searchThomsonReuters(Request $request) {
+public function searchThomsonReuters(Request $request) {
 
 		if ($request->isMethod('post')) {
 
@@ -1196,29 +1200,21 @@ class CompanyprofileController extends Controller {
 
 				$id = $request->input('tr_id');
 
-				$data = ThomsonReuters::find($id);
+				$data = ThomsonReuters::searchAllThree($id);
 
-				if ($data->count() > 0) {
+				if ($data != null) {
 
 					$out = "";
 
-					$company_out = "";
+					$company_out = (isset($data->COMPANIES))? $data->COMPANIES : '';
 
-					$rcp = explode(",", $data->COMPANIES);
-
-					if (count((array)$rcp) - 1 > 0) {
-
+					/*if (count((array)$rcp) > 0) {
 						foreach ($rcp as $cc) {
-
 							if (!is_numeric($cc)) {
-
 								$company_out = $company_out . $cc . ",";
-
 							}
-
 						}
-
-					}
+					} */
 
 					$inserted_prokakis = '';
 
@@ -1280,7 +1276,16 @@ class CompanyprofileController extends Controller {
 
                      <td> ' . $data->LAST_NAME . ' </td>
 
-                     </tr>';
+					 </tr>';
+					
+					 $out = $out . '<tr>
+
+                     <td> Countries  </td>
+
+                     <td> ' . $data->COUNTRIES . ' </td>
+
+					 </tr>';
+				
 
 					$out = $out . '<tr>
 
@@ -1294,9 +1299,19 @@ class CompanyprofileController extends Controller {
 
                      <td> Aliases   </td>
 
-                     <td> ' . $data->ALIASES . ' </td>
+					 <td> ' . $data->ALIASES . ' </td>
+					 
+					 </tr>';
 
-                     </tr>';
+					 $out = $out . '<tr>
+
+                     <td> Low quality aliases   </td>
+
+					 <td> ' . $data->LOW_QUALITY_ALIASES . ' </td>
+					 
+					 </tr>';
+					 
+
 
 					$out = $out . '<tr>
 
@@ -1312,7 +1327,18 @@ class CompanyprofileController extends Controller {
 
                      <td> ' . $data->TITLE . ' </td>
 
-                     </tr>';
+					 </tr>';
+
+					 $out = $out . '<tr>
+
+                     <td> Alternative Spelling   </td>
+
+                     <td> ' . $data->ALTERNATIVE_SPELLING . ' </td>
+
+					 </tr>';
+					 
+					 
+
 
 					$out = $out . '<tr>
 
@@ -1412,9 +1438,12 @@ class CompanyprofileController extends Controller {
 
 					$out = $out . '</table>';
 
+					return $out;	
+				} else {
+					return 'no data';
 				}
 
-				return $out;
+				
 
 			}
 

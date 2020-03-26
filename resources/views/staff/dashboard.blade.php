@@ -160,8 +160,8 @@
 
                            <div class="row">
 
-                           To open <b>Refinitiv</b> data click <a href="https://ebos2.prokakis.com/thomson">here</a> <br /> <br />
-                           To open <b>Opportunities</b> <a href="https://ebos2.prokakis.com/opportunity/explore">here</a> <br />
+                           To open <b>Refinitiv</b> data click <a href="https://app.prokakis.com/thomson">here</a> <br /> <br />
+                           To open <b>Opportunities</b> <a href="https://app.prokakis.com/opportunity/explore">here</a> <br />
                            
                                
                            </div>
@@ -187,7 +187,7 @@
                                <?php
                                $log = App\AuditLog::where('user_id', Auth::id())->orderBy('id', 'desc')->take(10)->get();
 
-                               if(count($log) > 0){
+                               if(count((array) $log) > 0){
                                    foreach ($log as $l) {
                                        echo date("F j, Y, g:i a", strtotime($l->created_at)).'<br />';
                                        echo '<a href="">'.$l->action.' '.$l->model.'</a><br /><br />';

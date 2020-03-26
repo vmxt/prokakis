@@ -4,6 +4,8 @@ namespace App;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use App\ThomsonReuters2;
+use App\ThomsonReuters3;
 
 class ThomsonReuters extends Model {
 
@@ -70,11 +72,11 @@ class ThomsonReuters extends Model {
 	              $cl = $request->input('country_location');
 	              $cn = $request->input('company_name');
 */
-	public static function getMatched_FullParams($fname, $lname, $companies, $nationality, $passport, $countryLocation, $gender) {
+	public static function getMatched_FullParams($fname, $lname, $companies, $nationality, $passport, $countryLocation, $gender, $tbname) {
 		$rs = array();
 		//
 
-		$SQL = "SELECT * FROM reuters_databank WHERE UID IS NOT NULL";
+		$SQL = "SELECT * FROM $tbname WHERE UID IS NOT NULL";
 
 		if ($fname != null) {
 			$SQL = $SQL . " AND FIRST_NAME = :fname";
@@ -84,10 +86,7 @@ class ThomsonReuters extends Model {
 			$SQL = $SQL . " AND LAST_NAME = :lname";
 			$rs[':lname'] = $lname;
 		}
-		if ($companies != null) {
-			$SQL = $SQL . " AND FURTHER_INFORMATION LIKE %:companies%";
-			$rs[':companies'] = $companies;
-		}
+	
 		if ($nationality != null) {
 			$SQL = $SQL . " AND CITIZENSHIP = :nationality";
 			$rs[':nationality'] = $nationality;
@@ -96,13 +95,19 @@ class ThomsonReuters extends Model {
 			$SQL = $SQL . " AND PASSPORTS = :passport";
 			$rs[':passport'] = $passport;
 		}
-		if ($countryLocation != null) {
-			$SQL = $SQL . " AND LOCATIONS LIKE '%:countryLocation%'";
-			$rs[':countryLocation'] = $countryLocation;
-		}
+	
 		if ($gender != null) {
 			$SQL = $SQL . " AND E_I = :gender";
 			$rs[':gender'] = $gender;
+		}
+
+		if ($countryLocation != null) {
+			$SQL = $SQL . " AND COUNTRIES = :countryLocation ";
+			$rs[':countryLocation'] = $countryLocation;
+		}
+		if ($companies != null) {
+			$SQL = $SQL . " AND COMPANIES LIKE '% ".$companies." %' ";
+			//$rs[':companies'] = $companies;
 		}
 
 		//print_r($rs);
@@ -112,65 +117,20 @@ class ThomsonReuters extends Model {
 		$results = DB::select(DB::raw($SQL), $rs);
 
 		return $results;
-		//
+	}
 
-		/*
-			        if($fname != null){
-			            $r = ThomsonReuters::where("FIRST_NAME", "=", $fname)->get();
-			            foreach($r as $d){
-			               $rs[$d->UID] = $d;
-			            }
-			        }
-
-			        if($lname != null){
-			            $r = ThomsonReuters::where("LAST_NAME", "=", $lname)->get();
-			            foreach($r as $d){
-			               $rs[$d->UID] = $d;
-			            }
-			        }
-
-			        if($companies != null){
-			            $r = ThomsonReuters::Where("FURTHER_INFORMATION", "LIKE", '%'.$companies.'%')->get();
-			            foreach($r as $d){
-			               $rs[$d->UID] = $d;
-			            }
-			        }
-
-			        if($nationality != null){
-			            $r = ThomsonReuters::Where("CITIZENSHIP", "LIKE", '%'.$nationality.'%')->get();
-			            foreach($r as $d){
-			               $rs[$d->UID] = $d;
-			            }
-			        }
-
-			        if($passport != null){
-			            $r = ThomsonReuters::Where("PASSPORTS", "LIKE", '%'.$passport.'%')->get();
-			            foreach($r as $d){
-			               $rs[$d->UID] = $d;
-			            }
-			        }
-
-			        if($countryLocation != null){
-			            $r = ThomsonReuters::Where("LOCATIONS", "LIKE", '%'.$countryLocation.'%')->get();
-			            foreach($r as $d){
-			               $rs[$d->UID] = $d;
-			            }
-			        }
-
-			        if($gender != null){
-			            $r = ThomsonReuters::Where("E_I", "LIKE", '%'.$gender.'%')->get();
-			            foreach($r as $d){
-			               $rs[$d->UID] = $d;
-			            }
-			        }
-
-			        if(count($rs) > 0){
-			             return $rs;
-			        } else{
-			             return null;
-			        }
-		*/
-
+	public static function searchAllThree($id){
+		$data = null;
+	
+		
+		$data = ThomsonReuters::where('UID', $id)->first();
+		if($data == null){
+			$data = ThomsonReuters2::where('UID', $id)->first();
+			if($data == null){
+				$data = ThomsonReuters3::where('UID', $id)->first();
+			}
+		} 
+		return $data;
 	}
 
 	public static function array_2d_to_1d($input_array) {

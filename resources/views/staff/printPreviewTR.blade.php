@@ -14,7 +14,7 @@
             </thead>
             <tbody>
             <?php
-            if(count($data) > 0){
+            if(count((array) $data) > 0){
              $out = "";
 
              $out = $out . '<tr>

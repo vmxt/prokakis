@@ -277,7 +277,7 @@
                                         $rc = App\ProcessedReport::getReqRepId($data->approval_id);
 
                                         if($rc != false){
-                                                $reportTrackNumber = $rc->id."-".$rc->source_company_id."-".$rc->fk_opportunity_id."-".date("Y");
+
                                             echo '<b>'.$rc->id . '-' . $rc->source_company_id . '-' . $rc->fk_opportunity_id.'</b>';
 
                                         }
@@ -334,6 +334,8 @@
                                         if($endTime < $karunAdlawa)
                                         {
                                          echo  '<div class="alert alert-info"><b>Completed</b></div>';
+                                        } else {
+                                            echo  '<div class="alert alert-info"><b>Active</b></div>';  
                                         } 
                                         ?>
 

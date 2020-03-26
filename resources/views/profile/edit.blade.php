@@ -7,7 +7,9 @@
     <?php //echo Route::getFacadeRoot()->current()->uri(); ?>
 
     <link href="{{ asset('public/mini-upload/assets/css/style.css') }}" rel="stylesheet">
+
     <link href="{{ asset('public/img-cropper/css/style.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="{{asset('public/css/profileedit.css')}}">
 
 
@@ -17,75 +19,133 @@
 <style>
 
         html, body {
+
             width: 100%;
+
             height: 100%;
+
             margin: 0px;
+
             padding: 0px;
+
             overflow-x: hidden;
+
             overflow: visible;
+
         }
 
        .containerCimg
 
        {
 
+
+
        }
 
-       .actionCimg {
+       .actionCimg
+
+       {
+
            width: 300px;
+
            height: 30px;
+
            margin: 5px 0;
+
            float: left;
+
        }
 
        .croppedCimg>img
+
        {
+
            margin-right: 10px;
+
        }
 
+
+
        .niceDisplay{
+
                   font-family: 'PT Sans Narrow', sans-serif;
+
                    font-weight: bold;
+
                    font-size: 15px;
+
                    background-color: white;
+
                    padding: 30px;
+
                    border-radius: 3px;
+
                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
                    text-align: center;
+
                    color: orangered;
+
         }
 
+
+
         #edit_icon{
+
             cursor: pointer;
+
         }
+
 
 
         /* Outer */
 
         .popup {
+
         width:100%;
+
         height:100%;
+
         display:none;
+
         position:fixed;
+
         top:0px;
+
         left:0px;
+
         background:rgba(0,0,0,0.75);
+
         }
+
+
 
         /* Inner */
 
         .popup-inner {
+
         max-width:700px;
+
         width:90%;
+
         padding:40px;
+
         position:absolute;
+
         top:50%;
+
         left:50%;
+
         -webkit-transform:translate(-50%, -50%);
+
         transform:translate(-50%, -50%);
+
         box-shadow:0px 2px 6px rgba(0,0,0,1);
+
         border-radius:3px;
+
         background:#fff;
+
         }
 
 
@@ -93,33 +153,58 @@
         /* Close Button */
 
         .popup-close {
+
         width:30px;
+
         height:30px;
+
         padding-top:4px;
+
         display:inline-block;
+
         position:absolute;
+
         top:0px;
+
         right:0px;
+
         transition:ease 0.25s all;
+
         -webkit-transform:translate(50%, -50%);
+
         transform:translate(50%, -50%);
+
         border-radius:1000px;
+
         background:rgba(0,0,0,0.8);
+
         font-family:Arial, Sans-Serif;
+
         font-size:20px;
+
         text-align:center;
+
         line-height:100%;
+
         color:#fff;
+
         }
 
 
 
         .popup-close:hover {
+
         -webkit-transform:translate(50%, -50%) rotate(180deg);
+
         transform:translate(50%, -50%) rotate(180deg);
+
         background:rgba(0,0,0,1);
+
         text-decoration:none;
+
         }
+
+
 
 </style>
 
@@ -219,7 +304,10 @@
 
                                             <div class="actionCimg">
 
-
+                                                <?php  
+                                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                                                if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                ?>
 
                                                     <input type="file" id="file" name="profile_img" style="float:left; width: 170px">
 
@@ -229,7 +317,7 @@
 
                                                     <input class="btn btn-outline-primary" type="button" id="btnZoomOut" value="-" style="float: right">
 
-
+                                                <?php } ?>
 
                                             </div>
 
@@ -260,7 +348,7 @@
                                         </div>
 
                                         <br/>
-                                       <!-- <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p> -->
+                                        <!-- <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p> -->
                                         <ul>
                                             <?php if(isset($completenessMessages)){
                                             foreach($completenessMessages as $d){
@@ -555,30 +643,27 @@
 
                                                 </select>
 
-
                                             </div>
 
 
-					
+
 
 
                                             <div class="form-group">
 
-                                                <label for="description">Brief Description</label>
+                                                <label for="description">Description</label>
 
-                                                <textarea rows="5" cols="20" maxlength="500" class="form-control" name="description"
+                                                <textarea rows="5" cols="20"  maxlength="500" class="form-control" name="description"
 
                                                           id="description"><?php if (isset($company_data->description)) {
 
                                                         echo $company_data->description;
 
                                                     } ?></textarea>
-						
-						<div class="alert alert-info">
+
+                                                <div class="alert alert-info">
                                                   <span>Characters left:</spa><span style="color:red;" id="count">500</span>
                                                 </div>
-
-
                                             </div>
 
 
@@ -610,25 +695,22 @@
                                      <select  class="form-control" id="company_number_employeee" name="company_number_employeee">
 
                                          <?php
+                                        if( !empty($num_of_employee) ){
+                                            foreach($num_of_employee as $key => $value){
 
 
+                                            if(isset($company_data->number_of_employees) && $key == $company_data->number_of_employees) { ?>
 
-                                        foreach($num_of_employee as $key => $value){
+                                                    <option selected value="<?php echo $key; ?>"><?php echo $value; ?></option>
 
+                                                <?php  } else { ?>
 
+                                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
 
-                                        if(isset($company_data->number_of_employees) && $key == $company_data->number_of_employees) { ?>
+                                                <?php }
 
-                                                <option selected value="<?php echo $key; ?>"><?php echo $value; ?></option>
-
-                                             <?php  } else { ?>
-
-                                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-
-                                              <?php }
-
+                                            }
                                         }
-
                                         ?>
 
                                                 </select>
@@ -1532,8 +1614,8 @@
                                     <div class="form-group">
 
                                         <div id="upload">
-
-
+                                           
+                                            
 
                                             <form method="post" action="{{ route('uploadAwards') }}" enctype="multipart/form-data">
 
@@ -1543,12 +1625,15 @@
 
                                                 <div id="drop">
 
-
+                                                    <?php  
+                                                    if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                    ?>
 
                                                     <a>Browse Awards</a>
 
                                                     <input type="file" name="awardsFiles" id="up1"/>
 
+                                                    <?php } ?>    
                                                 </div>
 
 
@@ -1639,11 +1724,15 @@
 
                                                 <div id="drop1">
 
-
+                                                    <?php  
+                                                    if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                    ?>
 
                                                     <a>Browse Purchase Invoices</a>
 
                                                     <input type="file" name="purchaseInvoiceFiles" id="up2"/>
+
+                                                    <?php } ?>
 
                                                 </div>
 
@@ -1707,11 +1796,15 @@
 
                                                 <div id="drop2">
 
-
+                                                    <?php  
+                                                    if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                    ?>
 
                                                     <a>Browse Sales Invoices</a>
 
                                                     <input type="file" name="salesInvoiceFiles" id="up3"/>
+
+                                                    <?php } ?>
 
                                                 </div>
 
@@ -1783,11 +1876,15 @@
 
                                                 <div id="drop3">
 
-
+                                                    <?php  
+                                                    if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                    ?>
 
                                                     <a>Browse Certificates</a>
 
                                                     <input type="file" name="certificationFiles" id="up4"/>
+
+                                                    <?php } ?>
 
                                                 </div>
 
@@ -3609,7 +3706,12 @@
 
                     spinner: '.spinnerCimg',
 
-                    <?php if($profileAvatar != null){  ?>
+                    <?php 
+                    
+                    
+                    if($profileAvatar != null){  
+                        
+                    ?>
 
                     imgSrc: "{{ asset('public/images/') }}/<?php echo $profileAvatar; ?>"
 
@@ -4216,7 +4318,11 @@
         }
 
 
-	  var maxLength = 500;
+        /*$("#description").keyup(function(){
+            $("#count").text((500 - $(this).val().length));
+        }); */
+
+        var maxLength = 500;
         $('#description').keyup(function() {
           var length = $(this).val().length;
           var length = maxLength-length;

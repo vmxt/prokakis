@@ -30,7 +30,16 @@ class ThomsonController extends Controller {
 	}
 
 	public function searchFound(Request $request) {
+
 		if ($request->isMethod('post')) {
+
+			$validatedData = $request->validate([
+				'gender' => 'required',
+				'country_location' => 'required',
+				'first_name' => 'required|max:255',
+				
+			]);	
+
 
 			$fn = $request->input('first_name');
 			$ln = $request->input('last_name');
@@ -41,14 +50,38 @@ class ThomsonController extends Controller {
 			$cn = $request->input('company_name');
 			$g = $request->input('gender');
 
-			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g);
-
-			if ($rs != null) {
-				return view('staff.search', compact('rs'));
-			} else {
-
-				return view('staff.search', compact('rs'));
+			$search = '';
+			if($fn != null){
+			  $search = $search ."<p> FIRST NAME: <b>". $fn.'</b> </p>';		
 			}
+			if($ln != null){
+				$search = $search ."<p> LAST NAME: <b>". $ln.'</b> </p>';		
+			}
+			if($n != null){
+				$search = $search ."<p> NATIONALITY: <b>". $n.'</b> </p>';		
+			}
+			if($p != null){
+				$search = $search ."<p> PASSPORT: <b>". $p.'</b> </p>';		
+			}
+			if($cl != null){
+				$search = $search ."<p> COUNTRY: <b>". $cl.'</b> </p>';		
+			}
+			if($cn != null){
+				$search = $search ."<p> COMPANY NAME: <b>". $cn.'</b> </p>';		
+			}
+			if($g != null){
+				$search = $search ."<p> GENDER: <b>". $g.'</b></p>';		
+			}
+		
+		
+			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank');
+			$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
+			$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
+			
+			$sumRec = count((array)$rs) + count((array) $rs2) + count((array) $rs3);
+
+			return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search'));
+
 		}
 	}
 
@@ -64,19 +97,19 @@ class ThomsonController extends Controller {
 			// $json = html_entity_decode($string);
 			$arr[] = (object) ['CITIZENSHIP' => $string];
 		}
-
-		return json_encode($arr);
+		header('Content-Type: application/json');
+		echo json_encode($arr);
 	}
 
 	public function getCountryLocation() {
-		$rs = DB::table('reuters_databank')->select('LOCATIONS')->distinct('LOCATIONS')->get();
+		$rs = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
 		$locations = array();
 		$result = array();
 		$answer = array();
 
 		foreach ($rs as $d) {
 
-			$arr = $d->LOCATIONS;
+			$arr = $d->COUNTRIES;
 
 			// echo $arr.'<br />';
 

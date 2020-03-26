@@ -37,12 +37,13 @@
 	position:fixed;
 	top:0px;
 	left:0px;
-	background:rgba(0,0,0,0.75);
+    background:rgba(0,0,0,0.75);
+    z-index: 10;
 }       
 
         /* Inner */
 .popup-inner {
-	max-width:700px;
+	max-width:900px;
 	width:90%;
 	padding:40px;
 	position:absolute;
@@ -52,7 +53,8 @@
 	transform:translate(-50%, -50%);
 	box-shadow:0px 2px 6px rgba(0,0,0,1);
 	border-radius:3px;
-	background:#fff;
+    background:#fff;
+    z-index: 10;
 }
 
 /* Close Button */
@@ -84,7 +86,7 @@
 }
 </style>
 
-    <div class="container">
+    <div class="container" style="width:1500px;">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
             <li>
                 <a href="{{ url('/home') }}">Dashboard</a>
@@ -95,9 +97,29 @@
             </li>
         </ul>
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="portlet light">
                     <div class="portlet-body light">
+
+                        
+                @if ($errors->any())
+
+                <div class="alert alert-danger">
+
+                    <ul>
+
+                        @foreach ($errors->all() as $error)
+
+                            <li>{{ $error }}</li>
+
+                        @endforeach
+
+                    </ul>
+
+                </div>
+
+            @endif
+
                     <div class="card">
                         <form id="thomson_search" method="POST" action="{{ route('thomsonSearchFound') }}">
                             {{ csrf_field() }}
@@ -140,7 +162,7 @@
                                 </div> -->
 
                                 <div class="form-group">
-                                    <label> Country Location </label>
+                                    <label> Country </label>
                                     <input id="country_location" name="country_location" class="form-control" type="text" placeholder="Write Country Location">
                                 </div>
 
@@ -159,24 +181,57 @@
                 </div>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
 
                     <div class="portlet light scrollable">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="icon-bulb font-blue"></i>
-                                <span class="caption-subject font-blue sbold uppercase"><b><?php if(isset($rs)){ echo count($rs); } ?></b> of records found.</span>
+                                <i class="icon-bulb font-red"></i>
+                                <span class="caption-subject font-blue bold uppercase"><b><?php if(isset($sumRec)){ echo $sumRec . " of records found."; } ?></b> </span>
                             </div>
-                            
+                          
+                              
                         </div>
+
+                        @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                        @endif
+                        
+                        @if (session('message'))
+                        <div class="alert alert-danger">
+                            {{ session('message') }}
+                        </div>
+                        @endif
+
+                        <?php 
+                        if(isset($search)){
+                         echo '<div class="note note-success"><h4>Search Keys</h4>'.$search.'</div>';
+                        }
+                        ?>
+
                         <div class="portlet-body">
+
+                            <button type="button" style="float:right;" class="btn red mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-right" data-spinner-color="#333">
+                                <span class="ladda-label">
+                                    <i class="icon-login"></i> Process Selected Items? </span>
+                            <span class="ladda-spinner"></span></button>
+                               
                             <div class="table-scrollable">
                                 <table  class="table table-bordered table-striped table-condensed flip-content">
                                     <thead class="flip-content">
                                     <tr>
+                                        <th width="2%">Sel</th>
                                         <th width="2%">Action</th>
                                         <th width="5%">First Name</th>
                                         <th width="5%">Last Name</th>
+                                        <th width="5%">Aliases</th>
+                                        <th width="5%">Category</th> 
+                                        <th width="5%">Position</th> 
+                                        <th width="5%">Place of birth</th> 
+                                        <th width="5%">Registered Country</th>
+                                        <th width="5%">Locations</th>
                                         <th width="10%">Further Information</th>
                                         
                                     </tr>
@@ -187,28 +242,133 @@
                                            foreach($rs as $d){
                                     ?>    
                                     <tr>
+
+                                        <td>
+                                            <span class="card" style="float:left;">
+                                                <div class="md-checkbox">
+
+                                                    <input type="checkbox" name="checkboxes1[]" value="<?php echo $d->UID; ?>" id="checkbox_<?php echo $d->UID; ?>" class="md-check" >
+
+                                                    <label for="checkbox_<?php echo $d->UID; ?>">
+
+                                                        <span class="inc"></span>
+
+                                                        <span class="check"></span>
+
+                                                        <span class="box"></span>
+                                                    </label>
+
+                                                </div>
+                                            </span>
+                                        </td>
                                             <td>
                                                 <span class="card" style="float:left;">
-                                                    <input data-popup-open="popup-2" onclick="openTR(<?php echo $d->ID; ?>);" type="button" class="btn btn-danger" value="view" />
+                                                    <input data-popup-open="popup-2" onclick="openTR(<?php echo $d->UID; ?>);" type="button" class="btn btn-danger" value="view" />
                                                 </span>
                                             </td>
-                                            <td><?php echo $d->FIRST_NAME; ?></td>
-                                            <td><?php echo $d->LAST_NAME; ?></td>
-                                            <td><?php echo $d->FURTHER_INFORMATION; ?></td>
+                                            <td><?php echo (isset($d->FIRST_NAME))? $d->FIRST_NAME : ''; ?></td>
+                                            <td><?php echo (isset($d->LAST_NAME))? $d->LAST_NAME : ''; ?></td>
+                                            <td width="5%"><?php echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td>
+                                            <td width="5%"><?php echo (isset($d->CATEGORY))? $d->CATEGORY : ''; ?></td> 
+                                            <td width="5%"><?php echo (isset($d->POSITION))? $d->POSITION : ''; ?></td> 
+                                            <td width="5%"><?php echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td> 
+                                            <td width="5%"><?php echo (isset($d->PASSPORT_COUNTRY))? $d->PASSPORT_COUNTRY : ''; ?></td>
+                                            <td width="5%"><?php echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
+                                            <td><?php echo (isset($d->FURTHER_INFORMATION))? $d->FURTHER_INFORMATION : ''; ?></td>
                                            
                                     </tr>
                                    
                                    <?php 
-                                     }
-                                    }  
-                                    ?>         
-                                    <tr>
-                                            <th>Action</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Further Information</th>
-                                            
-                                    </tr>
+                                            }
+                                    } 
+                                    
+                                    if(isset($rs2) && $rs2 != null){
+                                        foreach($rs2 as $d){
+                                 ?>    
+                                 <tr>
+                                    <td>
+                                        <span class="card" style="float:left;">
+                                            <div class="md-checkbox">
+
+                                                <input type="checkbox" name="checkboxes1[]" value="<?php echo $d->UID; ?>" id="checkbox_<?php echo $d->UID; ?>" class="md-check" >
+
+                                                    <label for="checkbox_<?php echo $d->UID; ?>">
+
+                                                        <span class="inc"></span>
+
+                                                        <span class="check"></span>
+
+                                                        <span class="box"></span>
+                                                </label>
+
+                                            </div>
+                                        </span>
+                                    </td>
+                                         <td>
+                                             <span class="card" style="float:left;">
+                                                 <input data-popup-open="popup-2" onclick="openTR(<?php echo $d->UID; ?>);" type="button" class="btn btn-danger" value="view" />
+                                             </span>
+                                         </td>
+                                         <td><?php echo (isset($d->FIRST_NAME))? $d->FIRST_NAME : ''; ?></td>
+                                         <td><?php echo (isset($d->LAST_NAME))? $d->LAST_NAME : ''; ?></td>
+                                         <td width="5%"><?php echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td>
+                                         <td width="5%"><?php echo (isset($d->CATEGORY))? $d->CATEGORY : ''; ?></td> 
+                                         <td width="5%"><?php echo (isset($d->POSITION))? $d->POSITION : ''; ?></td> 
+                                         <td width="5%"><?php echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td> 
+                                         <td width="5%"><?php echo (isset($d->PASSPORT_COUNTRY))? $d->PASSPORT_COUNTRY : ''; ?></td>
+                                         <td width="5%"><?php echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
+                                         <td><?php echo (isset($d->FURTHER_INFORMATION))? $d->FURTHER_INFORMATION : ''; ?></td>
+                                        
+                                 </tr>
+                                
+                                <?php 
+                                        }
+                                } 
+                                
+                                if(isset($rs3) && $rs3 != null){
+                                    foreach($rs3 as $d){
+                                ?>    
+                                <tr>
+                                    <td>
+                                        <span class="card" style="float:left;">
+                                            <div class="md-checkbox">
+
+                                                <input type="checkbox" name="checkboxes1[]" value="<?php echo $d->UID; ?>" id="checkbox_<?php echo $d->UID; ?>" class="md-check" >
+
+                                                    <label for="checkbox_<?php echo $d->UID; ?>">
+
+                                                        <span class="inc"></span>
+
+                                                        <span class="check"></span>
+
+                                                        <span class="box"></span>
+                                                    </label>
+
+                                            </div>
+                                        </span>
+                                    </td>
+                                     <td>
+                                         <span class="card" style="float:left;">
+                                             <input data-popup-open="popup-2" onclick="openTR(<?php echo $d->UID; ?>);" type="button" class="btn btn-danger" value="view" />
+                                         </span>
+                                     </td>
+                                     <td><?php echo (isset($d->FIRST_NAME))? $d->FIRST_NAME : ''; ?></td>
+                                            <td><?php echo (isset($d->LAST_NAME))? $d->LAST_NAME : ''; ?></td>
+                                            <td width="5%"><?php echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td>
+                                            <td width="5%"><?php echo (isset($d->CATEGORY))? $d->CATEGORY : ''; ?></td> 
+                                            <td width="5%"><?php echo (isset($d->POSITION))? $d->POSITION : ''; ?></td> 
+                                            <td width="5%"><?php echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td> 
+                                            <td width="5%"><?php echo (isset($d->PASSPORT_COUNTRY))? $d->PASSPORT_COUNTRY : ''; ?></td>
+                                            <td width="5%"><?php echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
+                                            <td><?php echo (isset($d->FURTHER_INFORMATION))? $d->FURTHER_INFORMATION : ''; ?></td>
+                                    
+                             </tr>
+                            
+                            <?php 
+                              }
+                             } 
+                             ?> 
+                               
                                     </tbody>
                                 </table>
                             </div>
@@ -235,23 +395,77 @@
                 url: "{{ route('getCountryLocation') }}",
                 getValue: "LOCATIONS",
                 list: {
+                    maxNumberOfElements: 5,
                     match: {
                         enabled: true
-                    }
+                    },
+                    sort: {
+                        enabled: true
+                    },
+                    onClickEvent: function() {
+                        console.log('click');
+
+                    },
+                    showAnimation: {
+                        type: "fade", //normal|slide|fade
+                        time: 400,
+                        callback: function() {}
+                    },
+            
+                    hideAnimation: {
+                        type: "slide", //normal|slide|fade
+                        time: 400,
+                        callback: function() {}
+                    }	
+
                 }
             };
-            $("#country_location").easyAutocomplete(options);
-    
+            $("#country_location").easyAutocomplete(options); 
+            
+            
             var optionsNationality = {
                 url: "{{ route('getNationality') }}",
                 getValue: "CITIZENSHIP",
                 list: {
+                    maxNumberOfElements: 5,
                     match: {
                         enabled: true
-                    }
+                    },
+                    sort: {
+                        enabled: true
+                    },
+                    onClickEvent: function() {
+                        console.log('click');
+
+                    },
+                    showAnimation: {
+                        type: "fade", //normal|slide|fade
+                        time: 400,
+                        callback: function() {}
+                    },
+            
+                    hideAnimation: {
+                        type: "slide", //normal|slide|fade
+                        time: 400,
+                        callback: function() {}
+                    }	
                 }
             };
-            $("#nationality").easyAutocomplete(optionsNationality);
+            $("#nationality").easyAutocomplete(optionsNationality); 
+            
+
+            $(".easy-autocomplete-container").on("show.eac", function(e) {
+                var inputId = this.id.replace('eac-container-','')
+              var isFocused  = $("#"+inputId).is(":focus")
+              if (!isFocused ) {
+                 e.stopImmediatePropagation()
+              }
+            });
+            
+            $(".easy-autocomplete-container").each(function() {
+              $._data(this, 'events')["show"].reverse()
+            })
+
     
               //----- OPEN
                 $('[data-popup-open]').on('click', function(e) {

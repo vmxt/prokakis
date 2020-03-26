@@ -16,7 +16,6 @@ use Auth;
 use Config;
 use Illuminate\Http\Request;
 use PDF;
-use Ixudra\Curl\Facades\Curl;
 
 class BuyreportController extends Controller {
 
@@ -533,20 +532,17 @@ class BuyreportController extends Controller {
 			$reportTemplates[ $value['variable_name'] ]  = $value['content'];
 		}
 
+		$reportTrackNumber = "--";
+		if(isset($_GET['aprvl']) ){
+			$aproval_id=$_GET['aprvl'];
+	        $rc = ProcessedReport::getReqRepId($aproval_id);
+	        if($rc != false){
+	           $reportTrackNumber = $rc->id."-".$rc->source_company_id."-".$rc->fk_opportunity_id."-".date("Y");
+	        }
+    	}
 		$twitter_token = env('APP_ENV');
 		$twitter_keyword = urlencode($company_data->company_name);
-
-  // 		$response_twitter = Curl::to('https://reputation.prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword)
-  //       ->get();
-
-		// $response_twitter = json_decode($response_twitter);
-		$reportTrackNumber = "--";
-		$aproval_id=$_GET['aprvl'];
-        $rc = ProcessedReport::getReqRepId($aproval_id);
-        if($rc != false){
-           $reportTrackNumber = $rc->id."-".$rc->source_company_id."-".$rc->fk_opportunity_id."-".date("Y");
-        }
-
+	
 		$cSession = curl_init(); 
 		curl_setopt($cSession,CURLOPT_URL,'https://reputation.prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
 		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
@@ -554,14 +550,16 @@ class BuyreportController extends Controller {
 		$result=curl_exec($cSession);
 		$response_twitter = json_decode($result);
 		curl_close($cSession);
-	
+
 		 // return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
 			//       'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
 
 			//       'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter', 'reportTrackNumber'));
+			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter'));
+
+			  
 
 		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
@@ -569,8 +567,8 @@ class BuyreportController extends Controller {
 
 			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter', 'reportTrackNumber'));
-	
+			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber'));
+
 		return $pdf->download($company_data->company_name . '.pdf');
 
 		// return $pdf->download('.pdf');
