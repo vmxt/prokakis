@@ -158,7 +158,7 @@ Route::get('/profile/billing/create', 'CompanyBillingController@index')->name('c
 Route::post('/profile/billing/update', 'CompanyBillingController@update')->name('updateBilling');
 Route::get('/profile/paymentHistory', 'CompanyPaymentController@index')->name('indexPaymentHistory');
 
-Route::get('/profile/paymentHistoryPdf/{companyId}', 'CompanyPaymentController@generatePdf')->name('PaymentHistoryPdf'); //added by daryl 3-16-2020
+Route::get('/profile/paymentHistoryPdf/{companyId}/{reportType}', 'CompanyPaymentController@generatePdf')->name('PaymentHistoryPdf'); //added by daryl 3-16-2020
 
 Route::get('/profile/socialAccounts', 'CompanySocialAccountsController@index')->name('indexSocialAccounts');
 Route::post('/profile/socialAccounts/create', 'CompanySocialAccountsController@store')->name('createSocialAccounts');

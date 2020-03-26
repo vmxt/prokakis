@@ -1,0 +1,28 @@
+.red{
+	background-color: red;
+}
+
+.blue{
+	background-color: blue;
+}
+
+.header-image{
+	/*left: 10em;*/
+	/*margin-left: 17em;*/
+}
+
+.client-info{
+	/*margin-left: 25em;*/
+}
+
+
+
+.invoice{
+	position: relative;
+	top: 0;
+	right: 0;
+}
+
+hr{
+	border-top: 3px solid #8c8b8b;
+}

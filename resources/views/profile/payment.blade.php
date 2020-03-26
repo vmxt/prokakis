@@ -112,7 +112,7 @@
 
                                         <div align="right">
                                             <a  href="{{ url('/profile/printPreviewTokenPurchased').'/'.$company_id_result }}" target="_blank"><button class="btn-info">Print Preview</button></a>
-                                            <a  href="{{ url('/profile/paymentHistoryPdf').'/'.$company_id_result }}" target="_blank"><button class="btn-info">Download PDF</button></a>
+                                            <a  href="{{ url('/profile/paymentHistoryPdf').'/'.$company_id_result.'/buyToken' }}" target="_blank"><button class="btn-info">Download PDF</button></a>
                                         </div><br />
 
                                         <table id="system_data" class="display" style="max-width: 100%;">
@@ -164,7 +164,9 @@
                                         <div class="card-header"><b>TOKEN SPENT HISTORY INFORMATION</b></div>
 
                                         <div align="right">
-                                            <a href="{{ url('/profile/printPreviewTokenSpent').'/'.$company_id_result }}" target="_blank"><button class="btn-info">Print Preview</button></a>
+                                            <a  href="{{ url('/profile/printPreviewTokenSpent').'/'.$company_id_result }}" target="_blank"><button class="btn-info">Print Preview</button></a>
+                                            <a  href="{{ url('/profile/paymentHistoryPdf').'/'.$company_id_result.'/spentToken' }}" target="_blank"><button class="btn-info">Download PDF</button></a>
+
                                         </div><br />
 
                                         <table id="system_data2" class="display" style="max-width: 100%;">

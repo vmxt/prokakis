@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\CompanyProfile;
+use App\User;
 use App\UploadImages;
 use Auth;
 use Config;
@@ -52,16 +53,16 @@ class CompanyPaymentController extends Controller
 
          $user_id = Auth::id();
          $company_id_result = CompanyProfile::getCompanyId($user_id);
-         
+         $companyD = CompanyProfile::find($company_id);
+         $userD = User::find($user_id);
          if($company_id == $company_id_result){
           $rs_buy = Buytoken::where('company_id', $company_id) //'company id'
           ->orderBy('id', 'asc')
           ->get();
-          return view('profile.printPreviewPurchased', compact('rs_buy'));
+          return view('profile.printPreviewPurchased', compact('rs_buy', 'companyD', 'userD'));
          } else{
           return redirect('/profile/paymentHistory')->with('message', 'Unauthorised printing of company information.');  
          }
-
       }
     }
 
@@ -87,20 +88,36 @@ class CompanyPaymentController extends Controller
 
 
     public function generatePdf(Request $request){
+        if(!isset($request['reportType'])){
+          return "Please Specify Report Type";
+        }
 
+        $report_type = $request['reportType'];
         if(isset($request['companyId'])){
          $company_id = $request['companyId'];
 
          $user_id = Auth::id();
          $company_id_result = CompanyProfile::getCompanyId($user_id);
-         
+         $companyD = CompanyProfile::find($company_id);
+         $userD = User::find($user_id);
+
          if($company_id == $company_id_result){
-          $rs_buy = Buytoken::where('company_id', $company_id) //'company id'
-          ->orderBy('id', 'asc')
-          ->get();
-         
-          $data = ['title' => 'Welcome to HDTuto.com'];
-          $pdf = PDF::loadView('profile.printPreviewPurchased', compact('rs_buy','company_id_result'));
+
+          $result = "";
+          switch ( $request['reportType'] ) {
+            case 'buyToken':
+              $result = Buytoken::where('company_id', $company_id) //'company id'
+                ->orderBy('id', 'asc')
+                ->get();
+              break;
+            case 'spentToken':
+              $result = CompanySpentTokens::where('company_id', $company_id)
+                ->orderBy('id', 'asc')
+                ->get();
+              break;
+          }
+
+          $pdf = PDF::loadView('profile.'.$report_type."PDF", compact('result','companyD', 'userD'));
   
           return $pdf->download('purchase history.pdf');
 
