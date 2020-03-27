@@ -12,6 +12,7 @@ use App\RequestApproval;
 use App\RequestReport;
 use App\UploadImages;
 use App\ReportGenerationTemplate;
+use App\User;
 use Auth;
 use Config;
 use Illuminate\Http\Request;
@@ -468,6 +469,7 @@ class BuyreportController extends Controller {
 		GeneratedReport::reportSave($proc->requester_company_id, $proc->source_company_id, $approval->req_rep_id); //log the report generated
 
 		$company_data = CompanyProfile::find($proc->source_company_id);
+        $user_data = User::find($user_id); 
 
 		//echo $company_data->company_name; exit;
 
@@ -528,6 +530,7 @@ class BuyreportController extends Controller {
 		$ReportGenerationTemplate = ReportGenerationTemplate::where('status', 1)->get();
 		$reportTemplates = [];
 
+
 		foreach ($ReportGenerationTemplate as $key => $value) {
 			$reportTemplates[ $value['variable_name'] ]  = $value['content'];
 		}
@@ -542,7 +545,6 @@ class BuyreportController extends Controller {
     	}
 		$twitter_token = env('APP_ENV');
 		$twitter_keyword = urlencode($company_data->company_name);
-	
 		$cSession = curl_init(); 
 		curl_setopt($cSession,CURLOPT_URL,'https://reputation.prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
 		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
@@ -557,7 +559,7 @@ class BuyreportController extends Controller {
 
 			//       'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter'));
+			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter' , 'reportTrackNumber'));
 
 			  
 

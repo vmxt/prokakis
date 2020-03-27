@@ -13,15 +13,16 @@
             </p>
         </div>
         <div class=" p-0">
+          @foreach($keyPersons as $keyp)
             <table class="table table-sm table-bordered " >
               <tbody>
                 <tr>
                   <th scope="row">Name</th>
-                  <td colspan="2">Charles, A Pierre</td>
+                  <td colspan="2">{{ $keyp->last_name }}, {{ $keyp->first_name }}</td>
                 </tr>
                 <tr>
                   <th scope="row">Identity Number:</th>
-                  <td colspan="2">3/23/2019</td>
+                  <td colspan="2">{{ $keyp->idn_passport }}</td>
                 </tr>
                 <tr>
                   <th scope="row">Shareholder %:</th>
@@ -29,65 +30,16 @@
                 </tr>
                 <tr>
                   <th scope="row">Directorship:</th>
-                  <td colspan="2">YES</td>
+                  <td colspan="2">{{ $keyp->is_directorship }}</td>
                 </tr>
                 <tr>
                   <th scope="row">Position </th>
-                  <td colspan="2">Director</td>
+                  <td colspan="2">{{ $keyp->position }}</td>
                 </tr>
               </tbody>
             </table>
-<br>
-            <table class="table table-sm table-bordered ">
-              <tbody>
-                <tr>
-                  <th scope="row">Name</th>
-                  <td colspan="2">Charles, A Pierre</td>
-                </tr>
-                <tr>
-                  <th scope="row">Identity Number:</th>
-                  <td colspan="2">3/23/2019</td>
-                </tr>
-                <tr>
-                  <th scope="row">Shareholder %:</th>
-                  <td colspan="2">Limited Liability Company</td>
-                </tr>
-                <tr>
-                  <th scope="row">Directorship:</th>
-                  <td colspan="2">YES</td>
-                </tr>
-                <tr>
-                  <th scope="row">Position </th>
-                  <td colspan="2">Director</td>
-                </tr>
-              </tbody>
-            </table>
-<br>
-
-            <table class="table table-sm table-bordered " >
-              <tbody>
-                <tr>
-                  <th scope="row">Name</th>
-                  <td colspan="2">Charles, A Pierre</td>
-                </tr>
-                <tr>
-                  <th scope="row">Identity Number:</th>
-                  <td colspan="2">3/23/2019</td>
-                </tr>
-                <tr>
-                  <th scope="row">Shareholder %:</th>
-                  <td colspan="2">Limited Liability Company</td>
-                </tr>
-                <tr>
-                  <th scope="row">Directorship:</th>
-                  <td colspan="2">YES</td>
-                </tr>
-                <tr>
-                  <th scope="row">Position </th>
-                  <td colspan="2">Director</td>
-                </tr>
-              </tbody>
-            </table>
+          <br>
+        @endforeach
         </div>
     </div>
 </div>

@@ -1,3 +1,4 @@
+
 <div class="card">
   <div class="card-body p-0">
     <div class="row p-0">
@@ -14,48 +15,39 @@
     </div>
     <div class=" p-0">
       <table class="table table-sm table-bordered" >
-        <thead>
-          <tr>
-            <th>Currency</th>
-            <th>Singapore Dollars</th>
-            <th>Singapore Dollars</th>
-          </tr>
-        </thead>
+
         <tbody>
+            <tr>
+            <td>Currency</td>
+            <td>{{ $company_data->currency }}</td>
+          </tr>
           <tr>
             <td>Year of Establishment:</td>
-            <td>1 - 5 years</td>
-            <td>1 - 5 years</td>
+            <td>{{ $company_data->years_establishment }}</td>
           </tr>
           <tr>
             <td>No of Staffs:</td>
-            <td>4 - 10 persons</td>
-            <td>Gross Profit</td>
+            <td>{{ $company_data->no_of_staff }}</td>
           </tr>
           <tr>
             <td>Gross Profit or Gross Loss</td>
-            <td>Gross Profit</td>
-            <td>Gross Profit</td>
+            <td>{{ $company_data->gross_profit }}</td>
           </tr>
           <tr>
             <td>Net Profit or Gross Loss</td>
-            <td>Net Loss</td>
-            <td>Net Profit</td>
+            <td>{{ $company_data->net_profit }}</td>
           </tr>
           <tr>
             <td>Annual Return Filling Rating</td>
-            <td>Yes but late</td>
-            <td>Yes on time</td>
+            <td>{{ $company_data->annual_tax_return }}</td>
           </tr>
           <tr>
             <td>Solvent or insolvent</td>
-            <td>Solvent</td>
-            <td>Solvent</td>
+            <td>{{ $company_data->solvent_value }}</td>
           </tr>
           <tr>
             <td>Paid Up Capital</td>
-            <td>Above $5,000</td>
-            <td>Above $5,000</td>
+            <td>{{ $company_data->paid_up_capital }}</td>
           </tr>
         </tbody>
       </table>
