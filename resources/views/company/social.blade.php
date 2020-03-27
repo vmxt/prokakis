@@ -460,33 +460,21 @@ footer p a:hover {
                 </div>
               
                 <div class="row">
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <div class="profile-tabs">
-                          <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-                            @foreach($businessNewsOpportunity as $key => $newsOpportunityDetails)
-                            <li class="nav-item">
-                                <a class="nav-link <?= $key==0?'active':'' ?>"  href="#news{{ $newsOpportunityDetails->id }}" role="tab" data-toggle="tab">
-                                 {{ $newsOpportunityDetails->business_title }}
-                                </a>
-                            </li>
-                            @endforeach
-
-                        
-                          </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-content tab-space">
                     @foreach($businessNewsOpportunity as $key => $newsOpportunityDetails)
-                    <div class="tab-pane <?= $key==0?'active':'' ?> text-center gallery" id="news{{ $newsOpportunityDetails->id }}">
-                        <div class="row">
-                            <div class="col-md-9 mr-auto ml-auto business_content">
-                                @if (empty($newsOpportunityDetails->content_business))
-                                    <span style="text-align: center"> -- No Business News Available --</span>
-                                @else
-                                    {!! $newsOpportunityDetails->content_business !!}
-                                @endif
+                    <div class="col-md-4 ml-auto mr-auto">
+                        <div class="profile-tabs">
+                            <div class="card bg-light" >
+                              <img class="card-img-top" src="{{ asset('public/banner/') }}/{{ $profileCoverPhoto }}" alt="Card image cap">
+                              <div class="card-body" >
+                                <h5 class="card-title"><strong>{{ $newsOpportunityDetails->business_title }}</strong></h5>
+                                <a class="btn btn-raised btn-primary " data-toggle="collapse" href="#content_business_{{ $key }}" role="button" aria-expanded="false" aria-controls="content_business" >Read More</a>
+                              </div>
+                              <div class="collapse" id="content_business_{{ $key }}">
+                                <div class="card-body card bg-light" >
+                                    <p class="card-text p-1">{!! $newsOpportunityDetails->content_business !!}</p>
+                                </div>
+                              </div>
+
                             </div>
                         </div>
                     </div>

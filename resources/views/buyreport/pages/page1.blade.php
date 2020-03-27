@@ -21,7 +21,7 @@
         {{-- <div class="row p-5">
             &#160;
         </div> --}}
-        <div class="row p-5">
+        <div class="row p-3">
             <div class="col-md-12 text-right">
                 <p  class="h5">PRESENTED BY: PROKAKIS</p>
                 <small class="h6">GENERATED ON: <?php echo date('Y-m-d'); ?></small>

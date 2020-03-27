@@ -553,25 +553,25 @@ class BuyreportController extends Controller {
 		$response_twitter = json_decode($result);
 		curl_close($cSession);
 
-		 // return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+		 return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
-			//       'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+			      'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
 
-			//       'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+			      'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter' , 'reportTrackNumber'));
+			      'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter' , 'reportTrackNumber'));
 
 			  
 
-		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+		// $pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
-			'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+		// 	'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
 
-			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+		// 	'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber'));
+		// 	'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber'));
 
-		return $pdf->download($company_data->company_name . '.pdf');
+		// return $pdf->download($company_data->company_name . '.pdf');
 
 		// return $pdf->download('.pdf');
 
