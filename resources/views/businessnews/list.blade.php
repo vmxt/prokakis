@@ -21,7 +21,7 @@
 
 
     <style>
-        #edit_icon {
+        .edit_icon {
             cursor: pointer;
         }
 
@@ -90,6 +90,13 @@
             text-decoration: none;
         }
 
+        .popup_content{
+            float:left;
+            width:100%;
+            overflow-y: auto;
+            height: 100%;
+        }
+
     </style>
 
     <script src="{{ asset('public/js/app.js') }}"></script>
@@ -127,7 +134,7 @@
                 </div>
             </div>
 
-           <center> <a align="right" id="edit_icon" data-popup-open="popup-2" class="btn btn-outline btn-circle btn-sm blue">
+           <center> <a align="right"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
               ADD NEWS CONTENT </a> </center>
 
             <div id="container" class="table-scrollable">
@@ -154,12 +161,12 @@
                         <td class="wrap"><b><?php echo $data->business_title; ?></b></td>
                         <td><b><?php echo date("F j, Y", strtotime($data->created_at)); ?></b></td>
                         <td>
-                            <a id="edit_icon"  onclick="ajxProcess('<?php echo $data->id; ?>','<?php echo $data->business_title; ?>')"
-                               data-popup-open="popup-1" class="btn btn-outline btn-circle btn-sm blue">
+                            <a   onclick="ajxProcess('<?php echo $data->id; ?>','<?php echo $data->business_title; ?>')"
+                               data-popup-open="popup-1" class="edit_icon btn btn-outline btn-circle btn-sm blue">
                              <i class="fa fa-edit"></i> Edit </a>
                             
-                            <a id="edit_icon"  onclick="ajxDel('<?php echo $data->id; ?>', '<?php echo $data->business_title; ?>')"
-                               class="btn btn-outline btn-circle btn-sm red">
+                            <a   onclick="ajxDel('<?php echo $data->id; ?>', '<?php echo $data->business_title; ?>')"
+                               class=" edit_icon btn btn-outline btn-circle btn-sm red">
                              <i class="fa fa-eraser"></i> Delete </a>
          
                         </td>
@@ -174,7 +181,7 @@
                 </table>
 
             </div>
-            <center> <a align="right" id="edit_icon" data-popup-open="popup-2" class="btn btn-outline btn-circle btn-sm blue">
+            <center> <a align="right"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
                 ADD NEWS CONTENT </a> </center>
 
         </div>
@@ -184,21 +191,25 @@
 
 
     <div class="popup" data-popup="popup-1">
-        <div class="popup-inner">
-
-            <input type="text" id="news_title_update" name="news_title_update" class="form-control" />
-            <input type="hidden" name="newsId" id="newsId" value="">
-            <p>
-                <textarea rows="5" cols="20" id="opportunitiesArea"  name="opportunitiesArea"></textarea>
-
-            </p>
-            <p>
-                <button align="right" id="ajxUpdate" type="button" class="btn btn-primary">Update</button>
-                <button align="right" id="closeBut1" data-popup-close="popup-1" type="button" class="btn btn-danger">Close</button>
-            </p>
-
-            <!--<p><a data-popup-close="popup-1" href="#">Close</a></p>-->
-            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+        <div class=" popup_content popup-inner">
+            <div class="form-group">
+                <input type="text" id="news_title_update" name="news_title_update" class="form-control" />
+                <input type="hidden" name="newsId" id="newsId" value="">
+            </div>
+            <div class="form-group">
+                <label for="feature_image_preview">Feature Image</label>
+                <input type='file' id='feature_img'  class="form-control-file" onchange="readURL(this);" />
+                    <img id="feature_image_preview" src="#" alt="your image" width="250px" style="visibility:  hidden" />
+            </div>
+            <div class="form-group">
+                 <textarea rows="5" cols="20" id="opportunitiesArea"  name="opportunitiesArea"></textarea>
+            </div>
+            <div class="form-group">
+                <p>
+                    <button align="right" id="ajxUpdate" type="button" class="btn btn-primary">Update</button>
+                    <button align="right" id="closeBut1" data-popup-close="popup-1" type="button" class="btn btn-danger">Close</button>
+                </p>
+            </div>
         </div>
     </div>
 
@@ -240,6 +251,17 @@ $(document).ready( function () {
 
 } );
 
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#feature_image_preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+        $('#feature_image_preview').attr('style', 'visibility: true');
+    }
+}
+
 
 function ajxProcess(cId, nTitle){
    
@@ -270,12 +292,13 @@ function ajxProcess(cId, nTitle){
             var newsId = $("#newsId").val();
             var newsTitle = $("#news_title_update").val();
             var newsContent = $("#opportunitiesArea").val();
-         
+            var files = $('#feature_img')[0].files[0];
+
             formData = new FormData();
             formData.append("newsId", newsId);
             formData.append("newsTitle", newsTitle);
             formData.append("newsContent", newsContent);
-
+            formData.append("newsFeatureImage",files);
             $.ajax({
                 url: "{{ route('updateNews') }}",
                 type: "POST",
@@ -283,8 +306,9 @@ function ajxProcess(cId, nTitle){
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 processData: false,
                 contentType: false,
-
+                cache: false,
                 success: function (data) {
+                    console.log(data);
                     $(".popup").hide(250);
                     document.location = "{{ route('businessnewsList') }}"
                 }

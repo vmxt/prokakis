@@ -193,7 +193,7 @@ p {
 }
 
 .profile-page .profile-tabs {
-    margin-top: 4.284rem;
+    margin-top: 5rem;
 }
 
 .nav-pills, .nav-tabs {
@@ -452,29 +452,35 @@ footer p a:hover {
                                 <a href="<?php echo $companyProfile->linkedin; ?>" class="btn btn-just-icon btn-link btn-linkedin"><i class="fa fa-linkedin"></i></a>
                                 <a href="<?php echo $companyProfile->instagram; ?>" class="btn btn-just-icon btn-link btn-instagram"><i class="fa fa-instagram"></i></a>
                                 <a href="<?= $companyProfile->company_email; ?>" class="btn btn-just-icon btn-link btn-envelope"><i class="fa fa-envelope"></i></a>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
               
                 <div class="row">
                     @foreach($businessNewsOpportunity as $key => $newsOpportunityDetails)
-                    <div class="col-md-4 ml-auto mr-auto">
+                    <div class="col-md-4 ml-auto mr-auto  " >
                         <div class="profile-tabs">
                             <div class="card bg-light" >
-                              <img class="card-img-top" src="{{ asset('public/banner/') }}/{{ $profileCoverPhoto }}" alt="Card image cap">
-                              <div class="card-body" >
+                            @if($newsOpportunityDetails->feature_image)
+                                <img class="card-img-top" src="{{ asset('public/company/feature_images/') }}/{{ $newsOpportunityDetails->feature_image }}" alt="Card image cap">
+                            @else
+                                <img class="card-img-top" src="{{ asset('public/banner/') }}/{{ $profileCoverPhoto }}" alt="Card image cap">
+                            @endif
+                              
+                              <div class="card-body " >
                                 <h5 class="card-title"><strong>{{ $newsOpportunityDetails->business_title }}</strong></h5>
                                 <a class="btn btn-raised btn-primary " data-toggle="collapse" href="#content_business_{{ $key }}" role="button" aria-expanded="false" aria-controls="content_business" >Read More</a>
                               </div>
-                              <div class="collapse" id="content_business_{{ $key }}">
-                                <div class="card-body card bg-light" >
-                                    <p class="card-text p-1">{!! $newsOpportunityDetails->content_business !!}</p>
+                                <div class="collapse" id="content_business_{{ $key }}">
+                                    <div class="card-body card bg-light" >
+                                        <p class="card-text p-1">{!! $newsOpportunityDetails->content_business !!}</p>
+                                    </div>
+                          
+                                   <div class="card d-xl-none d-lg-none" >
+                                        <a class="btn btn-raised btn-primary " data-toggle="collapse" href="#content_business_{{ $key }}" role="button" aria-expanded="false" aria-controls="content_business" >Hide</a>
+                                    </div>
                                 </div>
-                              </div>
-
                             </div>
                         </div>
                     </div>

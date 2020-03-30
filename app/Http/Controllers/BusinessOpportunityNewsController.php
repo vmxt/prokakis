@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
 use App\SpentTokens;
+use Validator;
 
 
 class BusinessOpportunityNewsController extends Controller {
@@ -228,22 +229,44 @@ class BusinessOpportunityNewsController extends Controller {
 		if ($request->isMethod('post')) {
 			
 			$user_id = Auth::id();
+
+		    $validation = Validator::make($request->all(), [
+		      'newsFeatureImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+		    ]);
+
+			// $imageName = time().'.'.$request->input('newsFeatureImage')->getClientOriginalExtension();
+		    $feature_image_name = '';
 			$company_id = CompanyProfile::getCompanyId($user_id);
 			
 			$businessnewsArea = $request->input('newsContent');
 			$businessTitle = $request->input('newsTitle');
 			$newsId = $request->input('newsId');
-		
+			if($validation->passes())
+		    {
+				$image = $request->file('newsFeatureImage');
+      			$feature_image_name = $company_id.$user_id.rand() . '.' . $image->getClientOriginalExtension();
+		    }
+
 			$rs = BusinessOpportunitiesNews::where('id', $newsId)->where('company_id', $company_id)->where('user_id', $user_id)->first();
 
 			if($rs != null){
 				$rs->business_title = $businessTitle;
 				$rs->content_business = $businessnewsArea;
+				$rs->feature_image = $feature_image_name;
 				$rs->save();
+
+				if($validation->passes())
+		    	{
+					$image->move(public_path('company/feature_images'), $feature_image_name);
+		    	}else{
+		    		return response()->json([
+				       'message'   => $validation->errors()->all(),
+				       'uploaded_image' => '',
+				       'class_name'  => 'alert-danger'
+				      ]);
+		    	}
 			}
-
 		}
-
 	}
 
 
