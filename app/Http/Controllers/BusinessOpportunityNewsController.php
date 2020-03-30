@@ -10,6 +10,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\SpentTokens;
 use Validator;
+use File;
 
 
 class BusinessOpportunityNewsController extends Controller {
@@ -250,14 +251,18 @@ class BusinessOpportunityNewsController extends Controller {
 			$rs = BusinessOpportunitiesNews::where('id', $newsId)->where('company_id', $company_id)->where('user_id', $user_id)->first();
 
 			if($rs != null){
+				$filename = public_path('company/feature_images/'). $rs->feature_image;
 				$rs->business_title = $businessTitle;
 				$rs->content_business = $businessnewsArea;
 				$rs->feature_image = $feature_image_name;
 				$rs->save();
 
 				if($validation->passes())
-		    	{
-					$image->move(public_path('company/feature_images'), $feature_image_name);
+		    	{	
+		    		if(File::exists($filename)) {
+						File::delete($filename);
+		    		}
+		    		$image->move(public_path('company/feature_images'), $feature_image_name);
 		    	}else{
 		    		return response()->json([
 				       'message'   => $validation->errors()->all(),
