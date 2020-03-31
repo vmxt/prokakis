@@ -98,6 +98,7 @@ Route::post('/businessnews/store', 'BusinessOpportunityNewsController@store')->n
 Route::post('/businessnews/save', 'BusinessOpportunityNewsController@saveNews')->name('saveBusinessNews');
 Route::post('/businessnews/del', 'BusinessOpportunityNewsController@delNews')->name('delBusinessNews');
 Route::get('/businessnews/retcontent/{id}', 'BusinessOpportunityNewsController@retNewsContent')->name('retNewsContent');
+Route::get('/businessnews/retNewsDetails/{id}', 'BusinessOpportunityNewsController@retNewsDetails')->name('retNewsDetails');
 Route::post('/businessnews/update', 'BusinessOpportunityNewsController@updateNews')->name('updateNews');
 
 //opportunities

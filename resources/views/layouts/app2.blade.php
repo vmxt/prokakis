@@ -45,6 +45,6 @@
   
     @yield('javascript')
 </body>
-
+        @yield('modal')
 
 </html>

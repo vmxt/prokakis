@@ -432,7 +432,7 @@ class CompanyprofileController extends Controller {
 
 		//$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id',$user_id)->where('company_id', $company_id_result)->first();
 
-		$businessNewsOpportunity = BusinessOpportunitiesNews::all();
+		$businessNewsOpportunity = BusinessOpportunitiesNews::orderBy('updated_at','desc')->limit(10)->get();
 
 		return view('profile.view', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 

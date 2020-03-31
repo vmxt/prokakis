@@ -7,7 +7,32 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
     <link rel="stylesgeet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+@endsection
 
+@section('modal')
+   @foreach($businessNewsOpportunity as $key => $newsOpportunityDetails)
+    <div class="modal fade " id="content_business_modal{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="ContentBusinessNews" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ContentBusinessNews">{{ $newsOpportunityDetails->business_title }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="card-text p-1">{!! $newsOpportunityDetails->content_business !!}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-raised btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endforeach
 @endsection
 
 @section('content')
@@ -460,27 +485,34 @@ footer p a:hover {
                 <div class="row">
                     @foreach($businessNewsOpportunity as $key => $newsOpportunityDetails)
                     <div class="col-md-4 ml-auto mr-auto  " >
-                        <div class="profile-tabs">
-                            <div class="card bg-light" >
+                        <div class="profile-tabs" style="height: 90%">
+                            <div class="card bg-light h-100" >
                             @if($newsOpportunityDetails->feature_image)
-                                <img class="card-img-top" src="{{ asset('public/company/feature_images/') }}/{{ $newsOpportunityDetails->feature_image }}" alt="Card image cap">
+                                <img width="300px" height="200px" class="card-img-top" src="{{ asset('public/company/feature_images/') }}/{{ $newsOpportunityDetails->feature_image }}" alt="Card image cap">
                             @else
-                                <img class="card-img-top" src="{{ asset('public/banner/') }}/{{ $profileCoverPhoto }}" alt="Card image cap">
+                                <img width="300px" height="200px" class="card-img-top" src="{{ asset('public/banner/') }}/{{ $profileCoverPhoto }}" alt="Card image cap">
                             @endif
                               
                               <div class="card-body " >
                                 <h5 class="card-title"><strong>{{ $newsOpportunityDetails->business_title }}</strong></h5>
-                                <a class="btn btn-raised btn-primary " data-toggle="collapse" href="#content_business_{{ $key }}" role="button" aria-expanded="false" aria-controls="content_business" >Read More</a>
                               </div>
-                                <div class="collapse" id="content_business_{{ $key }}">
+                              <div class="card-footer card bg-light ">
+                          
+                                   <button type="button" class="btn btn-raised btn-info " data-toggle="modal" data-target="#content_business_modal{{ $key }}">
+                                    Read More
+                                    </button>
+                       
+{{--                                 <a class="btn btn-raised btn-primary  d-sm-none d-md-none" data-toggle="collapse" href="#content_business_{{ $key }}" role="button" aria-expanded="false" aria-controls="content_business" >Read More2</a> --}}
+                              </div>
+                     
+{{--                                 <div class="collapse  d-sm-none d-md-none" id="content_business_{{ $key }}">
                                     <div class="card-body card bg-light" >
                                         <p class="card-text p-1">{!! $newsOpportunityDetails->content_business !!}</p>
                                     </div>
-                          
-                                   <div class="card d-xl-none d-lg-none" >
+                                   <div class="card" >
                                         <a class="btn btn-raised btn-primary " data-toggle="collapse" href="#content_business_{{ $key }}" role="button" aria-expanded="false" aria-controls="content_business" >Hide</a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -755,17 +787,15 @@ var BrowserDetect = {
 
 @section('javascript')
     <!-- bootstrap 4.1 -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-    <!-- <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script> -->
 
-    <script src="{{asset('public/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
+    {{-- <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script> --}}
+
+{{--     <script src="{{asset('public/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
     <script src="{{asset('public/assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
-    <script src="{{asset('public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script> --}}
 
 @endsection
 

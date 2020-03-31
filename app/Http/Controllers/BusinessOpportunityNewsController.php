@@ -139,6 +139,17 @@ class BusinessOpportunityNewsController extends Controller {
 				return $bn->content_business;
 			}
 		}
+	}
+
+	public function retNewsDetails(Request $request){
+
+		if($request->isMethod('get')) {
+			$id = $request['id'];
+			$bn = BusinessOpportunitiesNews::find($id);
+			if($bn != null){
+				return $bn;
+			}
+		}
 
 
 	}
@@ -166,8 +177,21 @@ class BusinessOpportunityNewsController extends Controller {
 		if ($request->isMethod('post')) {
 			
 			$user_id = Auth::id();
+
+			$validation = Validator::make($request->all(), [
+		      'newsFeatureImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+		    ]);
+
+
 			$company_id = CompanyProfile::getCompanyId($user_id);
 			
+			$feature_image_name = "";
+			if($validation->passes())
+		    {
+				$image = $request->file('newsFeatureImage');
+      			$feature_image_name = $company_id.$user_id.rand() . '.' . $image->getClientOriginalExtension();
+		    }
+
 			$businessnewsArea = $request->input('newsContent');
 			$businessTitle = $request->input('newsTitle');
 
@@ -176,7 +200,6 @@ class BusinessOpportunityNewsController extends Controller {
 			$countNews = 0;
 
 			if($token == false){ //free account
-
 				$countNews = BusinessOpportunitiesNews::where('company_id', $company_id)->where('status', 1)->count();
 
 				if($countNews < 10){
@@ -193,6 +216,8 @@ class BusinessOpportunityNewsController extends Controller {
 						'created_at' => date('Y-m-d'),
 
 						'status' => '1',
+
+						'feature_image' => $feature_image_name
 
 					]);
 				} else {
@@ -216,13 +241,16 @@ class BusinessOpportunityNewsController extends Controller {
 
 					'status' => '1',
 
+					'feature_image' => $feature_image_name
+
 				]);
 
 			}	
-
-
+			if($validation->passes())
+		    {
+				$image->move(public_path('company/feature_images'), $feature_image_name);
+		    }
 		}
-
 	}
 
 	public function updateNews(Request $request){
@@ -236,20 +264,22 @@ class BusinessOpportunityNewsController extends Controller {
 		    ]);
 
 			// $imageName = time().'.'.$request->input('newsFeatureImage')->getClientOriginalExtension();
-		    $feature_image_name = '';
+		    
 			$company_id = CompanyProfile::getCompanyId($user_id);
 			
 			$businessnewsArea = $request->input('newsContent');
 			$businessTitle = $request->input('newsTitle');
 			$newsId = $request->input('newsId');
+
+
+			$rs = BusinessOpportunitiesNews::where('id', $newsId)->where('company_id', $company_id)->where('user_id', $user_id)->first();
+			$feature_image_name = $rs->feature_image;
 			if($validation->passes())
 		    {
 				$image = $request->file('newsFeatureImage');
       			$feature_image_name = $company_id.$user_id.rand() . '.' . $image->getClientOriginalExtension();
 		    }
-
-			$rs = BusinessOpportunitiesNews::where('id', $newsId)->where('company_id', $company_id)->where('user_id', $user_id)->first();
-
+			
 			if($rs != null){
 				$filename = public_path('company/feature_images/'). $rs->feature_image;
 				$rs->business_title = $businessTitle;

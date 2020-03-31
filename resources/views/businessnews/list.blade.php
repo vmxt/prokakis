@@ -195,11 +195,14 @@
             <div class="form-group">
                 <input type="text" id="news_title_update" name="news_title_update" class="form-control" />
                 <input type="hidden" name="newsId" id="newsId" value="">
+                <input type="hidden" name="public_path" id="public_path" value="{{ asset('public/company/feature_images/') }}/">
             </div>
             <div class="form-group">
-                <label for="feature_image_preview">Feature Image</label>
-                <input type='file' id='feature_img'  class="form-control-file" onchange="readURL(this);" />
-                    <img id="feature_image_preview" src="#" alt="your image" width="250px" style="visibility:  hidden" />
+                <label for="feature_image_preview_edit">Feature Image</label>
+                <input type='file' id='feature_img'  class="form-control-file" onchange="readURL(this,'feature_image_preview_edit');" />
+                    <img id="feature_image_preview_edit" src="#" alt="feature image" width="250px" style="visibility:  hidden" />
+            </div>
+            <div class="form-group" id="load_feature_image">
             </div>
             <div class="form-group">
                  <textarea rows="5" cols="20" id="opportunitiesArea"  name="opportunitiesArea"></textarea>
@@ -215,20 +218,27 @@
 
 
     <div class="popup" data-popup="popup-2">
-        <div class="popup-inner">
-
-            <input type="text" id="news_title" class="form-control" placeholder="News Title" />
-            <p>
+        <div class="popup_content popup-inner">
+            <div class="form-group">
+                 <input type="text" id="news_title" class="form-control" placeholder="News Title" />
+            </div>
+            <div class="form-group">
+                <label for="feature_image_preview_save">Feature Image</label>
+                <input type='file' id='feature_img2'  class="form-control-file" onchange="readURL(this,'feature_image_preview_save');" />
+                    <img id="feature_image_preview_save" src="#" alt="feature image" width="250px" style="visibility:  hidden" />
+            </div>
+            <div class="form-group">
+                <p>
                 <textarea rows="5" cols="20" class="form-control" name="businessnewsArea" id="businessnewsArea"></textarea>
-            </p>
-            <p>
+                </p>
+           </div>
+            <div class="form-group">
+                <p>
                 <button align="right" id="ajxSave" type="button" class="btn btn-primary">Save</button>
                 <button align="right" id="closeBut2" data-popup-close="popup-2" type="button" class="btn btn-danger">Close</button>
-                
-            </p>
-
-        
-            <a class="popup-close" data-popup-close="popup-2" href="#">x</a>
+                </p>
+            </div>
+            {{-- <a class="popup-close" data-popup-close="popup-2" href="#">x</a> --}}
         </div>
     </div>
 
@@ -251,14 +261,15 @@ $(document).ready( function () {
 
 } );
 
-function readURL(input) {
+function readURL(input,id) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#feature_image_preview').attr('src', e.target.result);
+            $('#'+id).attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
-        $('#feature_image_preview').attr('style', 'visibility: true');
+        $('#load_feature_image').hide();
+        $('#'+id).attr('style', 'visibility: true');
     }
 }
 
@@ -267,18 +278,20 @@ function ajxProcess(cId, nTitle){
    
         $("#newsId").val(cId);
         $("#news_title_update").val(nTitle);
-
+        var path = $("#public_path").val()
         $.ajax({
-            url: "{{ url('/businessnews/retcontent/') }}"+"/"+cId,
+            url: "{{ url('/businessnews/retNewsDetails/') }}"+"/"+cId,
             type: "GET",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             processData: false,
             contentType: false,
 
             success: function (data) {
-                console.log(data);
-               
-                tinymce.get("opportunitiesArea").setContent(data);
+                console.log( path+data.feature_image);
+                $('<img src="'+ path+data.feature_image +'">').load(function() {
+                  $(this).width('250px').appendTo('#load_feature_image');
+                });
+                tinymce.get("opportunitiesArea").setContent(data.content_business);
 
             }
         });
@@ -320,10 +333,12 @@ function ajxProcess(cId, nTitle){
             tinyMCE.triggerSave();
             var newsTitle = $("#news_title").val();
             var newsContent = $.trim($("textarea#businessnewsArea").val());
-          
+            var files = $('#feature_img2')[0].files[0];
+
             formData = new FormData();
             formData.append("newsTitle", newsTitle);
             formData.append("newsContent", newsContent);
+            formData.append("newsFeatureImage",files);
        
             $.ajax({
                 url: "{{ route('saveBusinessNews') }}",
@@ -332,7 +347,7 @@ function ajxProcess(cId, nTitle){
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 processData: false,
                 contentType: false,
-
+                cache: false,
                 success: function (data) {
                   console.log(data);
                    $("#news_title").val('');
