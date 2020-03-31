@@ -1046,9 +1046,11 @@ class CompanyprofileController extends Controller {
 
 				$date_of_birth = $request->input("date_of_birth");
 
-				$date_dob = date_create($date_of_birth);
+				// $date_dob = date_create($date_of_birth);
+				
+				// $dob = date_format($date_dob, "Y-m-d");
 
-				$dob = date_format($date_dob, "Y-m-d");
+				$dob = $date_of_birth;
 
 				$user_id = $request->input("user_id");
 

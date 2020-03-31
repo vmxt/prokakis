@@ -14,6 +14,10 @@
 
 
 
+    <link rel="stylesheet" href="{{asset('public/css/edit-profile.css')}}">
+
+
+
 
 
 <style>
@@ -205,6 +209,12 @@
         }
 
 
+        .popup-inner{
+            float:left;
+            width:100%;
+            overflow-y: auto;
+            height: 95%;
+        }
 
 </style>
 
@@ -1549,21 +1559,36 @@
 
 
 
+
                                         <div class="form-group">
-
+                                            <div class="col-12">
+                                            <?php 
+                                            if(isset($company_data->financial_year_end)){
+                                                if(strpos($company_data->financial_year_end, "/") !== false){
+                                                    $date = explode('/', $company_data->financial_year_end); 
+                                                    $new_date = $date[2]."-".$date[0]."-".$date[1];
+                                                }else{
+                                                    $date = explode('-', $company_data->financial_year_end); 
+                                                    $new_date = $company_data->financial_year_end;
+                                                }
+                                            }
+                                            ?>
+                                            <input type="hidden" id="default_financial_year_end" 
+                                             value="{{ $new_date }}" >
                                             <label for="financial_year_end">Financial Year End</label>
-
-                                            <input type="text" class="form-control" id="financial_year_end"
-
-                                                   name="financial_year_end"
-
-                                                   value="<?php if (isset($company_data->financial_year_end)) {
-
-                                                       echo $company_data->financial_year_end;
-
-                                                   } ?>">
-
+                                            </div>  
                                         </div>
+                                        <div class="form-group example">
+                                            <div class="col-12">
+                                            <input type="text" class="form-control" id="financial_year_end"
+                                                   name="financial_year_end"
+                                                   value="<?php if (isset($company_data->financial_year_end)) {
+                                                       echo $company_data->financial_year_end;
+                                                   } ?>">
+                                            </div>  
+                                        </div>
+
+
 
 
 
@@ -3547,7 +3572,7 @@
 
 
             <div class="form-group">
-
+                <label>First Name: </label>
                 <input class="form-control" type="text" id="first_name_km" placeholder="First Name"/></h4>
 
             </div>
@@ -3555,7 +3580,7 @@
 
 
             <div class="form-group">
-
+                <label>Last Name: </label>
                 <input class="form-control" type="text" id="last_name_km" placeholder="Last Name"/></h4>
 
             </div>
@@ -3563,7 +3588,7 @@
 
 
             <div class="form-group">
-
+                <label>Identification / Passport: </label>
                 <input class="form-control" type="text" id="idn_passport_km"
 
                        placeholder="Identification / Passport"/></h4>
@@ -3573,23 +3598,29 @@
 
 
             <div class="form-group">
-
+                <label>Nationality</label>
                 <input class="form-control" type="text" id="nationality_km" placeholder="Nationality"/></h4>
 
             </div>
 
 
-
+         
             <div class="form-group">
-
-                <input class="form-control" type="text" id="datepicker_dob" placeholder="Date Of Birth"/></h4>
-
+                <div class="col-12">
+                <input type="hidden" id="default_datepicker_dob"  >
+                <label for="datepicker_dob">Date Of Birth</label>
+                </div>  
+            </div>
+            <div class="form-group example">
+                <div class="col-12">
+                <input type="text" class="form-control" id="datepicker_dob"
+                       name="datepicker_dob" >
+                </div>  
             </div>
 
 
-
             <div class="form-group">
-
+                <label>Majority Shareholder</label>
                 <input class="form-control" type="text" onblur="addPercent()" id="shareholder_km"
 
                        placeholder="Majority Shareholder"/></h4>
@@ -3599,7 +3630,7 @@
 
 
             <div class="form-group">
-
+                <label>Position</label>
                 <input class="form-control" type="text" id="position_km" placeholder="Position"/></h4>
 
             </div>
@@ -3623,22 +3654,15 @@
 
 
             <div class="form-group">
-
-                <p>
-
-                    <button style="float:right;" id="ajxUpdateKM" type="button" class="btn btn-outline-primary">Save
-
-                    </button>
-
-                </p>
-
+              <div class="modal-footer">
+                <button type="button" class="btn btn-raised btn-secondary" data-popup-close="popup-1" >Close</button>
+                <button type="button" class="btn btn-raised btn-success" id="ajxUpdateKM">Save</button>
+              </div>
             </div>
-
-
 
             <!--<p><a data-popup-close="popup-1" href="#">Close</a></p>-->
 
-            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+            {{-- <a class="popup-close" data-popup-close="popup-1" href="#">x</a> --}}
 
         </div>
 
@@ -3963,9 +3987,9 @@
 
             $("#tabs").tabs();
 
-            $("#datepicker_dob").datepicker();
+            // $("#datepicker_dob").datepicker();
 
-            $("#financial_year_end").datepicker();
+            // $("#financial_year_end").datepicker();
 
 
 
@@ -4033,8 +4057,6 @@
 
             var kmid = $("#km_id").val();
 
-
-
             formData = new FormData();
 
             formData.append("km_id", kmid);
@@ -4058,7 +4080,6 @@
             formData.append("is_directorship", isDirectorship);
 
             formData.append("position", position);
-
 
 
             $.ajax({
@@ -4191,7 +4212,7 @@
 
                     $("#nationality_km").val(data.nationality);
 
-                    $("#datepicker_dob").val(data.date_of_birth);
+                    $("#default_datepicker_dob").val( data.date_of_birth) ;
 
                     $("#shareholder_km").val(data.shareholder);
 
@@ -4201,9 +4222,7 @@
 
                     $("input[name=is_directorship]").val([data.is_directorship]);
 
-
-
-
+                    dropDateKM();
 
                 }
 
@@ -4225,7 +4244,7 @@
 
             $("#nationality_km").val('');
 
-            $("#datepicker_dob").val('');
+            $("#default_datepicker_dob").val('');
 
             $("#shareholder_km").val('');
 
@@ -4236,6 +4255,8 @@
             $("input[name=is_directorship]").val([]);
 
             $("#km_id").val(0);
+
+            dropDateKM();
 
         }
 
@@ -4306,7 +4327,6 @@
         }
 
 
-
         function editExpirydate(strExpiry)
 
         {
@@ -4317,6 +4337,13 @@
 
         }
 
+        function dropDateKM(){
+                var default_datepicker_dob = $("#default_datepicker_dob").val();
+                $("#datepicker_dob").dateDropdowns({
+                    defaultDate: default_datepicker_dob,
+                    required: true
+                });
+        }
 
         /*$("#description").keyup(function(){
             $("#count").text((500 - $(this).val().length));
@@ -4330,9 +4357,27 @@
         });
 
 
-
     </script>
 
+<script>
+            $(function() {
+                var default_financial_year = $("#default_financial_year_end").val();
+                $("#financial_year_end").dateDropdowns({
+                    defaultDate: default_financial_year,
+                    required: true
+                });
+                
+                // Set all hidden fields to type text for the demo
+                // $('input[type="hidden"]').attr('type', 'text').attr('readonly', 'readonly');
+            });
+        </script>
 
+{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
+    {{-- <script src="{{ asset('public/drop-date/date.format.js') }}"></script> --}}
+    {{-- <script src="{{ asset('public/drop-date/jquery-dropdate.js') }}"></script> --}}
+    {{-- <script src="{{ asset('public/drop-date/jquery.date-dropdowns.min.js') }}"></script> --}}
 
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
+
+    <script src="{{ asset('public/drop-date/jquery.date-dropdowns.js') }}"></script>
 @endsection
