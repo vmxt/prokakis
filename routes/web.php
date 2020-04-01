@@ -17,6 +17,8 @@ Route::get('/', function () {
 Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D5C3D8', 'TestController@index')->name('testMail');
 Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsubscribeMe');
 
+Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken');
+
 //for social media. public usage
 Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing');
 Route::get('/fbshare/{id}/{brand}', 'FbshareController@shareOnFB')->name('fbcompanyshare');
@@ -48,6 +50,9 @@ Route::post('/thomsonreuters/search', 'CompanyprofileController@searchThomsonReu
 Route::get('/thomson-getNationality', 'ThomsonController@getNationality')->name('getNationality');
 Route::get('/thomson-getCountryLocation', 'ThomsonController@getCountryLocation')->name('getCountryLocation');
 Route::get('/thomson-print/{id}', 'ThomsonController@printPreview')->name('printPreview');
+Route::post('/tr-tagging', 'ThomsonController@trProcess')->name('trTagging');
+Route::post('/tr-deleting', 'ThomsonController@trDelete')->name('trDeleting');
+Route::get('/thomson-pdfprint/{ids}', 'ThomsonController@pdfPrintDownload')->name('downloadPdf');
 
 //dashboard
 Route::get('/home', 'HomeController@index')->name('home');
@@ -183,6 +188,8 @@ Route::get('/sysconfig/assignConsultants', 'ConfigurationController@assignConsul
 Route::post('/sysconfig/storeConsultants', 'ConfigurationController@storeConsultants')->name('storeConsultants');
 Route::post('/sysconfig/editConsultants', 'ConfigurationController@editConsultants')->name('editConsultants');
 Route::post('/sysconfig/delConsultants', 'ConfigurationController@delConsultants')->name('delConsultants');
+Route::get('/sysconfig/reportTemplate', 'ConfigurationController@reportGenTemplates')->name('reportTemplates');
+Route::post('/sysconfig/reportupdate', 'ConfigurationController@reportUpdate')->name('rep_update');
 
 //mailbox
 Route::get('/mailbox/list', 'MailboxController@list')->name('mailList');

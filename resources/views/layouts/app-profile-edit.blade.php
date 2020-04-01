@@ -969,6 +969,10 @@
                                                     <a href="{{url('/sysconfig/assignConsultants')}}" class="nav-link  ">
                                                         Consultant Mapping</a>
                                                 </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/sysconfig/reportTemplate')}}" class="nav-link  ">
+                                                        Configure Report Templates</a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">

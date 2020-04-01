@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CompanyProfile;
 use App\Configurations;
+use App\ReportGenerationTemplate;
 use App\ConsultantMapping;
 use App\Countries;
 use App\Http\Controllers\Controller;
@@ -33,6 +34,17 @@ class ConfigurationController extends Controller {
 		return view('sysconfig.index', compact('rs'));
 	}
 
+	public function reportGenTemplates() {
+		if (User::securePage(Auth::id()) != 5) {
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+
+		$rs = ReportGenerationTemplate::all();
+		return view('sysconfig.reportGenerationManager', compact('rs'));
+	}
+
+
+
 	public function update(Request $request) {
 		if ($request->isMethod('post')) {
 			if ($request->ajax()) {
@@ -45,6 +57,22 @@ class ConfigurationController extends Controller {
 				$rs->description = trim($up_desc);
 				$rs->json_value = trim($up_json);
 				$rs->edited_by = Auth::id();
+				$rs->save();
+
+			}
+		}
+	}
+
+	public function reportUpdate(Request $request) {
+		if ($request->isMethod('post')) {
+			if ($request->ajax()) {
+
+				$up_id = $request['config_id'];
+				$up_desc = $request['config_desc'];
+				$content = $request['content'];
+
+				$rs = ReportGenerationTemplate::find($up_id);
+				$rs->content = trim($content);
 				$rs->save();
 
 			}

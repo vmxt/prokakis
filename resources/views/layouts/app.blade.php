@@ -314,7 +314,17 @@ s0.parentNode.insertBefore(s1,s0);
                                                 }
                                                 ?>
 
-                                                <span class="username username-hide-mobile"><?php echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?></span>
+                                                <span class="username username-hide-mobile"><?php
+                        $user_id = Auth::id();
+                                                $company_id_result = App\CompanyProfile::getCompanyId($user_id);
+                                                $accStatus = '';
+                                                if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){
+                                                    $accStatus = '<b>FREE</b> ACCOUNT';   
+                                                } else{
+                                                    $accStatus = '<b>PREMIUM</b> ACCOUNT'; 
+                                                } 
+                
+                                              echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?> (<?php echo $accStatus; ?>)</span>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-default">
                                                 <li>
@@ -348,7 +358,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <i class="icon-rocket"></i> Referrals </a>
                                                 </li>
 
-						<li>
+                        <li>
 
                                                     <a href="{{ route('createReferals') }}" >
                                                         <i class="icon-heart"></i> Share to Friend </a>
@@ -691,6 +701,10 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/sysconfig/assignConsultants')}}" class="nav-link  ">
                                                         Consultant Mapping</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/sysconfig/reportTemplate')}}" class="nav-link  ">
+                                                        Configure Report Templates</a>
                                                 </li>
                                             </ul>
                                         </li>
