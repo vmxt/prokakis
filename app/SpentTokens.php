@@ -5,6 +5,7 @@ namespace App;
 use App\Buytoken;
 use App\CompanyProfile;
 use Illuminate\Database\Eloquent\Model;
+use App\PromotionToken;
 
 class SpentTokens extends Model {
 
@@ -28,28 +29,55 @@ class SpentTokens extends Model {
 		'id',
 	];
 
+	// int token left
+	// false 0 token left
 	public static function validateLeftBehindToken($companyId) {
-		//$company = CompanyProfile::find($companyId);
-		//if ( $company->count() > 0 && $company->user_id != 0) {
-
+			
 			$inTokens = Buytoken::where('company_id', $companyId)->sum('num_tokens');
 			$outTokens = SpentTokens::where('company_id', $companyId)->sum('num_tokens');
-		
+			
+				$result = (int)($inTokens - $outTokens);
+				if ($result > 0) {
 
+					if(SpentTokens::validateAccountActivation($companyId) == true){
+						return $result;
+					} else {
+						return false;
+					}	
+
+				} else {
+					return false;
+				}
+	}
+
+	public static function validateTokenStocks($companyId) {
+			
+		$inTokens = Buytoken::where('company_id', $companyId)->sum('num_tokens');
+		$outTokens = SpentTokens::where('company_id', $companyId)->sum('num_tokens');
+		
 			$result = (int)($inTokens - $outTokens);
 			if ($result > 0) {
-				return $result;
+					return $result;
 			} else {
 				return false;
 			}
-		//}
+}
 
+	//true is activated and premium
+	//false is not premium
+	public static function validateAccountActivation($companyId){
+		$c_promo = PromotionToken::where('company_id', $companyId)->where('remarks', 'UPGRADE-TO-PREMIUM')->count();
+		if($c_promo > 0 ){
+			return true;
+		} else{
+			return false;
+		}
 	}
 
 	public static function spendTokenByrequest($requestId, $companyId, $userId, $numTokens) {
 		$req = RequestReport::find($requestId);
 
-		if ( $req->count() > 0) {
+		if ( $req != null) {
 			SpentTokens::create([
 				'company_id' => $companyId,
 				'user_id' => $userId,
@@ -61,15 +89,13 @@ class SpentTokens extends Model {
 
 	}
 
-	public static function spendTokenByPremium($remarks, $companyId, $userId, $numTokens) {
+	public static function spendTokenGeneral($remarks, $companyId, $userId, $numTokens) {
 	
 			SpentTokens::create([
 				'company_id' => $companyId,
 				'user_id' => $userId,
 				'num_tokens' => $numTokens,
 				'remarks'	 => $remarks,
-				'token_startdate', 
-				'token_enddate',
 				'created_at' => date('Y-m-d'),
 			]);
 	

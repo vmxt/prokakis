@@ -292,8 +292,11 @@ class BuyreportController extends Controller {
 					GeneratedReport::reportSave($req_app->requester_company_id, $req_app->company_id, $req->id); //log the report generated
 
 					if ($ok) {
+						
+						$ra_processed = ProcessedReport::getProcessedReportByApprovalId($req_app->id);
+						return BuyreportController::generateReportDownload($ra_processed);
 
-						return $pdf->download($company_data->company_name . '.pdf');
+						//return $pdf->download($company_data->company_name . '.pdf');
 
 					}
 
@@ -526,7 +529,9 @@ class BuyreportController extends Controller {
 
 		$urlFB = url('/company') . '/' . $brand_slogan[0] . '/' . time();
 
-		$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
+		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
+		$keyPersons = KeyManagement::where('company_id', $proc->source_company_id)->where('user_id', $user_id)->where('status', 1)->get();
+
 
 		//----Thomson Reuters data------//
 		$count_tr = TR_reportgeneration::where('request_id', $approval->req_rep_id)->count(); //count the records

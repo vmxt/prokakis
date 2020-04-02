@@ -327,6 +327,12 @@ s0.parentNode.insertBefore(s1,s0);
                                               echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?> (<?php echo $accStatus; ?>)</span>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-default">
+
+						<li>
+                                                    <a href="{{ route('getTokenActivated') }}">
+                                                        <i class="icon-wrench"></i> Account and Token </a>
+                                                </li>	
+
                                                 <li>
 
                                                     <a href="{{ route('viewingProfile') }}">

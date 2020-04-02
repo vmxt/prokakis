@@ -34,6 +34,7 @@ Route::get('/register-ref/{userId}', 'CompanyController@showRefRegistrationForm'
 Route::get('/alertedRecords', 'AlertedrecordsController@index')->name('alertedRecordsIndex');
 
 Route::get('/getCompanyNames', 'HomeController@getCompany')->name('getCompanyByNames');
+Route::get('/token-confirm-index', 'TokenConfirmController@index')->name('getTokenActivated');
 
 
 //superadmin

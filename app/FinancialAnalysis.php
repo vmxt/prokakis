@@ -64,7 +64,7 @@ class FinancialAnalysis extends Model {
 		if ($data["fa_month1"] != '0' && $data["fa_year1"] != '0') {
 			$fa1 = FinancialAnalysis::where('entry', 1)->where('user_id', $userId)->first();
 
-			if ($fa1->count() > 0) {
+			if ($fa1 != null) {
 				$fa1->year_param = $data["fa_year1"];
 				$fa1->month_param = $data["fa_month1"];
 				$fa1->income = $data["income1"];
@@ -113,7 +113,7 @@ class FinancialAnalysis extends Model {
 					$ReturnOfEquity = $fa->ReturnOfEquity($data["share_capita1"], $data["income1"]);
 
 					$far1 = FA_Results::where('user_id', $userId)->where('fk_fa_id', $fa1->id)->first();
-					if ( $far1->count() > 0) {
+					if ( $far1 != null ) {
 						$far1->year_param = $data["fa_year1"];
 						$far1->month_param = $data["fa_month1"];
 						$far1->receivable_turnover = $ReceivableTurnover;
@@ -227,7 +227,7 @@ class FinancialAnalysis extends Model {
 		if ($data["fa_month2"] != "0" && $data["fa_year2"] != "0") {
 			$fa2 = FinancialAnalysis::where('entry', 2)->where('user_id', $userId)->first();
 
-			if ( $fa2->count() > 0) {
+			if ( $fa2 != null ) {
 
 				$fa2->year_param = $data["fa_year2"];
 				$fa2->month_param = $data["fa_month2"];
@@ -277,7 +277,7 @@ class FinancialAnalysis extends Model {
 					$ReturnOfEquity = $fa->ReturnOfEquity($data["share_capita2"], $data["income2"]);
 
 					$far2 = FA_Results::where('user_id', $userId)->where('fk_fa_id', $fa2->id)->first();
-					if ($far2->count() > 0) {
+					if ($far2 != null) {
 						$far2->year_param = $data["fa_year2"];
 						$far2->month_param = $data["fa_month2"];
 						$far2->receivable_turnover = $ReceivableTurnover;
@@ -394,7 +394,7 @@ class FinancialAnalysis extends Model {
 		if ($data["fa_month3"] != "0" && $data["fa_year3"] != "0") {
 
 			$fa3 = FinancialAnalysis::where('entry', 3)->where('user_id', $userId)->first();
-			if ($fa3->count() > 0) {
+			if ($fa3 != null ) {
 
 				$fa3->year_param = $data["fa_year3"];
 				$fa3->month_param = $data["fa_month3"];
@@ -444,7 +444,7 @@ class FinancialAnalysis extends Model {
 					$ReturnOfEquity = $fa->ReturnOfEquity($data["share_capita3"], $data["income3"]);
 
 					$far3 = FA_Results::where('user_id', $userId)->where('fk_fa_id', $fa3->id)->first();
-					if ($far3->count() > 0) {
+					if ($far3 != null) {
 						$far3->year_param = $data["fa_year3"];
 						$far3->month_param = $data["fa_month3"];
 						$far3->receivable_turnover = $ReceivableTurnover;
@@ -562,7 +562,7 @@ class FinancialAnalysis extends Model {
 
 			$fa4 = FinancialAnalysis::where('entry', 4)->where('user_id', $userId)->first();
 
-			if ($fa4->count() > 0) {
+			if ($fa4 != null ) {
 				$fa4->year_param = $data["fa_year4"];
 				$fa4->month_param = $data["fa_month4"];
 				$fa4->income = $data["income4"];
@@ -611,7 +611,7 @@ class FinancialAnalysis extends Model {
 					$ReturnOfEquity = $fa->ReturnOfEquity($data["share_capita4"], $data["income4"]);
 
 					$far4 = FA_Results::where('user_id', $userId)->where('fk_fa_id', $fa4->id)->first();
-					if ($far4->count() > 0) {
+					if ($far4 != null ) {
 						$far4->year_param = $data["fa_year4"];
 						$far4->month_param = $data["fa_month4"];
 						$far4->receivable_turnover = $ReceivableTurnover;

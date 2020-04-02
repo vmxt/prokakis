@@ -196,7 +196,7 @@ class HomeController extends Controller {
 
 		//add the promtion button
 		//$promo = CompanyProfile::checkOppotunityCreation($company_id_result);
-		$c_promo = PromotionToken::where('company_id', $company_id_result)->where('remarks', 'ONE-TOKEN')->count();
+		$c_promo = PromotionToken::where('company_id', $company_id_result)->where('remarks', 'UPGRADE-TO-PREMIUM')->count();
 
 
 

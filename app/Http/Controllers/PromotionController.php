@@ -59,91 +59,43 @@ class PromotionController extends Controller {
 
     }
 
-    
-
-
-
     public function addToken(){
 
         $user_id = Auth::id();
-
         $company_id = CompanyProfile::getCompanyId($user_id);
 
-        if( SpentTokens::validateLeftBehindToken($company_id) != false ){ 
-
-            return redirect('/home')->with('message', 'You are not elligble for this promotion. ');
-            exit;
-
-        }
-
-        
-        /*
-        $promo = CompanyProfile::checkOppotunityCreation($company_id);
-        if($promo == false){
-            return redirect('/home')->with('message', 'You are not elligble for this promotion. ');
-            exit;
-        }*/
-
-
-
-        $c_promo = PromotionToken::where('company_id', $company_id)->where('remarks', 'ONE-TOKEN')->count();
-        if($c_promo > 0){
-            return redirect('/home')->with('message', 'You alredy taken up this promotion. ');
+        if(SpentTokens::validateTokenStocks($company_id) == false){ 
+            return redirect('/reports/buyTokens')->with('message', 'You are not elligble for this upgrade. 
+            Please buy token and activate your account to premium.');
+            
             exit;
         }
 
+        if(SpentTokens::validateAccountActivation($company_id) == true){
+            return redirect('/home')->with('message', 'You are already a premium account. ');
+            exit;
 
+        } else {
 
-        if($c_promo == 0)
-
-        {
-
-
-
-         $ok =   PromotionToken::create([
-
+            $ok =   PromotionToken::create([
                 'company_id'   => $company_id, 
-
                 'token_amount' => 1, 
-
-                'remarks'      => 'ONE-TOKEN', 
-
+                'remarks'      => 'UPGRADE-TO-PREMIUM', 
                 'created_at'   =>date('Y-m-d'), 
-
                  'status'      => 1,
-
             ]);
 
-         
 
            if($ok){   
 
-                Buytoken::create([
+            SpentTokens::spendTokenGeneral("UPGRADE-TO-PREMIUM", $company_id, $user_id, 1); 
 
-                    'company_id'   => $company_id,  
-
-                    'num_tokens'   => 1, 
-
-                    'created_at'   => date('Y-m-d'), 
-
-                    'status'       => 1, 
-
-                    'paypal_id'    => 'FREE', 
-
-                    'paypal_token' => 'ONE-TOKEN',
-
-                ]);
-
-            }
-
-
-
-            return redirect('/home')->with('status', 'You have succesfully avail the upgrade to premium promotion. ');
-
+            return redirect('/home')->with('status', 'You have succesfully upgrade to premium account. ');
             exit;
 
-        }
+           }
 
+        }    
         
 
     }

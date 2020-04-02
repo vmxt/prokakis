@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 <style>
     html, body {
         width: 100%;
@@ -19,6 +20,12 @@
     <link href="{{ asset('public/img-cropper/css/style.css') }}" rel="stylesheet">
     
 
+<!-- Remember to include jQuery :) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
     <style>
         html, body {
@@ -453,6 +460,27 @@
 
             }
 
+        .modalq {
+          top: -10px;
+          right: -10px;
+          width: 20px;
+          height: 20px;
+          color: #fff;
+          line-height: 1.25;
+          text-align: center;
+          text-decoration: none;
+          text-indent: 0;
+          background: #900;
+          border: 2px solid #fff;
+          -webkit-border-radius:  26px;
+          -moz-border-radius:     26px;
+          -o-border-radius:       26px;
+          -ms-border-radius:      26px;
+          -moz-box-shadow:    1px 1px 5px rgba(0,0,0,0.5);
+          -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+          box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
+        }
+
 
     </style>
 
@@ -575,6 +603,7 @@
                             <center><h4> Business News</h4></center>
 
                             <?php if(count((array) $businessNewsOpportunity) > 0){
+                                $x = 0;
                                 foreach($businessNewsOpportunity as $op){
                                 ?>
                                 <div id="niceDisplay">
@@ -584,12 +613,26 @@
 
                                     $viewer = base64_encode('viewer'.$op->company_id);
                                     ?>
-                                <br /> To know more about this business news<br /> <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$op->company_id) }}">read more</a>
+                                <br /> To know more about this business news<br /> 
+                                {{-- <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$op->company_id) }}">read more</a> --}}
+
+                                <p><a href="#bus_news_{{ $x }}" rel="modal:open">read more</a></p>
+
                                 <?php
                                 }
                                 ?>
                                 </div>
+
+                                <div id="bus_news_{{ $x }}" class="modal modalq">
+                                  <h5>{{ $op->business_title }}</h5>
+                                  <p>
+                                    {!! $op->content_business !!}
+                                  </p>  
+                                  <a href="#" rel="modal:close">Close</a>
+                                </div>
+
                                 <?php  }
+                                $x++;
                              }
                             ?>
 
@@ -1156,10 +1199,11 @@
 
   <div class="popup" data-popup="popup-previewcompany">
         <div class="popup-inner-previewcompany">
+    <iframe src="{{ $urlPreview }}"></iframe>
            
-            <div id="preview_company">
+       {{--      <div id="preview_company">
             </div>
-        
+         --}}
             <a class="popup-close" data-popup-close="popup-previewcompany" href="#">x</a>
         </div>
     </div>
@@ -1254,7 +1298,12 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <script type="text/javascript">
+
+   
+
         $(document).ready(function () {
+
+
 
             $("#updateBannerButton").hide();
             $(".popup").hide();
