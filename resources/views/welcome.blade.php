@@ -12,7 +12,7 @@
 
         <meta content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" name="description" />
 
-        <meta content="Ebos-SG App 2019" name="author" />
+        <meta content="Ebos-SG App 2020" name="author" />
 
 
 
@@ -169,7 +169,7 @@
 
 
 
-                 Welcome to <br /> <img src="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px"> <br /> Ebos-SG App 2019
+                 Welcome to <br /> <img src="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px"> <br /> Ebos-SG App 2020
 
                 </div>
  <br />

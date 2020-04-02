@@ -6,6 +6,11 @@ use DB;
 use Illuminate\Database\Eloquent\Model;
 use App\ThomsonReuters2;
 use App\ThomsonReuters3;
+use App\RequestReport;
+use App\ConsultantProjects;
+use App\TR_reportgeneration;
+use App\ProcessedReport;
+use App\RequestApproval;
 
 class ThomsonReuters extends Model {
 
@@ -89,7 +94,7 @@ class ThomsonReuters extends Model {
 	
 		if ($nationality != null) {
 			$SQL = $SQL . " AND CITIZENSHIP = :nationality";
-			$rs[':nationality'] = $nationality;
+			$rs[':nationality'] = strtoupper($nationality);
 		}
 		if ($passport != null) {
 			$SQL = $SQL . " AND PASSPORTS = :passport";
@@ -103,7 +108,7 @@ class ThomsonReuters extends Model {
 
 		if ($countryLocation != null) {
 			$SQL = $SQL . " AND COUNTRIES = :countryLocation ";
-			$rs[':countryLocation'] = $countryLocation;
+			$rs[':countryLocation'] = strtoupper($countryLocation);
 		}
 		if ($companies != null) {
 			$SQL = $SQL . " AND COMPANIES LIKE '% ".$companies." %' ";
@@ -120,17 +125,60 @@ class ThomsonReuters extends Model {
 	}
 
 	public static function searchAllThree($id){
-		$data = null;
-	
 		
-		$data = ThomsonReuters::where('UID', $id)->first();
-		if($data == null){
-			$data = ThomsonReuters2::where('UID', $id)->first();
-			if($data == null){
-				$data = ThomsonReuters3::where('UID', $id)->first();
+		$c1 = ThomsonReuters::where('UID', $id)->count();
+	
+		if($c1 > 0){
+			$r1 =	ThomsonReuters::where('UID', $id)->first();
+			return $r1;
+
+		} else {
+
+			$c2 = ThomsonReuters2::where('UID', $id)->count();
+			if($c2 > 0){
+				$r2 =	ThomsonReuters2::where('UID', $id)->first();
+				return $r2;
+
+			} else {
+
+				$c3 =	ThomsonReuters3::where('UID', $id)->count();
+				if($c3 > 0){
+					$r3 =	ThomsonReuters3::where('UID', $id)->first();
+					return $r3;
+				} else {
+					return false;
+				}
+				
 			}
-		} 
-		return $data;
+			
+		}
+		
+	}
+
+	public static function getTheActiveRequestReport(){
+		$approvals = array();	
+		$d = ProcessedReport::whereDate('month_subscription_start', '<=', date('Y-m-d'))
+		->whereDate('month_subscription_end', '>=',  date('Y-m-d'))
+		->get();
+		foreach($d as $s){
+		 $approvals[] = $s->approval_id;
+		}	
+ 
+		$cp = RequestApproval::whereIn('id', $approvals)->get();
+ 
+			 $active_ids = [];
+			 $rr = null;
+ 
+			 if($cp != null){
+				 foreach($cp as $c){
+					 $active_ids[] = $c->req_rep_id;
+				 }
+			 }
+	 
+			 if(sizeof($active_ids) > 0){
+			 $rr = RequestReport::whereIn('id', $active_ids)->get();
+			 } 
+			return $rr; 
 	}
 
 	public static function array_2d_to_1d($input_array) {

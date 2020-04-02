@@ -6,6 +6,9 @@ use App\User;
 use Config;
 use Illuminate\Database\Eloquent\Model;
 use Session;
+use App\OpportunityBuildingCapability;
+use App\OpportunityBuy;
+use App\OpportunitySellOffer;
 
 class CompanyProfile extends Model {
 
@@ -502,6 +505,34 @@ class CompanyProfile extends Model {
 		$rv = url('/register-ref/' . $userId_encoded);
 
 		return $rv;
+
+	}
+	
+	public static function checkOppotunityCreation($companyId){
+		$reply = false;
+
+		$build = OpportunityBuildingCapability::where('company_id', $companyId)->count();
+
+		if($build > 0){
+			$reply = true;
+
+		} else {
+
+			$buy = OpportunityBuy::where('company_id', $companyId)->count();
+			
+			if($buy > 0){
+				$reply = true;
+			
+			} else {
+			
+				$sell = OpportunitySellOffer::where('company_id', $companyId)->count();
+				if($sell > 0){
+					$reply = true;
+				}
+			}
+		}
+		
+	return $reply;	
 
 	}
 

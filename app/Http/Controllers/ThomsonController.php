@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\ThomsonReuters;
 use App\User;
 use Auth;
 use DB;
 use function GuzzleHttp\json_encode;
 use Illuminate\Http\Request;
+use App\RequestReport;
+use App\ConsultantProjects;
+use App\TR_reportgeneration;
+use App\ProcessedReport;
+use App\RequestApproval;
+use PDF;
+
 
 class ThomsonController extends Controller {
 	/**
@@ -26,7 +34,10 @@ class ThomsonController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function search() {
-		return view('staff.search');
+	
+	   $rr = ThomsonReuters::getTheActiveRequestReport();
+
+		return view('staff.search', compact('rr'));
 	}
 
 	public function searchFound(Request $request) {
@@ -36,7 +47,7 @@ class ThomsonController extends Controller {
 			$validatedData = $request->validate([
 				'gender' => 'required',
 				'country_location' => 'required',
-				'first_name' => 'required|max:255',
+			//	'first_name' => 'required|max:255',
 				
 			]);	
 
@@ -80,9 +91,78 @@ class ThomsonController extends Controller {
 			
 			$sumRec = count((array)$rs) + count((array) $rs2) + count((array) $rs3);
 
-			return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search'));
+			$rr = ThomsonReuters::getTheActiveRequestReport();
+
+			return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
 
 		}
+	}
+
+	public function trProcess(Request $request){
+
+		if ($request->isMethod('post')) {
+		$user_id = Auth::id();	
+		$reqId = $request->input('reqId');
+		$UID = $request->input('uId');
+		$UIDs = explode(",",$UID);
+
+		$rr = RequestReport::find($reqId);	
+			if($rr != null){	
+				foreach($UIDs as $v){
+					TR_reportgeneration::saveTR($v, $rr, $user_id);
+				}
+			}	
+
+		}
+	}
+
+	public function trDelete(Request $request){
+
+		if ($request->isMethod('post')) {
+			$user_id = Auth::id();	
+			$trId = $request->input('trId');
+			
+		    $tr = TR_reportgeneration::find($trId);
+			if($tr != null){
+				if($tr->added_by == $user_id){
+					$tr->delete();
+					return '1';
+				} else {
+					return '0';
+				}
+			}
+		}
+	}
+
+	public function pdfPrintDownload(Request $request){
+		
+		if(isset($request['ids'])){
+			$ids = $request['ids'];
+			$r_id = explode(",", $ids);
+
+		//echo count($r_id); exit;
+
+			$fileNameDownload = implode("-",$r_id);
+
+			$dataR = array();
+			foreach($r_id as $t){
+				$rs = ThomsonReuters::searchAllThree($t);
+				//echo $t . '<br />';
+
+				if($rs != null){
+					$dataR[] = $rs;
+					//echo $rs->FIRST_NAME . ' <br />';
+				}
+			}
+
+			//echo count($dataR); exit;
+
+			$pdf = PDF::loadView('staff.myPdfPrinting', compact('dataR'));
+			return $pdf->download($fileNameDownload . '.pdf');
+			//return view('staff.myPdfPrinting', compact('dataR'));
+
+		}
+
 	}
 
 	public function getNationality(Request $request) {
@@ -191,5 +271,7 @@ class ThomsonController extends Controller {
 		}
 
 	}
+
+
 
 }

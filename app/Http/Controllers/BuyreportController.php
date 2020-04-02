@@ -17,6 +17,8 @@ use Auth;
 use Config;
 use Illuminate\Http\Request;
 use PDF;
+use App\ThomsonReuters;
+use App\TR_reportgeneration;
 
 class BuyreportController extends Controller {
 
@@ -469,8 +471,7 @@ class BuyreportController extends Controller {
 		GeneratedReport::reportSave($proc->requester_company_id, $proc->source_company_id, $approval->req_rep_id); //log the report generated
 
 		$company_data = CompanyProfile::find($proc->source_company_id);
-        $user_data = User::find($user_id); 
-
+		$user_data = User::find($user_id); 
 		//echo $company_data->company_name; exit;
 
 		//echo $company_id_result; exit;
@@ -527,9 +528,30 @@ class BuyreportController extends Controller {
 
 		$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 
+		//----Thomson Reuters data------//
+		$count_tr = TR_reportgeneration::where('request_id', $approval->req_rep_id)->count(); //count the records
+		$tr_peps = array();
+		$tr_inserted_date = date("F j, Y", $today);
+
+		$tr_peps_create_date = '';
+		$tr_inserted_date = '';
+		if($count_tr > 0)
+		{
+			$rs_tr = TR_reportgeneration::where('request_id', $approval->req_rep_id)->get();
+			foreach($rs_tr as $d)
+			{
+				$tr_peps[] = ThomsonReuters::searchAllThree($d->uid);
+				$tr_peps_create_date  = $d->created_at;
+			}
+
+			if($tr_peps_create_date != ''){
+			 $timestamp_tr = strtotime($tr_peps_create_date);
+			 $tr_inserted_date = date("F j, Y", $timestamp_tr);
+			}
+		}
+
 		$ReportGenerationTemplate = ReportGenerationTemplate::where('status', 1)->get();
 		$reportTemplates = [];
-
 
 		foreach ($ReportGenerationTemplate as $key => $value) {
 			$reportTemplates[ $value['variable_name'] ]  = $value['content'];
@@ -542,9 +564,10 @@ class BuyreportController extends Controller {
 	        if($rc != false){
 	           $reportTrackNumber = $rc->id."-".$rc->source_company_id."-".$rc->fk_opportunity_id."-".date("Y");
 	        }
-    	}
+    		}
 		$twitter_token = env('APP_ENV');
 		$twitter_keyword = urlencode($company_data->company_name);
+	
 		$cSession = curl_init(); 
 		curl_setopt($cSession,CURLOPT_URL,'https://reputation.prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
 		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
@@ -553,25 +576,25 @@ class BuyreportController extends Controller {
 		$response_twitter = json_decode($result);
 		curl_close($cSession);
 
-		 return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+		 // return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
-			      'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+			//       'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
 
-			      'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+			//       'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			      'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter' , 'reportTrackNumber'));
+			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter' , 'reportTrackNumber'));
 
 			  
 
-		// $pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
-		// 	'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+			'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
 
-		// 	'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-		// 	'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber'));
+			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber', 'tr_peps', 'tr_inserted_date'));
 
-		// return $pdf->download($company_data->company_name . '.pdf');
+		return $pdf->download($company_data->company_name . '.pdf');
 
 		// return $pdf->download('.pdf');
 

@@ -183,9 +183,22 @@
                                                 Be sure to include accurate information.
                                             </p>
                                         </div>
+
+					<?php 
+                                        $user_id = Auth::id();
+                                        $company_id_result = App\CompanyProfile::getCompanyId($user_id);
+
+                                        if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>  
+                                         <code> The upgrade to <b>premium</b> account is now available.<br />
+                                        Please check the button at Token Credit section. </code> <br />  
+                                        <?php } ?>
+
                                         <a href="{{ route('editProfile') }}" class="btn red-mint"
                                            style="margin-top: 15px;">Enhance
                                             Profile</a>
+
+					
+
                                     </div>
                                 </div>
                             </div>
@@ -333,6 +346,16 @@
                                         <a href="{{ route('reportsBuyTokens') }}" class="btn red-mint fa fa-bitcoin"
                                            style="width: 100%;"> Top Up</a>
                                     </div>
+
+
+				 	@if($c_promo == 0)   
+                                        <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>    
+                                        <a onclick="PromoOne()" class="btn yellow"
+                                            style="margin-top: 15px; width: 90%;"> <i class="fa fa-dollar" style="color: white;"></i> Upgrade To Premium Account 
+                                        </a>
+                                        <?php } ?>
+                                        @endif
+
                                 </div>
                             </div>
                         </div>
@@ -386,6 +409,7 @@
     </div>
 
     <script src="{{ asset('public/jq1110/jquery.min.js') }}"></script>
+ <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
         $(document).ready(function () {
 
@@ -459,5 +483,53 @@
 
 
         });
+
+    function PromoOne(){
+            swal({
+
+                title: "Are you sure to upgrade your account?",
+
+                text: "You are about to upgrade to premium account.",
+
+                icon: "warning",
+
+                buttons: [
+
+                  'No, cancel it!',
+
+                  'Yes, I am sure!'
+
+                ],
+
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+
+                  swal({
+
+                    title: 'Upgrading to premium account',
+
+                    text: 'Done on setting to premium',
+
+                    icon: 'success'
+
+                  }).then(function() {
+                    document.location = "{{ route('promoOneToken') }}"
+                  });
+
+                } else {
+
+                  swal("Cancelled", "Upgrading to premium was cancelled :)", "error");
+
+                }
+
+              })
+
+
+        }
+
+
     </script>
 @endsection

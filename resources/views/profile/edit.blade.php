@@ -1573,8 +1573,11 @@
                                                 }
                                             }
                                             ?>
+					   @if(isset($new_date))
                                             <input type="hidden" id="default_financial_year_end" 
                                              value="{{ $new_date }}" >
+					   @endif	
+
                                             <label for="financial_year_end">Financial Year End</label>
                                             </div>  
                                         </div>
@@ -1996,8 +1999,8 @@
                                 <div class="tab-pane" id="portlet_tab5">
 
                                     <div class="card-header"><b>Financial Entries</b>
-					<div style="color:red">To avoid delays, please don't use comma in your numerical entries. </div>
-				   </div>
+                    <div style="color:red">To avoid delays, please don't use comma in your numerical entries. </div>
+                   </div>
 
                                     <div class="card-body center">
 

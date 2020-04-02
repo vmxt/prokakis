@@ -227,7 +227,7 @@ class OpportunityController extends Controller {
 
                   <br />
 
-                  To approve please open the link: $url_to_approve
+                  To approve please open the link: <a href='".$url_to_approve."'>$url_to_approve</a>
 
                   <br />
 

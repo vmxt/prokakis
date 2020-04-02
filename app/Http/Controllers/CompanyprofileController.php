@@ -1038,7 +1038,8 @@ class CompanyprofileController extends Controller {
 
 	public function saveKeyManagementPersonnel(Request $request) {
 
-		//$user_id = Auth::id();
+		$user_id = Auth::id();
+		$company_id_result = CompanyProfile::getCompanyId($user_id);
 
 		if ($request->isMethod('post')) {
 
@@ -1047,11 +1048,11 @@ class CompanyprofileController extends Controller {
 				$date_of_birth = $request->input("date_of_birth");
 
 				// $date_dob = date_create($date_of_birth);
-				
+
 				// $dob = date_format($date_dob, "Y-m-d");
 
 				$dob = $date_of_birth;
-
+				
 				$user_id = $request->input("user_id");
 
 				$km_id = $request->input("km_id");
@@ -1061,6 +1062,8 @@ class CompanyprofileController extends Controller {
 					KeyManagement::create([
 
 						'user_id' => $user_id,
+
+						'company_id' => $company_id_result,
 
 						'first_name' => $request->input("first_name"),
 
@@ -1093,6 +1096,8 @@ class CompanyprofileController extends Controller {
 					$rec = KeyManagement::find($km_id);
 
 					if ( $rec->count() > 0) {
+
+						$rec->company_id = $company_id_result;
 
 						$rec->first_name = $request->input("first_name");
 

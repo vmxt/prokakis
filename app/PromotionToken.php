@@ -2,13 +2,16 @@
 
 namespace App;
 
+use App;
+use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 
-class KeyManagement extends Model
+class PromotionToken extends Model
 {
      
-     protected $table = 'key_management';
+     protected $table = 'promotion_token';
 
     /**
      * The attributes that are mass assignable.
@@ -16,8 +19,7 @@ class KeyManagement extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id', 'user_id', 'first_name', 'last_name', 'idn_passport', 'nationality', 'gender', 'date_of_birth', 'shareholder', 'is_directorship', 'position', 
-        'created_at', 'updated_at', 'status', 'added_by', 'updated_by'
+        'company_id', 'token_amount', 'remarks', 'created_at', 'updated_at', 'status'
     ];
 
     /**
@@ -26,8 +28,7 @@ class KeyManagement extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 
+        'id',  
     ];
    
-
 }

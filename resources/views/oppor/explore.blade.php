@@ -266,7 +266,7 @@
                             <input type="text" class="form-control" id="keywordSearch"
                                    placeholder="Filter by keywords"
                                    value="<?php if (isset($selectedKeyword)) {
-    echo $selectedKeyword;
+	echo $selectedKeyword;
 }?>">
                             <span class="input-group-btn"><button class="btn green" type="button"
                                                                   id="filterKeywords">FILTER</button></span>
@@ -277,7 +277,7 @@
                             <input type="text" class="form-control" id="keywordCountry"
                                    placeholder="Filter by country"
                                    value="<?php if (isset($selectedCountry)) {
-    echo $selectedCountry;
+	echo $selectedCountry;
 }?>">
                             <span class="input-group-btn"><button class="btn green" type="button"
                                                                   id="filterCountry">FILTER</button></span>
@@ -306,20 +306,20 @@
 $i = 0;
 foreach ($build as $item) {
 
-    $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
-    $company = App\CompanyProfile::find($item->company_id);
-    if ( $company->count() > 0 && $d_status == true) {
-        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-            ->orderBy('id', 'desc')
-            ->first();
-        $avat = '';
-        if (!isset($avatar->file_name)) {
-            $avat = 'robot.jpg';
-        } else {
-            $avat = $avatar->file_name;
-        }
-        // echo $item->view_type;
-        ?>
+	$d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+	$company = App\CompanyProfile::find($item->company_id);
+	if ( $company->count() > 0 && $d_status == true) {
+		$avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+			->orderBy('id', 'desc')
+			->first();
+		$avat = '';
+		if (!isset($avatar->file_name)) {
+			$avat = 'robot.jpg';
+		} else {
+			$avat = $avatar->file_name;
+		}
+		// echo $item->view_type;
+		?>
                 <div class="card">
 
                     <div class="thumbnail" style="margin-bottom: 5px;">
@@ -349,11 +349,11 @@ foreach ($build as $item) {
                                   <tr>
                                       <td><b>Title</b></td>
 
-                      <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>     
+				      <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>		
                                   <td class="alert alert-dark bold uppercase"><h4><strong><?php echo $item->opp_title; ?></strong></h4></td>
-                      <?php } else { ?>
-                      <td> </td>
-                      <?php } ?>        
+				      <?php } else { ?>
+				      <td> </td>
+				      <?php } ?>		
                                 </tr>
 
                                 <tr>
@@ -361,17 +361,17 @@ foreach ($build as $item) {
                                     <td>
                                         <?php
 
-        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+		$profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+		$profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+		$profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+		$profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+		$profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
 
-        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-            $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+		$ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
 
-        if ($ratingScore < 25) {
-            ?>
+		if ($ratingScore < 25) {
+			?>
                                         <img width="30" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
                                         <img width="30" height="32"
@@ -543,19 +543,19 @@ foreach ($build as $item) {
 $i = 0;
 foreach ($sell as $item) {
 
-    $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
-    $company = App\CompanyProfile::find($item->company_id);
-    if (count((array) $company) - 1 > 0 && $d_status == true) {
-        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-            ->orderBy('id', 'desc')
-            ->first();
-        $avat = '';
-        if (!isset($avatar->file_name)) {
-            $avat = 'robot.jpg';
-        } else {
-            $avat = $avatar->file_name;
-        }
-        ?>
+	$d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+	$company = App\CompanyProfile::find($item->company_id);
+	if (count((array) $company) - 1 > 0 && $d_status == true) {
+		$avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+			->orderBy('id', 'desc')
+			->first();
+		$avat = '';
+		if (!isset($avatar->file_name)) {
+			$avat = 'robot.jpg';
+		} else {
+			$avat = $avatar->file_name;
+		}
+		?>
                 <div class="card">
                     <div class="thumbnail" style="margin-bottom: 5px;">
 
@@ -583,11 +583,11 @@ foreach ($sell as $item) {
                                 <tr>
                                   <td><b>Title</b></td>
                                 
-                      <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>     
+  				      <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>		
                                       <td class="alert alert-dark bold uppercase"><h4><strong><?php echo $item->opp_title; ?></strong></h4></td>
-                      <?php } else { ?>
-                      <td> </td>
-                      <?php } ?>
+				      <?php } else { ?>
+				      <td> </td>
+				      <?php } ?>
                                 </tr>
 
                                 <tr>
@@ -595,17 +595,17 @@ foreach ($sell as $item) {
                                     <td>
                                         <?php
 
-        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+		$profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+		$profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+		$profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+		$profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+		$profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
 
-        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-            $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+		$ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
 
-        if ($ratingScore < 25) {
-            ?>
+		if ($ratingScore < 25) {
+			?>
                                         <img width="30" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
                                         <img width="30" height="32"
@@ -774,32 +774,32 @@ foreach ($sell as $item) {
                 <?php
 $i = 0;
 foreach ($buy as $item) {
-    $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
-    $company = App\CompanyProfile::find($item->company_id);
+	$d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+	$company = App\CompanyProfile::find($item->company_id);
 
-    if (count((array) $company) > 0 && $d_status == true) {
+	if (count((array) $company) > 0 && $d_status == true) {
 
-        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-            ->orderBy('id', 'desc')
-            ->first();
-        $avat = '';
+		$avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+			->orderBy('id', 'desc')
+			->first();
+		$avat = '';
 
-        if (!isset($avatar->file_name)) {
-            $avat = 'logoAvatar.png';
-        } else {
-            $avat = $avatar->file_name;
-        }
+		if (!isset($avatar->file_name)) {
+			$avat = 'logoAvatar.png';
+		} else {
+			$avat = $avatar->file_name;
+		}
 
-        /*/ $banner = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'BANNER_IMG')
-                                    ->orderBy('id', 'desc')
-                                    ->first();
-                                $ban = '';
+		/*/ $banner = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'BANNER_IMG')
+			                        ->orderBy('id', 'desc')
+			                        ->first();
+			                    $ban = '';
 
-                                if (!isset($banner->file_name)) {
-                                    $ban = $banner->file_name;
-                                }
-        */
-        ?>
+			                    if (!isset($banner->file_name)) {
+			                        $ban = $banner->file_name;
+			                    }
+		*/
+		?>
                 <div class="card">
                     <div class="thumbnail" style="margin-bottom:5px;">
 
@@ -810,15 +810,15 @@ foreach ($buy as $item) {
 
 
                         <?php
-                           if ($item->view_type == 2) {
+	                       if ($item->view_type == 2) {
                         ?>
                             <div class="caption">
                         <?php
-                                echo '<h3>' . $company->registered_company_name . '</h3>';
+                    			echo '<h3>' . $company->registered_company_name . '</h3>';
                           ?>
                             </div>
                         <?php
-                             }
+                    		 }
                          ?>
 
 
@@ -830,12 +830,12 @@ foreach ($buy as $item) {
                                     <td><b>Title</b></td>
                 
  
-                 <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>  
+	   			 <?php if(isset($item->opp_title) && trim($item->opp_title) != ''){ ?>	
                                       <td class="alert alert-dark bold uppercase"><h4><strong><?php echo $item->opp_title; ?></strong></h4></td>
-                      <?php } else { ?>
-                      <td> </td>
-                      <?php } ?>
-        
+				      <?php } else { ?>
+				      <td> </td>
+				      <?php } ?>
+		
                                   </tr>
 
                                 <tr>
@@ -843,17 +843,17 @@ foreach ($buy as $item) {
                                     <td>
                                         <?php
 
-        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+		$profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+		$profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+		$profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+		$profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+		$profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
 
-        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-            $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+		$ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
 
-        if ($ratingScore < 25) {
-            ?>
+		if ($ratingScore < 25) {
+			?>
                                         <img width="30" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
                                         <img width="30" height="32"
@@ -1159,7 +1159,7 @@ foreach ($buy as $item) {
                     icon:  'success'
                   }).then(function() {
                          //document.location = '{{ url("reports/buyTokens") }}';
-             document.location = '{{ url("/home") }}';
+			 document.location = '{{ url("/home") }}';
                   
                   });
                 } else {
