@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 <style>
     html, body {
         width: 100%;
@@ -99,11 +98,11 @@
             border-radius: 3px;
             background: #fff;
         }
-	
-  	.popup-inner-previewcompany {
+    
+    .popup-inner-previewcompany {
             /*max-width: 800px;*/
             width: 60%;
-            height: 950px;
+            height: 90%;
             padding: 40px;
             position: absolute;
             top: 50%;
@@ -460,28 +459,6 @@
 
             }
 
-        .modalq {
-          top: -10px;
-          right: -10px;
-          width: 20px;
-          height: 20px;
-          color: #fff;
-          line-height: 1.25;
-          text-align: center;
-          text-decoration: none;
-          text-indent: 0;
-          background: #900;
-          border: 2px solid #fff;
-          -webkit-border-radius:  26px;
-          -moz-border-radius:     26px;
-          -o-border-radius:       26px;
-          -ms-border-radius:      26px;
-          -moz-box-shadow:    1px 1px 5px rgba(0,0,0,0.5);
-          -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-          box-shadow:         1px 1px 5px rgba(0,0,0,0.5);
-        }
-
-
     </style>
 
     <div id="fb-root"></div>
@@ -685,7 +662,7 @@
                                         </div>
                                         <a href="{{ route('editProfile') }}" class="btn red-mint" style="margin-top: 15px; width: 200px;">Enhance Company
                                             Profile</a>
-					
+                    
   <a data-popup-open="popup-previewcompany" id="companyProfilePreview" class="btn yellow" style="margin-top: 15px; width: 220px; cursor: zoom-in;">
                                                 Company Preview</a>
                                     </div>
@@ -1158,26 +1135,25 @@
                                     <div class="card-header"><b>Financial Information</b></div>
 
                                     <table class="table table-bordered table-striped table-condensed flip-content" style="width: 100%; padding-top: 5px;">
-
                                         <?php
-                                        //$param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
-                                        //$fa = App\FA_Results::getEntries($user_id);
-                                        //i($fa) > 0){
-                                        // echo '<tr>';
-                                        //foreach($fa as $data){
-                                        //echo '<td>'.$param_months[$data->month_param].' '.$data->year_param.'</td>';
-                                        //}
-                                        //echo '<td>Maximum Mark</td></tr>';
+                                        $param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
+                                        $fa = App\FA_Results::getEntries($user_id);
+                                        if($fa){
+                                         echo '<tr>';
+                                        foreach($fa as $data){
+                                        echo '<td>'.$param_months[$data->month_param].' '.$data->year_param.'</td>';
+                                        }
+                                        echo '<td>Maximum Mark</td></tr>';
 
-                                        //echo '<tr>';
-                                        //      foreach($fa as $data){
-                                        //     echo '<td> Total Scores '.App\FA_Results::getTotalByMonthYears($data->entry, $user_id, $data->month_param, $data->year_param).'</td>';
+                                        echo '<tr>';
+                                            foreach($fa as $data){
+                                             echo '<td> Total Scores '.App\FA_Results::getTotalByMonthYears($data->entry, $user_id, $data->month_param, $data->year_param).'</td>';
 
-                                        //    }
-                                        //   $totalMax = App\FA_Results::getTotalByMax($user_id);
+                                            }
+                                           $totalMax = App\FA_Results::getTotalByMax($user_id);
 
-                                        // echo ' <td> Total '.$totalMax.' </td> </tr>';
-                                        //}
+                                         echo ' <td> Total '.$totalMax.' </td> </tr>';
+                                        } 
                                         ?>
                                     </table>
                                 </div>
@@ -1199,7 +1175,7 @@
 
   <div class="popup" data-popup="popup-previewcompany">
         <div class="popup-inner-previewcompany">
-    <iframe src="{{ $urlPreview }}"></iframe>
+    <iframe src="{{ $urlPreview }}" style="width: 100%; height: 100%"></iframe>
            
        {{--      <div id="preview_company">
             </div>
@@ -1298,12 +1274,7 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
     <script type="text/javascript">
-
-   
-
         $(document).ready(function () {
-
-
 
             $("#updateBannerButton").hide();
             $(".popup").hide();
@@ -1378,11 +1349,11 @@
 
                 e.preventDefault();
             }); */
-	
-	 $(function(){
+    
+     $(function(){
             $("#preview_company").html('<object class="popup-inner-previewcompany" width="900" height="900" data="<?php if(isset($urlPreview)){ echo $urlPreview; } ?>">');
           });
-
+    
 
         });
 
