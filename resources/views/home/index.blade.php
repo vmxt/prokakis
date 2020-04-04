@@ -54,7 +54,7 @@
         }
 
         .pie {
-            background-color: #ecc0b7;
+            background-color: #f0a22e99;
             width: 200px;
             height: 200px;
             -moz-border-radius: 100px;
@@ -80,8 +80,8 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #f7e5e1;
-            border-color: #f7e5e1;
+            background-color: #F0A22E;
+            border-color: #F0A22E;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -105,8 +105,8 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #f7e5e1;
-            border-color: #f7e5e1;
+            background-color: #F0A22E;
+            border-color: #F0A22E;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -161,7 +161,7 @@
                         <div class="portlet light ">
                             <div class="card">
                                 <div class="note note-success">
-                                    <h4 class="block">ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</h4>
+                                    <h4 class="block"><strong>ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</strong></h4>
                                 </div>
                                 <div class="row">
                                     <div class="col col-md-4">
@@ -178,9 +178,9 @@
                                     <div class="col col-lg-8" style="margin-top: 5px;">
                                         <div class="alert alert-info"
                                              style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
-                                                <strong>Prokakis members</strong> are three times more likely
+                                                <strong>Prokakis members are three times more likely
                                                 to engage with you if your company profile is over 30% complete.
-                                                Be sure to include accurate information.
+                                                Be sure to include accurate information.</strong>
                                             </p>
                                         </div>
 
@@ -189,8 +189,7 @@
                                         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
 
                                         if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>  
-                                         <code> The upgrade to <b>premium</b> account is now available.<br />
-                                        Please check the button at Token Credit section. </code> <br />  
+                                         <br />  
                                         <?php } ?>
 
                                         <a href="{{ route('editProfile') }}" class="btn red-mint"
@@ -329,21 +328,21 @@
                                     </center>
                                 </div>
                                 <div class="card-body center" style="text-align: center;">
-                                    <b class="font-red-mint" style="font-size: 20px;"> <?php
+                                    <b class="font-prokakis-blue" style="font-size: 20px;"> <?php
 
                                         $user_id = Auth::id();
                                         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
 
-                                        if (App\SpentTokens::validateLeftBehindToken($company_id_result) == false) {
+                                        if (App\SpentTokens::validateTokenStocks($company_id_result) == false) {
                                             echo "0";
                                         } else {
-                                            $consumedTokens = App\SpentTokens::validateLeftBehindToken($company_id_result);
+                                            $consumedTokens = App\SpentTokens::validateTokenStocks($company_id_result);
                                             echo $consumedTokens;
                                         }
                                         ?>  </b> <br/>
                                     Token Left <br/>
                                     <div class="col-sm-12">
-                                        <a href="{{ route('reportsBuyTokens') }}" class="btn red-mint fa fa-bitcoin"
+                                        <a href="{{ route('reportsBuyTokens') }}" class="btn red-mint"
                                            style="width: 100%;"> Top Up</a>
                                     </div>
 
@@ -351,7 +350,7 @@
 				 	@if($c_promo == 0)   
                                         <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>    
                                         <a onclick="PromoOne()" class="btn yellow"
-                                            style="margin-top: 15px; width: 90%;"> <i class="fa fa-dollar" style="color: white;"></i> Upgrade To Premium Account 
+                                            style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
                                         </a>
                                         <?php } ?>
                                         @endif

@@ -315,16 +315,19 @@ s0.parentNode.insertBefore(s1,s0);
                                                 ?>
 
                                                 <span class="username username-hide-mobile"><?php
-                        $user_id = Auth::id();
+                                                $user_id = Auth::id();
                                                 $company_id_result = App\CompanyProfile::getCompanyId($user_id);
+                                                $usr = App\User::find($user_id);
                                                 $accStatus = '';
-                                                if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){
-                                                    $accStatus = '<b>FREE</b> ACCOUNT';   
-                                                } else{
-                                                    $accStatus = '<b>PREMIUM</b> ACCOUNT'; 
-                                                } 
+                                                if ($usr->user_type == 1) {
+                                                    if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){
+                                                        $accStatus = '(<b>FREE</b> ACCOUNT)';   
+                                                    } else{
+                                                        $accStatus = '(<b>PREMIUM</b> ACCOUNT)'; 
+                                                    } 
+                                                }
                 
-                                              echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?> (<?php echo $accStatus; ?>)</span>
+                                              echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?> <?php echo $accStatus; ?></span>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-default">
 

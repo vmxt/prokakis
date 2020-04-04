@@ -34,7 +34,7 @@ class ConsultantProjects extends Model {
 			->where('project_status', 'ONGOING')
 			->first();
 
-		if ($company_provider->count() > 0) {
+		if ($company_provider != null) {
 			return true;
 
 		} else {
@@ -44,7 +44,7 @@ class ConsultantProjects extends Model {
 				->where('project_status', 'ONGOING')
 				->first();
 
-			if ($company_requester->count() > 0) {
+			if ($company_requester != null) {
 				return true;
 			} else {
 				return false;

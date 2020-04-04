@@ -284,7 +284,7 @@
 
                                                 if(count((array)$usr) > 0){
 
-                                                  echo '<a data-popup-open="popup-1" onclick="openTR_requester(\''.$usr->id.'\', \''.$d->request_id.'\');">'.$usr->company_name.'</a>';
+                                                  echo '<a data-popup-open="popup-1" onclick="openTR_requester(\''.$d->company_requester_id.'\', \''.$d->request_id.'\');">'.$usr->company_name.'</a>';
 
                                                 }
 
@@ -330,7 +330,7 @@
 
                                             <td align="center">
 
-                                                <input type="file" name="reportUpload<?php echo $d->id; ?>" id="reportUpload<?php echo $d->id; ?>" style="width:100px;">
+                                                <input type="file" onclick="checkMe('<?php echo $d->id; ?>')" name="reportUpload<?php echo $d->id; ?>" id="reportUpload<?php echo $d->id; ?>" style="width:100px;">
 
                                                 <br />
 
@@ -369,7 +369,7 @@
 
 
                                             <td align="center">
-
+                                              <input type="hidden" name="confirmRP<?php echo $d->id; ?>" id="confirmRP<?php echo $d->id; ?>" />  
 
 
                                               <input type="submit" class="btn btn-success" value="UPDATE">
@@ -468,7 +468,7 @@
 
     <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
 
-
+    <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
     <script>
 
@@ -510,10 +510,9 @@
 
             });
 
-
-
-        });
-
+            
+ 
+ 
 
 
 
@@ -553,6 +552,59 @@
               }
 
             });
+
+        }
+
+        function checkMe(tor){
+          
+
+            swal({
+
+                title: "Are you sure to include this file in report generation?",
+
+                text: "You are about to set this file as part of the report generation process.",
+
+                icon: "warning",
+
+                buttons: [
+
+                  'No, do not include it',
+
+                  'Yes, I am sure!'
+
+                ],
+
+                dangerMode: true,
+
+
+
+              }).then(function(isConfirm) {
+
+
+
+                if (isConfirm) {
+
+                  swal({
+
+                    title: 'This file will be part of the report generation of this request',
+
+                    text: 'Done on setting file to report process',
+
+                    icon: 'success'
+
+                  }).then(function() {
+
+                   
+                      document.getElementById('confirmRP'+tor).value = 'yes';
+
+                  });
+
+                } 
+
+              });
+
+
+
 
         }
 

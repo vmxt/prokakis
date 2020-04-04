@@ -62,7 +62,7 @@ class FinancialAnalysis extends Model {
 	public static function saveCreate($data, $companyId, $userId) {
 
 		if ($data["fa_month1"] != '0' && $data["fa_year1"] != '0') {
-			$fa1 = FinancialAnalysis::where('entry', 1)->where('user_id', $userId)->first();
+			$fa1 = FinancialAnalysis::where('entry', 1)->where('user_id', $userId)->where('company_id', $companyId)->first();
 
 			if ($fa1 != null) {
 				$fa1->year_param = $data["fa_year1"];
@@ -225,7 +225,7 @@ class FinancialAnalysis extends Model {
 		}
 
 		if ($data["fa_month2"] != "0" && $data["fa_year2"] != "0") {
-			$fa2 = FinancialAnalysis::where('entry', 2)->where('user_id', $userId)->first();
+			$fa2 = FinancialAnalysis::where('entry', 2)->where('user_id', $userId)->where('company_id', $companyId)->first();
 
 			if ( $fa2 != null ) {
 
@@ -393,7 +393,7 @@ class FinancialAnalysis extends Model {
 
 		if ($data["fa_month3"] != "0" && $data["fa_year3"] != "0") {
 
-			$fa3 = FinancialAnalysis::where('entry', 3)->where('user_id', $userId)->first();
+			$fa3 = FinancialAnalysis::where('entry', 3)->where('user_id', $userId)->where('company_id', $companyId)->first();
 			if ($fa3 != null ) {
 
 				$fa3->year_param = $data["fa_year3"];
@@ -560,7 +560,7 @@ class FinancialAnalysis extends Model {
 
 		if ($data["fa_month4"] != "0" && $data["fa_year4"] != "0") {
 
-			$fa4 = FinancialAnalysis::where('entry', 4)->where('user_id', $userId)->first();
+			$fa4 = FinancialAnalysis::where('entry', 4)->where('user_id', $userId)->where('company_id', $companyId)->first();
 
 			if ($fa4 != null ) {
 				$fa4->year_param = $data["fa_year4"];

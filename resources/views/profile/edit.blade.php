@@ -364,9 +364,9 @@
                                             foreach($completenessMessages as $d){
                                             ?>
 
-                                            <li style=" list-style-type: none; color:red"><?php if ($d != NULL) {
+                                            <strong><li style=" list-style-type: none; color: #1A4275"><?php if ($d != NULL) {
                                                     echo '<i class="fa fa-check"></i>' .$d;
-                                                } ?> </li>
+                                                } ?> </li></strong>
                                             <?php
                                             }
                                             } ?>
@@ -2018,13 +2018,22 @@
 
                                                 <?php
 
-                                                $entry1 = App\FinancialAnalysis::where('entry', 1)->where('user_id', $user_id)->first();
+                                                //$entry1 = App\FinancialAnalysis::where('entry', 1)->where('user_id', $user_id)->first();
 
-                                                $entry2 = App\FinancialAnalysis::where('entry', 2)->where('user_id', $user_id)->first();
+                                                //$entry2 = App\FinancialAnalysis::where('entry', 2)->where('user_id', $user_id)->first();
 
-                                                $entry3 = App\FinancialAnalysis::where('entry', 3)->where('user_id', $user_id)->first();
+                                                //$entry3 = App\FinancialAnalysis::where('entry', 3)->where('user_id', $user_id)->first();
 
-                                                $entry4 = App\FinancialAnalysis::where('entry', 4)->where('user_id', $user_id)->first();
+                                                //$entry4 = App\FinancialAnalysis::where('entry', 4)->where('user_id', $user_id)->first();
+
+						$entry1 = App\FinancialAnalysis::where('entry', 1)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
+
+                                                $entry2 = App\FinancialAnalysis::where('entry', 2)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
+
+                                                $entry3 = App\FinancialAnalysis::where('entry', 3)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
+
+                                                $entry4 = App\FinancialAnalysis::where('entry', 4)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
+
 
 
 

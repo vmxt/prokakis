@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use PDF;
 use App\ThomsonReuters;
 use App\TR_reportgeneration;
+use App\FA_Results;
 
 class BuyreportController extends Controller {
 
@@ -532,6 +533,57 @@ class BuyreportController extends Controller {
 		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 		$keyPersons = KeyManagement::where('company_id', $proc->source_company_id)->where('user_id', $user_id)->where('status', 1)->get();
 
+		//--Financial Analysis---
+		$fa_count = FA_Results::where('company_id', $proc->source_company_id)->count();
+		$arrMonths = array(1=>'Jan', 2=>'Feb', 3=>'Mar', 4=>'Apr', 5=>'May', 6=>'Jun', 7=>'Jul', 8=>'Aug', 9=>'Sep', 10=>'Oct', 11=>'11', 12=>'Dec');
+		$MONTH_RATIO = [];
+		$RT = [];
+		$ACP = [];
+		$IT = [];
+		$DII = [];
+		$PT = [];
+		$APP = [];
+		$NWP = [];
+		$CR = [];
+		$QR = [];
+		$DTE = [];
+		$DTA = [];
+		$IC = [];
+		$GPM = [];
+		$OPM = [];
+		$NPM = [];
+		$ROI = [];
+		$ROE = [];
+
+		if($fa_count > 0){
+			$rs = FA_Results::where('company_id', $proc->source_company_id)->get();
+			foreach($rs as $t){
+				$MONTH_RATIO[] = $arrMonths[$t->month_param] . '/' .$t->year_param;
+			}	
+
+			foreach($rs as $t){
+
+				$RT[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->receivable_turnover;
+				$ACP[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->average_collection_period;
+				$IT[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->inventory_turnover;
+				$DII[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->days_in_inventory;
+				$PT[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->payable_turnover;
+				$APP[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->average_payment_period;
+				$NWP[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->net_working_capital;
+				$CR[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->current_ratio;
+				$QR[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->quick_ratio;
+				$DTE[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->debt_to_equity;
+				$DTA[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->debt_to_asset;
+				$IC[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->interest_coverage;
+				$GPM[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->gross_profit_margin;
+				$OPM[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->operating_profit_margin;
+				$NPM[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->net_profit_margin;
+				$ROI[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->return_of_investment;
+				$ROE[$arrMonths[$t->month_param] . '/'.$t->year_param] = $t->return_of_equity;
+
+			}
+	       }
+
 
 		//----Thomson Reuters data------//
 		$count_tr = TR_reportgeneration::where('request_id', $approval->req_rep_id)->count(); //count the records
@@ -597,7 +649,11 @@ class BuyreportController extends Controller {
 
 			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
 
-			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber', 'tr_peps', 'tr_inserted_date'));
+			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber', 
+			
+			'tr_peps', 'tr_inserted_date', 'MONTH_RATIO', 'RT', 'ACP', 'IT', 'DII', 'PT', 'APP', 'NWP', 'CR', 'QR', 'DTE', 'DTA', 'IC','GPM','OPM', 'NPM',
+
+			'ROI', 'ROE'));
 
 		return $pdf->download($company_data->company_name . '.pdf');
 

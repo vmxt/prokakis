@@ -105,94 +105,12 @@ class CompanyprofileController extends Controller {
 
 			//echo $user_id; exit;
 
+			
 			$company_id_result = CompanyProfile::getCompanyId($user_id);
 
-			$company_data = CompanyProfile::find($company_id_result);
+			return CompanyprofileController::view_summary($company_id_result);
 
-			//from system configuration
-
-			$num_of_employee = Configurations::getJsonValue('num_of_employee');
-
-			$estimated_sales = Configurations::getJsonValue('estimated_sales');
-
-			//$currency = Configurations::getJsonValue('currency');
-
-			$ownership_status = Configurations::getJsonValue('ownership_status');
-
-			$business_type = Configurations::getJsonValue('business_type');
-
-			$business_industry = Configurations::getJsonValue('business_industry');
-
-			$no_of_staff = Configurations::getJsonValue('no_of_staff');
-
-			$financial_year = Configurations::getJsonValue('financial_year');
-
-			$financial_month = Configurations::getJsonValue('financial_month');
-
-			$countries = Configurations::getJsonValue('countries');
-
-			$year_founded = Configurations::getJsonValue('year_founded');
-
-			$years_establishment = Configurations::getJsonValue('years_establishment');
-
-			$currency = Currency::all();
-
-			$gross_profit_loss = Configurations::getJsonValue('gross_profit_loss');
-
-			$net_profit_loss = Configurations::getJsonValue('net_profit_loss');
-
-			$filling_rate = Configurations::getJsonValue('filling_rate');
-
-			$asset_more_liability = Configurations::getJsonValue('asset_more_liability');
-
-			$paid_up_capital = Configurations::getJsonValue('paid_up_capital');
-
-			$countries = Countries::all();
-
-			$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
-
-			$profileAwards = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.awards'), 5);
-
-			$profilePurchaseInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.purchase_invoices'), 5);
-
-			$profileSalesInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.sales_invoices'), 5);
-
-			$profileCertifications = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.certification'), 5);
-
-			$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
-
-			$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
-
-				$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-
-			$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
-
-				$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-
-			$brand_slogan = CompanyProfile::getBrandSlogan($user_id, $company_id_result);
-
-			//$viewer = base64_encode('viewer' . $company_id_result);
-			//$urlFB = url('/company') . '/' . $viewer . '/' . $company_id_result;
-
-			$viewer = base64_encode($brand_slogan[0]);
-			$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
-			$urlPreview = url('company/'.$company_id_result);
-
-			$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
-
-			$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id', $user_id)->where('company_id', $company_id_result)->first();
-
-			return view('profile.view', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
-
-				'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
-
-				'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
-
-				'profileCertifications', 'completenessProfile', 'profileCoverPhoto',
-
-				'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons',
-
-				'user_id', 'businessNewsOpportunity', 'urlPreview'));
+			
 
 		} else {
 
@@ -218,7 +136,7 @@ class CompanyprofileController extends Controller {
 
 			//checks the authority of the consultants to view company profile
 
-			if (ConsultantProjects::validateConsultantAccessByProject(Auth::id(), $company_id) == true && User::securePage(Auth::id()) != 5) {
+			if (ConsultantProjects::validateConsultantAccessByProject(Auth::id(), $company_id) != true) {
 
 				return redirect('/consultants/ongoing-projects')->with('message', 'Page is restricted, you must be the assigned consultant.');
 
@@ -228,116 +146,9 @@ class CompanyprofileController extends Controller {
 
 			$company_data = CompanyProfile::find($company_id);
 
-			if ($company_data->count() > 0) {
+			if ($company_data != null) {
 
-				$user_id = $company_data->user_id;
-
-				$company_id_result = $company_data->id;
-
-				//$company_id_result = CompanyProfile::getCompanyId($user_id);
-
-				//$company_data = CompanyProfile::find($company_id_result);
-
-				//from system configuration
-
-				$num_of_employee = Configurations::getJsonValue('num_of_employee');
-
-				$estimated_sales = Configurations::getJsonValue('estimated_sales');
-
-				//$currency = Configurations::getJsonValue('currency');
-
-				$ownership_status = Configurations::getJsonValue('ownership_status');
-
-				$business_type = Configurations::getJsonValue('business_type');
-
-				$business_industry = Configurations::getJsonValue('business_industry');
-
-				$no_of_staff = Configurations::getJsonValue('no_of_staff');
-
-				$financial_year = Configurations::getJsonValue('financial_year');
-
-				$financial_month = Configurations::getJsonValue('financial_month');
-
-				$countries = Configurations::getJsonValue('countries');
-
-				$year_founded = Configurations::getJsonValue('year_founded');
-
-				$years_establishment = Configurations::getJsonValue('years_establishment');
-
-				$currency = Currency::all();
-
-				$gross_profit_loss = Configurations::getJsonValue('gross_profit_loss');
-
-				$net_profit_loss = Configurations::getJsonValue('net_profit_loss');
-
-				$filling_rate = Configurations::getJsonValue('filling_rate');
-
-				$asset_more_liability = Configurations::getJsonValue('asset_more_liability');
-
-				$paid_up_capital = Configurations::getJsonValue('paid_up_capital');
-
-				$countries = Countries::all();
-
-				$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
-
-				$profileAwards = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.awards'), 5);
-
-				$profilePurchaseInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.purchase_invoices'), 5);
-
-				$profileSalesInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.sales_invoices'), 5);
-
-				$profileCertifications = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.certification'), 5);
-
-				$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
-
-				$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
-
-					$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-
-				$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
-
-					$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-
-				$brand_slogan = CompanyProfile::getBrandSlogan($user_id, $company_id_result);
-
-				//$viewer = base64_encode('viewer' . $company_id_result);
-				//$urlFB = url('/company') . '/' . $viewer . '/' . $company_id_result;
-
-				$viewer = base64_encode($brand_slogan[0]);
-				$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
-				$urlPreview = url('company/'.$company_id_result);
-
-				$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
-
-				$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id', $user_id)->where('company_id', $company_id_result)->first();
-
-				/* $viewer_company_id = CompanyProfile::getCompanyId(Auth::id());
-
-					            WhoViewedMe::create([
-
-					              'presenter_company_id' => $company_id_result,
-
-					              'viewer_company_id'   => $viewer_company_id,
-
-					              'is_request'          => 'no',
-
-					              'created_at'          => date('Y-m-d'),
-
-					              'status'              => '1',
-
-				*/
-
-				return view('profile.view', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
-
-					'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
-
-					'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
-
-					'profileCertifications', 'completenessProfile', 'profileCoverPhoto',
-
-					'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons',
-
-					'user_id', 'businessNewsOpportunity', 'urlPreview'));
+				return CompanyprofileController::view_summary($company_id);
 
 			}
 
@@ -428,7 +239,9 @@ class CompanyprofileController extends Controller {
 		
 		$urlPreview = url('company/'.$company_id_result);
 
-		$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
+		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
+	
 
 		//$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id',$user_id)->where('company_id', $company_id_result)->first();
 
@@ -449,6 +262,101 @@ class CompanyprofileController extends Controller {
 		//}
 
 	}
+
+
+	public static function view_summary($company_id_result){
+
+		$company_data = CompanyProfile::find($company_id_result);
+
+		$user_id = $company_data->user_id;
+
+		$num_of_employee = Configurations::getJsonValue('num_of_employee');
+
+		$estimated_sales = Configurations::getJsonValue('estimated_sales');
+
+		//$currency = Configurations::getJsonValue('currency');
+
+		$ownership_status = Configurations::getJsonValue('ownership_status');
+
+		$business_type = Configurations::getJsonValue('business_type');
+
+		$business_industry = Configurations::getJsonValue('business_industry');
+
+		$no_of_staff = Configurations::getJsonValue('no_of_staff');
+
+		$financial_year = Configurations::getJsonValue('financial_year');
+
+		$financial_month = Configurations::getJsonValue('financial_month');
+
+		$countries = Configurations::getJsonValue('countries');
+
+		$year_founded = Configurations::getJsonValue('year_founded');
+
+		$years_establishment = Configurations::getJsonValue('years_establishment');
+
+		$currency = Currency::all();
+
+		$gross_profit_loss = Configurations::getJsonValue('gross_profit_loss');
+
+		$net_profit_loss = Configurations::getJsonValue('net_profit_loss');
+
+		$filling_rate = Configurations::getJsonValue('filling_rate');
+
+		$asset_more_liability = Configurations::getJsonValue('asset_more_liability');
+
+		$paid_up_capital = Configurations::getJsonValue('paid_up_capital');
+
+		$countries = Countries::all();
+
+		$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
+
+		$profileAwards = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.awards'), 5);
+
+		$profilePurchaseInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.purchase_invoices'), 5);
+
+		$profileSalesInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.sales_invoices'), 5);
+
+		$profileCertifications = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.certification'), 5);
+
+		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
+
+		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
+
+		$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
+
+		$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+		$brand_slogan = CompanyProfile::getBrandSlogan($user_id, $company_id_result);
+
+		$viewer = base64_encode($brand_slogan[0]);
+		$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
+		
+		$urlPreview = url('company/'.$company_id_result);
+
+	
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
+	
+
+		//$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id',$user_id)->where('company_id', $company_id_result)->first();
+
+		$businessNewsOpportunity = BusinessOpportunitiesNews::orderBy('updated_at','desc')->limit(10)->get();
+
+		return view('profile.view', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+
+			'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+
+			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+
+			'profileCertifications', 'completenessProfile', 'profileCoverPhoto',
+
+			'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons',
+
+			'user_id', 'businessNewsOpportunity', 'urlPreview'));
+
+	}
+
 
 	/**
 
@@ -532,7 +440,9 @@ class CompanyprofileController extends Controller {
 
 			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
 
-		$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
+		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
+
 
 		$param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
 

@@ -195,7 +195,7 @@
         }
 
         .pie {
-            background-color: #ecc0b7;
+            background-color: #f0a22e99;
             width: 200px;
             height: 200px;
             -moz-border-radius: 100px;
@@ -221,8 +221,8 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #f7e5e1;
-            border-color: #f7e5e1;
+            background-color: #F0A22E;
+            border-color: #F0A22E;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -246,8 +246,8 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #f7e5e1;
-            border-color: #f7e5e1;
+            background-color: #F0A22E;
+            border-color: #F0A22E;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -558,10 +558,10 @@
                                 <?php if(isset($completenessMessages)){
                                 foreach($completenessMessages as $d){
                                 ?>
-
-                                <li style=" list-style-type: none; color:red"><?php if ($d != NULL) {
+                                <strong>
+                                <li style=" list-style-type: none; color: #1A4275"><?php if ($d != NULL) {
                                         echo '<i class="fa fa-check"></i>' .$d;
-                                    } ?> </li>
+                                    } ?> </li></strong>
                                 <?php
                                 }
                                 } ?>
@@ -634,7 +634,7 @@
                              style="padding-left: 12px; padding-right: 12px; padding-bottom: 12px; margin-bottom: 0px; margin-top: 10px;">
                             <div class="card" style="margin-top: 20px;">
                                 <div class="note note-success">
-                                    <h4 class="block">ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</h4>
+                                    <h4 class="block"><strong>ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</strong></h4>
 
                                 </div>
                                 <div class="row">
@@ -655,9 +655,9 @@
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">
                                         <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
-                                                <strong>Prokakis members</strong> are three times more likely
+                                                <strong>Prokakis members are three times more likely
                                                 to engage with you if your company profile is over 30% complete.
-                                                Be sure to include accurate information.
+                                                Be sure to include accurate information.</strong>
                                             </p>
                                         </div>
                                         <a href="{{ route('editProfile') }}" class="btn red-mint" style="margin-top: 15px; width: 200px;">Enhance Company

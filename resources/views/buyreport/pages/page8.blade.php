@@ -65,13 +65,17 @@
       </table>
 	
     </div>
+
+ @if(sizeof($tr_peps) == 0)
+
+<p>World-Check’s Analysis: There is no indication that the company or the members of the company is in breach of
+FATF regulation as at {{ $tr_inserted_date }}.</p>  
+
+
+ @endif
 	
-      @if(sizeof($tr_peps) == 0){
-      <p>World-Check’s Analysis: There is no indication that the company or the members of the company is in breach of
-FATF regulation as at {{ $tr_inserted_date }}.</p>
-
-      @else
-
+      @if(sizeof($tr_peps) > 0)
+     
       <p>World-Check’s Analysis: There is indication that the company or the members of the company is in breach of
 FATF regulation as at {{ $tr_inserted_date }}.</p>  
 
