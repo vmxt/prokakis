@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-referral')
 
 
 
@@ -79,12 +79,38 @@
                             </p>
 
                             </div>
+                                <div class="alert alert-info " id="refer_alert" role="alert" style="display: none">
+                                  Copy to Clipboard!
+                                </div>
+                              <div class="input-group">
+                                <div class="input-group-btn ">
+                                  <button class="btn btn-info" type="submit" onclick="myFunction()"  >
+                                    <i class="glyphicon glyphicon-page" >Copy</i>
+                                  </button>
+                                </div>
+                                <?php $url_result = " https://app.prokakis.com/register-ref/Mjg=" ?>
+                                <input id="refer_url" type="text" class="form-control" name="refer_url" value="{{ $url_result }}" readonly>
+                              </div>
 
-                                <center>
+                            <div >
+                                 <h4>Social Media Outlet:</h4>
 
-                                <b>  <?php echo $url_result; ?>   </b>
+                                   <a class="btn btn-social-icon btn-facebook"
+                                        target="_blank"
+                                        href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($url_result); ?>" 
+                                   >
+                                    <span class="fa fa-facebook"></span> Share on Facebook
+                                  </a>
+          
+                                   <a class="btn btn-social-icon btn-twitter"
+                                        target="_blank"
+                                        href="https://twitter.com/share?url=<?php echo urlencode($url_result); ?>" 
+                                   >
+                                    <span class="fa fa-twitter"></span> Share on Twiiter
+                                  </a>
+                    
 
-                                </center>
+                            </div>
 
                             </div>
 
@@ -174,7 +200,7 @@
 
                                                 <?php
 
-                                                if( count((array)$rs) - 1 > 0 )
+                                                if( count((array)$rs) > 0 )
 
                                                 {
 
@@ -304,6 +330,21 @@
 
     <script>
 
+        function myFunction() {
+          var copyText = document.getElementById("refer_url");
+          copyText.select();
+          copyText.setSelectionRange(0, 99999);
+          document.execCommand("copy");
+          
+          $('#refer_alert').attr("style","display:true");
+          // var tooltip = document.getElementById("myTooltip");
+          // tooltip.innerHTML = "Copied: " + copyText.value;
+        }
+
+        // function outFunc() {
+        //   var tooltip = document.getElementById("myTooltip");
+        //   tooltip.innerHTML = "Copy to clipboard";
+        // }
 
 
         $(document).ready(function () {
