@@ -3,6 +3,9 @@
 @section('content')
 <script src="{{ asset('public/tinymce/js/tinymce/tinymce.min.js') }}"></script> 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script>
 
@@ -97,6 +100,18 @@
             height: 100%;
         }
 
+        #edit_news{
+            float:left;
+            width:100%;
+            overflow-y: auto;
+            height: 100%;
+            width: 80%;
+
+            width: 200px; height: 150px; padding: 5px;
+            text-align: center; margin: 0; 
+        }
+
+
     </style>
 
     <script src="{{ asset('public/js/app.js') }}"></script>
@@ -138,14 +153,13 @@
               ADD NEWS CONTENT </a> </center>
 
             <div id="container" class="table-scrollable">
-                <table id="system_data" class="table table-hover table-light">
-                    
+                <table id="system_data" class="display nowrap table table-hover table-light" style="width:100%">
                     <thead>
                     <tr>
                         <th width="5">#</th>
-                        <th>News Title</th>
+                        <th data-priority="1">News Title</th>
                         <th>Date Submitted</th>
-                        <th>Action</th>
+                        <th >Action</th>
                     </tr>
                     </thead>
                     
@@ -162,7 +176,7 @@
                         <td><b><?php echo date("F j, Y", strtotime($data->created_at)); ?></b></td>
                         <td>
                             <a   onclick="ajxProcess('<?php echo $data->id; ?>','<?php echo $data->business_title; ?>')"
-                               data-popup-open="popup-1" class="edit_icon btn btn-outline btn-circle btn-sm blue">
+                                class="edit_icon btn btn-outline btn-circle btn-sm blue">
                              <i class="fa fa-edit"></i> Edit </a>
                             
                             <a   onclick="ajxDel('<?php echo $data->id; ?>', '<?php echo $data->business_title; ?>')"
@@ -190,8 +204,7 @@
 
 
 
-    <div class="popup" data-popup="popup-1">
-        <div class=" popup_content popup-inner">
+    <div   id="edit_news" style="display: none;">
             <div class="form-group">
                 <input type="text" id="news_title_update" name="news_title_update" class="form-control" />
                 <input type="hidden" name="newsId" id="newsId" value="">
@@ -210,10 +223,9 @@
             <div class="form-group">
                 <p>
                     <button align="right" id="ajxUpdate" type="button" class="btn btn-primary">Update</button>
-                    <button align="right" id="closeBut1" data-popup-close="popup-1" type="button" class="btn btn-danger">Close</button>
+                    <button align="right" id="closeBut1" type="button" class="btn btn-danger">Close</button>
                 </p>
             </div>
-        </div>
     </div>
 
 
@@ -245,18 +257,36 @@
 
 
 
-<link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
-<script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
+{{-- <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script> --}}
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+$.extend( $.fn.dataTable.defaults, {
+    responsive: true
+} );
+
 $(document).ready( function () {
-    $('#system_data').DataTable();
+    $('#system_data').DataTable({
+        responsive: true,
+        columnDefs: [ 
+            { targets:"_all", orderable: false },
+            { targets:[0,1,2,3], className: "desktop" },
+            { targets:[0,1], className: "tablet, mobile" }
+        ]
+    });
     $(".popup").hide();
 
    if($('.popup-1').modal('show') == true){
        alert('sdfsd');
    }
+
+    $("#closeBut1").click(function () {
+        $('#edit_news').dialog('close');
+    });
 
 
 } );
@@ -274,6 +304,7 @@ function readURL(input,id) {
 }
 
 
+
 function ajxProcess(cId, nTitle){
    
         $("#newsId").val(cId);
@@ -287,12 +318,12 @@ function ajxProcess(cId, nTitle){
             contentType: false,
 
             success: function (data) {
-                console.log( path+data.feature_image);
+                $('#load_feature_image').empty();
                 $('<img src="'+ path+data.feature_image +'">').load(function() {
                   $(this).width('250px').appendTo('#load_feature_image');
                 });
                 tinymce.get("opportunitiesArea").setContent(data.content_business);
-
+                $( "#edit_news" ).dialog();
             }
         });
 
@@ -421,6 +452,7 @@ function ajxProcess(cId, nTitle){
 
         //----- CLOSE
         $('[data-popup-close]').on('click', function (e) {
+            alert("hello");
             var targeted_popup_class = jQuery(this).attr('data-popup-close');
             $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
 
