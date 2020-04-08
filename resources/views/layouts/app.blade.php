@@ -10,11 +10,12 @@
     <head>
         <!-- from the original code -->
         <!-- CSRF Token -->
-        <meta property="og:url"           content="https://app.prokakis.com/" />
-        <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Prokakis Ebos-SG App 2020" />
-        <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
-        <meta property="og:image"         content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" />
+        <meta property="og:title" content="Prokakis Ebos-SG App 2020" /> 
+        <meta property="og:url" content="https://app.prokakis.com/" /> 
+        <meta property="og:site_name" content="Prokakis"/> 
+        <meta property="og:image" content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
+        <meta property="og:type" content="website" /> 
+        <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." />
         <!-- end from the original code -->
 
         <meta charset="utf-8" />
@@ -331,10 +332,10 @@ s0.parentNode.insertBefore(s1,s0);
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-default">
 
-						<li>
+                        <li>
                                                     <a href="{{ route('getTokenActivated') }}">
                                                         <i class="icon-wrench"></i> Account and Token </a>
-                                                </li>	
+                                                </li>   
 
                                                 <li>
 

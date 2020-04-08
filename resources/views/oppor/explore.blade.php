@@ -203,11 +203,26 @@
         }
 
         /* Masonry on small screens */
-        @media only screen and (max-width: 767px) and (min-width: 400px) {
+        @media only screen and (max-width: 767px) and (min-width: 300px) {
             .card-columns1{
                 column-count: 1;
             }
+
+            .table-scrollable table tbody tr td{
+                word-wrap: break-word;
+            }
+
+            .table td, .table th {
+                font-size: 12px;
+            }
+
+            .table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>thead>tr>th {
+                padding: 0px;
+            }
         }
+
+
+
 
  
         .thumbnail {
