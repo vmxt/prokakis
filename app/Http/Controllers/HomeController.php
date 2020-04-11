@@ -523,11 +523,11 @@ class HomeController extends Controller {
 
 		$userId = Auth::id();
 
-		$url_result = \App\CompanyProfile::generateReferralLinkEncoded($userId);
+		$url_result = CompanyProfile::generateReferralLinkEncoded($userId);
 
 
 
-		$rs = \App\User::where('referral_id', $userId)->get();
+		$rs = User::where('referral_id', $userId)->get();
 
 
 

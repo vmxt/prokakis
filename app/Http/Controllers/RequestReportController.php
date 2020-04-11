@@ -546,6 +546,21 @@ class RequestReportController extends Controller {
 
 	}
 
+	public function apiRequestReportER(){
+		$data = [];
+		$rs = RequestReport::all();
+		if($rs != null){
+		  foreach($rs as $d){	
+		  $cp =	CompanyProfile::find($d->source_company_id);
+		  $data[] = array('Request Id'=>$d->id, 'Company Id' => $cp->id, 'Company Name'=>$cp->company_name, 'Industry'=> $cp->industry);
+		  }
+
+		}
+
+		return response()->json($data, 200);
+	}
+
+
 
 
 }

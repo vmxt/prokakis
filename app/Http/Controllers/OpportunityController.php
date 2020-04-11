@@ -702,7 +702,7 @@ class OpportunityController extends Controller {
 
 		$company_id = CompanyProfile::getCompanyId(Auth::id());
 
-		//$data = OpportunityBuildingCapability::where('company_id', $company_id)->first();
+		$data = OpportunityBuildingCapability::where('company_id', $company_id)->first();
 
 		return view("oppor.build", compact('country_list', 'approx_large_list', 'data'));
 
@@ -873,7 +873,7 @@ class OpportunityController extends Controller {
 
 		$company_id = CompanyProfile::getCompanyId(Auth::id());
 
-		// $data = OpportunitySellOffer::where('company_id', $company_id)->first();
+		$data = OpportunitySellOffer::where('company_id', $company_id)->first();
 
 		return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data'));
 

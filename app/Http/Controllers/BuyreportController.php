@@ -533,6 +533,8 @@ class BuyreportController extends Controller {
 		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 		$keyPersons = KeyManagement::where('company_id', $proc->source_company_id)->where('user_id', $user_id)->where('status', 1)->get();
 
+		$consultantFiles = ProcessedReport::getFileUploadsForReportGeneration($proc->approval_id);
+
 		//--Financial Analysis---
 		$fa_count = FA_Results::where('company_id', $proc->source_company_id)->count();
 		$arrMonths = array(1=>'Jan', 2=>'Feb', 3=>'Mar', 4=>'Apr', 5=>'May', 6=>'Jun', 7=>'Jul', 8=>'Aug', 9=>'Sep', 10=>'Oct', 11=>'11', 12=>'Dec');
@@ -653,7 +655,7 @@ class BuyreportController extends Controller {
 			
 			'tr_peps', 'tr_inserted_date', 'MONTH_RATIO', 'RT', 'ACP', 'IT', 'DII', 'PT', 'APP', 'NWP', 'CR', 'QR', 'DTE', 'DTA', 'IC','GPM','OPM', 'NPM',
 
-			'ROI', 'ROE'));
+			'ROI', 'ROE', 'consultantFiles'));
 
 		return $pdf->download($company_data->company_name . '.pdf');
 

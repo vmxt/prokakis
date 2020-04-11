@@ -114,6 +114,11 @@
 
         }
 
+        #relevant_describing_partner-selectized{
+            max-width: 100% !important;
+            width: auto !important;
+        }
+
 
 
     </style>

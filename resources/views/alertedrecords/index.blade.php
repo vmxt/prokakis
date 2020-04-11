@@ -29,6 +29,10 @@
 
 <script src="{{ asset('public/tinymce/js/tinymce/tinymce.min.js') }}"></script>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <script>
           tinymce.init({
             selector: '#businessnewsArea, #opportunitiesArea',
@@ -53,10 +57,10 @@
             <div class="col-md-12">
 
               <div id="container">
-              <table id="system_data" class="table table-hover table-light">
+              <table id="system_data" class="display hover row-border stripe compact">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th style="text-align: center"><h3>Click here to <strong>sort</strong></h3></th>
                         </tr>
                     </thead>
 
@@ -117,12 +121,11 @@
 
   </div>
 
-
 <script src="{{ asset('public/js/app.js') }}"></script>
-
-<link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
-<script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
 $(document).ready( function () {
