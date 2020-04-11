@@ -19,6 +19,17 @@
             width: 100%;
             background-color: gray;
         }
+
+        .wrapword {
+            white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+            white-space: -pre-wrap;      /* Opera 4-6 */
+            white-space: -o-pre-wrap;    /* Opera 7 */
+            white-space: pre-wrap;       /* css-3 */
+            word-wrap: break-word;       /* Internet Explorer 5.5+ */
+            white-space: -webkit-pre-wrap; /* Newer versions of Chrome/Safari*/
+            word-break: break-word;
+            white-space: normal;
+        }
     </style>
 
     <div class="container">
@@ -50,8 +61,8 @@
                                         <div class="col col-sm-4" style="padding: 0px;">
                                             <a id="building" href="javascript:;"
                                                class="btn green-sharp btn-outline  btn-block sbold uppercase"
-                                               type="submit" style="height: 100px; line-height: 3.5;"> <span
-                                                        style="font-size: 25px;">BUILDING CAPABILITY</span> </a>
+                                               type="submit" style="height: 100px; "> <span class="wrapword"
+                                                        style="font-size: 25px; ">BUILDING CAPABILITY</span> </a>
                                             <center><span style="margin-top: 5px;">Partnership or Investments</span>
                                             </center>
                                         </div>

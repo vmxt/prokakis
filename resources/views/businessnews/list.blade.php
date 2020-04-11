@@ -153,13 +153,13 @@
               ADD NEWS CONTENT </a> </center>
 
             <div id="container" class="table-scrollable">
-                <table id="system_data" class="display nowrap table table-hover table-light" style="width:100%">
+                <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
                     <thead>
                     <tr>
-                        <th width="5">#</th>
-                        <th data-priority="1">News Title</th>
-                        <th>Date Submitted</th>
-                        <th >Action</th>
+                        <th width="10%">#</th>
+                        <th data-priority="1" width="60%">News Title</th>
+                        <th width="15%">Date Submitted</th>
+                        <th width="15%">Action</th>
                     </tr>
                     </thead>
                     
@@ -452,7 +452,6 @@ function ajxProcess(cId, nTitle){
 
         //----- CLOSE
         $('[data-popup-close]').on('click', function (e) {
-            alert("hello");
             var targeted_popup_class = jQuery(this).attr('data-popup-close');
             $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
 

@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <style>
 
 
@@ -19,6 +24,10 @@
             border-radius: 5px;
             width: 25%;
             background-color: orangered;
+        }
+
+        #OpportunityController{
+
         }
     </style>
 
@@ -87,30 +96,19 @@
 
                         </div>
                         <div class="portlet-body">
-                            <div class="table-scrollable">
-
-                                    @if (session('status'))
-                                    <div class="alert alert-success">
-                                        {{ session('status') }}
-                                    </div>
-                                @endif
-                                @if (session('message'))
-                                    <div class="alert alert-danger">
-                                        {{ session('message') }}
-                                    </div>
-                                @endif
-
-                                <table id="system_data" class="table table-hover table-light">
+                            <div id="container" class="table-scrollable">
+                                <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Title</th>
                                         <th>Seeking</th>
                                         <th>Expectations</th>
-                                        <th>Title</th>
                                         <th>Category</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
+                                    
                                     <tbody>
                                     <?php
                                     $counter = 1;
@@ -118,13 +116,16 @@
                                     foreach($build as $b){  ?>
                                     <tr>
                                         <td><?php echo $counter; ?></td>
+                                        <td><p> <?php echo $b->opp_title; ?></p></td>
                                         <td>
-                                            - <?php echo $b->business_goal; ?> <br/>
-                                            - <?php echo $b->ideal_partner_business; ?> <br/>
-                                            - <?php echo $b->ideal_partner_base; ?>
+                                            <ul>
+                                                <li> <?php echo $b->business_goal; ?> </li>
+                                                <li> <?php echo $b->ideal_partner_business; ?> </li>
+                                                <li> <?php echo $b->ideal_partner_base; ?> </li>
+                                            </ul>
                                         </td>
                                         <td> <?php echo $b->timeframe_goal; ?> <br/></td>
-                                        <td> <?php echo $b->opp_title; ?></td>
+                                       
 
                                         <td> Building Capability <br/>
 
@@ -155,13 +156,16 @@
                                     foreach($sell as $s){  ?>
                                     <tr>
                                         <td><?php echo $counter; ?></td>
+                                        <td> <?php echo $s->opp_title; ?></td>
                                         <td>
-                                            - <?php echo $s->what_sell_offer; ?> <br/>
-                                            - <?php echo $s->ideal_partner_business; ?> <br/>
-                                            - <?php echo $s->ideal_partner_base; ?>
+                                            <ul>
+                                                <li><?php echo $s->what_sell_offer; ?></li>
+                                                <li><?php echo $s->ideal_partner_business; ?></li>
+                                                <li><?php echo $s->ideal_partner_base; ?></li>
+                                            </ul>
                                         </td>
                                         <td> <?php echo $s->timeframe_goal; ?> <br/></td>
-                                        <td> <?php echo $s->opp_title; ?></td>
+                                      
 
                                         <td>Sell/Offer <br/>
 
@@ -190,13 +194,15 @@
                                     foreach($buy as $bb){  ?>
                                     <tr>
                                         <td><?php echo $counter; ?></td>
+                                        <td> <?php echo $bb->opp_title; ?></td>
                                         <td>
-                                            - <?php echo $bb->what_sell_offer; ?> <br/>
-                                            - <?php echo $bb->ideal_partner_business; ?> <br/>
-                                            - <?php echo $bb->ideal_partner_base; ?>
+                                            <ul>
+                                                <li><?php echo $bb->what_sell_offer; ?></li>
+                                                <li><?php echo $bb->ideal_partner_business; ?></li>
+                                                <li><?php echo $bb->ideal_partner_base; ?></li>
                                         </td>
                                         <td> <?php echo $bb->timeframe_goal; ?> <br/></td>
-                                        <td> <?php echo $bb->opp_title; ?></td>
+                                        
 
                                         <td>Buy <br/>
 
@@ -218,9 +224,10 @@
                                     }
 
                                     } ?>
-
                                     </tbody>
+                                 
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -230,11 +237,33 @@
 
         </div>
 
-    <script src="{{ asset('public/js/app.js') }}"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    {{-- <script src="{{ asset('public/js/app.js') }}"></script> --}}
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
     <script>
         $(document).ready(function () {
+
+            $('#system_data').DataTable({
+            responsive: true,
+            columnDefs: [ 
+                { targets:"_all", orderable: false },
+                { targets:[0,1,2,3,4,5], className: "desktop" },
+                { targets:[0,1], className: "tablet, mobile" }
+            ]
+            });
+            $(".popup").hide();
+
+           if($('.popup-1').modal('show') == true){
+               alert('sdfsd');
+           }
+
+            $("#closeBut1").click(function () {
+                $('#edit_news').dialog('close');
+            });
 
             $("#searchMyOpportunity").click(function () {
                 var industry = $("#industry").val();
