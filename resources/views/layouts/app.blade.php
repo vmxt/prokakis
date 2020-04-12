@@ -36,6 +36,10 @@
         <link href="{{ asset('public/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
         <link href="{{ asset('public/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/morris/morris.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css" />
@@ -55,12 +59,117 @@
         <!-- for new banner
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
             -->
+
         <!-- END HEAD -->
         <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
 
     <!-- override the css values above -->
      <style>
-            .page-header .page-header-menu {
+
+        @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+body {
+  font-family: 'Open Sans', 'sans-serif';
+  background: #f0f0f0;
+  background: url(https://pcbx.us/bfjb.jpg);
+}
+
+h1,
+.h1 {
+  font-size: 36px;
+  text-align: center;
+  font-size: 5em;
+  color: #404041;
+}
+
+.navbar-nav>li>.dropdown-menu {
+  margin-top: 20px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.navbar-default .navbar-nav>li>a {
+  width: 200px;
+  font-weight: bold;
+}
+
+.mega-dropdown {
+  position: static !important;
+  width: 100%;
+}
+
+.mega-dropdown-menu {
+  padding: 20px 0px;
+  width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.mega-dropdown-menu:before {
+  content: "";
+  border-bottom: 15px solid #fff;
+  border-right: 17px solid transparent;
+  border-left: 17px solid transparent;
+  position: absolute;
+  top: -15px;
+  left: 285px;
+  z-index: 10;
+}
+
+.mega-dropdown-menu:after {
+  content: "";
+  border-bottom: 17px solid #ccc;
+  border-right: 19px solid transparent;
+  border-left: 19px solid transparent;
+  position: absolute;
+  top: -17px;
+  left: 283px;
+  z-index: 8;
+}
+
+.mega-dropdown-menu > li > ul {
+  padding: 0;
+  margin: 0;
+}
+
+.mega-dropdown-menu > li > ul > li {
+  list-style: none;
+}
+
+.mega-dropdown-menu > li > ul > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.428571429;
+  color: #999;
+  white-space: normal;
+}
+
+.mega-dropdown-menu > li ul > li > a:hover,
+.mega-dropdown-menu > li ul > li > a:focus {
+  text-decoration: none;
+  color: #444;
+  background-color: #f5f5f5;
+}
+
+.mega-dropdown-menu .dropdown-header {
+  color: #428bca;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.mega-dropdown-menu form {
+  margin: 3px 20px;
+}
+
+.mega-dropdown-menu .form-group {
+  margin-bottom: 3px;
+}
+/*
+    code for mega nav
+*/
+
+            .page-header .page-header-menu, .mega-menu-content {
                 background: #1a4275;
             }
             i {color: white}
@@ -411,6 +520,7 @@ s0.parentNode.insertBefore(s1,s0);
                                 <!-- BEGIN MEGA MENU -->
                                 <!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
                                 <!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
+
                                 <div class="hor-menu  ">
                                     <ul class="nav navbar-nav">
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{ (request()->segment(2) == '/') ? 'active' : '' }}">
@@ -427,14 +537,14 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         </li>
                                       <?php if($userType == 1){  ?>
-                                        <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
                                         (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}} ">
 
                                                 <a  href="{{ url('/home') }}" >
                                                     <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
                                                     <span class="arrow"></span>
                                                 </a>
-                                                <ul class="dropdown-menu pull-left">
+{{--                                                 <ul class="dropdown-menu">
                                                         <li aria-haspopup="true" class=" ">
                                                                <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
                                                                <i class="icon-bulb" style="color: white"></i> Business News</a>
@@ -444,8 +554,105 @@ s0.parentNode.insertBefore(s1,s0);
                                                                <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
                                                                <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
                                                         </li>
-                                                </ul>
 
+
+
+                                                </ul> --}}
+
+                                        </li>
+
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
+                                        (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}}  ">
+                                            <a href="{{ url('/home') }}">
+                                                <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
+                                                <span class="arrow"></span>
+                                            </a>
+                                            <ul class="dropdown-menu" style="min-width: 710px">
+                                                <li>
+                                                    <div class="mega-menu-content">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <ul class="mega-menu-submenu">
+                                                                    <li aria-haspopup="true" class=" ">
+                                                                           <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
+                                                                           <i class="icon-bulb" style="color: white"></i> Business News</a>
+                                                                    </li>
+
+                                                                    <li aria-haspopup="true" class=" ">
+                                                                           <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
+                                                                           <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <ul class="mega-menu-submenu">
+                                                                    <li>
+                                                                        <a href="maps_vector.html"> Vector Maps </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_timeline.html"> Timeline 1 </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_timeline_2.html"> Timeline 2 </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_timeline_horizontal.html"> Horizontal Timeline </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_page_progress_style_1.html"> Page Progress Bar - Flash </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_page_progress_style_2.html"> Page Progress Bar - Big Counter </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_blockui.html"> Block UI </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_bootstrap_growl.html"> Bootstrap Growl Notifications </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_notific8.html"> Notific8 Notifications </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_toastr.html"> Toastr Notifications </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_bootbox.html"> Bootbox Dialogs </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <ul class="mega-menu-submenu">
+                                                                    <li>
+                                                                        <a href="ui_alerts_api.html"> Metronic Alerts API </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_session_timeout.html"> Session Timeout </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_idle_timeout.html"> User Idle Timeout </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_modals.html"> Modals </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_extended_modals.html"> Extended Modals </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_tiles.html"> Tiles </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_datepaginator.html"> Date Paginator </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="ui_nestable.html"> Nestable List </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
                                         </li>
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{ (request()->segment(2) == 'view') ? 'active' : '' ||
@@ -750,6 +957,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         @endguest
                                     </ul>
                                 </div>
+
                                 <!-- END MEGA MENU -->
                             </div>
                         </div>
@@ -1047,7 +1255,9 @@ s0.parentNode.insertBefore(s1,s0);
         <!-- END NEW SCRIPTS FOR FIXING OF MENU BAR -->
 
 <script>
-
+jQuery(document).on('click', '.mega-dropdown', function(e) {
+  e.stopPropagation()
+})
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
