@@ -339,9 +339,14 @@ foreach ($build as $item) {
 
                     <div class="thumbnail" style="margin-bottom: 5px;">
 
-                        <?php if ($item->view_type == 2) {?>
+                        <?php if ($item->view_type != 2) {?>
+                        <img class="premium_banner" alt="Premium Banner" 
+                             src="{{ asset('public/banner/banner-premium.png') }}">
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
+
+                          
+
                         <?php }?>
 
 
@@ -575,6 +580,8 @@ foreach ($sell as $item) {
                     <div class="thumbnail" style="margin-bottom: 5px;">
 
                         <?php if ($item->view_type == 2) {?>
+                        <img class="premium_banner" alt="Premium Banner" 
+                             src="{{ asset('public/banner/banner-premium.png') }}">
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
@@ -819,6 +826,8 @@ foreach ($buy as $item) {
                     <div class="thumbnail" style="margin-bottom:5px;">
 
                         <?php if ($item->view_type == 2) {?>
+                        <img class="premium_banner" alt="Premium Banner" 
+                             src="{{ asset('public/banner/banner-premium.png') }}">
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
