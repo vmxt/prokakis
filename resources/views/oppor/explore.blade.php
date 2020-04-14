@@ -247,6 +247,11 @@
            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
          }
 
+         .premium_banner{
+            float: right;
+            width: 65%;
+            padding-bottom: 15px;
+         }
         /*.card-explore{
             height: 25em;
         }*/
@@ -339,9 +344,17 @@ foreach ($build as $item) {
 
                     <div class="thumbnail" style="margin-bottom: 5px;">
 
-                        <?php if ($item->view_type == 2) {?>
+                        <?php if ($item->view_type != 2) {?>
+                        <div>
+                        <img class="premium_banner" alt="Premium Banner" 
+                             src="{{ asset('public/banner/banner-new4.png') }}">
+                         </div>
+                         <br>
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
+
+                          
+
                         <?php }?>
 
 
@@ -575,6 +588,8 @@ foreach ($sell as $item) {
                     <div class="thumbnail" style="margin-bottom: 5px;">
 
                         <?php if ($item->view_type == 2) {?>
+                        <img class="premium_banner" alt="Premium Banner" 
+                             src="{{ asset('public/banner/banner-premium.png') }}">
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
@@ -819,6 +834,8 @@ foreach ($buy as $item) {
                     <div class="thumbnail" style="margin-bottom:5px;">
 
                         <?php if ($item->view_type == 2) {?>
+                        <img class="premium_banner" alt="Premium Banner" 
+                             src="{{ asset('public/banner/banner-premium.png') }}">
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
