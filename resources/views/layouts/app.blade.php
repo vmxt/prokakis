@@ -265,6 +265,84 @@ h1,
   color: #ffffff;
 }
 
+.menu_title{
+  color: #f90;
+  font-weight: bolder;
+}
+
+.mega_large_image{
+  width: 95%;
+  height: 200px;
+  object-fit: cover;
+  display: inline-block;
+  /*overflow: auto;*/
+  border: 1px solid #6b7ec6;
+  border-radius: 8px;
+  margin-left:  20px;
+    /*transition: transform .5s ease;*/
+    /*transition: transform 5s, filter 3s ease-in-out;*/
+  overflow: hidden
+}
+
+.mega_large_image:hover{
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  /*transform: scale(1.5) rotate(2deg);*/
+  filter: brightness(50%);
+  border: 2px solid #f90;
+}
+
+.container_lg_img:hover .text-centered{
+visibility : visible;
+color: #f90;
+}
+
+.container_sm_img:hover .text-centered{
+visibility : visible;
+color: #f90;
+}
+
+.mega_small_image:hover{
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  /*transform: scale(1.5) rotate(2deg);*/
+    filter: brightness(50%);
+  border: 2px solid #f90;
+}
+
+.text-centered {
+  color: white;
+  position: absolute;
+  font-weight: bolder !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.container_lg_img{
+  /*overflow: hidden;  [1.2] Hide the overflowing of child elements */
+  position: relative;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.2) 3px 5px 5px;
+}
+
+.mega_small_image{
+  width: 90%;
+  height: 150px;
+  object-fit: cover;
+  display: inline-block;
+  overflow: auto;
+  margin: 15px;
+  margin-left: 20px;
+  border: 1px solid #6b7ec6;
+  border-radius: 8px;
+   /*transition: transform 5s, filter 3s ease-in-out;*/
+}
+
+.div_right{
+  border-left:  solid 1px #f90;
+}
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -539,11 +617,11 @@ s0.parentNode.insertBefore(s1,s0);
                                       <?php if($userType == 1){  ?>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
                                         (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}} ">
-
+{{-- 
                                                 <a  href="{{ url('/home') }}" >
                                                     <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
                                                     <span class="arrow"></span>
-                                                </a>
+                                                </a> --}}
 {{--                                                 <ul class="dropdown-menu">
                                                         <li aria-haspopup="true" class=" ">
                                                                <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
@@ -563,7 +641,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
                                         (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}}  ">
-                                            <a href="{{ url('/home') }}">
+                                            <a href="#">
                                                 <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
                                                 <span class="arrow"></span>
                                             </a>
@@ -571,7 +649,8 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li>
                                                     <div class="mega-menu-content">
                                                         <div class="row">
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-3">
+                                                              <h4 class="menu_title"> System Dashboard </h4>
                                                                 <ul class="mega-menu-submenu">
                                                                     <li aria-haspopup="true" class=" ">
                                                                            <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
@@ -583,71 +662,30 @@ s0.parentNode.insertBefore(s1,s0);
                                                                            <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
                                                                     </li>
                                                                 </ul>
+                                                                <hr width="1" size="400">
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <ul class="mega-menu-submenu">
-                                                                    <li>
-                                                                        <a href="maps_vector.html"> Vector Maps </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_timeline.html"> Timeline 1 </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_timeline_2.html"> Timeline 2 </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_timeline_horizontal.html"> Horizontal Timeline </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_page_progress_style_1.html"> Page Progress Bar - Flash </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_page_progress_style_2.html"> Page Progress Bar - Big Counter </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_blockui.html"> Block UI </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_bootstrap_growl.html"> Bootstrap Growl Notifications </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_notific8.html"> Notific8 Notifications </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_toastr.html"> Toastr Notifications </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_bootbox.html"> Bootbox Dialogs </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <ul class="mega-menu-submenu">
-                                                                    <li>
-                                                                        <a href="ui_alerts_api.html"> Metronic Alerts API </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_session_timeout.html"> Session Timeout </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_idle_timeout.html"> User Idle Timeout </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_modals.html"> Modals </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_extended_modals.html"> Extended Modals </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_tiles.html"> Tiles </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_datepaginator.html"> Date Paginator </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="ui_nestable.html"> Nestable List </a>
-                                                                    </li>
-                                                                </ul>
+
+                                                            <div class="col-md-9 div_right"  >
+                                                              <h4 class="menu_title"> Popular Categories </h4>
+                                                              <div class="mega-menu-submenu col-md-12 container_lg_img">
+                                                                <img class="mega_large_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                <div class="text-centered" style="visibility : hidden;"><h3 class="text-centered">Explore Opportunities</h3></div>
+                                                              </div>
+                                                              <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                <span class="text-centered" style="visibility : hidden;"><h3 class="text-centered">Top Up</h3></span>
+                                                              </div>
+
+                                                              <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                <span class="text-centered" style="visibility : hidden;"><h3 class="text-centered">View Profile</h3></span>
+                                                              </div>
+
+                                                              <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                <span class="text-centered" style="visibility : hidden;"><h3 class="text-centered">Business News</h3></span>
+                                                              </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
