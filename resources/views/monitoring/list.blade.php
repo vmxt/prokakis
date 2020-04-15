@@ -4,7 +4,9 @@
 
 @section('content')
 
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <style>
 
@@ -212,8 +214,29 @@
 
                 <div class="table-container">
 
-                    <div id="sample_3_wrapper" class="dataTables_wrapper no-footer"><div class="row"><div class="col-md-6 col-sm-6"><div class="dataTables_length" id="sample_3_length"><label><select name="sample_3_length" aria-controls="sample_3" class="form-control input-sm input-xsmall input-inline"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="-1">All</option></select> entries</label></div></div><div class="col-md-6 col-sm-6"><div id="sample_3_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm input-small input-inline" placeholder="" aria-controls="sample_3"></label></div></div></div><div class="table-scrollable"><table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="sample_3" role="grid" aria-describedby="sample_3_info" style="width: 1096px;">
+                    <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
+                        <div class="row"><div class="col-md-6 col-sm-6">
+                            <div class="dataTables_length" id="sample_3_length">
+                                <label>
+                                    <select name="sample_3_length" aria-controls="sample_3" class="form-control input-sm input-xsmall input-inline">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="-1">All</option>
+                                    </select> entries</label></div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div id="sample_3_filter" class="dataTables_filter">
+                                        <label>Seadrch:<input type="search" class="form-control input-sm input-small input-inline" placeholder="" aria-controls="sample_3"></label>
+                                    </div>
+                                </div>
+                            </div>
 
+                    <div class="table-scrollable">
+
+                        {{-- <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="sample_3" role="grid" aria-describedby="sample_3_info" style="width: 1096px;"> --}}
+                            <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
                                 <thead>
 
                                 <tr role="row">
@@ -282,7 +305,8 @@
 
                                         }
 
-                                        ?></td>
+                                        ?> 
+                                    </td>
 
                                     
 
@@ -373,12 +397,15 @@
                                         </td>
 
                                 </tr>
+                                <tfoot>
+                                    
+                        
                                 <tr><td colspan="8">
                                     <div class="note note-danger"><b> Download Report</b>; "Please download your KYB Due Diligence report within <?php echo $freq->description; ?>. There will be no replacement or refund after the link expires"</div>
                                     <div class="note note-success"><b> Request Update</b>; "User can request provider to update their current information to request for their latest report"</div>
                                 </td></tr>
                              
-
+        </tfoot>
                                 <?php } ?>
 
                                
@@ -406,11 +433,16 @@
 
 
 
-    <script src="{{ asset('public/js/app.js') }}"></script>
+    {{-- <script src="{{ asset('public/js/app.js') }}"></script> --}}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
 
-    <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+    {{-- <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script> --}}
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 
 
@@ -418,10 +450,14 @@
 
         $(document).ready(function () {
 
-            $('#system_data').DataTable();
-
-
-
+            $('#system_data').DataTable({
+            responsive: true,
+            columnDefs: [ 
+                { targets:"_all", orderable: false },
+                { targets:[0,1,2,3,4,5,6,7], className: "desktop" },
+                { targets:[0], className: "tablet, mobile" }
+            ]
+            });
         });
 
 

@@ -4,7 +4,9 @@
 
 @section('content')
 
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <style>
 
@@ -114,9 +116,9 @@
 
             <div class="table-scrollable">
 
-                <table class="table table-hover table-light">
+                <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
 
-                    <tbody>
+                    
 
                         <thead>
 
@@ -138,6 +140,7 @@
 
                         </thead>
 
+                        <tbody>
                             <?php
 
 $i = 1;
@@ -344,26 +347,6 @@ $disabled = '';
 
 
 
-                            <tfoot>
-
-                                <tr>
-
-                                    <th>No</th>
-
-                                    <th>Requested Report</th>
-
-                                    <th>Search On</th>
-
-                                    <th>Report Status</th>
-
-                                    <th>Completed Date</th>
-
-                                    <th>Action</th>
-
-                                </tr>
-
-                            </tfoot>
-
                     </tbody>
 
                 </table>
@@ -380,11 +363,11 @@ $disabled = '';
 
 
 
-    <script src="{{ asset('public/js/app.js') }}"></script>
+    {{-- <script src="{{ asset('public/js/app.js') }}"></script> --}}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
-
-    <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 
@@ -392,9 +375,14 @@ $disabled = '';
 
         $(document).ready(function () {
 
-            // $('#system_data').DataTable();
-
-
+            $('#system_data').DataTable({
+            responsive: true,
+            columnDefs: [ 
+                { targets:"_all", orderable: false },
+                { targets:[0,1,2,3,4,5], className: "desktop" },
+                { targets:[0,1], className: "tablet, mobile" }
+            ]
+            });
 
         });
 
