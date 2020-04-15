@@ -340,6 +340,10 @@ color: #f90;
    /*transition: transform 5s, filter 3s ease-in-out;*/
 }
 
+.list-image{
+ height: 100px !important;
+}
+
 .div_right{
   border-left:  solid 1px #f90;
 }
@@ -668,22 +672,38 @@ s0.parentNode.insertBefore(s1,s0);
                                                             <div class="col-md-9 div_right"  >
                                                               <h4 class="menu_title"> Popular Categories </h4>
                                                               <div class="mega-menu-submenu col-md-12 container_lg_img">
-                                                                <img class="mega_large_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                <div class="text-centered" style="visibility : hidden;"><h3 class="text-centered">Explore Opportunities</h3></div>
+                                                                <a href="{{ route('opportunityExploreIndex') }}">
+                                                                  <img class="mega_large_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                  <div class="text-centered" style="visibility : hidden;">
+                                                                    <h3 class="text-centered">Explore Opportunities</h3>
+                                                                  </div>
+                                                                </a>
                                                               </div>
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
-                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                <span class="text-centered" style="visibility : hidden;"><h3 class="text-centered">Top Up</h3></span>
+                                                                <a href="{{ route('reportsBuyTokens') }}">
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                  <div class="text-centered" style="visibility : hidden;">
+                                                                  <h3 class="text-centered">Top Up</h3>
+                                                                  </div>
+                                                                </a>
                                                               </div>
 
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
-                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                <span class="text-centered" style="visibility : hidden;"><h3 class="text-centered">View Profile</h3></span>
+                                                                <a href="{{ route('viewingProfile') }}">
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                  <div class="text-centered" style="visibility : hidden;">
+                                                                    <h3 class="text-centered">View Profile</h3>
+                                                                  </div>
+                                                                </a>
                                                               </div>
 
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
-                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                <span class="text-centered" style="visibility : hidden;"><h3 class="text-centered">Business News</h3></span>
+                                                                <a href="{{ route('businessnewsList') }}">
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                  <div class="text-centered" style="visibility : hidden;">
+                                                                    <h3 class="text-centered">Business News</h3>
+                                                                  </div>
+                                                                </a>
                                                               </div>
 
                                                             </div>
@@ -726,26 +746,204 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Company</a>
                                                 </li>
                                             </ul>
-                                        </li>
-                                        <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{(request()->segment(1) == 'opportunity') ? 'active' : '' ||
-                                        (request()->segment(2) == 'explore') ? 'active' : ''}}">
 
+                                            <ul class="dropdown-menu" style="min-width: 710px">
+                                              <li>
+                                                  <div class="mega-menu-content">
+                                                      <div class="row">
+                                                          <div class="col-md-3">
+                                                            <h4 class="menu_title"> Company </h4>
+                                                              <ul class="mega-menu-submenu">
+                                                                <li aria-haspopup="true" class=" ">
+                                                                    <a class="nav-link" href="{{ url('/profile/view') }}"> <i class="fa fa-video-camera" style="color: white"></i> View Company</a>
+                                                                </li>
+                                                                <li aria-haspopup="true" class=" ">
+                                                                        <a class="nav-link" href="{{ url('/profile/edit') }}"> <i class="fa fa-edit" style="color: white"></i> Edit Company</a>
+                                                                </li>
+                                                                <li aria-haspopup="true" class=" ">
+                                                                    <a href="{{ url('/profile/contacts') }}" class="nav-link "><i class="fa fa-phone-square" style="color: white"></i> Contacts </a>
+                                                                </li>
+                                                               <!-- <li aria-haspopup="true" class=" ">
+                                                                    <a href="{{ url('/profile/billing') }}" class="nav-link  "><i class="fa fa-money" style="color:white;"></i> Billing</a>
+                                                                </li> -->
+                                                                <li aria-haspopup="true" class=" ">
+                                                                    <a href="{{ url('/profile/paymentHistory') }}" class="nav-link"><i class="fa fa-cc-paypal" style="color: white"></i> Payments History</a>
+                                                                </li>
+                                                                <!--<li aria-haspopup="true" class=" ">
+                                                                    <a href="{{ url('/profile/socialAccounts') }}" class="nav-link"> <i class="fa fa-facebook-official" style="color: white"></i> Social Media Accounts</a>
+                                                                </li> -->
+                                                                <li aria-haspopup="true" class=" ">
+                                                                    <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Company</a>
+                                                                </li>
+                                                              </ul>
+                                                              <hr width="1" size="400">
+                                                          </div>
+
+                                                          <div class="col-md-9 div_right"  >
+                                                            <h4 class="menu_title"> Popular Categories </h4>
+                                                            <div class="mega-menu-submenu col-md-12 container_lg_img">
+                                                              <a href="{{ route('opportunityExploreIndex') }}">
+                                                                <img class="mega_large_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                <div class="text-centered" style="visibility : hidden;">
+                                                                  <h3 class="text-centered">Explore Opportunities</h3>
+                                                                </div>
+                                                              </a>
+                                                            </div>
+                                                            <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                              <a href="{{ route('reportsBuyTokens') }}">
+                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                <div class="text-centered" style="visibility : hidden;">
+                                                                <h3 class="text-centered">Top Up</h3>
+                                                                </div>
+                                                              </a>
+                                                            </div>
+
+                                                            <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                              <a href="{{ route('viewingProfile') }}">
+                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                <div class="text-centered" style="visibility : hidden;">
+                                                                  <h3 class="text-centered">View Profile</h3>
+                                                                </div>
+                                                              </a>
+                                                            </div>
+
+                                                            <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                              <a href="{{ route('businessnewsList') }}">
+                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                <div class="text-centered" style="visibility : hidden;">
+                                                                  <h3 class="text-centered">Business News</h3>
+                                                                </div>
+                                                              </a>
+                                                            </div>
+
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </li>
+                                            </ul>
+
+                                        </li>
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'opportunity') ? 'active' : '' ||
+                                        (request()->segment(2) == 'explore') ? 'active' : ''}}">
+                                        <?php 
+                                            $user_id = Auth::id();
+                                            $company_id = App\CompanyProfile::getCompanyId($user_id);
+
+                                                $build_list = App\OpportunityBuildingCapability::where('company_id', '!=', $company_id)
+                                                ->where('status', 1)
+                                                ->get();
+
+                                                $sell_list = App\OpportunitySellOffer::where('company_id', '!=', $company_id)
+                                                ->where('status', 1)
+                                                ->get();
+
+                                                $buy_list = App\OpportunityBuy::where('company_id', '!=', $company_id)
+                                                ->where('status', 1)
+                                                ->get();
+
+                                            $getRequestReportByUser = App\RequestReport::getRequestReportByUser();
+
+                                        ?>
                                             <a href="#">
                                                 <i class=" fa fa-lightbulb-o" style="color: white"></i> Opportunities
                                                 <span class="arrow"></span>
                                             </a>
+                                            <ul class="dropdown-menu" style="max-width: 710px">
+                                              <li>
+                                                  <div class="mega-menu-content">
+                                                      <div class="row">
+                                                          <div class="col-md-3">
+                                                            <h4 class="menu_title"> Opportunities </h4>
+                                                              <ul class="mega-menu-submenu">
+                                                                  <li aria-haspopup="true" class=" ">
+                                                                        <a  href="{{ url('/opportunity') }}" class="nav-link  ">
+                                                                          <i class="icon-bulb" style="color: white"></i> My Opportunities 
+                                                                        </a>
+                                                                  </li>
 
-                                            <ul class="dropdown-menu pull-left">
-                                                <li aria-haspopup="true" class=" ">
-                                                    <a  href="{{ url('/opportunity') }}" class="nav-link  "><i class="icon-bulb" style="color: white"></i> My Opportunities </a>
-                                                </li>
-                                                <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/opportunity/explore') }}" class="nav-link  "><i class="icon-magnifier" style="color: white;"></i> Explore</a>
-                                                </li>
+                                                                  <li aria-haspopup="true" class=" ">
+                                                                      <a href="{{ url('/opportunity/explore') }}" class="nav-link  ">
+                                                                        <i class="icon-magnifier" style="color: white;"></i> Explore
+                                                                      </a>
+                                                                  </li>
+                                                              </ul>
+                                                              <hr width="1" size="400">
+                                                          </div>
+
+                                                          <div class="col-md-9 div_right"  >
+                                                            <h5 class="menu_title"> Build Opportunity </h5>
+                                                            <?php 
+                                                              $build_count = 0;
+                                                              foreach ($build_list as $item):
+                                                                if($build_count < 3):
+                                                                  $build_count++;
+                                                            ?>
+                                                            <div class="mega-menu-submenu col-md-4 container_sm_img" 
+                                                                        title="<?=$item->opp_title?>"
+                                                                        data-toggle="popover" 
+                                                                        data-trigger="hover"
+                                                                        data-content="<?=$item->business_goal?>"
+                                                                        data-placement="left">
+                                                              <a href="{{ route('opportunityExploreIndex') }}" >
+                                                                <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
+                                                              </a>
+                                                            </div>
+                                                            <?php 
+                                                                endif;
+                                                              endforeach;
+                                                            ?>
+
+
+                                                            <h5 class="menu_title"> Sell Opportunity </h5>
+                                                            <?php 
+                                                              $sell_count = 0;
+                                                              foreach ($sell_list as $item):
+                                                                if($sell_count < 3):
+                                                                  $sell_count++;
+                                                            ?>
+                                                            <div class="mega-menu-submenu col-md-4 container_sm_img" 
+                                                                        title="<?=$item->opp_title?>"
+                                                                        data-toggle="popover" 
+                                                                        data-trigger="hover"
+                                                                        data-content="<?=$item->business_goal?>"
+                                                                        data-placement="left">
+                                                              <a href="{{ route('opportunityExploreIndex') }}" >
+                                                                <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
+                                                              </a>
+                                                            </div>
+                                                            <?php 
+                                                                endif;
+                                                              endforeach;
+                                                            ?>
+                                                            <h5 class="menu_title"> Buy Opportunity </h5>
+                                                            <?php 
+                                                              $buy_count = 0;
+                                                              foreach ($sell_list as $item):
+                                                                if($buy_count < 3):
+                                                                  $buy_count++;
+                                                            ?>
+                                                            <div class="mega-menu-submenu col-md-4 container_sm_img" 
+                                                                        title="<?=$item->opp_title?>"
+                                                                        data-toggle="popover" 
+                                                                        data-trigger="hover"
+                                                                        data-content="<?=$item->business_goal?>"
+                                                                        data-placement="left">
+                                                              <a href="{{ route('opportunityExploreIndex') }}" >
+                                                                <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
+                                                              </a>
+                                                            </div>
+                                                            <?php 
+                                                                endif;
+                                                              endforeach;
+                                                            ?>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </li>
                                             </ul>
 
                                         </li>
-                                        <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{(request()->segment(2) == 'status') ? 'active' : '' ||
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(2) == 'status') ? 'active' : '' ||
                                         (request()->segment(2) == 'list') ? 'active' : '' ||
                                         (request()->segment(2) == 'buyTokens') ? 'active' : '' ||
                                         (request()->segment(2) == 'requesters') ? 'active' : ''}}">
@@ -755,23 +953,60 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <span class="arrow"></span>
                                             </a>
 
-                                            <ul class="dropdown-menu pull-left">
-                                                <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: white;"></i> Report Status </a>
-                                                </li>
-                                                <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
-                                                </li>
-                                                <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Tokens</a>
-                                                </li>
+                                            <ul class="dropdown-menu" style="min-width: 710px">
+                                                <li>
+                                                    <div class="mega-menu-content">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                              <h4 class="menu_title"> Report </h4>
+                                                                <ul class="mega-menu-submenu">
+                                                                  <li aria-haspopup="true" class=" ">
+                                                                      <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: white;"></i> Report Status </a>
+                                                                  </li>
+                                                                  <li aria-haspopup="true" class=" ">
+                                                                      <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
+                                                                  </li>
+                                                                  <li aria-haspopup="true" class=" ">
+                                                                      <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Tokens</a>
+                                                                  </li>
 
-                                                <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: white;"></i> Report Requesters </a>
+                                                                  <li aria-haspopup="true" class=" ">
+                                                                      <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: white;"></i> Report Requesters </a>
+                                                                  </li>
+                                                                </ul>
+                                                                <hr width="1" size="400">
+                                                            </div>
+
+                                                            <div class="col-md-8 div_right"  >
+                                                              <h5 class="menu_title"> Top Advisors </h5>
+                                                            <?php
+                                                            $repoort_count = 0;
+                                                            foreach( $getRequestReportByUser as $val ):
+                                                              if($buy_count < 10):
+                                                                $repoort_count++; 
+                                                            ?>
+                                                              <div class="mega-menu-submenu col-md-3 container_sm_img" 
+                                                                        title="<?=$val->company_name?>"
+                                                                        data-toggle="popover" 
+                                                                        data-trigger="hover"
+                                                                        data-content="<?=$val->lastname.", ".$val->firstname." (".$val->total_count.")" ?>"
+                                                                        data-placement="left">
+                                                                <a href="{{ route('reportsBuyTokens') }}">
+                                                                  <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                </a>
+                                                              </div>
+                                                            <?php 
+                                                              endif;
+                                                            endforeach;
+                                                            ?>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </li>
-
-
                                             </ul>
+
                                         </li>
 
                                         <?php } elseif($userType == 2) { ?>
@@ -1422,7 +1657,8 @@ function autocomplete(inp, arr) {
 }
 
 $(document).ready(function()
-{
+{ 
+    $('[data-toggle="popover"]').popover();   
    $.getJSON('https://app.prokakis.com/getCompanyNames', function(dataA) {
      autocomplete(document.getElementById("seach_entry_key"), dataA);
   });

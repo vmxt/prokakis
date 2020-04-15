@@ -248,9 +248,10 @@
          }
 
          .premium_banner{
+            /*margin-left: 180px;*/
             float: right;
-            width: 65%;
-            padding-bottom: 15px;
+            width: 50%;
+            /*margin-bottom: 15px;*/
          }
         /*.card-explore{
             height: 25em;
@@ -317,15 +318,12 @@
                     {{ session('status') }}
                 </div>
         @endif
-
-
            <!-- START BUILD OPPORTUNITY -->
             <div class="hr-sect" style="margin-top: 50px; margin-bottom: 25px;">Build Opportunity</div>
             <div class="card-columns1">
                 <?php
 $i = 0;
 foreach ($build as $item) {
-
 	$d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
 	$company = App\CompanyProfile::find($item->company_id);
 	if ( $company->count() > 0 && $d_status == true) {
@@ -344,8 +342,8 @@ foreach ($build as $item) {
 
                     <div class="thumbnail" style="margin-bottom: 5px;">
 
-                        <?php if ($item->view_type != 2) {?>
-                        <div>
+                        <?php if ($item->view_type == 2) {?>
+                        <div class="premium_banner_container" >
                         <img class="premium_banner" alt="Premium Banner" 
                              src="{{ asset('public/banner/banner-new4.png') }}">
                          </div>
@@ -588,8 +586,10 @@ foreach ($sell as $item) {
                     <div class="thumbnail" style="margin-bottom: 5px;">
 
                         <?php if ($item->view_type == 2) {?>
+                        <div class="premium_banner_container">
                         <img class="premium_banner" alt="Premium Banner" 
                              src="{{ asset('public/banner/banner-premium.png') }}">
+                         </div>
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
@@ -834,8 +834,10 @@ foreach ($buy as $item) {
                     <div class="thumbnail" style="margin-bottom:5px;">
 
                         <?php if ($item->view_type == 2) {?>
+                        <div class="premium_banner_container">
                         <img class="premium_banner" alt="Premium Banner" 
                              src="{{ asset('public/banner/banner-premium.png') }}">
+                        </div>
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
