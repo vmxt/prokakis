@@ -59,7 +59,6 @@
         <!-- for new banner
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
             -->
-
         <!-- END HEAD -->
         <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
 
@@ -512,7 +511,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                 $usr = App\User::find($user_id);
                                                 $accStatus = '';
                                                 if ($usr->user_type == 1) {
-                                                    if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){
+                                                    if( App\SpentTokens::validateAccountActivation($company_id_result) == false ){
                                                         $accStatus = '(<b>FREE</b> ACCOUNT)';   
                                                     } else{
                                                         $accStatus = '(<b>PREMIUM</b> ACCOUNT)'; 
@@ -1230,7 +1229,6 @@ s0.parentNode.insertBefore(s1,s0);
                                         @endguest
                                     </ul>
                                 </div>
-
                                 <!-- END MEGA MENU -->
                             </div>
                         </div>
