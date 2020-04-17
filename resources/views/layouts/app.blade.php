@@ -291,30 +291,33 @@ h1,
 }
 
 .container_lg_img:hover .text-centered{
-visibility : visible;
-color: #f90;
+/*visibility : visible;*/
+color: white;
+ text-shadow: 2px 2px #1a4275;
 }
 
 .container_sm_img:hover .text-centered{
-visibility : visible;
-color: #f90;
+/*visibility : visible;*/
+color: white;
+ text-shadow: 2px 2px #1a4275;
 }
 
 .mega_small_image:hover{
   box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
   /*transform: scale(1.5) rotate(2deg);*/
-    filter: brightness(50%);
+    filter: brightness(40%);
   border: 2px solid #f90;
 }
 
 .text-centered {
-  color: white;
+  color: black;
   position: absolute;
   font-weight: bolder !important;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   white-space: nowrap;
+ text-shadow: 2px 2px #cfcfcf;
 }
 
 .container_lg_img{
@@ -323,7 +326,7 @@ color: #f90;
   margin-right: 20px;
   margin-bottom: 20px;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.2) 3px 5px 5px;
+  /*box-shadow: rgba(0, 0, 0, 0.2) 3px 5px 5px;*/
 }
 
 .mega_small_image{
@@ -673,7 +676,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                               <div class="mega-menu-submenu col-md-12 container_lg_img">
                                                                 <a href="{{ route('opportunityExploreIndex') }}">
                                                                   <img class="mega_large_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                  <div class="text-centered" style="visibility : hidden;">
+                                                                  <div class="text-centered" >
                                                                     <h3 class="text-centered">Explore Opportunities</h3>
                                                                   </div>
                                                                 </a>
@@ -681,7 +684,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
                                                                 <a href="{{ route('reportsBuyTokens') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                  <div class="text-centered" style="visibility : hidden;">
+                                                                  <div class="text-centered" >
                                                                   <h3 class="text-centered">Top Up</h3>
                                                                   </div>
                                                                 </a>
@@ -690,7 +693,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
                                                                 <a href="{{ route('viewingProfile') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                  <div class="text-centered" style="visibility : hidden;">
+                                                                  <div class="text-centered" >
                                                                     <h3 class="text-centered">View Profile</h3>
                                                                   </div>
                                                                 </a>
@@ -699,7 +702,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
                                                                 <a href="{{ route('businessnewsList') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                  <div class="text-centered" style="visibility : hidden;">
+                                                                  <div class="text-centered" >
                                                                     <h3 class="text-centered">Business News</h3>
                                                                   </div>
                                                                 </a>
@@ -875,19 +878,24 @@ s0.parentNode.insertBefore(s1,s0);
                                                               $build_count = 0;
                                                               foreach ($build_list as $item):
                                                                 if($build_count < 3):
+                                                                  $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+                                                                  $company = App\CompanyProfile::find($item->company_id);
+                                                                  if ( $company->count() > 0 && $d_status == true):
                                                                   $build_count++;
                                                             ?>
                                                             <div class="mega-menu-submenu col-md-4 container_sm_img" 
+                                                                        {{-- title="<?=$item->opp_title?>" --}}
                                                                         title="<?=$item->opp_title?>"
                                                                         data-toggle="popover" 
                                                                         data-trigger="hover"
                                                                         data-content="<?=$item->business_goal?>"
                                                                         data-placement="left">
-                                                              <a href="{{ route('opportunityExploreIndex') }}" >
+                                                              <a href="{{ route('opportunityExploreIndex')."?type=build&ids=".$item->id }}" >
                                                                 <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
                                                               </a>
                                                             </div>
                                                             <?php 
+                                                                  endif;
                                                                 endif;
                                                               endforeach;
                                                             ?>
@@ -898,6 +906,9 @@ s0.parentNode.insertBefore(s1,s0);
                                                               $sell_count = 0;
                                                               foreach ($sell_list as $item):
                                                                 if($sell_count < 3):
+                                                                  $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+                                                                  $company = App\CompanyProfile::find($item->company_id);
+                                                                  if (count((array) $company) - 1 > 0 && $d_status == true):
                                                                   $sell_count++;
                                                             ?>
                                                             <div class="mega-menu-submenu col-md-4 container_sm_img" 
@@ -906,19 +917,23 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-trigger="hover"
                                                                         data-content="<?=$item->business_goal?>"
                                                                         data-placement="left">
-                                                              <a href="{{ route('opportunityExploreIndex') }}" >
+                                                              <a href="{{ route('opportunityExploreIndex')."?type=sell&ids=".$item->id }}" >
                                                                 <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
                                                               </a>
                                                             </div>
                                                             <?php 
+                                                                  endif;
                                                                 endif;
                                                               endforeach;
                                                             ?>
                                                             <h5 class="menu_title"> Buy Opportunity </h5>
                                                             <?php 
                                                               $buy_count = 0;
-                                                              foreach ($sell_list as $item):
+                                                              foreach ($buy_list as $item):
                                                                 if($buy_count < 3):
+                                                                  $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+                                                                  $company = App\CompanyProfile::find($item->company_id);
+                                                                  if (count((array) $company) > 0 && $d_status == true):
                                                                   $buy_count++;
                                                             ?>
                                                             <div class="mega-menu-submenu col-md-4 container_sm_img" 
@@ -927,11 +942,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-trigger="hover"
                                                                         data-content="<?=$item->business_goal?>"
                                                                         data-placement="left">
-                                                              <a href="{{ route('opportunityExploreIndex') }}" >
+                                                              <a href="{{ route('opportunityExploreIndex')."?type=buy&ids=".$item->id }}" >
                                                                 <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
                                                               </a>
                                                             </div>
                                                             <?php 
+                                                                  endif;
                                                                 endif;
                                                               endforeach;
                                                             ?>

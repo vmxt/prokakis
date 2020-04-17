@@ -250,6 +250,23 @@
             width: 50%;
             /*margin-bottom: 15px;*/
          }
+
+         .modal-dialog {
+          width: 75%;
+          height: 100%;
+          padding: 35px;
+        }
+
+        .modal-content {
+          height: auto;
+          border-radius: 15px;
+        }
+
+        .modal-title {
+            font-size: 18px; 
+            font-weight: bold; 
+        }
+
         /*.card-explore{
             height: 25em;
         }*/
@@ -1050,6 +1067,214 @@ foreach ($buy as $item) {
         </div>
     </div>
 
+@if($result_filter)
+<!-- Modal -->
+<div 
+    class="modal fade" 
+    id="opporDetailsContentModal" 
+    tabindex="-1" role="dialog" 
+    aria-labelledby="opporDetailsContentModalLabel" 
+    aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="opporDetailsContentModalLabel">Opportunity Details</h4>
+        </div>
+        <div class="modal-body">
+        <?php 
+        $d_status = App\CompanyProfile::getDeactivateInfo($result_filter->company_id);
+        $company = App\CompanyProfile::find($result_filter->company_id);
+        if ( $company->count() > 0 && $d_status == true) {
+            $avatar = \App\UploadImages::where('company_id', $result_filter->company_id)->where('file_category', 'PROFILE_AVATAR')
+            ->orderBy('id', 'desc')
+            ->first();
+            $avat = '';
+            if (!isset($avatar->file_name)) {
+                $avat = 'robot.jpg';
+            } else {
+                $avat = $avatar->file_name;
+            } ?>
+        <div>
+            <span class="title-text">
+                <h4><strong> Title: </strong></h4>
+            </span>
+            <span class="content-text">
+                <h4> <?= $result_filter->opp_title ?> </h4>
+            </span>
+            <hr>
+        </div>
+
+        <div>
+            <span class="title-text">
+                <h4><strong> Ratings </strong></h4>
+            </span>
+            <span class="content-text">
+ <?php
+        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+
+        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+            $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+        if ($ratingScore < 25) {
+            ?>
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p1.png') }}">
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p1.png') }}">
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p1.png') }}">
+
+                                        <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p2.png') }}">
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p1.png') }}">
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p1.png') }}">
+
+                                        <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p2.png') }}">
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p2.png') }}">
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p1.png') }}">
+
+                                        <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p2.png') }}">
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p2.png') }}">
+                                        <img width="30" height="32"
+                                             src="{{  asset('public/stars/p2.png') }}">
+
+                                        <?php }?>
+                                        <br/>
+                <h4> {{ $ratingScore }} % </h4>
+            </span>
+            <hr>
+        </div>
+        <div>
+            <span class="title-text">
+                <h4><strong> This Company is seeking </strong></h4>
+            </span>
+            <span class="content-text">
+                <h4>
+                    <ul>
+                        @if($opp_type == 'build')
+                        <li>{{ $result_filter->business_goal }}</li>
+                        @else
+                        <li>{{ $result_filter->what_sell_offer }}</li>
+                        @endif
+                        <li>{{ $result_filter->audience_target }}</li>
+                        <li>
+            <?php 
+                $string = explode(",",$result_filter->ideal_partner_base);
+                $i=0;
+                foreach( $string as $val ):
+                    if(trim($val) != ''):
+                        echo $val;
+                        $i++;
+                        if($i != count($string)){
+                            echo ", ";
+                        }
+                    endif;
+                endforeach; ?>
+                        </li>
+                </h4>
+                </ul>
+            </span>
+            <hr>
+        </div>
+
+        <div>
+            <span class="title-text">
+                <h4><strong> Expectation </strong></h4>
+            </span>
+            <span class="content-text">
+                <h4> 
+                    {{ $result_filter->timeframe_goal }}
+                    {{ $result_filter->approx_large }} opportunity.
+                    
+                </h4>
+            </span>
+            <hr>
+        </div>
+
+        <div>
+            <span class="title-text">
+                <h4><strong> Industry Keyword </strong></h4>
+            </span>
+            <span class="content-text">
+                <h4>
+<?php 
+                  $string = explode(",",$result_filter->ideal_partner_business);
+                  $i=0;
+                  foreach( $string as $val ):
+                    if(trim($val) != ''):
+                        echo $val." ";
+                        $i++;
+                        if($i != count($string)){
+                            echo ",";
+                        }
+                    endif;
+                  endforeach;
+?>
+                </h4>
+            </span>
+            <hr>
+        </div>
+
+        <div>
+            <span class="title-text">
+                <h4><strong> Why partner with this company?  </strong></h4>
+            </span>
+            <span class="content-text">
+                <h4> {{ $result_filter->why_partner_goal }} </h4>
+            </span>
+            <hr>
+        </div>
+
+        <div>
+            <span class="title-text">
+                <h4><strong> Relevant industry or products  </strong></h4>
+            </span>
+            <span class="content-text">
+                <h4>
+<?php 
+            $rr = explode(",",$result_filter->relevant_describing_partner);
+            if(count((array) $rr) > 0):
+              foreach($rr as $h):
+                if(trim($h) != ''){
+                    echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                }
+              endforeach;
+            endif;
+?>
+                </h4>
+            </span>
+            <hr>
+        </div>
+
+<?php   
+        }#end if company count
+        ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
+
 
     <div class="container">
         <div class="card-columns1">
@@ -1061,6 +1286,7 @@ foreach ($buy as $item) {
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
         $(document).ready(function () {
+            $("#opporDetailsContentModal").modal()
             $("#filterKeywords").click(function () {
                 var keyS = $("#keywordSearch").val();
                 var getUrl = window.location;

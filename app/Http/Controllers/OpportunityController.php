@@ -626,7 +626,7 @@ class OpportunityController extends Controller {
 
 	}
 
-	public function explore() {
+	public function explore(Request $request) {
 
 		$user_id = Auth::id();
 		$company_id = CompanyProfile::getCompanyId($user_id);
@@ -644,9 +644,22 @@ class OpportunityController extends Controller {
 				->get();
 
 		$requestReport = new RequestReport;
-
-		return view("oppor.explore", compact('build', 'sell', 'buy', 'requestReport'));
-
+		$result_filter = false;
+		$opp_type = $request->get('type');
+		if ($request->has('type') and $ids = $request->get('ids') ) {
+			switch ($request->get('type')) {
+				case 'build':
+					$result_filter = $build->find($ids);
+					break;
+				case 'sell':
+					$result_filter = $sell->find($ids);
+					break;
+				case 'buy':
+					$result_filter = $buy->find($ids);
+					break;
+			}
+		}
+		return view("oppor.explore", compact('build', 'sell', 'buy', 'requestReport', 'result_filter','opp_type'));
 	}
 
 
