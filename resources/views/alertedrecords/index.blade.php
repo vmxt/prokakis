@@ -60,7 +60,7 @@
               <table id="system_data" class="display hover row-border stripe compact">
                     <thead>
                         <tr>
-                            <th style="text-align: center"><h3>Click here to <strong>sort</strong></h3></th>
+                            <th style="text-align: center"><h3><strong>Sort</strong></h3></th>
                         </tr>
                     </thead>
 

@@ -525,10 +525,10 @@ s0.parentNode.insertBefore(s1,s0);
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-default">
 
-                        <li>
+						<li>
                                                     <a href="{{ route('getTokenActivated') }}">
                                                         <i class="icon-wrench"></i> Account and Token </a>
-                                                </li>   
+                                                </li>	
 
                                                 <li>
 
@@ -650,7 +650,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             <a href="#">
                                                 <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
                                                 <span class="arrow"></span>
-                                            </a>
+                                                </a>
                                             <ul class="dropdown-menu" style="min-width: 710px">
                                                 <li>
                                                     <div class="mega-menu-content">
@@ -658,16 +658,16 @@ s0.parentNode.insertBefore(s1,s0);
                                                             <div class="col-md-3">
                                                               <h4 class="menu_title"> System Dashboard </h4>
                                                                 <ul class="mega-menu-submenu">
-                                                                    <li aria-haspopup="true" class=" ">
-                                                                           <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
-                                                                           <i class="icon-bulb" style="color: white"></i> Business News</a>
-                                                                    </li>
+                                                        <li aria-haspopup="true" class=" ">
+                                                               <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
+                                                               <i class="icon-bulb" style="color: white"></i> Business News</a>
+                                                        </li>
 
-                                                                    <li aria-haspopup="true" class=" ">
-                                                                           <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
-                                                                           <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
-                                                                    </li>
-                                                                </ul>
+                                                        <li aria-haspopup="true" class=" ">
+                                                               <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
+                                                               <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
+                                                        </li>
+                                                </ul>
                                                                 <hr width="1" size="400">
                                                             </div>
 
@@ -857,13 +857,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                           <div class="col-md-3">
                                                             <h4 class="menu_title"> Opportunities </h4>
                                                               <ul class="mega-menu-submenu">
-                                                                  <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class=" ">
                                                                         <a  href="{{ url('/opportunity') }}" class="nav-link  ">
                                                                           <i class="icon-bulb" style="color: white"></i> My Opportunities 
                                                                         </a>
-                                                                  </li>
+                                                </li>
 
-                                                                  <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class=" ">
                                                                       <a href="{{ url('/opportunity/explore') }}" class="nav-link  ">
                                                                         <i class="icon-magnifier" style="color: white;"></i> Explore
                                                                       </a>
@@ -881,6 +881,15 @@ s0.parentNode.insertBefore(s1,s0);
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                                                                   $company = App\CompanyProfile::find($item->company_id);
                                                                   if ( $company->count() > 0 && $d_status == true):
+                                                                  $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                                                                        ->orderBy('id', 'desc')
+                                                                        ->first();
+                                                                    $avat = '';
+                                                                    if (!isset($avatar->file_name)) {
+                                                                        $avat = 'robot.jpg';
+                                                                    } else {
+                                                                        $avat = $avatar->file_name;
+                                                                    }
                                                                   $build_count++;
                                                             ?>
                                                             <div class="mega-menu-submenu col-md-4 container_sm_img" 
@@ -891,11 +900,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-content="<?=$item->business_goal?>"
                                                                         data-placement="left">
                                                               <a href="{{ route('opportunityExploreIndex')."?type=build&ids=".$item->id }}" >
-                                                                <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
+                                                                <img class="mega_small_image list-image" alt="profile image" 
+                                                                  src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                                                               </a>
                                                             </div>
                                                             <?php 
-                                                                  endif;
+                                                                endif;
                                                                 endif;
                                                               endforeach;
                                                             ?>
@@ -909,6 +919,15 @@ s0.parentNode.insertBefore(s1,s0);
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                                                                   $company = App\CompanyProfile::find($item->company_id);
                                                                   if (count((array) $company) - 1 > 0 && $d_status == true):
+                                                                    $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                                                                        ->orderBy('id', 'desc')
+                                                                        ->first();
+                                                                    $avat = '';
+                                                                    if (!isset($avatar->file_name)) {
+                                                                        $avat = 'robot.jpg';
+                                                                    } else {
+                                                                        $avat = $avatar->file_name;
+                                                                    }
                                                                   $sell_count++;
                                                             ?>
                                                             <div class="mega-menu-submenu col-md-4 container_sm_img" 
@@ -918,11 +937,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-content="<?=$item->business_goal?>"
                                                                         data-placement="left">
                                                               <a href="{{ route('opportunityExploreIndex')."?type=sell&ids=".$item->id }}" >
-                                                                <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
+                                                                <img class="mega_small_image list-image" alt="profile image" 
+                                                                  src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                                                               </a>
                                                             </div>
                                                             <?php 
-                                                                  endif;
+                                                                endif;
                                                                 endif;
                                                               endforeach;
                                                             ?>
@@ -934,6 +954,15 @@ s0.parentNode.insertBefore(s1,s0);
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                                                                   $company = App\CompanyProfile::find($item->company_id);
                                                                   if (count((array) $company) > 0 && $d_status == true):
+                                                                    $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                                                                        ->orderBy('id', 'desc')
+                                                                        ->first();
+                                                                    $avat = '';
+                                                                    if (!isset($avatar->file_name)) {
+                                                                        $avat = 'robot.jpg';
+                                                                    } else {
+                                                                        $avat = $avatar->file_name;
+                                                                    }
                                                                   $buy_count++;
                                                             ?>
                                                             <div class="mega-menu-submenu col-md-4 container_sm_img" 
@@ -943,18 +972,19 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-content="<?=$item->business_goal?>"
                                                                         data-placement="left">
                                                               <a href="{{ route('opportunityExploreIndex')."?type=buy&ids=".$item->id }}" >
-                                                                <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up"  />
+                                                                  <img class="mega_small_image list-image" alt="profile image" 
+                                                                  src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                                                               </a>
                                                             </div>
                                                             <?php 
-                                                                  endif;
+                                                                endif;
                                                                 endif;
                                                               endforeach;
                                                             ?>
                                                           </div>
                                                       </div>
                                                   </div>
-                                              </li>
+                                                </li>
                                             </ul>
 
                                         </li>
@@ -975,19 +1005,19 @@ s0.parentNode.insertBefore(s1,s0);
                                                             <div class="col-md-4">
                                                               <h4 class="menu_title"> Report </h4>
                                                                 <ul class="mega-menu-submenu">
-                                                                  <li aria-haspopup="true" class=" ">
-                                                                      <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: white;"></i> Report Status </a>
-                                                                  </li>
-                                                                  <li aria-haspopup="true" class=" ">
-                                                                      <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
-                                                                  </li>
-                                                                  <li aria-haspopup="true" class=" ">
-                                                                      <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Tokens</a>
-                                                                  </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: white;"></i> Report Status </a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Tokens</a>
+                                                </li>
 
-                                                                  <li aria-haspopup="true" class=" ">
-                                                                      <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: white;"></i> Report Requesters </a>
-                                                                  </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: white;"></i> Report Requesters </a>
+                                                </li>
                                                                 </ul>
                                                                 <hr width="1" size="400">
                                                             </div>
@@ -1671,7 +1701,7 @@ function autocomplete(inp, arr) {
 }
 
 $(document).ready(function()
-{ 
+{
     $('[data-toggle="popover"]').popover();   
    $.getJSON('https://app.prokakis.com/getCompanyNames', function(dataA) {
      autocomplete(document.getElementById("seach_entry_key"), dataA);
