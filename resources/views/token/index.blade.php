@@ -125,7 +125,7 @@
                                         <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
                                             <p>
                                                In order to avail the premium features, <strong>Prokakis members</strong> should activate thier account to premium.
-                                               Please click the button below "Activate to Premium"
+                                               Please click the button below "Upgrade to Premium Account"
                                            </p>
                                        </div>
 
@@ -154,7 +154,7 @@
 
                                                     <?php if( App\SpentTokens::validateAccountActivation($company_id_result) == false ){ ?>
                                                     <a onclick="PromoOne()" class="btn yellow"
-                                                        style="margin-top: 15px; width: 50%;"> <i class="fa" style="color: white;"></i> Activate To Premium 
+                                                        style="margin-top: 15px; width: 50%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account
                                                     </a>
                                                     <?php } else { ?>
 
@@ -163,6 +163,13 @@
                                                             <div class="card-header">
                                                                 <center><span class="bold uppercase font-blue">You are already a premium account <br /></span>
                                                                     <hr>
+                                                                    Premium account expires on <?php 
+                                                                    $ed = App\SpentTokens::getPremiumExpiryDate($company_id_result);
+                                                                    if($ed != false){
+                                                                    echo $ed;
+                                                                    }
+ 
+                                                                    ?>
                                                                 </center>
                                                             </div>
             
@@ -178,6 +185,7 @@
                                                         <div class="card-header">
                                                             <center><span class="bold uppercase font-blue">Token Credit</span>
                                                                 <hr>
+                                                             
                                                             </center>
                                                         </div>
         
@@ -191,7 +199,12 @@
                                                                     echo $consumedTokens;
                                                                 }
                                                                 ?>  </b> <br/>
-                                                            Token Left <br/>
+                                                            Token Left 
+                                                            <br/>
+                                                            <div class="cont-col2">
+                                                               
+                                                               
+                                                            </div>
                                                      
                                                         </div>
                                                     </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app-referral')
+@extends('layouts.app')
 
 
 
@@ -101,15 +101,7 @@
                                    >
                                     <span class="fa fa-facebook"></span> Share on Facebook
                                   </a>
-
-                                <div class="fb-share-button" data-href="<?php echo $urlFB; ?>" data-layout="button"
-                                    data-size="small" data-mobile-iframe="true">
-                                    <a target="_blank"
-                                       href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($urlFB); ?>F&amp;src=sdkpreparse"
-                                       class="fb-xfbml-parse-ignore">Share</a>
-                               </div>
-
-          
+            
                                    <a class="btn btn-social-icon btn-twitter"
                                         target="_blank"
                                         href="https://twitter.com/share?url=<?php echo urlencode($url_result); ?>" 

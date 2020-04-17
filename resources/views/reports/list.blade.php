@@ -147,7 +147,7 @@ $i = 1;
 
 foreach ($listData as $data) {
 
-	?>
+    ?>
 
                             <tr>
 
@@ -161,13 +161,13 @@ foreach ($listData as $data) {
 
 echo $data->id . '-' . $data->source_company_id . '-' . $data->fk_opportunity_id;
 
-	//$comp_id = App\RequestReport::getRequestProviderCompanyID($data->opportunity_type, $data->fk_opportunity_id);
+    //$comp_id = App\RequestReport::getRequestProviderCompanyID($data->opportunity_type, $data->fk_opportunity_id);
 
-	//echo App\CompanyProfile::getCompanyName($comp_id);
+    //echo App\CompanyProfile::getCompanyName($comp_id);
 
 
 
-	?>
+    ?>
 
                                 </td>
 
@@ -177,9 +177,9 @@ echo $data->id . '-' . $data->source_company_id . '-' . $data->fk_opportunity_id
 
                                     <?php //echo $data->created_at;
 
-	echo date("F j, Y, g:i a", strtotime($data->created_at));
+    echo date("F j, Y, g:i a", strtotime($data->created_at));
 
-	?>
+    ?>
 
                                 </td>
 
@@ -195,65 +195,65 @@ $rec = App\ConsultantProjects::where('request_id', $data->id)->where('project_st
 
 
 
-	if (count((array) $rec) > 0) {
+    if (count((array) $rec) > 0) {
 
 
 
-		$pr = App\ProcessedReport::where('approval_id', $rec->request_approval_id)->first();
+        $pr = App\ProcessedReport::where('approval_id', $rec->request_approval_id)->first();
 
 
 
-		if (count((array) $pr) > 0) {
+        if (count((array) $pr) > 0) {
 
 
 
-			$today = date('Y-m-d');
+            $today = date('Y-m-d');
 
-			$todayFinal = strtotime($today);
-
-
-
-			$end_date = $pr->month_subscription_end;
-
-			$subEnd = strtotime($end_date);
+            $todayFinal = strtotime($today);
 
 
 
-			if (isset($pr->report_link) && trim($pr->report_link) != '') {
+            $end_date = $pr->month_subscription_end;
 
-				echo '<i>Discontinued subscription.</i>';
-
-			} elseif ($todayFinal > $subEnd) {
-
-				echo '<i>Subscription Ended</i>';
-
-			} elseif ($data->is_approve == 'yes') {
-
-				echo '<span class="btn-x3" style="color:white">Approved - Ongoing Monitoring</span>';
-
-			} else {
-
-				echo '<i>Pending</i>';
-
-			}
+            $subEnd = strtotime($end_date);
 
 
 
-		} else {
+            if (isset($pr->report_link) && trim($pr->report_link) != '') {
 
-			echo ($data->is_approve == 'yes') ? '<span class="btn-x3" style="color:white">Approved - Ongoing Monitoring</span>' : 'Pending';
+                echo '<i>Discontinued subscription.</i>';
 
-		}
+            } elseif ($todayFinal > $subEnd) {
+
+                echo '<i>Subscription Ended</i>';
+
+            } elseif ($data->is_approve == 'yes') {
+
+                echo '<span class="btn-x3" style="color:white">Approved - Ongoing Monitoring</span>';
+
+            } else {
+
+                echo '<i>Pending</i>';
+
+            }
 
 
 
-	} else {
+        } else {
 
-		echo 'Our consultants is now preparing the report. ';
+            echo ($data->is_approve == 'yes') ? '<span class="btn-x3" style="color:white">Approved - Ongoing Monitoring</span>' : 'Pending';
 
-	}
+        }
 
-	?>
+
+
+    } else {
+
+        echo 'Our consultants is now preparing the report. ';
+
+    }
+
+    ?>
 
 
 
@@ -267,17 +267,17 @@ $rec = App\ConsultantProjects::where('request_id', $data->id)->where('project_st
 
 
 
-	//$date=date_create($data->updated_at);
+    //$date=date_create($data->updated_at);
 
-	//echo date_format($date,"Y-m-d H:i:s");
-
-
-
-	echo date("F j, Y, g:i a", strtotime($data->updated_at));
+    //echo date_format($date,"Y-m-d H:i:s");
 
 
 
-	?>
+    echo date("F j, Y, g:i a", strtotime($data->updated_at));
+
+
+
+    ?>
 
                                 </td>
 
@@ -291,17 +291,17 @@ $butStat = 'disabled';
 
 
 
-	if (count((array) $rec) > 0) {
+    if (count((array) $rec) > 0) {
 
-		if ($data->is_approve == 'yes') {
+        if ($data->is_approve == 'yes') {
 
-			$butStat = '';
+            $butStat = '';
 
-		}
+        }
 
-	}
+    }
 
-	?>
+    ?>
 
                                     <form id="buyreport_form" method="POST" action="{{ route('setBuyReport') }}">
 
@@ -319,15 +319,15 @@ $butStat = 'disabled';
 
 $disabled = '';
 
-	$proc_record = App\RequestApproval::getProcessedRecord($data->id);
+    $proc_record = App\RequestApproval::getProcessedRecord($data->id);
 
-	if ($proc_record == true) {
+    if ($proc_record == true) {
 
-		$disabled = 'disabled';
+        $disabled = 'disabled';
 
-	}
+    }
 
-	?>
+    ?>
 
                                         <input type="submit" name="" <?php echo $disabled; ?> class="btn btn-primary"
 

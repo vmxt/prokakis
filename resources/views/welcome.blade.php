@@ -19,7 +19,7 @@
         <meta property="og:type" content="website" /> 
         <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." />
         <!-- end from the original code -->
-                
+
         <meta content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" name="description" />
 
         <meta content="Ebos-SG App 2020" name="author" />
@@ -140,66 +140,6 @@
 
             }
 
-
-            @media screen and (max-width: 376px) {
-
-                .content_text{
-                   font-size: 50px;
-                   padding: 15px;
-                }
-
-                .content_copyright{
-                    font-size: 30px;
-                }
-
-                #logo{
-                    width: 90%;
-                }
-
-            }
-
-
-            @media screen and (min-width: 425px) and (max-width: 766px) {
-
-                .content_text{
-                      padding: 15px;
-                    font-size: 54px;
-        
-                }
-
-
-                .content_copyright{
-                    font-size: 32px;
-                }
-
-
-                #logo{
-                    width: 80%;
-                }
-
-            }
-
-            @media screen and (min-width: 768px){
-                .welcome{
-                    margin-top: 150px;
-                }
-                .content_text{
-                      padding: 15px;
-                    font-size: 70px;
-        
-                }
-
-
-                .content_copyright{
-                    font-size: 40px;
-                }
-
-
-                #logo{
-                    width: 70%;
-                }
-            }
-
         </style>
 
     </head>
@@ -231,24 +171,20 @@
 
 
             <div class="content">
+
+
                 <div class="title m-b-md">
-                    <div class="content_text welcome">
-                        Welcome to 
-                    </div>
-                    <div>
-                      <img src="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px"> 
-                    </div > 
-                    <div class="content_text">
-                        Ebos-SG 
-                        <div class="content_copyright">
-                            App <?php echo date("Y");?>
-                        </div>
-                    </div>
-                  
+
+
+
+
+
+                 Welcome to <br /> <img src="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px"> <br /> Ebos-SG App 2020
+
                 </div>
-                <div>
+ <br />
                    <a href="https://prokakis.com/" style="text-decoration: none;"><b> >> Back to main website</b></a>
-               </div>
+
 
 
 

@@ -25,10 +25,6 @@
             width: 25%;
             background-color: orangered;
         }
-
-        #OpportunityController{
-
-        }
     </style>
 
     <div class="container">
@@ -97,6 +93,18 @@
                         </div>
                         <div class="portlet-body">
                             <div id="container" class="table-scrollable">
+
+                                    @if (session('status'))
+                                    <div class="alert alert-success">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+                                @if (session('message'))
+                                    <div class="alert alert-danger">
+                                        {{ session('message') }}
+                                    </div>
+                                @endif
+
                                 <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
                                     <thead>
                                     <tr>

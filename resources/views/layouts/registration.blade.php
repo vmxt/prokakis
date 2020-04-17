@@ -25,15 +25,15 @@
         <!-- BEGIN HEAD -->
     
         <head>
-            <!-- from the original code -->
-            <!-- CSRF Token -->
-            <meta property="og:title" content="Prokakis Ebos-SG App 2020" /> 
-            <meta property="og:url" content="https://app.prokakis.com/" /> 
-            <meta property="og:site_name" content="Prokakis"/> 
-            <meta property="og:image" content="https://app.prokakis.com/public/img-resources/pro-logo-sm.png" /> 
-            <meta property="og:type" content="website" /> 
-            <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." />
-            <!-- end from the original code -->
+        <!-- from the original code -->
+        <!-- CSRF Token -->
+        <meta property="og:title" content="Prokakis Ebos-SG App 2020" /> 
+        <meta property="og:url" content="https://app.prokakis.com/" /> 
+        <meta property="og:site_name" content="Prokakis"/> 
+        <meta property="og:image" content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
+        <meta property="og:type" content="website" /> 
+        <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." />
+        <!-- end from the original code -->
     
             <meta charset="utf-8" />
             <title>Prokakis Theme #3 | Dashboard</title>
