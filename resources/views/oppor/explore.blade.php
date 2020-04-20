@@ -233,7 +233,13 @@
                     overflow-y: scroll;
                     max-height: 50em;
                     height: 40em;
+                    scrollbar-width: none;
          }
+
+        ::-webkit-scrollbar {
+        width: 0px; /* remove scrollbar space */
+        background: transparent; / optional: just make scrollbar invisible /
+        }
 
          .thumbnail-description {
            min-height: 40px;

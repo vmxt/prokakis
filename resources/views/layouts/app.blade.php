@@ -1045,7 +1045,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                           <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
                                                                       </a>
                                                                   @else
-                                                                      <a href="#" onclick="encourageToPremium();" > 
+                                                                      <a href="#" onclick="encourageToPremiumMenu();" > 
                                                                         <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
                                                                     </a>
                                                                   @endif;
@@ -1635,6 +1635,36 @@ s0.parentNode.insertBefore(s1,s0);
                   });
                 } else {
                   swal("Cancelled", "Alerting this profile to become premium account was cancelled :)", "error");
+                }
+              });
+
+        }
+
+        function encourageToPremiumMenu(){
+            swal({
+                title:"This requires premium account to open this profile.", 
+                text: "Are you sure to proceed? and I will redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                  swal({
+                    title: 'You need to re-fill token to become a Premium Account',
+                    text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                    icon:  'success'
+                  }).then(function() {
+                         //document.location = '{{ url("reports/buyTokens") }}';
+             document.location = '{{ url("/home") }}';
+                  
+                  });
+                } else {
+                  swal("Cancelled", "To become premium account was cancelled :)", "error");
                 }
               });
 
