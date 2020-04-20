@@ -234,11 +234,12 @@
                     max-height: 50em;
                     height: 40em;
                     scrollbar-width: none;
+
          }
 
-        ::-webkit-scrollbar {
-        width: 0px; /* remove scrollbar space */
-        background: transparent; / optional: just make scrollbar invisible /
+        .thumbnail::-webkit-scrollbar {
+        width: 0px; 
+        background: transparent;
         }
 
          .thumbnail-description {
