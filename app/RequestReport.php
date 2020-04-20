@@ -114,7 +114,7 @@ class RequestReport extends Model {
 	public static function getRequestReportByUser(){
 
 		return	DB::table("request_report as rr")
-		    ->select('u.id as user_id', 'u.*', DB::raw('COUNT(u.id) as total_count'))
+		    ->select('u.id as user_id', 'u.*', 'cp.id as company_id', DB::raw('COUNT(u.id) as total_count'))
 		    ->join('company_profiles as cp', "cp.id", "=", "rr.company_id" )
 		    ->join('users as u', "cp.user_id", "=", "u.id" )
 		    ->groupBy("user_id")

@@ -1025,10 +1025,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                             <div class="col-md-8 div_right"  >
                                                               <h5 class="menu_title"> Top Advisors </h5>
                                                             <?php
-                                                            $repoort_count = 0;
+                                                            $report_count = 0;
                                                             foreach( $getRequestReportByUser as $val ):
-                                                              if($buy_count < 10):
-                                                                $repoort_count++; 
+                                                              if($report_count < 10):
+                                                                $viewer = base64_encode('viewer' . $val->company_id);
+                                                                $token = base64_encode(date('YmdHis'));
+                                                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                                                                $report_count++; 
                                                             ?>
                                                               <div class="mega-menu-submenu col-md-3 container_sm_img" 
                                                                         title="<?=$val->company_name?>"
@@ -1036,9 +1039,24 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-trigger="hover"
                                                                         data-content="<?=$val->lastname.", ".$val->firstname." (".$val->total_count.")" ?>"
                                                                         data-placement="left">
-                                                                <a href="{{ route('reportsBuyTokens') }}">
-                                                                  <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                </a>
+                                                                @if( $build_list->where('view_type','2') OR $sell_list->where('view_type','2') OR $buy_list->where('view_type','2') )
+                                                                  @if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false && App\SpentTokens::validateLeftBehindToken($val->company_id) != false)
+                                                                      <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$val->company_id.'/'.$val->id.'/'.$token) }}">
+                                                                          <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                      </a>
+                                                                  @else
+                                                                      <a href="#" onclick="encourageToPremium();" > 
+                                                                        <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                    </a>
+                                                                  @endif;
+                                                                @else
+                                                                  @if(App\SpentTokens::validateLeftBehindToken($val->company_id) == false 
+                                                                  && App\SpentTokens::validateLeftBehindToken($company_id_result) != false)
+                                                                      <a href="#" onclick="checkAlertByPremiumMenu('<?php echo $val->company_id; ?>', '<?php echo $company_id_result; ?>');">
+                                                                        <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                    </a>
+                                                                  @endif
+                                                                @endif
                                                               </div>
                                                             <?php 
                                                               endif;
@@ -1572,6 +1590,56 @@ s0.parentNode.insertBefore(s1,s0);
         <!-- END NEW SCRIPTS FOR FIXING OF MENU BAR -->
 
 <script>
+ function checkAlertByPremiumMenu(companyOpp, companyViewer)
+        {   
+            swal({
+                title: "This profile is a free account.", 
+                text:  "Are you sure to proceed? Because we will send an email notification to this profile. To encourage them buy token and become a premium account.",
+                icon:  "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                  swal({
+                    title: 'Email will be sent to this profile, to encourage them to become premium account.',
+                    text:  'To interact fully and avail the system priviledge must become a premium account',
+                    icon:  'success'
+                  }).then(function() {
+                    
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    
+                        $.ajax({
+                            url: "{{ route('AlertFreeAccount') }}",
+                            type: "POST",
+                            data: formData,
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            processData: false,
+                            contentType: false,
+
+                            success: function (data) {
+                                console.log(data);
+                                window.open(data, '_blank');
+                                document.location = '{{ url("opportunity/explore") }}';
+                                
+                              
+                            }
+                        });
+                  
+                  });
+                } else {
+                  swal("Cancelled", "Alerting this profile to become premium account was cancelled :)", "error");
+                }
+              });
+
+        }
+
 jQuery(document).on('click', '.mega-dropdown', function(e) {
   e.stopPropagation()
 })
