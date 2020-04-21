@@ -8,7 +8,11 @@
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
-
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
     <style>
 
@@ -25,7 +29,7 @@
             background-color: orangered;
 
         }
-
+  .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
     </style>
 
 
@@ -108,8 +112,19 @@
                                    >
                                     <span class="fa fa-twitter"></span> Share on Twiiter
                                   </a>
-                    
-
+                            
+                             <h4>How do you want to keep your referral information:</h4>
+                            <input type="checkbox" 
+                              onchange="referStatus(this)"
+                              id="refer_info_status"
+                              checked 
+                              data-toggle="toggle" 
+                              data-on="PUBLIC" 
+                              data-off="PRIVATE" 
+                              data-width="100" 
+                              data-onstyle="success" 
+                              data-offstyle="info" 
+                              data-style="slow">
                             </div>
 
                             </div>
@@ -290,6 +305,51 @@
 
                     </div>
 
+                <div class="panel panel-info">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Ten Most Referrals</h3>
+                    </div>
+                 
+                    <!-- List group -->
+                    <ul class="list-group">
+                       <?php 
+                        $i = 1;
+                        foreach($topReferral as $refer){
+                          $userD = App\User::find($refer->referral_id);
+                          $referName = $userD->lastname.", ".$userD->firstname;
+                       ?>
+                        <li class="list-group-item"><a href="#top_referral_{{ $userD->id }}" rel="modal:open">{{ $referName }}</a>
+                            <span class="badge badge-info">{{ $refer->count_refer }}</span>
+                        </li>
+
+                        <div id="top_referral_{{ $userD->id }}" class="modal modalq">
+                           <hr>
+                            <p><h4><strong>Name: </strong></h4>
+                              {{ $referName }}
+                            </p>  
+                             <hr>
+                            <p><h4><strong>Email: </strong></h4>
+                              {{ $userD->email }}
+                            </p> 
+                            <hr>
+                            <p><h4><strong>Company Name: </strong></h4>
+                              {{ $userD->company_name }}
+                            </p> 
+                            <hr>
+                            <p><h4><strong>Company Website: </strong></h4>
+                              {{ $userD->company_website }}
+                            </p> 
+                            <hr>
+                            <a href="#" class="btn btn-info" rel="modal:close">Close</a>
+                          </div>
+                          
+                        <?php
+                        $i++; 
+                        } 
+                        ?>
+                    </ul>
+                </div>
 
 
 
@@ -330,6 +390,47 @@
 
     <script>
 
+          var referFlagStatus = '{{ $user_details->referral_status }}'
+          if(referFlagStatus == 1)
+             $('#refer_info_status').prop('checked', false).change()
+          else
+             $('#refer_info_status').prop('checked', true).change()
+
+      function referStatus(val){
+
+        var referStatus = 1;
+        if($(val).prop('checked')) referStatus = 2;
+        
+        formData = new FormData();
+        formData.append("referStatus", referStatus);
+       
+        $.ajax({
+
+            url: "{{ route('updateReferStatus') }}",
+
+            type: "POST",
+
+            data: formData,
+
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+            processData: false,
+
+            contentType: false,
+
+            cache: false,
+
+            success: function (data) {
+
+                console.log(data);
+
+            }
+
+        });
+
+}
+
+
         function myFunction() {
           var copyText = document.getElementById("refer_url");
           copyText.select();
@@ -348,7 +449,6 @@
 
 
         $(document).ready(function () {
-
             $('#system_data').DataTable();
 
 

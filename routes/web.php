@@ -30,6 +30,8 @@ Route::get('/countryListings', 'HomeController@getCountries')->name('getCountryL
 Route::get('/search-company', 'ConfigurationController@searchCompany')->name('searchByCompany');
 Route::post('/requestreport-company', 'OpportunityController@storeSearchCompany')->name('storeSearchCompany');
 Route::get('/referrals', 'HomeController@referralsList')->name('referralsList');
+Route::post('/referrals/update', 'HomeController@updateReferStatus')->name('updateReferStatus');
+
 Route::get('/register-ref/{userId}', 'CompanyController@showRefRegistrationForm')->name('registerDynamicReferral');
 Route::get('/alertedRecords', 'AlertedrecordsController@index')->name('alertedRecordsIndex');
 

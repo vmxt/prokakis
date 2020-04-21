@@ -38,7 +38,7 @@ use Session;
 
 use App\PromotionToken;
 
-
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller {
 
@@ -528,13 +528,31 @@ class HomeController extends Controller {
 
 
 		$rs = User::where('referral_id', $userId)->get();
-
-
-
-		return view('home.referrals', compact('url_result', 'rs'));
+		$user_details = User::find($userId);
+		$topReferral = User::select('referral_id', DB::raw('COUNT(referral_id) as count_refer'))
+						->where('referral_id','!=',"null")
+						->where('referral_status',"=",'2')
+						->groupBy('referral_id')
+					    ->orderByRaw('count_refer DESC')
+					    ->limit(10)
+					    ->get();
+	
+		return view('home.referrals', compact('url_result', 'rs', 'topReferral','user_details'));
 
 		//get all referals
 
+	}
+
+	public function updateReferStatus(Request $request){
+		if ($request->isMethod('post')) {
+			$user_id = Auth::id();
+			$referStatus = $request->input('referStatus');
+			$result = User::find($user_id);
+			if($result){
+				$result->referral_status = $referStatus;
+				$result->save();
+			}
+		}
 	}
 
 
