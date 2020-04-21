@@ -332,11 +332,12 @@
 
                                         $user_id = Auth::id();
                                         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
-
+                                        $valid_token = 0;
                                         if (App\SpentTokens::validateTokenStocks($company_id_result) == false) {
                                             echo "0";
                                         } else {
                                             $consumedTokens = App\SpentTokens::validateTokenStocks($company_id_result);
+                                            $valid_token = $consumedTokens;
                                             echo $consumedTokens;
                                         }
                                         ?>  </b> <br/>
@@ -345,11 +346,9 @@
                                         <a href="{{ route('reportsBuyTokens') }}" class="btn red-mint"
                                            style="width: 100%;"> Top Up</a>
                                     </div>
-
-
 				 	@if($c_promo == 0)   
                                         <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>    
-                                        <a onclick="PromoOne()" class="btn yellow"
+                                        <a onclick="PromoOne('{{ $valid_token }}')" class="btn yellow"
                                             style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
                                         </a>
                                         <?php } ?>
@@ -483,7 +482,29 @@
 
         });
 
-    function PromoOne(){
+    function PromoOne(token){
+            if(token <= 0){
+                swal({
+                      title: 'Upgrading your account to premium failed!',
+                      text: "Sorry, You dont have sufficient token to upgrade your account. Do you want to purchase a token?",
+                      icon: 'warning',
+                      buttons: [
+                          'No, cancel it!',
+                          'Yes, Purchase Now!'
+                        ],
+                   dangerMode: false,
+                    }).then(function(isConfirm) {
+                        if (isConfirm) {
+                            document.location = "{{ route('reportsBuyTokens') }}"
+                        } else {
+                            swal("Cancelled", "Upgrading to premium was cancelled :)", "error");
+                        }
+
+                      })
+
+                    return false;
+            }
+
             swal({
 
                 title: "Are you sure to upgrade your account?",
