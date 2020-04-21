@@ -360,17 +360,24 @@ foreach ($build as $item) {
         } else {
             $avat = $avatar->file_name;
         }
-        // echo $item->view_type;
+        
+        $usr = App\User::find($company->user_id);
+        $accStatus = 'free';
+        if ($usr->user_type == 1) {
+            if( App\SpentTokens::validateAccountActivation($item->company_id) != false ){
+                $accStatus = 'premium';   
+            } 
+        }
         ?>
                 <div class="card">
-
                     <div class="thumbnail" style="margin-bottom: 5px;">
-
+                        @if($accStatus == 'premium')
+                            <div class="premium_banner_container" >
+                                <img class="premium_banner" alt="Premium Banner" 
+                                    src="{{ asset('public/banner/banner-new4.png') }}">
+                            </div>
+                        @endif
                         <?php if ($item->view_type == 2) {?>
-                        <div class="premium_banner_container" >
-                        <img class="premium_banner" alt="Premium Banner" 
-                             src="{{ asset('public/banner/banner-new4.png') }}">
-                        </div>
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
@@ -528,6 +535,23 @@ foreach ($build as $item) {
 
                                 if ($item->view_type == 2) 
                                 {
+                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
+                                    {
+                                    ?>
+                                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                                            class="btn btn-success yellow"><span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php 
+                                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
+                                    ?> 
+                                        <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php
+                                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php 
+                                    }
+                                }
+                               /* if ($item->view_type == 2) 
+                                {
                                      if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false && App\SpentTokens::validateLeftBehindToken($company->id) != false)
                                     {
                                     ?>
@@ -551,7 +575,7 @@ foreach ($build as $item) {
                                     <?php
                                     } 
                                     else { //if free company to premium user
-                                        */
+                                        
                                         if(App\SpentTokens::validateLeftBehindToken($company->id) == false 
                                         && App\SpentTokens::validateLeftBehindToken($company_id_result) != false) 
                                         {
@@ -562,7 +586,7 @@ foreach ($build as $item) {
 
                                   //  } 
                                 
-                                }    
+                                }    */
                                 ?>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
@@ -601,20 +625,27 @@ foreach ($sell as $item) {
         } else {
             $avat = $avatar->file_name;
         }
+
+        $usr = App\User::find($company->user_id);
+        $accStatus = 'free';
+        if ($usr->user_type == 1) {
+            if( App\SpentTokens::validateAccountActivation($item->company_id) != false ){
+                $accStatus = 'premium';   
+            } 
+        }
         ?>
                 <div class="card">
                     <div class="thumbnail" style="margin-bottom: 5px;">
-
+                        @if($accStatus == 'premium')
+                            <div class="premium_banner_container" >
+                                <img class="premium_banner" alt="Premium Banner" 
+                                    src="{{ asset('public/banner/banner-new4.png') }}">
+                            </div>
+                        @endif
                         <?php if ($item->view_type == 2) {?>
-                        <div class="premium_banner_container" >
-                        <img class="premium_banner" alt="Premium Banner" 
-                             src="{{ asset('public/banner/banner-new4.png') }}">
-                        </div>
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
-
-
                         <?php
                          if ($item->view_type == 2) {
                         ?>
@@ -766,21 +797,24 @@ foreach ($sell as $item) {
 
                                 $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
 
-                                if ($item->view_type == 2) {
-                                    
-                                       if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false && App\SpentTokens::validateLeftBehindToken($company->id) != false)
+                                if ($item->view_type == 2) 
+                                {
+                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
                                     {
                                     ?>
-                                 <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                                class="btn btn-success yellow"><span class="fa fa-credit-card"></span> View Profile</a>
+                                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                                            class="btn btn-success yellow"><span class="fa fa-credit-card"></span> View Profile</a>
                                     <?php 
-                                    } else {
+                                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
                                     ?> 
-                                    <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
                                     <?php
+                                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php 
                                     }
- 
-                                } else {
+                                } 
+                                //else {
                                 
                                    /* if(App\PremiumOpportunityPurchased::checkIfPremium($company_id_result, $item->id, 'sell') != false)
                                     {
@@ -789,17 +823,17 @@ foreach ($sell as $item) {
                                     <?php
                                     } else { //if free company to premium user
                                      */   
-                                        if(App\SpentTokens::validateLeftBehindToken($company->id) == false 
+                                       /* if(App\SpentTokens::validateLeftBehindToken($company->id) == false 
                                         && App\SpentTokens::validateLeftBehindToken($company_id_result) != false) 
                                         {
                                         ?>
                                         <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
                                         <?php 
-                                        }
+                                        } */
 
                                    // } 
                                  
-                                }    
+                                //}    
                                 ?>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
@@ -840,6 +874,14 @@ foreach ($buy as $item) {
             $avat = $avatar->file_name;
         }
 
+        $usr = App\User::find($company->user_id);
+        $accStatus = 'free';
+        if ($usr->user_type == 1) {
+            if( App\SpentTokens::validateAccountActivation($item->company_id) != false ){
+                $accStatus = 'premium';   
+            } 
+        }
+
         /*/ $banner = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'BANNER_IMG')
                                     ->orderBy('id', 'desc')
                                     ->first();
@@ -852,12 +894,13 @@ foreach ($buy as $item) {
         ?>
                 <div class="card">
                     <div class="thumbnail" style="margin-bottom:5px;">
-
+                        @if($accStatus == 'premium')
+                            <div class="premium_banner_container" >
+                                <img class="premium_banner" alt="Premium Banner" 
+                                    src="{{ asset('public/banner/banner-new4.png') }}">
+                            </div>
+                        @endif
                         <?php if ($item->view_type == 2) {?>
-                        <div class="premium_banner_container" >
-                        <img class="premium_banner" alt="Premium Banner" 
-                             src="{{ asset('public/banner/banner-new4.png') }}">
-                        </div>
                         <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
                              src="{{ asset('public/images/') }}/<?php echo $avat ?>">
                         <?php }?>
@@ -1018,8 +1061,23 @@ foreach ($buy as $item) {
                                 $token = base64_encode(date('YmdHis'));
 
                                 $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-
                                 if ($item->view_type == 2) {
+                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
+                                    {
+                                    ?>
+                                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                                            class="btn btn-success yellow"><span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php 
+                                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
+                                    ?> 
+                                        <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php
+                                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                    <?php 
+                                    }
+                                }
+                               /* if ($item->view_type == 2) {
                                     
                                       if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false && App\SpentTokens::validateLeftBehindToken($company->id) != false)
                                     {
@@ -1041,7 +1099,7 @@ foreach ($buy as $item) {
                                     <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}" class="btn default yellow"> <span class="fa fa-credit-card"></span> Premium View Profile </a>
                                     <?php
                                     } else { //if free company to premium user
-                                     */   
+                                     
                                         if(App\SpentTokens::validateLeftBehindToken($company->id) == false 
                                         && App\SpentTokens::validateLeftBehindToken($company_id_result) != false) 
                                         {
@@ -1052,7 +1110,7 @@ foreach ($buy as $item) {
 
                                   //  } 
                                  
-                                }    
+                                }      */ 
                                 ?>
 
 
