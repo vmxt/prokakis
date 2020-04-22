@@ -1229,7 +1229,55 @@
                             </div>
 
 
+                            <div class="portlet light">
 
+                                <div class="portlet-body">
+
+                                    <div class="form-group">
+
+                                        <label for="approx_large"><b>Industry</b> </label>
+
+                                       <select class="form-control" id="opp_industry"
+
+                                                name="opp_industry" >
+
+                                            <option value="" id="">Please select the following</option>
+
+
+
+                                            <?php 
+
+                                            foreach($industry_list as $ind){
+
+                                            if (isset($data->industry) &&  $ind->id == $data->industry ) {
+
+                                                $selected = 'selected';
+
+                                            } else {
+
+                                                $selected = '';
+
+                                            }
+
+                                            ?>
+
+                                            <option
+
+                                                <?php echo $selected; ?> value="<?php echo $ind->id ?>"><?php echo $ind->text; ?>
+
+                                            </option>
+
+                                            <?php }  ?>
+
+
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
                             <?php 
 
                             $user_id = Auth::id();
