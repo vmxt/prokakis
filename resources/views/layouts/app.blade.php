@@ -675,7 +675,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                               <h4 class="menu_title"> Popular Categories </h4>
                                                               <div class="mega-menu-submenu col-md-12 container_lg_img">
                                                                 <a href="{{ route('opportunityExploreIndex') }}">
-                                                                  <img class="mega_large_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                  <img class="mega_large_image" src="{{ asset('public/banner/explore_oppo.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
                                                                     <h3 class="text-centered">Explore Opportunities</h3>
                                                                   </div>
@@ -683,7 +683,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                               </div>
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
                                                                 <a href="{{ route('reportsBuyTokens') }}">
-                                                                  <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/top_up.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
                                                                   <h3 class="text-centered">Top Up</h3>
                                                                   </div>
@@ -692,7 +692,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
                                                                 <a href="{{ route('viewingProfile') }}">
-                                                                  <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/view_profile.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
                                                                     <h3 class="text-centered">View Profile</h3>
                                                                   </div>
@@ -701,7 +701,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                               <div class="mega-menu-submenu col-md-4 container_sm_img">
                                                                 <a href="{{ route('businessnewsList') }}">
-                                                                  <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/business_news.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
                                                                     <h3 class="text-centered">Business News</h3>
                                                                   </div>
