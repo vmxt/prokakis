@@ -553,7 +553,6 @@ class OpportunityController extends Controller {
 	}
 
 	public function exploreCountry(Request $request) {
-
 		if (strlen($request['key']) > 0) {
 
 			$user_id = Auth::id();
@@ -561,6 +560,8 @@ class OpportunityController extends Controller {
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
 			$selectedCountry = $request['key'];
+
+			$result_filter = false;
 
 			$build = OpportunityBuildingCapability::where('company_id', '!=', $company_id)
 
@@ -580,7 +581,7 @@ class OpportunityController extends Controller {
 
 				->get();
 
-			return view("oppor.explore", compact('build', 'sell', 'buy', 'selectedCountry'));
+			return view("oppor.explore", compact('build', 'sell', 'buy', 'selectedCountry', 'result_filter'));
 
 		}
 
@@ -596,6 +597,8 @@ class OpportunityController extends Controller {
 
 			$selectedKeyword = $request['key'];
 
+			$result_filter = false;
+
 			$build = OpportunityBuildingCapability::where('company_id', '!=', $company_id)
 
 				->where('ideal_partner_business', 'like', '%' . $selectedKeyword . '%')
@@ -620,7 +623,7 @@ class OpportunityController extends Controller {
 
 				->get();
 
-			return view("oppor.explore", compact('build', 'sell', 'buy', 'selectedKeyword'));
+			return view("oppor.explore", compact('build', 'sell', 'buy', 'selectedKeyword', 'result_filter'));
 
 		}
 

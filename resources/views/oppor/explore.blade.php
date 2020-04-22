@@ -1357,9 +1357,9 @@ foreach ($buy as $item) {
                 var getUrl = window.location;
                 var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                 if (keyS != "") {
-                    window.location.href = baseUrl + "/exploreKey/" + keyS;
+                    window.location.href = baseUrl + "/opportunity/exploreKey/" + keyS;
                 } else {
-                    window.location.href = baseUrl + "/explore";
+                    window.location.href = baseUrl + "/opportunity/explore";
                 }
             });
 
@@ -1368,9 +1368,9 @@ foreach ($buy as $item) {
                 var getUrl = window.location;
                 var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                 if (keyS != "") {
-                    window.location.href = baseUrl + "/exploreCountry/" + keyS;
+                    window.location.href = baseUrl + "/opportunity/exploreCountry/" + keyS;
                 } else {
-                    window.location.href = baseUrl + "/explore";
+                    window.location.href = baseUrl + "/opportunity/explore";
                 }
             });
         });
