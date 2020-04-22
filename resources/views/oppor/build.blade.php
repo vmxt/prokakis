@@ -1251,9 +1251,9 @@
 
             
 
-                                           <button type="button" id="butPrivate" <?php echo $bKP; ?> class="btn btn-success" onclick="privacyOption2('build', 'keep_private', '<?php echo $dataID; ?>')" style="color: black;"><span class="fa fa-lock"></span> Publish Anonymously </button>  
+                                           <button type="button" id="butPrivate" <?php echo $bKP; ?> class="btn btn-success" onclick="privacyOption2('build', 'keep_private', '<?php echo $dataID; ?>')" style="color: black;"><span class="fa fa-lock"></span> &nbsp;<b>Publish Anonymously </b></button>  
 
-                                           <button type="button" id="butCompany" <?php echo $bWCI; ?> class="btn btn-info" onclick="privacyOption2('build', 'company_info', '<?php echo $dataID; ?>');" style="color: black"><span class="fa fa-credit-card" /></span><b>Publish with company info</b></button>
+                                           <button type="button" id="butCompany" <?php echo $bWCI; ?> class="btn btn-info" onclick="privacyOption2('build', 'company_info', '<?php echo $dataID; ?>');" style="color: black"><span class="fa fa-credit-card" /></span> &nbsp;<b>Publish with company info</b></button>
 
                                           
 
