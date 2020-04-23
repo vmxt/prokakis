@@ -30,6 +30,20 @@
             word-break: break-word;
             white-space: normal;
         }
+
+        @media (min-width: 321px) and (max-width: 767px) {
+               .wrapword{
+                 line-height: 3.5;
+               }
+
+        }
+
+        @media (min-width: 992px) {
+               .wrapword{
+                 line-height: 3.5;
+               }
+        }
+
     </style>
 
     <div class="container">
