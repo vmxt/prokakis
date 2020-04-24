@@ -119,11 +119,140 @@
             width: auto !important;
         }
 
+        /* carousel */
+        /* Global */
 
+
+
+/* Page Header */
+.page-header {
+    background: #f9f9f9;
+    margin: -30px -40px 40px;
+    padding: 20px 40px;
+    border-top: 4px solid #ccc;
+    color: #999;
+    text-transform: uppercase;
+    }
+    .page-header h3 {
+        line-height: 0.88rem;
+        color: #000;
+        }
+
+
+
+/* Boxes
+------------------------------------------------ */
+.thumbnail a {
+    text-decoration: none !important;
+    pointer-events: none;
+    cursor: default;
+    color: #454545;
+}
+
+/* List style */
+ul.thumbnails { 
+  list-style: none; 
+  margin: 0;
+  padding: 0;
+  }
+
+.caption-box h4 {
+    font-size: 0.94rem;
+    color: #444;
+    }
+    .caption-box p {
+        font-size: 0.75rem;
+        color: #999;
+        }
+        .btn.btn-mini {
+            font-size: 0.63rem;
+            }
+
+
+
+/* Control box 
+------------------------------------------------ */
+.control-box {
+    width: 100%;
+    }
+    .carousel-control{
+        background: #666 !important;
+        border: 0px;
+        border-radius: 0px;
+        display: inline-block;
+        font-size: 34px;
+        font-weight: 200;
+        line-height: 18px;
+        opacity: 0.5;
+        padding: 4px 10px;
+        margin: 30px -20px 0;
+        height: 30px;
+        width: 30px;
+        }
+
+
+
+/* Mobile only
+------------------------------------------------ */
+@media (max-width: 767px) {
+    .page-header { text-align: center; } 
+}
+@media (max-width: 479px) {
+    .caption-box { word-break: break-all; }
+    ul.thumbnails li { margin-bottom: 30px; }
+}
+
+
+/* Footer 
+------------------------------------------------ */
+footer.info { text-align: center; color: #888; margin: 30px 0; }
+footer.info a { color: #fff; }
+footer.info p { color: #ccc; margin: 10px 0; }
+
+
+
+/* ADD-ON
+------------------------------------------------ */
+
+
+::selection { background: #ff5e99; color: #FFFFFF; text-shadow: 0; }
+::-moz-selection { background: #ff5e99; color: #FFFFFF; }
+
+a, a:focus, a:active, a:hover, object, embed {
+ outline: none; 
+}
+
+:-moz-any-link:focus { 
+    outline: none;
+     }
+input::-moz-focus-inner { 
+    border: 0; 
+}
+
+.portlet2.light2 {
+    padding: 12px 50px 15px;
+    background-color: #fff;
+}
+
+.industry_select:hover{
+      background-color: #bce8f1;
+      color: white;
+      box-shadow: 0 8px 16px 0 #1b9dec;
+}
+
+.industry_select:active{
+      background-color: #bce8f1;
+      color: white;
+      box-shadow: 0 8px 16px 0 #1b9dec;
+}
+
+.industry_active{
+      background-color: #bce8f1;
+      color: white;
+      box-shadow: 0 8px 16px 0 #1b9dec
+}
 
     </style>
-
-
 
     <link href="{{ asset('public/selectJS/examples/css/normalize.css') }}" rel="stylesheet">
 
@@ -132,10 +261,6 @@
     <link href="{{ asset('public/selectJS/dist/css/selectize.default.css') }}" rel="stylesheet">
 
     <link href="{{ asset('public/multiselectJS/select2.css') }}" rel="stylesheet">
-
-
-
-
 
     <script src="{{ asset('public/selectJS/examples/js/jquery.min.js') }}"></script>
 
@@ -1188,51 +1313,54 @@
                             </div>
 
 
-                             <div class="portlet light">
+                             <div class="portlet2 light2">
 
                                 <div class="portlet-body">
+                                        <label for="opp_industry"><b>Please select what kind of Industry</b> </label>
+                                        <div class='row'>
+                                            <div class='col-sm-12'>
+                                                <div id="myCarousel" class="row carousel slide" data-interval="false">
+                                                    <div class="carousel-inner">
+                                                        <input type="hidden" id="opp_industry" name="opp_industry">
+                                                    <?php 
+                                                        $groupSize = 4;
+                                                        $initCarousel = 'active';
+                                                        $numItems = $industry_list->count();
+                                                        $i = 0;
+                                                     ?>
+                                                        @foreach($industry_list as $ind)
+                                                            @if($i == '0')
+                                                            <div class="item {{ $initCarousel }}">
+                                                                <ul class="thumbnails">
+                                                            @endif
 
-                                    <div class="form-group">
+                                                            <li class="col-sm-3">      
+                                                                <div class="thumbnail <?= ($data->industry == $ind->id) ? 'industry_active' : '' ?> industry_select{{ $ind->id }} " onclick="assignIndustry('{{ $ind->id }}')">
+                                                                    <a><img src="{{  asset('public/images/industry/') }}/{{ $ind->image }}" alt=""><h4>{{ $ind->text }}</h4></a>
+                                                                </div>
+                                                            </li>
 
-                                        <label for="approx_large"><b>Industry</b> </label>
+                                                            <?php 
+                                                            $i++;
+                                                            $initCarousel = '';
+                                                            ?>
+                                                            @if($i == 4 || $numItems === $i )
+                                                                </ul>
+                                                            </div>
+                                                            <?php 
+                                                            $i = 0; ?>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
 
-                                       <select class="form-control" id="opp_industry"
-
-                                                name="opp_industry" >
-
-                                            <option value="" id="">Please select the following</option>
-
-
-
-                                            <?php 
-
-                                            foreach($industry_list as $ind){
-
-                                            if (isset($data->industry) &&  $ind->id == $data->industry ) {
-
-                                                $selected = 'selected';
-
-                                            } else {
-
-                                                $selected = '';
-
-                                            }
-
-                                            ?>
-
-                                            <option
-
-                                                <?php echo $selected; ?> value="<?php echo $ind->id ?>"><?php echo $ind->text; ?>
-
-                                            </option>
-
-                                            <?php }  ?>
-
-
-
-                                        </select>
-
-                                    </div>
+                                                </div>
+                                                    <!-- Control box -->
+                                                    <div class="control-box">                            
+                                                      <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
+                                                      <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
+                                                    </div><!-- /.control-box --> 
+                                            </div>
+                                        </div>
 
                                 </div>
 
@@ -1402,7 +1530,11 @@
 
     <script>
 
-
+        function assignIndustry(id){
+            $('#opp_industry').val(id);
+            $('.thumbnail').removeClass('industry_active');
+            $('.industry_select'+id).addClass('industry_active');
+        }
 
         $('#relevant_describing_partner').selectize({
 
@@ -1713,8 +1845,12 @@
   $(document).ready(function() {
 
         $('#ideal_partner_base').select2();
-        $('#opp_industry').select2();
+        // $('#opp_industry').select2();
 
+       $('#myCarousel').carousel({
+        pause: true,
+          interval: false
+        })
     });
 
   
