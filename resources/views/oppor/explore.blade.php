@@ -757,7 +757,7 @@
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                     <br>
 
-                                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                                <a href="{{ url('/opportunity/deleteSell/'.$item->id) }}"
                                    class="btn btn-danger"
                                    style="color: white; float:right;"
                                    onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
@@ -900,7 +900,7 @@
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                     <br>
 
-                                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                                <a href="{{ url('/opportunity/deleteBuy/'.$item->id) }}"
                                    class="btn btn-danger"
                                    style="color: white; float:right;"
                                    onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>

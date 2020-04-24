@@ -606,7 +606,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="why_partner_goal"><b>What is your Company’s Strength?</b> <i>(Optional)</i></label> <br/>
+                                        <label for="why_partner_goal"><b>What is your Company�s Strength?</b> <i>(Optional)</i></label> <br/>
 
 
 
@@ -1335,15 +1335,21 @@ input::-moz-focus-inner {
                                                             @endif
 
                                                             <li class="col-sm-3">      
-                                                                <div class="thumbnail <?= ($data->industry == $ind->id) ? 'industry_active' : '' ?> industry_select{{ $ind->id }} " onclick="assignIndustry('{{ $ind->id }}')">
+                                                            <?php $industry_active = ''; ?>
+                                                            @if(isset($data->industry))
+                                                                @if($data->industry == $ind->id)
+                                                                <?php $industry_active = 'industry_active'; ?>
+                                                                @endif
+                                                            @endif      
+                                                                <div class="thumbnail {{ $industry_active }} industry_select{{ $ind->id }} " onclick="assignIndustry('{{ $ind->id }}')">
                                                                     <a><img src="{{  asset('public/images/industry/') }}/{{ $ind->image }}" alt=""><h4>{{ $ind->text }}</h4></a>
                                                                 </div>
                                                             </li>
 
-                                                            <?php 
+                                            <?php 
                                                             $i++;
                                                             $initCarousel = '';
-                                                            ?>
+                                            ?>
                                                             @if($i == 4 || $numItems === $i )
                                                                 </ul>
                                                             </div>
@@ -1356,11 +1362,11 @@ input::-moz-focus-inner {
                                                 </div>
                                                     <!-- Control box -->
                                                     <div class="control-box">                            
-                                                      <a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>
-                                                      <a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>
+                                                      <a data-slide="prev" href="#myCarousel" class="carousel-control left">&#60;</a>
+                                                      <a data-slide="next" href="#myCarousel" class="carousel-control right">&#62;</a>
                                                     </div><!-- /.control-box --> 
                                             </div>
-                                        </div>
+                                    </div>
 
                                 </div>
 
