@@ -5,6 +5,8 @@ namespace App;
 use App\RequestApproval;
 use App\RequestReport;
 use Illuminate\Database\Eloquent\Model;
+use App\ConsultantProjects;
+use App\UploadImages;
 
 class ProcessedReport extends Model {
 
@@ -33,7 +35,7 @@ class ProcessedReport extends Model {
 	public static function getProcessedReportByApprovalId($approvalId) {
 		$apr = ProcessedReport::where('approval_id', $approvalId)->first();
 
-		if ($apr->count() > 0) {
+		if ($apr != null) {
 			return $apr;
 		} else {
 			return false;
@@ -54,6 +56,32 @@ class ProcessedReport extends Model {
 		} else {
 			return false;
 		}
+	}
+
+	public static function getFileUploadsForReportGeneration($approvalId){
+		$fileName = []; 	 
+		$rs =	ConsultantProjects::where('request_approval_id', $approvalId)->first();
+		
+		 if($rs != null)
+		 {
+		  $arr = explode(",", $rs->remarks);
+		  foreach($arr as $d){
+			  $a = explode(":", $d);
+		  
+			  $b = explode("]", $a[1]);
+  
+				  if(!empty($b[0])){
+				  $ui = UploadImages::where('id', $b[0])->where('file_category', 'CONSULTANT_PROJECT_REPORT')->first();
+  
+					  if($ui != null){
+						  $fileName[] = $ui->file_name;
+					  }
+				   }
+		  }
+  
+		 }
+  
+		 return $fileName;
 	}
 
 }

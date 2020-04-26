@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D5C3D8', 'TestController@index')->name('testMail');
 Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsubscribeMe');
-
 Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken');
 
 //for social media. public usage
@@ -25,6 +25,8 @@ Route::get('/fbshare/{id}/{brand}', 'FbshareController@shareOnFB')->name('fbcomp
 Route::get('/company/{id}', 'CompanyController@previewPremiumCompany')->name('PreviewPremiumCompany');
 
 Auth::routes();
+Route::get('/api/v1/report-req', 'ReferralController@apiRequestReportER')->name('apiRequestReportER');
+
 Route::post('/accounts-switch', 'HomeController@switchAccount')->name('switchAccount');
 Route::get('/countryListings', 'HomeController@getCountries')->name('getCountryList');
 Route::get('/search-company', 'ConfigurationController@searchCompany')->name('searchByCompany');
@@ -32,7 +34,9 @@ Route::post('/requestreport-company', 'OpportunityController@storeSearchCompany'
 Route::get('/referrals', 'HomeController@referralsList')->name('referralsList');
 Route::post('/referrals/update', 'HomeController@updateReferStatus')->name('updateReferStatus');
 
-Route::get('/register-ref/{userId}', 'CompanyController@showRefRegistrationForm')->name('registerDynamicReferral');
+Route::get('/register-ref/{userId}', 'ReferralController@showRefRegistrationForm')->name('registerDynamicReferral');
+Route::get('/register-personnel/{usertype}/{token}', 'ReferralController@showRegistrationForm')->name('registerDynamic');
+
 Route::get('/alertedRecords', 'AlertedrecordsController@index')->name('alertedRecordsIndex');
 
 Route::get('/getCompanyNames', 'HomeController@getCompany')->name('getCompanyByNames');
@@ -45,6 +49,16 @@ Route::post('/accounts-saveApproval', 'SuperAdminController@storeApproval')->nam
 Route::get('/accountsCompanies', 'SuperAdminController@allCompanies')->name('allCompanies');
 Route::get('/manage-registration-links', 'SuperAdminController@manageLinks')->name('manageRegsLink');
 Route::post('/add-registration-link', 'SuperAdminController@addLinks')->name('addRegsLink');
+
+Route::get('/transferCompany', 'SuperAdminController@getTransferCompany')->name('GetTransferCompany');
+Route::post('/viewUserCompany', 'SuperAdminController@viewAjxCompany')->name('ViewAjxCompany');
+Route::post('/addUserCompany', 'SuperAdminController@addAjxCompany')->name('AddAjxCompany');
+Route::post('/transferUserCompany', 'SuperAdminController@transferAjxCompany')->name('TransferAjxCompany');
+Route::post('/selectedUserCompany', 'SuperAdminController@selectedUserCompany')->name('SelectedUserCompany');
+Route::post('/transferSelectedCompany', 'SuperAdminController@transferSelectedCompany')->name('TransferSelectedCompany');
+Route::post('/addTokenSelectedCompany', 'SuperAdminController@addTokenSelectedCompany')->name('AddTokenSelectedCompany');
+Route::get('/tokenCompany', 'SuperAdminController@getTokenCompany')->name('GetTokenCompany');
+
 
 //staff
 Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');
@@ -244,8 +258,6 @@ Route::get('/buyReport/setBuy', 'BuyreportController@setBuy')->name('setBuyRepor
 Route::post('/buyReport/setBuy', 'BuyreportController@setBuy')->name('setBuyReport');  //generate pdf report
 Route::post('/buyReport/storeBuy', 'BuyreportController@storeBuy')->name('storeBuyReport');
 Route::get('/buyReport/download/{companyId}/{reqId}', 'BuyreportController@downloadReport')->name('downloadReport'); //generate pdf report
-
-Route::get('/register-personnel/{usertype}/{token}', 'CompanyController@showRegistrationForm')->name('registerDynamic');
 
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
 $this->post('login', 'Auth\LoginController@login');

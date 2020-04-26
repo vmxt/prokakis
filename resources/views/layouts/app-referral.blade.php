@@ -1047,22 +1047,6 @@ s0.parentNode.insertBefore(s1,s0);
 
 <script>
 
-FB.ui(
-  {
-    method: 'share',
-    href: 'https://developers.facebook.com/docs/',
-  },
-  // callback
-  function(response) {
-    if (response && !response.error_message) {
-      alert('Posting completed.');
-    } else {
-      alert('Error while posting.');
-    }
-  }
-);
-
-
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
@@ -1190,16 +1174,6 @@ function autocomplete(inp, arr) {
 
 $(document).ready(function()
 {
-    $.ajaxSetup({ cache: true });
-    $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
-    FB.init({
-      appId: '{your-app-id}',
-      version: 'v2.7' // or v2.1, v2.2, v2.3, ...
-    });     
-    $('#loginbutton,#feedbutton').removeAttr('disabled');
-    FB.getLoginStatus(updateStatusCallback);
-  });
-
    $.getJSON('https://app.prokakis.com/getCompanyNames', function(dataA) {
      autocomplete(document.getElementById("seach_entry_key"), dataA);
   });

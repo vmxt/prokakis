@@ -84,20 +84,20 @@ class ThomsonReuters extends Model {
 		$SQL = "SELECT * FROM $tbname WHERE UID IS NOT NULL";
 
 		if ($fname != null) {
-			$SQL = $SQL . " AND FIRST_NAME = :fname";
+			$SQL = $SQL . " AND UPPER(FIRST_NAME) = UPPER(:fname)";
 			$rs[':fname'] = $fname;
 		}
 		if ($lname != null) {
-			$SQL = $SQL . " AND LAST_NAME = :lname";
+			$SQL = $SQL . " AND UPPER(LAST_NAME) = UPPER(:lname)";
 			$rs[':lname'] = $lname;
 		}
 	
 		if ($nationality != null) {
-			$SQL = $SQL . " AND CITIZENSHIP = :nationality";
+			$SQL = $SQL . " AND UPPER(CITIZENSHIP) = UPPER(:nationality)";
 			$rs[':nationality'] = strtoupper($nationality);
 		}
 		if ($passport != null) {
-			$SQL = $SQL . " AND PASSPORTS = :passport";
+			$SQL = $SQL . " AND UPPER(PASSPORTS) = UPPER(:passport)";
 			$rs[':passport'] = $passport;
 		}
 	
@@ -107,7 +107,7 @@ class ThomsonReuters extends Model {
 		}
 
 		if ($countryLocation != null) {
-			$SQL = $SQL . " AND COUNTRIES = :countryLocation ";
+			$SQL = $SQL . " AND UPPER(COUNTRIES) = UPPER(:countryLocation)";
 			$rs[':countryLocation'] = strtoupper($countryLocation);
 		}
 		if ($companies != null) {

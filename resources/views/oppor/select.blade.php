@@ -76,7 +76,7 @@
                                             <a id="building" href="javascript:;"
                                                class="btn green-sharp btn-outline  btn-block sbold uppercase"
                                                type="submit" style="height: 100px; "> <span class="wrapword"
-                                                        style="font-size: 25px; ">BUILDING CAPABILITY</span> </a>
+                                                        style="font-size: 25px;">BUILDING CAPABILITY</span> </a>
                                             <center><span style="margin-top: 5px;">Partnership or Investments</span>
                                             </center>
                                         </div>

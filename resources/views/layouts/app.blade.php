@@ -1053,8 +1053,8 @@ s0.parentNode.insertBefore(s1,s0);
                                                                   @if(App\SpentTokens::validateLeftBehindToken($val->company_id) == false 
                                                                   && App\SpentTokens::validateLeftBehindToken($company_id_result) != false)
                                                                       <a href="#" onclick="checkAlertByPremiumMenu('<?php echo $val->company_id; ?>', '<?php echo $company_id_result; ?>');">
-                                                                        <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                    </a>
+                                                                  <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
+                                                                </a>
                                                                   @endif
                                                                 @endif
                                                               </div>
@@ -1247,6 +1247,11 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <span class="font-white">Settings</span> <span class="arrow"></span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
+
+						<li aria-haspopup="true" class=" ">
+                                                <a href="{{url('/transferCompany')}}" class="nav-link  ">
+                                                    Company Transfer and Token</a>
+                                               </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/sysconfig')}}" class="nav-link  ">
                                                         Configure Variables</a>

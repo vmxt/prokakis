@@ -112,7 +112,7 @@
                                    >
                                     <span class="fa fa-twitter"></span> Share on Twiiter
                                   </a>
-                            
+                    
                              <h4>How do you want to keep your referral information:</h4>
                             <input type="checkbox" 
                               onchange="referStatus(this)"
