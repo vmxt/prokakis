@@ -28,4 +28,18 @@ class Buytoken extends Model
     ];
     
 
+    public static function AddToken($data)
+    {
+       $ok = Buytoken::create([
+            'company_id'    => $data['company_id'], 
+            'num_tokens'    => $data['num_tokens'], 
+            'amount'        => $data['amount'], 
+            'created_at'    => date('Y-m-d'), 
+            'status'        => 1, 
+            'paypal_id'     => $data['paypal_id'], 
+            'paypal_token'  => $data['paypal_token']   
+        ]);
+        return $ok;
+    }
+
 }

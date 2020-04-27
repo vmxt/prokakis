@@ -246,10 +246,7 @@
            min-height: 40px;
          }
 
-         .thumbnail:hover {
-           cursor: pointer;
-           box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 1);
-         }
+
 
          .premium_banner{
             /*margin-left: 180px;*/
@@ -293,17 +290,31 @@
         transition: all 0.3s ease-in-out;
     }
     .info-card {
-        width: 100%;
+        width: 90%;
         border: 1px solid rgb(215, 215, 215);
         position: relative;
         font-family: 'Lato', sans-serif;
         margin-bottom: 20px;
         overflow: hidden;
     }
-    .info-card > img {
-        width: 100px;
+
+    .info-card:hover {
+       cursor: pointer;
+       box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1);
+    }
+
+    .card-img-top {
+        width: 100%;
+        margin-bottom: 60px;
+        padding-right: 30px;
+        padding-left:  30px;
+    }
+
+    .premium_banner {
+        width: 75%;
         margin-bottom: 60px;
     }
+
     .info-card .info-card-details,
     .info-card .info-card-details .info-card-header  {
         width: 100%;
@@ -515,15 +526,15 @@
             } 
         }
                 ?>
-            <div class="[ col-sm-4 col-md-3 ]">
+            <div class="[ col-sm-4 col-md-4 ]">
                 <div class="[ info-card ]">
                     @if($accStatus == 'premium')
                         <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
                     @endif
                     @if ($item->view_type == 2)
-                        <img style="width: 100%" class="card-img-top " src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
+                        <img  class="card-img-top img-thumbnail " src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
                     @else
-                        <img style="width: 100%" class="card-img-top " src="{{ asset('public/images/') }}/robot.jpg" />
+                        <img  class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/robot.jpg" />
                     @endif
                     <div class="[ info-card-details ] animate">
                         <div class="[ info-card-header ]">
@@ -657,15 +668,15 @@
             } 
         }
                 ?>
-            <div class="[ col-sm-4 col-md-3 ]">
+            <div class="[ col-sm-4 col-md-4 ]">
                 <div class="[ info-card ]">
                     @if($accStatus == 'premium')
                         <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
                     @endif
                     @if ($item->view_type == 2)
-                        <img style="width: 100%" class="card-img-top " src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
+                        <img style="width: 100%" class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
                     @else
-                        <img style="width: 100%" class="card-img-top " src="{{ asset('public/images/') }}/robot.jpg" />
+                        <img style="width: 100%" class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/robot.jpg" />
                     @endif
                     <div class="[ info-card-details ] animate">
                         <div class="[ info-card-header ]">
@@ -800,15 +811,15 @@
             } 
         }
                 ?>
-            <div class="[ col-sm-4 col-md-3 ]">
+            <div class="[ col-sm-4 col-md-4 ]">
                 <div class="[ info-card ]">
                     @if($accStatus == 'premium')
                         <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
                     @endif
                     @if ($item->view_type == 2)
-                        <img style="width: 100%" class="card-img-top " src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
+                        <img style="width: 100%" class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
                     @else
-                        <img style="width: 100%" class="card-img-top " src="{{ asset('public/images/') }}/robot.jpg" />
+                        <img style="width: 100%" class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/robot.jpg" />
                     @endif
                     <div class="[ info-card-details ] animate">
                         <div class="[ info-card-header ]">
