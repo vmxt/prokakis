@@ -69,6 +69,14 @@
             margin: 8px 0px;
         }
 
+        .hr-sect  {
+            display: flex;
+            flex-basis: 100%;
+            align-items: center;
+            color: rgba(0, 0, 0, 0.35);
+            margin: 8px 0px;
+        }
+
         .hr-sect::before,
         .hr-sect::after {
             content: "";
@@ -80,6 +88,9 @@
             margin: 0px 8px;
         }
 
+        .hr-sect strong{
+            color: #1a4275;
+        }
 
         /* CSS FOR NEW LAYOUT */
         .card-img {
@@ -396,7 +407,7 @@
         text-align: center !important;
         display: block;
         padding: 10px !important;
-         font-size: 22px !important;
+         font-size: 15px !important;
         font-weight: 400;
     }
     a.social-icon {
@@ -436,6 +447,14 @@
     }
     a.linkedin:hover {
         background-color: rgb(1, 116, 179) !important;
+    }
+
+    .info_list{
+        text-align: left;
+    }
+
+    .btn_options {
+        margin-bottom: 6px;
     }
 
     </style>
@@ -585,12 +604,53 @@
                         </div>
                         <div class="[ info-card-detail ]">
                             <!-- Description -->
-                       
-       
-                            <span class="info_subcontent">
-                                    {{ $item->opp_title }}
-                            </span>
-                                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue"><span class="fa fa-check"></span> Interested</a>
+                            <div>
+                                <span class="info_subcontent">
+                                        {{ $item->opp_title }}
+                                </span>
+                                <div class="hr-sect"><strong class="hr_title">THIS COMPANY IS SEEKING</strong></div>
+                                <span class="">
+                                    
+                                    <ul class="info_list">
+                                        <li> {{ $item->business_goal }}</li>
+                                        <li> {{ $item->audience_target }}</li>
+                                        <li> {{ $item->ideal_partner_base }}</li>
+                                    </ul>
+                                </span>
+                            </div>
+                            
+                            <div>
+                                <div class="hr-sect"><strong class="hr_title">EXPECTATION</strong></div>
+                                <span class="">
+                                    <ul class="info_list">
+                                        <li>{{ $item->timeframe_goal }}</li>
+                                        <li>{{ $item->approx_large }}.opportunity</li>
+                                    </ul>
+                                </span>
+                            </div>
+
+                            <div>
+                                <div class="hr-sect"><strong class="hr_title">INDUSTRY KEYWORD</strong></div>
+                                <span class="">
+                                <span class="info_list">
+                                 <?php 
+                                    $string = explode(",",$item->ideal_partner_business);
+                                    $i=0;
+                                    echo "<ul>";
+                                    foreach( $string as $val ){
+                                        if(trim($val) != ''){ 
+                                            echo "<li>".$val."</li>";
+                                            $i++;
+                                        }
+                                          } 
+                                    echo "</ul>"; ?>
+                                </span>
+                                </span>
+                            </div>
+
+                            <hr class="hr-sect">
+                            <div class="">
+                                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
                                 <br>
                             <?php 
                                 $viewer = base64_encode('viewer' . $company->id);
@@ -604,34 +664,34 @@
                                     {
                                     ?>                        
                                         <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                                            class="btn green"><span class="fa fa-credit-card"></span> View Profile</a>
+                                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
                                     <?php 
                                     } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
                                     ?> 
-                                        <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
 
                                     <?php
                                     }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
 
                                     <?php 
                                     }
                                 } ?>
 
-                                <a href="{{ route('opportunityExploreIndex')."?type=build&ids=".$item->id }}" class="btn yellow"> <span class="fa fa-page"></span> Learn More</a>
+                                <a href="{{ route('opportunityExploreIndex')."?type=build&ids=".$item->id }}" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                     <br>
 
                                 <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
-                                   class="btn btn-danger"
+                                   class="btn btn-danger btn_options"
                                    style="color: white; float:right;"
                                    onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
                                 <?php }?>
-
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -727,12 +787,52 @@
                         </div>
                         <div class="[ info-card-detail ]">
                             <!-- Description -->
-                       
+                            <div>
+                                <span class="info_subcontent">
+                                        {{ $item->opp_title }}
+                                </span>
+                                <div class="hr-sect"><strong class="hr_title">THIS COMPANY IS SEEKING</strong></div>
+                                <span class="">
+                                    
+                                    <ul class="info_list">
+                                        <li> {{ $item->business_goal }}</li>
+                                        <li> {{ $item->audience_target }}</li>
+                                        <li> {{ $item->ideal_partner_base }}</li>
+                                    </ul>
+                                </span>
+                            </div>
        
-                            <span class="info_subcontent">
-                                    {{ $item->opp_title }}
-                            </span>
-                                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue"><span class="fa fa-check"></span> Interested</a>
+                            <div>
+                                <div class="hr-sect"><strong class="hr_title">EXPECTATION</strong></div>
+                                <span class="">
+                                    <ul class="info_list">
+                                        <li>{{ $item->timeframe_goal }}</li>
+                                        <li>{{ $item->approx_large }}.opportunity</li>
+                                    </ul>
+                                </span>
+                            </div>
+
+                            <div>
+                                <div class="hr-sect"><strong class="hr_title">INDUSTRY KEYWORD</strong></div>
+                                <span class="">
+                                <span class="info_list">
+                                 <?php 
+                                    $string = explode(",",$item->ideal_partner_business);
+                                    $i=0;
+                                    echo "<ul>";
+                                    foreach( $string as $val ){
+                                        if(trim($val) != ''){ 
+                                            echo "<li>".$val."</li>";
+                                            $i++;
+                                        }
+                                          } 
+                                    echo "</ul>"; ?>
+                                </span>
+                                </span>
+                            </div>
+                            <hr class="hr-sect">
+                            <div class="">
+                                <a onclick="processReq('sell', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
                                 <br>
                             <?php 
                                 $viewer = base64_encode('viewer' . $company->id);
@@ -746,34 +846,34 @@
                                     {
                                     ?>                        
                                         <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                                            class="btn green"><span class="fa fa-credit-card"></span> View Profile</a>
+                                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
                                     <?php 
                                     } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
                                     ?> 
-                                        <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
 
                                     <?php
                                     }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
 
                                     <?php 
                                     }
                                 } ?>
 
-                                <a href="{{ route('opportunityExploreIndex')."?type=sell&ids=".$item->id }}" class="btn yellow"> <span class="fa fa-page"></span> Learn More</a>
+                                <a href="{{ route('opportunityExploreIndex')."?type=sell&ids=".$item->id }}" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                     <br>
 
-                                <a href="{{ url('/opportunity/deleteSell/'.$item->id) }}"
-                                   class="btn btn-danger"
+                                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                                   class="btn btn-danger btn_options"
                                    style="color: white; float:right;"
                                    onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
                                 <?php }?>
-
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -870,12 +970,53 @@
                         </div>
                         <div class="[ info-card-detail ]">
                             <!-- Description -->
-                       
-       
-                            <span class="info_subcontent">
-                                    {{ $item->opp_title }}
-                            </span>
-                                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue"><span class="fa fa-check"></span> Interested</a>
+                            <div>
+                                <span class="info_subcontent">
+                                        {{ $item->opp_title }}
+                                </span>
+                                <div class="hr-sect"><strong class="hr_title">THIS COMPANY IS SEEKING</strong></div>
+                                <span class="">
+                                    
+                                    <ul class="info_list">
+                                        <li> {{ $item->business_goal }}</li>
+                                        <li> {{ $item->audience_target }}</li>
+                                        <li> {{ $item->ideal_partner_base }}</li>
+                                    </ul>
+                                </span>
+                            </div>
+                            
+                            <div>
+                                <div class="hr-sect"><strong class="hr_title">EXPECTATION</strong></div>
+                                <span class="">
+                                    <ul class="info_list">
+                                        <li>{{ $item->timeframe_goal }}</li>
+                                        <li>{{ $item->approx_large }}.opportunity</li>
+                                    </ul>
+                                </span>
+                            </div>
+
+                            <div>
+                                <div class="hr-sect"><strong class="hr_title">INDUSTRY KEYWORD</strong></div>
+                                <span class="">
+                                <span class="info_list">
+                                 <?php 
+                                    $string = explode(",",$item->ideal_partner_business);
+                                    $i=0;
+                                    echo "<ul>";
+                                    foreach( $string as $val ){
+                                        if(trim($val) != ''){ 
+                                            echo "<li>".$val."</li>";
+                                            $i++;
+                                        }
+                                          } 
+                                    echo "</ul>"; ?>
+                                </span>
+                                </span>
+                            </div>
+
+                            <hr class="hr-sect">
+                            <div class="">
+                                <a onclick="processReq('buy', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
                                 <br>
                             <?php 
                                 $viewer = base64_encode('viewer' . $company->id);
@@ -889,34 +1030,34 @@
                                     {
                                     ?>                        
                                         <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                                            class="btn green"><span class="fa fa-credit-card"></span> View Profile</a>
+                                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
                                     <?php 
                                     } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
                                     ?> 
-                                        <a href="#" onclick="encourageToPremium();" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
 
                                     <?php
                                     }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default"> <span class="fa fa-credit-card"></span> View Profile</a>
+                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                                     <br>
 
                                     <?php 
                                     }
                                 } ?>
 
-                                <a href="{{ route('opportunityExploreIndex')."?type=buy&ids=".$item->id }}" class="btn yellow"> <span class="fa fa-page"></span> Learn More</a>
+                                <a href="{{ route('opportunityExploreIndex')."?type=buy&ids=".$item->id }}" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                     <br>
 
-                                <a href="{{ url('/opportunity/deleteBuy/'.$item->id) }}"
-                                   class="btn btn-danger"
+                                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                                   class="btn btn-danger btn_options"
                                    style="color: white; float:right;"
                                    onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
                                 <?php }?>
-
+                            </div>
                         </div>
                     </div>
                 </div>
