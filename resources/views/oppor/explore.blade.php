@@ -681,7 +681,7 @@
                                     }
                                 } ?>
 
-                                <a href="{{ route('opportunityExploreIndex')."?type=build&ids=".$item->id }}" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
+                                <a onclick="showModalContent('build','{{ $item->id }}')" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                     <br>
@@ -697,7 +697,190 @@
                 </div>
             </div>
 <?php      
-    endif;  
+    endif;  ?>
+{{-- Start modal click --}}
+    <div 
+        class="modal fade" 
+        id="opporBuildModal_{{ $item->id }}" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="opporDetailsContentModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="opporDetailsContentModalLabel">Opportunity Details</h4>
+                </div>
+        <div class="modal-body">
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Title: </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> <?= $item->opp_title ?> </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Ratings </strong></h4>
+                </span>
+                <span class="content-text">
+                <?php
+                                    if ($ratingScore < 25) {
+                                        ?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+
+                                            <?php }?>
+                                            <br/>
+                    <h4> {{ $ratingScore }} % </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> This Company is seeking </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                        <ul>
+                            @if($opp_type == 'build')
+                            <li>{{ $item->business_goal }}</li>
+                            @else
+                            <li>{{ $item->what_sell_offer }}</li>
+                            @endif
+                            <li>{{ $item->audience_target }}</li>
+                            <li>
+                <?php 
+                    $string = explode(",",$item->ideal_partner_base);
+                    $i=0;
+                    foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val;
+                            $i++;
+                            if($i != count($string)){
+                                echo ", ";
+                            }
+                        endif;
+                    endforeach; ?>
+                            </li>
+                    </h4>
+                    </ul>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Expectation </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity.
+                        
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Industry Keyword </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                      $string = explode(",",$item->ideal_partner_business);
+                      $i=0;
+                      foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val." ";
+                            $i++;
+                            if($i != count($string)){
+                                echo ",";
+                            }
+                        endif;
+                      endforeach; ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Why partner with this company?  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->why_partner_goal }} </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Relevant industry or products  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                $rr = explode(",",$item->relevant_describing_partner);
+                if(count((array) $rr) > 0):
+                  foreach($rr as $h):
+                    if(trim($h) != ''){
+                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                    }
+                  endforeach;
+                endif;
+                ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+      </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<?php    
     endforeach;  ?>
         </div>
             <!-- END BUILD OPPORTUNITY -->
@@ -863,7 +1046,7 @@
                                     }
                                 } ?>
 
-                                <a href="{{ route('opportunityExploreIndex')."?type=sell&ids=".$item->id }}" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
+                                <a onclick="showModalContent('sell','{{ $item->id }}')" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                     <br>
@@ -879,9 +1062,193 @@
                 </div>
             </div>
 <?php      
-    endif;  
-    endforeach;  ?>
+    endif;  ?>
 
+{{-- Start modal click --}}
+    <div 
+        class="modal fade" 
+        id="opporSellModal_{{ $item->id }}" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="opporDetailsContentModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="opporDetailsContentModalLabel">Opportunity Details</h4>
+                </div>
+        <div class="modal-body">
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Title: </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> <?= $item->opp_title ?> </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Ratings </strong></h4>
+                </span>
+                <span class="content-text">
+                <?php
+                                    if ($ratingScore < 25) {
+                                        ?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+
+                                            <?php }?>
+                                            <br/>
+                    <h4> {{ $ratingScore }} % </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> This Company is seeking </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                        <ul>
+                            @if($opp_type == 'build')
+                            <li>{{ $item->business_goal }}</li>
+                            @else
+                            <li>{{ $item->what_sell_offer }}</li>
+                            @endif
+                            <li>{{ $item->audience_target }}</li>
+                            <li>
+                <?php 
+                    $string = explode(",",$item->ideal_partner_base);
+                    $i=0;
+                    foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val;
+                            $i++;
+                            if($i != count($string)){
+                                echo ", ";
+                            }
+                        endif;
+                    endforeach; ?>
+                            </li>
+                    </h4>
+                    </ul>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Expectation </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity.
+                        
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Industry Keyword </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                      $string = explode(",",$item->ideal_partner_business);
+                      $i=0;
+                      foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val." ";
+                            $i++;
+                            if($i != count($string)){
+                                echo ",";
+                            }
+                        endif;
+                      endforeach; ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Why partner with this company?  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->why_partner_goal }} </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Relevant industry or products  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                $rr = explode(",",$item->relevant_describing_partner);
+                if(count((array) $rr) > 0):
+                  foreach($rr as $h):
+                    if(trim($h) != ''){
+                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                    }
+                  endforeach;
+                endif;
+                ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+      </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+    </div>
+  </div>
+</div>
+<!-- END MODAL -->
+
+<?php     
+    endforeach;  ?>
             </div>
             <!-- END SELL OPPORTUNITY -->
 
@@ -1047,7 +1414,7 @@
                                     }
                                 } ?>
 
-                                <a href="{{ route('opportunityExploreIndex')."?type=buy&ids=".$item->id }}" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
+                                <a onclick="showModalContent('buy','{{ $item->id }}')" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
 
                                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                                     <br>
@@ -1063,7 +1430,191 @@
                 </div>
             </div>
 <?php      
-    endif;  
+    endif;  ?>
+
+    {{-- Start modal click --}}
+    <div 
+        class="modal fade" 
+        id="opporBuyModal_{{ $item->id }}" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="opporDetailsContentModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="opporDetailsContentModalLabel">Opportunity Details</h4>
+                </div>
+        <div class="modal-body">
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Title: </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> <?= $item->opp_title ?> </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Ratings </strong></h4>
+                </span>
+                <span class="content-text">
+                <?php
+                                    if ($ratingScore < 25) {
+                                        ?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+
+                                            <?php }?>
+                                            <br/>
+                    <h4> {{ $ratingScore }} % </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> This Company is seeking </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                        <ul>
+                            @if($opp_type == 'build')
+                            <li>{{ $item->business_goal }}</li>
+                            @else
+                            <li>{{ $item->what_sell_offer }}</li>
+                            @endif
+                            <li>{{ $item->audience_target }}</li>
+                            <li>
+                <?php 
+                    $string = explode(",",$item->ideal_partner_base);
+                    $i=0;
+                    foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val;
+                            $i++;
+                            if($i != count($string)){
+                                echo ", ";
+                            }
+                        endif;
+                    endforeach; ?>
+                            </li>
+                    </h4>
+                    </ul>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Expectation </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity.
+                        
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Industry Keyword </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                      $string = explode(",",$item->ideal_partner_business);
+                      $i=0;
+                      foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val." ";
+                            $i++;
+                            if($i != count($string)){
+                                echo ",";
+                            }
+                        endif;
+                      endforeach; ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Why partner with this company?  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->why_partner_goal }} </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Relevant industry or products  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                $rr = explode(",",$item->relevant_describing_partner);
+                if(count((array) $rr) > 0):
+                  foreach($rr as $h):
+                    if(trim($h) != ''){
+                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                    }
+                  endforeach;
+                endif;
+                ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+      </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+    </div>
+  </div>
+</div>
+<!-- END MODAL -->
+<?php 
     endforeach;  ?>
 
             </div>
@@ -1289,6 +1840,18 @@
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
+        function showModalContent(type, id){
+            if(type == 'build'){
+                $("#opporBuildModal_"+id).modal();
+            }
+            if(type == 'sell'){
+                $("#opporSellModal_"+id).modal();
+            }
+            if(type == 'buy'){
+                $("#opporBuyModal_"+id).modal();
+            }
+        }
+
         $(document).ready(function () {
             $("#opporDetailsContentModal").modal();
             $("#filterKeywords").click(function () {
