@@ -128,6 +128,8 @@ Route::get('/opportunity', 'OpportunityController@index')->name('opportunityInde
 Route::get('/opportunity/select', 'OpportunityController@select')->name('opportunitySelect');
 Route::post('/opportunity/premium', 'OpportunityController@premiumPurchase')->name('PremiumPurchase');
 Route::post('/opportunity/alertFreeAccount', 'OpportunityController@alertFreeAccount')->name('AlertFreeAccount');
+Route::post('/opportunity/AvatarUpdate', 'OpportunityController@updateOppImageAvatar')->name('updateOppImageAvatar');
+
 
 Route::get('/opportunity/build', 'OpportunityController@buildNew')->name('opportunityNewBuild');
 Route::get('/opportunity/editBuild/{id}', 'OpportunityController@editBuild')->name('opportunityEditBuild');

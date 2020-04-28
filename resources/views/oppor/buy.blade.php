@@ -3,7 +3,8 @@
 
 
 @section('content')
-
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
    <style>
@@ -1342,6 +1343,41 @@ input::-moz-focus-inner {
 
                             </div>
 
+                            <div class="portlet light">
+
+                                <div class="portlet-body">
+
+                                    <div class="form-group">
+
+                                        <label for="ideal_partner_base"><b>Please choose what do you want to display as the opportunity card avatar.</b></label> <br/>
+
+                                        <div class="input-group">
+
+                                            <div class="row">
+
+                                                <div class="col-sm-12">
+                                                    <input type="checkbox" 
+                                                          onchange="oppImageAvatar(this, '{{ $data->id }}' )"
+                                                          id="opp_image_avatar"
+                                                          checked 
+                                                          data-toggle="toggle" 
+                                                          data-on="Profile Image" 
+                                                          data-off="Industry Image" 
+                                                          data-width="200" 
+                                                          data-onstyle="success" 
+                                                          data-offstyle="info" 
+                                                          data-style="slow">
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
                             <div class="portlet2 light2">
 
@@ -1555,6 +1591,12 @@ input::-moz-focus-inner {
 
     <script>
 
+        var avatarFlagStatus = '{{  $data->avatar_status }}'
+          if(avatarFlagStatus == 1)
+             $('#opp_image_avatar').prop('checked', false).change()
+          else
+             $('#opp_image_avatar').prop('checked', true).change()
+
 
         function assignIndustry(id){
             $('#opp_industry').val(id);
@@ -1627,6 +1669,43 @@ input::-moz-focus-inner {
         });
 
 
+      function oppImageAvatar(val, id){
+
+
+        var referStatus = 1;
+        if($(val).prop('checked')) referStatus = 2;
+        //1 = industry
+        //2 = profile
+        formData = new FormData();
+        formData.append("avatarStatus", referStatus);
+        formData.append("opporId", id);
+        formData.append("opporType", 'buy');
+       
+        $.ajax({
+
+            url: "{{ route('updateOppImageAvatar') }}",
+
+            type: "POST",
+
+            data: formData,
+
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+            processData: false,
+
+            contentType: false,
+
+            cache: false,
+
+            success: function (data) {
+
+                console.log(data);
+
+            }
+
+        });
+
+    }
 
         function privacyOption2(str, ptype, idx)
 

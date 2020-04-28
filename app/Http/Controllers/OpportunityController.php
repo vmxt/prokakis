@@ -1538,4 +1538,24 @@ public static function validateAccLimits($company_id){
 
 	}
 
+	public function updateOppImageAvatar(Request $request){
+		if ($request->isMethod('post')) {
+			$avatarStatus = $request->input('avatarStatus');
+			$opporId = $request->input('opporId');
+			$opporType = $request->input('opporType');
+			if($opporType == 'build')
+				$result = OpportunityBuildingCapability::find($opporId);
+			if($opporType == 'sell')
+				$result = OpportunitySellOffer::find($opporId);
+			if($opporType == 'buy')
+				$result = OpportunityBuy::find($opporId);
+
+			if($result){
+				$result->avatar_status = $avatarStatus;
+				$result->save();
+			}
+		}
+	}
+
+
 }
