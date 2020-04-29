@@ -3,8 +3,6 @@
 
 
 @section('content')
-
-
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <style>
@@ -1579,10 +1577,8 @@ input::-moz-focus-inner {
                             <div class="form-actions" align="right">
 
                                 
-
                                 <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn red"><b>Cancel</b></a>
 
-                                
 
                                 <input id="saveButtonBuilding" type="submit"
 

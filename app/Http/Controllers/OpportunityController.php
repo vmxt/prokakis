@@ -837,7 +837,7 @@ class OpportunityController extends Controller {
 				}
 
 			} else {
-				
+
 				$isOk = OpportunityBuildingCapability::create([
 
 					'company_id' => $company_id,
@@ -892,12 +892,9 @@ class OpportunityController extends Controller {
 
 		$country_list = Countries::all(); //Configurations::getJsonValue('countries');
 		$industry_list = OppIndustry::all(); 
-
 		$approx_large_list = Configurations::getJsonValue('approx_large');
 
-		$company_id = CompanyProfile::getCompanyId(Auth::id());
-
-		$data = OpportunitySellOffer::where('company_id', $company_id)->first();
+		$data = [];
 
 		return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
 
@@ -1038,6 +1035,10 @@ class OpportunityController extends Controller {
 
 					'view_type' => $view_type,
 
+					'industry' => $industry,
+
+					'avatar_status' => $request->input('avatar_status'),
+
 				]);
 
 				if ($isOk) {
@@ -1060,9 +1061,7 @@ class OpportunityController extends Controller {
 
 		$approx_large_list = Configurations::getJsonValue('approx_large');
 
-		$company_id = CompanyProfile::getCompanyId(Auth::id());
-
-		$data = OpportunitySellOffer::where('company_id', $company_id)->first();
+		$data = [];
 
 		return view("oppor.buy", compact('country_list', 'approx_large_list', 'data','industry_list'));
 
@@ -1201,6 +1200,10 @@ class OpportunityController extends Controller {
 					'status' => 1,
 
 					'view_type' => 1,
+					
+					'industry' => $industry,
+
+					'avatar_status' => $request->input('avatar_status'),
 
 				]);
 
