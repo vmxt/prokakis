@@ -255,6 +255,10 @@ input::-moz-focus-inner {
       box-shadow: 0 8px 16px 0 #1b9dec
 }
 
+.tag-required{
+    border: 2px dashed red;
+}
+
     </style>
 
     <link href="{{ asset('public/selectJS/examples/css/normalize.css') }}" rel="stylesheet">
@@ -399,9 +403,9 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="business_goal"><b>Title for this Opportunity</b></label>
+                                        <label for="business_goal"><b>Title for this Opportunity</b> <span style="color: red; font-weight: bolder;"> *</span> </label>
 
-                                        <input type="text" class="form-control" name="opp_title" id="opp_title" value="<?php if(isset($data->opp_title)){ echo $data->opp_title; }else{echo "";} ?>" />
+                                        <input required="required" type="text" class="form-control" name="opp_title" id="opp_title" value="<?php if(isset($data->opp_title)){ echo $data->opp_title; }else{echo "";} ?>" />
 
 
 
@@ -431,7 +435,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-radio">
 
-                                                <input type="radio" id="businessGoal1" value="Raise capital for a company" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Raise capital for a company'){ echo 'checked';  } ?>>
+                                                <input type="radio" id="businessGoal1" value="Raise capital for a company" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Raise capital for a company'){ echo 'checked';  }else{echo 'checked'; } ?> >
 
                                                 <label for="businessGoal1">
 
@@ -515,7 +519,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="audienceTarget1" value="Consumers(B2C)" name="audienceTarget" class="md-radiobtn" <?php if(isset($data->audience_target) && $data->audience_target == 'Consumers(B2C)'){ echo 'checked';  } ?>>
+                                                    <input type="radio" id="audienceTarget1" value="Consumers(B2C)" name="audienceTarget" class="md-radiobtn" <?php if(isset($data->audience_target) && $data->audience_target == 'Consumers(B2C)'){ echo 'checked';  }else{echo 'checked';} ?>>
 
                                                     <label for="audienceTarget1">
 
@@ -609,7 +613,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="why_partner_goal"><b>What is your Company’s Strength?</b> <i>(Optional)</i></label> <br/>
+                                        <label for="why_partner_goal"><b>What is your Company's Strength?</b> <i>(Optional)</i></label> <br/>
 
 
 
@@ -665,7 +669,7 @@ input::-moz-focus-inner {
 
                                                     <div class="md-radio">
 
-                                                        <input type="radio" id="radioKS" value="Less than 1 year" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  } ?>>
+                                                        <input type="radio" id="radioKS" value="Less than 1 year" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  }else{echo 'checked';} ?>>
 
                                                         <label for="radioKS">
 
@@ -1327,10 +1331,23 @@ input::-moz-focus-inner {
                                         <div class="input-group">
 
                                             <div class="row">
+                                                <?php 
+                                                    if(isset($data->id)){
+                                                        $dataId = $data->id;
+                                                    }else{
+                                                        $dataId = 1;
+                                                    }
 
+                                                    if(isset( $data->avatar_status )){
+                                                        $dataAvatar = $data->avatar_status;
+                                                    }else{
+                                                        $dataAvatar = 1;
+                                                    }
+                                                ?>
                                                 <div class="col-sm-12">
+                                                    <input type="hidden" name="avatar_status" id="avatar_status" value="{{  $dataAvatar }}" />
                                                     <input type="checkbox" 
-                                                          onchange="oppImageAvatar(this, '{{ $data->id }}' )"
+                                                          onchange="oppImageAvatar(this, '{{ $dataId }}' )"
                                                           id="opp_image_avatar"
                                                           checked 
                                                           data-toggle="toggle" 
@@ -1366,19 +1383,28 @@ input::-moz-focus-inner {
                              <div class="portlet2 light2">
 
                                 <div class="portlet-body">
-                                        <label for="opp_industry"><b>Please select what kind of Industry</b> </label>
+                                        <label for="opp_industry"><b>Please select what kind of Industry</b><span style="color: red; font-weight: bolder;"> *</span> </label>
                                         <div class='row'>
                                             <div class='col-sm-12'>
-                                                <div id="myCarousel" class="row carousel slide" data-interval="false">
+                                                <div id="myCarousel" class="row carousel slide " data-interval="false">
                                                     <div class="carousel-inner">
-                                                        <input type="hidden" id="opp_industry" name="opp_industry">
+                                                        <input type="hidden" id="opp_industry" name="opp_industry" value="0">
                                                     <?php 
                                                         $groupSize = 4;
-                                                        $initCarousel = 'active';
+                                                        $initCarousel = '';
+                                                        $setActive = 0;
+                                                        if(isset( $data->industry) ){
+                                                            $setActive = floor( $data->industry / $groupSize );
+                                                        }
                                                         $numItems = $industry_list->count();
                                                         $i = 0;
+                                                        $ii = 0;
                                                      ?>
                                                         @foreach($industry_list as $ind)
+                                                            <?php
+                                                            if($setActive == $ii){
+                                                                $initCarousel = 'active';
+                                                            } ?>
                                                             @if($i == '0')
                                                             <div class="item {{ $initCarousel }}">
                                                                 <ul class="thumbnails">
@@ -1398,13 +1424,15 @@ input::-moz-focus-inner {
 
                                             <?php 
                                                             $i++;
+                                                         
                                                             $initCarousel = '';
                                             ?>
                                                             @if($i == 4 || $numItems === $i )
                                                                 </ul>
                                                             </div>
                                                             <?php 
-                                                            $i = 0; ?>
+                                                            $i = 0; 
+                                                            $ii++;?>
                                                             @endif
                                                         @endforeach
                                                     </div>
@@ -1483,17 +1511,19 @@ input::-moz-focus-inner {
                                                 <div class="form-group">
 
             
-
                                            <button type="button" id="butPrivate" <?php echo $bKP; ?> class="btn btn-success" onclick="privacyOption2('build', 'keep_private', '<?php echo $dataID; ?>')" style="color: black;"><span class="fa fa-lock"></span> &nbsp;<b>Publish Anonymously </b></button>  
 
                                            <button type="button" id="butCompany" <?php echo $bWCI; ?> class="btn btn-info" onclick="privacyOption2('build', 'company_info', '<?php echo $dataID; ?>');" style="color: black"><span class="fa fa-credit-card" /></span> &nbsp;<b>Publish with company info</b></button>
-
-                                          
-
-                                           <input type="hidden" name="viewtype_value" id="viewtype_value" value="0">
+                                           <?php
+                                           if(isset($data->view_type)){
+                                                $dataViewType = $data->view_type;
+                                           }else{
+                                                $dataViewType = 1;
+                                           }
+                                           ?>
+                                           <input type="hidden" name="viewtype_value" id="viewtype_value" value="{{ $dataViewType }}">
 
                                            <br />
-
 
 
                                             <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
@@ -1550,13 +1580,13 @@ input::-moz-focus-inner {
 
                                 
 
-                                <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn default"><b>Cancel</b></a>
+                                <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn red"><b>Cancel</b></a>
 
                                 
 
                                 <input id="saveButtonBuilding" type="submit"
 
-                                       class="btn yellow" value="Submit Opportunity"/>
+                                       class="btn btn-success" value="Submit Opportunity"/>
 
                             </div>
 
@@ -1586,13 +1616,30 @@ input::-moz-focus-inner {
 
     <script>
 
-          var avatarFlagStatus = '{{  $data->avatar_status }}'
-          if(avatarFlagStatus == 1)
-             $('#opp_image_avatar').prop('checked', false).change()
-          else
-             $('#opp_image_avatar').prop('checked', true).change()
+          var avatarFlagStatus = $('#avatar_status').val();
+              if(avatarFlagStatus == 1)
+                 $('#opp_image_avatar').prop('checked', false).change()
+              else
+                 $('#opp_image_avatar').prop('checked', true).change()
+          
+
+
+
+        var viewTypeStatus = $('#viewtype_value').val();
+        if(viewTypeStatus == 1){
+            $("#butPrivate").attr("disabled", true);
+            $("#butCompany").attr("disabled", false);
+        }else if(viewTypeStatus == 2){
+            $("#butPrivate").attr("disabled", false);
+            $("#butCompany").attr("disabled", true);
+        }else{
+            $("#butPrivate").attr("disabled", false);
+            $("#butCompany").attr("disabled", false);   
+        }
+
 
         function assignIndustry(id){
+            $('#myCarousel').removeClass('tag-required');
             $('#opp_industry').val(id);
             $('.thumbnail').removeClass('industry_active');
             $('.industry_select'+id).addClass('industry_active');
@@ -1770,6 +1817,8 @@ input::-moz-focus-inner {
         if($(val).prop('checked')) referStatus = 2;
         //1 = industry
         //2 = profile
+
+        $('#avatar_status').val(referStatus);
         formData = new FormData();
         formData.append("avatarStatus", referStatus);
         formData.append("opporId", id);
@@ -1955,7 +2004,13 @@ input::-moz-focus-inner {
 
   
 
+$('#opportunity_build_form').submit(function() {
+    if( $('#opp_industry').val() == 0 ){
+        $('#myCarousel').addClass('tag-required');
+        return false
+    }
 
+});
 
     </script>
 

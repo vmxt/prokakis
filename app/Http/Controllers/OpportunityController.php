@@ -717,9 +717,7 @@ class OpportunityController extends Controller {
 		$industry_list = OppIndustry::all(); 
 		$approx_large_list = Configurations::getJsonValue('approx_large');
 
-		$company_id = CompanyProfile::getCompanyId(Auth::id());
-
-		$data = OpportunityBuildingCapability::where('company_id', $company_id)->first();
+		$data = [];
 
 		return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
 
@@ -839,7 +837,7 @@ class OpportunityController extends Controller {
 				}
 
 			} else {
-
+				
 				$isOk = OpportunityBuildingCapability::create([
 
 					'company_id' => $company_id,
@@ -869,6 +867,10 @@ class OpportunityController extends Controller {
 					'status' => 1,
 
 					'view_type' => $view_type,
+
+					'industry' => $industry,
+
+					'avatar_status' => $request->input('avatar_status'),
 
 				]);
 
