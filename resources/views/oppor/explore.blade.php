@@ -10,10 +10,7 @@
 <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet"
       type="text/css"/>
 
-
-    <!--<link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">-->
-
-
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
 
     <style>
 
@@ -286,179 +283,238 @@
 
         /*.card-explore{
             height: 25em;
-        }*/
+        }
 
-@import url(//fonts.googleapis.com/css?family=Lato:400,900);
-    @import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-    body {
-        padding: 60px 0px;
-    }
-    .animate {
-        -webkit-transition: all 0.3s ease-in-out;
-        -moz-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-        -ms-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-    }
-    .info-card {
-        width: 90%;
-        border: 1px solid rgb(215, 215, 215);
-        position: relative;
-        font-family: 'Lato', sans-serif;
-        margin-bottom: 20px;
-        overflow: hidden;
-    }
+        new code start css*/
 
-    .info-card:hover {
-       cursor: pointer;
-       box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1);
-    }
 
-    .card-img-top {
-        width: 100%;
-        margin-bottom: 60px;
-        padding-right: 30px;
-        padding-left:  30px;
-    }
+.list-link, .list-link:visited {
+  display: block;
+  text-decoration: inherit;
+  color: inherit;
+}
 
-    .premium_banner {
-        width: 75%;
-        margin-bottom: 60px;
-    }
+.container-grid {
+  padding: 0.5em 1em 1em;
+  max-width: calc(1400px + 1em);
+  margin: 0 auto;
+  overflow: hidden;
+}
+.container-grid .blog-posts .featured {
+  width: 100% !important;
+  height: auto !important;
+  margin: 0.5em 0 1em 0 !important;
+}
+.container-grid .blog-posts .featured .image {
+  height: auto !important;
+}
+.container-grid .blog-posts .featured .content {
+  height: auto !important;
+}
+.container-grid .blog-posts .row {
+  display: flex;
+}
+.container-grid .blog-posts .row .post:last-child {
+  margin-right: 0 !important;
+}
+.container-grid .blog-posts .post {
+        /*padding-bottom: 20px;*/
+  flex: 1;
+  overflow: hidden;
+  background: white;
+  height: auto;
+  -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+.container-grid .blog-posts .post:hover {
+  -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
+  /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
+  cursor: pointer;
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1);
+}
+.container-grid .blog-posts .post:hover .image {
+  opacity: 0.8;
+}
+.container-grid .blog-posts .post .image, .container-grid .blog-posts .post .content {
+  display: inline-block;
+  position: relative;
+  -moz-transition: all 500ms ease;
+  -o-transition: all 500ms ease;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+.container-grid .blog-posts .post .image {
+  float: left;
+  width: 40%;
+  height: 250px;
+  background-size: cover;
+  background-position: center center;
+}
+.container-grid .blog-posts .post .image .time {
+  background: rgba(255, 255, 255, 0.5);
+  width: 50px;
+  text-align: center;
+  padding: 0.5em 0;
+  color: #444;
+}
+.container-grid .blog-posts .post .image .time .date {
+  font-weight: bolder;
+}
+.container-grid .blog-posts .post .image .time .month {
+  font-size: 0.7rem;
+}
+.container-grid .blog-posts .post .content {
+  padding: 0.5em 1em;
+  width: 50%;
+  -moz-box-shadow: -2px 0 2px -1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: -2px 0 2px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: -2px 0 2px -1px rgba(0, 0, 0, 0.1);
+  height: 200px;
+}
+.container-grid .blog-posts .post .content:before {
+  content: '';
+  position: absolute;
+  background: white;
+  width: 10px;
+  height: 10px;
+  top: 20%;
+  left: -5px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -moz-box-shadow: -1px 0 2px -1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: -1px 0 2px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: -1px 0 2px -1px rgba(0, 0, 0, 0.1);
+}
+.container-grid .blog-posts .post .content h1 {
+  font-weight: 600;
+  line-height: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.container-grid .blog-posts .post .content p {
+  font-weight: 300;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  margin-bottom: 0.5em;
+  font-family: 'Merriweather', sans-serif;
+}
+.container-grid .blog-posts .post .content .meta .icon-comment {
+  font-size: 0.7em;
+  line-height: 2;
+  margin-top: auto;
+}
 
-    .info-card .info-card-details,
-    .info-card .info-card-details .info-card-header  {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        bottom: -100%;
-        left: 0;
-        padding: 0 15px;
-        background: rgb(255, 255, 255);
-        text-align: center;
-    }
-    .info-card .info-card-details::-webkit-scrollbar {
-        width: 8px;
-    }
-    .info-card .info-card-details::-webkit-scrollbar-button {
-        width: 8px;
-        height: 0px;
-    }
-    .info-card .info-card-details::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    .info-card .info-card-details::-webkit-scrollbar-thumb {
-        background: rgb(160, 160, 160);
-    }
-    .info-card .info-card-details::-webkit-scrollbar-thumb:hover {
-        background: rgb(130, 130, 130);
-    }           
+[class^="icon-"]:before {
+  margin-right: 0.5em;
+  color: #3498db;
+}
 
-    .info-card .info-card-details .info-card-header {
-        height: auto;       
-        bottom: 100%;
-        padding: 10px 5px;
-    }
-    .info-card:hover .info-card-details {
-        bottom: 0px;
-        overflow: auto;
-        padding-bottom: 25px;
-    }
-    .info-card:hover .info-card-details .info-card-header {
-        position: relative;
-        bottom: 0px;
-        padding-top: 45px;
-        padding-bottom: 25px;
-    }
-    .info-card .info-card-details .info-card-header h1, 
-    .info-card .info-card-details .info-card-header h3 {
-        color: rgb(62, 62, 62);
-        font-size: 15px;
-        font-weight: 900;
-        text-transform: uppercase;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    .info-card .info-card-details .info-card-header h3 {
-        color: rgb(142, 182, 52);
-        font-size: 15px;
-        font-weight: 400;
-        margin-top: 5px;
-    }
-    .info-card .info-card-details .info-card-detail .social {
-        list-style: none;
-        padding: 0px;
-        margin-top: 25px;
-        text-align: center;
-    }
-    .info-card .info-card-details .info-card-detail .social a {
-        position: relative;
-        display: inline-block;
-        min-width: 40px;
-        padding: 10px 0px;
-        margin: 0px 5px;
-        overflow: hidden;
-        text-align: center;
-        background-color: rgb(215, 215, 215);
-        border-radius: 40px;
-    }
+img {
+  max-width: 100%;
+  height: auto;
+}
 
-    .info_subcontent{
-        text-align: center !important;
-        display: block;
-        padding: 10px !important;
-         font-size: 15px !important;
-        font-weight: 400;
-    }
-    a.social-icon {
-        text-decoration: none !important;
-        box-shadow: 0px 0px 1px rgb(51, 51, 51);
-        box-shadow: 0px 0px 1px rgba(51, 51, 51, 0.7);
-    }
-    a.social-icon:hover {
-        color: rgb(255, 255, 255) !important;
-    }
-    a.facebook {
-        color: rgb(59, 90, 154) !important;
-    }
-    a.facebook:hover {      
-        background-color: rgb(59, 90, 154) !important;
-    }
-    a.twitter {
-        color: rgb(45, 168, 225) !important;
-    }
-    a.twitter:hover {
-        background-color: rgb(45, 168, 225) !important;
-    }
-    a.github {
-        color: rgb(51, 51, 51) !important;
-    }
-    a.github:hover {
-        background-color: rgb(51, 51, 51) !important;
-    }
-    a.google-plus {
-        color: rgb(244, 94, 75) !important;
-    }
-    a.google-plus:hover {
-        background-color: rgb(244, 94, 75) !important;
-    }
-    a.linkedin {
-        color: rgb(1, 116, 179) !important;
-    }
-    a.linkedin:hover {
-        background-color: rgb(1, 116, 179) !important;
-    }
+@media screen and (max-width: 840px) {
+  .row {
+    display: block !important;
+  }
+  .row .post {
+    width: 100%;
+    margin: 0;
+  }
+}
+@media screen and (max-width: 600px) {
+  .content {
+    width: 70% !important;
+  }
 
-    .info_list{
-        text-align: left;
-    }
+  .image {
+    width: 30% !important;
+  }
 
-    .btn_options {
-        margin-bottom: 6px;
-    }
+  h1 {
+    text-overflow: inherit;
+    white-space: normal;
+  }
+}
+/* clearfix */
+.cf:before,
+.cf:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+
+.cf:after {
+  clear: both;
+}
+
+.showLastCard{
+    visibility: hidden;
+}
+
+.hiddenLastCard{
+    display: none;
+}
+
+.info_list{
+    list-style-type: circle;
+    list-style-position: outside;
+    margin-left: 20px;
+    font-size: .8em;
+}
+
+.lg-link{
+    font-size: 16px !important;
+}
+
+.info_list li{
+    margin: 0 0px 5px;
+}
+
+.hr_title{
+    font-size: .8em;
+    font-weight: bolder;
+}
+
+.learn_more{
+    float: right;
+    position: relative;
+    bottom: 35px;
+    left: 20%;
+}
+
+.title-text{
+    font-size: 16px;
+    font-weight: bolder;
+    line-height: 30px;
+}
+
+.opp_type{
+    margin-top: 50px;
+    margin-bottom: 25px;
+    color: #1a4275;
+    font-weight: 600;
+    /*font-size: 1.1em;*/
+    text-transform: uppercase;
+}
+
+
+/*.post:hover {
+   cursor: pointer;
+   box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1);
+}*/
 
     </style>
-    <div class="container">
+    <div class="container container-grid">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
             <li>
                 <a href="{{ url('/home') }}">Home</a>
@@ -477,18 +533,15 @@
                   <b>#<?php echo $hashT; ?> </b>
               </li>
             <?php } ?>
-
         </ul>
-        <div class="col-md-12" style="min-height:800px">
+        <div class="col-md-12" >
             <div class="form-group">
                 <div class="row">
                     <div class="col col-sm-6">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" id="keywordSearch"
                                    placeholder="Filter by keywords"
-                                   value="<?php if (isset($selectedKeyword)) {
-    echo $selectedKeyword;
-}?>">
+                                   value="<?php if (isset($selectedKeyword)) { echo $selectedKeyword; }?>">
                             <span class="input-group-btn"><button class="btn green" type="button"
                                                                   id="filterKeywords">FILTER</button></span>
                         </div>
@@ -497,9 +550,7 @@
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" id="keywordCountry"
                                    placeholder="Filter by country"
-                                   value="<?php if (isset($selectedCountry)) {
-    echo $selectedCountry;
-}?>">
+                                   value="<?php if (isset($selectedCountry)) { echo $selectedCountry; }?>">
                             <span class="input-group-btn"><button class="btn green" type="button"
                                                                   id="filterCountry">FILTER</button></span>
                         </div>
@@ -517,188 +568,164 @@
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
-        @endif
+            @endif
 
-           <!-- START BUILD OPPORTUNITY -->
-            <div class="hr-sect" style="margin-top: 50px; margin-bottom: 25px;">Build Opportunity</div>
-            <div class="row">
-<?php       $i = 0;
-    foreach ($build as $item): 
-            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
-            $company = App\CompanyProfile::find($item->company_id);
-    if ( $company->count() > 0 && $d_status == true):
-        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-            ->orderBy('id', 'desc')
-            ->first();
-        $avat = '';
-        if (!isset($avatar->file_name)) {
-            $avat = 'robot.jpg';
-        } else {
-            $avat = $avatar->file_name;
-        }
+
+        <div class="row">
+            <!-- START BUILD OPPORTUNITY -->
+            <div class="hr-sect opp_type" >Build Opportunity</div>
+                <div class='blog-posts'>
+                <?php       
+                    $i = 1;
+                    foreach ($build as $item): 
+                            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+                            $company = App\CompanyProfile::find($item->company_id);
+                    if ( $company->count() > 0 && $d_status == true):
+                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                            ->orderBy('id', 'desc')
+                            ->first();
+                        $avat = '';
+                        if (!isset($avatar->file_name)) 
+                            $avat = 'robot.jpg';
+                        else 
+                            $avat = $avatar->file_name;
+                        
+                        $usr = App\User::find($company->user_id);
+                        $accStatus = 'free';
+                        if ($usr->user_type == 1) 
+                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
+                                $accStatus = 'premium';   
+
+                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+
+                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+                        $industryImage = App\OppIndustry::find($item->industry);
+                        if($industryImage){
+                            $avatarName = $industryImage->image;
+                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                        }else{
+                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                        }
+
+                        if($item->view_type == 2){
+                            if($item->avatar_status == 1){
+                                if($industryImage){
+                                    $avatarName = $industryImage->image;
+                                    $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                }
+                            }else{
+                                $avatarUrl = asset('public/images')."/".$avat;
+                            }
+                        }
+                    ?>
         
-        $usr = App\User::find($company->user_id);
-        $accStatus = 'free';
-        if ($usr->user_type == 1) {
-            if( App\SpentTokens::validateAccountActivation($item->company_id) != false ){
-                $accStatus = 'premium';   
-            } 
-        }
-                ?>
-            <div class="[ col-sm-4 col-md-4 ]">
-                <div class="[ info-card ]">
-                    @if($accStatus == 'premium')
-                        <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
-                    @endif
-                    @if ($item->view_type == 2)
-                        <img  class="card-img-top img-thumbnail " src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
-                    @else
-                        <img  class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/robot.jpg" />
-                    @endif
-                    <div class="[ info-card-details ] animate">
-                        <div class="[ info-card-header ]">
-                            @if($item->view_type == 2)
-                            <h4> {{ $company->registered_company_name }} </h4>
-                            @else
-                            <h1> &nbsp; </h1>
-                            @endif
-<?php           $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-                $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-                $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-                $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-                $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+        <!-- new code start -->
+        @if($i == 1)
+            <div class='row cf list-row-build '>
+        @endif
+        @if($i <= 2)
+              <div class='post build-list'>
+                <a href='#'>
+                    <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
 
-                $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-                $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-    ?>          
-                @if($ratingScore < 25)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
+                @if($accStatus == 'premium')
+                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
                 @endif
+                    </div>
+                  <div class='content'>
+                    <h1 title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
+                     <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
+                        <ul class="info_list">
+                            @if($item->business_goal)
+                            <li> {{ $item->business_goal }}</li>
+                            @endif
+                            @if($item->audience_target)
+                            <li> {{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
+                            <li>
+                            <?php 
+                                $string = explode(",",$item->ideal_partner_base);
+                                $xx=0;
+                                foreach( $string as $val ):
+                                    if(trim($val) != ''):
+                                        echo $val;
+                                        $xx++;
+                                        if($xx != count($string)){
+                                            echo ", ";
+                                        }
+                                    endif;
+                                endforeach; ?>
+                            </li>
+                            @endif
+                        </ul>
+                    <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
+                    <div style="display: flex;">
+                        <div>
+                            @if($ratingScore < 25)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                            @endif
+                        </div>
+
+                        <div style="margin: 10px">
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
-                        <div class="[ info-card-detail ]">
-                            <!-- Description -->
-                            <div>
-                                <span class="info_subcontent">
-                                        {{ $item->opp_title }}
-                                </span>
-                                <div class="hr-sect"><strong class="hr_title">THIS COMPANY IS SEEKING</strong></div>
-                                <span class="">
-                                    
-                                    <ul class="info_list">
-                                        <li> {{ $item->business_goal }}</li>
-                                        <li> {{ $item->audience_target }}</li>
-                                        <li> {{ $item->ideal_partner_base }}</li>
-                                    </ul>
-                                </span>
-                            </div>
-                            
-                            <div>
-                                <div class="hr-sect"><strong class="hr_title">EXPECTATION</strong></div>
-                                <span class="">
-                                    <ul class="info_list">
-                                        <li>{{ $item->timeframe_goal }}</li>
-                                        <li>{{ $item->approx_large }}.opportunity</li>
-                                    </ul>
-                                </span>
-                            </div>
-
-                            <div>
-                                <div class="hr-sect"><strong class="hr_title">INDUSTRY KEYWORD</strong></div>
-                                <span class="">
-                                <span class="info_list">
-                                 <?php 
-                                    $string = explode(",",$item->ideal_partner_business);
-                                    $i=0;
-                                    echo "<ul>";
-                                    foreach( $string as $val ){
-                                        if(trim($val) != ''){ 
-                                            echo "<li>".$val."</li>";
-                                            $i++;
-                                        }
-                                          } 
-                                    echo "</ul>"; ?>
-                                </span>
-                                </span>
-                            </div>
-
-                            <hr class="hr-sect">
-                            <div class="">
-                                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
-                                <br>
-                            <?php 
-                                $viewer = base64_encode('viewer' . $company->id);
-                                $token = base64_encode(date('YmdHis'));
-                                
-                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-
-                                if ($item->view_type == 2) 
-                                {
-                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
-                                    {
-                                    ?>                        
-                                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-                                    <?php 
-                                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
-                                    ?> 
-                                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-
-                                    <?php
-                                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-
-                                    <?php 
-                                    }
-                                } ?>
-
-                                <a onclick="showModalContent('build','{{ $item->id }}')" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
-
-                                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
-                                    <br>
-
-                                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
-                                   class="btn btn-danger btn_options"
-                                   style="color: white; float:right;"
-                                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
-                                <?php }?>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                    <div class="learn_more" style="float: right" >
+                           <button onclick="showModalContent('build','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                    </div>
+                    <div class="bottom-space" >
+                        &nbsp;
+                    </div>
+                  </div>
+                </a>
+              </div>
+        @endif
+        @if($i == 2)
             </div>
+        @endif
+        <!-- new code end -->
 <?php      
-    endif;  ?>
-{{-- Start modal click --}}
+        if($i == 2){
+            $i = 0;
+        }
+         $i++; ?>
+
+         {{-- Start modal click for build --}}
     <div 
         class="modal fade" 
         id="opporBuildModal_{{ $item->id }}" 
@@ -709,25 +736,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="opporDetailsContentModalLabel">Opportunity Details</h4>
+                    <h4 class="modal-title" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
                 </div>
         <div class="modal-body">
 
-            <div>
-                <span class="title-text">
-                    <h4><strong> Title: </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4> <?= $item->opp_title ?> </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
+            
+            <div >
                 <span class="title-text">
                     <h4><strong> Ratings </strong></h4>
                 </span>
-                <span class="content-text">
+                <div class="content-text" style="display: flex;">
                 <?php
                                     if ($ratingScore < 25) {
                                         ?>
@@ -763,9 +781,9 @@
                                                  src="{{  asset('public/stars/p2.png') }}">
 
                                             <?php }?>
-                                            <br/>
-                    <h4> {{ $ratingScore }} % </h4>
-                </span>
+                                       
+                    <h2  style="margin: 10px; " > {{ $ratingScore }} % </h2>
+                </div>
                 <hr>
             </div>
 
@@ -775,31 +793,32 @@
                 </span>
                 <span class="content-text">
                     <h4>
-                        <ul>
-                            @if($opp_type == 'build')
+                        <ul class="info_list lg-link">
+                            @if($item->business_goal)
                             <li>{{ $item->business_goal }}</li>
-                            @else
-                            <li>{{ $item->what_sell_offer }}</li>
                             @endif
+                            @if($item->audience_target)
                             <li>{{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
                             <li>
                 <?php 
                     $string = explode(",",$item->ideal_partner_base);
-                    $i=0;
+                    $xx=0;
                     foreach( $string as $val ):
                         if(trim($val) != ''):
                             echo $val;
-                            $i++;
-                            if($i != count($string)){
+                            $xx++;
+                            if($xx != count($string)){
                                 echo ", ";
                             }
                         endif;
                     endforeach; ?>
                             </li>
-                    </h4>
-                    </ul>
+                            @endif
+                    </h4>    
                 </span>
-                <hr>
+                <hr class="hr-sect">
             </div>
 
             <div>
@@ -824,12 +843,12 @@
                     <h4>
                 <?php 
                       $string = explode(",",$item->ideal_partner_business);
-                      $i=0;
+                      $xx=0;
                       foreach( $string as $val ):
                         if(trim($val) != ''):
                             echo $val." ";
-                            $i++;
-                            if($i != count($string)){
+                            $xx++;
+                            if($xx != count($string)){
                                 echo ",";
                             }
                         endif;
@@ -867,204 +886,220 @@
                 ?>
                     </h4>
                 </span>
-                <hr>
-            </div>
+                <hr class="hr-sect">
+            </div> 
+
+            <div>
+                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
+
+                <?php 
+                $viewer = base64_encode('viewer' . $company->id);
+                $token = base64_encode(date('YmdHis'));
+                
+                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+
+                if ($item->view_type == 2) 
+                {
+                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
+                    {
+                    ?>                        
+                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
+                    
+                    <?php 
+                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
+                    ?> 
+                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                
+
+                    <?php
+                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    
+
+                    <?php 
+                    }
+                } ?>
+
+                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
+                    
+
+                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                   class="btn btn-danger btn_options"
+                  
+                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
+                <?php }?>
+                <hr class="hr-sect">
+            </div> 
 
       </div>
-
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
-
     </div>
   </div>
 </div>
-
-<?php    
+<!-- END MODAL -->
+<?php 
+    endif;
     endforeach;  ?>
-        </div>
-            <!-- END BUILD OPPORTUNITY -->
+    </div>
+      <!-- END BUILD OPPORTUNITY -->
 
-            <!-- START SELL OPPORTUNITY -->
-            <div class="hr-sect" style="margin-top: 50px; margin-bottom: 25px;">Sell Opportunity</div>
-            <div class="row">
-<?php       $i = 0;
-    foreach ($sell as $item): 
-            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
-            $company = App\CompanyProfile::find($item->company_id);
-    if ( $company->count() > 0 && $d_status == true):
-        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-            ->orderBy('id', 'desc')
-            ->first();
-        $avat = '';
-        if (!isset($avatar->file_name)) {
-            $avat = 'robot.jpg';
-        } else {
-            $avat = $avatar->file_name;
-        }
+    <!-- START SELL OPPORTUNITY -->
+            <div class="hr-sect opp_type" >Sell Opportunity</div>
+                <div class='blog-posts'>
+                <?php       
+                    $i = 1;
+                    foreach ($sell as $item): 
+                            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+                            $company = App\CompanyProfile::find($item->company_id);
+                    if ( $company->count() > 0 && $d_status == true):
+                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                            ->orderBy('id', 'desc')
+                            ->first();
+                        $avat = '';
+                        if (!isset($avatar->file_name)) 
+                            $avat = 'robot.jpg';
+                        else 
+                            $avat = $avatar->file_name;
+                        
+                        $usr = App\User::find($company->user_id);
+                        $accStatus = 'free';
+                        if ($usr->user_type == 1) 
+                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
+                                $accStatus = 'premium';   
+
+                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+
+                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+                        $industryImage = App\OppIndustry::find($item->industry);
+                        if($industryImage){
+                            $avatarName = $industryImage->image;
+                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                        }else{
+                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                        }
+
+                        if($item->view_type == 2){
+                            if($item->avatar_status == 1){
+                                if($industryImage){
+                                    $avatarName = $industryImage->image;
+                                    $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                }
+                            }else{
+                                $avatarUrl = asset('public/images')."/".$avat;
+                            }
+                        }
+                    ?>
         
-        $usr = App\User::find($company->user_id);
-        $accStatus = 'free';
-        if ($usr->user_type == 1) {
-            if( App\SpentTokens::validateAccountActivation($item->company_id) != false ){
-                $accStatus = 'premium';   
-            } 
-        }
-                ?>
-            <div class="[ col-sm-4 col-md-4 ]">
-                <div class="[ info-card ]">
-                    @if($accStatus == 'premium')
-                        <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
-                    @endif
-                    @if ($item->view_type == 2)
-                        <img style="width: 100%" class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
-                    @else
-                        <img style="width: 100%" class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/robot.jpg" />
-                    @endif
-                    <div class="[ info-card-details ] animate">
-                        <div class="[ info-card-header ]">
-                            @if($item->view_type == 2)
-                            <h4> {{ $company->registered_company_name }} </h4>
-                            @else
-                            <h1> &nbsp; </h1>
-                            @endif
-<?php           $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-                $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-                $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-                $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-                $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+        <!-- new code start -->
+        @if($i == 1)
+            <div class='row cf list-row-sell '>
+        @endif
+        @if($i <= 2)
+              <div class='post sell-list'>
+                <a href='#'>
+                    <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
 
-                $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-                $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-    ?>          
-                @if($ratingScore < 25)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
+                @if($accStatus == 'premium')
+                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
                 @endif
+                    </div>
+                  <div class='content'>
+                    <h1 title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
+                     <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
+                        <ul class="info_list">
+                            @if($item->business_goal)
+                            <li> {{ $item->business_goal }}</li>
+                            @endif
+                            @if($item->audience_target)
+                            <li> {{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
+                            <li>
+                            <?php 
+                                $string = explode(",",$item->ideal_partner_base);
+                                $xx=0;
+                                foreach( $string as $val ):
+                                    if(trim($val) != ''):
+                                        echo $val;
+                                        $xx++;
+                                        if($xx != count($string)){
+                                            echo ", ";
+                                        }
+                                    endif;
+                                endforeach; ?>
+                            </li>
+                            @endif
+                        </ul>
+                    <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
+                    <div style="display: flex;">
+                        <div>
+                            @if($ratingScore < 25)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                            @endif
+                        </div>
+
+                        <div style="margin: 10px">
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
-                        <div class="[ info-card-detail ]">
-                            <!-- Description -->
-                            <div>
-                                <span class="info_subcontent">
-                                        {{ $item->opp_title }}
-                                </span>
-                                <div class="hr-sect"><strong class="hr_title">THIS COMPANY IS SEEKING</strong></div>
-                                <span class="">
-                                    
-                                    <ul class="info_list">
-                                        <li> {{ $item->business_goal }}</li>
-                                        <li> {{ $item->audience_target }}</li>
-                                        <li> {{ $item->ideal_partner_base }}</li>
-                                    </ul>
-                                </span>
-                            </div>
-       
-                            <div>
-                                <div class="hr-sect"><strong class="hr_title">EXPECTATION</strong></div>
-                                <span class="">
-                                    <ul class="info_list">
-                                        <li>{{ $item->timeframe_goal }}</li>
-                                        <li>{{ $item->approx_large }}.opportunity</li>
-                                    </ul>
-                                </span>
-                            </div>
-
-                            <div>
-                                <div class="hr-sect"><strong class="hr_title">INDUSTRY KEYWORD</strong></div>
-                                <span class="">
-                                <span class="info_list">
-                                 <?php 
-                                    $string = explode(",",$item->ideal_partner_business);
-                                    $i=0;
-                                    echo "<ul>";
-                                    foreach( $string as $val ){
-                                        if(trim($val) != ''){ 
-                                            echo "<li>".$val."</li>";
-                                            $i++;
-                                        }
-                                          } 
-                                    echo "</ul>"; ?>
-                                </span>
-                                </span>
-                            </div>
-                            <hr class="hr-sect">
-                            <div class="">
-                                <a onclick="processReq('sell', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
-                                <br>
-                            <?php 
-                                $viewer = base64_encode('viewer' . $company->id);
-                                $token = base64_encode(date('YmdHis'));
-                                
-                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-
-                                if ($item->view_type == 2) 
-                                {
-                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
-                                    {
-                                    ?>                        
-                                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-                                    <?php 
-                                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
-                                    ?> 
-                                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-
-                                    <?php
-                                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-
-                                    <?php 
-                                    }
-                                } ?>
-
-                                <a onclick="showModalContent('sell','{{ $item->id }}')" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
-
-                                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
-                                    <br>
-
-                                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
-                                   class="btn btn-danger btn_options"
-                                   style="color: white; float:right;"
-                                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
-                                <?php }?>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                    <div class="learn_more" style="float: right" >
+                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                    </div>
+                    <div class="bottom-space" >
+                        &nbsp;
+                    </div>
+                  </div>
+                </a>
+              </div>
+        @endif
+        @if($i == 2)
             </div>
+        @endif
+        <!-- new code end -->
 <?php      
-    endif;  ?>
+        if($i == 2){
+            $i = 0;
+        }
+         $i++; ?>
 
-{{-- Start modal click --}}
+         {{-- Start modal click for Sell --}}
     <div 
         class="modal fade" 
         id="opporSellModal_{{ $item->id }}" 
@@ -1075,25 +1110,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="opporDetailsContentModalLabel">Opportunity Details</h4>
+                    <h4 class="modal-title" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
                 </div>
         <div class="modal-body">
 
-            <div>
-                <span class="title-text">
-                    <h4><strong> Title: </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4> <?= $item->opp_title ?> </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
+            
+            <div >
                 <span class="title-text">
                     <h4><strong> Ratings </strong></h4>
                 </span>
-                <span class="content-text">
+                <div class="content-text" style="display: flex;">
                 <?php
                                     if ($ratingScore < 25) {
                                         ?>
@@ -1129,9 +1155,9 @@
                                                  src="{{  asset('public/stars/p2.png') }}">
 
                                             <?php }?>
-                                            <br/>
-                    <h4> {{ $ratingScore }} % </h4>
-                </span>
+                                       
+                    <h2  style="margin: 10px; " > {{ $ratingScore }} % </h2>
+                </div>
                 <hr>
             </div>
 
@@ -1141,31 +1167,32 @@
                 </span>
                 <span class="content-text">
                     <h4>
-                        <ul>
-                            @if($opp_type == 'build')
+                        <ul class="info_list lg-link">
+                            @if($item->business_goal)
                             <li>{{ $item->business_goal }}</li>
-                            @else
-                            <li>{{ $item->what_sell_offer }}</li>
                             @endif
+                            @if($item->audience_target)
                             <li>{{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
                             <li>
                 <?php 
                     $string = explode(",",$item->ideal_partner_base);
-                    $i=0;
+                    $xx=0;
                     foreach( $string as $val ):
                         if(trim($val) != ''):
                             echo $val;
-                            $i++;
-                            if($i != count($string)){
+                            $xx++;
+                            if($xx != count($string)){
                                 echo ", ";
                             }
                         endif;
                     endforeach; ?>
                             </li>
-                    </h4>
-                    </ul>
+                            @endif
+                    </h4>    
                 </span>
-                <hr>
+                <hr class="hr-sect">
             </div>
 
             <div>
@@ -1190,12 +1217,12 @@
                     <h4>
                 <?php 
                       $string = explode(",",$item->ideal_partner_business);
-                      $i=0;
+                      $xx=0;
                       foreach( $string as $val ):
                         if(trim($val) != ''):
                             echo $val." ";
-                            $i++;
-                            if($i != count($string)){
+                            $xx++;
+                            if($xx != count($string)){
                                 echo ",";
                             }
                         endif;
@@ -1233,206 +1260,220 @@
                 ?>
                     </h4>
                 </span>
-                <hr>
-            </div>
+                <hr class="hr-sect">
+            </div> 
+
+            <div>
+                <a onclick="processReq('sell', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
+
+                <?php 
+                $viewer = base64_encode('viewer' . $company->id);
+                $token = base64_encode(date('YmdHis'));
+                
+                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+
+                if ($item->view_type == 2) 
+                {
+                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
+                    {
+                    ?>                        
+                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
+                    
+                    <?php 
+                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
+                    ?> 
+                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                
+
+                    <?php
+                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    
+
+                    <?php 
+                    }
+                } ?>
+
+                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
+                    
+
+                <a href="{{ url('/opportunity/deleteSell/'.$item->id) }}"
+                   class="btn btn-danger btn_options"
+                  
+                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
+                <?php }?>
+                <hr class="hr-sect">
+            </div> 
 
       </div>
-
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
-
     </div>
   </div>
 </div>
 <!-- END MODAL -->
-
-<?php     
+<?php 
+    endif;
     endforeach;  ?>
-            </div>
-            <!-- END SELL OPPORTUNITY -->
+    </div>
+    <!-- END SELL OPPORTUNITY -->
 
-            <!-- START BUY OPPORTUNITY -->
-            <div class="hr-sect" style="margin-top: 50px; margin-bottom: 25px;">Buy Opportunity</div>
-            <div class="row">
-<?php       $i = 0;
-    foreach ($buy as $item): 
-            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
-            $company = App\CompanyProfile::find($item->company_id);
-    if ( $company->count() > 0 && $d_status == true):
-        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-            ->orderBy('id', 'desc')
-            ->first();
-        $avat = '';
-        if (!isset($avatar->file_name)) {
-            $avat = 'robot.jpg';
-        } else {
-            $avat = $avatar->file_name;
-        }
+    <!-- START BUY OPPORTUNITY -->
+            <div class="hr-sect opp_type" >Buy Opportunity</div>
+                <div class='blog-posts'>
+                <?php       
+                    $i = 1;
+                    foreach ($buy as $item): 
+                            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+                            $company = App\CompanyProfile::find($item->company_id);
+                    if ( $company->count() > 0 && $d_status == true):
+                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                            ->orderBy('id', 'desc')
+                            ->first();
+                        $avat = '';
+                        if (!isset($avatar->file_name)) 
+                            $avat = 'robot.jpg';
+                        else 
+                            $avat = $avatar->file_name;
+                        
+                        $usr = App\User::find($company->user_id);
+                        $accStatus = 'free';
+                        if ($usr->user_type == 1) 
+                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
+                                $accStatus = 'premium';   
+
+                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+
+                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+                        $industryImage = App\OppIndustry::find($item->industry);
+                        if($industryImage){
+                            $avatarName = $industryImage->image;
+                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                        }else{
+                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                        }
+
+                        if($item->view_type == 2){
+                            if($item->avatar_status == 1){
+                                if($industryImage){
+                                    $avatarName = $industryImage->image;
+                                    $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                }
+                            }else{
+                                $avatarUrl = asset('public/images')."/".$avat;
+                            }
+                        }
+                    ?>
         
-        $usr = App\User::find($company->user_id);
-        $accStatus = 'free';
-        if ($usr->user_type == 1) {
-            if( App\SpentTokens::validateAccountActivation($item->company_id) != false ){
-                $accStatus = 'premium';   
-            } 
-        }
-                ?>
-            <div class="[ col-sm-4 col-md-4 ]">
-                <div class="[ info-card ]">
-                    @if($accStatus == 'premium')
-                        <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
-                    @endif
-                    @if ($item->view_type == 2)
-                        <img style="width: 100%" class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/<?php echo $avat ?>" />
-                    @else
-                        <img style="width: 100%" class="card-img-top img-thumbnail" src="{{ asset('public/images/') }}/robot.jpg" />
-                    @endif
-                    <div class="[ info-card-details ] animate">
-                        <div class="[ info-card-header ]">
-                            @if($item->view_type == 2)
-                            <h4> {{ $company->registered_company_name }} </h4>
-                            @else
-                            <h1> &nbsp; </h1>
-                            @endif
-<?php           $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-                $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-                $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-                $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-                $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+        <!-- new code start -->
+        @if($i == 1)
+            <div class='row cf list-row-buy '>
+        @endif
+        @if($i <= 2)
+              <div class='post buy-list'>
+                <a href='#'>
+                    <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
 
-                $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-                $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-    ?>          
-                @if($ratingScore < 25)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p1.png') }}">
-                @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
-                    <img width="30" height="32"
-                         src="{{  asset('public/stars/p2.png') }}">
+                @if($accStatus == 'premium')
+                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
                 @endif
+                    </div>
+                  <div class='content'>
+                    <h1 title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
+                     <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
+                        <ul class="info_list">
+                            @if($item->business_goal)
+                            <li> {{ $item->business_goal }}</li>
+                            @endif
+                            @if($item->audience_target)
+                            <li> {{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
+                            <li>
+                            <?php 
+                                $string = explode(",",$item->ideal_partner_base);
+                                $xx=0;
+                                foreach( $string as $val ):
+                                    if(trim($val) != ''):
+                                        echo $val;
+                                        $xx++;
+                                        if($xx != count($string)){
+                                            echo ", ";
+                                        }
+                                    endif;
+                                endforeach; ?>
+                            </li>
+                            @endif
+                        </ul>
+                    <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
+                    <div style="display: flex;">
+                        <div>
+                            @if($ratingScore < 25)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                            @endif
+                        </div>
+
+                        <div style="margin: 10px">
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
-                        <div class="[ info-card-detail ]">
-                            <!-- Description -->
-                            <div>
-                                <span class="info_subcontent">
-                                        {{ $item->opp_title }}
-                                </span>
-                                <div class="hr-sect"><strong class="hr_title">THIS COMPANY IS SEEKING</strong></div>
-                                <span class="">
-                                    
-                                    <ul class="info_list">
-                                        <li> {{ $item->business_goal }}</li>
-                                        <li> {{ $item->audience_target }}</li>
-                                        <li> {{ $item->ideal_partner_base }}</li>
-                                    </ul>
-                                </span>
-                            </div>
-                            
-                            <div>
-                                <div class="hr-sect"><strong class="hr_title">EXPECTATION</strong></div>
-                                <span class="">
-                                    <ul class="info_list">
-                                        <li>{{ $item->timeframe_goal }}</li>
-                                        <li>{{ $item->approx_large }}.opportunity</li>
-                                    </ul>
-                                </span>
-                            </div>
-
-                            <div>
-                                <div class="hr-sect"><strong class="hr_title">INDUSTRY KEYWORD</strong></div>
-                                <span class="">
-                                <span class="info_list">
-                                 <?php 
-                                    $string = explode(",",$item->ideal_partner_business);
-                                    $i=0;
-                                    echo "<ul>";
-                                    foreach( $string as $val ){
-                                        if(trim($val) != ''){ 
-                                            echo "<li>".$val."</li>";
-                                            $i++;
-                                        }
-                                          } 
-                                    echo "</ul>"; ?>
-                                </span>
-                                </span>
-                            </div>
-
-                            <hr class="hr-sect">
-                            <div class="">
-                                <a onclick="processReq('buy', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
-                                <br>
-                            <?php 
-                                $viewer = base64_encode('viewer' . $company->id);
-                                $token = base64_encode(date('YmdHis'));
-                                
-                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-
-                                if ($item->view_type == 2) 
-                                {
-                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
-                                    {
-                                    ?>                        
-                                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-                                    <?php 
-                                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
-                                    ?> 
-                                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-
-                                    <?php
-                                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                                    <br>
-
-                                    <?php 
-                                    }
-                                } ?>
-
-                                <a onclick="showModalContent('buy','{{ $item->id }}')" class="btn yellow btn_options"> <span class="fa fa-page"></span> Learn More</a>
-
-                                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
-                                    <br>
-
-                                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
-                                   class="btn btn-danger btn_options"
-                                   style="color: white; float:right;"
-                                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
-                                <?php }?>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                    <div class="learn_more" style="float: right" >
+                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                    </div>
+                    <div class="bottom-space" >
+                        &nbsp;
+                    </div>
+                  </div>
+                </a>
+              </div>
+        @endif
+        @if($i == 2)
             </div>
+        @endif
+        <!-- new code end -->
 <?php      
-    endif;  ?>
+        if($i == 2){
+            $i = 0;
+        }
+         $i++; ?>
 
-    {{-- Start modal click --}}
+         {{-- Start modal click for buy --}}
     <div 
         class="modal fade" 
         id="opporBuyModal_{{ $item->id }}" 
@@ -1443,25 +1484,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="opporDetailsContentModalLabel">Opportunity Details</h4>
+                    <h4 class="modal-title" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
                 </div>
         <div class="modal-body">
 
-            <div>
-                <span class="title-text">
-                    <h4><strong> Title: </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4> <?= $item->opp_title ?> </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
+            
+            <div >
                 <span class="title-text">
                     <h4><strong> Ratings </strong></h4>
                 </span>
-                <span class="content-text">
+                <div class="content-text" style="display: flex;">
                 <?php
                                     if ($ratingScore < 25) {
                                         ?>
@@ -1497,9 +1529,9 @@
                                                  src="{{  asset('public/stars/p2.png') }}">
 
                                             <?php }?>
-                                            <br/>
-                    <h4> {{ $ratingScore }} % </h4>
-                </span>
+                                       
+                    <h2  style="margin: 10px; " > {{ $ratingScore }} % </h2>
+                </div>
                 <hr>
             </div>
 
@@ -1509,31 +1541,32 @@
                 </span>
                 <span class="content-text">
                     <h4>
-                        <ul>
-                            @if($opp_type == 'build')
+                        <ul class="info_list lg-link">
+                            @if($item->business_goal)
                             <li>{{ $item->business_goal }}</li>
-                            @else
-                            <li>{{ $item->what_sell_offer }}</li>
                             @endif
+                            @if($item->audience_target)
                             <li>{{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
                             <li>
                 <?php 
                     $string = explode(",",$item->ideal_partner_base);
-                    $i=0;
+                    $xx=0;
                     foreach( $string as $val ):
                         if(trim($val) != ''):
                             echo $val;
-                            $i++;
-                            if($i != count($string)){
+                            $xx++;
+                            if($xx != count($string)){
                                 echo ", ";
                             }
                         endif;
                     endforeach; ?>
                             </li>
-                    </h4>
-                    </ul>
+                            @endif
+                    </h4>    
                 </span>
-                <hr>
+                <hr class="hr-sect">
             </div>
 
             <div>
@@ -1558,12 +1591,12 @@
                     <h4>
                 <?php 
                       $string = explode(",",$item->ideal_partner_business);
-                      $i=0;
+                      $xx=0;
                       foreach( $string as $val ):
                         if(trim($val) != ''):
                             echo $val." ";
-                            $i++;
-                            if($i != count($string)){
+                            $xx++;
+                            if($xx != count($string)){
                                 echo ",";
                             }
                         endif;
@@ -1601,24 +1634,68 @@
                 ?>
                     </h4>
                 </span>
-                <hr>
-            </div>
+                <hr class="hr-sect">
+            </div> 
+
+            <div>
+                <a onclick="processReq('buy', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
+
+                <?php 
+                $viewer = base64_encode('viewer' . $company->id);
+                $token = base64_encode(date('YmdHis'));
+                
+                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+
+                if ($item->view_type == 2) 
+                {
+                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
+                    {
+                    ?>                        
+                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
+                    
+                    <?php 
+                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
+                    ?> 
+                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                
+
+                    <?php
+                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    
+
+                    <?php 
+                    }
+                } ?>
+
+                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
+                    
+
+                <a href="{{ url('/opportunity/deleteBuy/'.$item->id) }}"
+                   class="btn btn-danger btn_options"
+                  
+                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
+                <?php }?>
+                <hr class="hr-sect">
+            </div> 
 
       </div>
-
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
-
     </div>
   </div>
 </div>
 <!-- END MODAL -->
 <?php 
+    endif;
     endforeach;  ?>
+    </div>
+    <!-- END BUY OPPORTUNITY -->
 
-            </div>
-            <!-- END BUY OPPORTUNITY -->
+</div><!-- end row -->
+      
         </div>
     </div>
 
@@ -1829,17 +1906,25 @@
 </div>
 @endif
 
-
-
-    <div class="container">
-        <div class="card-columns1">
-
-
-        </div>
-    </div>
-
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
+
+
+        var builCount = $('.build-list').length;
+        if(builCount%2 != 0 ){
+            $('.list-row-build').last().append('<div class="post showLastCard" ></div>');
+        }
+
+        var sellCount = $('.sell-list').length;
+        if(sellCount%2 != 0 ){
+            $('.list-row-sell').last().append('<div class="post showLastCard" ></div>');
+        }
+
+        var buyCount = $('.buy-list').length;
+        if(buyCount%2 != 0 ){
+            $('.list-row-buy').last().append('<div class="post showLastCard" ></div>');
+        }
+
         function showModalContent(type, id){
             if(type == 'build'){
                 $("#opporBuildModal_"+id).modal();
@@ -2043,7 +2128,6 @@
         }
 
     </script>
-
-
+{{-- <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script> --}}
 
 @endsection
