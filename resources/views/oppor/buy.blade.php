@@ -8,7 +8,7 @@
 
 
    <style>
-
+  .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
         html, body {
 
             width: 100%;

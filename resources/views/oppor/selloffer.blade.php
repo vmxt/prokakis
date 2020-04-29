@@ -7,7 +7,7 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
   <style>
-
+  .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
         html, body {
 
             width: 100%;

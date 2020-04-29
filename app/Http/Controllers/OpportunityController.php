@@ -1055,7 +1055,12 @@ class OpportunityController extends Controller {
 
 		$country_list = Countries::all(); // Configurations::getJsonValue('countries');
 		$industry_list = OppIndustry::all();
+
 		$approx_large_list = Configurations::getJsonValue('approx_large');
+
+		$company_id = CompanyProfile::getCompanyId(Auth::id());
+
+		$data = OpportunitySellOffer::where('company_id', $company_id)->first();
 
 		return view("oppor.buy", compact('country_list', 'approx_large_list', 'data','industry_list'));
 
