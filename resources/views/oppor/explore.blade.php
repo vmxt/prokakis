@@ -279,6 +279,7 @@
         .modal-title {
             font-size: 18px; 
             font-weight: bold; 
+            text-transform: uppercase;
         }
 
         /*.card-explore{
@@ -507,6 +508,9 @@ img {
     text-transform: uppercase;
 }
 
+.upperText{
+    text-transform: uppercase;
+}
 
 /*.post:hover {
    cursor: pointer;
@@ -639,7 +643,7 @@ img {
                 @endif
                     </div>
                   <div class='content'>
-                    <h1 title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
+                    <h1 class='upperText' title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
                      <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
                         <ul class="info_list">
                             @if($item->business_goal)
@@ -736,7 +740,7 @@ img {
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
+                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
                 </div>
         <div class="modal-body">
 
@@ -1013,7 +1017,7 @@ img {
                 @endif
                     </div>
                   <div class='content'>
-                    <h1 title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
+                    <h1 class='upperText' title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
                      <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
                         <ul class="info_list">
                             @if($item->business_goal)
@@ -1110,7 +1114,7 @@ img {
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
+                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
                 </div>
         <div class="modal-body">
 
@@ -1387,7 +1391,7 @@ img {
                 @endif
                     </div>
                   <div class='content'>
-                    <h1 title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
+                    <h1 class='upperText' title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
                      <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
                         <ul class="info_list">
                             @if($item->business_goal)
@@ -1484,7 +1488,7 @@ img {
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
+                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
                 </div>
         <div class="modal-body">
 
