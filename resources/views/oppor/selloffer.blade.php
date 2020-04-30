@@ -1565,7 +1565,8 @@ input::-moz-focus-inner {
 
 
                             <div class="form-actions" align="right">
-
+                                <a style="margin-right:20px;" onclick="clearForm()" class="btn btn-info">Clear Form</a>
+                                
                                 <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn red">Cancel</a>
 
                                        
@@ -1860,7 +1861,19 @@ input::-moz-focus-inner {
 
         }
 
+        function clearForm(){
+            cookies.del('build_opp_title');
+            cookies.del('build_businessGoal');
+            cookies.del('build_audienceTarget');
+            cookies.del('build_intro_describe_business');
+            cookies.del('build_why_partner_goal');
+            cookies.del('build_timeFrame');
+            cookies.del('build_approx_large');
+            cookies.del('build_ideal_partner_base');
+            cookies.del('build_partnersCheck');
+            location.reload(true);
 
+        }
 
     $(document).ready(function() {
 
@@ -1961,6 +1974,17 @@ if (cookies.test()) {
             $('#myCarousel').addClass('tag-required');
             return false
         }
+
+        cookies.del('sell_opp_title');
+        cookies.del('sell_categoryCheck');
+        cookies.del('sell_audienceTarget');
+        cookies.del('sell_intro_describe_business');
+        cookies.del('sell_why_partner_goal');
+        cookies.del('sell_timeFrame');
+        cookies.del('sell_approx_large');
+        cookies.del('sell_ideal_partner_base');
+        cookies.del('sell_partnersCheck');
+
     });
 
 

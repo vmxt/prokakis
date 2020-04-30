@@ -1577,7 +1577,7 @@ input::-moz-focus-inner {
                             <hr>
 
                             <div class="form-actions" align="right">
-
+                                <a style="margin-right:20px;" onclick="clearForm()" class="btn btn-info">Clear Form</a>
                                 
                                 <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn red"><b>Cancel</b></a>
 
@@ -1989,6 +1989,20 @@ input::-moz-focus-inner {
 
         }
 
+        function clearForm(){
+            cookies.del('build_opp_title');
+            cookies.del('build_businessGoal');
+            cookies.del('build_audienceTarget');
+            cookies.del('build_intro_describe_business');
+            cookies.del('build_why_partner_goal');
+            cookies.del('build_timeFrame');
+            cookies.del('build_approx_large');
+            cookies.del('build_ideal_partner_base');
+            cookies.del('build_partnersCheck');
+            location.reload(true);
+
+        }
+
   $(document).ready(function() {
 
         $('#ideal_partner_base').select2();
@@ -2048,6 +2062,15 @@ $('#opportunity_build_form').submit(function() {
         $('#myCarousel').addClass('tag-required');
         return false
     }
+    cookies.del('build_opp_title');
+    cookies.del('build_businessGoal');
+    cookies.del('build_audienceTarget');
+    cookies.del('build_intro_describe_business');
+    cookies.del('build_why_partner_goal');
+    cookies.del('build_timeFrame');
+    cookies.del('build_approx_large');
+    cookies.del('build_ideal_partner_base');
+    cookies.del('build_partnersCheck');
 });
 
 //start asign autostore

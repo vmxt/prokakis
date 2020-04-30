@@ -685,7 +685,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 <a href="{{ route('reportsBuyTokens') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/top_up.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
-                                                                  <h3 class="text-centered">Top Up</h3>
+                                                                  <h4 class="text-centered">Top Up</h4>
                                                                   </div>
                                                                 </a>
                                                               </div>
@@ -694,7 +694,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 <a href="{{ route('viewingProfile') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/view_profile.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
-                                                                    <h3 class="text-centered">View Profile</h3>
+                                                                    <h4 class="text-centered">View Profile</h4>
                                                                   </div>
                                                                 </a>
                                                               </div>
@@ -703,7 +703,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 <a href="{{ route('businessnewsList') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/business_news.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
-                                                                    <h3 class="text-centered">Business News</h3>
+                                                                    <h4 class="text-centered">Business News</h4>
                                                                   </div>
                                                                 </a>
                                                               </div>
@@ -786,7 +786,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 <a href="{{ route('opportunityExploreIndex') }}">
                                                                   <img class="mega_large_image" src="{{ asset('public/banner/explore_oppo.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
-                                                                    <h3 class="text-centered">Explore Opportunities</h3>
+                                                                    <h4 class="text-centered">Explore Opportunities</h4>
                                                                   </div>
                                                                 </a>
                                                               </div>
@@ -794,7 +794,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 <a href="{{ route('reportsBuyTokens') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/top_up.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
-                                                                  <h3 class="text-centered">Top Up</h3>
+                                                                  <h4 class="text-centered">Top Up</h4>
                                                                   </div>
                                                                 </a>
                                                               </div>
@@ -803,7 +803,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 <a href="{{ route('viewingProfile') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/view_profile.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
-                                                                    <h3 class="text-centered">View Profile</h3>
+                                                                    <h4 class="text-centered">View Profile</h4>
                                                                   </div>
                                                                 </a>
                                                               </div>
@@ -812,7 +812,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 <a href="{{ route('businessnewsList') }}">
                                                                   <img class="mega_small_image" src="{{ asset('public/banner/business_news.png') }}" alt="Top Up" />
                                                                   <div class="text-centered" >
-                                                                    <h3 class="text-centered">Business News</h3>
+                                                                    <h4 class="text-centered">Business News</h4>
                                                                   </div>
                                                                 </a>
                                                               </div>
