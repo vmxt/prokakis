@@ -780,45 +780,44 @@ s0.parentNode.insertBefore(s1,s0);
                                                               </ul>
                                                               <hr width="1" size="400">
                                                           </div>
+                                                            <div class="col-md-9 div_right"  >
+                                                              <h4 class="menu_title"> Popular Categories </h4>
+                                                              <div class="mega-menu-submenu col-md-12 container_lg_img">
+                                                                <a href="{{ route('opportunityExploreIndex') }}">
+                                                                  <img class="mega_large_image" src="{{ asset('public/banner/explore_oppo.png') }}" alt="Top Up" />
+                                                                  <div class="text-centered" >
+                                                                    <h3 class="text-centered">Explore Opportunities</h3>
+                                                                  </div>
+                                                                </a>
+                                                              </div>
+                                                              <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                                <a href="{{ route('reportsBuyTokens') }}">
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/top_up.png') }}" alt="Top Up" />
+                                                                  <div class="text-centered" >
+                                                                  <h3 class="text-centered">Top Up</h3>
+                                                                  </div>
+                                                                </a>
+                                                              </div>
 
-                                                          <div class="col-md-9 div_right"  >
-                                                            <h4 class="menu_title"> Popular Categories </h4>
-                                                            <div class="mega-menu-submenu col-md-12 container_lg_img">
-                                                              <a href="{{ route('opportunityExploreIndex') }}">
-                                                                <img class="mega_large_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                <div class="text-centered" style="visibility : hidden;">
-                                                                  <h3 class="text-centered">Explore Opportunities</h3>
-                                                                </div>
-                                                              </a>
-                                                            </div>
-                                                            <div class="mega-menu-submenu col-md-4 container_sm_img">
-                                                              <a href="{{ route('reportsBuyTokens') }}">
-                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                <div class="text-centered" style="visibility : hidden;">
-                                                                <h3 class="text-centered">Top Up</h3>
-                                                                </div>
-                                                              </a>
-                                                            </div>
+                                                              <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                                <a href="{{ route('viewingProfile') }}">
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/view_profile.png') }}" alt="Top Up" />
+                                                                  <div class="text-centered" >
+                                                                    <h3 class="text-centered">View Profile</h3>
+                                                                  </div>
+                                                                </a>
+                                                              </div>
 
-                                                            <div class="mega-menu-submenu col-md-4 container_sm_img">
-                                                              <a href="{{ route('viewingProfile') }}">
-                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                <div class="text-centered" style="visibility : hidden;">
-                                                                  <h3 class="text-centered">View Profile</h3>
-                                                                </div>
-                                                              </a>
-                                                            </div>
+                                                              <div class="mega-menu-submenu col-md-4 container_sm_img">
+                                                                <a href="{{ route('businessnewsList') }}">
+                                                                  <img class="mega_small_image" src="{{ asset('public/banner/business_news.png') }}" alt="Top Up" />
+                                                                  <div class="text-centered" >
+                                                                    <h3 class="text-centered">Business News</h3>
+                                                                  </div>
+                                                                </a>
+                                                              </div>
 
-                                                            <div class="mega-menu-submenu col-md-4 container_sm_img">
-                                                              <a href="{{ route('businessnewsList') }}">
-                                                                <img class="mega_small_image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
-                                                                <div class="text-centered" style="visibility : hidden;">
-                                                                  <h3 class="text-centered">Business News</h3>
-                                                                </div>
-                                                              </a>
                                                             </div>
-
-                                                          </div>
                                                       </div>
                                                   </div>
                                               </li>
@@ -833,14 +832,17 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 $build_list = App\OpportunityBuildingCapability::where('company_id', '!=', $company_id)
                                                 ->where('status', 1)
+                                                ->orderBy('updated_at','desc')
                                                 ->get();
 
                                                 $sell_list = App\OpportunitySellOffer::where('company_id', '!=', $company_id)
                                                 ->where('status', 1)
+                                                ->orderBy('updated_at','desc')
                                                 ->get();
 
                                                 $buy_list = App\OpportunityBuy::where('company_id', '!=', $company_id)
                                                 ->where('status', 1)
+                                                ->orderBy('updated_at','desc')
                                                 ->get();
 
                                             $getRequestReportByUser = App\RequestReport::getRequestReportByUser();
@@ -881,15 +883,15 @@ s0.parentNode.insertBefore(s1,s0);
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                                                                   $company = App\CompanyProfile::find($item->company_id);
                                                                   if ( $company->count() > 0 && $d_status == true):
-                                                                  $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-                                                                        ->orderBy('id', 'desc')
-                                                                        ->first();
-                                                                    $avat = '';
-                                                                    if (!isset($avatar->file_name)) {
-                                                                        $avat = 'robot.jpg';
-                                                                    } else {
-                                                                        $avat = $avatar->file_name;
-                                                                    }
+                                                                  $industryImage = App\OppIndustry::find($item->industry);
+
+                                                                  if($industryImage){
+                                                                      $avatarName = $industryImage->image;
+                                                                      $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                                                  }else{
+                                                                      $avatarUrl = asset('public/images/industry')."/guest.png";
+                                                                  }
+
                                                                   $build_count++;
                                                             ?>
                                                             <div class="mega-menu-submenu col-md-4 container_sm_img" 
@@ -901,7 +903,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-placement="left">
                                                               <a href="{{ route('opportunityExploreIndex')."?type=build&ids=".$item->id }}" >
                                                                 <img class="mega_small_image list-image" alt="profile image" 
-                                                                  src="{{ asset('public/images/') }}/<?php echo $avat ?>">
+                                                                  src="{{ $avatarUrl }}">
                                                               </a>
                                                             </div>
                                                             <?php 
@@ -919,15 +921,14 @@ s0.parentNode.insertBefore(s1,s0);
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                                                                   $company = App\CompanyProfile::find($item->company_id);
                                                                   if (count((array) $company) - 1 > 0 && $d_status == true):
-                                                                    $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-                                                                        ->orderBy('id', 'desc')
-                                                                        ->first();
-                                                                    $avat = '';
-                                                                    if (!isset($avatar->file_name)) {
-                                                                        $avat = 'robot.jpg';
-                                                                    } else {
-                                                                        $avat = $avatar->file_name;
-                                                                    }
+                                                                  $industryImage = App\OppIndustry::find($item->industry);
+
+                                                                  if($industryImage){
+                                                                      $avatarName = $industryImage->image;
+                                                                      $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                                                  }else{
+                                                                      $avatarUrl = asset('public/images/industry')."/guest.png";
+                                                                  }
                                                                   $sell_count++;
                                                             ?>
                                                             <div class="mega-menu-submenu col-md-4 container_sm_img" 
@@ -938,7 +939,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-placement="left">
                                                               <a href="{{ route('opportunityExploreIndex')."?type=sell&ids=".$item->id }}" >
                                                                 <img class="mega_small_image list-image" alt="profile image" 
-                                                                  src="{{ asset('public/images/') }}/<?php echo $avat ?>">
+                                                                  src="{{ $avatarUrl }}">
                                                               </a>
                                                             </div>
                                                             <?php 
@@ -954,14 +955,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                                                                   $company = App\CompanyProfile::find($item->company_id);
                                                                   if (count((array) $company) > 0 && $d_status == true):
-                                                                    $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-                                                                        ->orderBy('id', 'desc')
-                                                                        ->first();
-                                                                    $avat = '';
-                                                                    if (!isset($avatar->file_name)) {
-                                                                        $avat = 'robot.jpg';
-                                                                    } else {
-                                                                        $avat = $avatar->file_name;
+                                                                    $industryImage = App\OppIndustry::find($item->industry);
+
+                                                                    if($industryImage){
+                                                                        $avatarName = $industryImage->image;
+                                                                        $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                                                    }else{
+                                                                        $avatarUrl = asset('public/images/industry')."/guest.png";
                                                                     }
                                                                   $buy_count++;
                                                             ?>
@@ -973,7 +973,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                         data-placement="left">
                                                               <a href="{{ route('opportunityExploreIndex')."?type=buy&ids=".$item->id }}" >
                                                                   <img class="mega_small_image list-image" alt="profile image" 
-                                                                  src="{{ asset('public/images/') }}/<?php echo $avat ?>">
+                                                                  src="{{ $avatarUrl }}">
                                                               </a>
                                                             </div>
                                                             <?php 

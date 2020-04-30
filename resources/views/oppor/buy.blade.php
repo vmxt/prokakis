@@ -5,7 +5,7 @@
 @section('content')
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-
+<script src="{{ asset('public/js/jaaulde-cookies.js') }}"></script>
 
    <style>
   .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
@@ -497,7 +497,7 @@ input::-moz-focus-inner {
 
                                                         <div class="md-checkbox">
 
-                                                            <input type="checkbox" name="checkboxes1[]" value="Product" id="checkbox1_1" class="md-check" <?php echo $wsf_product; ?> >
+                                                            <input type="checkbox" name="checkboxes1[]" value="Product" id="checkbox1_1" class="md-check categoryCheck" <?php echo $wsf_product; ?> >
 
                                                             <label for="checkbox1_1">
 
@@ -511,7 +511,7 @@ input::-moz-focus-inner {
 
                                                         <div class="md-checkbox">
 
-                                                            <input type="checkbox" name="checkboxes1[]" value="Service" id="checkbox1_2" class="md-check" <?php echo $wsf_service; ?>>
+                                                            <input type="checkbox" name="checkboxes1[]" value="Service" id="checkbox1_2" class="md-check categoryCheck" <?php echo $wsf_service; ?>>
 
                                                             <label for="checkbox1_2">
 
@@ -525,7 +525,7 @@ input::-moz-focus-inner {
 
                                                         <div class="md-checkbox">
 
-                                                            <input type="checkbox" name="checkboxes1[]" value="Business" id="checkbox1_3" class="md-check" <?php echo $wsf_business; ?>>
+                                                            <input type="checkbox" name="checkboxes1[]" value="Business" id="checkbox1_3" class="md-check categoryCheck" <?php echo $wsf_business; ?>>
 
                                                             <label for="checkbox1_3">
 
@@ -1073,7 +1073,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Consultant" id="checkbox2_1" class="md-check" <?php echo $Consultant; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Consultant" id="checkbox2_1" class="md-check partnersCheck" <?php echo $Consultant; ?>>
 
                                                     <label for="checkbox2_1">
 
@@ -1087,7 +1087,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Constructor" id="checkbox2_2" class="md-check" <?php echo $Constructor; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Constructor" id="checkbox2_2" class="md-check partnersCheck" <?php echo $Constructor; ?>>
 
                                                     <label for="checkbox2_2">
 
@@ -1101,7 +1101,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Distributor" id="checkbox2_3" class="md-check" <?php echo $Distributor; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Distributor" id="checkbox2_3" class="md-check partnersCheck" <?php echo $Distributor; ?>>
 
                                                     <label for="checkbox2_3">
 
@@ -1117,7 +1117,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Holding_Company_Investments" id="checkbox2_4" class="md-check" <?php echo $Holding_Company_Investments; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Holding_Company_Investments" id="checkbox2_4" class="md-check partnersCheck" <?php echo $Holding_Company_Investments; ?>>
 
                                                     <label for="checkbox2_4">
 
@@ -1133,7 +1133,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Import_Export" id="checkbox2_5" class="md-check" <?php echo $Import_Export; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Import_Export" id="checkbox2_5" class="md-check partnersCheck" <?php echo $Import_Export; ?>>
 
                                                     <label for="checkbox2_5">
 
@@ -1149,7 +1149,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Manufacturer" id="checkbox2_6" class="md-check" <?php echo $Manufacturer; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Manufacturer" id="checkbox2_6" class="md-check partnersCheck" <?php echo $Manufacturer; ?>>
 
                                                     <label for="checkbox2_6">
 
@@ -1165,7 +1165,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Non_Profit" id="checkbox2_7" class="md-check" <?php echo $Non_Profit; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Non_Profit" id="checkbox2_7" class="md-check partnersCheck" <?php echo $Non_Profit; ?>>
 
                                                     <label for="checkbox2_7">
 
@@ -1181,7 +1181,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Retailer" id="checkbox2_8" class="md-check" <?php echo $Retailer; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Retailer" id="checkbox2_8" class="md-check partnersCheck" <?php echo $Retailer; ?>>
 
                                                     <label for="checkbox2_8">
 
@@ -1197,7 +1197,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Service_Provider" id="checkbox2_9" class="md-check" <?php echo $Service_Provider; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Service_Provider" id="checkbox2_9" class="md-check partnersCheck" <?php echo $Service_Provider; ?>>
 
                                                     <label for="checkbox2_9">
 
@@ -1213,7 +1213,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Warehouse_and_Logisitcs" id="checkbox2_10" class="md-check" <?php echo $Warehouse_and_Logisitcs; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Warehouse_and_Logisitcs" id="checkbox2_10" class="md-check partnersCheck" <?php echo $Warehouse_and_Logisitcs; ?>>
 
                                                     <label for="checkbox2_10">
 
@@ -1229,7 +1229,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Wholesaler" id="checkbox2_11" class="md-check" <?php echo $Wholesaler; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Wholesaler" id="checkbox2_11" class="md-check partnersCheck" <?php echo $Wholesaler; ?>>
 
                                                     <label for="checkbox2_11">
 
@@ -1245,7 +1245,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Institution" id="checkbox2_12" class="md-check" <?php echo $Institution; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Institution" id="checkbox2_12" class="md-check partnersCheck" <?php echo $Institution; ?>>
 
                                                     <label for="checkbox2_12">
 
@@ -1261,7 +1261,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Any_business_type" id="checkbox2_13" class="md-check" <?php echo $Any_business_type; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Any_business_type" id="checkbox2_13" class="md-check partnersCheck" <?php echo $Any_business_type; ?>>
 
                                                     <label for="checkbox2_13">
 
@@ -1894,6 +1894,91 @@ input::-moz-focus-inner {
         $('#ideal_partner_base').select2();
 
     });
+
+
+//start autostore
+
+        $("#opp_title").change(function() { 
+            cookies.set('buy_opp_title',  $("#opp_title").val() );
+        }); 
+
+        var categoryCheck = [];
+        $(".categoryCheck").click(function() { 
+            categoryCheck.push($(this).attr('id'));
+            cookies.set('buy_categoryCheck',  categoryCheck );
+        });
+
+        $("input[name='audienceTarget']").click(function( ) { 
+            cookies.set('buy_audienceTarget',  $(this).attr('id')  );
+        }); 
+
+        $("#intro_describe_business").change(function() { 
+            cookies.set('buy_intro_describe_business',  $("#intro_describe_business").val() );
+        }); 
+
+        $("#why_partner_goal").change(function() { 
+            cookies.set('buy_why_partner_goal',  $("#why_partner_goal").val() );
+        }); 
+
+        $("input[name='timeFrame']").click(function( ) { 
+            cookies.set('buy_timeFrame',  $(this).attr('id')  );
+        }); 
+
+        $("#approx_large").change(function() { 
+            cookies.set('buy_approx_large',  $("#approx_large").val() );
+        }); 
+
+        $("#ideal_partner_base").change(function() { 
+            cookies.set('buy_ideal_partner_base',  $("#ideal_partner_base").val() );
+        });
+
+        var partnersCheck = [];
+        $(".partnersCheck").click(function() { 
+            partnersCheck.push($(this).attr('id'));
+            cookies.set('buy_partnersCheck',  partnersCheck );
+        });
+
+    //end autostore
+
+
+//start asign autostore
+if (cookies.test()) {
+   $('#opp_title').val(  cookies.get("buy_opp_title") );
+
+    if(cookies.get("buy_categoryCheck") != null){
+        $.each( cookies.get("buy_categoryCheck") , function( key, value ) {
+            $("#"+value).attr('checked', 'checked');
+        });
+   }
+
+   if(cookies.get("buy_audienceTarget") != null){
+        $('#'+cookies.get("buy_audienceTarget") ).attr("checked", "checked");
+   }
+
+   $('#intro_describe_business').val(  cookies.get("buy_intro_describe_business") );
+
+   $('#why_partner_goal').val(  cookies.get("buy_why_partner_goal") );
+
+    if(cookies.get("buy_timeFrame") != null){
+        $('#'+cookies.get("buy_timeFrame") ).attr("checked", "checked");
+   }
+
+    $('#approx_large').val(  cookies.get("buy_approx_large") );
+
+   if(cookies.get("buy_ideal_partner_base") != null){
+        $.each( cookies.get("buy_ideal_partner_base") , function( key, value ) {
+            $("#ideal_partner_base option[value='" + value + "']").attr('selected', 'selected');
+        });
+   }
+
+    if(cookies.get("buy_partnersCheck") != null){
+        $.each( cookies.get("buy_partnersCheck") , function( key, value ) {
+            $("#"+value).attr('checked', 'checked');
+        });
+   }
+}
+//end
+
 
        $('#myCarousel').carousel({
         pause: true,

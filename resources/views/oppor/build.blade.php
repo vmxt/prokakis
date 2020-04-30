@@ -5,6 +5,8 @@
 @section('content')
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="{{ asset('public/js/jaaulde-cookies.js') }}"></script>
+
     <style>
 
   .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
@@ -433,7 +435,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-radio">
 
-                                                <input type="radio" id="businessGoal1" value="Raise capital for a company" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Raise capital for a company'){ echo 'checked';  }else{echo 'checked'; } ?> >
+                                                <input type="radio" id="businessGoal1" datavalue="1" value="Raise capital for a company" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Raise capital for a company'){ echo 'checked';  }else{echo 'checked'; } ?> >
 
                                                 <label for="businessGoal1">
 
@@ -451,7 +453,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-radio">
 
-                                                <input type="radio" id="businessGoal2" value="Develop a product or service with another company" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Develop a product or service with another company'){ echo 'checked';  } ?>>
+                                                <input type="radio" datavalue="2" id="businessGoal2" value="Develop a product or service with another company" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Develop a product or service with another company'){ echo 'checked';  } ?>>
 
                                                 <label for="businessGoal2">
 
@@ -469,7 +471,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-radio">
 
-                                                <input type="radio" id="businessGoal3" value="Other" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Other'){ echo 'checked';  } ?>>
+                                                <input type="radio" datavalue="3"  id="businessGoal3" value="Other" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Other'){ echo 'checked';  } ?>>
 
                                                 <label for="businessGoal3">
 
@@ -517,7 +519,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="audienceTarget1" value="Consumers(B2C)" name="audienceTarget" class="md-radiobtn" <?php if(isset($data->audience_target) && $data->audience_target == 'Consumers(B2C)'){ echo 'checked';  }else{echo 'checked';} ?>>
+                                                    <input type="radio" id="audienceTarget1" dataValue='1' value="Consumers(B2C)" name="audienceTarget" class="md-radiobtn" <?php if(isset($data->audience_target) && $data->audience_target == 'Consumers(B2C)'){ echo 'checked';  }else{echo 'checked';} ?>>
 
                                                     <label for="audienceTarget1">
 
@@ -535,7 +537,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="audienceTarget2" value="Business(B2B)" name="audienceTarget" class="md-radiobtn" <?php if(isset($data->audience_target) && $data->audience_target == 'Business(B2B)'){ echo 'checked';  } ?>>
+                                                    <input type="radio" id="audienceTarget2" datavalue='2' value="Business(B2B)" name="audienceTarget" class="md-radiobtn" <?php if(isset($data->audience_target) && $data->audience_target == 'Business(B2B)'){ echo 'checked';  } ?>>
 
                                                     <label for="audienceTarget2">
 
@@ -667,7 +669,7 @@ input::-moz-focus-inner {
 
                                                     <div class="md-radio">
 
-                                                        <input type="radio" id="radioKS" value="Less than 1 year" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  }else{echo 'checked';} ?>>
+                                                        <input type="radio" id="radioKS" dataValue='radioKS' value="Less than 1 year" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  }else{echo 'checked';} ?>>
 
                                                         <label for="radioKS">
 
@@ -685,7 +687,7 @@ input::-moz-focus-inner {
 
                                                     <div class="md-radio">
 
-                                                        <input type="radio" id="radioBR" value="1 year to 3 years" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == '1 year to 3 years'){ echo 'checked';  } ?>>
+                                                        <input type="radio" id="radioBR" dataValue='radioBR' value="1 year to 3 years" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == '1 year to 3 years'){ echo 'checked';  } ?>>
 
                                                         <label for="radioBR">
 
@@ -703,7 +705,7 @@ input::-moz-focus-inner {
 
                                                     <div class="md-radio">
 
-                                                        <input type="radio" id="radioPR" value="More than 3 years" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'More than 3 years'){ echo 'checked';  } ?>>
+                                                        <input type="radio" id="radioPR" dataValue='radioPR' value="More than 3 years" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'More than 3 years'){ echo 'checked';  } ?>>
 
                                                         <label for="radioPR">
 
@@ -1027,7 +1029,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Consultant" id="checkbox2_1" class="md-check" <?php echo $Consultant; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Consultant" id="checkbox2_1" class="md-check partnersCheck" <?php echo $Consultant; ?>>
 
                                                 <label for="checkbox2_1">
 
@@ -1041,7 +1043,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Constructor" id="checkbox2_2" class="md-check" <?php echo $Constructor; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Constructor" id="checkbox2_2" class="md-check partnersCheck" <?php echo $Constructor; ?>>
 
                                                 <label for="checkbox2_2">
 
@@ -1055,7 +1057,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Distributor" id="checkbox2_3" class="md-check" <?php echo $Distributor; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Distributor" id="checkbox2_3" class="md-check partnersCheck" <?php echo $Distributor; ?>>
 
                                                 <label for="checkbox2_3">
 
@@ -1071,7 +1073,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Holding_Company_Investments" id="checkbox2_4" class="md-check" <?php echo $Holding_Company_Investments; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Holding_Company_Investments" id="checkbox2_4" class="md-check partnersCheck" <?php echo $Holding_Company_Investments; ?>>
 
                                                 <label for="checkbox2_4">
 
@@ -1087,7 +1089,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Import_Export" id="checkbox2_5" class="md-check" <?php echo $Import_Export; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Import_Export" id="checkbox2_5" class="md-check partnersCheck" <?php echo $Import_Export; ?>>
 
                                                 <label for="checkbox2_5">
 
@@ -1103,7 +1105,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Manufacturer" id="checkbox2_6" class="md-check" <?php echo $Manufacturer; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Manufacturer" id="checkbox2_6" class="md-check partnersCheck" <?php echo $Manufacturer; ?>>
 
                                                 <label for="checkbox2_6">
 
@@ -1119,7 +1121,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Non_Profit" id="checkbox2_7" class="md-check" <?php echo $Non_Profit; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Non_Profit" id="checkbox2_7" class="md-check partnersCheck" <?php echo $Non_Profit; ?>>
 
                                                 <label for="checkbox2_7">
 
@@ -1135,7 +1137,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Retailer" id="checkbox2_8" class="md-check" <?php echo $Retailer; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Retailer" id="checkbox2_8" class="md-check partnersCheck" <?php echo $Retailer; ?>>
 
                                                 <label for="checkbox2_8">
 
@@ -1151,7 +1153,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Service_Provider" id="checkbox2_9" class="md-check" <?php echo $Service_Provider; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Service_Provider" id="checkbox2_9" class="md-check partnersCheck" <?php echo $Service_Provider; ?>>
 
                                                 <label for="checkbox2_9">
 
@@ -1167,7 +1169,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Warehouse_and_Logisitcs" id="checkbox2_10" class="md-check" <?php echo $Warehouse_and_Logisitcs; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Warehouse_and_Logisitcs" id="checkbox2_10" class="md-check partnersCheck" <?php echo $Warehouse_and_Logisitcs; ?>>
 
                                                 <label for="checkbox2_10">
 
@@ -1183,7 +1185,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Wholesaler" id="checkbox2_11" class="md-check" <?php echo $Wholesaler; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Wholesaler" id="checkbox2_11" class="md-check partnersCheck" <?php echo $Wholesaler; ?>>
 
                                                 <label for="checkbox2_11">
 
@@ -1199,7 +1201,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Institution" id="checkbox2_12" class="md-check" <?php echo $Institution; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Institution" id="checkbox2_12" class="md-check partnersCheck" <?php echo $Institution; ?>>
 
                                                 <label for="checkbox2_12">
 
@@ -1215,7 +1217,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Any_business_type" id="checkbox2_13" class="md-check" <?php echo $Any_business_type; ?>>
+                                                <input type="checkbox" name="checkboxes2[]" value="Any_business_type" id="checkbox2_13" class="md-check partnersCheck" <?php echo $Any_business_type; ?>>
 
                                                 <label for="checkbox2_13">
 
@@ -1259,7 +1261,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="ideal_partner_base"><b>Please provide any relevant industry, product
+                                        <label for="relevant_describing_partner"><b>Please provide any relevant industry, product
 
                                                 or
 
@@ -1996,17 +1998,94 @@ input::-moz-focus-inner {
         pause: true,
           interval: false
         })
-    });
 
-  
+    //start autostore
+
+        $("#opp_title").change(function() { 
+            cookies.set('build_opp_title',  $("#opp_title").val() );
+        }); 
+
+        $("input[name='businessGoal']").click(function( ) { 
+            cookies.set('build_businessGoal',  $(this).attr('datavalue')  );
+        }); 
+
+        $("input[name='audienceTarget']").click(function( ) { 
+            cookies.set('build_audienceTarget',  $(this).attr('datavalue')  );
+        }); 
+
+        $("#intro_describe_business").change(function() { 
+            cookies.set('build_intro_describe_business',  $("#intro_describe_business").val() );
+        }); 
+
+        $("#why_partner_goal").change(function() { 
+            cookies.set('build_why_partner_goal',  $("#why_partner_goal").val() );
+        }); 
+
+        $("input[name='timeFrame']").click(function( ) { 
+            cookies.set('build_timeFrame',  $(this).attr('datavalue')  );
+        }); 
+
+        $("#approx_large").change(function() { 
+            cookies.set('build_approx_large',  $("#approx_large").val() );
+        }); 
+
+        $("#ideal_partner_base").change(function() { 
+            cookies.set('build_ideal_partner_base',  $("#ideal_partner_base").val() );
+        }); 
+
+        var partnersCheck = [];
+        $(".partnersCheck").click(function() { 
+            partnersCheck.push($(this).attr('id'));
+            cookies.set('build_partnersCheck',  partnersCheck );
+        });
+
+    //end autostore
+
+    });
 
 $('#opportunity_build_form').submit(function() {
     if( $('#opp_industry').val() == 0 ){
         $('#myCarousel').addClass('tag-required');
         return false
     }
-
 });
+
+//start asign autostore
+if (cookies.test()) {
+   $('#opp_title').val(  cookies.get("build_opp_title") );
+
+   if(cookies.get("build_businessGoal") != null){
+        $('#businessGoal'+cookies.get("build_businessGoal") ).attr("checked", "checked");
+   }
+
+   if(cookies.get("build_audienceTarget") != null){
+        $('#audienceTarget'+cookies.get("build_audienceTarget") ).attr("checked", "checked");
+   }
+
+   $('#intro_describe_business').val(  cookies.get("build_intro_describe_business") );
+
+   $('#why_partner_goal').val(  cookies.get("build_why_partner_goal") );
+
+   if(cookies.get("build_timeFrame") != null){
+        $('#'+cookies.get("build_timeFrame") ).attr("checked", "checked");
+   }
+
+   $('#approx_large').val(  cookies.get("build_approx_large") );
+
+   if(cookies.get("build_ideal_partner_base") != null){
+        $.each( cookies.get("build_ideal_partner_base") , function( key, value ) {
+            $("#ideal_partner_base option[value='" + value + "']").attr('selected', 'selected');
+        });
+   }
+
+    if(cookies.get("build_partnersCheck") != null){
+        $.each( cookies.get("build_partnersCheck") , function( key, value ) {
+            $("#"+value).attr('checked', 'checked');
+        });
+   }
+
+   // cookies.del('opportunityDetails');
+}
 
     </script>
 
