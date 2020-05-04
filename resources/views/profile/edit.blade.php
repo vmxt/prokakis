@@ -316,7 +316,7 @@
 
                                                 <?php  
                                                 $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-                                                if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                 ?>
 
                                                     <input type="file" id="file" name="profile_img" style="float:left; width: 170px">
@@ -1654,7 +1654,7 @@
                                                 <div id="drop">
 
                                                     <?php  
-                                                    if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                     ?>
 
                                                     <a>Browse Awards</a>
@@ -1753,7 +1753,7 @@
                                                 <div id="drop1">
 
                                                     <?php  
-                                                    if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                     ?>
 
                                                     <a>Browse Purchase Invoices</a>
@@ -1825,7 +1825,7 @@
                                                 <div id="drop2">
 
                                                     <?php  
-                                                    if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                     ?>
 
                                                     <a>Browse Sales Invoices</a>
@@ -1905,7 +1905,7 @@
                                                 <div id="drop3">
 
                                                     <?php  
-                                                    if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+                                                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                     ?>
 
                                                     <a>Browse Certificates</a>

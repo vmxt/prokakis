@@ -1374,7 +1374,11 @@ input::-moz-focus-inner {
                                             <div class='col-sm-12'>
                                                 <div id="myCarousel" class="row carousel slide" data-interval="false">
                                                     <div class="carousel-inner">
+                                                    @if( isset($data->industry) )    
+                                                        <input type="hidden" id="opp_industry" name="opp_industry" value="{{ $data->industry }}">
+                                                    @else
                                                         <input type="hidden" id="opp_industry" name="opp_industry" value="0">
+                                                    @endif
                                                     <?php 
                                                         $groupSize = 4;
                                                         $initCarousel = '';
@@ -1444,9 +1448,9 @@ input::-moz-focus-inner {
 
                             $company_id_result = App\CompanyProfile::getCompanyId($user_id);
 
-                            
+                            $dataViewType = 1;
 
-                            if( App\SpentTokens::validateLeftBehindToken($company_id_result) != false ){
+                            if( App\SpentTokens::validateAccountActivation($company_id_result) != false ){
 
                                 
 
@@ -1502,11 +1506,8 @@ input::-moz-focus-inner {
                                <?php
                                if(isset($data->view_type)){
                                     $dataViewType = $data->view_type;
-                               }else{
-                                    $dataViewType = 1;
                                }
                                ?>
-                               <input type="hidden" name="viewtype_value" id="viewtype_value" value="{{ $dataViewType }}">
 
                                <br />
 
@@ -1558,7 +1559,7 @@ input::-moz-focus-inner {
 
                         } ?>
 
-             
+                               <input type="hidden" name="viewtype_value" id="viewtype_value" value="{{ $dataViewType }}">
 
                 <hr>
 
@@ -1862,15 +1863,15 @@ input::-moz-focus-inner {
         }
 
         function clearForm(){
-            cookies.del('build_opp_title');
-            cookies.del('build_businessGoal');
-            cookies.del('build_audienceTarget');
-            cookies.del('build_intro_describe_business');
-            cookies.del('build_why_partner_goal');
-            cookies.del('build_timeFrame');
-            cookies.del('build_approx_large');
-            cookies.del('build_ideal_partner_base');
-            cookies.del('build_partnersCheck');
+            cookies.del('sell_opp_title');
+            cookies.del('sell_categoryCheck');
+            cookies.del('sell_audienceTarget');
+            cookies.del('sell_intro_describe_business');
+            cookies.del('sell_why_partner_goal');
+            cookies.del('sell_timeFrame');
+            cookies.del('sell_approx_large');
+            cookies.del('sell_ideal_partner_base');
+            cookies.del('sell_partnersCheck');
             location.reload(true);
 
         }
@@ -1932,7 +1933,8 @@ input::-moz-focus-inner {
 
 //start asign autostore
 if (cookies.test()) {
-   $('#opp_title').val(  cookies.get("sell_opp_title") );
+    if( cookies.get("sell_opp_title")!= null )
+        $('#opp_title').val(  cookies.get("sell_opp_title") );
 
     if(cookies.get("sell_categoryCheck") != null){
         $.each( cookies.get("sell_categoryCheck") , function( key, value ) {
@@ -1944,16 +1946,20 @@ if (cookies.test()) {
         $('#'+cookies.get("sell_audienceTarget") ).attr("checked", "checked");
    }
 
-   $('#intro_describe_business').val(  cookies.get("sell_intro_describe_business") );
+   if( cookies.get("sell_intro_describe_business")!=null )
+        $('#intro_describe_business').val(  cookies.get("sell_intro_describe_business") );
 
-   $('#why_partner_goal').val(  cookies.get("sell_why_partner_goal") );
+   if( cookies.get("sell_why_partner_goal")!=null )
+        $('#why_partner_goal').val(  cookies.get("sell_why_partner_goal") );
+    
 
     if(cookies.get("sell_timeFrame") != null){
         $('#'+cookies.get("sell_timeFrame") ).attr("checked", "checked");
    }
 
-    $('#approx_large').val(  cookies.get("sell_approx_large") );
-
+   if( cookies.get("sell_approx_large")!=null )
+     $('#approx_large').val(  cookies.get("sell_approx_large") );
+    
    if(cookies.get("sell_ideal_partner_base") != null){
         $.each( cookies.get("sell_ideal_partner_base") , function( key, value ) {
             $("#ideal_partner_base option[value='" + value + "']").attr('selected', 'selected');
