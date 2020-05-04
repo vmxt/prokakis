@@ -355,6 +355,8 @@
   background-size: cover;
   background-position: center center;
 }
+
+
 .container-grid .blog-posts .post .image .time {
   background: rgba(255, 255, 255, 0.5);
   width: 50px;
@@ -516,6 +518,56 @@ img {
    cursor: pointer;
    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1);
 }*/
+
+.rating_score{
+  margin: 10px;
+}
+
+@media (max-width: 426px) {
+  .container-grid .blog-posts .post .image {
+    width: 100% !important;
+    float: none !important;
+  }
+
+  .container-grid .blog-posts .post .content h1 {
+    white-space: normal;
+    line-height: 1;
+  }
+
+  .content {
+    width: 100% !important;
+  }
+
+  h3 {
+       margin-left: 0px !important; 
+  }
+
+  .learn_more{
+    left: 0 !important;
+  }
+
+  .modal-title {
+    font-size: 14px; 
+  }
+
+  .title-text{
+    font-size: 13px;
+  }
+
+  .lg-link {
+    font-size: 13px !important;
+  }
+
+  .content-text{
+    font-size: 14px;
+  }
+
+  .modal-dialog {
+      width: 95%;
+      padding: 10px;
+
+  }
+}
 
     </style>
     <div class="container container-grid">
@@ -705,7 +757,7 @@ img {
                             @endif
                         </div>
 
-                        <div style="margin: 10px">
+                        <div class="rating_score">
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
                     </div>
@@ -786,7 +838,7 @@ img {
 
                                             <?php }?>
                                        
-                    <h2  style="margin: 10px; " > {{ $ratingScore }} % </h2>
+                    <h2 class="rating_score"  > {{ $ratingScore }} % </h2>
                 </div>
                 <hr>
             </div>
@@ -1079,7 +1131,7 @@ img {
                             @endif
                         </div>
 
-                        <div style="margin: 10px">
+                        <div class="rating_score">
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
                     </div>
@@ -1160,7 +1212,7 @@ img {
 
                                             <?php }?>
                                        
-                    <h2  style="margin: 10px; " > {{ $ratingScore }} % </h2>
+                    <h2  class="rating_score" > {{ $ratingScore }} % </h2>
                 </div>
                 <hr>
             </div>
@@ -1453,7 +1505,7 @@ img {
                             @endif
                         </div>
 
-                        <div style="margin: 10px">
+                        <div class="rating_score">
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
                     </div>
@@ -1534,7 +1586,7 @@ img {
 
                                             <?php }?>
                                        
-                    <h2  style="margin: 10px; " > {{ $ratingScore }} % </h2>
+                    <h2  class="rating_score" > {{ $ratingScore }} % </h2>
                 </div>
                 <hr>
             </div>
@@ -1791,7 +1843,7 @@ img {
 
                                         <?php }?>
                                         <br/>
-                <h4> {{ $ratingScore }} % </h4>
+                <h4 class="rating_score"> {{ $ratingScore }} % </h4>
             </span>
             <hr>
         </div>
