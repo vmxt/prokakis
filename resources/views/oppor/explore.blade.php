@@ -532,6 +532,7 @@ img {
   .container-grid .blog-posts .post .content h1 {
     white-space: normal;
     line-height: 1;
+    font-size: 0.8em;
   }
 
   .content {

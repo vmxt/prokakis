@@ -1455,11 +1455,8 @@ input::-moz-focus-inner {
                             </div>
 
 
-
                             <?php 
-
-                                        
-
+                                      
                                         $user_id = Auth::id();
 
                                         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
@@ -1515,18 +1512,43 @@ input::-moz-focus-inner {
 
                                                 <div class="form-group">
 
-            
-                                           <button type="button" id="butPrivate" <?php echo $bKP; ?> class="btn btn-success" onclick="privacyOption2('build', 'keep_private', '<?php echo $dataID; ?>')" style="color: black;"><span class="fa fa-lock"></span> &nbsp;<b>Publish Anonymously </b></button>  
+                                                    <div class="input-group">
 
-                                           <button type="button" id="butCompany" <?php echo $bWCI; ?> class="btn btn-info" onclick="privacyOption2('build', 'company_info', '<?php echo $dataID; ?>');" style="color: black"><span class="fa fa-credit-card" /></span> &nbsp;<b>Publish with company info</b></button>
-                                           <?php
-                                           if(isset($data->view_type)){
-                                                $dataViewType = $data->view_type;
-                                           }
-                                           ?>
+                                                        <div class="row">
+                                                            <?php 
+                                                                if(isset($data->id)){
+                                                                    $dataId = $data->id;
+                                                                }else{
+                                                                    $dataId = 0;
+                                                                }
+
+                                                                if(isset( $data->view_type )){
+                                                                    $dataViewType = $data->view_type;
+                                                                }else{
+                                                                    $dataViewType = 2;
+                                                                }
+                                                            ?>
+                                                            <div class="col-sm-12">
+                                                                <input type="hidden" name="viewtype_value" id="viewtype_value" value="{{ $dataViewType }}">
+                                                                <input type="checkbox" 
+                                                                      onchange="oppViewType(this, '{{ $dataId }}' )"
+                                                                      id="opp_view_type"
+                                                                      checked 
+                                                                      data-toggle="toggle" 
+                                                                      data-on="Publish Anonymously" 
+                                                                      data-off="Publish with company Info" 
+                                                                      data-width="250" 
+                                                                      data-onstyle="success" 
+                                                                      data-offstyle="info" 
+                                                                      data-style="slow">
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
 
                                            <br />
-
 
                                             <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
 
@@ -1573,7 +1595,7 @@ input::-moz-focus-inner {
                                         <?php  
 
                                     } ?>
-                                           <input type="hidden" name="viewtype_value" id="viewtype_value" value="{{ $dataViewType }}">
+                                           
 
                          
 
@@ -1623,20 +1645,11 @@ input::-moz-focus-inner {
               else
                  $('#opp_image_avatar').prop('checked', true).change()
           
-
-
-
-        var viewTypeStatus = $('#viewtype_value').val();
-        if(viewTypeStatus == 1){
-            $("#butPrivate").attr("disabled", true);
-            $("#butCompany").attr("disabled", false);
-        }else if(viewTypeStatus == 2){
-            $("#butPrivate").attr("disabled", false);
-            $("#butCompany").attr("disabled", true);
-        }else{
-            $("#butPrivate").attr("disabled", false);
-            $("#butCompany").attr("disabled", false);   
-        }
+        var viewTypeFlagStatus = $('#viewtype_value').val();
+              if(viewTypeFlagStatus == 1)
+                 $('#opp_view_type').prop('checked', false).change()
+              else
+                 $('#opp_view_type').prop('checked', true).change()
 
 
         function assignIndustry(id){
@@ -1821,13 +1834,15 @@ input::-moz-focus-inner {
 
         $('#avatar_status').val(referStatus);
         formData = new FormData();
-        formData.append("avatarStatus", referStatus);
+        formData.append("resultStatus", referStatus);
         formData.append("opporId", id);
         formData.append("opporType", 'build');
+        formData.append("opporSection", 'imageAvatar');
+
        
         $.ajax({
 
-            url: "{{ route('updateOppImageAvatar') }}",
+            url: "{{ route('updateOpportunityDetail') }}",
 
             type: "POST",
 
@@ -1851,6 +1866,49 @@ input::-moz-focus-inner {
 
     }
 
+      function oppViewType(val, id){
+
+
+        var viewTypeStatus = 1;
+        if($(val).prop('checked')) viewTypeStatus = 2;
+        //1 = public
+        //2 = private
+        $('#viewtype_value').val(viewTypeStatus);
+        if(id == 0){
+            return false;
+        }
+
+        formData = new FormData();
+        formData.append("resultStatus", viewTypeStatus);
+        formData.append("opporId", id);
+        formData.append("opporType", 'build');
+        formData.append("opporSection", 'viewType');
+       
+        $.ajax({
+
+            url: "{{ route('updateOpportunityDetail') }}",
+
+            type: "POST",
+
+            data: formData,
+
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+            processData: false,
+
+            contentType: false,
+
+            cache: false,
+
+            success: function (data) {
+
+                console.log(data);
+
+            }
+
+        });
+
+    }
 
         function privacyOption2(str, ptype, idx)
 
