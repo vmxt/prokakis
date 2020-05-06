@@ -127,9 +127,15 @@
                                         <td><p> <?php echo $b->opp_title; ?></p></td>
                                         <td>
                                             <ul>
-                                                <li> <?php echo $b->business_goal; ?> </li>
-                                                <li> <?php echo $b->ideal_partner_business; ?> </li>
-                                                <li> <?php echo $b->ideal_partner_base; ?> </li>
+                                                @if($b->business_goal)
+                                                <li> {{ $b->business_goal }} </li>
+                                                @endif
+                                                @if($b->ideal_partner_business)
+                                                <li> {{ $b->ideal_partner_business }} </li>
+                                                @endif
+                                                @if($b->ideal_partner_base)
+                                                <li> {{ $b->ideal_partner_base }} </li>
+                                                @endif
                                             </ul>
                                         </td>
                                         <td> <?php echo $b->timeframe_goal; ?> <br/></td>
@@ -167,9 +173,15 @@
                                         <td> <?php echo $s->opp_title; ?></td>
                                         <td>
                                             <ul>
-                                                <li><?php echo $s->what_sell_offer; ?></li>
-                                                <li><?php echo $s->ideal_partner_business; ?></li>
-                                                <li><?php echo $s->ideal_partner_base; ?></li>
+                                                @if($s->what_sell_offer)
+                                                <li> {{ $s->what_sell_offer }} </li>
+                                                @endif
+                                                @if($s->ideal_partner_business)
+                                                <li> {{ $s->ideal_partner_business }} </li>
+                                                @endif
+                                                @if($s->ideal_partner_base)
+                                                <li>{{ $s->ideal_partner_base }}</li>
+                                                @endif
                                             </ul>
                                         </td>
                                         <td> <?php echo $s->timeframe_goal; ?> <br/></td>
@@ -205,9 +217,15 @@
                                         <td> <?php echo $bb->opp_title; ?></td>
                                         <td>
                                             <ul>
-                                                <li><?php echo $bb->what_sell_offer; ?></li>
-                                                <li><?php echo $bb->ideal_partner_business; ?></li>
-                                                <li><?php echo $bb->ideal_partner_base; ?></li>
+                                                @if($bb->what_sell_offer)
+                                                <li>{{ $bb->what_sell_offer }}</li>
+                                                @endif
+                                                @if($bb->ideal_partner_business)
+                                                <li>{{ $bb->ideal_partner_business }}</li>
+                                                @endif
+                                                @if($bb->ideal_partner_base)
+                                                <li>{{ $$bb->ideal_partner_base }}</li>
+                                                @endif
                                         </td>
                                         <td> <?php echo $bb->timeframe_goal; ?> <br/></td>
                                         
