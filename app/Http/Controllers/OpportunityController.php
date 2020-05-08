@@ -1553,7 +1553,6 @@ public static function validateAccLimits($company_id){
 				$opporId = $request->input('opporId');
 				$opporType = $request->input('opporType');
 				$resultValue = $request->input('resultStatus');
-			
 
 				if($opporType == 'build')
 					$result = OpportunityBuildingCapability::find($opporId);
@@ -1562,6 +1561,14 @@ public static function validateAccLimits($company_id){
 				if($opporType == 'buy')
 					$result = OpportunityBuy::find($opporId);
 
+			if($request->input('opporSection') == 'input-text-form')
+			{
+				$fieldName = $request->input('fieldName');
+				$result->update(array($fieldName => $resultValue) );
+				print_r($resultValue);
+				print_r($fieldName);
+			}
+			else{
 				if($result){
 					if($request->input('opporSection') == 'imageAvatar' )
 						$result->avatar_status = $resultValue;
@@ -1570,6 +1577,8 @@ public static function validateAccLimits($company_id){
 
 					$result->save();
 				}
+
+			}
 		}
 	}
 

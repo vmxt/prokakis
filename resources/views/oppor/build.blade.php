@@ -404,7 +404,7 @@ input::-moz-focus-inner {
 
                             <center>Describe your business goal</center>
 
-                            <input type="hidden" name="id" value="<?php if (isset($data->id)) {
+                            <input type="hidden" id='oppor_id' name="id" value="<?php if (isset($data->id)) {
 
                                 echo $data->id;
 
@@ -422,7 +422,7 @@ input::-moz-focus-inner {
 
                                         <label for="business_goal"><b>Title for this Opportunity</b> <span style="color: red; font-weight: bolder;"> *</span> </label>
 
-                                        <input required="required" type="text" class="form-control" name="opp_title" id="opp_title" value="<?php if(isset($data->opp_title)){ echo $data->opp_title; }else{echo "";} ?>" />
+                                        <input required="required" type="text" class="form-control input-text-form" dataName="opp_title" name="opp_title" id="opp_title" value="<?php if(isset($data->opp_title)){ echo $data->opp_title; }else{echo "";} ?>" />
 
 
 
@@ -452,7 +452,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-radio">
 
-                                                <input type="radio" id="businessGoal1" datavalue="1" value="Raise capital for a company" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Raise capital for a company'){ echo 'checked';  }else{echo 'checked'; } ?> >
+                                                <input type="radio" id="businessGoal1" datavalue="1" value="Raise capital for a company" dataName="business_goal" name="businessGoal" class="md-radiobtn input-radio-form" <?php if(isset($data->business_goal) && $data->business_goal == 'Raise capital for a company'){ echo 'checked';  }else{echo 'checked'; } ?> >
 
                                                 <label for="businessGoal1">
 
@@ -470,7 +470,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-radio">
 
-                                                <input type="radio" datavalue="2" id="businessGoal2" value="Develop a product or service with another company" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Develop a product or service with another company'){ echo 'checked';  } ?>>
+                                                <input type="radio" datavalue="2" id="businessGoal2" value="Develop a product or service with another company" dataName="business_goal" name="businessGoal" class="md-radiobtn input-radio-form" <?php if(isset($data->business_goal) && $data->business_goal == 'Develop a product or service with another company'){ echo 'checked';  } ?>>
 
                                                 <label for="businessGoal2">
 
@@ -488,7 +488,7 @@ input::-moz-focus-inner {
 
                                             <div class="md-radio">
 
-                                                <input type="radio" datavalue="3"  id="businessGoal3" value="Other" name="businessGoal" class="md-radiobtn" <?php if(isset($data->business_goal) && $data->business_goal == 'Other'){ echo 'checked';  } ?>>
+                                                <input type="radio" datavalue="3"  id="businessGoal3" value="Other" dataName="business_goal" name="businessGoal" class="md-radiobtn input-radio-form" <?php if(isset($data->business_goal) && $data->business_goal == 'Other'){ echo 'checked';  } ?>>
 
                                                 <label for="businessGoal3">
 
@@ -536,7 +536,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="audienceTarget1" dataValue='1' value="Consumers(B2C)" name="audienceTarget" class="md-radiobtn" <?php if(isset($data->audience_target) && $data->audience_target == 'Consumers(B2C)'){ echo 'checked';  }else{echo 'checked';} ?>>
+                                                    <input type="radio" id="audienceTarget1" dataValue='1' value="Consumers(B2C)" name="audienceTarget" dataName="audience_target" class="md-radiobtn input-radio-form" <?php if(isset($data->audience_target) && $data->audience_target == 'Consumers(B2C)'){ echo 'checked';  }else{echo 'checked';} ?>>
 
                                                     <label for="audienceTarget1">
 
@@ -554,7 +554,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="audienceTarget2" datavalue='2' value="Business(B2B)" name="audienceTarget" class="md-radiobtn" <?php if(isset($data->audience_target) && $data->audience_target == 'Business(B2B)'){ echo 'checked';  } ?>>
+                                                    <input type="radio" id="audienceTarget2" datavalue='2' value="Business(B2B)" name="audienceTarget" dataName="audience_target" class="md-radiobtn input-radio-form" <?php if(isset($data->audience_target) && $data->audience_target == 'Business(B2B)'){ echo 'checked';  } ?>>
 
                                                     <label for="audienceTarget2">
 
@@ -596,7 +596,7 @@ input::-moz-focus-inner {
 
                                             ideal business partners?</span>
 
-                                        <textarea rows="5" cols="20"  maxlength="500" class="form-control" name="intro_describe_business"
+                                        <textarea rows="5" cols="20" dataName="intro_describe_business"  maxlength="500" class="form-control input-text-form" name="intro_describe_business"
 
                                                   id="intro_describe_business"><?php if (isset($data->intro_describe_business)) {
 
@@ -636,7 +636,7 @@ input::-moz-focus-inner {
 
                                         <span>What makes you stand out? What is your competitive advantage?</span>
 
-                                        <textarea rows="5" cols="20"  maxlength="500" class="form-control" name="why_partner_goal"
+                                        <textarea rows="5" cols="20"  maxlength="500" class="form-control input-text-form" name="why_partner_goal" dataName="why_partner_goal"
 
                                                   id="why_partner_goal"><?php if (isset($data->why_partner_goal)) {
 
@@ -686,7 +686,7 @@ input::-moz-focus-inner {
 
                                                     <div class="md-radio">
 
-                                                        <input type="radio" id="radioKS" dataValue='radioKS' value="Less than 1 year" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  }else{echo 'checked';} ?>>
+                                                        <input type="radio" id="radioKS" dataValue='radioKS' value="Less than 1 year" dataName="timeframe_goal" name="timeFrame" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  }else{echo 'checked';} ?>>
 
                                                         <label for="radioKS">
 
@@ -704,7 +704,7 @@ input::-moz-focus-inner {
 
                                                     <div class="md-radio">
 
-                                                        <input type="radio" id="radioBR" dataValue='radioBR' value="1 year to 3 years" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == '1 year to 3 years'){ echo 'checked';  } ?>>
+                                                        <input type="radio" id="radioBR" dataValue='radioBR' value="1 year to 3 years" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == '1 year to 3 years'){ echo 'checked';  } ?>>
 
                                                         <label for="radioBR">
 
@@ -722,7 +722,7 @@ input::-moz-focus-inner {
 
                                                     <div class="md-radio">
 
-                                                        <input type="radio" id="radioPR" dataValue='radioPR' value="More than 3 years" name="timeFrame" class="md-radiobtn" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'More than 3 years'){ echo 'checked';  } ?>>
+                                                        <input type="radio" id="radioPR" dataValue='radioPR' value="More than 3 years" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'More than 3 years'){ echo 'checked';  } ?>>
 
                                                         <label for="radioPR">
 
@@ -758,9 +758,9 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="approx_large"><b>What is the value of this Opportunity?</b> <i>(Optional)</i></label>
+                                        <label for="approx_large "><b>What is the value of this Opportunity?</b> <i>(Optional)</i></label>
 
-                                        <select class="form-control" id="approx_large" name="approx_large">
+                                        <select class="form-control input-select-form" id="approx_large" name="approx_large" dataName='approx_large'>
 
                                             <option value="" id="">Please select one of the following</option>
 
@@ -823,10 +823,13 @@ input::-moz-focus-inner {
                                     <div class="form-group">
 
                                         <label for="ideal_partner_base"><b>(Indicate the location of your ideal partners)</b> Type and click to add Countries </label> <br/>
-
-
-
-                                        <select class="form-control" id="ideal_partner_base"
+                                        <?php 
+                                        $oppo_id = 0;
+                                        if(isset($data->id)){
+                                            $oppo_id = $data->id;
+                                        }
+                                        ?>
+                                        <select  class="form-control " dataName="ideal_partner_base" id="ideal_partner_base"
 
                                                 name="ideal_partner_base[]" multiple="multiple">
 
@@ -1659,6 +1662,11 @@ input::-moz-focus-inner {
             $('#opp_industry').val(id);
             $('.thumbnail').removeClass('industry_active');
             $('.industry_select'+id).addClass('industry_active');
+
+            if( $('#oppor_id').val() ){
+                var oppor_id = $('#oppor_id').val();
+                inputFormUpdate(id, oppor_id , 'industry');
+            }
         }
 
         $('#relevant_describing_partner').selectize({
@@ -1910,6 +1918,44 @@ input::-moz-focus-inner {
 
     }
 
+    function inputFormUpdate(fieldVal, id, fieldName){
+
+        // console.log(fieldVal)
+        // console.log(id)
+        // console.log(fieldName)
+        formData = new FormData();
+        formData.append("resultStatus", fieldVal);
+        formData.append("opporId", id);
+        formData.append("fieldName", fieldName);
+        formData.append("opporType", 'build');
+        formData.append("opporSection", 'input-text-form');
+
+        $.ajax({
+
+            url: "{{ route('updateOpportunityDetail') }}",
+
+            type: "POST",
+
+            data: formData,
+
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+            processData: false,
+
+            contentType: false,
+
+            cache: false,
+
+            success: function (data) {
+
+                // console.log(data);
+
+            }
+
+        });
+
+    }
+
         function privacyOption2(str, ptype, idx)
 
         {
@@ -2109,12 +2155,32 @@ input::-moz-focus-inner {
 
         $("#ideal_partner_base").change(function() { 
             cookies.set('build_ideal_partner_base',  $("#ideal_partner_base").val() );
+            if( $('#oppor_id').val() ){
+                var oppor_id = $('#oppor_id').val();
+                inputFormUpdate( $("#ideal_partner_base").val(), oppor_id , 'ideal_partner_base');
+            }
         }); 
 
-        var partnersCheck = [];
-        $(".partnersCheck").click(function() { 
-            partnersCheck.push($(this).attr('id'));
-            cookies.set('build_partnersCheck',  partnersCheck );
+        $('.partnersCheck')
+            .click(function(){
+                var partnersCheck = [];
+                var partners = [];
+                $.each($(".partnersCheck:checked"), function(){
+                    partnersCheck.push($(this).attr('id'));
+                    partners.push($(this).val());
+                });
+                 cookies.set('build_partnersCheck',  partnersCheck );
+
+                if( $('#oppor_id').val() ){
+                    var oppor_id = $('#oppor_id').val();
+                    inputFormUpdate( partners.join(", "), oppor_id , 'ideal_partner_business');
+                }
+            })
+
+        $("#relevant_describing_partner")
+        .change(function() { 
+            var oppor_id = $('#oppor_id').val();
+            inputFormUpdate( this.value, oppor_id , 'relevant_describing_partner');
         });
 
     //end autostore
@@ -2179,6 +2245,32 @@ if (cookies.test()) {
 
    // cookies.del('opportunityDetails');
 }
+
+if( $('#oppor_id').val() ){
+    $('.input-text-form')
+    .focusout(function(event) {
+        var dataName = $('#'+this.id).attr('dataName');
+        var oppor_id = $('#oppor_id').val();
+        inputFormUpdate(this.value, oppor_id , dataName);
+    } )
+
+    $('.input-radio-form')
+    .click(function(event) {
+        var dataName = $('#'+this.id).attr('dataName');
+        var oppor_id = $('#oppor_id').val();
+        inputFormUpdate(this.value, oppor_id , dataName);
+    } )
+
+    $('.input-select-form')
+    .change(function(event) {
+        var dataName = $('#'+this.id).attr('dataName');
+        var oppor_id = $('#oppor_id').val();
+        inputFormUpdate(this.value, oppor_id , dataName);
+    } )
+
+
+}
+
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
