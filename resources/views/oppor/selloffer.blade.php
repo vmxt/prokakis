@@ -3,8 +3,12 @@
 
 
 @section('content')
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css" rel="stylesheet" >
+{{-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> --}}
+
+<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-toggle/bootstrap-toggle.css') }}">
+
 <script src="{{ asset('public/js/jaaulde-cookies.js') }}"></script>
 
   <style>
@@ -281,6 +285,15 @@ input::-moz-focus-inner {
     <script src="{{ asset('public/multiselectJS/select2.js') }}"></script> 
 
    
+    <?php 
+        $user_id = Auth::id();
+        $company_id_result = App\CompanyProfile::getCompanyId($user_id);
+        $is_premium = false;
+
+        if( App\SpentTokens::validateAccountActivation($company_id_result) != false ){
+            $is_premium = true;
+        }
+    ?>
 
     <div class="container">
 
@@ -1334,9 +1347,16 @@ input::-moz-focus-inner {
                                                 <div class="col-sm-12">
                                                     <input type="hidden" name="avatar_status" id="avatar_status" value="{{  $dataAvatar }}" />
                                                     <input type="checkbox" 
+                                                        @if($is_premium)
                                                           onchange="oppImageAvatar(this, '{{ $dataId }}' )"
+                                                        @else
+                                                          onchange="NotifyToUpgrade('opp_image_avatar' )"
+                                                        @endif
+
+                                                        @if($dataAvatar == 2)
+                                                            checked
+                                                        @endif
                                                           id="opp_image_avatar"
-                                                          checked 
                                                           data-toggle="toggle" 
                                                           data-on="Profile Image" 
                                                           data-off="Industry Image" 
@@ -1440,58 +1460,6 @@ input::-moz-focus-inner {
 
                             </div>
 
-                            <?php 
-
-                                        
-
-                            $user_id = Auth::id();
-
-                            $company_id_result = App\CompanyProfile::getCompanyId($user_id);
-
-                            $dataViewType = 1;
-
-                            if( App\SpentTokens::validateAccountActivation($company_id_result) != false ){
-
-                                
-
-                                $bWCI = '';
-
-                                $bKP = '';
-
-                                $dataID = '0';
-
-
-
-                                if(isset($data->view_type)){
-
-
-
-                                  if($data->view_type == 1 ){
-
-                                   $bWCI = '';
-
-                                   $bKP = 'disabled';
-
-                                  } else {
-
-                                   $bWCI = 'disabled';
-
-                                   $bKP = '';
-
-                                  }
-
-
-
-                                $dataID = $data->id;   
-
-                                  
-
-                                }   
-
-                               ?>
-
-
-
                                <div class="portlet light">
 
                                 <div class="portlet-body">
@@ -1511,22 +1479,29 @@ input::-moz-focus-inner {
                                                     if(isset( $data->view_type )){
                                                         $dataViewType = $data->view_type;
                                                     }else{
-                                                        $dataViewType = 2;
+                                                        $dataViewType = 1;
                                                     }
                                                 ?>
                                                 <div class="col-sm-12">
                                                     <input type="hidden" name="viewtype_value" id="viewtype_value" value="{{ $dataViewType }}">
                                                     <input type="checkbox" 
-                                                          onchange="oppViewType(this, '{{ $dataId }}' )"
-                                                          id="opp_view_type"
-                                                          checked 
-                                                          data-toggle="toggle" 
-                                                          data-on="Publish Anonymously" 
-                                                          data-off="Publish with company Info" 
-                                                          data-width="250" 
-                                                          data-onstyle="success" 
-                                                          data-offstyle="info" 
-                                                          data-style="slow">
+                                                    @if($is_premium)
+                                                      onchange="oppViewType(this, '{{ $dataId }}' )"
+                                                    @else
+                                                      onchange="NotifyToUpgrade('opp_view_type' )"
+                                                    @endif
+
+                                                    @if($dataViewType == 2)
+                                                      checked
+                                                    @endif
+                                                      id="opp_view_type"
+                                                      data-toggle="toggle" 
+                                                      data-off="Publish Anonymously" 
+                                                      data-on="Publish with company Info" 
+                                                      data-width="250" 
+                                                      data-onstyle="success" 
+                                                      data-offstyle="info" 
+                                                      data-style="slow">
                                                 </div>
 
                                             </div>
@@ -1576,13 +1551,26 @@ input::-moz-focus-inner {
 
                     </div>
 
-
-
-                            <?php  
-
-                        } ?>
-
                 <hr>
+
+                    @if(!$is_premium)
+                            <div class="portlet light">
+                                <div class="portlet-body">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-actions" align="right">
+                                                        <a style="margin-right:20px;" href=" {{ route('reportsBuyTokens') }}" class="btn blue"><b>Upgrade to Premium Account Now?</b></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                               <br />
+                            </div>
+                        </div>
+                    </div>
+                    @endif
 
 
 
@@ -1620,18 +1608,33 @@ input::-moz-focus-inner {
 
     <script>
 
-          var avatarFlagStatus = $('#avatar_status').val();
-              if(avatarFlagStatus == 1)
-                 $('#opp_image_avatar').prop('checked', false).change()
-              else
-                 $('#opp_image_avatar').prop('checked', true).change()
+        function NotifyToUpgrade(id){
 
-        var viewTypeFlagStatus = $('#viewtype_value').val();
-              if(viewTypeFlagStatus == 1)
-                 $('#opp_view_type').prop('checked', false).change()
-              else
-                 $('#opp_view_type').prop('checked', true).change()
+            try {
+               $('#'+id).bootstrapToggle('off')  ;
+            }
+            catch (e) {
+                    swal({
+                    title: "This feature is only available on premium members. You want to upgrade to premium?",
+                    text: "You are about to set the view status of this opportunity to be publish with company information!",
+                    icon: "success",
+                    buttons: [
+                      'No, cancel it!',
+                      'Yes, I am sure!'
+                    ],
+                  }).then(function(isConfirm) {
+                      if (isConfirm) {
+                            document.location = "{{ route('reportsBuyTokens') }}"
+                        } else {
 
+                          swal("Cancelled", "Upgrading your account to premium was cancelled :)", "error");
+
+                        }
+
+                  });
+
+            }
+        }
 
         function assignIndustry(id){
              $('#myCarousel').removeClass('tag-required');
@@ -2053,9 +2056,8 @@ if (cookies.test()) {
 
 
     </script>
-
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script src="{{ asset('public/bootstrap-toggle/bootstrap-toggle.js') }}"></script>
 
 
 @endsection
