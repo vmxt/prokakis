@@ -224,8 +224,9 @@
                                                 <li>{{ $bb->ideal_partner_business }}</li>
                                                 @endif
                                                 @if($bb->ideal_partner_base)
-                                                <li>{{ $$bb->ideal_partner_base }}</li>
+                                                <li>{{ $bb->ideal_partner_base }}</li>
                                                 @endif
+                                            </ul>
                                         </td>
                                         <td> <?php echo $bb->timeframe_goal; ?> <br/></td>
                                         

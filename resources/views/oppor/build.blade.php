@@ -25,7 +25,7 @@
 
             padding: 0px;
 
-            overflow-x: hidden;
+            /*overflow-x: hidden;*/
 
         }
 
@@ -263,11 +263,11 @@ input::-moz-focus-inner {
     border: 2px dashed red;
 }
 
-/*.scroll-to-top{
+.scroll-to-top{
     bottom: 50px;
     right: 50px;
 }
-*/
+
     </style>
 
     <link href="{{ asset('public/selectJS/examples/css/normalize.css') }}" rel="stylesheet">

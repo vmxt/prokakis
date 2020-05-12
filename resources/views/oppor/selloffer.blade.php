@@ -262,6 +262,11 @@ input::-moz-focus-inner {
     border: 2px dashed red;
 }
 
+.scroll-to-top{
+    bottom: 50px;
+    right: 50px;
+}
+
     </style>
 
       
