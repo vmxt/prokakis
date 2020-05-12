@@ -11,8 +11,9 @@
 
 <script src="{{ asset('public/js/jaaulde-cookies.js') }}"></script>
 
-   <style>
+  <style>
   .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
+
         html, body {
 
             width: 100%;
@@ -268,7 +269,7 @@ input::-moz-focus-inner {
 
     </style>
 
-
+      
 
     <link href="{{ asset('public/selectJS/examples/css/normalize.css') }}" rel="stylesheet">
 
@@ -278,20 +279,17 @@ input::-moz-focus-inner {
 
     <link href="{{ asset('public/multiselectJS/select2.css') }}" rel="stylesheet">
 
-
-
-
-
     <script src="{{ asset('public/selectJS/examples/js/jquery.min.js') }}"></script>
 
     <script src="{{ asset('public/selectJS/examples/js/jqueryui.js') }}"></script>
 
     <script src="{{ asset('public/selectJS/dist/js/standalone/selectize.js') }}"></script>
 
-    <script src="{{ asset('public/selectJS/examples/js/index.js') }}"></script>
+    <script src="{{ asset('public/selectJS/examples/js/index.js') }}"></script> 
 
     <script src="{{ asset('public/multiselectJS/select2.js') }}"></script> 
 
+   
     <?php 
         $user_id = Auth::id();
         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
@@ -301,7 +299,6 @@ input::-moz-focus-inner {
             $is_premium = true;
         }
     ?>
-
 
     <div class="container">
 
@@ -417,9 +414,11 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="business_goal"><b>Title for this Opportunity </b><span style="color: red; font-weight: bolder;"> *</span></label>
+                                        <label for="business_goal"><b>Title for this Opportunity</b> <span style="color: red; font-weight: bolder;"> *</span> </label>
 
-                                        <input required="required" type="text" class="form-control input-text-form" dataName="opp_title" name="opp_title" id="opp_title" value="<?php if(isset($data->opp_title)){ echo $data->opp_title; } ?>" />
+                                        <input required="required" type="text" class="form-control input-text-form" dataName="opp_title" name="opp_title" id="opp_title" value="<?php if(isset($data->opp_title)){ echo $data->opp_title; }else{echo "";} ?>" />
+
+
 
                                     </div>
 
@@ -433,139 +432,113 @@ input::-moz-focus-inner {
 
                                 <div class="portlet-body">
 
-                                    <div class="form-group">
+                                 
 
                                         <label for="business_goal"><b>Choose a Category</b></label>
 
-                                        <input type="hidden" name="what_sell_offer" id="what_sell_offer"
+                                        <?php 
 
-                                               value="<?php if (isset($data->what_sell_offer) && $data->what_sell_offer == 'product') {
+                                        $wsf_product = '';
 
-                                                   echo $data->what_sell_offer;
+                                        $wsf_service = '';
 
-                                               } ?>">
+                                        $wsf_business = '';
 
-                                        <?php
-
-                                        $wso = array();
-
-                                        if (isset($data->what_sell_offer)) {
-
-                                            $wso = explode(", ", $data->what_sell_offer);
-
-                                        }
+                                        if (isset($data->what_sell_offer) && $data->what_sell_offer != null) {
 
 
+
+                                            $wsf = explode(",",$data->what_sell_offer);
+
+
+
+                                            if(in_array("Product", $wsf)){
+
+                                                $wsf_product = "checked"; 
+
+                                            }
+
+
+
+                                            if(in_array("Service", $wsf)){
+
+                                                $wsf_service = "checked"; 
+
+                                            }
+
+
+
+                                            if(in_array("Business", $wsf)){
+
+                                                $wsf_business = "checked"; 
+
+                                            }
+
+
+
+                                         }
 
                                         ?>
 
-                                      
 
-                                            
 
-                                            <?php 
+                                                <div class="md-checkbox-list">
 
-                                            $wsf_product = '';
 
-                                            $wsf_service = '';
 
-                                            $wsf_business = '';
+                                                    <div class="md-checkbox">
 
-                                            if (isset($data->what_sell_offer) && $data->what_sell_offer != null) {
+                                                        <input type="checkbox" name="checkboxes1[]" value="Product" id="checkbox1_1" class="md-check categoryCheck" <?php echo $wsf_product; ?> >
 
-    
+                                                        <label for="checkbox1_1">
 
-                                                $wsf = explode(",",$data->what_sell_offer);
+                                                            <span class="inc"></span>
 
-    
+                                                            <span class="check"></span>
 
-                                                if(in_array("Product", $wsf)){
+                                                            <span class="box"></span> Product </label>
 
-                                                    $wsf_product = "checked"; 
+                                                    </div>
 
-                                                }
+                                                    <div class="md-checkbox">
 
-    
+                                                        <input type="checkbox" name="checkboxes1[]" value="Service" id="checkbox1_2" class="md-check categoryCheck" <?php echo $wsf_service; ?>>
 
-                                                if(in_array("Service", $wsf)){
+                                                        <label for="checkbox1_2">
 
-                                                    $wsf_service = "checked"; 
+                                                            <span class="inc"></span>
 
-                                                }
+                                                            <span class="check"></span>
 
-    
+                                                            <span class="box"></span> Service </label>
 
-                                                if(in_array("Business", $wsf)){
+                                                    </div>
 
-                                                    $wsf_business = "checked"; 
+                                                    <div class="md-checkbox">
 
-                                                }
+                                                        <input type="checkbox" name="checkboxes1[]" value="Business" id="checkbox1_3" class="md-check categoryCheck" <?php echo $wsf_business; ?>>
 
-    
+                                                        <label for="checkbox1_3">
 
-                                             }
+                                                            <span class="inc"></span>
 
-                                            ?>
+                                                            <span class="check"></span>
 
-    
-
-                                                    <div class="md-checkbox-list">
-
-    
-
-                                                        <div class="md-checkbox">
-
-                                                            <input type="checkbox" name="checkboxes1[]" value="Product" id="checkbox1_1" class="md-check categoryCheck" <?php echo $wsf_product; ?> >
-
-                                                            <label for="checkbox1_1">
-
-                                                                <span class="inc"></span>
-
-                                                                <span class="check"></span>
-
-                                                                <span class="box"></span> Product </label>
-
-                                                        </div>
-
-                                                        <div class="md-checkbox">
-
-                                                            <input type="checkbox" name="checkboxes1[]" value="Service" id="checkbox1_2" class="md-check categoryCheck" <?php echo $wsf_service; ?>>
-
-                                                            <label for="checkbox1_2">
-
-                                                                <span class="inc"></span>
-
-                                                                <span class="check"></span>
-
-                                                                <span class="box"></span> Service </label>
-
-                                                        </div>
-
-                                                        <div class="md-checkbox">
-
-                                                            <input type="checkbox" name="checkboxes1[]" value="Business" id="checkbox1_3" class="md-check categoryCheck" <?php echo $wsf_business; ?>>
-
-                                                            <label for="checkbox1_3">
-
-                                                                <span class="inc"></span>
-
-                                                                <span class="check"></span>
-
-                                                                <span class="box"></span> Business </label>
-
-                                                        </div>
-
-    
+                                                            <span class="box"></span> Business </label>
 
                                                     </div>
 
 
 
+                                                </div>
+
+                                      
 
 
-                                       
 
-                                    </div>
+                                
+
+                                  
 
                                 </div>
 
@@ -585,7 +558,7 @@ input::-moz-focus-inner {
 
                                                 opportunity?</b> <i>(Optional)</i></label>
 
-                                     
+                                      
 
 
 
@@ -637,6 +610,8 @@ input::-moz-focus-inner {
 
 
 
+
+
                                     </div>
 
                                 </div>
@@ -651,21 +626,21 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="intro_describe_business"><b>Brief Introduction of your company</b> </label> <br/>
+                                        <label for="intro_describe_business"><b>Brief introduction of your company</b> </label> <br/>
 
-
-
-                                        <span>Describe your product or services. What do you want to achieve? Who are your
+                                        <span> Describe your product or services. What do you want to achieve? Who are your
 
                                             ideal business partners?</span>
 
-                                        <textarea rows="5" cols="20" class="form-control input-text-form" name="intro_describe_business"  dataName="intro_describe_business"
+                                        <textarea rows="5" cols="20" dataName="intro_describe_business" class="form-control input-text-form" maxlength="500" name="intro_describe_business"
 
                                                   id="intro_describe_business"><?php if (isset($data->intro_describe_business)) {
 
                                                 echo $data->intro_describe_business;
 
                                             } ?></textarea>
+
+                                       
 
 
 
@@ -675,18 +650,11 @@ input::-moz-focus-inner {
 
                                             </div>
 
-
-
-
-
-                                   
-
                                     </div>
 
                                 </div>
 
                             </div>
-
 
 
                             <div class="portlet light">
@@ -733,11 +701,9 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="timeframe_goal"><b>Timeframe</b>
+                                        <label for="timeframe_goal"><b> Timeframe </b>
 
-
-
-                                            
+                                           
 
                                             <div class="md-radio-list">
 
@@ -745,7 +711,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="radioKS" value="Less than 1 year" name="timeFrame" class="md-radiobtn input-radio-form" dataName="timeframe_goal" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  }else{echo 'checked';} ?>>
+                                                    <input type="radio" id="radioKS" value="Less than 1 year" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  } ?>>
 
                                                     <label for="radioKS">
 
@@ -763,7 +729,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="radioBR" value="1 year to 3 years" name="timeFrame" class="md-radiobtn input-radio-form" dataName="timeframe_goal"" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == '1 year to 3 years'){ echo 'checked';  } ?>>
+                                                    <input type="radio" id="radioBR" value="1 year to 3 years" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == '1 year to 3 years'){ echo 'checked';  } ?>>
 
                                                     <label for="radioBR">
 
@@ -781,7 +747,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="radioPR" value="More than 3 years" name="timeFrame" class="md-radiobtn input-radio-form" dataName="timeframe_goal"" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'More than 3 years'){ echo 'checked';  } ?>>
+                                                    <input type="radio" id="radioPR" value="More than 3 years" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'More than 3 years'){ echo 'checked';  } ?>>
 
                                                     <label for="radioPR">
 
@@ -799,7 +765,13 @@ input::-moz-focus-inner {
 
                                             </div>
 
+                                   
 
+
+
+
+
+                                        </div>
 
                                     </div>
 
@@ -817,7 +789,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="approx_large"><b>What is the value of this Opportunity? </b> <i>(Optional)</i></label>
+                                        <label for="approx_large"><b>What is the value of this Opportunity</b> <i>(Optional)</i></label>
 
                                         <select class="form-control input-select-form" id="approx_large" name="approx_large" dataName='approx_large'>
 
@@ -867,7 +839,7 @@ input::-moz-focus-inner {
 
 
 
-                            <center> Tell us what kind of partner you are looking for? </center>
+                          <center> Tell us what kind of partner you are looking for? </center>
 
                             <div class="portlet light" style="margin-top: 10px;">
 
@@ -875,17 +847,21 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
+
+
                                         <label for="ideal_partner_base"><b>(Indicate the location of your ideal partners)</b> Type and click to add Countries </label>
 
-                                        <select class="form-control" id="ideal_partner_base" dataName="ideal_partner_base"
+                                        <select class="form-control" id="ideal_partner_base"  dataName="ideal_partner_base"
 
                                                 name="ideal_partner_base[]" multiple="multiple">
+
+                                        <!-- <select class="js-example-basic-multiple"  name="states[]" multiple="multiple"> -->
 
                                             <option value="" id="">Please select the following</option>
 
                                             <?php
 
-                                            if(isset($data->ideal_partner_base)){
+                                            if(isset($data->ideal_partner_base) ){
 
                                                 $listPartnerBase = explode(",",$data->ideal_partner_base);
 
@@ -907,13 +883,17 @@ input::-moz-focus-inner {
 
                                             <option
 
-                                                <?php echo $selected; ?> value="<?php echo $c->country_name; ?>"><?php echo $c->country_name; ?></option>
+                                                <?php echo $selected; ?> value="<?php echo $c->country_name  ?>"><?php echo $c->country_name; ?>
+
+                                            </option>
 
                                             <?php }  ?>
 
 
 
                                         </select>
+
+
 
                                     </div>
 
@@ -933,7 +913,7 @@ input::-moz-focus-inner {
 
                                         <label for="ideal_partner_business"><b>Choose the ideal partner/s (You can choose more than 1 option)</b></label> <br/>
 
-                                        
+                                    
 
                                         <?php
 
@@ -1078,8 +1058,6 @@ input::-moz-focus-inner {
 
 
                                         ?>
-
-                                        
 
                                         <div class="row">
 
@@ -1279,7 +1257,7 @@ input::-moz-focus-inner {
 
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes2[]" value="Any_business_type" id="checkbox2_13" class="md-check partnersCheck" <?php echo $Any_business_type; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Any_business_type" id="checkbox2_13" class="md-check  partnersCheck" <?php echo $Any_business_type; ?>>
 
                                                     <label for="checkbox2_13">
 
@@ -1298,12 +1276,6 @@ input::-moz-focus-inner {
 
 
                                         </div>
-
-  
-
-                                    
-
-                                        
 
 
 
@@ -1331,11 +1303,7 @@ input::-moz-focus-inner {
 
                                         <div class="input-group mb-3">
 
-                                            <!-- <div class="input-group-prepend">
-
-                                               <span class="input-group-text">@</span>
-
-                                             </div>-->
+                                         
 
                                             <div class="input-group-append">
 
@@ -1343,7 +1311,7 @@ input::-moz-focus-inner {
 
                                             </div>
 
-                                            <input type="text" placeholder="Type and click to add keyword"
+                                            <input type="text" placeholder="Type and click to add Keywords"
 
                                                    class="form-control input-tags demo-default"
 
@@ -1362,6 +1330,7 @@ input::-moz-focus-inner {
                                 </div>
 
                             </div>
+
 
                             <div class="portlet light">
 
@@ -1411,6 +1380,16 @@ input::-moz-focus-inner {
 
                                             </div>
 
+
+
+
+
+                                            <!--<div class="input-group-append">
+
+                                                <span class="input-group-text">Enter Keywords</span>
+
+                                            </div> -->
+
                                         </div>
 
                                     </div>
@@ -1427,7 +1406,7 @@ input::-moz-focus-inner {
                                             <div class='col-sm-12'>
                                                 <div id="myCarousel" class="row carousel slide" data-interval="false">
                                                     <div class="carousel-inner">
-                                                    @if( isset($data->industry) )   
+                                                    @if( isset($data->industry) )    
                                                         <input type="hidden" id="opp_industry" name="opp_industry" value="{{ $data->industry }}">
                                                     @else
                                                         <input type="hidden" id="opp_industry" name="opp_industry" value="0">
@@ -1436,7 +1415,7 @@ input::-moz-focus-inner {
                                                         $groupSize = 4;
                                                         $initCarousel = '';
                                                         $setActive = 0;
-                                                        if( isset($data->industry) ){
+                                                        if( isset( $data->industry) ){
                                                             $setActive = floor( $data->industry / $groupSize );
                                                         }
                                                         $numItems = $industry_list->count();
@@ -1492,7 +1471,7 @@ input::-moz-focus-inner {
                                 </div>
 
                             </div>
-                      
+
                                <div class="portlet light">
 
                                 <div class="portlet-body">
@@ -1539,11 +1518,10 @@ input::-moz-focus-inner {
 
                                             </div>
 
+
                                         </div>
 
-                                        <br />
-
-                               <br />
+                                           <br />
 
                                 <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
 
@@ -1585,7 +1563,7 @@ input::-moz-focus-inner {
 
                     </div>
 
-                     <hr>
+                <hr>
 
                     @if(!$is_premium)
                             <div class="portlet light">
@@ -1607,13 +1585,13 @@ input::-moz-focus-inner {
                     @endif
 
 
+
                             <div class="form-actions" align="right">
                                 <a style="margin-right:20px;" onclick="clearForm()" class="btn btn-info">Clear Form</a>
-
+                                
                                 <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn red">Cancel</a>
 
-
-
+                                       
                                 <input id="saveButtonBuilding" type="submit"
 
                                 class="btn btn-success" value="Submit Opportunity"/>
@@ -1631,6 +1609,8 @@ input::-moz-focus-inner {
         </div>
 
     </div>
+
+
 
 
 

@@ -11,8 +11,7 @@
 
 <script src="{{ asset('public/js/jaaulde-cookies.js') }}"></script>
 
-    <style>
-
+  <style>
   .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
 
         html, body {
@@ -270,6 +269,8 @@ input::-moz-focus-inner {
 
     </style>
 
+      
+
     <link href="{{ asset('public/selectJS/examples/css/normalize.css') }}" rel="stylesheet">
 
     <link href="{{ asset('public/selectJS/examples/css/stylesheet.css') }}" rel="stylesheet">
@@ -284,10 +285,11 @@ input::-moz-focus-inner {
 
     <script src="{{ asset('public/selectJS/dist/js/standalone/selectize.js') }}"></script>
 
-    <script src="{{ asset('public/selectJS/examples/js/index.js') }}"></script>
+    <script src="{{ asset('public/selectJS/examples/js/index.js') }}"></script> 
 
     <script src="{{ asset('public/multiselectJS/select2.js') }}"></script> 
 
+   
     <?php 
         $user_id = Auth::id();
         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
@@ -390,13 +392,7 @@ input::-moz-focus-inner {
 
                     <div class="card">
 
-
-
-                        <div class="card-header">
-
-                            <center><b>ADD A GOAL</b></center>
-
-                        </div>
+                        <div class="card-header"><center>  <b>ADD A GOAL</b></center></div>
 
                         <div class="card-body center">
 
@@ -409,8 +405,6 @@ input::-moz-focus-inner {
                                 echo $data->id;
 
                             } ?>">
-
-
 
 
 
@@ -528,7 +522,9 @@ input::-moz-focus-inner {
 
                                                 opportunity?</b> <i>(Optional)</i></label>
 
-                                     
+                                      
+
+
 
                                             <div class="md-radio-list">
 
@@ -544,19 +540,19 @@ input::-moz-focus-inner {
 
                                                         <span class="check"></span>
 
-                                                        <span class="box"></span> <b>Consumers(B2C) </b> <br />
+                                                        <span class="box"></span> <b> Consumers(B2C) </b> <br />
 
-                                                    </label>
+ </label>
 
                                                 </div>
 
-    
+
 
                                                 <div class="md-radio">
 
-                                                    <input type="radio" id="audienceTarget2" datavalue='2' value="Business(B2B)" name="audienceTarget" dataName="audience_target" class="md-radiobtn input-radio-form" <?php if(isset($data->audience_target) && $data->audience_target == 'Business(B2B)'){ echo 'checked';  } ?>>
+                                                      <input type="radio" id="audienceTarget2" datavalue='2' value="Business(B2B)" name="audienceTarget" dataName="audience_target" class="md-radiobtn input-radio-form" <?php if(isset($data->audience_target) && $data->audience_target == 'Business(B2B)'){ echo 'checked';  } ?>>
 
-                                                    <label for="audienceTarget2">
+                                                    <label for="business">
 
                                                         <span></span>
 
@@ -564,13 +560,17 @@ input::-moz-focus-inner {
 
                                                         <span class="box"></span> <b>Business(B2B)</b> <br />
 
-                                                    </label>
+ </label>
 
                                                 </div>
 
-    
 
-                                            </div>     
+
+                                      
+
+
+
+                                            </div>
 
 
 
@@ -592,17 +592,19 @@ input::-moz-focus-inner {
 
                                         <label for="intro_describe_business"><b>Brief Introduction of your company</b> </label> <br/>
 
-                                        <span>Describe your product or services. What do you want to achieve? Who are your
+                                        <span> Describe your product or services. What do you want to achieve? Who are your
 
                                             ideal business partners?</span>
 
-                                        <textarea rows="5" cols="20" dataName="intro_describe_business"  maxlength="500" class="form-control input-text-form" name="intro_describe_business"
+                                        <textarea rows="5" cols="20" dataName="intro_describe_business"  class="form-control input-text-form" maxlength="500" name="intro_describe_business"
 
                                                   id="intro_describe_business"><?php if (isset($data->intro_describe_business)) {
 
                                                 echo $data->intro_describe_business;
 
                                             } ?></textarea>
+
+                                       
 
 
 
@@ -612,15 +614,11 @@ input::-moz-focus-inner {
 
                                             </div>
 
-                                       
-
                                     </div>
 
                                 </div>
 
                             </div>
-
-
 
 
 
@@ -662,81 +660,69 @@ input::-moz-focus-inner {
 
 
 
-
-
                             <div class="portlet light">
 
-                                    <div class="portlet-body">
+                                <div class="portlet-body">
 
-                                        <div class="form-group">
+                                    <div class="form-group">
 
-                                            <label for="timeframe_goal"><b>Timeframe</b>
-
-                                                </label> 
-
-                                            <div class="row" style="padding-left:20px;">
+                                        <label for="timeframe_goal"><b> Timeframe </b>
 
                                            
 
-
-
-                                                <div class="md-radio-list">
+                                            <div class="md-radio-list">
 
 
 
-                                                    <div class="md-radio">
+                                                <div class="md-radio">
 
-                                                        <input type="radio" id="radioKS" dataValue='radioKS' value="Less than 1 year" dataName="timeframe_goal" name="timeFrame" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  }else{echo 'checked';} ?>>
+                                                    <input type="radio" id="radioKS" dataValue='radioKS' value="Less than 1 year" dataName="timeframe_goal" name="timeFrame" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'Less than 1 year'){ echo 'checked';  }else{echo 'checked';} ?>>
 
-                                                        <label for="radioKS">
+                                                    <label for="radioKS">
 
-                                                            <span></span>
+                                                        <span></span>
 
-                                                            <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                            <span class="box"></span> <b> Less than 1 year </b> <br />
+                                                        <span class="box"></span> <b> Less than 1 year </b> <br />
 
-     </label>
+ </label>
 
-                                                    </div>
+                                                </div>
 
-    
 
-                                                    <div class="md-radio">
 
-                                                        <input type="radio" id="radioBR" dataValue='radioBR' value="1 year to 3 years" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == '1 year to 3 years'){ echo 'checked';  } ?>>
+                                                <div class="md-radio">
 
-                                                        <label for="radioBR">
+                                                    <input type="radio" id="radioBR" dataValue='radioBR' value="1 year to 3 years" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == '1 year to 3 years'){ echo 'checked';  } ?>>
+                                                        
+                                                    <label for="radioBR">
 
-                                                            <span></span>
+                                                        <span></span>
 
-                                                            <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                            <span class="box"></span> <b>1 year to 3 years</b> <br />
+                                                        <span class="box"></span> <b>1 year to 3 years</b> <br />
 
-     </label>
+ </label>
 
-                                                    </div>
+                                                </div>
 
-    
 
-                                                    <div class="md-radio">
 
-                                                        <input type="radio" id="radioPR" dataValue='radioPR' value="More than 3 years" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'More than 3 years'){ echo 'checked';  } ?>>
+                                                <div class="md-radio">
 
-                                                        <label for="radioPR">
+                                                    <input type="radio" id="radioPR" dataValue='radioPR' value="More than 3 years" name="timeFrame" dataName="timeframe_goal" class="md-radiobtn input-radio-form" <?php if(isset($data->timeframe_goal) && $data->timeframe_goal == 'More than 3 years'){ echo 'checked';  } ?>>
+                                                        
+                                                    <label for="radioPR">
 
-                                                            <span></span>
+                                                        <span></span>
 
-                                                            <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                            <span class="box"></span> <b> More than 3 years </b> <br />
+                                                        <span class="box"></span> <b> More than 3 years </b> <br />
 
-     </label>
-
-                                                    </div>
-
-    
+ </label>
 
                                                 </div>
 
@@ -744,11 +730,21 @@ input::-moz-focus-inner {
 
                                             </div>
 
+                                   
+
+
+
+
+
                                         </div>
 
                                     </div>
 
                                 </div>
+
+                            </div>
+
+
 
 
 
@@ -758,7 +754,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="approx_large "><b>What is the value of this Opportunity?</b> <i>(Optional)</i></label>
+                                        <label for="approx_large"><b>What is the value of this Opportunity? </b> <i>(Optional)</i></label>
 
                                         <select class="form-control input-select-form" id="approx_large" name="approx_large" dataName='approx_large'>
 
@@ -796,25 +792,19 @@ input::-moz-focus-inner {
 
                     </div>
 
-                    <hr>
-
-
+                    <br/>
 
 
 
                     <div class="card">
 
-                        <div class="card-header">
-
-                            <center><b>ADD PARAMETERS</b></center>
-
-                        </div>
+                        <div class="card-header"><center><b>ADD PARAMETERS</b></center></div>
 
                         <div class="card-body center">
 
 
 
-                            <center>Tell us what kind of partner you are looking for?</center>
+                          <center> Tell us what kind of partner you are looking for? </center>
 
                             <div class="portlet light" style="margin-top: 10px;">
 
@@ -822,24 +812,20 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="ideal_partner_base"><b>(Indicate the location of your ideal partners)</b> Type and click to add Countries </label> <br/>
-                                        <?php 
-                                        $oppo_id = 0;
-                                        if(isset($data->id)){
-                                            $oppo_id = $data->id;
-                                        }
-                                        ?>
-                                        <select  class="form-control " dataName="ideal_partner_base" id="ideal_partner_base"
+
+
+                                        <label for="ideal_partner_base"><b>(Indicate the location of your ideal partners)</b> Type and click to add Countries </label>
+
+                                        <select class="form-control" id="ideal_partner_base"  dataName="ideal_partner_base"
 
                                                 name="ideal_partner_base[]" multiple="multiple">
 
+
                                             <option value="" id="">Please select the following</option>
 
+                                            <?php
 
-
-                                            <?php 
-
-                                            if(isset($data->ideal_partner_base)){
+                                            if(isset($data->ideal_partner_base) ){
 
                                                 $listPartnerBase = explode(",",$data->ideal_partner_base);
 
@@ -847,27 +833,25 @@ input::-moz-focus-inner {
 
                                             foreach($country_list as $c){
 
-                                            if (isset($data->ideal_partner_base) && in_array( $c->country_name , $listPartnerBase) ) {
+                                                if (isset($data->ideal_partner_base) && in_array( $c->country_name , $listPartnerBase) ) {
 
-                                                $selected = 'selected';
+                                                    $selected = 'selected';
 
-                                            } else {
+                                                } else {
 
-                                                $selected = '';
+                                                    $selected = '';
 
-                                            }
+                                                }
 
                                             ?>
 
                                             <option
 
-                                                <?php echo $selected; ?> value="<?php echo $c->country_name ?>"><?php echo $c->country_name; ?>
+                                                <?php echo $selected; ?> value="<?php echo $c->country_name  ?>"><?php echo $c->country_name; ?>
 
                                             </option>
 
                                             <?php }  ?>
-
-
 
                                         </select>
 
@@ -889,363 +873,363 @@ input::-moz-focus-inner {
 
                                         <label for="ideal_partner_business"><b>Choose the ideal partner/s (You can choose more than 1 option)</b></label> <br/>
 
-                                     
-
-                                    <?php
-
-
-
-                                    $ipb = array();
-
-                                    $Consultant = '';
-
-                                    $Constructor = '';
-
-                                    $Distributor = '';
-
-                                    $Holding_Company_Investments = '';
-
-                                    $Import_Export = '';
-
-                                    $Manufacturer = '';
-
-                                    $Non_Profit = '';
-
-                                    $Retailer = '';
-
-                                    $Service_Provider = '';
-
-                                    $Warehouse_and_Logisitcs = '';
-
-                                    $Wholesaler = '';
-
-                                    $Institution = '';
-
-                                    $Any_business_type = '';
-
-
-
-                                    if (isset($data->ideal_partner_business) && $data->ideal_partner_business != null ) {
-
-                                        
-
-                                        $ipb = explode(",", $data->ideal_partner_business);
-
-
-
-                                        if(in_array("Consultant", $ipb)){
-
-                                            $Consultant = "checked"; 
-
-                                        }
-
-                                        if(in_array("Constructor", $ipb)){
-
-                                            $Constructor = "checked"; 
-
-                                        }
-
-                                        if(in_array("Distributor", $ipb)){
-
-                                            $Distributor = "checked"; 
-
-                                        }
-
-                                        if(in_array("Distributor", $ipb)){
-
-                                            $Distributor = "checked"; 
-
-                                        }
-
-
-
-                                        if(in_array("Holding_Company_Investments", $ipb)){
-
-                                            $Holding_Company_Investments = "checked"; 
-
-                                        }
-
-                                        
-
-                                        if(in_array("Import_Export", $ipb)){
-
-                                            $Import_Export = "checked"; 
-
-                                        }
-
-
-
-                                        if(in_array("Manufacturer", $ipb)){
-
-                                            $Manufacturer = "checked"; 
-
-                                        }
-
-                                        
-
-                                        if(in_array("Non_Profit", $ipb)){
-
-                                            $Non_Profit = "checked"; 
-
-                                        }
-
-                                        
-
-                                        if(in_array("Retailer", $ipb)){
-
-                                            $Retailer = "checked"; 
-
-                                        }
-
-                                        if(in_array("Service_Provider", $ipb)){
-
-                                            $Service_Provider = "checked"; 
-
-                                        }
-
-
-
-                                        if(in_array("Warehouse_and_Logisitcs", $ipb)){
-
-                                            $Warehouse_and_Logisitcs = "checked"; 
-
-                                        }
-
-                                        if(in_array("Wholesaler", $ipb)){
-
-                                            $Wholesaler = "checked"; 
-
-                                        }
-
-                                        if(in_array("Institution", $ipb)){
-
-                                            $Institution = "checked"; 
-
-                                        }
-
-                                        if(in_array("Any_business_type", $ipb)){
-
-                                            $Any_business_type = "checked"; 
-
-                                        }
-
                                     
 
-                                    }
+                                        <?php
 
-                                
+                                        $ipb = array();
 
-                                    ?>
+                                        $Consultant = '';
+
+                                        $Constructor = '';
+
+                                        $Distributor = '';
+
+                                        $Holding_Company_Investments = '';
+
+                                        $Import_Export = '';
+
+                                        $Manufacturer = '';
+
+                                        $Non_Profit = '';
+
+                                        $Retailer = '';
+
+                                        $Service_Provider = '';
+
+                                        $Warehouse_and_Logisitcs = '';
+
+                                        $Wholesaler = '';
+
+                                        $Institution = '';
+
+                                        $Any_business_type = '';
 
 
 
-                                    <div class="row">
+                                        if (isset($data->ideal_partner_business) && $data->ideal_partner_business != null ) {
+
+                                            
+
+                                            $ipb = explode(",", $data->ideal_partner_business);
+
+
+
+                                            if(in_array("Consultant", $ipb)){
+
+                                                $Consultant = "checked"; 
+
+                                            }
+
+                                            if(in_array("Constructor", $ipb)){
+
+                                                $Constructor = "checked"; 
+
+                                            }
+
+                                            if(in_array("Distributor", $ipb)){
+
+                                                $Distributor = "checked"; 
+
+                                            }
+
+                                            if(in_array("Distributor", $ipb)){
+
+                                                $Distributor = "checked"; 
+
+                                            }
+
+
+
+                                            if(in_array("Holding_Company_Investments", $ipb)){
+
+                                                $Holding_Company_Investments = "checked"; 
+
+                                            }
+
+                                            
+
+                                            if(in_array("Import_Export", $ipb)){
+
+                                                $Import_Export = "checked"; 
+
+                                            }
+
+
+
+                                            if(in_array("Manufacturer", $ipb)){
+
+                                                $Manufacturer = "checked"; 
+
+                                            }
+
+                                            
+
+                                            if(in_array("Non_Profit", $ipb)){
+
+                                                $Non_Profit = "checked"; 
+
+                                            }
+
+                                            
+
+                                            if(in_array("Retailer", $ipb)){
+
+                                                $Retailer = "checked"; 
+
+                                            }
+
+                                            if(in_array("Service_Provider", $ipb)){
+
+                                                $Service_Provider = "checked"; 
+
+                                            }
+
+
+
+                                            if(in_array("Warehouse_and_Logisitcs", $ipb)){
+
+                                                $Warehouse_and_Logisitcs = "checked"; 
+
+                                            }
+
+                                            if(in_array("Wholesaler", $ipb)){
+
+                                                $Wholesaler = "checked"; 
+
+                                            }
+
+                                            if(in_array("Institution", $ipb)){
+
+                                                $Institution = "checked"; 
+
+                                            }
+
+                                            if(in_array("Any_business_type", $ipb)){
+
+                                                $Any_business_type = "checked"; 
+
+                                            }
+
+                                        
+
+                                        }
+
+
+
+                                        ?>
+
+                                        <div class="row">
 
                                           
 
-                                        <div class="md-checkbox-list" style="padding-left:20px;">
+                                            <div class="md-checkbox-list" style="padding-left:20px;">
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Consultant" id="checkbox2_1" class="md-check partnersCheck" <?php echo $Consultant; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Consultant" id="checkbox2_1" class="md-check partnersCheck" <?php echo $Consultant; ?>>
 
-                                                <label for="checkbox2_1">
+                                                    <label for="checkbox2_1">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Consultant </label>
+                                                        <span class="box"></span> Consultant </label>
 
-                                            </div>
+                                                </div>
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Constructor" id="checkbox2_2" class="md-check partnersCheck" <?php echo $Constructor; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Constructor" id="checkbox2_2" class="md-check partnersCheck" <?php echo $Constructor; ?>>
 
-                                                <label for="checkbox2_2">
+                                                    <label for="checkbox2_2">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Constructor </label>
+                                                        <span class="box"></span> Constructor </label>
 
-                                            </div>
+                                                </div>
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Distributor" id="checkbox2_3" class="md-check partnersCheck" <?php echo $Distributor; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Distributor" id="checkbox2_3" class="md-check partnersCheck" <?php echo $Distributor; ?>>
 
-                                                <label for="checkbox2_3">
+                                                    <label for="checkbox2_3">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Distributor </label>
+                                                        <span class="box"></span> Distributor </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Holding_Company_Investments" id="checkbox2_4" class="md-check partnersCheck" <?php echo $Holding_Company_Investments; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Holding_Company_Investments" id="checkbox2_4" class="md-check partnersCheck" <?php echo $Holding_Company_Investments; ?>>
 
-                                                <label for="checkbox2_4">
+                                                    <label for="checkbox2_4">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Holding Company/Investments </label>
+                                                        <span class="box"></span> Holding Company/Investments </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Import_Export" id="checkbox2_5" class="md-check partnersCheck" <?php echo $Import_Export; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Import_Export" id="checkbox2_5" class="md-check partnersCheck" <?php echo $Import_Export; ?>>
 
-                                                <label for="checkbox2_5">
+                                                    <label for="checkbox2_5">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Import / Export </label>
+                                                        <span class="box"></span> Import / Export </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Manufacturer" id="checkbox2_6" class="md-check partnersCheck" <?php echo $Manufacturer; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Manufacturer" id="checkbox2_6" class="md-check partnersCheck" <?php echo $Manufacturer; ?>>
 
-                                                <label for="checkbox2_6">
+                                                    <label for="checkbox2_6">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Manufacturer </label>
+                                                        <span class="box"></span> Manufacturer </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Non_Profit" id="checkbox2_7" class="md-check partnersCheck" <?php echo $Non_Profit; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Non_Profit" id="checkbox2_7" class="md-check partnersCheck" <?php echo $Non_Profit; ?>>
 
-                                                <label for="checkbox2_7">
+                                                    <label for="checkbox2_7">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Non-Profit </label>
+                                                        <span class="box"></span> Non-Profit </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Retailer" id="checkbox2_8" class="md-check partnersCheck" <?php echo $Retailer; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Retailer" id="checkbox2_8" class="md-check partnersCheck" <?php echo $Retailer; ?>>
 
-                                                <label for="checkbox2_8">
+                                                    <label for="checkbox2_8">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Retailer </label>
+                                                        <span class="box"></span> Retailer </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Service_Provider" id="checkbox2_9" class="md-check partnersCheck" <?php echo $Service_Provider; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Service_Provider" id="checkbox2_9" class="md-check partnersCheck" <?php echo $Service_Provider; ?>>
 
-                                                <label for="checkbox2_9">
+                                                    <label for="checkbox2_9">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Service Provider </label>
+                                                        <span class="box"></span> Service Provider </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Warehouse_and_Logisitcs" id="checkbox2_10" class="md-check partnersCheck" <?php echo $Warehouse_and_Logisitcs; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Warehouse_and_Logisitcs" id="checkbox2_10" class="md-check partnersCheck" <?php echo $Warehouse_and_Logisitcs; ?>>
 
-                                                <label for="checkbox2_10">
+                                                    <label for="checkbox2_10">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Warehouse and Logisitcs </label>
+                                                        <span class="box"></span> Warehouse and Logisitcs </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Wholesaler" id="checkbox2_11" class="md-check partnersCheck" <?php echo $Wholesaler; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Wholesaler" id="checkbox2_11" class="md-check partnersCheck" <?php echo $Wholesaler; ?>>
 
-                                                <label for="checkbox2_11">
+                                                    <label for="checkbox2_11">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Wholesaler </label>
+                                                        <span class="box"></span> Wholesaler </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Institution" id="checkbox2_12" class="md-check partnersCheck" <?php echo $Institution; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Institution" id="checkbox2_12" class="md-check partnersCheck" <?php echo $Institution; ?>>
 
-                                                <label for="checkbox2_12">
+                                                    <label for="checkbox2_12">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Institution </label>
+                                                        <span class="box"></span> Institution </label>
 
-                                            </div>
+                                                </div>
 
 
 
-                                            <div class="md-checkbox">
+                                                <div class="md-checkbox">
 
-                                                <input type="checkbox" name="checkboxes2[]" value="Any_business_type" id="checkbox2_13" class="md-check partnersCheck" <?php echo $Any_business_type; ?>>
+                                                    <input type="checkbox" name="checkboxes2[]" value="Any_business_type" id="checkbox2_13" class="md-check  partnersCheck" <?php echo $Any_business_type; ?>>
 
-                                                <label for="checkbox2_13">
+                                                    <label for="checkbox2_13">
 
-                                                    <span class="inc"></span>
+                                                        <span class="inc"></span>
 
-                                                    <span class="check"></span>
+                                                        <span class="check"></span>
 
-                                                    <span class="box"></span> Any business type </label>
+                                                        <span class="box"></span> Any business type </label>
+
+                                                </div>
+
+
 
                                             </div>
 
@@ -1257,21 +1241,9 @@ input::-moz-focus-inner {
 
                                     </div>
 
-
-
-                                   
-
-
-
-
-
-                                    </div>
-
                                 </div>
 
                             </div>
-
-
 
 
 
@@ -1289,47 +1261,27 @@ input::-moz-focus-inner {
 
 
 
-                                        <div class="input-group">
+                                        <div class="input-group mb-3">
 
-                                            <!-- <div class="input-group-prepend">
+                                         
 
-                                               <span class="input-group-text">@</span>
-
-                                             </div>-->
-
-                                            <div class="row">
-
-                                                <div class="col-sm-12">
-
-                                                    <input type="text" placeholder="Type and click to add keyword"
-
-                                                           class="form-control input-tags demo-default"
-
-                                                           id="relevant_describing_partner"
-
-                                                           name="relevant_describing_partner"
-
-                                                           value="<?php if (isset($data->relevant_describing_partner)) {
-
-                                                               echo $data->relevant_describing_partner;
-
-                                                           } ?>" style="width: 100%;"
-
-                                                    >
-
-                                                </div>
-
-                                            </div>
-
-
-
-
-
-                                            <!--<div class="input-group-append">
+                                            <div class="input-group-append">
 
                                                 <span class="input-group-text">Enter Keywords</span>
 
-                                            </div> -->
+                                            </div>
+
+                                            <input type="text" placeholder="Type and click to add Keywords"
+
+                                                   class="form-control input-tags demo-default"
+
+                                                   id="relevant_describing_partner" name="relevant_describing_partner"
+
+                                                   value="<?php if (isset($data->relevant_describing_partner)) {
+
+                                                       echo $data->relevant_describing_partner;
+
+                                                   } ?>">
 
                                         </div>
 
@@ -1406,16 +1358,15 @@ input::-moz-focus-inner {
 
                             </div>
 
-
-                             <div class="portlet2 light2">
+                            <div class="portlet2 light2">
 
                                 <div class="portlet-body">
                                         <label for="opp_industry"><b>Please select what kind of Industry</b><span style="color: red; font-weight: bolder;"> *</span> </label>
                                         <div class='row'>
                                             <div class='col-sm-12'>
-                                                <div id="myCarousel" class="row carousel slide " data-interval="false">
+                                                <div id="myCarousel" class="row carousel slide" data-interval="false">
                                                     <div class="carousel-inner">
-                                                    @if(isset($data->industry) )    
+                                                    @if( isset($data->industry) )    
                                                         <input type="hidden" id="opp_industry" name="opp_industry" value="{{ $data->industry }}">
                                                     @else
                                                         <input type="hidden" id="opp_industry" name="opp_industry" value="0">
@@ -1424,7 +1375,7 @@ input::-moz-focus-inner {
                                                         $groupSize = 4;
                                                         $initCarousel = '';
                                                         $setActive = 0;
-                                                        if(isset( $data->industry) ){
+                                                        if( isset( $data->industry) ){
                                                             $setActive = floor( $data->industry / $groupSize );
                                                         }
                                                         $numItems = $industry_list->count();
@@ -1481,97 +1432,100 @@ input::-moz-focus-inner {
 
                             </div>
 
-                                           <div class="portlet light">
+                               <div class="portlet light">
 
-                                            <div class="portlet-body">
+                                <div class="portlet-body">
 
-                                                <div class="form-group">
+                                    <div class="form-group">
 
-                                                    <div class="input-group">
+                                        <div class="input-group">
 
-                                                        <div class="row">
-                                                            <?php 
-                                                                if(isset($data->id)){
-                                                                    $dataId = $data->id;
-                                                                }else{
-                                                                    $dataId = 0;
-                                                                }
+                                            <div class="row">
+                                                <?php 
+                                                    if(isset($data->id)){
+                                                        $dataId = $data->id;
+                                                    }else{
+                                                        $dataId = 0;
+                                                    }
 
-                                                                if(isset( $data->view_type )){
-                                                                    $dataViewType = $data->view_type;
-                                                                }else{
-                                                                    $dataViewType = 1;
-                                                                }
-                                                            ?>
-                                                            <div class="col-sm-12">
-                                                                <input type="hidden" name="viewtype_value" id="viewtype_value" value="{{ $dataViewType }}">
-                                                                <input type="checkbox" 
-                                                                    @if($is_premium)
-                                                                      onchange="oppViewType(this, '{{ $dataId }}' )"
-                                                                    @else
-                                                                      onchange="NotifyToUpgrade('opp_view_type' )"
-                                                                    @endif
+                                                    if(isset( $data->view_type )){
+                                                        $dataViewType = $data->view_type;
+                                                    }else{
+                                                        $dataViewType = 1;
+                                                    }
+                                                ?>
+                                                <div class="col-sm-12">
+                                                    <input type="hidden" name="viewtype_value" id="viewtype_value" value="{{ $dataViewType }}">
+                                                    <input type="checkbox" 
+                                                    @if($is_premium)
+                                                      onchange="oppViewType(this, '{{ $dataId }}' )"
+                                                    @else
+                                                      onchange="NotifyToUpgrade('opp_view_type' )"
+                                                    @endif
 
-                                                                    @if($dataViewType == 2)
-                                                                      checked
-                                                                    @endif
-                                                                      id="opp_view_type"
-                                                                      data-toggle="toggle" 
-                                                                      data-off="Publish Anonymously" 
-                                                                      data-on="Publish with company Info" 
-                                                                      data-width="250" 
-                                                                      data-onstyle="success" 
-                                                                      data-offstyle="info" 
-                                                                      data-style="slow">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                           <br />
-
-                                            <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
-
-                                            <strong>Publish Anonymously -</strong>  For those who want discretion when finding a strategic partner. 
-
-                                            This option will be published in the Explore Page without Company Name and Profile. 
-
-                                            Partner who wish to find out more information about your company will have to connect with you by clicking "Interested". 
-
-                                            You will receive a notification of the company who wish to link up with you. 
-
-                                            </p>
+                                                    @if($dataViewType == 2)
+                                                      checked
+                                                    @endif
+                                                      id="opp_view_type"
+                                                      data-toggle="toggle" 
+                                                      data-off="Publish Anonymously" 
+                                                      data-on="Publish with company Info" 
+                                                      data-width="250" 
+                                                      data-onstyle="success" 
+                                                      data-offstyle="info" 
+                                                      data-style="slow">
+                                                </div>
 
                                             </div>
-
-
-
-                                            <div class="alert alert-success" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
-
-                                                <strong>Publish with Company Info -</strong>  For those who want to sell their products/services or want to get more exposure 
-
-                                                when finding a strategic partner. This option will be published in the Explore Page with your company name and profile 
-
-                                                to the users and extend your digital presence. By building digital presence in ProKakis, you are building a branding as a legitimate 
-
-                                                company that is open for Business Connection.
-
-                                                    </p>
-
-                                            </div>
-
-
-
 
 
                                         </div>
 
-                                    </div>
+                                           <br />
+
+                                <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
+
+                                <strong>Publish Anonymously -</strong>  For those who want discretion when finding a strategic partner. 
+
+                                This option will be published in the Explore Page without Company Name and Profile. 
+
+                                Partner who wish to find out more information about your company will have to connect with you by clicking "Interested". 
+
+                                You will receive a notification of the company who wish to link up with you. 
+
+                                </p>
 
                                 </div>
 
-                            <hr>
 
-                            @if(!$is_premium)
+
+                                <div class="alert alert-success" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
+
+                                    <strong>Publish with Company Info -</strong>  For those who want to sell their products/services or want to get more exposure 
+
+                                    when finding a strategic partner. This option will be published in the Explore Page with your company name and profile 
+
+                                    to the users and extend your digital presence. By building digital presence in ProKakis, you are building a branding as a legitimate 
+
+                                    company that is open for Business Connection.
+
+                                        </p>
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <hr>
+
+                    @if(!$is_premium)
                             <div class="portlet light">
                                 <div class="portlet-body">
                                     <div class="form-group">
@@ -1590,27 +1544,23 @@ input::-moz-focus-inner {
                     </div>
                     @endif
 
+
+
                             <div class="form-actions" align="right">
                                 <a style="margin-right:20px;" onclick="clearForm()" class="btn btn-info">Clear Form</a>
                                 
-                                <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn red"><b>Cancel</b></a>
+                                <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn red">Cancel</a>
 
-
+                                       
                                 <input id="saveButtonBuilding" type="submit"
 
-                                       class="btn btn-success" value="Submit Opportunity"/>
+                                class="btn btn-success" value="Submit Opportunity"/>
 
                             </div>
-
-
-
-
 
                         </div>
 
                     </div>
-
-
 
                 </form>
 
@@ -1626,8 +1576,8 @@ input::-moz-focus-inner {
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
-    <script>
 
+<script>
 
         function NotifyToUpgrade(id){
 
@@ -2278,4 +2228,3 @@ if( $('#oppor_id').val() ){
 
 
 @endsection
-
