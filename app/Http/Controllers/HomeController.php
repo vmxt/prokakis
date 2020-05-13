@@ -166,7 +166,7 @@ class HomeController extends Controller {
 
 		$res = RequestReport::where('company_id', $company_id_result)->where('is_approve', NULL)->get();
 
-		$pendingRequestReport = count((array) $res);
+		$pendingRequestReport = $res->count();
 
 
 
@@ -174,25 +174,25 @@ class HomeController extends Controller {
 
 		$ra = ProcessedReport::where('requester_company_id', $company_id_result)->where('report_link', NULL)->get();
 
-		$ongoingMonitoring = count((array) $ra);
+		$ongoingMonitoring = $ra->count();
 
-
+ 
 
 		$aw = RequestReport::where('source_company_id', $company_id_result)->where('is_approve', NULL)->get();
 
-		$awaitingresponsetogenreport = count((array) $aw);
+		$awaitingresponsetogenreport = $aw->count();;
 
 
 
 		$genrep = GeneratedReport::where('requester_company_id', $company_id_result)->get();
 
-		$generatedreport = count((array) $genrep);
+		$generatedreport = $genrep->count();
 
 
 
 		$proc_rep = ProcessedReport::where('requester_company_id', $company_id_result)->where('report_link', 'COMPLETED')->get();
 
-		$process_report = count((array) $proc_rep);
+		$process_report = $proc_rep->count();
 
 		//add the promtion button
 		//$promo = CompanyProfile::checkOppotunityCreation($company_id_result);

@@ -129,6 +129,26 @@
             max-height: 400px;
         }
         .panel-body::-webkit-scrollbar { width: 0 !important }
+
+        .h-effect:hover {
+          -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
+          -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
+          /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
+          box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1) !important;
+          cursor: default !important;
+        }
+        .widget-thumb-icon:hover {
+            cursor: pointer;
+           background-color: #31708f !important;
+
+        }
+        .panel-body ul:hover {
+          -moz-box-shadow: 0 0 1px 1px #31708f !important;
+          -webkit-box-shadow: 0 0 1px 1px #31708f !important;
+          /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
+          box-shadow: 0 0 5px 0 #31708f !important;
+          cursor: default !important;
+        }
     </style>
 
     <div class="container">
@@ -158,7 +178,7 @@
                 <!-- graph card -->
                 <div class="page-content-inner">
                     <div class="mt-content-body">
-                        <div class="portlet light ">
+                        <div class="portlet light h-effect">
                             <div class="card">
                                 <div class="note note-success">
                                     <h4 class="block"><strong>ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</strong></h4>
@@ -211,7 +231,7 @@
                 <div class="row widget-row">
                     <div class="col-md-6">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">PENDING PROFILE REQUEST</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue fa fa-clock-o"></i>
@@ -231,7 +251,7 @@
                     </div>
                     <div class="col-md-6">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">AWAITING RESPONSE</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue fa fa-reply-all"></i>
@@ -258,7 +278,7 @@
                 <div class="row widget-row">
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">ONGOING MONITORING</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue fa fa-eye" aria-hidden="true"></i>
@@ -277,7 +297,7 @@
                     </div>
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">GENERATED REPORT</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue icon-layers"></i>
@@ -295,7 +315,7 @@
 
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">COMPLETED REPORT</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue fa fa-newspaper-o"></i>
@@ -320,7 +340,7 @@
                 <!-- sidebar token credit -->
                 <div class="page-content-inner">
                     <div class="mt-content-body">
-                        <div class="portlet light ">
+                        <div class="portlet light h-effect">
                             <div class="card" style="overflow: hidden;">
                                 <div class="card-header" style="margin-bottom: 25px;">
                                     <center><span class="bold uppercase font-blue">Token Credit</span>
@@ -362,7 +382,7 @@
 
                 <!-- Log activity sidebar -->
 
-                <div class="panel">
+                <div class="panel h-effect">
                     <div class="panel-heading">
                         <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
                     </div>
