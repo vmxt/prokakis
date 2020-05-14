@@ -1422,11 +1422,20 @@ s0.parentNode.insertBefore(s1,s0);
         <div class="popup-inner">
 
             <?php
+              $numC = App\Configurations::where('code_name','company_creation')->first();
+             $rsC = json_decode($numC->json_value, true);
+             $numAccount = 3;
              $userId = Auth::id();
+             $usr = App\User::find($userId);
+             foreach($rsC as $k => $v){
+              if($v == $usr->email){
+                $numAccount = $k;
+                break;
+              }
+             }
              $rs_company = App\CompanyProfile::where('user_id',  $userId)->get();
 
-             if( count($rs_company) < 3){
-            ?>
+            if(sizeof($rs_company) < $numAccount){            ?>
 
             <button id="showProfile" class="btn">+ Create New</button>
             <div id="add_company_profile">
@@ -1441,14 +1450,14 @@ s0.parentNode.insertBefore(s1,s0);
                     <tr>
                         <td><input type="text" class="form-control" name="company_name" id="company_name"></td>
                         <td><input type="text" class="form-control" name="company_website" id="company_website"></td>
-                        <td><input type="submit" class="btn btn-primary" value="Save Profile"></td>
+                        <td><input type="submit" class="btn btn-primary" value="Save Company"></td>
                     </tr>
                 </table>
                 </form>
             </div>
             <br /><br />
             <?php } ?>
-            <div class="alert alert-info">Select a company profile!</div>
+            <div class="alert alert-info">Select a company!</div>
 
             <table class="table table-bordered table-striped table-condensed flip-content" style="width: 100%; padding-top: 5px;">
                     <tr>
