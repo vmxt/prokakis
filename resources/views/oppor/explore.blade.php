@@ -873,6 +873,7 @@ img {
                     endforeach; ?>
                             </li>
                             @endif
+                        </ul>
                     </h4>    
                 </span>
                 <hr class="hr-sect">
@@ -1247,6 +1248,7 @@ img {
                     endforeach; ?>
                             </li>
                             @endif
+                        </ul>
                     </h4>    
                 </span>
                 <hr class="hr-sect">
@@ -1621,6 +1623,7 @@ img {
                     endforeach; ?>
                             </li>
                             @endif
+                        </ul>
                     </h4>    
                 </span>
                 <hr class="hr-sect">
@@ -1752,7 +1755,7 @@ img {
     <!-- END BUY OPPORTUNITY -->
 
 </div><!-- end row -->
-      
+      </div>
         </div>
     </div>
 
@@ -1875,8 +1878,8 @@ img {
                     endif;
                 endforeach; ?>
                         </li>
+                    </ul>
                 </h4>
-                </ul>
             </span>
             <hr>
         </div>
