@@ -137,11 +137,11 @@
           box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1) !important;
           cursor: default !important;
         }
-        .widget-thumb-icon:hover {
+   /*     .widget-thumb-icon:hover {
             cursor: pointer;
            background-color: #31708f !important;
 
-        }
+        }*/
         .panel-body ul:hover {
           -moz-box-shadow: 0 0 1px 1px #31708f !important;
           -webkit-box-shadow: 0 0 1px 1px #31708f !important;
