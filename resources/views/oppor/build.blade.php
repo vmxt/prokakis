@@ -2069,45 +2069,61 @@ input::-moz-focus-inner {
         // $('#opp_industry').select2();
 
        $('#myCarousel').carousel({
-        pause: true,
-          interval: false
+            pause: true,
+            interval: false
         })
 
     //start autostore
 
         $("#opp_title").change(function() { 
-            cookies.set('build_opp_title',  $("#opp_title").val() );
+            if(! $('#oppor_id').val() ){
+                cookies.set('build_opp_title',  $("#opp_title").val() );
+            }
         }); 
 
         $("input[name='businessGoal']").click(function( ) { 
-            cookies.set('build_businessGoal',  $(this).attr('datavalue')  );
+            if(! $('#oppor_id').val() ){
+                cookies.set('build_businessGoal',  $(this).attr('datavalue')  );
+            }
         }); 
 
         $("input[name='audienceTarget']").click(function( ) { 
-            cookies.set('build_audienceTarget',  $(this).attr('datavalue')  );
+            if(! $('#oppor_id').val() ){
+                cookies.set('build_audienceTarget',  $(this).attr('datavalue')  );
+            }
         }); 
 
         $("#intro_describe_business").change(function() { 
-            cookies.set('build_intro_describe_business',  $("#intro_describe_business").val() );
+            if(! $('#oppor_id').val() ){
+                cookies.set('build_intro_describe_business',  $("#intro_describe_business").val() );
+            }
         }); 
 
         $("#why_partner_goal").change(function() { 
-            cookies.set('build_why_partner_goal',  $("#why_partner_goal").val() );
+            if(! $('#oppor_id').val() ){
+                cookies.set('build_why_partner_goal',  $("#why_partner_goal").val() );
+            }
         }); 
 
         $("input[name='timeFrame']").click(function( ) { 
-            cookies.set('build_timeFrame',  $(this).attr('datavalue')  );
+            if(! $('#oppor_id').val() ){
+                cookies.set('build_timeFrame',  $(this).attr('datavalue')  );
+            }
         }); 
 
         $("#approx_large").change(function() { 
-            cookies.set('build_approx_large',  $("#approx_large").val() );
+            if(! $('#oppor_id').val() ){
+                cookies.set('build_approx_large',  $("#approx_large").val() );
+            }
         }); 
 
         $("#ideal_partner_base").change(function() { 
-            cookies.set('build_ideal_partner_base',  $("#ideal_partner_base").val() );
+
             if( $('#oppor_id').val() ){
                 var oppor_id = $('#oppor_id').val();
                 inputFormUpdate( $("#ideal_partner_base").val(), oppor_id , 'ideal_partner_base');
+            }else{
+                cookies.set('build_ideal_partner_base',  $("#ideal_partner_base").val() );
             }
         }); 
 
@@ -2119,11 +2135,12 @@ input::-moz-focus-inner {
                     partnersCheck.push($(this).attr('id'));
                     partners.push($(this).val());
                 });
-                 cookies.set('build_partnersCheck',  partnersCheck );
 
                 if( $('#oppor_id').val() ){
                     var oppor_id = $('#oppor_id').val();
                     inputFormUpdate( partners.join(", "), oppor_id , 'ideal_partner_business');
+                }else{
+                    cookies.set('build_partnersCheck',  partnersCheck );
                 }
             })
 
@@ -2154,44 +2171,44 @@ $('#opportunity_build_form').submit(function() {
 });
 
 //start asign autostore
-if (cookies.test()) {
+if(! $('#oppor_id').val() ){
     if(cookies.get("build_opp_title")!=null ){
         $('#opp_title').val(  cookies.get("build_opp_title") );
     }
 
-   if(cookies.get("build_businessGoal") != null){
+    if(cookies.get("build_businessGoal") != null){
         $('#businessGoal'+cookies.get("build_businessGoal") ).attr("checked", "checked");
-   }
+    }
 
-   if(cookies.get("build_audienceTarget") != null){
+    if(cookies.get("build_audienceTarget") != null){
         $('#audienceTarget'+cookies.get("build_audienceTarget") ).attr("checked", "checked");
-   }
+    }
 
-   if(cookies.get("build_intro_describe_business") != null)
+    if(cookies.get("build_intro_describe_business") != null)
         $('#intro_describe_business').val(  cookies.get("build_intro_describe_business") );
 
     if(cookies.get("build_why_partner_goal") != null)
         $('#why_partner_goal').val(  cookies.get("build_why_partner_goal") );
 
-   if(cookies.get("build_timeFrame") != null){
+    if(cookies.get("build_timeFrame") != null){
         $('#'+cookies.get("build_timeFrame") ).attr("checked", "checked");
-   }
+    }
 
     if(cookies.get("build_approx_large")!=null ){
         $('#approx_large').val(  cookies.get("build_approx_large") );
     }
 
-   if(cookies.get("build_ideal_partner_base") != null){
+    if(cookies.get("build_ideal_partner_base") != null){
         $.each( cookies.get("build_ideal_partner_base") , function( key, value ) {
             $("#ideal_partner_base option[value='" + value + "']").attr('selected', 'selected');
         });
-   }
+    }
 
     if(cookies.get("build_partnersCheck") != null){
         $.each( cookies.get("build_partnersCheck") , function( key, value ) {
             $("#"+value).attr('checked', 'checked');
         });
-   }
+    }
 
    // cookies.del('opportunityDetails');
 }

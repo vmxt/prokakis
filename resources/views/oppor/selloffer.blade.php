@@ -2002,7 +2002,9 @@ input::-moz-focus-inner {
     //start autostore
 
         $("#opp_title").change(function() { 
-            cookies.set('sell_opp_title',  $("#opp_title").val() );
+            if(! $('#oppor_id').val() ){
+                cookies.set('sell_opp_title',  $("#opp_title").val() );
+            }
         }); 
 
         $('.categoryCheck')
@@ -2013,40 +2015,52 @@ input::-moz-focus-inner {
                     categoryCheck.push($(this).attr('id'));
                     categories.push($(this).val());
                 });
-                 cookies.set('sell_categoryCheck',  categoryCheck );
 
                 if( $('#oppor_id').val() ){
                     var oppor_id = $('#oppor_id').val();
                     inputFormUpdate( categories.join(", "), oppor_id , 'what_sell_offer');
+                }else{
+                    cookies.set('sell_categoryCheck',  categoryCheck );
                 }
             })
 
 
         $("input[name='audienceTarget']").click(function( ) { 
-            cookies.set('sell_audienceTarget',  $(this).attr('id')  );
+            if(! $('#oppor_id').val() ){
+                cookies.set('sell_audienceTarget',  $(this).attr('id')  );
+            }
         }); 
 
         $("#intro_describe_business").change(function() { 
-            cookies.set('sell_intro_describe_business',  $("#intro_describe_business").val() );
+            if(! $('#oppor_id').val() ){
+                cookies.set('sell_intro_describe_business',  $("#intro_describe_business").val() );
+            }
         }); 
 
         $("#why_partner_goal").change(function() { 
-            cookies.set('sell_why_partner_goal',  $("#why_partner_goal").val() );
+            if(! $('#oppor_id').val() ){
+                cookies.set('sell_why_partner_goal',  $("#why_partner_goal").val() );
+            }
         }); 
 
         $("input[name='timeFrame']").click(function( ) { 
-            cookies.set('sell_timeFrame',  $(this).attr('id')  );
+            if(! $('#oppor_id').val() ){
+                cookies.set('sell_timeFrame',  $(this).attr('id')  );
+            }
         }); 
 
         $("#approx_large").change(function() { 
-            cookies.set('sell_approx_large',  $("#approx_large").val() );
+            if(! $('#oppor_id').val() ){
+                cookies.set('sell_approx_large',  $("#approx_large").val() );
+            }
         }); 
 
         $("#ideal_partner_base").change(function() { 
-            cookies.set('sell_ideal_partner_base',  $("#ideal_partner_base").val() );
             if( $('#oppor_id').val() ){
                 var oppor_id = $('#oppor_id').val();
                 inputFormUpdate( $("#ideal_partner_base").val(), oppor_id , 'ideal_partner_base');
+            }else{
+                cookies.set('sell_ideal_partner_base',  $("#ideal_partner_base").val() );
             }
         }); 
  
@@ -2058,11 +2072,12 @@ input::-moz-focus-inner {
                     partnersCheck.push($(this).attr('id'));
                     partners.push($(this).val());
                 });
-                 cookies.set('sell_partnersCheck',  partnersCheck );
-
+                 
                 if( $('#oppor_id').val() ){
                     var oppor_id = $('#oppor_id').val();
                     inputFormUpdate( partners.join(", "), oppor_id , 'ideal_partner_business');
+                }else{
+                    cookies.set('sell_partnersCheck',  partnersCheck );
                 }
             })
 
@@ -2076,7 +2091,7 @@ input::-moz-focus-inner {
 
 
 //start asign autostore
-if (cookies.test()) {
+if (! $('#oppor_id').val()) {
     if( cookies.get("sell_opp_title")!= null )
         $('#opp_title').val(  cookies.get("sell_opp_title") );
 
