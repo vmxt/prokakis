@@ -50,7 +50,7 @@
 
                 font-weight: 100;
 
-                height: 100vh;
+                height: 100%;
 
                 margin: 0;
 
@@ -60,7 +60,7 @@
 
             .full-height {
 
-                height: 100vh;
+                /*height: 100vh;*/
 
             }
 
@@ -70,9 +70,11 @@
 
                 align-items: center;
 
-                display: flex;
+                /*display: flex;*/
 
                 justify-content: center;
+
+                bottom: 150px;
 
             }
 
@@ -135,10 +137,143 @@
 
 
             .m-b-md {
+                margin-bottom: 130px;
+                margin-top: -85px;
+            }
 
-                margin-bottom: 30px;
+
+            @media only screen and (max-width: 426px) {
+                .content_text{
+                   font-size: 40px;
+                   padding: 42px;
+                  font-weight: lighter;
+                }
+
+                .content_text2{
+                   font-size: 30px;
+                   font-weight: bolder;
+                   bottom: 0;
+                   margin-left: 90px;
+                   margin-top: -30px;
+                }
+
+                .content_copyright{
+                    font-size: 20px;
+                    margin-left: 
+                }
+
+                #logo{
+                    width: 70%;
+                }
+
+                .back_url{
+                    font-size: 14px;
+                    /*position: fixed;*/
+                    /*margin-left: 80px;*/
+                    margin-top: 50px
+                }
 
             }
+
+
+            @media screen and (min-width: 768px){
+                .welcome{
+                    margin-top: 235px;
+                }
+                .content_text{
+                      /*padding: 15px;*/
+                    font-size: 70px;
+        
+                }
+
+                 .content_text2{
+                   font-size: 50px;
+                   font-weight: bolder;
+                   bottom: 0;
+                   margin-left: 160px;
+                   margin-top: -30px;
+                }
+
+
+
+                .content_copyright{
+                    font-size: 35px;
+                }
+
+
+                #logo{
+                    width: 30%;
+                }
+
+                .back_url{
+                    text-align: center;
+                    font-size: 14px;
+                    position: absolute;
+                    margin-left: 30em;
+                    margin-top: -5em
+                }
+            }
+
+     /* Add a black background color to the top navigation */
+            .topnav {
+              background-color: #1a4275;
+              overflow: hidden;
+            }
+
+            /* Style the links inside the navigation bar */
+            .topnav a {
+              float: right;
+              color: #f2f2f2;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+              font-size: 17px;
+            }
+
+            /* Change the color of links on hover */
+            .topnav a:hover {
+              background-color: #ddd;
+              color: black;
+            }
+
+            /* Add a color to the active/current link */
+            .topnav a.active {
+              background-color: #4CAF50;
+              color: white;
+            }
+
+    #intro {
+        height: 100%;
+    }
+
+    .hero-image {
+
+          background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{{ asset('public/banner/hero.png') }}");
+          height: 300px;
+
+          background-position: left;
+          background-repeat: no-repeat;
+          background-size: cover;
+          position: relative;
+
+    }
+
+    @media (max-width: 767px)  {
+
+
+        .hero-image {
+            height: 147px;
+            margin-top: 235px;
+        }
+
+        .m-b-md{
+            margin-bottom: 0px;
+        }
+
+        .content_text{
+            padding: 0px;
+        }
+    }
 
         </style>
 
@@ -146,11 +281,10 @@
 
     <body>
 
-        <div class="flex-center position-ref full-height">
 
             @if (Route::has('login'))
 
-                <div class="top-right links">
+                <div class="topnav links">
 
                     @auth
 
@@ -168,28 +302,33 @@
 
             @endif
 
+        <div class="flex-center position-ref full-height">
 
 
             <div class="content">
-
-
                 <div class="title m-b-md">
 
+                    <div class="content_text welcome">
+                        <div class="hero-image">
+                          <div class="hero-text">
+                &nbsp;
+                          </div>
+                        </div>
+                    </div>
+                    <div>
+                      <img src="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px"> 
 
-
-
-
-                 Welcome to <br /> <img src="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px"> <br /> Ebos-SG App 2020
-
+                        <div class="content_text2">
+                            Ebos-SG 
+                            <div class="content_copyright">
+                                App <?php echo date("Y");?>
+                            </div>
+                        </div>
+                  </div >
                 </div>
- <br />
+                <div class="back_url">
                    <a href="https://prokakis.com/" style="text-decoration: none;"><b> >> Back to main website</b></a>
-
-
-
-
-               
-
+                </div>
             </div>
 
         </div>

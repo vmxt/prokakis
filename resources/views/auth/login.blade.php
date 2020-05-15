@@ -20,7 +20,19 @@
 
     }
 
+    .h-effect {
+          -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
+          -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
+          /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
+          box-shadow: 0 -3px 16px 0 rgba(0, 0, 0, 1) !important;
+    }
 
+    input:focus{
+            -moz-box-shadow: 0 0px 10px 0  #31708f  !important;
+          -webkit-box-shadow: 0 0px 10px 0  #31708f  !important;
+          /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
+          box-shadow: 0 0px 10px 0  #31708f  !important;
+    }
 
 </style>
 
@@ -50,7 +62,7 @@
 
 <!-- BEGIN LOGIN -->
 
-        <div class="content">
+        <div class="content h-effect">
 
     <!-- BEGIN LOGIN FORM -->
 
