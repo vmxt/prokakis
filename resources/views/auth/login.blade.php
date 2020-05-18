@@ -4,6 +4,15 @@
 
 <style>
 
+    .page-wrapper {
+      background-image: url("{{ asset('public/banner/login-footer.png') }}");
+ 
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+
     html,body,.login
 
     {
@@ -34,6 +43,48 @@
           box-shadow: 0 0px 10px 0  #31708f  !important;
     }
 
+    .page-wrapper .page-wrapper-middle{
+        background:transparent !important;
+    }
+
+    .login2{
+            background-image: url("{{ asset('public/banner/login-hero.png') }}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            width: 100%;
+            padding: 25px;
+            top: 45px;
+            border:5px solid #021a40;
+
+            -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
+            -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
+              /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
+            box-shadow: 0 -3px 16px 0 rgba(0, 0, 0, 1) !important;
+    }
+
+    .login .content {
+        float: right;
+        margin-right: auto !important;
+    }
+
+    @media (min-width: 1200px)  {
+        .login2{
+            bottom: 35px;
+            top: 0px;
+        }
+
+    }
+
+    @media (min-width: 1440px)  {
+        .login .content{
+            margin-right: 45px !important;
+        }
+
+    }
+
+
 </style>
 
 
@@ -46,17 +97,18 @@
 
 @section('content')
 
-    <div class=" login">
+    <div class=" login login2">
 
 <!-- BEGIN LOGO -->
 
-        <div class="logo">
+    <div class="logo">
 
-    <a href="https://prokakis.com/">
+{{--             <a href="https://prokakis.com/">
 
-        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="300px" > </a>
+                <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="300px" > 
+            </a> --}}
 
-</div>
+    </div>
 
 <!-- END LOGO -->
 
