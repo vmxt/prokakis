@@ -7,7 +7,7 @@
     .page-wrapper {
       background-image: url("{{ asset('public/banner/login-footer.png') }}");
  
-      background-position: center;
+      background-position: bottom;
       background-repeat: no-repeat;
       background-size: cover;
       position: relative;
