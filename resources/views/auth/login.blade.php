@@ -54,19 +54,21 @@
             background-size: cover;
             position: relative;
             width: 100%;
-            padding: 25px;
-            top: 45px;
+            padding: 60px;
             border:5px solid #021a40;
 
             -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
             -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
               /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
             box-shadow: 0 -3px 16px 0 rgba(0, 0, 0, 1) !important;
+
     }
 
     .login .content {
         float: right;
         margin-right: auto !important;
+        top: 35px;
+        left: 20px;
     }
 
     @media (min-width: 1200px)  {
@@ -84,7 +86,62 @@
 
     }
 
+    @media (min-width: 1024px)  {
+        .login .content{
+            top: 50px;
+            width: 370px !important;
+        }   
+        .content .h-effect{
 
+        }
+
+    }
+
+    @media (max-width: 1023px)  {
+        .login2 {
+            max-width: 100%;
+            max-height: 100%;
+            display: flex;
+            padding: 0px !important;
+            overflow: hidden;
+        }
+
+        .content .h-effect {
+            left: 75px;
+            top: 34px;
+        }
+
+        .login .content {
+            width: 320px !important;
+        }
+
+        .content .h-effect{
+            left: 75px;
+            top: 25px;
+        }
+
+    }
+
+    @media (max-width: 1023px){
+        .page-container{
+            height: 500px !important;
+        }
+
+        .content {
+            height: 330px !important;
+            top: 95px !important;
+            left: 185px !important;
+        }
+
+        .login .content {
+            margin: 40px auto 10px !important;
+            padding: 0px 15px 0px !important;
+        }
+
+        .form-group {
+            margin-bottom: 6px !important;
+        }
+    }
 </style>
 
 
@@ -99,18 +156,7 @@
 
     <div class=" login login2">
 
-<!-- BEGIN LOGO -->
 
-    <div class="logo">
-
-{{--             <a href="https://prokakis.com/">
-
-                <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="300px" > 
-            </a> --}}
-
-    </div>
-
-<!-- END LOGO -->
 
 <!-- BEGIN LOGIN -->
 
@@ -242,15 +288,10 @@
 
     <!-- END FORGOT PASSWORD FORM -->
 
-<!--[if lt IE 9]>
 
-<script src="../assets/global/plugins/respond.min.js"></script>
+</div>
 
-<script src="../assets/global/plugins/excanvas.min.js"></script>
-
-<script src="../assets/global/plugins/ie8.fix.min.js"></script>
-
-<![endif]-->
+        </div>
 
 <!-- BEGIN CORE PLUGINS -->
 
@@ -295,10 +336,6 @@
 <!-- END THEME LAYOUT SCRIPTS -->
 
 
-
-</div>
-
-        </div>
 
 @endsection
 
