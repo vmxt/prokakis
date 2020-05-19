@@ -142,6 +142,54 @@
             margin-bottom: 6px !important;
         }
     }
+
+    @media (max-width: 715px) {
+
+        .login2{
+            background-image: url("{{ asset('public/banner/mobile-login-hero.png') }}") !important;
+
+        }
+
+        .login .content {
+            width: 250px !important;
+        }
+        .content{
+            left: 0px !important;
+            top: 215px !important;
+            height: 225px !important;
+        }
+        .login .content h3{
+            font-size: 0px !important;
+        }
+
+        .form-group {
+            margin-bottom: 1px !important;
+        }
+
+        .login .content .form-title{
+            margin-bottom: 0px !important;
+        }
+
+        .login .content .form-control {
+            height: 35px !important;
+        }
+
+        .login .content .form-actions{
+            padding: 5px 30px !important;
+        }
+
+        .login .content .create-account{
+            margin-top: 30px !important;
+        }
+
+        .login .content .create-account a {
+            margin-top: 0px !important;
+        }
+
+        .login .content .form-actions .btn {
+            padding: 7px 17px !important;
+        }
+    }
 </style>
 
 
