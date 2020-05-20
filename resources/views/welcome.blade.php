@@ -273,7 +273,7 @@
         .content_text{
             padding: 0px;
         }
-    }
+            }
 
         </style>
 

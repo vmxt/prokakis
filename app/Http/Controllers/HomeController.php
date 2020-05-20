@@ -176,7 +176,7 @@ class HomeController extends Controller {
 
 		$ongoingMonitoring = $ra->count();
 
- 
+
 
 		$aw = RequestReport::where('source_company_id', $company_id_result)->where('is_approve', NULL)->get();
 
@@ -536,7 +536,7 @@ class HomeController extends Controller {
 					    ->orderByRaw('count_refer DESC')
 					    ->limit(10)
 					    ->get();
-	
+
 		return view('home.referrals', compact('url_result', 'rs', 'topReferral','user_details'));
 
 		//get all referals

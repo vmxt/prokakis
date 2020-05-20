@@ -48,7 +48,7 @@ class extractMergeReuterDB extends Command
         
                 if ($entry != "." && $entry != "..") {
         
-                    echo "$entry\n";
+                   // echo "$entry\n";
                     $fileTR_Name = $entry;
                 }
             }
@@ -56,12 +56,14 @@ class extractMergeReuterDB extends Command
             closedir($handle);
         }
 
-        $rs = $this->prepareData($fileTR_Name); //prepare the data in a array of objects
+       // echo $fileTR_Name; exit;
+
+       $rs = $this->prepareData($fileTR_Name); //prepare the data in a array of objects
 
         //var_dump($rs);
        $rs1 = $this->forCSV($rs, 'reuters_databank3'); 
        $rs2 = $this->forCSV($rs1, 'reuters_databank');
-       $rs3 =  $this->forCSV($rs2, 'reuters_databank2');
+       $this->forCSV($rs2, 'reuters_databank2');
       
      
         echo "Extract reuters Database and merge to Prokakis \n";
@@ -100,12 +102,12 @@ class extractMergeReuterDB extends Command
             if($data[0] != null || trim($data[0]) != '')
             {
            
-                    if($key != 0 && $data[0] != 'UID')
+                    if($key != 0 || $data[0] != 'UID')
                     {
 
-                        $trP = DB::table($tableName)->where('UID', $data[0])->first();
+                        $trP = DB::table($tableName)->where('UID', $data[0])->count();
 
-                        if($trP != null){
+                        if($trP > 0){
 
                             $okUpdate = DB::table($tableName)->where('UID', $data[0])
                             ->update(array(
@@ -146,9 +148,10 @@ class extractMergeReuterDB extends Command
 
                             if($okUpdate){
                                 echo 'Done Update On:'.$data[0]. " key:". $key. " at $tableName \n"; 
+                                unset($rs[$key]);
+                                //echo 'Found :'.$data[0]. " key:". $key. " at $tableName \n"; 
                             } 
-                            echo 'Found :'.$data[0]. " key:". $key. " at $tableName \n"; 
-                            unset($rs[$key]);
+                           
 
                         } else {
 
@@ -193,9 +196,7 @@ class extractMergeReuterDB extends Command
                                 if($okInsert){
                                     echo 'Done Insert On:'.$data[0]. "  key:". $key. " at $tableName \n"; 
                                     unset($rs[$key]);
-                                } else {
-                                    echo 'Insert error :'.$data[0]." at $tableName, insert \n"; 
-                                }
+                                } 
 
                         }
                       

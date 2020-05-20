@@ -262,11 +262,6 @@ input::-moz-focus-inner {
     border: 2px dashed red;
 }
 
-.scroll-to-top{
-    bottom: 50px;
-    right: 50px;
-}
-
     </style>
 
       
@@ -2003,7 +1998,7 @@ input::-moz-focus-inner {
 
         $("#opp_title").change(function() { 
             if(! $('#oppor_id').val() ){
-                cookies.set('sell_opp_title',  $("#opp_title").val() );
+            cookies.set('sell_opp_title',  $("#opp_title").val() );
             }
         }); 
 
@@ -2027,31 +2022,31 @@ input::-moz-focus-inner {
 
         $("input[name='audienceTarget']").click(function( ) { 
             if(! $('#oppor_id').val() ){
-                cookies.set('sell_audienceTarget',  $(this).attr('id')  );
+            cookies.set('sell_audienceTarget',  $(this).attr('id')  );
             }
         }); 
 
         $("#intro_describe_business").change(function() { 
             if(! $('#oppor_id').val() ){
-                cookies.set('sell_intro_describe_business',  $("#intro_describe_business").val() );
+            cookies.set('sell_intro_describe_business',  $("#intro_describe_business").val() );
             }
         }); 
 
         $("#why_partner_goal").change(function() { 
             if(! $('#oppor_id').val() ){
-                cookies.set('sell_why_partner_goal',  $("#why_partner_goal").val() );
+            cookies.set('sell_why_partner_goal',  $("#why_partner_goal").val() );
             }
         }); 
 
         $("input[name='timeFrame']").click(function( ) { 
             if(! $('#oppor_id').val() ){
-                cookies.set('sell_timeFrame',  $(this).attr('id')  );
+            cookies.set('sell_timeFrame',  $(this).attr('id')  );
             }
         }); 
 
         $("#approx_large").change(function() { 
             if(! $('#oppor_id').val() ){
-                cookies.set('sell_approx_large',  $("#approx_large").val() );
+            cookies.set('sell_approx_large',  $("#approx_large").val() );
             }
         }); 
 
@@ -2072,7 +2067,7 @@ input::-moz-focus-inner {
                     partnersCheck.push($(this).attr('id'));
                     partners.push($(this).val());
                 });
-                 
+
                 if( $('#oppor_id').val() ){
                     var oppor_id = $('#oppor_id').val();
                     inputFormUpdate( partners.join(", "), oppor_id , 'ideal_partner_business');

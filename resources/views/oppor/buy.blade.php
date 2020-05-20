@@ -2026,7 +2026,7 @@ input::-moz-focus-inner {
 
         $("#opp_title").change(function() { 
             if(! $('#oppor_id').val() ){
-                cookies.set('buy_opp_title',  $("#opp_title").val() );
+            cookies.set('buy_opp_title',  $("#opp_title").val() );
             }
         }); 
 
@@ -2049,31 +2049,31 @@ input::-moz-focus-inner {
 
         $("input[name='audienceTarget']").click(function( ) { 
             if(! $('#oppor_id').val() ){
-                cookies.set('buy_audienceTarget',  $(this).attr('id')  );
+            cookies.set('buy_audienceTarget',  $(this).attr('id')  );
             }
         }); 
 
         $("#intro_describe_business").change(function() { 
             if(! $('#oppor_id').val() ){
-                cookies.set('buy_intro_describe_business',  $("#intro_describe_business").val() );
+            cookies.set('buy_intro_describe_business',  $("#intro_describe_business").val() );
             }
         }); 
 
         $("#why_partner_goal").change(function() { 
             if(! $('#oppor_id').val() ){
-                cookies.set('buy_why_partner_goal',  $("#why_partner_goal").val() );
+            cookies.set('buy_why_partner_goal',  $("#why_partner_goal").val() );
             }
         }); 
 
         $("input[name='timeFrame']").click(function( ) { 
             if(! $('#oppor_id').val() ){
-                cookies.set('buy_timeFrame',  $(this).attr('id')  );
+            cookies.set('buy_timeFrame',  $(this).attr('id')  );
             }
         }); 
 
         $("#approx_large").change(function() { 
             if(! $('#oppor_id').val() ){
-                cookies.set('buy_approx_large',  $("#approx_large").val() );
+            cookies.set('buy_approx_large',  $("#approx_large").val() );
             }
         }); 
 

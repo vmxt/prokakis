@@ -1056,8 +1056,8 @@ class OpportunityController extends Controller {
 
 	public function buyNew() {
 
-		$country_list = Countries::all(); // Configurations::getJsonValue('countries');
-		$industry_list = OppIndustry::all();
+		$country_list = Countries::all(); //Configurations::getJsonValue('countries');
+		$industry_list = OppIndustry::all(); 
 
 		$approx_large_list = Configurations::getJsonValue('approx_large');
 
@@ -1200,7 +1200,7 @@ class OpportunityController extends Controller {
 					'status' => 1,
 
 					'view_type' => 1,
-					
+
 					'industry' => $industry,
 
 					'avatar_status' => $request->input('avatar_status'),
@@ -1550,16 +1550,16 @@ public static function validateAccLimits($company_id){
 
 	public function updateOpportunityDetail(Request $request){
 		if ($request->isMethod('post')) {
-				$opporId = $request->input('opporId');
-				$opporType = $request->input('opporType');
+			$opporId = $request->input('opporId');
+			$opporType = $request->input('opporType');
 				$resultValue = $request->input('resultStatus');
-
-				if($opporType == 'build')
-					$result = OpportunityBuildingCapability::find($opporId);
-				if($opporType == 'sell')
-					$result = OpportunitySellOffer::find($opporId);
-				if($opporType == 'buy')
-					$result = OpportunityBuy::find($opporId);
+			
+			if($opporType == 'build')
+				$result = OpportunityBuildingCapability::find($opporId);
+			if($opporType == 'sell')
+				$result = OpportunitySellOffer::find($opporId);
+			if($opporType == 'buy')
+				$result = OpportunityBuy::find($opporId);
 
 			if($request->input('opporSection') == 'input-text-form')
 			{
@@ -1569,14 +1569,14 @@ public static function validateAccLimits($company_id){
 				print_r($fieldName);
 			}
 			else{
-				if($result){
+			if($result){
 					if($request->input('opporSection') == 'imageAvatar' )
 						$result->avatar_status = $resultValue;
 					if($request->input('opporSection') == 'viewType' )
 						$result->view_type = $resultValue;
 
-					$result->save();
-				}
+				$result->save();
+			}
 
 			}
 		}

@@ -1753,7 +1753,7 @@ img {
     endforeach;  ?>
     </div>
     <!-- END BUY OPPORTUNITY -->
-
+</div></div>
 </div><!-- end row -->
       </div>
         </div>
