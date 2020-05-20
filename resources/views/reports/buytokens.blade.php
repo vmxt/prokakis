@@ -318,7 +318,7 @@
                         </div>
                         <div class="col-4 col-foot">
                             <div class="content">
-                                <img class="advantages-img"    src="{{ asset('public/img-resources/report.png') }}" width="96" alt="Tax" title="Tax">
+                                <img class="advantages-img"    src="{{ asset('public/img-resources/report-new.png') }}" width="96" alt="Tax" title="Tax">
                                 
                                 <h3><strong>REPORT</strong></h3>
                                 <p>Add on 12 Tokens yo your account to purchase KYB Business Intelligence Report from Companies.</p>
