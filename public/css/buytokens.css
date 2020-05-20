@@ -1,7 +1,7 @@
 
 
 div.flaticon {
-    font-family: Proxima Nova;
+    font-family: Open Sans,Proxima Nova;
     background-color: #f8fafb;
 
     display: block;
@@ -75,7 +75,8 @@ table {
     /*border-spacing: 2px;*/
     border-color: grey;
 
-    border-spacing: 0;
+    font-family: Open Sans;
+
 }
 
 thead {
@@ -131,12 +132,12 @@ div.payment .box {
 
 div.payment .box.table thead{
     padding-bottom: 1em;
-    border-bottom: 2px solid #e5edef;
+    /*border-bottom: 2px solid #e5edef;*/
 }
 
 div.payment .box.table tbody tr {
     padding-bottom: .75em;
-    border-bottom: 1px solid #e5edef;
+    /*border-bottom: 1px solid #e5edef;*/
 }
 
 div.payment .box.table tbody tr:last-child {
@@ -147,7 +148,7 @@ div.payment .box.table tbody tr:last-child {
 div.payment .pricing-tables .row .box.table td, 
 div.payment .pricing-tables .row .box.table th {
     padding: 0 0 0 1em;
-    line-height: 18px;
+    /*line-height: 18px;*/
 }
 
 div.payment .box.table td, 
@@ -162,7 +163,7 @@ div.payment .box.table th {
 
 div.payment .pricing-tables .row .box.table th:nth-child(2), 
 div.payment .pricing-tables .row .box.table th:nth-child(3) {
-    width: 20%;
+    width: 150px;
     padding: .75em .5em 0;
 }
 
@@ -200,7 +201,7 @@ div.payment .pricing-tables .row .box.table td:nth-child(3) {
 }
 
 div.payment .box.plans {
-    margin: 0 0 1.5em;
+    margin: 0 0 3em;
     padding: 0;
     display: block;
     cursor: pointer;
@@ -221,11 +222,11 @@ div.payment .box.plans .badge+.content {
 
 div.payment .box.plans .content {
     position: relative;
-    padding: 1.5em 190px 1.5em 1.5em;
+    padding: 1.5em 70px 1.5em 1.5em;
 }
 
 div.payment .box.plans .title {
-    font-size: 1em;
+    font-size: 20px;
     font-weight: 700;
     text-transform: uppercase;
 }
@@ -235,12 +236,16 @@ div.payment .box.plans span {
 }
 
 div.payment .box.plans .price strong {
-    color: #1bcc87;
+    color: #081E3B;
     font-size: 1.625em;
 }
 
 div.payment .box.plans .price small {
-    font-size: .875em;
+    font-size: 1.625em;
+}
+
+div.payment .box.plans .price {
+    padding-bottom: 10px;
 }
 
 div.payment .box.plans .info {
@@ -299,7 +304,8 @@ div.payment .box.plans:hover {
 }
 
 div.flaticon .btn-subscribe {
-    background-color: #69e781;
+    background-color: #214776;
+    border-radius: 10px;
 }
 
 div.flaticon .btn-subscribe:hover {
@@ -316,8 +322,9 @@ div.flaticon .btn-subscribe:hover {
     padding: 1em;
     color: #fff!important;
     text-align: center;
-    background-color: #1273eb;
+    background-color: #214776;
     cursor: pointer;
+
 }
 
 .btn-subscribe, .modal .btn, button, input[type=submit] {
@@ -435,6 +442,23 @@ input:disabled[type=submit] {
 }
 
 
+@media  (max-width:1199px) {
+    .arrow_right{
+        width: 90px;
+    }
+
+    .arrow_right-top {
+        left: 245px !important;
+    }
+
+    .arrow_right-down {
+        right: 300px !important;
+    }
+
+    .rowHead {
+        width: 100px !important;
+    }
+}
 
 @media screen and (max-width:320px) {
     div.payment .pricing-tables .row .box.table td,
@@ -551,8 +575,8 @@ div.payment .advantages-block .col-3, div.payment .advantages-block .col-4 {
 }
 
 div.payment .advantages-block .advantages-img {
-    max-width: 96px;
-    height: 96px;
+    width: 230px;
+    height: 230px;
 }
 
 .advantages-img {
@@ -566,7 +590,8 @@ div.payment .advantages-block .advantages-img {
 
 div.payment .advantages-block h3 {
     margin: 0 0 .75em;
-    font-size: 22px;
+    font-size: 30px;
+    color: #1b1c1b;
 }
 
 div.payment .advantages-block p {
@@ -574,12 +599,29 @@ div.payment .advantages-block p {
     margin: 25px 10px .75em;
 }
 
-.col-foot {
+.col-foot p {
     /*float: left;*/
-    display: block;
+    /*display: block;*/
+    font-size: 19px !important; 
     /*margin-right: 2.35765%;*/
     /*width: 23.23176%;*/
-    clear: none!important;
+    /*clear: none!important;*/
+    color: #282829;
+}
+
+
+
+.arrow_right-top{
+    position: absolute;
+    left: 275px;
+
+}
+
+.arrow_right-down{
+    position: absolute;
+    right: 340px;
+    top: 148px;
+
 }
 
 
@@ -640,3 +682,59 @@ div.payment .advantages-block p {
     }
 }
 
+.row_title{
+    background-color: #071D3B;
+    color: #FEFEFE;
+    text-transform: uppercase;
+}
+
+.comTable{
+    width: 60% !important;
+}
+
+.topupBtn{
+    width: 32.82117%
+}
+
+.rowHead{
+    background-color: #4CB1B5;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 150px;
+    text-align: center;
+    color: #FEFEFE;
+    font-size: 17px !important;
+    padding: 5px !important;
+}
+
+.col_1{
+    width: 1% !important;
+}
+
+.col_2{
+    width: 2% !important;
+}
+
+.col_1bg{
+    background-color: #071D3B;
+}
+
+.rowStatus{
+    background-color: #5DD8DD;
+    text-align: center;
+    width: 150px !important;
+
+}
+
+.rowFooter{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+
+.best-img{
+    right: 27px;
+    bottom: -40px;
+    position: absolute;
+    width: 67px;
+}
