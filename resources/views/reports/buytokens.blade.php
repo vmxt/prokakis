@@ -147,7 +147,7 @@
                         <div class="col-6 comTable">
                             <div class="table-container">
                                 <div class="table-content">
-                                    <div class="box table">
+                                    <div class="box table compTable">
                                         <table>
                                             <thead>
                                                 <tr>
@@ -161,14 +161,14 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class='row_title'><strong> Access to Prokakis online marketplace </strong></td>
+                                                    <td class='row_title shadowTop'><strong> Access to Prokakis online marketplace </strong></td>
                                                     <td class='rowStatus'><img class='img_icon'  src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
                                                     <td class="col_1 col_1bg">&nbsp;</td>
                                                     <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
                                                     <td class="col_2 col_1bg">&nbsp;</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class='row_title'><strong>Online Support</strong></td>
+                                                    <td class='row_title shadowMiddle'><strong>Online Support</strong></td>
                                                     <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
                                                     <td class="col_1 col_1bg"></td>
                                                     <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
@@ -305,7 +305,7 @@
                             <div class="content">
                                 <img  class="advantages-img"  src="{{ asset('public/img-resources/free.png') }}" width="96" alt="document" title="document">
                                 <h3><strong>FREE</strong></h3>
-                                <p>With a Free account, you can post unlimited opportunities on PorKakis marketplace to connect with the right partner</p>
+                                <p class='margin-left'>With a Free account, you can post unlimited opportunities on PorKakis marketplace to connect with the right partner</p>
                             </div>
                         </div>
                         <div class="col-4 col-foot">
@@ -313,7 +313,7 @@
                                 <img  class="advantages-img"  src="{{ asset('public/img-resources/premium.png') }}" width="96" alt="dollars" title="dollars">
                                 
                                 <h3><strong>PREMIUM</strong></h3>
-                                <p>Upgrade your FREE Account to PREMIUM with 1 Token for 6 months to access unlimited features in ProKakis</p>
+                                <p class="margin-right">Upgrade your FREE Account to PREMIUM with 1 Token for 6 months to access unlimited features in ProKakis</p>
                             </div>
                         </div>
                         <div class="col-4 col-foot">
@@ -321,11 +321,11 @@
                                 <img class="advantages-img"    src="{{ asset('public/img-resources/report-new.png') }}" width="96" alt="Tax" title="Tax">
                                 
                                 <h3><strong>REPORT</strong></h3>
-                                <p>Add on 12 Tokens yo your account to purchase KYB Business Intelligence Report from Companies.</p>
+                                <p class="margin-center">Add on 12 Tokens yo your account to purchase KYB Business Intelligence Report from Companies.</p>
                             </div>
                         </div>
-                        <div class="col-12 col-foot">
-                            <div class="content" style="text-align: center;">
+                        <div class="col-12 col-foot advFooterText2">
+                            <div class="content advFooterText" style="text-align: center;">
                                 <p>Upgrading to Premium Account will deduct 1 Token from your account, Purchase of KYB Business Intelligence Report will deduct 12 Tokens from your account.</p>
                             </div>
                         </div>
