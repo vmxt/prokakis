@@ -459,15 +459,17 @@ input:disabled[type=submit] {
 
 @media  (min-width:991px) and (max-width:1199px) {
     .arrow_right{
-        width: 90px;
+        width: 155px;
     }
 
     .arrow_right-top {
-        left: 245px !important;
+        left: 213px !important;
+        top: -44px;
     }
 
     .arrow_right-down {
-        right: 300px !important;
+        right: 260px !important;
+        top: 120px !important;
     }
 
     .rowHead {
@@ -692,8 +694,8 @@ div.payment .advantages-block p {
     }
 
     div.payment .advantages-block .advantages-img {
-        width: 150px;
-        height: 150px;
+        width: 150px !important;
+        height: 150px !important;
         top: 15px;
         left: 65px;
     }
@@ -904,6 +906,11 @@ div.payment .advantages-block p {
 @media (max-width: 1025px){
     div.payment .advantages-block p {
         margin:0;
+    }
+
+    div.payment .advantages-block .advantages-img {
+        width: 180px;
+        height: 180px;
     }
 }
 

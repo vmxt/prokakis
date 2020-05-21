@@ -304,7 +304,7 @@
                         <div class="col-4 col-foot">
                             <div class="content">
                                 <img  class="advantages-img"  src="{{ asset('public/img-resources/free.png') }}" width="96" alt="document" title="document">
-                                <h3><strong>FREE</strong></h3>
+                                <h3 class='advance-title1'><strong>FREE</strong></h3>
                                 <p class='margin-left'>With a Free account, you can post unlimited opportunities on PorKakis marketplace to connect with the right partner</p>
                             </div>
                         </div>
@@ -312,7 +312,7 @@
                             <div class="content">
                                 <img  class="advantages-img"  src="{{ asset('public/img-resources/premium.png') }}" width="96" alt="dollars" title="dollars">
                                 
-                                <h3><strong>PREMIUM</strong></h3>
+                                <h3 class='advance-title2'><strong>PREMIUM</strong></h3>
                                 <p class="margin-right">Upgrade your FREE Account to PREMIUM with 1 Token for 6 months to access unlimited features in ProKakis</p>
                             </div>
                         </div>
@@ -320,7 +320,7 @@
                             <div class="content">
                                 <img class="advantages-img"    src="{{ asset('public/img-resources/report-new.png') }}" width="96" alt="Tax" title="Tax">
                                 
-                                <h3><strong>REPORT</strong></h3>
+                                <h3 class='advance-title3'><strong>REPORT</strong></h3>
                                 <p class="margin-center">Add on 12 Tokens yo your account to purchase KYB Business Intelligence Report from Companies.</p>
                             </div>
                         </div>
