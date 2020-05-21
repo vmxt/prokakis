@@ -721,7 +721,7 @@ div.payment .advantages-block p {
     .margin-left, .margin-right, .margin-center{
         padding-right: 80px;
         text-align: center;
-        margin: 142px -109px 0px !important;
+        margin: 145px -135px 0px !important;
         padding-left: 0;
     }
 
@@ -854,20 +854,40 @@ div.payment .advantages-block p {
     .arrow_right-down{
         right:  0;
         left: -55px!important;
-        top: 360px !important;
+        top: 300px !important;
     }
 
     .arrow_right-top{
-        right:  0;
-        left: 125px!important;
-        top: 760px !important;
+        right: 0;
+        left: 140px!important;
+        top: 645px !important;
     }
 
     div.payment .advantages-block .advantages-img {
         width: 150px;
         height: 150px;
         top: 15px;
-        left: 50px;
+        left: 45px;
+    }
+
+    .advance-title2{
+        right: 75px !important;
+    }
+
+    .advance-title3{
+        right: 70px !important;
+    }
+
+    div.payment .advantages-block p {
+        margin: 0;
+        font-size: 16px !important;
+    }
+
+    .advFooterText{
+        padding-right: 90px;
+        text-align: center;
+        margin: 55px -126px 0px !important;
+        padding-left: 105px;
     }
 
 }

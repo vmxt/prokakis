@@ -324,7 +324,7 @@
                                 <p class="margin-center">Add on 12 Tokens yo your account to purchase KYB Business Intelligence Report from Companies.</p>
                             </div>
                         </div>
-                        <div class="col-12 col-foot advFooterText2">
+                        <div class="col-12 advFooterText2">
                             <div class="content advFooterText" style="text-align: center;">
                                 <p>Upgrading to Premium Account will deduct 1 Token from your account, Purchase of KYB Business Intelligence Report will deduct 12 Tokens from your account.</p>
                             </div>
