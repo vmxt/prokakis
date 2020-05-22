@@ -386,217 +386,6 @@ input:disabled[type=submit] {
     opacity: .5
 }
 
-
-@media screen and (min-width:480px) {
-
-    .row {
-        margin: 0 -5px;
-        width: 100%
-    }
-      
-}
-
-@media screen and (min-width:640px) {
-
-  
-    :after,
-    :before {
-        box-sizing: initial;
-    }
-
-   .row {
-    margin: 0 -5px;
-    width: 100%
-    }
-}
-
-
-@media screen and (min-width:768px) {
-    .row {
-        margin: 0 -5px;
-        width: 100%
-    }
-
-    div.payment .advantages-block .advantages-img {
-        width: 230px;
-        height: 230px;
-    }
-
-}
-
-@media screen and (min-width:992px) {
-    .row {
-    margin: 0 -5px;
-    width: 100%
-    }
-}
-
-@media screen and (min-width:1400px) {
-    .row {
-    margin: 0 -5px;
-    width: 100%
-    }
-}
-
-
-@media screen and (max-width:960px) {
-    div.payment .pricing-tables .container {
-        padding: 1em;
-    }
-}
-
-@media screen and (max-width:320px) {
-    div.payment .pricing-tables .container--mobile-mg-x-none {
-        padding: 1em 0
-    }
-
-    .img_icon{
-         width: 15px !important;
-         height: 15px !important;
-    }
-}
-
-
-@media  (min-width:991px) and (max-width:1199px) {
-    .arrow_right{
-        width: 155px;
-    }
-
-    .arrow_right-top {
-        left: 213px !important;
-        top: -44px;
-    }
-
-    .arrow_right-down {
-        right: 260px !important;
-        top: 120px !important;
-    }
-
-    .rowHead {
-        width: 100px !important;
-    }
-}
-
-@media screen and (max-width:320px) {
-    div.payment .pricing-tables .row .box.table td,
-    div.payment .pricing-tables .row .box.table th {
-        font-size: .8125em;
-    }
-}
-
-@media screen and (max-width:400px) {
-
-    div.payment .pricing-tables .row .box.table td {
-        font-size: .8125em;
-        padding: 20px;
-    }
-
-    div.payment .pricing-tables .row .box.plans .content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 1.5em 0
-    }
-    div.payment .pricing-tables .row .box.plans .content .btn-subscribe {
-        position: relative;
-        transform: none;
-        top: inherit;
-        right: inherit;
-        margin-top: 10px
-    }
-    div.payment .pricing-tables .row .box.plans#box-annual .content {
-        padding: 0 0 1.5em;
-    }
-
-    div.payment .pricing-tables .row .box {
-        /*overflow: hidden*/
-    }
-
-    div.payment .box.table tbody tr td {
-       padding-bottom: : 50px;
-       padding-top: : : 50px;
-    }
-
-}
-
-
-@media screen and (max-width:960px) {
-    div.payment .pricing-tables .row .col-6 {
-        width: 100%;
-        margin: 0 0 1.5em
-    }
-    div.payment .pricing-tables .row .col-6:last-child {
-        margin-bottom: 0
-    }
-}
-
-
-@media screen and (max-width:768px) {
-    div.payment .feedback h2 {
-        font-size: 1.6em
-    }
-    .compTable table {
-        width: 150% !important;
-    }
-
-}
-
-
-
-@media screen and (max-width:960px) {
-    div.payment .reviews .review {
-        float: none;
-        width: 100%;
-        margin: 0 auto 20px
-    }
-    div.payment .reviews .col-4>* {
-        margin: auto
-    }
-    .compTable table {
-        width: 160%;
-    }
-
-    .margin-left{
-        padding-left: 215px;
-        text-align: right;
-    }
-
-    .margin-center{
-        padding-left: 50px;
-        text-align: center;
-        padding-right: 50px;
-    }
-
-    .margin-right{
-        padding-right: 175px;
-        padding-left: 60px;
-        text-align: left;
-    }
-
-    .arrow_right-down  {
-        left: 60px;
-        top: 300px !important;
-    }
-
-    .arrow_right-top    {
-        left: 410px !important;
-        bottom:  545px !important;
-    }
-
-    .arrow_right-down .arrow_right {
-         transform: rotate(85deg) scaleX(1.5) scaleY(1.5);
-    }
-
-    .arrow_right-top .arrow_right {
-         transform: rotate(85deg) scaleX(1.5) scaleY(1.5);
-    }
-
-}
-
-
-
-
 div.payment .advantages-block {
     margin: 0 0 1.5em;
     background-color: #fff;
@@ -653,6 +442,7 @@ div.payment .advantages-block h3 {
 div.payment .advantages-block p {
     font-size: 14px;
     margin: 25px 10px .75em;
+
 }
 
 .col-foot p {
@@ -682,257 +472,24 @@ div.payment .advantages-block p {
 
 
 
-@media screen and (max-width: 960px){
-    div.payment .advantages-block .col-foot:nth-child(odd) {
-        margin-right: 4%;
-    }
-}
-
-@media screen and (max-width: 425px){
-    div.payment .advantages-block .col-foot {
-        padding-left: 77px;
-    }
-
-    div.payment .advantages-block .advantages-img {
-        width: 150px !important;
-        height: 150px !important;
-        top: 15px;
-        left: 65px;
-    }
-
-    div.payment .advantages-block h3 {
-        font-size: 18px;
-    }
-
-    div.payment .advantages-block p {
-        font-size: 14px;
-        margin: 20px -50px 0;
-    }
-
-     div.payment .advantages-block .col-foot .content h3{
-        /*here*/
-        padding: 19px;
-        position: relative;
-        top: 155px;
-        right: 45px;
-        font-size: 24px;
-    }
-
-    .margin-left, .margin-right, .margin-center{
-        padding-right: 80px;
-        text-align: center;
-        margin: 145px -135px 0px !important;
-        padding-left: 0;
-    }
-
-    .advFooterText {
-        padding-right: 120px;
-        text-align: center;
-        margin: 142px -109px 0px !important;
-        padding-left: 33px;
-    }
-
-    .arrow_right-down .arrow_right, .arrow_right-top .arrow_right  {
-        transform: rotate(80deg) scaleX(0.5) scaleY(0.5);
-    }
-
-    .arrow_right-down{
-        right:  0;
-        left: -55px!important;
-        top: 360px !important;
-    }
-
-    .arrow_right-top{
-        right:  0;
-        left: 125px!important;
-        top: 765px !important;
-    }
-}
-
-@media screen and (max-width:767px) {
-    .compTable table{
-        width: 450px !important;
-    }
-}
-
-@media screen and (max-width:520px) {
-    .compTable table{
-        width: 375px !important;
-    }
-        .rowHead{
-        width: 60px !important;
-    }
-
-    .img_icon{
-         width: 15px !important;
-         height: 15px !important;
-    }
-
-    .row_title {
-        padding: 10px !important;
-    }
-}
-
-@media screen and (max-width:426px) and (min-width: 376px ) {
-    .col-foot {
-        width: 100% !important;
-    }
-    .rowHead{
-        width: 60px !important;
-    }
-
-    .col-foot .content {
-        width: 220px;
-    }
-
-    .margin-left, .margin-right, .margin-center{
-        padding-left: 0;
-        padding-right:  0;
-        text-align: start;
-    }
-
-    .col-12.col-foot.advFooterText2 {
-        padding: 0px !important;
-    }
-
-    .col-foot .content {
-            width: 100% !important;
-    }
-
-    .arrow_right-down .arrow_right {
-        display: none;
-    }
-
-}
-
-@media screen and (max-width:375px) {
-    .compTable table{
-        width: 318px !important;
-    }
-
-    .rowHead{
-        width: 55px !important;
-    }
-
-    div.payment .pricing-tables .row .box.table td {
-        padding: 10px;
-    }
-
-    .img_icon{
-         width: 15px !important;
-         height: 15px !important;
-    }
-
-    .arrow_right-down {
-        top: 325px !important;
-    }
-
-    .arrow_right-top {
-        left: 145px!important;
-        top: 721px !important;
-    }
-}
-
-@media screen and (max-width:320px) {
-    .compTable table{
-        width: 285px !important;
-    }
-
-    .rowHead{
-        width: 55px !important;
-    }
-
-    div.payment .pricing-tables .row .box.table td {
-        padding: 10px;
-    }
-
-    .img_icon{
-         width: 15px !important;
-         height: 15px !important;
-    }
-
-    .arrow_right-down{
-        right:  0;
-        left: -55px!important;
-        top: 300px !important;
-    }
-
-    .arrow_right-top{
-        right: 0;
-        left: 140px!important;
-        top: 645px !important;
-    }
-
-    div.payment .advantages-block .advantages-img {
-        width: 150px;
-        height: 150px;
-        top: 15px;
-        left: 45px;
-    }
-
-    .advance-title2{
-        right: 75px !important;
-    }
-
-    .advance-title3{
-        right: 70px !important;
-    }
-
-    div.payment .advantages-block p {
-        margin: 0;
-        font-size: 16px !important;
-    }
-
-    .advFooterText{
-        padding-right: 90px;
-        text-align: center;
-        margin: 55px -126px 0px !important;
-        padding-left: 105px;
-    }
-
-}
-
-@media screen and (max-width: 767px){
-    div.payment .advantages-block .col-foot {
-        width: 100%;
-        text-align: left;
-        float: none;
-        position: relative;
-        padding-left: 116px;
-        margin-bottom: 40px;
-        min-height: none;
-    }
-
-    div.payment .advantages-block img {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    div.payment .advantages-block h3, body.payment .advantages-block p {
-        margin: 0;
-    }
-
-}
 
 
-@media screen and (max-width: 960px){
-    div.payment .advantages-block .col-foot {
-        width: 85%;
-        margin: 0 0 40px;
-    }
-}
 
-@media (max-width: 1025px){
-    div.payment .advantages-block p {
-        margin:0;
-    }
 
-    div.payment .advantages-block .advantages-img {
-        width: 180px;
-        height: 180px;
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .row_title{
     background-color: #071D3B;
@@ -998,4 +555,501 @@ div.payment .advantages-block p {
     bottom: -40px;
     position: absolute;
     width: 67px;
+}
+
+@media  (min-width:960px) and (max-width:1199px) {
+    .arrow_right{
+        width: 130px;
+    }
+
+    .arrow_right-top {
+        left: 213px !important;
+        top: -44px;
+    }
+
+    .arrow_right-down {
+        right: 275px !important;
+        top: 120px !important;
+    }
+
+    .rowHead {
+        width: 100px !important;
+    }
+}
+
+@media (max-width: 1025px){
+    div.payment .advantages-block p {
+        margin:0;
+    }
+
+    div.payment .advantages-block .advantages-img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media screen and (max-width: 960px){
+    div.payment .advantages-block .col-foot {
+        width: 85%;
+        margin: 0 0 40px;
+    }
+
+    div.payment .advantages-block .col-foot:nth-child(odd) {
+        margin-right: 4%;
+    }
+
+    div.payment .reviews .review {
+        float: none;
+        width: 100%;
+        margin: 0 auto 20px
+    }
+    div.payment .reviews .col-4>* {
+        margin: auto
+    }
+    .compTable table {
+        width: 160%;
+    }
+
+    .margin-left{
+        padding-left: 215px;
+        text-align: right;
+    }
+
+    .margin-center{
+        padding-left: 50px;
+        text-align: center;
+        padding-right: 50px;
+    }
+
+    .margin-right{
+        padding-right: 175px;
+        padding-left: 60px;
+        text-align: left;
+    }
+
+    .arrow_right-down  {
+        left: 60px;
+        top: 300px !important;
+    }
+
+    .arrow_right-top    {
+        left: 450px !important;
+        top:  740px !important;
+    }
+
+    .arrow_right-down .arrow_right {
+         transform: rotate(85deg) scaleX(1.5) scaleY(1.5);
+    }
+
+    .arrow_right-top .arrow_right {
+         transform: rotate(85deg) scaleX(1.5) scaleY(1.5);
+    }
+
+    div.payment .pricing-tables .row .col-6 {
+        width: 100%;
+        margin: 0 0 1.5em
+    }
+    div.payment .pricing-tables .row .col-6:last-child {
+        margin-bottom: 0
+    }
+
+    div.payment .pricing-tables .container {
+        padding: 1em;
+    }
+
+    .col-12.advFooterText2 {
+        float: left !important;
+    }
+
+
+}
+
+
+@media screen and (max-width:768px) {
+    div.payment .feedback h2 {
+        font-size: 1.6em
+    }
+    .compTable table {
+        width: 170% !important;
+    }
+
+}
+
+@media screen and (max-width: 767px){
+    div.payment .advantages-block .col-foot {
+        width: 100%;
+        text-align: left;
+        float: none;
+        position: relative;
+        padding-left: 116px;
+        margin-bottom: 40px;
+        min-height: none;
+    }
+
+    div.payment .advantages-block img {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    div.payment .advantages-block h3, body.payment .advantages-block p {
+        margin: 0;
+    }
+
+    .compTable table{
+        width: 140% !important;
+    }
+    .rowHead{
+        width: 65px !important;
+        font-size: 11px !important;
+    }
+
+}
+
+
+@media screen and (max-width:630px) {
+
+    .compTable table {
+        width: 150% !important;
+    }
+        .margin-left, .margin-right, .margin-center{
+        padding-left: 0;
+        padding-right:  0;
+        text-align: start;
+    }
+
+}
+
+@media screen and (max-width:520px) {
+    .compTable table{
+        width: 375px !important;
+    }
+        .rowHead{
+        width: 60px !important;
+    }
+
+    .img_icon{
+         width: 15px !important;
+         height: 15px !important;
+    }
+
+    .row_title {
+        padding: 10px !important;
+    }
+}
+
+@media (max-width:426px) and (min-width: 376px ) {
+    .col-foot {
+        width: 100% !important;
+    }
+    .rowHead{
+        width: 60px !important;
+    }
+
+    .col-foot .content {
+        width: 220px;
+    }
+
+/*    .margin-left, .margin-right, .margin-center{
+        padding-left: 0;
+        padding-right:  0;
+        text-align: start;
+    }*/
+
+/*    .col-12.col-foot.advFooterText2 {
+        padding: 0px !important;
+    }*/
+
+    .col-foot .content {
+            width: 100% !important;
+    }
+
+    .arrow_right-down .arrow_right {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 425px){
+    div.payment .advantages-block .col-foot {
+        padding-left: 77px;
+    }
+
+    div.payment .advantages-block .advantages-img {
+        width: 150px !important;
+        height: 150px !important;
+        top: 15px;
+        left: 65px;
+    }
+
+    div.payment .advantages-block h3 {
+        font-size: 18px;
+    }
+
+      {
+        font-size: 14px;
+        margin: 20px -50px 0;
+    }
+
+     div.payment .advantages-block .col-foot .content h3{
+        /*here*/
+        padding: 19px;
+        position: relative;
+        top: 155px;
+        right: 0px;
+        font-size: 24px;
+    }
+
+    .margin-left, .margin-right, .margin-center{
+        padding-right: 80px;
+        text-align: center;
+        margin: 145px -110px 0px !important;
+        padding-left: 0;
+    }
+
+    .advFooterText {
+        padding-right: 90px;
+        text-align: center;
+        margin: 142px -109px 0px !important;
+        padding-left: 90px;
+    }
+
+    .arrow_right-down .arrow_right, .arrow_right-top .arrow_right  {
+        transform: rotate(80deg) scaleX(0.5) scaleY(0.5);
+    }
+
+    .arrow_right-down{
+        right:  0;
+        left: -55px!important;
+        top: 360px !important;
+    }
+
+    .arrow_right-top{
+        right:  0;
+        left: 125px!important;
+        top: 765px !important;
+    }
+}
+
+@media screen and (max-width:400px) {
+
+    div.payment .pricing-tables .row .box.table td {
+        font-size: .8125em;
+        padding: 20px;
+    }
+
+    div.payment .pricing-tables .row .box.plans .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5em 0
+    }
+    div.payment .pricing-tables .row .box.plans .content .btn-subscribe {
+        position: relative;
+        transform: none;
+        top: inherit;
+        right: inherit;
+        margin-top: 10px
+    }
+    div.payment .pricing-tables .row .box.plans#box-annual .content {
+        padding: 0 0 1.5em;
+    }
+
+    div.payment .pricing-tables .row .box {
+        /*overflow: hidden*/
+    }
+
+    div.payment .box.table tbody tr td {
+       padding-bottom: : 50px;
+       padding-top: : : 50px;
+    }
+
+        .arrow_right-down {
+        top: 280px !important;
+    }
+
+    .arrow_right-top {
+        left: 180px!important;
+        top: 600px !important;
+    }
+
+}
+
+@media screen and (max-width:375px) {
+
+    div.payment .pricing-tables .row .box.table td,
+    div.payment .pricing-tables .row .box.table th {
+        font-size: .8125em;
+    }
+
+    .compTable table{
+        width: 285px !important;
+    }
+
+    .rowHead{
+        width: 55px !important;
+         font-size: 9px !important;
+    }
+
+    div.payment .pricing-tables .row .box.table td {
+        padding: 10px;
+    }
+
+    .img_icon{
+         width: 15px !important;
+         height: 15px !important;
+    }
+
+    .arrow_right-down {
+        top: 280px !important;
+    }
+
+    .arrow_right-top {
+        left: 180px!important;
+        top: 600px !important;
+    }
+
+    div.payment .advantages-block p {
+        margin: 0;
+        font-size: 16px !important;
+    }
+}
+
+@media screen and (max-width:320px) {
+    div.payment .pricing-tables .container--mobile-mg-x-none {
+        padding: 1em 0
+    }
+
+    .img_icon{
+         width: 15px !important;
+         height: 15px !important;
+    }
+
+/*    div.payment .pricing-tables .row .box.table td,
+    div.payment .pricing-tables .row .box.table th {
+        font-size: .8125em;
+    }*/
+
+/*    .compTable table{
+        width: 285px !important;
+    }
+
+    .rowHead{
+        width: 55px !important;
+        font-size: 9px !important;
+    }*/
+
+/*    div.payment .pricing-tables .row .box.table td {
+        padding: 10px;
+    }*/
+
+    .img_icon{
+         width: 15px !important;
+         height: 15px !important;
+    }
+
+    .arrow_right-down{
+        right:  0;
+        left: -55px!important;
+        top: 300px !important;
+    }
+
+    .arrow_right-top{
+        right: 0;
+        left: 140px!important;
+        top: 645px !important;
+    }
+
+    div.payment .advantages-block .advantages-img {
+        width: 150px;
+        height: 150px;
+        top: 15px;
+        left: 45px;
+    }
+
+    .advance-title1{
+        right: 0 !important;
+    }
+
+    .advance-title2{
+        right: 35px !important;
+    }
+
+    .advance-title3{
+        right: 25px !important;
+    }
+
+
+
+    .advFooterText{
+        padding-right: 90px;
+        text-align: center;
+        margin: 55px -126px 0px !important;
+        padding-left: 105px;
+    }
+}
+
+@media screen and (min-width:375px) and  {
+   .compTable table{
+        width: 285px !important;
+    }
+
+    .rowHead{
+        width: 55px !important;
+        font-size: 9px !important;
+    }
+
+}
+
+
+@media screen and (min-width:480px) {
+
+    .row {
+        margin: 0 -5px;
+        width: 100%
+    }
+      
+}
+
+@media screen and (min-width:640px) {
+
+  
+    :after,
+    :before {
+        box-sizing: initial;
+    }
+
+   .row {
+    margin: 0 -5px;
+    width: 100%
+    }
+}
+
+
+@media screen and (min-width:768px) {
+    .row {
+        margin: 0 -5px;
+        width: 100%
+    }
+
+    div.payment .advantages-block .advantages-img {
+        width: 190px;
+        height: 190px;
+    }
+
+}
+
+@media screen and (min-width:992px) {
+    .row {
+        margin: 0 -5px;
+        width: 100%
+    }
+}
+
+@media screen and (min-width:1400px) {
+    .row {
+    margin: 0 -5px;
+    width: 100%
+    }
 }
