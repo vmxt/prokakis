@@ -48,7 +48,7 @@
     }
 
     .login2{
-            background-image: url("{{ asset('public/banner/login-hero.png') }}");
+            background-image: url("{{ asset('public/banner/mobile-login-hero.png') }}");
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -65,10 +65,176 @@
     }
 
     .login .content {
-        float: right;
         margin-right: auto !important;
         top: 35px;
         left: 20px;
+        width: 40%;
+    }
+
+    @media (min-width: 320px){
+        .content{
+            left: 0px !important;
+            top: 215px !important;
+            height: 225px !important;
+        }
+    }
+
+    @media (min-width: 375px)  {
+        .login2{
+            width: 345px;
+            margin: 0 auto;
+        }
+
+    }
+
+    @media (min-width: 640px){
+        .login2{
+            background-image: url("{{ asset('public/banner/login-hero.png') }}") !important;
+            height: 70%;
+            width: 100%;
+            top: 50px;
+        }
+
+        .content {
+            left: 150px !important;
+            top: 64px !important;
+            height: 225px !important;
+        }
+
+        .content .h-effect {
+            left: 75px;
+            top: 34px;
+        }
+
+        .login .content {
+            /*width: 320px !important;*/
+        }
+
+        .content .h-effect{
+            left: 75px;
+            top: 25px;
+        }
+
+        
+    }
+
+    @media (min-width: 670px)  {
+
+        .content {
+            left: 160px !important;
+        }
+    }
+
+    @media (min-width: 700px)  {
+
+        .content {
+            left: 170px !important;
+        }
+        .login .content {
+            width: 250px !important;
+        }
+
+        .login .content h3{
+            font-size: 0px !important;
+        }
+
+        .form-group {
+            margin-bottom: 1px !important;
+        }
+
+        .login .content .form-title{
+            margin-bottom: 0px !important;
+        }
+
+        .login .content .form-control {
+            height: 35px !important;
+        }
+
+        .login .content .form-actions{
+            padding: 5px 30px !important;
+        }
+
+        .login .content .create-account{
+            margin-top: 30px !important;
+        }
+
+        .login .content .create-account a {
+            margin-top: 0px !important;
+        }
+
+        .login .content .form-actions .btn {
+            padding: 7px 17px !important;
+        }
+    }
+
+    @media (min-width: 745px){
+        .content{
+            left: 180px !important; 
+        }
+    }
+
+    @media (min-width: 800px){
+        .content{
+            left: 165px !important; 
+        }
+
+        .login2{
+            height: 75%;
+            width: 85%;
+        }
+
+        .login .content {
+            width: 40% !important;
+        }
+
+
+    }
+
+
+    @media (min-width: 840px)  {
+        .content{
+            left: 180px !important; 
+        }
+
+    }
+
+    @media (min-width: 860px)  {
+        .content{
+            left: 180px !important;
+            top: 105px !important;
+        }
+
+        .login2{
+            height: 80%;
+        }
+
+        .login .content{
+            width: 45% !important;
+        }
+
+    }
+
+    @media (min-width: 925px)  {
+        .content{
+            left: 185px !important; 
+        }
+
+        .login2{
+            height: 85%;
+        }
+
+    }
+
+    @media (min-width: 960px)  {
+        .content{
+            left: 200px !important; 
+        }
+    }
+
+    @media (min-width: 1023px)  {
+        .content{
+            left: 200px !important; 
+        }
     }
 
     @media (min-width: 1200px)  {
@@ -76,26 +242,59 @@
             bottom: 35px;
             top: 0px;
         }
-
     }
+
 
     @media (min-width: 1440px)  {
         .login .content{
             margin-right: 45px !important;
+            margin: 40px auto 10px !important;
+            padding: 0px 15px 0px !important;
         }
-
     }
 
     @media (min-width: 1024px)  {
         .login .content{
-            top: 50px;
+            float: right;
+            top: 20px !important;
+            left: 48px !important;
             width: 370px !important;
+            padding: 0px 30px 30px !important;
         }   
-        .content .h-effect{
+    }
 
+    @media (min-width: 1200px)  {
+        .login2 {
+            width: 70% !important;
+        } 
+
+        .container {
+            width: 100% !important;   
         }
 
+        .login .content{
+            left: 40px !important;
+            margin: 70px auto 10px !important
+        }
     }
+
+    @media (min-width: 1300px)  {
+        .login .content{
+            left: 30px !important; 
+        }
+    }
+
+    @media (min-width: 1400px)  {
+        .login2 {
+            width: 65% !important;
+        } 
+
+        .login .content {
+            left: 25px !important;
+            margin: 78px auto 10px !important;
+        }
+    }
+
 
     @media (max-width: 1023px)  {
         .login2 {
@@ -106,7 +305,7 @@
             overflow: hidden;
         }
 
-        .content .h-effect {
+/*        .content .h-effect {
             left: 75px;
             top: 34px;
         }
@@ -118,7 +317,7 @@
         .content .h-effect{
             left: 75px;
             top: 25px;
-        }
+        }*/
 
     }
 
@@ -127,37 +326,37 @@
             height: 500px !important;
         }
 
-        .content {
+/*        .content {
             height: 330px !important;
             top: 95px !important;
             left: 185px !important;
-        }
+        }*/
 
         .login .content {
             margin: 40px auto 10px !important;
             padding: 0px 15px 0px !important;
         }
 
-        .form-group {
+/*        .form-group {
             margin-bottom: 6px !important;
-        }
+        }*/
     }
 
     @media (max-width: 715px) {
 
-        .login2{
+        /*.login2{
             background-image: url("{{ asset('public/banner/mobile-login-hero.png') }}") !important;
 
-        }
+        }*/
 
         .login .content {
             width: 250px !important;
         }
-        .content{
+/*        .content{
             left: 0px !important;
             top: 215px !important;
             height: 225px !important;
-        }
+        }*/
         .login .content h3{
             font-size: 0px !important;
         }
