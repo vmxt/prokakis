@@ -80,7 +80,7 @@
 
             left: 0px;
 
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.9);
 
         }
 
@@ -206,10 +206,12 @@
 
         }
 
+        .displayActive{
+            display: flex !important;
+        }
 
-
-        #edit_news{
-
+        .edit_news{
+/*
             float:left;
 
             width:100%;
@@ -224,7 +226,7 @@
 
             width: 200px; height: 150px; padding: 5px;
 
-            text-align: center; margin: 0; 
+            text-align: center; margin: 0; */
 
         }
 
@@ -360,7 +362,7 @@
 
                             <a   onclick="ajxProcess('<?php echo $data->id; ?>','<?php echo $data->business_title; ?>')"
 
-                                class="edit_icon btn btn-outline btn-circle btn-sm blue">
+                                 data-popup-open="popup-1" class=" edit_btn edit_icon btn btn-outline btn-circle btn-sm blue">
 
                              <i class="fa fa-edit"></i> Edit </a>
 
@@ -454,10 +456,66 @@
 
 
 
+    <div class="popup" id='edit_news' data-popup="popup-1">
+
+        <div class="popup_content popup-inner">
+
+            <div class="form-group">
+
+                <input type="text" id="news_title_update" name="news_title_update" class="form-control" />
+
+                <input type="hidden" name="newsId" id="newsId" value="">
+
+                <input type="hidden" name="public_path" id="public_path" value="{{ asset('public/company/feature_images/') }}/">
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="feature_image_preview_save">Feature Image</label>
+
+                <input type='file' id='feature_img'  class="form-control-file" onchange="readURL(this,'feature_image_preview_edit');" />
+
+                    <img id="feature_image_preview_edit" src="#" alt="feature image" width="250px" style="visibility:  hidden" />
+
+            </div>
+
+            <div class="form-group" id="load_feature_image">
+
+            </div>
+
+            <div class="form-group">
+
+                <p>
+
+                <textarea rows="5" cols="20" class="form-control" name="opportunitiesArea" id="opportunitiesArea"></textarea>
+
+                </p>
+
+           </div>
+
+            <div class="form-group">
+
+                <p>
+
+                <button align="right" id="ajxUpdate" type="button" class="btn btn-primary">Update</button>
+                <button align="right" id="closeBut1" data-popup-close="popup-1" type="button" class="btn btn-danger">Close</button>
+
+                </p>
+
+            </div>
+
+            {{-- <a class="popup-close" data-popup-close="popup-2" href="#">x</a> --}}
+
+        </div>
+
+    </div>
 
 
 
-    <div   id="edit_news" style="display: none;">
+
+{{--     <div   class="popup" data-popup="popup-2">
+        <div class="popup-inner">
 
             <div class="form-group">
 
@@ -500,11 +558,29 @@
                 </p>
 
             </div>
+        </div>
+    </div> --}}
 
-    </div>
 
 
+{{--     <div class="popup" data-popup="popup-1">
+        <div class="popup-inner">
 
+            <input type="text" id="news_title_update" name="news_title_update" class="form-control" />
+            <input type="hidden" name="newsId" id="newsId" value="">
+            <p>
+                <textarea rows="5" cols="20" id="opportunitiesArea"  name="opportunitiesArea"></textarea>
+
+            </p>
+            <p>
+                <button align="right" id="ajxUpdate" type="button" class="btn btn-primary">Update</button>
+                <button align="right" id="closeBut1" data-popup-close="popup-1" type="button" class="btn btn-danger">Close</button>
+            </p>
+
+            <!--<p><a data-popup-close="popup-1" href="#">Close</a></p>-->
+            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+        </div>
+    </div> --}}
 
 
     <div class="popup" data-popup="popup-2">
@@ -617,7 +693,7 @@ $(document).ready( function () {
 
 
     $("#closeBut1").click(function () {
-
+        $("#edit_news").removeClass("displayActive");
         $('#edit_news').dialog('close');
 
     });
@@ -686,15 +762,18 @@ function ajxProcess(cId, nTitle){
 
                 $('#load_feature_image').empty();
 
-                $('<img src="'+ path+data.feature_image +'">').load(function() {
+                if(data.feature_image){
+                    $('<img src="'+ path+data.feature_image +'">').load(function() {
+                        $(this).width('250px').appendTo('#load_feature_image');
+                    });
+                }
 
-                  $(this).width('250px').appendTo('#load_feature_image');
+                if(data.content_business){
+                    tinymce.get("opportunitiesArea").setContent(data.content_business);
+                }
 
-                });
-
-                tinymce.get("opportunitiesArea").setContent(data.content_business);
-
-                $( "#edit_news" ).dialog();
+                $("#edit_news").addClass("displayActive");
+                // $( "#edit_news" ).dialog();
 
             }
 
@@ -755,6 +834,7 @@ function ajxProcess(cId, nTitle){
                     console.log(data);
 
                     $(".popup").hide(250);
+                    $(".popup").removeClass("displayActive");
 
                     document.location = "{{ route('businessnewsList') }}"
 
@@ -770,10 +850,14 @@ function ajxProcess(cId, nTitle){
 
         $("#ajxSave").click(function () {
 
+           
             tinyMCE.triggerSave();
 
             var newsTitle = $("#news_title").val();
-
+            if($.trim(newsTitle) == ""){
+                notifyAlert("Required!", "News Title is mandatory before you can submit the form", 'error');
+                return false;
+            }
             var newsContent = $.trim($("textarea#businessnewsArea").val());
 
             var files = $('#feature_img2')[0].files[0];
@@ -829,18 +913,12 @@ function ajxProcess(cId, nTitle){
         });
 
 
+        function notifyAlert(title, desc, status){
+            swal(title, desc, status);
+        }
 
 
-
-
-
-        function ajxDel(iDx, nTitle)
-
-        {
-
-            
-
-           
+        function ajxDel(iDx, nTitle) {
 
             swal({
 
