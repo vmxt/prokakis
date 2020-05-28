@@ -286,6 +286,95 @@
             justify-content: space-around;
         }
 
+        .forDesktop{
+            display: none;
+        }
+
+        .forMobile{
+            display: block;
+        }
+
+        .card-body ul li i{
+            color: red;
+        }
+
+        .card-body ul li{
+            font-size: 14px;
+            display: flex;
+        }
+
+        .busineNews {
+            line-height: 25px;
+        }
+
+        .read_more {
+            margin-left: 15px;
+        }
+
+
+        @media (min-width: 320px) and (max-width: 641px){
+            .portlet.light.portlet-fit>.portlet-body {
+                padding: 0px 0px 0px;
+            }
+
+            .card-title h1{
+                font-size: 2em;
+                font-weight: 500;
+            }
+
+            .pie{
+                margin: 0 auto;
+            }
+
+            .btn-full{
+                width: 100% !important;
+            }
+
+            .col-record .title {
+                font-size: 13px !important;
+                margin: 0px 0 !important;
+                text-transform: uppercase;
+            }
+
+    /*        .col-record .desc {
+                margin-left: 15px !important;
+            }*/
+
+            .col-record {
+                line-height: 20px;
+            }
+
+            .descBox{
+                margin-left: 10px;
+                margin-right: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+                font-size: 13px;
+            }
+
+
+            .card-body ul li{
+                font-size: 12px;
+            }
+
+            .niceDisplay{
+                padding: 10px;
+            }
+
+        }
+
+        @media (min-width: 640px){
+            .forDesktop{
+                display: block !important;
+            }
+
+            .forMobile{
+                display: none;
+            }
+
+        }
+
         @media (max-width: 960px) and (min-width: 501px) {
             .coverArr li { width: 100%; } /* Show 2 logos per row on medium devices (tablets, phones in landscape) */
         }
@@ -540,7 +629,7 @@
                 <div class="card">
                     <div class="niceDisplay">
                         <div class="card-title">
-                            <center> <h1>Profile Strength</h1> <br><?php echo $completenessProfile; ?>%</center>
+                             <h1>Profile Strength</h1> <br><?php echo $completenessProfile; ?>%
                         </div>
                         <div class="card-body">
 
@@ -560,7 +649,7 @@
                                 ?>
                                 <strong>
                                 <li style=" list-style-type: none; color: #1A4275"><?php if ($d != NULL) {
-                                        echo '<i class="fa fa-check"></i>' .$d;
+                                        echo '<i class="fa fa-exclamation"></i>' .$d;
                                     } ?> </li></strong>
                                 <?php
                                 }
@@ -583,17 +672,18 @@
                                 $x = 0;
                                 foreach($businessNewsOpportunity as $op){
                                 ?>
-                                <div id="niceDisplay">
+                                <div class="busineNews">
                                 <?php
                                 if (isset($op->content_business)) {
                                     echo '<br /><b>'.$op->business_title.'</b>';
 
                                     $viewer = base64_encode('viewer'.$op->company_id);
                                     ?>
-                                <br /> To know more about this business news<br /> 
+                                <br />
+                                 {{-- To know more about this business news<br />  --}}
                                 {{-- <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$op->company_id) }}">read more</a> --}}
 
-                                <p><a href="#bus_news_{{ $x }}" rel="modal:open">read more</a></p>
+                                <span class="read_more"><a href="#bus_news_{{ $x }}" rel="modal:open"><em>read more >></em></a></span>
 
                                 <?php
                                 }
@@ -608,8 +698,9 @@
                                   <a href="#" rel="modal:close">Close</a>
                                 </div>
 
-                                <?php  }
+                                <?php  
                                 $x++;
+                                }
                              }
                             ?>
 
@@ -660,10 +751,10 @@
                                                 Be sure to include accurate information.</strong>
                                             </p>
                                         </div>
-                                        <a href="{{ route('editProfile') }}" class="btn red-mint" style="margin-top: 15px; width: 200px;">Enhance Company
+                                        <a href="{{ route('editProfile') }}" class="btn red-mint btn-full" style="margin-top: 15px; width: 200px;">Enhance Company
                                             Profile</a>
                     
-  <a data-popup-open="popup-previewcompany" id="companyProfilePreview" class="btn yellow" style="margin-top: 15px; width: 220px; cursor: zoom-in;">
+  <a data-popup-open="popup-previewcompany" id="companyProfilePreview" class="btn yellow btn-full" style="margin-top: 15px; width: 220px; cursor: zoom-in;">
                                                 Company Preview</a>
                                     </div>
                                 </div>
@@ -705,7 +796,248 @@
                                 <div class="portlet light portlet-fit ">
                                     <div class="portlet-body">
                                         <div class="table-scrollable table-scrollable-borderless">
-                                            <table class="table table-hover table-light">
+                            <!-- This is for Mobile -->
+                                            <div class="forMobile">
+                                                @if(isset($company_data->registered_company_name))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Propose Company Name </strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->registered_company_name}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->unique_entity_number))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Company Registration Number (UEN) </strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->unique_entity_number}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->year_founded))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Year Founded </strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->year_founded}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->business_type))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Business Type </strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->business_type}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->industry))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Industry</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->industry}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->description))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Description</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->description}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->registered_address))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Office Address</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->registered_address}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                    
+                                                @if(isset($company_data->office_phone))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Office Phone</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->office_phone}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->mobile_phone))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Mobile Phone</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->mobile_phone}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->company_email))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Email</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->company_email}}
+                                                        </p>
+                                                    </div>
+                                                 @endif
+
+                                                @if(isset($company_data->company_website))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Website</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->company_website}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->facebook))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Facebook</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->facebook}}
+                                                        </p>
+                                                    </div>
+                                                 @endif
+
+                                                @if(isset($company_data->twitter))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Twitter</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->twitter}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->linkedin))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Linkedin</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->linkedin}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->googleplus))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Google Plus</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->googleplus}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->otherlink))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Other Link</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->otherlink}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->financial_year_end))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Financial Information Currency</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->financial_year_end}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->years_establishment))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Years of establishment</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->years_establishment}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->no_of_staff))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Number of Staff</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->no_of_staff}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->gross_profit))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Gross Profit</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->gross_profit}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->net_profit))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Net Profit</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->net_profit}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->annual_tax_return))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Annual Tax Filling Rate</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->annual_tax_return}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->corporate_tax))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Corporate Tax Filling Rate</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->corporate_tax}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->asset_more_liability))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Asset more than Liability</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->asset_more_liability}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                                @if(isset($company_data->paid_up_capital))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Paid Up Capital</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->paid_up_capital}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                            
+                                                @if(isset($company_data->financial_year_end))
+                                                    <div class="col-record">
+                                                        <p class="title"><strong>Financial Year End</strong></p>
+                                                        <p class="desc descBox">
+                                                                {{ $company_data->financial_year_end}}
+                                                        </p>
+                                                    </div>
+                                                @endif
+
+                                            </div>
+                            <!-- This is for Mobile -->
+
+
+
+                                            <table class="table table-hover table-light forDesktop">
                                                 <tbody>
                                                 <tr>
                                                     <td><b>Propose Company Name</b></td>
@@ -956,8 +1288,11 @@
 
                                     <div class="form-group ">
                                         <label for="company_financial_currency">Currency</label> <br/>
-                                        <div class="niceDisplay"><?php if (isset($company_data->currency)) {
+                                        <div class="niceDisplay">
+                                            <?php if (isset($company_data->currency)) {
                                                 echo $company_data->currency;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -965,6 +1300,8 @@
                                         <label for="company_years_establishment">Years of establishment </label>
                                         <div class="niceDisplay"><?php if (isset($company_data->years_establishment)) {
                                                 echo $company_data->years_establishment;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -972,6 +1309,8 @@
                                         <label for="company_number_employeee">Number of Staff</label>
                                         <div class="niceDisplay"><?php if (isset($company_data->no_of_staff)) {
                                                 echo $company_data->no_of_staff;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -979,6 +1318,8 @@
                                         <label for="company_gross_profit">Gross Profit</label>
                                         <div class="niceDisplay"><?php if (isset($company_data->gross_profit)) {
                                                 echo $company_data->gross_profit;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -986,6 +1327,8 @@
                                         <label for="company_gross_profit">Net Profit</label>
                                         <div class="niceDisplay"><?php if (isset($company_data->net_profit)) {
                                                 echo $company_data->net_profit;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -993,6 +1336,8 @@
                                         <label for="company_annual_tax">Annual Tax filling rate </label>
                                         <div class="niceDisplay"><?php if (isset($company_data->annual_tax_return)) {
                                                 echo $company_data->annual_tax_return;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -1000,6 +1345,8 @@
                                         <label for="company_annual_tax">Corporate Tax filling rate </label>
                                         <div class="niceDisplay"><?php if (isset($company_data->corporate_tax)) {
                                                 echo $company_data->corporate_tax;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -1007,6 +1354,8 @@
                                         <label for="company_annual_tax">Asset more than Liability </label>
                                         <div class="niceDisplay"><?php if (isset($company_data->asset_more_liability)) {
                                                 echo $company_data->asset_more_liability;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -1015,10 +1364,14 @@
                                         <label for="company_paid_capital">Paid up capital</label>
                                         <div class="niceDisplay"><?php if (isset($company_data->paid_up_capital)) {
                                                 echo $company_data->paid_up_capital;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
 
                                         <div class="niceDisplay"><?php if (isset($company_data->solvent_value)) {
                                                 echo $company_data->solvent_value;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
 
@@ -1026,6 +1379,8 @@
                                         <label for="company_annual_tax">Financial Year End </label>
                                         <div class="niceDisplay"><?php if (isset($company_data->financial_year_end)) {
                                                 echo $company_data->financial_year_end;
+                                            }else{
+                                                echo "&nbsp;";
                                             } ?></div>
                                     </div>
                                 </div>
@@ -1133,11 +1488,33 @@
                             <div class="tab-pane" id="tab-5">
                                 <div class="card">
                                     <div class="card-header"><b>Financial Information</b></div>
-
-                                    <table class="table table-bordered table-striped table-condensed flip-content" style="width: 100%; padding-top: 5px;">
-                                        <?php
+                                    <?php
                                         $param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
                                         $fa = App\FA_Results::getEntries($user_id);
+                                        $totalMax = App\FA_Results::getTotalByMax($user_id);
+                                    ?>
+                                    <div class="forMobile">
+                                        @if($fa)
+                                            @foreach($fa as $data)
+                                                <div class="col-record">
+                                                    <p class="title"><strong>{{ $param_months[$data->month_param].' '.$data->year_param }}</strong></p>
+                                                    <p class="desc descBox">
+                                                           Total Scores {{ App\FA_Results::getTotalByMonthYears($data->entry, $user_id, $data->month_param, $data->year_param) }}
+                                                    </p>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                                <div class="col-record">
+                                                    <p class="title"><strong>Maximum Mark</strong></p>
+                                                    <p class="desc descBox">
+                                                           Total {{ $totalMax }}
+                                                    </p>
+                                                </div>
+
+                                    </div>
+
+                                    <table class="table table-bordered table-striped table-condensed flip-content forDesktop" style="width: 100%; padding-top: 5px;">
+                                        <?php
                                         if($fa){
                                          echo '<tr>';
                                         foreach($fa as $data){
@@ -1150,7 +1527,6 @@
                                              echo '<td> Total Scores '.App\FA_Results::getTotalByMonthYears($data->entry, $user_id, $data->month_param, $data->year_param).'</td>';
 
                                             }
-                                           $totalMax = App\FA_Results::getTotalByMax($user_id);
 
                                          echo ' <td> Total '.$totalMax.' </td> </tr>';
                                         } 
