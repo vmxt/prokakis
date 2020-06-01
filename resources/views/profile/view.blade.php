@@ -311,6 +311,10 @@
             margin-left: 15px;
         }
 
+        .card-title h1{
+            font-size: 4em;
+            font-weight: 500;
+        }
 
         @media (min-width: 320px) and (max-width: 641px){
             .portlet.light.portlet-fit>.portlet-body {

@@ -58,6 +58,10 @@
 
            float: left;
 
+            margin-bottom: 65px;
+
+            padding: 10px;
+
        }
 
        .croppedCimg>img
@@ -216,6 +220,96 @@
             height: 95%;
         }
 
+        .forDesktop{
+            display: none;
+        }
+
+        .forMobile{
+            display: block;
+        }
+
+        .card-body ul li i{
+            color: red;
+        }
+
+        .card-body ul li{
+            font-size: 14px;
+            display: flex;
+        }
+
+        .profCompleteness{
+            margin-left: -20em ;
+            display: inline-grid ;
+            margin-top: 85px !important;
+        }
+
+        .busineNews {
+            line-height: 25px;
+        }
+
+        .read_more {
+            margin-left: 15px;
+        }
+
+        .card-title h1{
+            font-size: 4em;
+            font-weight: 500;
+        }
+
+        li.active {
+            background-color: #428BCA !important;
+        }
+
+        li.active a {
+            color: #EFF3F8 !important;
+            font-weight: 700 !important;
+        }
+
+        .actionImg input#btnCrop{
+            width: 30%;
+            margin-right: 25px;
+        }
+
+        .actionImg input.btn-info{
+            width: 20%;
+            font-size: 30px;
+            height: 35px;
+            line-height: 0px !important;
+        }
+
+        .actionImg p{
+            font-size: 12px;
+            color: red;
+            font-weight: 600;
+            font-style: italic;
+            margin-top: -3px;
+        }
+
+        .table-outer{
+            width: 500px;
+            height: 100px;
+            white-space: nowrap;
+            position: relative;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-outer table {
+            width: 24.5%;
+            background-color: #eee;
+            float: none;
+            height: 90%;
+            margin: 0 0.25%;
+            display: inline-block;
+            zoom: 1;
+        }
+
+@media (max-width: 346px){
+    .container{
+        padding-left: 5px;
+    }
+}
 </style>
 
 
@@ -292,7 +386,7 @@
 
                 <div class="page-content-inner">
 
-                                    <div class="card-header">
+                                    {{-- <div class="card-header"> --}}
 
 
 
@@ -309,27 +403,30 @@
                                                 <div class="spinnerCimg" style="display: none">Loading...</div>
 
                                             </div>
+                                            <?php 
+                                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                                                $validateAccount = App\SpentTokens::validateAccountActivation($company_id_result);
+                                            ?>
 
+                                            <div class="actionCimg actionImg">
+                                                @if($validateAccount != false)
+                                                <p> You can adjust the orientation/size of the image by clicking the <strong>"+"</strong> or <strong>"-"</strong> </p>
+                                                    <input class="btn btn-primary " type="button" id="btnCrop" value=" Upload " title="UPLOAD" >
+                                                    <input class="btn fa-plus btn-info" type="button" id="btnZoomIn" value="+" title="ZOOM IN" >
+                                                    <input class="btn fa-plus btn-info" type="button" id="btnZoomOut" value="-" title="ZOOM OUT" >
+                                                    {{-- <i class="fa fa-minus" aria-hidden="true"></i> --}}
+                                                    {{-- <i class="fa fa-plus" aria-hidden="true"></i> --}}
 
+                                                @endif
+                                            </div>
 
                                             <div class="actionCimg">
-
-                                                <?php  
-                                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-                                                if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
-                                                ?>
-
-                                                    <input type="file" id="file" name="profile_img" style="float:left; width: 170px">
-
-                                                    <input class="btn btn-outline-primary" type="button" id="btnCrop" value=" Crop " style="float: right ">
-
-                                                    <input class="btn btn-outline-primary" type="button" id="btnZoomIn" value="+" style="float: right">
-
-                                                    <input class="btn btn-outline-primary" type="button" id="btnZoomOut" value="-" style="float: right">
-
-                                                <?php } ?>
-
+                                                @if($validateAccount != false)
+                                                    <input type="file" id="file" name="profile_img" style="float:left;">
+                                                @endif
                                             </div>
+
+
 
 
 
@@ -341,11 +438,11 @@
 
 
 
-                                    </div>
+                                    {{-- </div> --}}
 
-                                    <div class="card-body">
+                                    <div class="card-body profCompleteness ">
 
-                                        Profile Completeness
+                                        <h3> Profile Completeness </h3>                                                                                                                              
 
                                         <div class="progress">
 
@@ -365,30 +462,17 @@
                                             ?>
 
                                             <strong><li style=" list-style-type: none; color: #1A4275"><?php if ($d != NULL) {
-                                                    echo '<i class="fa fa-check"></i>' .$d;
+                                                    echo '<i class="fa fa-exclamation"></i>' .$d;
                                                 } ?> </li></strong>
                                             <?php
                                             }
                                             } ?>
                                         </ul>
 
-
-
                                     </div>
-
-
-
-
-
                 </div>
-
-
-
-
-
             </div>
 
-            <!-- END IMAGE UPLOAD -->
 
 
 
@@ -2002,7 +2086,7 @@
                     <div style="color:red">To avoid delays, please don't use comma in your numerical entries. </div>
                    </div>
 
-                                    <div class="card-body center">
+                                    <div class="card-body center table-outer">
 
 
 
