@@ -38,6 +38,16 @@
         {
             margin-right: 10px;
         }
+
+        .card{
+            margin: 0 auto;
+        }
+
+@media (max-width: 360px){
+    .card {
+        margin-left: -40px;
+    }
+}
 </style>
 
 

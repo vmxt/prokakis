@@ -286,17 +286,17 @@
         }
 
         .table-outer{
-            width: 500px;
-            height: 100px;
-            white-space: nowrap;
+            width: 100%;
+            height: 100%;
+            /*white-space: nowrap;*/
             position: relative;
             overflow-x: scroll;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
         }
 
-        .table-outer table {
-            width: 24.5%;
+        .table-inner {
+            width: 100%;
             background-color: #eee;
             float: none;
             height: 90%;
@@ -310,6 +310,13 @@
         padding-left: 5px;
     }
 }
+
+@media (max-width: 425px){
+    .table-inner {
+        width: 500px;
+    }
+}
+
 </style>
 
 
@@ -2087,7 +2094,7 @@
                    </div>
 
                                     <div class="card-body center table-outer">
-
+                                        <div class='table-inner'>
 
 
                                         <table class="table table-bordered table-striped table-condensed flip-content"
@@ -3553,7 +3560,7 @@
 
                                         </table>
 
-
+                                    </div>
 
                                     </div>
 
