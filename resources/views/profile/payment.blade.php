@@ -36,6 +36,22 @@
         .croppedCimg > img {
             margin-right: 10px;
         }
+
+        .card-header {
+            margin-bottom: 15px !important;
+        }
+
+        @media (max-width: 426px){
+            .page-wrapper {
+                width: 120% !important;
+            }
+
+            .page-container {
+                background-color: #FFFFFF;
+            }
+        }
+
+
     </style>
 
     <div class="container">

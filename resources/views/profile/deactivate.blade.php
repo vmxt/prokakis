@@ -82,6 +82,16 @@
 	background:rgba(0,0,0,1);
 	text-decoration:none;
 }
+
+.card{
+            margin: 0 auto;
+        }
+
+@media (max-width: 360px){
+    .card {
+        margin-left: -20px;
+    }
+}
         
 </style>
 

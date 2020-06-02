@@ -304,6 +304,9 @@
             display: inline-block;
             zoom: 1;
         }
+    .containerCimg {
+        margin: 0 auto;
+    }
 
 @media (max-width: 346px){
     .container{
@@ -311,9 +314,18 @@
     }
 }
 
-@media (max-width: 425px){
+@media (max-width: 640px){
     .table-inner {
         width: 500px;
+    }
+
+    .sticky-row {
+      position: sticky;
+      position: -webkit-sticky;
+      left: 0;
+      background-color: #EEEEEE;
+      z-index: 3;
+      border: 3px solid #FFFFFF!important;
     }
 }
 
@@ -2105,7 +2117,7 @@
 
                                             <tr>
 
-                                                <td width="20%"> Month / Year</td>
+                                                <td width="20%" class='sticky-row'> Month / Year</td>
 
                                                 <?php
 
@@ -2430,7 +2442,7 @@
 
                                             <tr>
 
-                                                <td>Income</td>
+                                                <td class='sticky-row' >Income</td>
 
                                                 <td><input type="text" class="form-control" id="income1" name="income1"
 
@@ -2470,7 +2482,7 @@
 
                                             <tr>
 
-                                                <td>Purchase</td>
+                                                <td class='sticky-row'>Purchase</td>
 
                                                 <td><input type="text" class="form-control" id="purchase1"
 
@@ -2516,7 +2528,7 @@
 
                                             <tr>
 
-                                                <td>Cost of Goods Sold / Cost of Sales</td>
+                                                <td class='sticky-row'>Cost of Goods Sold / Cost of Sales</td>
 
                                                 <td><input type="text" class="form-control" id="cost_good_sold1"
 
@@ -2562,7 +2574,7 @@
 
                                             <tr>
 
-                                                <td>Gross Profit</td>
+                                                <td class='sticky-row'>Gross Profit</td>
 
                                                 <td><input type="text" class="form-control" id="gross_profit1"
 
@@ -2608,7 +2620,7 @@
 
                                             <tr>
 
-                                                <td valign="top">Directors’ Fees & Remuneration</td>
+                                                <td valign="top" class='sticky-row'>Directors’ Fees & Remuneration</td>
 
                                                 <td><input type="text" class="form-control" id="directors_fee_renum1"
 
@@ -2654,7 +2666,7 @@
 
                                             <tr>
 
-                                                <td>Total Remuneration excluding Directors’ Fees and Remuneration</td>
+                                                <td class='sticky-row'>Total Remuneration excluding Directors’ Fees and Remuneration</td>
 
                                                 <td><input type="text" class="form-control" id="total_renum_exdirector1"
 
@@ -2700,7 +2712,7 @@
 
                                             <tr>
 
-                                                <td>Medical Expenses</td>
+                                                <td class='sticky-row'>Medical Expenses</td>
 
                                                 <td><input type="text" class="form-control" id="medical_expense1"
 
@@ -2746,7 +2758,7 @@
 
                                             <tr>
 
-                                                <td>Transport/Travelling Expenses</td>
+                                                <td class='sticky-row'>Transport/Travelling Expenses</td>
 
                                                 <td><input type="text" class="form-control"
 
@@ -2800,7 +2812,7 @@
 
                                             <tr>
 
-                                                <td>Entertainment Expenses</td>
+                                                <td class='sticky-row'>Entertainment Expenses</td>
 
                                                 <td><input type="text" class="form-control" id="entertainment_expense1"
 
@@ -2846,7 +2858,7 @@
 
                                             <tr>
 
-                                                <td>Debt Interest/Finance Expense</td>
+                                                <td class='sticky-row'>Debt Interest/Finance Expense</td>
 
                                                 <td><input type="text" class="form-control"
 
@@ -2900,7 +2912,7 @@
 
                                             <tr>
 
-                                                <td>Net Profit</td>
+                                                <td class='sticky-row'>Net Profit</td>
 
                                                 <td><input type="text" class="form-control" id="net_profit1"
 
@@ -2946,7 +2958,7 @@
 
                                             <tr>
 
-                                                <td>Net Profit Before Interest and Tax (EBIT)</td>
+                                                <td class='sticky-row'>Net Profit Before Interest and Tax (EBIT)</td>
 
                                                 <td><input type="text" class="form-control"
 
@@ -3000,7 +3012,7 @@
 
                                             <tr>
 
-                                                <td>Inventories (Closing Stock)</td>
+                                                <td class='sticky-row'>Inventories (Closing Stock)</td>
 
                                                 <td><input type="text" class="form-control"
 
@@ -3054,7 +3066,7 @@
 
                                             <tr>
 
-                                                <td>Trade Receivable</td>
+                                                <td class='sticky-row'>Trade Receivable</td>
 
                                                 <td><input type="text" class="form-control" id="trade_receivable1"
 
@@ -3100,7 +3112,7 @@
 
                                             <tr>
 
-                                                <td>Trade Payable</td>
+                                                <td class='sticky-row'>Trade Payable</td>
 
                                                 <td><input type="text" class="form-control" id="trade_payable1"
 
@@ -3146,7 +3158,7 @@
 
                                             <tr>
 
-                                                <td>Non-Current Assets</td>
+                                                <td class='sticky-row'>Non-Current Assets</td>
 
                                                 <td><input type="text" class="form-control" id="non_current_assets1"
 
@@ -3192,7 +3204,7 @@
 
                                             <tr>
 
-                                                <td>Current Assets</td>
+                                                <td class='sticky-row'>Current Assets</td>
 
                                                 <td><input type="text" class="form-control" id="current_assets1"
 
@@ -3238,7 +3250,7 @@
 
                                             <tr>
 
-                                                <td>Current Liabilities</td>
+                                                <td class='sticky-row'>Current Liabilities</td>
 
                                                 <td><input type="text" class="form-control" id="current_liabilities1"
 
@@ -3284,7 +3296,7 @@
 
                                             <tr>
 
-                                                <td>Non-current Liabilities</td>
+                                                <td class='sticky-row'>Non-current Liabilities</td>
 
                                                 <td><input type="text" class="form-control"
 
@@ -3330,7 +3342,7 @@
 
                                             <tr>
 
-                                                <td>Share Capital</td>
+                                                <td class='sticky-row'>Share Capital</td>
 
                                                 <td><input type="text" class="form-control" id="share_capita1"
 
@@ -3376,7 +3388,7 @@
 
                                             <tr>
 
-                                                <td>Retained Earning</td>
+                                                <td class='sticky-row'>Retained Earning</td>
 
                                                 <td><input type="text" class="form-control" id="retained_earning1"
 
@@ -3422,7 +3434,7 @@
 
                                             <tr>
 
-                                                <td>Translation Reserves</td>
+                                                <td class='sticky-row'>Translation Reserves</td>
 
                                                 <td><input type="text" class="form-control" id="translation_reserves1"
 
@@ -3468,7 +3480,7 @@
 
                                             <tr>
 
-                                                <td>Total Debt</td>
+                                                <td class='sticky-row'>Total Debt</td>
 
                                                 <td><input type="text" class="form-control" id="total_debt1"
 
@@ -3514,7 +3526,7 @@
 
                                             <tr>
 
-                                                <td>Prepaid Expenses</td>
+                                                <td class='sticky-row'>Prepaid Expenses</td>
 
                                                 <td><input type="text" class="form-control" id="prepaid_expenses1"
 
