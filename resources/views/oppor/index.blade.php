@@ -25,6 +25,13 @@
             width: 25%;
             background-color: orangered;
         }
+@media (max-width: 425px){
+    .col-md-12{
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+}
+
     </style>
 
     <div class="container">

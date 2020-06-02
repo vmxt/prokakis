@@ -3888,7 +3888,7 @@
 
                 var img = cropper.getDataURL();
 
-                document.querySelector('.croppedCimg').innerHTML += '<img src="' + img + '">';
+                // document.querySelector('.croppedCimg').innerHTML += '<img src="' + img + '">';
 
                 var croppng = cropper.getBlob();
 
@@ -3956,23 +3956,23 @@
 
 
 
-                        var elements = document.getElementsByClassName('imageBoxCimg');
+                        // var elements = document.getElementsByClassName('imageBoxCimg');
 
-                        while (elements.length > 0) {
+                        // while (elements.length > 0) {
 
-                            elements[0].parentNode.removeChild(elements[0]);
+                        //     elements[0].parentNode.removeChild(elements[0]);
 
-                        }
+                        // }
 
 
 
-                        var elements = document.getElementsByClassName('actionCimg');
+                        // var elements = document.getElementsByClassName('actionCimg');
 
-                        while (elements.length > 0) {
+                        // while (elements.length > 0) {
 
-                            elements[0].parentNode.removeChild(elements[0]);
+                        //     elements[0].parentNode.removeChild(elements[0]);
 
-                        }
+                        // }
 
                     }
 
