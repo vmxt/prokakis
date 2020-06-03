@@ -180,7 +180,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        Ixudra\Curl\CurlServiceProvider::class,
+        //Ixudra\Curl\CurlServiceProvider::class,
     ],
 
     /*
@@ -233,7 +233,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'Curl'          => Ixudra\Curl\Facades\Curl::class,
+       // 'Curl'          => Ixudra\Curl\Facades\Curl::class,
     ],
 
 ];
