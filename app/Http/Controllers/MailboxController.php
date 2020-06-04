@@ -12,7 +12,11 @@ use App\Mailbox;
 
 use App\MailboxReply;
 
+use App\MailTemplate;
+
 use App\User;
+
+use App\CompanyProfile;
 
 use Auth;
 
@@ -81,7 +85,6 @@ class MailboxController extends Controller {
 		return view('mailbox.sent', compact('consMap'));
 
 	}
-
 
 
 	public function storeCompose(Request $request) {
@@ -376,7 +379,33 @@ class MailboxController extends Controller {
 
 	}
 
+	public function notification(Request $request){
+		if ($request->isMethod('post')) {
+			$company_opp = $request->input("companyOpp"); //opportunity owner
+			$company_viewer = $request->input("companyViewer"); //viewer
+			$templateType = $request->input("templateType"); //viewer
 
+			$user_id = Auth::id();			
+			$rs = CompanyProfile::find($company_opp);
+
+			AuditLog::ok(array($user_id, 'opportunity', 'express interest to a company at explore page', 'company id:'. $company_viewer.' express interest to company id:' . $company_opp));
+
+            $template = MailTemplate::find($templateType);
+
+			$message = "
+
+                  Dear  $rs->registered_company_name,
+
+                  <br />
+  					$template->content
+  					<br>
+                  ";
+            $message .= "Requestor profile: ".url('company/'.$company_viewer);
+
+			//send the email here
+			Mailbox::sendMail($message, $rs->company_email, $template->subject, "");
+		}
+	}
 
 }
 

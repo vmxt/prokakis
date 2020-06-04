@@ -626,7 +626,10 @@ img {
                     {{ session('status') }}
                 </div>
             @endif
+<?php 
+    $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
 
+?>
 
         <div class="row">
             <!-- START BUILD OPPORTUNITY -->
@@ -635,8 +638,10 @@ img {
                 <?php       
                     $i = 1;
                     foreach ($build as $item): 
+                            $opportunity_type = 'build';
                             $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                             $company = App\CompanyProfile::find($item->company_id);
+                            $provider_id = $company->id;
                     if ( $company->count() > 0 && $d_status == true):
                         $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
                             ->orderBy('id', 'desc')
@@ -784,7 +789,7 @@ img {
 
          {{-- Start modal click for build --}}
     <div 
-        class="modal fade" 
+        class="modal fade modal_oppoBox" 
         id="opporBuildModal_{{ $item->id }}" 
         tabindex="-1" role="dialog" 
         aria-labelledby="opporDetailsContentModalLabel" 
@@ -954,30 +959,38 @@ img {
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
                 
-                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
 
-                if ($item->view_type == 2) 
-                {
-                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
+
+                ?>
+
+                {{-- Requestor = None-premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                @endif
+
+                <?php
+
+                    if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
                     {
                     ?>                        
-                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
+                        <a target="_blank" Opptype="{{ $opportunity_type }}" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
+                            class="btn green btn_options view_profile"><span class="fa fa-credit-card"></span> View Profile OLD</a>
                     
                     <?php 
-                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
+                    } elseif( App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
                     ?> 
-                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                        <a href="#" onclick="nonPremiumToPremium();" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
                 
 
                     <?php
-                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    }elseif( App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile OLD 1</a>
                     
 
                     <?php 
                     }
-                } ?>
+                ?>
 
                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                     
@@ -1159,7 +1172,7 @@ img {
 
          {{-- Start modal click for Sell --}}
     <div 
-        class="modal fade" 
+        class="modal fade modal_oppoBox" 
         id="opporSellModal_{{ $item->id }}" 
         tabindex="-1" role="dialog" 
         aria-labelledby="opporDetailsContentModalLabel" 
@@ -1329,30 +1342,28 @@ img {
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
                 
-                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
 
-                if ($item->view_type == 2) 
-                {
-                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
+ 
+                    if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
                     {
                     ?>                        
                         <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
+                            class="btn green btn_options view_profile"><span class="fa fa-credit-card"></span> View Profile OLD</a>
                     
                     <?php 
-                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
+                    } elseif( App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
                     ?> 
-                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                        <a href="#" onclick="nonPremiumToPremium();" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
                 
 
                     <?php
-                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    }elseif( App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>');" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
                     
 
                     <?php 
                     }
-                } ?>
+                 ?>
 
                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                     
@@ -1534,7 +1545,7 @@ img {
 
          {{-- Start modal click for buy --}}
     <div 
-        class="modal fade" 
+        class="modal fade modal_oppoBox" 
         id="opporBuyModal_{{ $item->id }}" 
         tabindex="-1" role="dialog" 
         aria-labelledby="opporDetailsContentModalLabel" 
@@ -1704,30 +1715,29 @@ img {
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
                 
-                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
 
-                if ($item->view_type == 2) 
-                {
-                    if(App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
+  
+                    if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
                     {
                     ?>                        
                         <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                            class="btn green btn_options"><span class="fa fa-credit-card"></span> View Profile</a>
+                            class="btn green btn_options view_profile"><span class="fa fa-credit-card"></span> View Profile OLD</a>
                     
                     <?php 
-                    } elseif( App\SpentTokens::validateAccountActivation($company_id_result) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
+                    } elseif( App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
                     ?> 
-                        <a href="#" onclick="encourageToPremium();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                        <a href="#" onclick="nonPremiumToPremium();" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
                 
 
                     <?php
-                    }elseif( App\SpentTokens::validateAccountActivation($company_id_result) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $company_id_result; ?>');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    }elseif( App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
+                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>');" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
                     
 
                     <?php 
                     }
-                } ?>
+                 ?>
 
                 <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
                     
@@ -1998,6 +2008,29 @@ img {
         }
 
         $(document).ready(function () {
+
+            $(".view_profile").click(function () {
+                
+                formData = new FormData();
+
+                formData.append("sender", "ebosIT@gmail.com");
+                formData.append("receiver", "darylyrad.cabz@gmail.com");
+                formData.append("text", "sample body Content");
+                
+                    $.ajax({
+                        url: "{{ route('sentMail2') }}",
+                        type: "POST",
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    });
+            });
+
             $("#opporDetailsContentModal").modal();
             $("#filterKeywords").click(function () {
                 var keyS = $("#keywordSearch").val();
@@ -2107,10 +2140,12 @@ img {
 
         }
 
-        function encourageToPremium(){
+
+        function nonPremiumToPremium(companyOpp,companyViewer,templateType){
+          $('.modal_oppoBox').modal('hide');
             swal({
                 title:"This requires premium account to open this profile.", 
-                text: "Are you sure to proceed? and I will redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                text: "Are you sure to proceed?  Because we will send an email notification to this profile and redirect you to Dashboard page and find the upgrade button at Token Credit section.",
                 icon: "warning",
                 buttons: [
                   'No, cancel it!',
@@ -2121,17 +2156,35 @@ img {
               }).then(function(isConfirm) {
 
                 if (isConfirm) {
-                  swal({
-                    title: 'You need to re-fill token to become a Premium Account',
-                    text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
-                    icon:  'success'
-                  }).then(function() {
-                         //document.location = '{{ url("reports/buyTokens") }}';
-             document.location = '{{ url("/home") }}';
-                  
-                  });
+
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    formData.append("templateType", templateType);
+                    $.ajax({
+                        url: "{{ route('emailNotification') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            swal({
+                              title: 'Email notification will be sent to this profile. You need to re-fill token to become a Premium Account',
+                              text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                              icon:  'success'
+                            }).then(function() {
+                                   //document.location = '{{ url("reports/buyTokens") }}';
+                                document.location = '{{ url("/home") }}';
+                            
+                            });
+                        }
+                    });
+
                 } else {
-                  swal("Cancelled", "To become premium account was cancelled :)", "error");
+                    swal("Cancelled", "To become premium account was cancelled :)", "error");
                 }
               });
 
@@ -2139,6 +2192,7 @@ img {
 
         function checkAlertByPremium(companyOpp, companyViewer)
         {   
+          $('.modal_oppoBox').modal('hide');
             swal({
                 title: "This profile is a free account.", 
                 text:  "Are you sure to proceed? Because we will send an email notification to this profile. To encourage them buy token and become a premium account.",
