@@ -144,152 +144,34 @@
             <div class="pricing-tables">
                 <div class="container container--mobile-mg-x-none">
                     <div class="row">
-                        <div class="col-6 comTable">
-                            <div class="table-container">
-                                <div class="table-content">
-                                    <div class="box table compTable">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th class="rowHead">FREE</th>
-                                                    <th class="col_1"></th>
-                                                    <th class="rowHead">PREMIUM</th>
-                                                    <th class="col_1"></th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class='row_title shadowTop'><strong> Access to Prokakis online marketplace </strong></td>
-                                                    <td class='rowStatus'><img class='img_icon'  src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg">&nbsp;</td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title shadowMiddle'><strong>Online Support</strong></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title'><strong>Unlimited Creation of Opportunities</strong> </td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title'><strong>Unlimited Creation of Opportunities with Company Info </strong></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-cross.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title'><strong>Unlimited Viewing of Public Profiles in Explore Page</strong></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-cross.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title'><strong>Unlimited Access to Business News</strong></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-cross.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title'><strong>Personalized Company Profile Page</strong></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-cross.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title'><strong>Automated Ongoing Monitoring System</strong></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-cross.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title'><strong>*Data Repository for Awards and Licenses</strong></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-cross.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class='row_title'><strong>*Exclusive Invite to Prokakis Networking Events</strong></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-cross.png') }}" width="30" height="30"></td>
-                                                    <td class="col_1 col_1bg"></td>
-                                                    <td class='rowStatus'><img class='img_icon' src="{{ asset('public/img-resources/icon-tick.png') }}" width="30" height="30"></td>
-                                                    <td class="col_2 col_1bg">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td ></td>
-                                                    <td class='rowStatus rowFooter'></td>
-                                                    <td class="col_1 "></td>
-                                                    <td class='rowStatus rowFooter'></td>
-                                                    <td class="col_2 ">&nbsp;</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                        <div class="col-12 comTable">
+                                <div class="toggle-section">
+                                    <div class="col-6 toggle-monthly">MONTHLY</div>
+                                    <div class="col-6 toggle-yearly">YEARLY</div>
                                 </div>
-                            </div>
                         </div>
-                        <div class="col-6 topupBtn">
-                            <div id="box-monthly" data-plan="monthly" class="box plans">
-                                <a class="btn-selection" data-frequency="year" data-coupon=""  >
-                                    <div class="content">
-                                        <span class="title">Top Up 1</span>
-                                        <span class="price"><small>2 TOKEN</small><small></small></span>
-                                        <span class="title"><b>$120</b></span>
-                                        <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="top_up" value="1">
-                                           <button type="submit" class="btn-subscribe" >Buy Now</button>
-                                        </form>
-                                    </div>
-                                </a>
-                            </div>
-                            <div id="box-monthly" data-plan="monthly" class="box plans">
-                                <a class="-selection" data-frequency="month" data-coupon="" >
-                                    <div class="content">
-                                         <img  class="best-img"  src="{{ asset('public/banner/best.png') }}" width="96" alt="document" title="document">
-                                        <span class="title">Top Up 2</span>
-                                        <span class="price"><small>12 TOKEN</small><small></small></span>
-                                        <span class="title"><b>$720</b></span>
-                                        <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="top_up" value="2">
-                                           <button type="submit" class="btn-subscribe" >Buy Now</button>
-                                        </form>
-                                    </div>
-                                </a>
-                            </div>
-                            <div id="box-monthly" data-plan="monthly" class="box plans">
-                                <a class="-selection" data-frequency="month" data-coupon="" >
-                                    <div class="content">
-                                        <span class="title">Top Up 3</span>
-                                        <span class="price"><small>20 TOKEN</small><small></small></span>
-                                        <span ><b>$1200</b></span>
-                                        <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="top_up" value="3">
-                                           <button type="submit" class="btn-subscribe" >Buy Now</button>
-                                        </form>
-                                    </div>
-                                </a>
-                            </div>
+                        <div class="col-12 comTable">
+                                <p> GO YEARLY AND GET 1 MONTH <STRONG> FREE </STRONG> </p>
                         </div>
                     </div>
                 </div>
+
+                <div class="container container--mobile-mg-x-none">
+                    <div class="row">
+                        <div class="col-12">
+                                <div class="image-compare">
+                                    <div class="img-left">
+                                        <img class="compare-img"    src="{{ asset('public/img-resources/one-time.png') }}" width="96" alt="Tax" title="Tax">
+                                    </div>
+                                    <div class="img-right ">
+                                         <hr class="top-line">
+                                        <img class="compare-img"    src="{{ asset('public/img-resources/monthly.png') }}" width="96" alt="Tax" title="Tax">
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="advantages-block">
