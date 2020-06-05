@@ -401,9 +401,9 @@ class MailboxController extends Controller {
   					<br>
                   ";
             $message .= "Requestor profile: ".url('company/'.$company_viewer);
-
+            echo "success";
 			//send the email here
-			Mailbox::sendMail($message, $rs->company_email, $template->subject, "");
+			//Mailbox::sendMail($message, $rs->company_email, $template->subject, "");
 		}
 	}
 

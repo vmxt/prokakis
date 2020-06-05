@@ -570,6 +570,22 @@ img {
   }
 }
 
+  /*for chat box area*/
+
+#page-wrap                      { width: 500px; margin: 30px auto; position: relative; }
+
+#chat-wrap                      { border: 1px solid #eee; margin: 0 0 15px 0; }
+#chat-area                      { height: 300px; overflow: auto; border: 1px solid #666; padding: 20px; background: white; }
+#chat-area span                 { color: white; background: #333; padding: 4px 8px; -moz-border-radius: 5px; -webkit-border-radius: 8px; margin: 0 5px 0 0; }
+#chat-area p                    { padding: 8px 0; border-bottom: 1px solid #ccc; }
+
+#name-area                      { position: absolute; top: 12px; right: 0; color: white; font: bold 12px "Lucida Grande", Sans-Serif; text-align: right; }   
+#name-area span                 { color: #fa9f00; }
+
+#send-message-area p            { float: left; color: white; padding-top: 27px; font-size: 14px; }
+#sendie                         { border: 3px solid #999; width: 360px; padding: 10px; font: 12px "Lucida Grande", Sans-Serif; float: right; }
+
+
     </style>
     <div class="container container-grid">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -958,24 +974,32 @@ img {
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
-                
-
-
+              
                 ?>
 
                 {{-- Requestor = None-premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span>Inbox Me</a>
                 @endif
+
+                {{-- Requestor = Premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span>Inbox Me</a>
+
+                @endif
+
 
                 <?php
 
                     if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
                     {
                     ?>                        
-                        <a target="_blank" Opptype="{{ $opportunity_type }}" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                            class="btn green btn_options view_profile"><span class="fa fa-credit-card"></span> View Profile OLD</a>
+                        
                     
                     <?php 
                     } elseif( App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
@@ -1976,6 +2000,54 @@ img {
 </div>
 @endif
 
+
+{{-- Start Inbox Me Modal --}}
+<div 
+  class="modal fade modal_oppoBox" 
+  id="inboxMeModal" 
+  tabindex="-1" role="dialog" 
+  aria-labelledby="Inbox Me Modal" 
+  aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h2 class='chatOppTitle'>Title</h2>
+
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+         
+        </div>
+        <div class="modal-body">
+
+          <div id="page-wrap">
+    
+              
+              <p id="name-area"></p>
+              
+              <div id="chat-wrap"><div id="chat-area"></div></div>
+              
+              <form id="send-message-area">
+                  <p>Your message: </p>
+                  <textarea id="sendie" maxlength = '100' ></textarea>
+                  <input type="hidden" id="chat-companyViewer">
+                  <input type="hidden" id="chat-companyOpp">
+              </form>
+    
+        </div>
+            
+
+          
+
+        
+        </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+    </div>
+  </div>
+</div>
+<!-- END INBOX ME MODAL -->
+
+
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
 
@@ -2190,6 +2262,69 @@ img {
 
         }
 
+
+        function PremiumToPremium(companyOpp,companyViewer, url, templateType){
+          $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"We will send an email notification to this profile", 
+                text: "Are you sure to proceed?.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    formData.append("templateType", templateType);
+                    $.ajax({
+                        url: "{{ route('emailNotification') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            swal({
+                              title: 'Email notification will be sent to this profile.',
+                              text:  'You will now redirect to this profile.',
+                              icon:  'success'
+                            }).then(function() {
+                                window.open( 
+                                  "'"+url+"'" , "_blank"); 
+                              });
+                        }
+                    });
+
+                } else {
+                    swal("Cancelled", "To become premium account was cancelled :)", "error");
+                }
+              });
+        }
+
+        function OppInboxMe(title,companyOpp,companyViewer){
+          chat.getState(companyOpp,companyViewer); 
+
+          setInterval('chat.update( '+companyOpp+', '+companyViewer+' )', 1000);
+     
+
+          $('#inboxMeModal').modal();
+
+          $('.chatOppTitle').text(title);
+          $('#chat-companyOpp').val(companyOpp);
+          $('#chat-companyViewer').val(companyViewer);
+
+        }
+
+
         function checkAlertByPremium(companyOpp, companyViewer)
         {   
           $('.modal_oppoBox').modal('hide');
@@ -2240,6 +2375,204 @@ img {
               });
 
         }
+
+//for chat script
+    var chat =  new Chat();
+    $(function() {
+    
+      // chat.getState(); 
+       
+       // watch textarea for key presses
+            $("#sendie").keydown(function(event) {  
+           
+               var key = event.which;  
+         
+               //all keys including return.  
+               if (key >= 33) {
+                 
+                   var maxLength = $(this).attr("maxlength");  
+                   var length = this.value.length;  
+                   
+                   // don't allow new content if length is maxed out
+                   if (length >= maxLength) {  
+                       event.preventDefault();  
+                   }  
+                }  
+            });
+       // watch textarea for release of key press
+       $('#sendie').keyup(function(e) { 
+                 
+          if (e.keyCode == 13) { 
+          
+                  var text = $(this).val();
+                  var maxLength = $(this).attr("maxlength");  
+                  var length = text.length; 
+                   
+                  // send 
+                  if (length <= maxLength + 1) { 
+                   
+                chat.send(text, name);  
+                $(this).val("");
+                
+                  } else {
+                  
+                  $(this).val(text.substring(0, maxLength));
+            
+              } 
+          
+          }
+           });
+    });
+
+var instanse = false;
+var state;
+var mes;
+var file;
+
+function Chat () {
+    this.update = updateChat;
+    this.send = sendChat;
+    this.getState = getStateOfChat;
+}
+
+//gets the state of the chat
+function getStateOfChat(companyOpp,companyViewer){
+  if(!instanse){
+     instanse = true;
+     // $.ajax({
+     //     type: "POST",
+     //     url: "process.php",
+     //     data: {  
+     //          'function': 'getState',
+     //        'file': file
+     //        },
+     //     dataType: "json",
+      
+     //     success: function(data){
+     //       state = data.state;
+     //       instanse = false;
+     //     },
+     //  });
+      // var companyOpp =    $('#chat-companyOpp').val();
+      // var companyViewer =  $('#chat-companyViewer').val();
+
+      formData = new FormData();
+      formData.append("function", 'getState');
+      formData.append("companyOpp", companyOpp);
+      formData.append("companyViewer", companyViewer);
+      
+      $.ajax({
+          url: "{{ route('chatProcess') }}",
+          type: "POST",
+          data: formData,
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (data) {
+            console.log(data);
+            state = data.state;
+            instanse = false;
+          }
+      });
+
+  }  
+}
+
+//Updates the chat
+function updateChat(companyOpp, companyViewer){
+  console.log(instanse);
+   if(!instanse){
+     instanse = true;
+
+
+
+      //  $.ajax({
+      //    type: "POST",
+      //    url: "process.php",
+      //    data: {  
+      //         'function': 'update',
+      //       'state': state,
+      //       'file': file
+      //       },
+      //    dataType: "json",
+      //    success: function(data){
+      //      if(data.text){
+      //       for (var i = 0; i < data.text.length; i++) {
+      //                       $('#chat-area').append($("<p>"+ data.text[i] +"</p>"));
+      //                   }                 
+      //      }
+      //      document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
+      //      instanse = false;
+      //      state = data.state;
+      //    },
+      // });
+
+      formData = new FormData();
+      formData.append("function", 'update');
+      formData.append("companyOpp", companyOpp);
+      formData.append("companyViewer", companyViewer);
+      formData.append("state", state);
+      
+      $.ajax({
+          url: "{{ route('chatProcess') }}",
+          type: "POST",
+          data: formData,
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (data) {
+              console.log(data);
+            
+            if(data.text){
+                $('#chat-area').empty();
+                for (var i = 0; i < data.text.length; i++) {
+                            $('#chat-area').append($("<p><span>"+data.text[i].sender+"</span>"+ data.text[i].text +"</p>"));
+                }                 
+           }
+           document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
+           instanse = false;
+           state = data.state;
+
+          }
+      });
+
+   }
+   else {
+    console.log("Dasdsd")
+     setTimeout(updateChat, 1500,companyOpp, companyViewer );
+   }
+}
+
+//send the message
+function sendChat(message, nickname)
+{       
+    var companyOpp = $("#chat-companyOpp").val();
+    var companyViewer = $("#chat-companyViewer").val();
+    // updateChat(companyOpp, companyViewer );
+
+    formData = new FormData();
+    formData.append("function", 'send');
+    formData.append("message", message);
+    formData.append("companyOpp", companyOpp);
+    formData.append("companyViewer", companyViewer);
+    
+    $.ajax({
+        url: "{{ route('chatProcess') }}",
+        type: "POST",
+        data: formData,
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function (data) {
+            updateChat(companyOpp, companyViewer);
+        }
+    });
+
+}
+
 
     </script>
 {{-- <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script> --}}

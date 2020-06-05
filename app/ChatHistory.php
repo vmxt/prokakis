@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 
-class MailboxReply extends Model
+class ChatHistory extends Model
 {
      
      protected $table = 'chat_history';
@@ -19,7 +19,7 @@ class MailboxReply extends Model
      * @var array
      */
     protected $fillable = [
-        'sender', 'receiver', 'text', 'datetime_send', 
+        'sender', 'receiver', 'text', 'datetime_send'
     ];
 
     /**
@@ -28,7 +28,7 @@ class MailboxReply extends Model
      * @var array
      */
     protected $hidden = [
-        'id',  
+       'id', 'created_at', 'updated_at',
     ];
    
 }

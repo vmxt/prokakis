@@ -60,6 +60,9 @@ Route::post('/transferSelectedCompany', 'SuperAdminController@transferSelectedCo
 Route::post('/addTokenSelectedCompany', 'SuperAdminController@addTokenSelectedCompany')->name('AddTokenSelectedCompany');
 Route::get('/tokenCompany', 'SuperAdminController@getTokenCompany')->name('GetTokenCompany');
 
+//chat history
+Route::post('/chatProcess', 'ChatHistoryController@process')->name('chatProcess');
+
 
 //staff
 Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');
