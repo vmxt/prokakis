@@ -1428,9 +1428,11 @@ s0.parentNode.insertBefore(s1,s0);
              $userId = Auth::id();
              $usr = App\User::find($userId);
              foreach($rsC as $k => $v){
-              if($v == $usr->email){
-                $numAccount = $k;
-                break;
+              if(isset($usr->email)){
+                if($v == $usr->email){
+                  $numAccount = $k;
+                  break;
+                }
               }
              }
              $rs_company = App\CompanyProfile::where('user_id',  $userId)->get();
