@@ -95,6 +95,9 @@
                                         <a href="{{ url('/opportunity/select') }}" class="btn blue"
                                            style="color:white">Add An Opportunity</a>
 
+                                        <a href="{{ url('/opportunity/chatbox') }}" class="btn blue"
+                                           style="color:white">View Messages</a>
+
                             </div>
 
                         </div>

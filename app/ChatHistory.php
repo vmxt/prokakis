@@ -6,7 +6,7 @@ use App;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-
+use Illuminate\Support\Facades\DB;
 
 class ChatHistory extends Model
 {
@@ -31,4 +31,14 @@ class ChatHistory extends Model
        'id', 'created_at', 'updated_at',
     ];
    
+    public static function getChatHistoryPerCompany($company_id){
+
+        return 
+            DB::table("chat_history as ch")
+            ->select( 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
+            ->join('opp_building_capability as opp', 'ch.receiver', "=", 'opp.id')
+            ->where('ch.opp_type', '=', 'build')
+            ->where('opp.company_id','=',$company_id);
+    }
+
 }

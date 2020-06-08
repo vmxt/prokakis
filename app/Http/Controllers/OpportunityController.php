@@ -16,6 +16,7 @@ use App\RequestReport;
 use App\SpentTokens;
 use App\OppIndustry;
 use App\User;
+use App\ChatHistory;
 use Auth;
 use App\PremiumOpportunityPurchased;
 
@@ -551,6 +552,21 @@ class OpportunityController extends Controller {
 
 		}
 
+	}
+
+	public function chatbox(Request $request) {
+
+		$user_id = Auth::id();
+		$company_id = CompanyProfile::getCompanyId($user_id);
+
+		$chatHeads = ChatHistory::getChatHistoryPerCompany($company_id)
+					->groupBy('sender')
+					->orderBy('created_at','desc')
+					->get();
+		//$senderName = CompanyProfile::getCompanyName();
+		//dd($chatHeads->groupBy('receiver')->get());
+		//dd($company_id);
+		return view("oppor.chatbox", compact('company_id', 'chatHeads') );
 	}
 
 	public function exploreCountry(Request $request) {

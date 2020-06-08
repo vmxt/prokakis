@@ -2435,6 +2435,7 @@ function getStateOfChat(){
       formData.append("companyViewer", companyViewer);
       formData.append("oppId", oppId);
       formData.append("oppType", oppType);
+      formData.append("chatAction", "1");
 
       
       $.ajax({
@@ -2466,6 +2467,7 @@ function chatload(){
       formData.append("companyViewer", companyViewer);
       formData.append("oppId", oppId);
       formData.append("oppType", oppType);
+      formData.append("chatAction", "1");
 
       
       $.ajax({
@@ -2507,6 +2509,7 @@ function updateChat(){
       formData.append("oppId", oppId);
       formData.append("oppType", oppType);
       formData.append("state", state);
+      formData.append("chatAction", "1");
       
       $.ajax({
           url: "{{ route('chatProcess') }}",
@@ -2554,6 +2557,7 @@ function sendChat(message, nickname)
     formData.append("companyViewer", companyViewer);
     formData.append("oppId", oppId);
     formData.append("oppType", oppType);
+    formData.append("chatAction", "1");
     
     $.ajax({
         url: "{{ route('chatProcess') }}",

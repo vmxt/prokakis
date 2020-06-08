@@ -129,6 +129,7 @@ Route::post('/businessnews/update', 'BusinessOpportunityNewsController@updateNew
 
 //opportunities
 Route::get('/opportunity', 'OpportunityController@index')->name('opportunityIndex');
+Route::get('/opportunity/chatbox', 'OpportunityController@chatbox')->name('opportunityChat');
 Route::get('/opportunity/select', 'OpportunityController@select')->name('opportunitySelect');
 Route::post('/opportunity/premium', 'OpportunityController@premiumPurchase')->name('PremiumPurchase');
 Route::post('/opportunity/alertFreeAccount', 'OpportunityController@alertFreeAccount')->name('AlertFreeAccount');

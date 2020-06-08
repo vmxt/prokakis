@@ -52,6 +52,7 @@ class ChatHistoryController extends Controller {
 			$oppurtunityId = $request->input("oppId"); //viewer
 			$oppurtunityType = $request->input("oppType"); //viewer
 			$function = $request->input("function"); //viewer
+			$chatAction = $request->input("chatAction"); //chat action 1=send 2=reply
 
 			$user_id = Auth::id();			
 			$rs = CompanyProfile::find($company_opp);
@@ -82,11 +83,22 @@ class ChatHistoryController extends Controller {
 			 			    foreach ($result->get() as $chat )
 		                    {	
 		                     	$msg =  $line = str_replace("\n", "", $chat->text);
-						  	 	$senderName = CompanyProfile::find($chat->sender)->first();
 						  	 	//$receiverName = CompanyProfile::find($chat->receiver)->first();
+
+						  	 	if($chat->action == 1){
+						  	 		$senderName = CompanyProfile::find($chat->sender);
+						  	 	}else{
+						  	 		if($oppurtunityType == 'build'){
+						  	 			$opp = OpportunityBuildingCapability::find($chat->receiver);
+						  	 		}
+						  	 		$senderName = CompanyProfile::find($opp->company_id);
+						  	 	}
+
 						  	 	$receiverName = $senderName;
 
 		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name ];
+		
+
 		                    }
 		        			$log['text'] = $text; 
 					}
@@ -102,8 +114,18 @@ class ChatHistoryController extends Controller {
 			 			    foreach ($result->get() as $chat )
 		                    {	
 		                     	$msg =  $line = str_replace("\n", "", $chat->text);
-						  	 	$senderName = CompanyProfile::find($chat->sender)->first();
+						  	 	//$senderName = CompanyProfile::find($chat->sender);
 						  	 	//$receiverName = CompanyProfile::find($chat->receiver)->first();
+
+						  	 	if($chat->action == 1){
+						  	 		$senderName = CompanyProfile::find($chat->sender);
+						  	 	}else{
+						  	 		if($oppurtunityType == 'build'){
+						  	 			$opp = OpportunityBuildingCapability::find($chat->receiver);
+						  	 		}
+						  	 		$senderName = CompanyProfile::find($opp->company_id);
+						  	 	}
+
 						  	 	$receiverName = $senderName;
 
 		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name ];
@@ -135,7 +157,7 @@ class ChatHistoryController extends Controller {
 
 						'opp_type' => $oppurtunityType,
 
-						'action' => '1'
+						'action' => $chatAction
 
 					]);
 		        		
