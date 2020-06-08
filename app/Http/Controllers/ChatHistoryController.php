@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\CompanyProfile;
 use App\ChatHistory;
+use App\OpportunityBuildingCapability;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -48,6 +49,7 @@ class ChatHistoryController extends Controller {
 		if ($request->isMethod('post')) {
 			$company_opp = $request->input("companyOpp"); //opportunity owner
 			$company_viewer = $request->input("companyViewer"); //viewer
+			$oppurtunityId = $request->input("oppId"); //viewer
 			$function = $request->input("function"); //viewer
 
 			$user_id = Auth::id();			
@@ -58,23 +60,21 @@ class ChatHistoryController extends Controller {
 			switch($function) {
 		    
 		    	 case('getState'):
-		    	 	$result = ChatHistory::where('sender',$company_viewer)->where('receiver',$company_opp)->count();
+		    	 	$result = ChatHistory::where('sender',$company_viewer)->where('receiver',$oppurtunityId)->count();
 
 		             $log['state'] = $result;
 		        	 break;	
 		    	
 		    	 case('update'):
-		    	 	$result = ChatHistory::where('sender',$company_viewer)->where('receiver',$company_opp);
+		    	 	$result = ChatHistory::where('sender',$company_viewer)->where('receiver',$oppurtunityId);
 		    	 	$state = $request->input("state");
-		    	 
+
 
 		    	 	if( (int)$state == (int)$result->count() ){
-
 
 		    	 		$log['state'] = $state;
 		        		$log['text'] = false;
 		    	 	}else{
-
 		    	 		 $text= array();
 		    	 		 $log['state'] = $state + (int)$result->count() - $state;
 		    	 
@@ -82,42 +82,36 @@ class ChatHistoryController extends Controller {
 		                    {	
 		                     	$msg =  $line = str_replace("\n", "", $chat->text);
 						  	 	$senderName = CompanyProfile::find($chat->sender)->first();
-						  	 	$receiverName = CompanyProfile::find($chat->receiver)->first();
+						  	 	//$receiverName = CompanyProfile::find($chat->receiver)->first();
+						  	 	$receiverName = $senderName;
 
 		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name ];
 		                    }
 		        			$log['text'] = $text; 
 					}
-	 	
-		        //	$log['info'] = ['senderName'=>$senderName, 'receiverName'=>$receiverName ]; 
-
-		        			
-		    	 	//dd($result);
-		       /* 	$state = $_POST['state'];
-		        	if(file_exists('chat.txt')){
-		        	   $lines = file('chat.txt');
-		        	 }
-		        	 $count =  count($lines);
-		        	 if($state == $count){
-		        		 $log['state'] = $state;
-		        		 $log['text'] = false;
-		        		 
-		        		 }
-		        		 else{
-		        			 $text= array();
-		        			 $log['state'] = $state + count($lines) - $state;
-		        			 foreach ($lines as $line_num => $line)
-		                       {
-		        				   if($line_num >= $state){
-		                         $text[] =  $line = str_replace("\n", "", $line);
-		        				   }
-		         
-		                        }
-		        			 $log['text'] = $text; 
-		        		 }
-		        	  */
 		             break;
 		    	 
+		    	case('onload'):
+		    	 	$result = ChatHistory::where('sender',$company_viewer)->where('receiver',$oppurtunityId);
+		    	 	//$state = $request->input("state");
+
+		    	 		 $text= array();
+		    	 		 //$log['state'] = $state + (int)$result->count() - $state;
+		    	 
+			 			    foreach ($result->get() as $chat )
+		                    {	
+		                     	$msg =  $line = str_replace("\n", "", $chat->text);
+						  	 	$senderName = CompanyProfile::find($chat->sender)->first();
+						  	 	//$receiverName = CompanyProfile::find($chat->receiver)->first();
+						  	 	$receiverName = $senderName;
+
+		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name ];
+		                    }
+		        			$log['text'] = $text; 
+					
+		       
+		             break;
+
 		    	 case('send'):
 						$message = $request->input("message"); //viewer
 
@@ -134,7 +128,7 @@ class ChatHistoryController extends Controller {
 
 						'sender' => $company_viewer,
 
-						'receiver' => $company_opp,
+						'receiver' => $oppurtunityId,
 
 						'text' => $message
 

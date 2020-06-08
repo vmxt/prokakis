@@ -989,7 +989,7 @@ img {
 
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span>Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span>Inbox Me</a>
 
                 @endif
 
@@ -2030,6 +2030,7 @@ img {
                   <textarea id="sendie" maxlength = '100' ></textarea>
                   <input type="hidden" id="chat-companyViewer">
                   <input type="hidden" id="chat-companyOpp">
+                  <input type="hidden" id="chat-oppId">
               </form>
     
         </div>
@@ -2080,28 +2081,6 @@ img {
         }
 
         $(document).ready(function () {
-
-            $(".view_profile").click(function () {
-                
-                formData = new FormData();
-
-                formData.append("sender", "ebosIT@gmail.com");
-                formData.append("receiver", "darylyrad.cabz@gmail.com");
-                formData.append("text", "sample body Content");
-                
-                    $.ajax({
-                        url: "{{ route('sentMail2') }}",
-                        type: "POST",
-                        data: formData,
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        processData: false,
-                        contentType: false,
-
-                        success: function (data) {
-                            console.log(data);
-                        }
-                    });
-            });
 
             $("#opporDetailsContentModal").modal();
             $("#filterKeywords").click(function () {
@@ -2194,7 +2173,6 @@ img {
                             contentType: false,
 
                             success: function (data) {
-                                console.log(data);
                                 window.open(data, '_blank');
                                 document.location = '{{ url("opportunity/explore") }}';
                                 
@@ -2310,17 +2288,22 @@ img {
               });
         }
 
-        function OppInboxMe(title,companyOpp,companyViewer){
-          chat.getState(companyOpp,companyViewer); 
+        function OppInboxMe(title,companyOpp,companyViewer,oppId){
+            $('.chatOppTitle').text(title);
+            $('#chat-companyOpp').val(companyOpp);
+            $('#chat-companyViewer').val(companyViewer);
+            $('#chat-oppId').val(oppId);
 
-          setInterval('chat.update( '+companyOpp+', '+companyViewer+' )', 1000);
+            $('#chat-area').empty();
+
+            chat.onload();
+            chat.getState(); 
+
+            setInterval('chat.update( )', 1000);
      
+            $('#inboxMeModal').modal();
 
-          $('#inboxMeModal').modal();
 
-          $('.chatOppTitle').text(title);
-          $('#chat-companyOpp').val(companyOpp);
-          $('#chat-companyViewer').val(companyViewer);
 
         }
 
@@ -2360,7 +2343,6 @@ img {
                             contentType: false,
 
                             success: function (data) {
-                                console.log(data);
                                 window.open(data, '_blank');
                                 document.location = '{{ url("opportunity/explore") }}';
                                 
@@ -2433,33 +2415,22 @@ function Chat () {
     this.update = updateChat;
     this.send = sendChat;
     this.getState = getStateOfChat;
+    this.onload = chatload;
 }
 
 //gets the state of the chat
-function getStateOfChat(companyOpp,companyViewer){
+function getStateOfChat(){
+    var companyOpp = $("#chat-companyOpp").val();
+    var companyViewer = $("#chat-companyViewer").val();
+    var oppId = $("#chat-oppId").val();
+
   if(!instanse){
      instanse = true;
-     // $.ajax({
-     //     type: "POST",
-     //     url: "process.php",
-     //     data: {  
-     //          'function': 'getState',
-     //        'file': file
-     //        },
-     //     dataType: "json",
-      
-     //     success: function(data){
-     //       state = data.state;
-     //       instanse = false;
-     //     },
-     //  });
-      // var companyOpp =    $('#chat-companyOpp').val();
-      // var companyViewer =  $('#chat-companyViewer').val();
-
       formData = new FormData();
       formData.append("function", 'getState');
       formData.append("companyOpp", companyOpp);
       formData.append("companyViewer", companyViewer);
+      formData.append("oppId", oppId);
       
       $.ajax({
           url: "{{ route('chatProcess') }}",
@@ -2470,7 +2441,6 @@ function getStateOfChat(companyOpp,companyViewer){
           contentType: false,
           dataType: "json",
           success: function (data) {
-            console.log(data);
             state = data.state;
             instanse = false;
           }
@@ -2479,39 +2449,53 @@ function getStateOfChat(companyOpp,companyViewer){
   }  
 }
 
+function chatload(){
+    var companyOpp = $("#chat-companyOpp").val();
+    var companyViewer = $("#chat-companyViewer").val();
+    var oppId = $("#chat-oppId").val();
+
+      formData = new FormData();
+      formData.append("function", 'onload');
+      formData.append("companyOpp", companyOpp);
+      formData.append("companyViewer", companyViewer);
+      formData.append("oppId", oppId);
+      
+      $.ajax({
+          url: "{{ route('chatProcess') }}",
+          type: "POST",
+          data: formData,
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (data) {
+            
+            if(data.text != false){
+                $('#chat-area').empty();
+                for (var i = 0; i < data.text.length; i++) {
+                            $('#chat-area').append($("<p><span>"+data.text[i].sender+"</span>"+ data.text[i].text +"</p>"));
+                }                 
+           }
+           document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
+
+          }
+      });
+}
+
 //Updates the chat
-function updateChat(companyOpp, companyViewer){
-  console.log(instanse);
+function updateChat(){
+    var companyOpp = $("#chat-companyOpp").val();
+    var companyViewer = $("#chat-companyViewer").val();
+    var oppId = $("#chat-oppId").val();
+
    if(!instanse){
      instanse = true;
-
-
-
-      //  $.ajax({
-      //    type: "POST",
-      //    url: "process.php",
-      //    data: {  
-      //         'function': 'update',
-      //       'state': state,
-      //       'file': file
-      //       },
-      //    dataType: "json",
-      //    success: function(data){
-      //      if(data.text){
-      //       for (var i = 0; i < data.text.length; i++) {
-      //                       $('#chat-area').append($("<p>"+ data.text[i] +"</p>"));
-      //                   }                 
-      //      }
-      //      document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
-      //      instanse = false;
-      //      state = data.state;
-      //    },
-      // });
 
       formData = new FormData();
       formData.append("function", 'update');
       formData.append("companyOpp", companyOpp);
       formData.append("companyViewer", companyViewer);
+      formData.append("oppId", oppId);
       formData.append("state", state);
       
       $.ajax({
@@ -2523,9 +2507,8 @@ function updateChat(companyOpp, companyViewer){
           contentType: false,
           dataType: "json",
           success: function (data) {
-              console.log(data);
             
-            if(data.text){
+            if(data.text != false){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
                             $('#chat-area').append($("<p><span>"+data.text[i].sender+"</span>"+ data.text[i].text +"</p>"));
@@ -2540,8 +2523,7 @@ function updateChat(companyOpp, companyViewer){
 
    }
    else {
-    console.log("Dasdsd")
-     setTimeout(updateChat, 1500,companyOpp, companyViewer );
+     setTimeout(updateChat, 1500);
    }
 }
 
@@ -2550,6 +2532,7 @@ function sendChat(message, nickname)
 {       
     var companyOpp = $("#chat-companyOpp").val();
     var companyViewer = $("#chat-companyViewer").val();
+    var oppId = $("#chat-oppId").val();
     // updateChat(companyOpp, companyViewer );
 
     formData = new FormData();
@@ -2557,6 +2540,7 @@ function sendChat(message, nickname)
     formData.append("message", message);
     formData.append("companyOpp", companyOpp);
     formData.append("companyViewer", companyViewer);
+    formData.append("oppId", oppId);
     
     $.ajax({
         url: "{{ route('chatProcess') }}",
@@ -2567,7 +2551,7 @@ function sendChat(message, nickname)
         contentType: false,
         dataType: "json",
         success: function (data) {
-            updateChat(companyOpp, companyViewer);
+            updateChat();
         }
     });
 
