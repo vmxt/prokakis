@@ -969,7 +969,7 @@ img {
             </div> 
 
             <div>
-                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
+                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -989,7 +989,7 @@ img {
 
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span>Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span>Inbox Me</a>
 
                 @endif
 
@@ -1360,7 +1360,7 @@ img {
             </div> 
 
             <div>
-                <a onclick="processReq('sell', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
+                <a onclick="processReq('sell', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -1733,7 +1733,7 @@ img {
             </div> 
 
             <div>
-                <a onclick="processReq('buy', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Interested</a>
+                <a onclick="processReq('buy', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -2031,6 +2031,7 @@ img {
                   <input type="hidden" id="chat-companyViewer">
                   <input type="hidden" id="chat-companyOpp">
                   <input type="hidden" id="chat-oppId">
+                  <input type="hidden" id="chat-oppType">
               </form>
     
         </div>
@@ -2288,11 +2289,12 @@ img {
               });
         }
 
-        function OppInboxMe(title,companyOpp,companyViewer,oppId){
+        function OppInboxMe(title,companyOpp,companyViewer,oppId,oppType){
             $('.chatOppTitle').text(title);
             $('#chat-companyOpp').val(companyOpp);
             $('#chat-companyViewer').val(companyViewer);
             $('#chat-oppId').val(oppId);
+            $('#chat-oppType').val(oppType);
 
             $('#chat-area').empty();
 
@@ -2423,6 +2425,7 @@ function getStateOfChat(){
     var companyOpp = $("#chat-companyOpp").val();
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
+    var oppType = $("#chat-oppType").val();
 
   if(!instanse){
      instanse = true;
@@ -2431,6 +2434,8 @@ function getStateOfChat(){
       formData.append("companyOpp", companyOpp);
       formData.append("companyViewer", companyViewer);
       formData.append("oppId", oppId);
+      formData.append("oppType", oppType);
+
       
       $.ajax({
           url: "{{ route('chatProcess') }}",
@@ -2453,12 +2458,15 @@ function chatload(){
     var companyOpp = $("#chat-companyOpp").val();
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
+    var oppType = $("#chat-oppType").val();
 
       formData = new FormData();
       formData.append("function", 'onload');
       formData.append("companyOpp", companyOpp);
       formData.append("companyViewer", companyViewer);
       formData.append("oppId", oppId);
+      formData.append("oppType", oppType);
+
       
       $.ajax({
           url: "{{ route('chatProcess') }}",
@@ -2487,6 +2495,7 @@ function updateChat(){
     var companyOpp = $("#chat-companyOpp").val();
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
+    var oppType = $("#chat-oppType").val();
 
    if(!instanse){
      instanse = true;
@@ -2496,6 +2505,7 @@ function updateChat(){
       formData.append("companyOpp", companyOpp);
       formData.append("companyViewer", companyViewer);
       formData.append("oppId", oppId);
+      formData.append("oppType", oppType);
       formData.append("state", state);
       
       $.ajax({
@@ -2533,6 +2543,8 @@ function sendChat(message, nickname)
     var companyOpp = $("#chat-companyOpp").val();
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
+    var oppType = $("#chat-oppType").val();
+
     // updateChat(companyOpp, companyViewer );
 
     formData = new FormData();
@@ -2541,6 +2553,7 @@ function sendChat(message, nickname)
     formData.append("companyOpp", companyOpp);
     formData.append("companyViewer", companyViewer);
     formData.append("oppId", oppId);
+    formData.append("oppType", oppType);
     
     $.ajax({
         url: "{{ route('chatProcess') }}",

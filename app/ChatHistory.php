@@ -19,7 +19,7 @@ class ChatHistory extends Model
      * @var array
      */
     protected $fillable = [
-        'sender', 'receiver', 'text', 'datetime_send'
+        'sender', 'receiver', 'text', 'opp_type', 'action'
     ];
 
     /**

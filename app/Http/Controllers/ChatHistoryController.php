@@ -50,6 +50,7 @@ class ChatHistoryController extends Controller {
 			$company_opp = $request->input("companyOpp"); //opportunity owner
 			$company_viewer = $request->input("companyViewer"); //viewer
 			$oppurtunityId = $request->input("oppId"); //viewer
+			$oppurtunityType = $request->input("oppType"); //viewer
 			$function = $request->input("function"); //viewer
 
 			$user_id = Auth::id();			
@@ -130,7 +131,11 @@ class ChatHistoryController extends Controller {
 
 						'receiver' => $oppurtunityId,
 
-						'text' => $message
+						'text' => $message,
+
+						'opp_type' => $oppurtunityType,
+
+						'action' => '1'
 
 					]);
 		        		
