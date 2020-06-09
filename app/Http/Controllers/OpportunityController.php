@@ -560,8 +560,8 @@ class OpportunityController extends Controller {
 		$company_id = CompanyProfile::getCompanyId($user_id);
 
 		$chatHeads = ChatHistory::getChatHistoryPerCompany($company_id)
-					->groupBy('sender')
-					->orderBy('created_at','desc')
+					#->groupBy('sender','receiver')
+					#->orderBy('created_at','desc')
 					->get();
 		//$senderName = CompanyProfile::getCompanyName();
 		//dd($chatHeads->groupBy('receiver')->get());

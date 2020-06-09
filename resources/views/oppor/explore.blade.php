@@ -974,56 +974,32 @@ img {
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
-              
                 ?>
 
                 {{-- Requestor = None-premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span>Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
                 @endif
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span>Inbox Me</a>
-
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
                 @endif
 
+                {{-- Requestor = Premium | Provider = None-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif
 
-                <?php
-
-                    if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
-                    {
-                    ?>                        
-                        
-                    
-                    <?php 
-                    } elseif( App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
-                    ?> 
-                        <a href="#" onclick="nonPremiumToPremium();" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
-                
-
-                    <?php
-                    }elseif( App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile OLD 1</a>
-                    
-
-                    <?php 
-                    }
-                ?>
-
-                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
-                    
-
-                <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                @if(App\User::getEBossStaffTrue(Auth::id()) == true)
+                  <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
                    class="btn btn-danger btn_options"
-                  
                    onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
-                <?php }?>
+                @endif
                 <hr class="hr-sect">
             </div> 
 
@@ -1049,6 +1025,7 @@ img {
                     foreach ($sell as $item): 
                             $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                             $company = App\CompanyProfile::find($item->company_id);
+                            $provider_id = $company->id;
                     if ( $company->count() > 0 && $d_status == true):
                         $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
                             ->orderBy('id', 'desc')
@@ -1365,39 +1342,34 @@ img {
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
-                
+                ?>
 
- 
-                    if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
-                    {
-                    ?>                        
-                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                            class="btn green btn_options view_profile"><span class="fa fa-credit-card"></span> View Profile OLD</a>
-                    
-                    <?php 
-                    } elseif( App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
-                    ?> 
-                        <a href="#" onclick="nonPremiumToPremium();" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
-                
+                {{-- Requestor = None-premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <?php
-                    }elseif( App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>');" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
-                    
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                @endif
 
-                    <?php 
-                    }
-                 ?>
+                {{-- Requestor = Premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
-                    
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                @endif
 
-                <a href="{{ url('/opportunity/deleteSell/'.$item->id) }}"
+                {{-- Requestor = Premium | Provider = None-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif
+
+                @if(App\User::getEBossStaffTrue(Auth::id()) == true)
+                  <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
                    class="btn btn-danger btn_options"
-                  
                    onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
-                <?php }?>
+                @endif
                 <hr class="hr-sect">
+
             </div> 
 
       </div>
@@ -1422,6 +1394,8 @@ img {
                     foreach ($buy as $item): 
                             $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                             $company = App\CompanyProfile::find($item->company_id);
+                            $provider_id = $company->id;
+                            
                     if ( $company->count() > 0 && $d_status == true):
                         $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
                             ->orderBy('id', 'desc')
@@ -1738,39 +1712,31 @@ img {
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
-                
-                $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
+                ?>
+                 {{-- Requestor = None-premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-  
-                    if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) != false)
-                    {
-                    ?>                        
-                        <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}"
-                            class="btn green btn_options view_profile"><span class="fa fa-credit-card"></span> View Profile OLD</a>
-                    
-                    <?php 
-                    } elseif( App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($company->id) != false ) {
-                    ?> 
-                        <a href="#" onclick="nonPremiumToPremium();" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
-                
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                @endif
 
-                    <?php
-                    }elseif( App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($company->id) == false ) { ?>
-                        <a href="#" onclick="checkAlertByPremium('<?php echo $company->id; ?>', '<?php echo $requestor_id; ?>');" class="btn default btn_options view_profile"> <span class="fa fa-credit-card"></span> View Profile OLD</a>
-                    
+                {{-- Requestor = Premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <?php 
-                    }
-                 ?>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                @endif
 
-                <?php if (App\User::getEBossStaffTrue(Auth::id()) == true) {?>
-                    
+                {{-- Requestor = Premium | Provider = None-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif
 
-                <a href="{{ url('/opportunity/deleteBuy/'.$item->id) }}"
+                @if(App\User::getEBossStaffTrue(Auth::id()) == true)
+                  <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
                    class="btn btn-danger btn_options"
-                  
                    onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
-                <?php }?>
+                @endif
                 <hr class="hr-sect">
             </div> 
 
@@ -2013,7 +1979,7 @@ img {
         <div class="modal-header">
             <h2 class='chatOppTitle'>Title</h2>
 
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close chat-close" data-dismiss="modal" aria-hidden="true">&times;</button>
          
         </div>
         <div class="modal-body">
@@ -2042,7 +2008,7 @@ img {
         
         </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-default chat-close" data-dismiss="modal">Close</button>
           </div>
     </div>
   </div>
@@ -2082,6 +2048,13 @@ img {
         }
 
         $(document).ready(function () {
+            $('.chat-close').click(function(){
+                clearInterval(chatInterval);
+            });
+
+            $('#inboxMeModal').on('hide.bs.modal', function (e) {
+                clearInterval(chatInterval);
+            })
 
             $("#opporDetailsContentModal").modal();
             $("#filterKeywords").click(function () {
@@ -2289,6 +2262,7 @@ img {
               });
         }
 
+        var chatInterval;
         function OppInboxMe(title,companyOpp,companyViewer,oppId,oppType){
             $('.chatOppTitle').text(title);
             $('#chat-companyOpp').val(companyOpp);
@@ -2301,7 +2275,7 @@ img {
             chat.onload();
             chat.getState(); 
 
-            setInterval('chat.update( )', 1000);
+            chatInterval = setInterval('chat.update( )', 1000);
      
             $('#inboxMeModal').modal();
 

@@ -33,12 +33,28 @@ class ChatHistory extends Model
    
     public static function getChatHistoryPerCompany($company_id){
 
-        return 
-            DB::table("chat_history as ch")
-            ->select( 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
-            ->join('opp_building_capability as opp', 'ch.receiver', "=", 'opp.id')
-            ->where('ch.opp_type', '=', 'build')
-            ->where('opp.company_id','=',$company_id);
+            $build = DB::table("chat_history as ch")
+                        ->select( 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->join('opp_building_capability as opp', 'ch.receiver', "=", 'opp.id')
+                        ->where('ch.opp_type', '=', 'build')
+                        ->where('opp.company_id','=',$company_id)
+                        ->orderBy('created_at','desc');
+            $sell = DB::table("chat_history as ch")
+                        ->select( 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->join('opp_sell_offer as opp', 'ch.receiver', "=", 'opp.id')
+                        ->where('ch.opp_type', '=', 'sell')
+                        ->where('opp.company_id','=',$company_id)
+                        ->orderBy('created_at','desc')
+                        ->unionAll($build);
+            $buy = DB::table("chat_history as ch")
+                        ->select( 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->join('opp_buy as opp', 'ch.receiver', "=", 'opp.id')
+                        ->where('ch.opp_type', '=', 'buy')
+                        ->where('opp.company_id','=',$company_id)
+                        ->orderBy('created_at','desc')
+                        ->unionAll($sell);
+            return $buy;
+            
     }
 
 }

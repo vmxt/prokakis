@@ -8,6 +8,8 @@ use App\User;
 use App\CompanyProfile;
 use App\ChatHistory;
 use App\OpportunityBuildingCapability;
+use App\OpportunityBuy;
+use App\OpportunitySellOffer;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -91,6 +93,12 @@ class ChatHistoryController extends Controller {
 						  	 		if($oppurtunityType == 'build'){
 						  	 			$opp = OpportunityBuildingCapability::find($chat->receiver);
 						  	 		}
+						  			if($oppurtunityType == 'sell'){
+						  	 			$opp = OpportunitySellOffer::find($chat->receiver);
+						  	 		}
+						  	 		if($oppurtunityType == 'buy'){
+						  	 			$opp = OpportunityBuy::find($chat->receiver);
+						  	 		}
 						  	 		$senderName = CompanyProfile::find($opp->company_id);
 						  	 	}
 
@@ -123,6 +131,12 @@ class ChatHistoryController extends Controller {
 						  	 		if($oppurtunityType == 'build'){
 						  	 			$opp = OpportunityBuildingCapability::find($chat->receiver);
 						  	 		}
+						  			if($oppurtunityType == 'sell'){
+						  	 			$opp = OpportunitySellOffer::find($chat->receiver);
+						  	 		}
+						  	 		if($oppurtunityType == 'buy'){
+						  	 			$opp = OpportunityBuy::find($chat->receiver);
+						  	 		}
 						  	 		$senderName = CompanyProfile::find($opp->company_id);
 						  	 	}
 
@@ -131,8 +145,6 @@ class ChatHistoryController extends Controller {
 		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name ];
 		                    }
 		        			$log['text'] = $text; 
-					
-		       
 		             break;
 
 		    	 case('send'):
