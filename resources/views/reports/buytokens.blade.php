@@ -174,15 +174,93 @@
                                         <i class="fa fa-info-circle fa-3x info-icon " ></i>
                                     </span>
                                     <div class="col-12 card-title-content">
-                                        <h2>MONTHLY</h2>
+                                        <h2>ONE-TIME</h2>
                                         <p>3 Credits</p>
                                         <h4>$18 One Pay</h4>
                                     </div>
+                                    <div class="col-12 card-buyNow">
+                                        <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="top_up" value="1">
+                                           <button type="submit" class="btn-subscribe" >Buy Now</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="token-card-desc">
+                                <div class="col-12 token-card-desc margin-top">
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Access to Prokakis Online Marketplace</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Online support</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Unlimited creation of opportunities</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>one-time viewing to prokakis profiles in explore page</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>one-time access to prokakis private chat function</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>limited company profile page</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>* data repository for awards and licenses</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>*Exclusive invite to prokakis networking events</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6 token-card">
+                            <div class="card-monthly col-6 token-card">
                                 <div class="token-card-title">
                                     <span class="fa-stack"
                                             aria-hidden="true"
@@ -199,10 +277,237 @@
                                         <h4>$36/Month</h4>
                                     </div>
                                     <div class="col-12 card-buyNow">
-                                        
+                                        <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="top_up" value="2">
+                                           <button type="submit" class="btn-subscribe" >Buy Now</button>
+                                        </form>
                                     </div>
                                 </div>
-                                <div class="token-card-desc">
+                                <div class="col-12 token-card-desc margin-top">
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Access to Prokakis online marketplace</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Online Support</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited creation of opportunities</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited creation of opportunities with company info</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited viewing of public profiles in explore page</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited access to prokakis private chat function</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited access to business news </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>personalized company profile page</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Automated ongoing monitoring system</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>*Data repositiry for awards and licences</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>*exclusive invite to prokakis networking events</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-yearly col-6 token-card">
+                                <div class="token-card-title">
+                                    <span class="fa-stack"
+                                            aria-hidden="true"
+                                            title="3 Credits for $18"
+                                            data-toggle="popover" 
+                                            data-trigger="focus click hover"
+                                            data-content="Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."
+                                            data-placement="left">
+                                        <i class="fa fa-info-circle fa-3x info-icon " ></i>
+                                    </span>
+                                    <div class="col-12 card-title-content">
+                                        <h2>YEARLY</h2>
+                                        <p>Best Value</p>
+                                        <h4>$36/Month</h4>
+                                    </div>
+                                    <div class="col-12 card-buyNow">
+                                        <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="top_up" value="2">
+                                           <button type="submit" class="btn-subscribe" >Buy Now</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-12 token-card-desc margin-top">
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Access to Prokakis online marketplace</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Online Support</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited creation of opportunities</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited creation of opportunities with company info</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited viewing of public profiles in explore page</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited access to prokakis private chat function</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>unlimited access to business news </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>personalized company profile page</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>Automated ongoing monitoring system</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>*Data repositiry for awards and licences</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="token-card-text">
+                                        <div class='check-icon'>
+                                            <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
+                                        </div>
+                                        <div class='check-desc'>
+                                            <p>*exclusive invite to prokakis networking events</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -254,6 +559,15 @@
         </div>
     </div>
     <script src="{{ asset('public/js/app.js') }}"></script>
+    <script>
+         $(document).ready(function () {
+            // $('.toggle-monthly').click(function(){
+            //     clearInterval(chatInterval);
+            // });
+
+         
+        });
+    </script>
 
 
 
