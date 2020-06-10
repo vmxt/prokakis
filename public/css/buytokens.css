@@ -45,7 +45,7 @@ div.flaticon {
 }
 
 .col-12:last-child, .omega {
-    margin-right: 0;
+    /*margin-right: 0;*/
 }
 
 .box {
@@ -1094,29 +1094,97 @@ div.payment .advantages-block p {
     text-align: center;
 }
 
-.image-compare{
-    display: flex;
-    margin: 0 auto;
-    position: relative;
-}
-
-.image-compare img{
-   width: 500px;
-}
-
-.img-right {
-    position: absolute;
-    left: 470px;
-}
-
-.img-left {
-    margin-left: 160px;
-}
-
 hr.top-line {
     position: absolute;
     border: 4px solid #214776;
     left: 90px;
     top: -25px;
     width: 319px;
+}
+
+.token-card-container{
+    margin: 0 auto;
+
+}
+
+.token-card {
+    -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
+    -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
+      /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
+    box-shadow: 0 -3px 16px 0 rgba(0, 0, 0, 1) !important;
+}
+
+.token-card-title{
+    height: 300px !important;
+    width: 400px;
+
+    /* bg image */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    width: 100%;
+    padding: 60px;
+    /*border:5px solid #021a40;*/
+
+
+    /*margin: 0 auto;*/
+    /*overflow: hidden;*/
+
+}
+
+.token-card-desc{
+    height: 300px !important;
+    width: 400px;
+
+}
+
+.info-icon{
+    color: #FE904C;
+    background: white;
+    border-radius: 50%;
+    height: 29px;
+    width: 32px;
+    line-height: 32px !important;
+}
+
+.fa-stack{
+    top: 15px;
+    left: 15px;
+    position: absolute;
+}
+
+.token-card-title div h2{
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 35px;
+    margin-top: -20px;
+}
+
+.token-card-title div p{
+    color: white;
+    text-align: center;
+    font-weight: 100;
+    font-size: 20px;
+    font-style: italic;
+    
+}
+
+.token-card-title div h4{
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 25px;
+    font-style: italic;
+    margin-top: -20px;
+}
+
+/*code*/
+.token-card-container-title{
+    /*border: 1px red solid;*/
+}
+
+.token-card-container-desc{
+    /*border: 1px blue solid;*/
 }

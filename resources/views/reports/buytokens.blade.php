@@ -5,6 +5,7 @@
 @section('content')
 
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/buytokens.css') }}">
 
     <style>
 
@@ -58,10 +59,12 @@
 
         }
 
+.token-card-title{
+    background-image: url("{{ asset('public/img-resources/card-bg.png') }}");
 
+}
 
     </style>
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/buytokens.css') }}">
 
 
 
@@ -156,18 +159,52 @@
                     </div>
                 </div>
 
-                <div class="container container--mobile-mg-x-none">
+                <div class="container ">
                     <div class="row">
-                        <div class="col-12">
-                                <div class="image-compare">
-                                    <div class="img-left">
-                                        <img class="compare-img"    src="{{ asset('public/img-resources/one-time.png') }}" width="96" alt="Tax" title="Tax">
-                                    </div>
-                                    <div class="img-right ">
-                                         <hr class="top-line">
-                                        <img class="compare-img"    src="{{ asset('public/img-resources/monthly.png') }}" width="96" alt="Tax" title="Tax">
+                        <div class="col-12 token-card-container">
+                            <div class="col-6 token-card">
+                                <div class="token-card-title">
+                                    <span class="fa-stack"
+                                            aria-hidden="true"
+                                            title="3 Credits for $18"
+                                            data-toggle="popover" 
+                                            data-trigger="focus click hover"
+                                            data-content="Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."
+                                            data-placement="left">
+                                        <i class="fa fa-info-circle fa-3x info-icon " ></i>
+                                    </span>
+                                    <div class="col-12 card-title-content">
+                                        <h2>MONTHLY</h2>
+                                        <p>3 Credits</p>
+                                        <h4>$18 One Pay</h4>
                                     </div>
                                 </div>
+                                <div class="token-card-desc">
+                                </div>
+                            </div>
+                            <div class="col-6 token-card">
+                                <div class="token-card-title">
+                                    <span class="fa-stack"
+                                            aria-hidden="true"
+                                            title="3 Credits for $18"
+                                            data-toggle="popover" 
+                                            data-trigger="focus click hover"
+                                            data-content="Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi."
+                                            data-placement="left">
+                                        <i class="fa fa-info-circle fa-3x info-icon " ></i>
+                                    </span>
+                                    <div class="col-12 card-title-content">
+                                        <h2>MONTHLY</h2>
+                                        <p>Best Value</p>
+                                        <h4>$36/Month</h4>
+                                    </div>
+                                    <div class="col-12 card-buyNow">
+                                        
+                                    </div>
+                                </div>
+                                <div class="token-card-desc">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
