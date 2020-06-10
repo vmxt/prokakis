@@ -219,12 +219,10 @@ Route::post('/sysconfig/reportupdate', 'ConfigurationController@reportUpdate')->
 Route::post('/mailbox/notification', 'MailboxController@notification')->name('emailNotification');
 Route::get('/mailbox/list', 'MailboxController@list')->name('mailList');
 Route::get('/mailbox/compose', 'MailboxController@compose')->name('mailCompose');
-//Route::get('/chatbox', 'ChatHistiryController@index')->name('mailCompose');
 //Route::post('/mailbox/createCompose', 'MailboxController@createCompose')->name('mailCreateCompose');
 //Route::get('/mailbox/createCompose', 'MailboxController@createCompose')->name('mailCreateCompose');
 Route::post('/mailbox/storeCompose', 'MailboxController@storeCompose')->name('mailStoreCompose');
 Route::get('/mailbox/sentMail', 'MailboxController@sentMail')->name('sentMail');
-Route::post('/mailbox/sentMail2', 'MailboxController@sentMail2')->name('sentMail2');
 
 
 Route::post('/mailbox/storeReply', 'MailboxController@storeReply')->name('mailStoreReply');

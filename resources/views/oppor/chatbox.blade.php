@@ -138,7 +138,7 @@
 
                         <div class="panel h-effect">
                             <div class="panel-heading">
-                                <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i> {{ $company_id }}</span>
+                                <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i>{{ App\CompanyProfile::getCompanyName($company_id) }}</span>
                             </div>
                             <div class="panel-body chat-head">
                                 <?php

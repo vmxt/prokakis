@@ -559,13 +559,10 @@ class OpportunityController extends Controller {
 		$user_id = Auth::id();
 		$company_id = CompanyProfile::getCompanyId($user_id);
 
-		$chatHeads = ChatHistory::getChatHistoryPerCompany($company_id)
-					#->groupBy('sender','receiver')
-					#->orderBy('created_at','desc')
-					->get();
-		//$senderName = CompanyProfile::getCompanyName();
-		//dd($chatHeads->groupBy('receiver')->get());
-		//dd($company_id);
+		$resBuild = ChatHistory::getChatHistoryBuildOpportunity($company_id);
+		$resSell = ChatHistory::getChatHistorySellOpportunity($company_id)->merge($resBuild);
+		$resBuy = ChatHistory::getChatHistoryBuyOpportunity($company_id)->merge($resSell);
+		$chatHeads = $resBuy;
 		return view("oppor.chatbox", compact('company_id', 'chatHeads') );
 	}
 
@@ -798,16 +795,20 @@ class OpportunityController extends Controller {
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
+			if (User::getEBossStaffTrue($user_id) == false) {
 			if(OpportunityController::validateAccLimits($company_id) == false){
 				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
 				exit;
+			}
 			}
 
 			$view_type = $request->input('viewtype_value');
 			$industry = $request->input('opp_industry');
 
+			if (User::getEBossStaffTrue($user_id) == false) {
 			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
 				$view_type == '1';	
+			}
 			}
 
 			//$opp = OpportunityBuildingCapability::where('company_id', $company_id)->first();
@@ -974,13 +975,15 @@ class OpportunityController extends Controller {
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
+			if (User::getEBossStaffTrue($user_id) == false) {
+				
 			if(OpportunityController::validateAccLimits($company_id) == false){
 				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
 				exit;
 			}
-
 			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
 				$view_type == '1';	
+			}
 			}
 
 			$opp = OpportunitySellOffer::find($request->input("id"));
@@ -1139,6 +1142,8 @@ class OpportunityController extends Controller {
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
+			if (User::getEBossStaffTrue($user_id) == false) {
+
 			if( OpportunityController::validateAccLimits($company_id) == false){
 
 				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
@@ -1149,6 +1154,7 @@ class OpportunityController extends Controller {
 				$view_type == '1';	
 			}
 
+			}
 			$opp = OpportunityBuy::find($request->input("id"));
 
 			if ($opp != null) {
