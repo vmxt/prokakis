@@ -644,7 +644,7 @@ img {
             @endif
 <?php 
     $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
-
+    $tokenStock = App\SpentTokens::validateTokenStocks($requestor_id);
 ?>
 
         <div class="row">
@@ -969,8 +969,11 @@ img {
             </div> 
 
             <div>
-                <a onclick="processReq('build', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-
+              @if(  $tokenStock >= 12)
+                <a onclick="processReq('build', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @else
+                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @endif
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
@@ -1337,7 +1340,11 @@ img {
             </div> 
 
             <div>
-                <a onclick="processReq('sell', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @if(  $tokenStock >= 12)
+                <a onclick="processReq('sell', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @else
+                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @endif
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -1707,8 +1714,11 @@ img {
             </div> 
 
             <div>
-                <a onclick="processReq('buy', '<?php echo $item->id; ?>');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-
+              @if(  $tokenStock >= 12)
+                <a onclick="processReq('buy', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @else
+                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @endif
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
@@ -2111,7 +2121,22 @@ img {
         };
         $("#keywordCountry").easyAutocomplete(optionsCountry);
 
-        
+        function stockTokenInfo(stockToken){
+          $('.modal_oppoBox').modal('hide');
+          if(stockToken)
+            stockToken = stockToken;
+          else
+            stockToken = 0;
+
+          swal({
+              title: 'Unsufficient token. You only have '+stockToken+' token in your account',
+              text:  'This action requires at least 12 token. We will redirect you to Buy token|Credit page and find options suitable on what you need',
+              icon:  'warning'
+            }).then(function() {
+                window.location.href = "{{ route('reportsBuyTokens') }}";
+            });
+        }
+
         function checkPremium(companyID, ptype, oppId, linker){
             swal({
                 title: "Are you sure to open this profile, published Anonymously? ", 
