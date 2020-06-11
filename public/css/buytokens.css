@@ -1070,7 +1070,7 @@ div.payment .advantages-block p {
     padding: 3px;
 }
 
-.toggle-monthly {
+.toggle-monthly, .toggle-yearly:hover {
     background-color: #214776;
     color: #FFFFFB;
     height: 100%;
@@ -1078,19 +1078,21 @@ div.payment .advantages-block p {
     cursor: pointer;
 }
 
-.toggle-monthly:hover {
+/*.toggle-monthly:hover {
     background-color: #FFFFFB;
     color: #214776;
     height: 100%;
-}
+}*/
 
-.toggle-yearly {
+.toggle-yearly, .toggle-monthly:hover  {
     background-color: #FFFFFB;
     color: #214776;
     height: 100%;
     cursor: pointer;
 
 }
+
+
 
 .toggle-section div {
     border: 5px solid #214776;
@@ -1125,7 +1127,6 @@ hr.top-line {
     -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
       /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
     box-shadow: 0 -3px 16px 0 rgba(0, 0, 0, 1) !important;
-    margin-right: 20px;
 }
 
 .token-card-title{
@@ -1235,11 +1236,7 @@ hr.top-line {
     line-height: 20px;
 }
 
-.el-visible{
-    display: 0;
-}
-
-.el-invisible{
+.el-invisible {
     display: none;
 }
 /*code*/
