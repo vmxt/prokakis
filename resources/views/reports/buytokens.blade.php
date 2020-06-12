@@ -174,9 +174,9 @@
                                         <i class="fa fa-info-circle fa-3x info-icon " ></i>
                                     </span>
                                     <div class="col-12 card-title-content">
-                                        <h2>ONE-TIME</h2>
-                                        <p>3 Credits</p>
-                                        <h4>$18 One Pay</h4>
+                                        <h2>FREE FOREVER</h2>
+                                        <p>0 Credits</p>
+                                        <h4></h4>
                                     </div>
                                     <div class="col-12 card-buyNow">
                                         <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
@@ -281,7 +281,7 @@
                                         <i class="fa fa-info-circle fa-3x info-icon " ></i>
                                     </span>
                                     <div class="col-12 card-title-content">
-                                        <h2>ONE-TIME</h2>
+                                        <h2>Pay As You Go</h2>
                                         <p>3 Credits</p>
                                         <h4>$18 One Pay</h4>
                                     </div>

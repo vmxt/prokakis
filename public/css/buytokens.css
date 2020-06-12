@@ -605,6 +605,15 @@ div.payment .advantages-block p {
 }
 
 @media (max-width: 1025px){
+    .token-card-title{
+        height: 330px !important;
+    }
+
+    .best-icon {
+        width: 100px;
+        height: auto;
+    }
+
     div.payment .advantages-block p {
         margin:0;
     }
@@ -616,6 +625,20 @@ div.payment .advantages-block p {
 }
 
 @media screen and (max-width: 960px){
+    .token-card{
+        width: 46%;
+    }
+
+    .token-card-desc {
+        height: auto !important;
+        margin-bottom: 10px;
+    }
+
+    .best-icon {
+        width: 85px;
+        height: auto;
+    }
+
     div.payment .advantages-block .col-foot {
         width: 85%;
         margin: 0 0 40px;
@@ -693,6 +716,9 @@ div.payment .advantages-block p {
 
 
 @media screen and (max-width:768px) {
+    .token-card-text{
+        padding-left: 15px !important;
+    }
     div.payment .feedback h2 {
         font-size: 1.6em
     }
@@ -700,6 +726,12 @@ div.payment .advantages-block p {
         width: 170% !important;
     }
 
+    .check-desc {
+        padding-right: 20px;
+    }
+    .token-card {
+        margin-bottom: 40px;
+    }
 }
 
 @media screen and (max-width: 767px){
@@ -739,12 +771,21 @@ div.payment .advantages-block p {
     .compTable table {
         width: 150% !important;
     }
-        .margin-left, .margin-right, .margin-center{
+    .margin-left, .margin-right, .margin-center{
         padding-left: 0;
         padding-right:  0;
         text-align: start;
     }
+    .token-card{
+        width: 95% !important;
+    }
 
+}
+
+@media screen and (max-width: 485px ){
+    .toggle-section{
+        display: block;
+    }
 }
 
 @media screen and (max-width:520px) {
@@ -1065,6 +1106,9 @@ div.payment .advantages-block p {
         height: 190px;
     }
 
+    .token-card-title {
+        height: 360px !important;
+    }
 }
 
 @media screen and (min-width:992px) {
@@ -1072,6 +1116,7 @@ div.payment .advantages-block p {
         margin: 0 -5px;
         width: 100%
     }
+
 }
 
 @media screen and (min-width:1400px) {
@@ -1088,7 +1133,8 @@ div.payment .advantages-block p {
 
 .toggle-section{
     height: 50px;
-    width: 450px;
+    width: auto;
+    max-width: 450px;
     margin: 0 auto;
     display: flex;
     padding: 3px;
@@ -1161,11 +1207,11 @@ hr.top-line {
 }
 
 .token-card-title{
-    height: 300px !important;
+    height: 350px;
     width: 400px;
 
     /* bg image */
-    background-position: center;
+    background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
@@ -1180,9 +1226,9 @@ hr.top-line {
 }
 
 .token-card-desc{
-    height: 60em !important;
-    width: 400px;
-    padding-right: 75px;
+    height: 60em;
+    /*width: 400px;*/
+    /*padding-right: 75px;*/
 }
 
 .token-card-text{

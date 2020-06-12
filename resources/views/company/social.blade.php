@@ -443,6 +443,14 @@ footer p a:hover {
     padding-bottom: 250px;
 }
 
+div.name .address{
+    font-size: 20px;
+}
+
+div.name .contact{
+    
+}
+
 
    </style>
 
@@ -466,17 +474,43 @@ footer p a:hover {
                             </div>
                             <div class="name">
                                 <h3 class="title"><?php echo substr($brand_slogan[0], 0, 60); ?></h3>
-                                <h6 class="title"><?php echo substr($brand_slogan[1], 0, 70); ?></h6>
+                                <h5 class="title"><?php echo substr($brand_slogan[1], 0, 70); ?></h5>
+                                <hr>
                           
-                                <!-- <a href="#pablo" class="btn btn-just-icon btn-link btn-facebook"><i class="fa fa-facebook"></i></a> -->
-                                <a href="<?php echo $companyProfile->company_website; ?>"><?php echo $companyProfile->company_website; ?></a>
+                                @if($companyProfile->registered_address)
+                                    <p class='address'> {{ $companyProfile->registered_address }} </p>
+                                @endif
+                                @if($companyProfile->office_phone)
+                                    <p class='contact'><strong>tel:</strong><em> {{ $companyProfile->office_phone }} </em></p>
+                                @endif
+                                @if($companyProfile->mobile_phone)
+                                    <p class='contact'><strong>mobile: </strong><em>{{ $companyProfile->mobile_phone }} </em></p>
+                                @endif
+                                @if($companyProfile->company_website)
+                                    <a href="{{ $companyProfile->company_website }}">{{ $companyProfile->company_website }}</a>
+                                @endif
+                                <hr>
                                 <h6>Social Media Accounts</h6>
-                                <a href="<?php echo $companyProfile->facebook; ?>" class="btn btn-just-icon btn-link btn-facebook"><i class="fa fa-facebook"></i></a>
-                                <a href="<?php echo $companyProfile->twitter; ?>" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
+
+                                @if($companyProfile->facebook)
+                                    <a title="Ffacebook" href="{{ $companyProfile->facebook }}" class="btn btn-just-icon btn-link btn-facebook"><i class="fa fa-facebook"></i></a>
+                                @endif
+                                @if($companyProfile->twitter)
+                                    <a title="Twitter" href="{{ $companyProfile->twitter }}" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
+                                @endif
                               <!--   <a href="<?php echo $companyProfile->company_website; ?>" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a> -->
-                                <a href="<?php echo $companyProfile->linkedin; ?>" class="btn btn-just-icon btn-link btn-linkedin"><i class="fa fa-linkedin"></i></a>
-                                <a href="<?php echo $companyProfile->instagram; ?>" class="btn btn-just-icon btn-link btn-instagram"><i class="fa fa-instagram"></i></a>
-                                <a href="<?= $companyProfile->company_email; ?>" class="btn btn-just-icon btn-link btn-envelope"><i class="fa fa-envelope"></i></a>
+                                @if($companyProfile->linkedin)
+                                    <a title="Linkedin" href="{{ $companyProfile->linkedin }}" class="btn btn-just-icon btn-link btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                                @endif
+                                @if($companyProfile->googleplus)
+                                    <a title="Google Plus" href="{{ $companyProfile->googleplus }}" class="btn btn-just-icon btn-link "><i class="fa fa-google-plus"></i></a>
+                                @endif
+                                @if($companyProfile->company_email)
+                                    <a title="Email" href="{{ $companyProfile->company_email }}" class="btn btn-just-icon btn-link btn-envelope"><i class="fa fa-envelope"></i></a>
+                                @endif
+                                @if($companyProfile->otherlink)
+                                    <a title="Other Link" href="{{ $companyProfile->otherlink }}" class="btn btn-just-icon btn-link btn-envelope"><i class="fa fa-link"></i></a>
+                                @endif
                             </div>
                         </div>
                     </div>
