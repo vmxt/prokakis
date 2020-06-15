@@ -16,10 +16,6 @@ div.flaticon {
     line-height: 1.5;
 }
 
-.wrapper .container {
-    max-width: 1200px;
-    /*margin: 2em auto auto;*/
-}
 
 .container {
     /*max-width: 1400px;*/
@@ -355,11 +351,23 @@ div.flaticon .btn-subscribe:hover {
 
 .btn-subscribe{
     padding: 1em;
-    color: #fff!important;
     text-align: center;
-    background-color: #214776;
     cursor: pointer;
+}
 
+.bg-image-1 .btn-subscribe, .token-card-container-btn .card-buyNow-bot .btn-subscribe{
+    color: #fff!important;
+    background-color: #214776;
+}
+
+.bg-image-2 .btn-subscribe{
+    color: #FF914D !important;
+    background-color: #FFFFFF !important;
+}
+
+.desc-2 .card-buyNow-bot .btn-subscribe {
+    color: #FFFFFF !important;
+    background-color: #FFBD59 !important;
 }
 
 .btn-subscribe, .modal .btn, button, input[type=submit] {
@@ -505,6 +513,10 @@ div.payment .advantages-block p {
 
 .advFooterText2{
     width: 100%;
+}
+
+.advFooterText p {
+    font-size: 20px !important;
 }
 
 
@@ -710,7 +722,9 @@ div.payment .advantages-block p {
     .col-12.advFooterText2 {
         float: left !important;
     }*/
-
+    .token-card-container-btn{
+        display: none;   
+    }
 
 }
 
@@ -1092,6 +1106,7 @@ div.payment .advantages-block p {
     margin: 0 -5px;
     width: 100%
     }
+
 }
 
 
@@ -1108,6 +1123,12 @@ div.payment .advantages-block p {
 
     .token-card-title {
         height: 360px !important;
+    }
+}
+
+@media  (min-width: 961px){
+    .desc-1 .card-buyNow-bot {
+        display: none;
     }
 }
 
@@ -1225,15 +1246,34 @@ hr.top-line {
 
 }
 
-.token-card-desc{
-    height: 60em;
+.col-12.token-card-container-btn {
+    width: inherit;
+    margin-bottom: 140px;
+}
+
+.desc-1{
+    height: 50em;
     /*width: 400px;*/
     /*padding-right: 75px;*/
 }
 
+.desc-2{
+    height: 30em;
+    position: relative;
+    /*width: 400px;*/
+    /*padding-right: 75px;*/
+}
+
+.desc-2 .card-buyNow-bot {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    margin-left: 0px;
+}
+
 .token-card-text{
     display: flex;
-    padding-left: 25px;
+    padding-left: 15px;
 }
 
 .token-card-text p{
@@ -1241,12 +1281,21 @@ hr.top-line {
 }
 
 .info-icon{
-    color: #FE904C;
-    background: white;
+
     border-radius: 50%;
     height: 29px;
     width: 32px;
     line-height: 32px !important;
+}
+
+.bg-image-1 .info-icon{
+    color: #FE904C;
+    background: white;
+}
+
+.bg-image-2 .info-icon{
+    color: #214776;
+    background: white;
 }
 
 .fa-stack{
@@ -1319,6 +1368,7 @@ hr.top-line {
     font-weight: 700;
     text-transform: uppercase;
     line-height: 20px;
+    color: #000000;
 }
 
 .el-invisible {
@@ -1332,3 +1382,4 @@ hr.top-line {
 .token-card-container-desc{
     /*border: 1px blue solid;*/
 }
+
