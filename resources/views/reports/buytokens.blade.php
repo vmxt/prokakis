@@ -732,11 +732,19 @@
             </section>
 
             <section id='reports'>
+                <div class="col-6 advFooterText2">
+                    <div class="content advFooterText report-title" style="text-align: center;">
+                        <h1>GET BUSINESS INTELLIGENCE REPORT</h1>
+                    </div>
+                </div>
                 <div class="pricing-tables">
                     <div class="container ">
                         <div class="row">
                             <div class="col-12 token-card-container">
                                 <div class="col-4 token-card">
+                                    <div class="token-card-heading">
+                                        <h2>BASIC</h2>
+                                    </div>
                                     <div class="token-card-title bg-image-2">
                                         <span class="fa-stack"
                                                 aria-hidden="true"
@@ -808,6 +816,9 @@
                                     </div>
                                 </div>
                                 <div class="col-4 token-card">
+                                    <div class="token-card-heading">
+                                        <h2>PROFESSIONAL</h2>
+                                    </div>
                                     <div class="token-card-title bg-image-2">
                                         <span class="fa-stack"
                                                 aria-hidden="true"
@@ -887,7 +898,10 @@
 
                                     </div>
                                 </div>
-                                <div class=" col-4 token-card card-monthly">
+                                <div class=" col-4 token-card">
+                                    <div class="token-card-heading">
+                                        <h2>ENTERPRISE</h2>
+                                    </div>
                                     <div class="token-card-title bg-image-2">
                                         <span class="fa-stack"
                                                 aria-hidden="true"

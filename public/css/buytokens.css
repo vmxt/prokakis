@@ -515,12 +515,27 @@ div.payment .advantages-block p {
     width: 100%;
 }
 
+.report-title h1{
+    color: #FF914D;
+}
+
+.report-title {
+    margin-bottom: 50px;
+}
+
+
 .advFooterText p {
     font-size: 20px !important;
 }
 
 
-
+.token-card-heading h2 {
+    color: #FF914D;
+    text-align: center;
+    padding: 20px;
+    font-size: 40px;
+    font-weight: 600;
+}
 
 
 
