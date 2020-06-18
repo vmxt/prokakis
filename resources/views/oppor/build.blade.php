@@ -552,7 +552,7 @@ input::-moz-focus-inner {
 
                                                       <input type="radio" id="audienceTarget2" datavalue='2' value="Business(B2B)" name="audienceTarget" dataName="audience_target" class="md-radiobtn input-radio-form" <?php if(isset($data->audience_target) && $data->audience_target == 'Business(B2B)'){ echo 'checked';  } ?>>
 
-                                                    <label for="business">
+                                                    <label for="audienceTarget2">
 
                                                         <span></span>
 
@@ -1578,14 +1578,13 @@ input::-moz-focus-inner {
 
 
 <script>
-
+        var stack = 0;
         function NotifyToUpgrade(id){
+            counts = stack++;
+            if(counts == 0){
+                $('#'+id).bootstrapToggle('off')  ;
 
-            try {
-               $('#'+id).bootstrapToggle('off')  ;
-            }
-            catch (e) {
-                    swal({
+                swal({
                     title: "This feature is only available on premium members. You want to upgrade to premium?",
                     text: "You are about to set the view status of this opportunity to be publish with company information!",
                     icon: "success",
@@ -1604,6 +1603,7 @@ input::-moz-focus-inner {
 
                   });
 
+                stack = 0;
             }
         }
 

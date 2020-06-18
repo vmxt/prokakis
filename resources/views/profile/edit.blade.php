@@ -408,8 +408,19 @@
                                     {{-- <div class="card-header"> --}}
 
 
+                                    <?php 
+                                        $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                                        $validateAccount = App\SpentTokens::validateAccountActivation($company_id_result);
+                                    ?>
+                       
+                                     
+                                            @if($validateAccount != false)
+                                                <div class="containerCimg" >
+                                            @else
+                                              <div class="containerCimg"  onclick="notifytoPremium()" >
 
-                                        <div class="containerCimg">
+                                            @endif
+                                        
 
                                             <div id="croppedCimg" class="croppedCimg" align="center"> </div>
 
@@ -422,10 +433,7 @@
                                                 <div class="spinnerCimg" style="display: none">Loading...</div>
 
                                             </div>
-                                            <?php 
-                                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-                                                $validateAccount = App\SpentTokens::validateAccountActivation($company_id_result);
-                                            ?>
+
 
                                             <div class="actionCimg actionImg">
                                                 @if($validateAccount != false)
@@ -435,7 +443,9 @@
                                                     <input class="btn fa-plus btn-info" type="button" id="btnZoomOut" value="-" title="ZOOM OUT" >
                                                     {{-- <i class="fa fa-minus" aria-hidden="true"></i> --}}
                                                     {{-- <i class="fa fa-plus" aria-hidden="true"></i> --}}
-
+                                                @else
+                                                    <p> uploading of profie pictures requires a <strong>premium account</strong>.  </p>
+                                                    <button class="btn btn-primary "  title="PREMIUM" />BECOME PREMIUM</button>
                                                 @endif
                                             </div>
 
@@ -3832,6 +3842,27 @@
 
 
     <script type="text/javascript">
+
+        function notifytoPremium(){
+            swal({
+            title: "This feature is only available on premium members. You want to upgrade to premium?",
+            text: "You are about to set the view status of this opportunity to be publish with company information!",
+            icon: "info",
+            buttons: [
+              'No, cancel it!',
+              'Yes, I am sure!'
+            ],
+          }).then(function(isConfirm) {
+              if (isConfirm) {
+                    document.location = "{{ route('reportsBuyTokens') }}"
+                } else {
+
+                  swal("Cancelled", "Upgrading your account to premium was cancelled :)", "error");
+
+                }
+
+          });
+        }
 
         window.onload = function () {
 

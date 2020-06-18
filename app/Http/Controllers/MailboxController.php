@@ -18,6 +18,8 @@ use App\User;
 
 use App\CompanyProfile;
 
+use App\Countries;
+
 use Auth;
 
 use Illuminate\Http\Request;
@@ -380,7 +382,9 @@ class MailboxController extends Controller {
 	}
 
 	public function notification(Request $request){
+
 		if ($request->isMethod('post')) {
+			
 			$company_opp = $request->input("companyOpp"); //opportunity owner
 			$company_viewer = $request->input("companyViewer"); //viewer
 			$templateType = $request->input("templateType"); //viewer
@@ -388,22 +392,41 @@ class MailboxController extends Controller {
 			$user_id = Auth::id();			
 			$rs = CompanyProfile::find($company_opp);
 
+			$rss = CompanyProfile::find($company_viewer); //requester
+
+			$cc = ($rss->primary_country != null)? Countries::where('country_code', $rss->primary_code)->first() : '';
+			$p_country = (is_object($cc))? $cc->country_name : '';
+			$industry = $rss->industry;
+			$mailSubject = "";
+			
+			if($p_country != '' || $p_country != null){
+				$mailSubject = "A partner from ".$p_country." is looking for you in Prokakis";
+			} else {
+				$mailSubject = "A partner is looking for you in Prokakis";
+			}
+
 			AuditLog::ok(array($user_id, 'opportunity', 'express interest to a company at explore page', 'company id:'. $company_viewer.' express interest to company id:' . $company_opp));
 
-            $template = MailTemplate::find($templateType);
+            $template = MailTemplate::find(1);
 
 			$message = "
 
-                  Dear  $rs->registered_company_name,
+                  <h1>Dear  $rs->registered_company_name</h1>,
 
                   <br />
   					$template->content
-  					<br>
-                  ";
-            $message .= "Requestor profile: ".url('company/'.$company_viewer);
-            echo "success";
+				  ";
+
+				  
+            //$message .= "Requestor profile: ".url('company/'.$company_viewer);
+			
+			$message =  str_replace("[Industry]", $industry, $message);		  
+			$message =  str_replace("[msgTitle]", $mailSubject, $message);		  
+			$message =  str_replace("[Country]", $p_country, $message);		  
+			$message =  str_replace("[Requester_profile]", url('company/'.$company_viewer) , $message);		  
+			
 			//send the email here
-			//Mailbox::sendMail($message, $rs->company_email, $template->subject, "");
+			Mailbox::sendMail($message, $rs->company_email, $mailSubject, "");  //$template->subject
 		}
 	}
 

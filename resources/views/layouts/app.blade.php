@@ -385,7 +385,7 @@ s0.parentNode.insertBefore(s1,s0);
                             <div class="container">
                                 <!-- BEGIN LOGO -->
                                 <div class="page-logo">
-                                    <a href="https://app.prokakis.com/home" style="margin-top: 25px;">
+                                    <a href="{{ route('login') }}" style="margin-top: 25px;">
                                         <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="200px">
                                     </a>
                                 </div>

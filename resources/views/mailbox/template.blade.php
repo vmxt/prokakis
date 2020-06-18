@@ -105,6 +105,7 @@
       background-color: #ffffff;
       padding: 12px 15px 15px;
       width: 253px;
+      text-align: left;
     }
 
     .mini-container-left {
@@ -167,6 +168,19 @@
       line-height: 1px !important;
       font-size: 1px !important;
     }
+
+.button {
+    display: block;
+    width: 140px;
+    height: 25px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}
 
   </style>
 
@@ -265,7 +279,7 @@
 
 <body bgcolor="#f7f7f7">
 <table align="center" cellpadding="0" cellspacing="0" class="container-for-gmail-android" width="100%">
-        <td style="font-family: Arial, Helvetica, sans-serif; padding: 10px; font-size: 16px; line-height: normal; background-color: #87cefa"><a href="https://ebos2.prokakis.com/">Prokakis</a></td>
+        <td style="font-family: Arial, Helvetica, sans-serif; padding: 10px; font-size: 16px; line-height: normal; background-color: #87cefa"><a href="https://ebos2.prokakis.com/"><img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="200px"></a></td>
   <tr>
     <td align="center" valign="top" width="100%" style="background-color: #f7f7f7;" class="content-padding">
       <center>

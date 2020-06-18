@@ -602,7 +602,15 @@
                     <div class="fb-profile-block-thumb">
                         <!-- THIS IS WHERE THE COVER PHOTO BEING PLACED -->
                         <div class="overlay ctr">
-                            <button data-popup-open="popup-1" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
+                            <?php 
+                            $company_id_result = App\CompanyProfile::getCompanyId(Auth::id()); 
+                            ?>
+                            @if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false)
+                                <button data-popup-open="popup-1" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
+                            @else
+                                <button onclick="notifytoPremium()" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
+                            @endif
+                        
                         </div>
                     </div>
 
@@ -1652,8 +1660,31 @@
     <!-- script for banner new
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
     <script type="text/javascript">
+
+        function notifytoPremium(){
+            swal({
+            title: "This feature is only available on premium members. You want to upgrade to premium?",
+            text: "You are about to set the view status of this opportunity to be publish with company information!",
+            icon: "info",
+            buttons: [
+              'No, cancel it!',
+              'Yes, I am sure!'
+            ],
+          }).then(function(isConfirm) {
+              if (isConfirm) {
+                    document.location = "{{ route('reportsBuyTokens') }}"
+                } else {
+
+                  swal("Cancelled", "Upgrading your account to premium was cancelled :)", "error");
+
+                }
+
+          });
+        }
+
         $(document).ready(function () {
 
             $("#updateBannerButton").hide();
