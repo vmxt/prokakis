@@ -11,582 +11,9 @@
       type="text/css"/>
 
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
-    <style>
 
-        html, body {
-
-            width: 100%;
-
-            height: 100%;
-
-            margin: 0px;
-
-            padding: 0px;
-
-            overflow-x: hidden;
-            font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
-
-        }
-        
-
-        .niceDisplay {
-
-            font-family: 'PT Sans Narrow', sans-serif;
-
-            background-color: white;
-
-            padding: 10px;
-
-
-            border-radius: 3px;
-
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-
-        }
-
-
-        .btn-x3 {
-
-            font-size: 15px;
-
-            border-radius: 5px;
-
-            width: 25%;
-
-            background-color: orangered;
-
-        }
-
-        .hr-sect {
-            display: flex;
-            flex-basis: 100%;
-            align-items: center;
-            color: rgba(0, 0, 0, 0.35);
-            margin: 8px 0px;
-        }
-
-        .hr-sect  {
-            display: flex;
-            flex-basis: 100%;
-            align-items: center;
-            color: rgba(0, 0, 0, 0.35);
-            margin: 8px 0px;
-        }
-
-        .hr-sect::before,
-        .hr-sect::after {
-            content: "";
-            flex-grow: 1;
-            background: rgba(0, 0, 0, 0.35);
-            height: 1px;
-            font-size: 0px;
-            line-height: 0px;
-            margin: 0px 8px;
-        }
-
-        .hr-sect strong{
-            color: #1a4275;
-        }
-
-        /* CSS FOR NEW LAYOUT */
-        .card-img {
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Do not repeat the image */
-            background-size: cover; /* Resize the background image to cover the entire container */
-            background-color: #eee;
-            padding-top: 100px;
-        }
-
-        .setBackground {
-            padding-bottom: 0.1px;
-        }
-
-        .card-footer {
-            margin-left: 5px;
-            text-align: center;
-        }
-
-        .table-scrollable {
-            margin: 0px;
-        !important;
-        }
-
-        .profile-img a {
-            bottom: 10px;
-            box-shadow: none;
-            display: block;
-            left: 15px;
-            padding: 1px;
-            position: absolute;
-            height: 160px;
-            width: 160px;
-            z-index: 9;
-            text-align: center;
-            margin-left: 10px;
-        }
-
-        .fb-profile-block-menu {
-            border-radius: 0 0 3px 3px;
-        }
-
-
-        .fb-profile-block-thumb {
-            display: block;
-            height: 100px;
-            position: relative;
-            text-decoration: none;
-            background-color: #3f92c3;
-        }
-
-        .thumbnail {
-            padding: 0px !important;
-            margin-bottom: 0px;
-        }
-
-        @media (max-width: 480px) and (min-width: 320px) {
-            .brand {
-                min-height: 120px;
-                background-color: #e5e5e5;
-            !important;
-            }
-
-            .card-body {
-                margin-top: 75px;
-            }
-
-            .profile-img a {
-                margin-left: 65px;
-            }
-
-            h3 {
-                margin-left: 65px;
-            }
-
-        }
-
-
-        .profile-img img {
-            background-color: #fff;
-            border-radius: 2px;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
-            height: 158px;
-            padding: 5px;
-            width: 158px;
-            margin-top: 80px;
-        }
-
-        .table-scrollable {
-        !important;
-            border: 0px none;
-        !important;
-        }
-
-
-        .card-columns1 { /* Masonry container */
-            column-count: 3;
-            column-gap: 1em;
-        }
-
-        .card-columns1 > .card { /* Masonry bricks or child elements */
-            background-color: #eee;
-            display: inline-block;
-            margin: 0 0 1em;
-            width: 100%;
-        }
-
-
-        /* Masonry on large screens */
-        @media only screen and (min-width: 1024px) {
-            .card-columns1{
-                column-count: 3;
-            }
-        }
-
-        /* Masonry on medium-sized screens */
-        @media only screen and (max-width: 1023px) and (min-width: 768px) {
-            .card-columns1{
-                column-count: 2;
-            }
-        }
-
-        /* Masonry on small screens */
-        @media only screen and (max-width: 767px) and (min-width: 300px) {
-            .card-columns1{
-                column-count: 1;
-            }
-
-            .table-scrollable table tbody tr td{
-                word-wrap: break-word;
-            }
-
-            .table td, .table th {
-                font-size: 12px;
-            }
-
-            .table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>thead>tr>th {
-                padding: 0px;
-            }
-        }
-
- 
-        .thumbnail {
-           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
-           transition: 0.3s;
-           min-width: 40%;
-           border-radius: 5px;
-
-                   float:left;
-                    width:100%;
-                    overflow-y: scroll;
-                    max-height: 50em;
-                    height: 40em;
-                    scrollbar-width: none;
-
-         }
-
-        .thumbnail::-webkit-scrollbar {
-        width: 0px; 
-        background: transparent;
-        }
-
-         .thumbnail-description {
-           min-height: 40px;
-         }
-
-
-
-         .premium_banner{
-            /*margin-left: 180px;*/
-            float: right;
-            width: 110% !important;
-            left: 0;
-            /*margin-bottom: 15px;*/
-             position: absolute;
-         }
-
-         .modal-dialog {
-          width: 75%;
-          height: 100%;
-          padding: 35px;
-        }
-
-        .modal-content {
-          height: auto;
-          border-radius: 15px;
-        }
-
-        .modal-title {
-            font-size: 18px; 
-            font-weight: bold; 
-            text-transform: uppercase;
-        }
-
-        /*.card-explore{
-            height: 25em;
-        }
-
-        new code start css*/
-
-
-.list-link, .list-link:visited {
-  display: block;
-  text-decoration: inherit;
-  color: inherit;
-}
-
-.container-grid {
-  padding: 0.5em 1em 1em;
-  max-width: calc(1400px + 1em);
-  margin: 0 auto;
-  overflow: hidden;
-}
-.container-grid .blog-posts .featured {
-  width: 100% !important;
-  height: auto !important;
-  margin: 0.5em 0 1em 0 !important;
-}
-.container-grid .blog-posts .featured .image {
-  height: auto !important;
-}
-.container-grid .blog-posts .featured .content {
-  height: auto !important;
-}
-.container-grid .blog-posts .row {
-  display: flex;
-}
-.container-grid .blog-posts .row .post:last-child {
-  margin-right: 0 !important;
-}
-.container-grid .blog-posts .post {
-        /*padding-bottom: 20px;*/
-  flex: 1;
-  overflow: hidden;
-  background: white;
-  height: auto;
-  -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2);
-  margin-right: 1em;
-  margin-bottom: 1em;
-}
-.container-grid .blog-posts .post:hover {
-  -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
-  /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
-  cursor: pointer;
-  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1);
-}
-.container-grid .blog-posts .post:hover .image {
-  opacity: 0.8;
-}
-.container-grid .blog-posts .post .image, .container-grid .blog-posts .post .content {
-  display: inline-block;
-  position: relative;
-  -moz-transition: all 500ms ease;
-  -o-transition: all 500ms ease;
-  -webkit-transition: all 500ms ease;
-  transition: all 500ms ease;
-}
-.container-grid .blog-posts .post .image {
-  float: left;
-  width: 40%;
-  height: 250px;
-  background-size: cover;
-  background-position: center center;
-}
-
-
-.container-grid .blog-posts .post .image .time {
-  background: rgba(255, 255, 255, 0.5);
-  width: 50px;
-  text-align: center;
-  padding: 0.5em 0;
-  color: #444;
-}
-.container-grid .blog-posts .post .image .time .date {
-  font-weight: bolder;
-}
-.container-grid .blog-posts .post .image .time .month {
-  font-size: 0.7rem;
-}
-.container-grid .blog-posts .post .content {
-  padding: 0.5em 1em;
-  width: 50%;
-  -moz-box-shadow: -2px 0 2px -1px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: -2px 0 2px -1px rgba(0, 0, 0, 0.1);
-  box-shadow: -2px 0 2px -1px rgba(0, 0, 0, 0.1);
-  height: 200px;
-}
-.container-grid .blog-posts .post .content:before {
-  content: '';
-  position: absolute;
-  background: white;
-  width: 10px;
-  height: 10px;
-  top: 20%;
-  left: -5px;
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  -moz-box-shadow: -1px 0 2px -1px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: -1px 0 2px -1px rgba(0, 0, 0, 0.1);
-  box-shadow: -1px 0 2px -1px rgba(0, 0, 0, 0.1);
-}
-.container-grid .blog-posts .post .content h1 {
-  font-weight: 600;
-  line-height: 2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.container-grid .blog-posts .post .content p {
-  font-weight: 300;
-  font-size: 0.7rem;
-  line-height: 1.5;
-  margin-bottom: 0.5em;
-  font-family: 'Merriweather', sans-serif;
-}
-.container-grid .blog-posts .post .content .meta .icon-comment {
-  font-size: 0.7em;
-  line-height: 2;
-  margin-top: auto;
-}
-
-[class^="icon-"]:before {
-  margin-right: 0.5em;
-  color: #3498db;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-@media screen and (max-width: 840px) {
-  .row {
-    display: block !important;
-  }
-  .row .post {
-    width: 100%;
-    margin: 0;
-  }
-}
-@media screen and (max-width: 600px) {
-  .content {
-    width: 70% !important;
-  }
-
-  .image {
-    width: 30% !important;
-  }
-
-  h1 {
-    text-overflow: inherit;
-    white-space: normal;
-  }
-}
-/* clearfix */
-.cf:before,
-.cf:after {
-  content: " ";
-  /* 1 */
-  display: table;
-  /* 2 */
-}
-
-.cf:after {
-  clear: both;
-}
-
-.showLastCard{
-    visibility: hidden;
-}
-
-.hiddenLastCard{
-    display: none;
-}
-
-.info_list{
-    list-style-type: circle;
-    list-style-position: outside;
-    margin-left: 20px;
-    font-size: .8em;
-}
-
-.lg-link{
-    font-size: 16px !important;
-}
-
-.info_list li{
-    margin: 0 0px 5px;
-}
-
-.hr_title{
-    font-size: .8em;
-    font-weight: bolder;
-}
-
-.learn_more{
-    float: right;
-    position: relative;
-    bottom: 35px;
-    left: 20%;
-}
-
-.title-text{
-    font-size: 16px;
-    font-weight: bolder;
-    line-height: 30px;
-}
-
-.opp_type{
-    margin-top: 50px;
-    margin-bottom: 25px;
-    color: #1a4275;
-    font-weight: 600;
-    /*font-size: 1.1em;*/
-    text-transform: uppercase;
-}
-
-.upperText{
-    text-transform: uppercase;
-}
-
-/*.post:hover {
-   cursor: pointer;
-   box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1);
-}*/
-
-.rating_score{
-  margin: 10px;
-}
-
-@media (max-width: 426px) {
-  .container-grid .blog-posts .post .image {
-    width: 100% !important;
-    float: none !important;
-  }
-
-  .container-grid .blog-posts .post .content h1 {
-    white-space: normal;
-    line-height: 1;
-    font-size: 0.8em;
-  }
-
-  .content {
-    width: 100% !important;
-  }
-
-  h3 {
-       margin-left: 0px !important; 
-  }
-
-  .learn_more{
-    left: 0 !important;
-  }
-
-  .modal-title {
-    font-size: 14px; 
-  }
-
-  .title-text{
-    font-size: 13px;
-  }
-
-  .lg-link {
-    font-size: 13px !important;
-  }
-
-  .content-text{
-    font-size: 14px;
-  }
-
-  .modal-dialog {
-      width: 95%;
-      padding: 10px;
-
-  }
-}
-
-  /*for chat box area*/
-
-#page-wrap                      { width: 500px; margin: 30px auto; position: relative; }
-
-#chat-wrap                      { border: 1px solid #eee; margin: 0 0 15px 0; }
-#chat-area                      { height: 300px; overflow: auto; border: 1px solid #666; padding: 20px; background: white; }
-#chat-area span                 { color: white; background: #333; padding: 4px 8px; -moz-border-radius: 5px; -webkit-border-radius: 8px; margin: 0 5px 0 0; }
-#chat-area p                    { padding: 8px 0; border-bottom: 1px solid #ccc; }
-
-#name-area                      { position: absolute; top: 12px; right: 0; color: white; font: bold 12px "Lucida Grande", Sans-Serif; text-align: right; }   
-#name-area span                 { color: #fa9f00; }
-
-#send-message-area p            { float: left; color: white; padding-top: 27px; font-size: 14px; }
-#sendie                         { border: 3px solid #999; width: 360px; padding: 10px; font: 12px "Lucida Grande", Sans-Serif; float: right; }
-
-
-    </style>
     <div class="container container-grid">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
             <li>
@@ -645,6 +72,7 @@ img {
 <?php 
     $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
     $tokenStock = App\SpentTokens::validateTokenStocks($requestor_id);
+    //echo $tokenStock;
 ?>
 
         <div class="row">
@@ -969,11 +397,12 @@ img {
             </div> 
 
             <div>
-              @if(  $tokenStock >= 12)
+              @if($tokenStock >= 12)
                 <a onclick="processReq('build', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
               @else
                 <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
               @endif
+
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
@@ -983,19 +412,50 @@ img {
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @if($tokenStock >= 3)
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
+                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @else
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @endif
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @endif
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                @endif
+
+                {{-- Requestor = Premium | Provider = None-Premium 
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif --}}
+
+                {{-- Requestor = None-premium | Provider = None-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
+                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @else
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @endif
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @endif
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = None-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -1355,19 +815,55 @@ img {
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @endif
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                @endif
+
+                {{-- Requestor = Premium | Provider = None-Premium
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif  --}}
+
+                {{-- Requestor = None-premium | Provider = None-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @endif
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = None-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -1727,19 +1223,55 @@ img {
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @endif
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id.'/'.$item->id.'/'.$token) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                @endif
+
+                {{-- Requestor = Premium | Provider = None-Premium
+               @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif  --}}
+
+                {{-- Requestor = None-premium | Provider = None-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    @endif
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = None-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -1986,9 +1518,9 @@ img {
   aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-            <h2 class='chatOppTitle'>Title</h2>
-
+        <div class="modal-header chat-header">
+            <img  id='chatAvatar'>
+            <h2 class='chatOppTitle'></h2>
             <button type="button" class="close chat-close" data-dismiss="modal" aria-hidden="true">&times;</button>
          
         </div>
@@ -2000,16 +1532,15 @@ img {
               <p id="name-area"></p>
               
               <div id="chat-wrap"><div id="chat-area"></div></div>
-              
-              <form id="send-message-area">
-                  <p>Your message: </p>
-                  <textarea id="sendie" maxlength = '100' ></textarea>
-                  <input type="hidden" id="chat-companyViewer">
-                  <input type="hidden" id="chat-companyOpp">
-                  <input type="hidden" id="chat-oppId">
-                  <input type="hidden" id="chat-oppType">
-              </form>
-    
+              <div class="send-msg-container">
+                <form id="send-message-area">
+                    <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="3" ></textarea>
+                    <input type="hidden" id="chat-companyViewer">
+                    <input type="hidden" id="chat-companyOpp">
+                    <input type="hidden" id="chat-oppId">
+                    <input type="hidden" id="chat-oppType">
+                </form>
+              </div>
         </div>
             
 
@@ -2136,7 +1667,7 @@ img {
                 window.location.href = "{{ route('reportsBuyTokens') }}";
             });
         }
-
+        
         function checkPremium(companyID, ptype, oppId, linker){
             swal({
                 title: "Are you sure to open this profile, published Anonymously? ", 
@@ -2189,8 +1720,107 @@ img {
 
         }
 
+        function nonPremiumToNonPremium(companyOpp,companyViewer,templateType)
+        {
+            $('.modal_oppoBox').modal('hide');
+              swal({
+                  title:"This requires premium account to open this profile.", 
+                  text: "Are you sure to proceed?  Because we will send an email notification to this company and redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                  icon: "warning",
+                  buttons: [
+                    'No, cancel it!',
+                    'Yes, I am sure!'
+                  ],
+                  dangerMode: true,
+  
+                }).then(function(isConfirm) {
+  
+                  if (isConfirm) {
+  
+                      formData = new FormData();
+                      formData.append("companyOpp", companyOpp);
+                      formData.append("companyViewer", companyViewer);
+                      formData.append("templateType", templateType);
+                      $.ajax({
+                          url: "{{ route('emailNotification') }}",
+                          type: "POST",
+                          async: true,
+                          data: formData,
+                          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                          processData: false,
+                          contentType: false,
+  
+                          success: function (data) {
+                              swal({
+                                title: 'Email notification will be sent to this profile. You need to re-fill token to become a Premium Account',
+                                text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                                icon:  'success'
+                              }).then(function() {
+                                     //document.location = '{{ url("reports/buyTokens") }}';
+                                  document.location = '{{ url("/home") }}';
+                              
+                              });
+                          }
+                      });
+  
+                  } else {
+                      swal("Cancelled", "To become premium account was cancelled :)", "error");
+                  }
+                });
+  
+        }
+  
+        function premiumToNonPremium(companyOpp,companyViewer,templateType)
+        {
+            $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"The provider of this opportunity is none-premium.", 
+                text: "Are you sure to proceed? Because we will send an email notification to this company and encourage them to upgrade thier account to premium.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
 
-        function nonPremiumToPremium(companyOpp,companyViewer,templateType){
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    formData.append("templateType", templateType);
+                    $.ajax({
+                        url: "{{ route('emailNotification') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            swal({
+                              title: 'Email notification succesfully sent to the opportunity provider.',
+                              text:  'You may drop a message directly to the provider through "Inbox Me"',
+                              icon:  'success'
+                            }).then(function() {
+                                   //document.location = '{{ url("reports/buyTokens") }}';
+                                //document.location = '{{ url("/home") }}';
+                            
+                            });
+                        }
+                    });
+
+                } else {
+                    swal("Cancelled", "Notifying the opportunity provider was cancelled", "error");
+                }
+              });
+        }
+          
+        function nonPremiumToPremium(companyOpp,companyViewer,templateType)
+        {
           $('.modal_oppoBox').modal('hide');
             swal({
                 title:"This requires premium account to open this profile.", 
@@ -2286,10 +1916,85 @@ img {
                 }
               });
         }
+        
+        function DeductThreeInboxMe(avatarUrl, oppTitle, oppId, companyOpp, companyViewer, oppType)
+        {
+            $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"This will cost you 3 credits", 
+                text: "Are you sure to proceed?.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+
+                    formData = new FormData();
+                    formData.append("companyProvider", companyOpp);
+                    formData.append("companyRequester", companyViewer);
+                    formData.append("oppId", oppId);
+                    formData.append("oppType", oppType);
+                    
+                    $.ajax({
+                        url: "{{ route('getChatCredit') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            
+                            if(data == 0){
+                                swal("Error", "Error in paying with 3 credits company requester and viewer does not matched", "error");    
+                            } else {
+                                OppInboxMe(avatarUrl, oppTitle, companyOpp, companyViewer, oppId, oppType); //open the chat box
+                            }
+                        }
+                    });
+
+                } else {
+                    swal("Cancelled", "To pay 3 credit to message via inbox was cancelled :)", "error");
+                }
+              });
+
+        }
+
+        function BlockInboxMe()
+        {
+            $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"You are not a premium account, and you don't have 3 credits in your wallet to inbox the company of this opportunity.", 
+                text: "Are you sure to proceed?, and I will redirect you to buying credit page.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                    document.location = '{{ url("reports/buyTokens") }}';   
+                }else {
+                    swal("Cancelled", "To become premium account was cancelled :)", "error");
+                }
+
+            });
+      
+        }
 
         var chatInterval;
-        function OppInboxMe(title,companyOpp,companyViewer,oppId,oppType){
+        function OppInboxMe(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
             $('.chatOppTitle').text(title);
+            $('#chatAvatar').attr('src',avatarUrl);
             $('#chat-companyOpp').val(companyOpp);
             $('#chat-companyViewer').val(companyViewer);
             $('#chat-oppId').val(oppId);
@@ -2459,6 +2164,7 @@ function chatload(){
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
     var oppType = $("#chat-oppType").val();
+    var requestorAvatar = $('#chatAvatar').attr('src');
 
       formData = new FormData();
       formData.append("function", 'onload');
@@ -2482,10 +2188,14 @@ function chatload(){
             if(data.text != false){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
-                            $('#chat-area').append($("<p><span>"+data.text[i].sender+"</span>"+ data.text[i].text +"</p>"));
-                }                 
+                    if(data.text[i].action == 1){
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                    }else{
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='"+requestorAvatar+"' /></div><hr>"));
+                    }
+                }    
+            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            }
-           document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
 
           }
       });
@@ -2497,6 +2207,7 @@ function updateChat(){
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
     var oppType = $("#chat-oppType").val();
+    var requestorAvatar = $('#chatAvatar').attr('src');
 
    if(!instanse){
      instanse = true;
@@ -2523,10 +2234,14 @@ function updateChat(){
             if(data.text != false){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
-                            $('#chat-area').append($("<p><span>"+data.text[i].sender+"</span>"+ data.text[i].text +"</p>"));
-                }                 
+                    if(data.text[i].action == 1){
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                    }else{
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='"+requestorAvatar+"' /></div><hr>"));
+                    }
+                }    
+            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            }
-           document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            instanse = false;
            state = data.state;
 

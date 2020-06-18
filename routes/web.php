@@ -63,6 +63,9 @@ Route::get('/tokenCompany', 'SuperAdminController@getTokenCompany')->name('GetTo
 //chat history
 Route::post('/chatProcess', 'ChatHistoryController@process')->name('chatProcess');
 
+//credit
+Route::post('/credit/spend', 'CreditController@getChatCredit')->name('getChatCredit');
+
 
 //staff
 Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');

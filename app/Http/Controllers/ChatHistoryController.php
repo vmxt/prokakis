@@ -51,9 +51,9 @@ class ChatHistoryController extends Controller {
 		if ($request->isMethod('post')) {
 			$company_opp = $request->input("companyOpp"); //opportunity owner
 			$company_viewer = $request->input("companyViewer"); //viewer
-			$oppurtunityId = $request->input("oppId"); //viewer
-			$oppurtunityType = $request->input("oppType"); //viewer
-			$function = $request->input("function"); //viewer
+			$oppurtunityId = $request->input("oppId"); 
+			$oppurtunityType = $request->input("oppType"); 
+			$function = $request->input("function"); 
 			$chatAction = $request->input("chatAction"); //chat action 1=send 2=reply
 
 			$user_id = Auth::id();			
@@ -104,7 +104,7 @@ class ChatHistoryController extends Controller {
 
 						  	 	$receiverName = $senderName;
 
-		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name ];
+		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name, 'action'=>$chat->action  ];
 		
 
 		                    }
@@ -142,7 +142,7 @@ class ChatHistoryController extends Controller {
 
 						  	 	$receiverName = $senderName;
 
-		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name ];
+		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name, 'action'=>$chat->action ];
 		                    }
 		        			$log['text'] = $text; 
 		             break;
