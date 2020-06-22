@@ -493,23 +493,22 @@ div.name .contact{
                                 <h6>Social Media Accounts</h6>
 
                                 @if($companyProfile->facebook)
-                                    <a title="Ffacebook" href="{{ $companyProfile->facebook }}" class="btn btn-just-icon btn-link btn-facebook"><i class="fa fa-facebook"></i></a>
+                                    <a title="Ffacebook" href="//{{ $companyProfile->facebook }}" class="btn btn-just-icon btn-link btn-facebook"><i class="fa fa-facebook"></i></a>
                                 @endif
                                 @if($companyProfile->twitter)
-                                    <a title="Twitter" href="{{ $companyProfile->twitter }}" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
+                                    <a title="Twitter" href="//{{ $companyProfile->twitter }}" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
                                 @endif
-                              <!--   <a href="<?php echo $companyProfile->company_website; ?>" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a> -->
                                 @if($companyProfile->linkedin)
-                                    <a title="Linkedin" href="{{ $companyProfile->linkedin }}" class="btn btn-just-icon btn-link btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                                    <a title="Linkedin" href="//{{ $companyProfile->linkedin }}" class="btn btn-just-icon btn-link btn-linkedin"><i class="fa fa-linkedin"></i></a>
                                 @endif
                                 @if($companyProfile->googleplus)
-                                    <a title="Google Plus" href="{{ $companyProfile->googleplus }}" class="btn btn-just-icon btn-link "><i class="fa fa-google-plus"></i></a>
+                                    <a title="Google Plus" href="//{{ $companyProfile->googleplus }}" class="btn btn-just-icon btn-link "><i class="fa fa-google-plus"></i></a>
                                 @endif
                                 @if($companyProfile->company_email)
-                                    <a title="Email" href="{{ $companyProfile->company_email }}" class="btn btn-just-icon btn-link btn-envelope"><i class="fa fa-envelope"></i></a>
+                                    <a title="Email" href="mailto:{{ $companyProfile->company_email }}" class="btn btn-just-icon btn-link btn-envelope"><i class="fa fa-envelope"></i></a>
                                 @endif
                                 @if($companyProfile->otherlink)
-                                    <a title="Other Link" href="{{ $companyProfile->otherlink }}" class="btn btn-just-icon btn-link btn-envelope"><i class="fa fa-link"></i></a>
+                                    <a title="Other Link" href="//{{ $companyProfile->otherlink }}" class="btn btn-just-icon btn-link btn-envelope"><i class="fa fa-link"></i></a>
                                 @endif
                             </div>
                         </div>

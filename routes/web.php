@@ -21,11 +21,15 @@ Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsub
 Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken');
 
 //for social media. public usage
-Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing');
+//Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing'); #old
+Route::get('/company/{brand}/{id}', 'CompanyController@index')->name('companySocialsharing');
 Route::get('/fbshare/{id}/{brand}', 'FbshareController@shareOnFB')->name('fbcompanyshare');
 Route::get('/company/{id}', 'CompanyController@previewPremiumCompany')->name('PreviewPremiumCompany');
 
 Auth::routes();
+//paypal listener
+Route::post('/ipn', 'IpnController@getIpnData')->name('GetIpnData');
+
 Route::get('/api/v1/report-req', 'ReferralController@apiRequestReportER')->name('apiRequestReportER');
 
 Route::post('/accounts-switch', 'HomeController@switchAccount')->name('switchAccount');
@@ -227,6 +231,9 @@ Route::get('/mailbox/compose', 'MailboxController@compose')->name('mailCompose')
 Route::post('/mailbox/storeCompose', 'MailboxController@storeCompose')->name('mailStoreCompose');
 Route::get('/mailbox/sentMail', 'MailboxController@sentMail')->name('sentMail');
 
+//buying option
+Route::get('/mailbox/buyingOption', 'MailboxController@composeBuyingOption')->name('ComposeBuyingOption');
+Route::post('/mailbox/storeEnterpriseCompose', 'MailboxController@storeEnterpriseCompose')->name('StoreEnterpriseCompose');
 
 Route::post('/mailbox/storeReply', 'MailboxController@storeReply')->name('mailStoreReply');
 Route::get('/mailbox/setReply/{id}', 'MailboxController@setReply')->name('mailSetReply');

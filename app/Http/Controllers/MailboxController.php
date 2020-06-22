@@ -410,10 +410,7 @@ class MailboxController extends Controller {
             $template = MailTemplate::find(1);
 
 			$message = "
-
-                  <h1>Dear  $rs->registered_company_name</h1>,
-
-                  <br />
+                  	<h1>Dear  $rs->registered_company_name,</h1>
   					$template->content
 				  ";
 
@@ -423,10 +420,10 @@ class MailboxController extends Controller {
 			$message =  str_replace("[Industry]", $industry, $message);		  
 			$message =  str_replace("[msgTitle]", $mailSubject, $message);		  
 			$message =  str_replace("[Country]", $p_country, $message);		  
-			$message =  str_replace("[Requester_profile]", url('company/'.$company_viewer) , $message);		  
+			$message =  str_replace("[Requester_profile]", url('company/'.base64_encode('viewer' . $company_viewer)."/".$company_viewer) , $message);		  
 			
 			//send the email here
-			Mailbox::sendMail($message, $rs->company_email, $mailSubject, "");  //$template->subject
+			//Mailbox::sendMail($message, $rs->company_email, $mailSubject, "");  //$template->subject
 		}
 	}
 

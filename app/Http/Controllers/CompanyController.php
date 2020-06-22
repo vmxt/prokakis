@@ -41,20 +41,6 @@ class CompanyController extends Controller {
 		$company_id = CompanyProfile::getCompanyId($user_id); //viewer
 
 		$brand = base64_decode($request['brand']);
-		$opp_id = $request['oppId'];
-		$token_id = $request['token'];
-
-		$build = false;
-		$buy = false;
-		$sell = false;
-
-		$rs_build = null;
-		$rs_sell = null;
-		$rs_buy = null;
-
-		$rs_build_view = 0;
-		$rs_sell_view = 0;
-		$rs_buy_view = 0;
 
 		$company_page_owner_id = null;
 
@@ -68,50 +54,6 @@ class CompanyController extends Controller {
 
 		} else {
 			$company_page_owner_id = $request['id'];
-		}
-
-		$rs_build = OpportunityBuildingCapability::where('id', $opp_id)->where('company_id', $company_page_owner_id)->first();
-		if($rs_build != null){
-			$rs_build_view = $rs_build->view_type;	
-		}
-		$rs_sell = OpportunitySellOffer::where('id', $opp_id)->where('company_id', $company_page_owner_id)->first();
-		if($rs_sell != null){
-			$rs_sell_view = $rs_sell->view_type;
-		}
-		$rs_buy = OpportunityBuy::where('id', $opp_id)->where('company_id', $company_page_owner_id)->first();
-		if($rs_buy != null){
-			$rs_buy_view = $rs_buy->view_type;
-		}
-
-		if(	$rs_build_view == 1 || $rs_sell_view == 1 || $rs_buy_view == 1 ){
-			//all found 1 in private, then need to check the premium purchased  
-		
-				if(PremiumOpportunityPurchased::checkIfPremium($company_id, $opp_id, 'build') == true)
-				{
-					$build = true;
-				}
-
-				if(PremiumOpportunityPurchased::checkIfPremium($company_id, $opp_id, 'sell') == true)
-				{
-					$sell = true;
-				}
-
-				if(PremiumOpportunityPurchased::checkIfPremium($company_id, $opp_id, 'buy') == false)
-				{
-					$buy = true;
-				}
-
-
-				if($build == true || $sell == true && $buy == true)
-				{
-				} else {
-
-					echo "Access invalid, only for those who purchased in premium data.";
-					sleep(10);
-					return redirect('login');
-					exit;
-
-				}
 		}
 
 

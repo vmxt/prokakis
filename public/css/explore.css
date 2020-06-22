@@ -181,21 +181,21 @@
 
 
         /* Masonry on large screens */
-        @media only screen and (min-width: 1024px) {
+/*        @media only screen and (min-width: 1024px) {
             .card-columns1{
                 column-count: 3;
             }
-        }
+        }*/
 
         /* Masonry on medium-sized screens */
-        @media only screen and (max-width: 1023px) and (min-width: 768px) {
+/*        @media only screen and (max-width: 1023px) and (min-width: 768px) {
             .card-columns1{
                 column-count: 2;
             }
-        }
+        }*/
 
         /* Masonry on small screens */
-        @media only screen and (max-width: 767px) and (min-width: 300px) {
+/*        @media only screen and (max-width: 767px) and (min-width: 300px) {
             .card-columns1{
                 column-count: 1;
             }
@@ -211,7 +211,7 @@
             .table-condensed>tbody>tr>td, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>td, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>thead>tr>th {
                 padding: 0px;
             }
-        }
+        }*/
 
  
         .thumbnail {
@@ -408,6 +408,8 @@ img {
   height: auto;
 }
 
+
+
 @media screen and (max-width: 840px) {
   .row {
     display: block !important;
@@ -416,7 +418,15 @@ img {
     width: 100%;
     margin: 0;
   }
+
+
+
+  .chat-provider span {
+    margin-left: 1em !important;
+  }
+
 }
+
 @media screen and (max-width: 600px) {
   .content {
     width: 70% !important;
@@ -573,11 +583,12 @@ img {
 
 #chat-area { 
     height: 300px; 
-    overflow: auto; 
-        border-width:5px;  
+    /*overflow: auto; */
+    border-width:5px;  
     border-style:groove;
     padding: 20px; 
     background: white; 
+    overflow-x: hidden;
 }
 
 #chat-area span { 
@@ -587,8 +598,8 @@ img {
     -moz-border-radius: 5px; 
     -webkit-border-radius: 8px; 
     margin: 0 5px 0 0; 
-    margin-left: -20px;
-    width: 40%;
+    /*margin-left: -20px;*/
+    /*width: 40%;*/
 }
 
 #chat-area p  { 
@@ -656,7 +667,7 @@ img#chatAvatar {
 
 .providerAvatar{
     margin-left: 30px;
-    position: absolute;
+    /*position: absolute;*/
     right: 15px;
 }
 
@@ -674,15 +685,21 @@ img#chatAvatar {
 
 .chat-provider{
     position: relative;
+    margin-left: 40%;
 }
 
 .chat-provider span {
-    margin-left: 29em !important;
-
+    margin-left: 29em ;
+    width: 83%
 }
 
 .chat-requestor{
+  margin-right: 40%;
+}
 
+.chat-requestor span{
+  margin-right: 50%;
+  width: 100%
 }
 
 .send-msg-container{
@@ -693,4 +710,66 @@ img#chatAvatar {
     position: absolute;
     margin-top: -20px;
     width: 100%;
+}
+
+
+@media screen and (max-width: 1024px){
+  .chat-provider{
+      margin-left: 7em ;
+  }
+
+  .chat-requestor {
+      margin-right: 20%;
+  }
+
+}
+
+
+@media screen and (max-width: 875px){
+  .chat-provider{
+      margin-left: 0 ;
+  }
+
+  .chat-requestor {
+      margin-right: 0;
+  }
+
+  #page-wrap{
+      width: 100%;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .chat-provider{
+      margin-left: 0 ;
+      width: auto;
+  }
+
+  .chat-requestor {
+      margin-right: 0;
+      width: auto;
+
+  }
+
+  .providerAvatar{
+    /*display: none;*/
+    margin-left: 0;
+  }
+
+  .requestorAvatar{
+    margin-right: 3px;
+    /*display: none;*/
+  }
+
+  .chat-area-text img {
+    height: 20px;
+  }
+
+  hr{
+    margin: 2px;
+  }
+
+  .chatOppTitle{
+    font-size: 5vw !important;
+  }
 }

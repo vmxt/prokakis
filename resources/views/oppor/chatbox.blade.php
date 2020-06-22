@@ -103,19 +103,156 @@
 
   /*for chat box area*/
 
-#page-wrap                      { width: 500px; margin: 30px auto; position: relative; }
+#page-wrap  { 
+    /*width: 85%; */
+    margin: 30px auto; 
+    position: relative; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
-#chat-wrap                      { border: 1px solid #eee; margin: 0 0 15px 0; }
-#chat-area                      { height: 300px; overflow: auto; border: 1px solid #666; padding: 20px; background: white; }
-#chat-area span                 { color: white; background: #333; padding: 4px 8px; -moz-border-radius: 5px; -webkit-border-radius: 8px; margin: 0 5px 0 0; }
-#chat-area p                    { padding: 8px 0; border-bottom: 1px solid #ccc; }
+    /*margin-bottom: 90px;*/
+}
 
-#name-area                      { position: absolute; top: 12px; right: 0; color: white; font: bold 12px "Lucida Grande", Sans-Serif; text-align: right; }   
-#name-area span                 { color: #fa9f00; }
+#chat-wrap { 
+    /*border: 1px solid #eee; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin: 0 0 15px 0; 
+}
 
-#send-message-area p            { float: left; color: white; padding-top: 27px; font-size: 14px; }
-#sendie                         { border: 3px solid #999; width: 360px; padding: 10px; font: 12px "Lucida Grande", Sans-Serif; float: right; }
+#chat-area { 
+    height: 300px; 
+    overflow: auto; 
+        border-width:5px;  
+    border-style:groove;
+    padding: 20px; 
+    background: white; 
+}
 
+#chat-area span { 
+    color: black;
+    background: #82CCDD; 
+    padding: 4px 8px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 8px; 
+    margin: 0 5px 0 0; 
+    margin-left: -20px;
+    width: 40%;
+}
+
+#chat-area p  { 
+    margin-left: 20px;
+    padding: 15px 0;
+}
+
+#name-area { 
+    position: absolute; 
+    top: 12px; right: 0; 
+    color: white; 
+    font-size: 15px;
+    text-align: right; 
+}   
+
+#name-area span  { 
+    color: #fa9f00; 
+}
+
+#send-message-area p  { 
+    float: left; 
+    color: white; 
+    padding-top: 27px; 
+    font-size: 14px; 
+}
+
+#sendie  { 
+    border: 3px solid #999; 
+    width: 360px; 
+    padding: 10px; 
+    font-size: 15px;
+    float: right; 
+
+    width: 100% !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#chat-area h6 {
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+h2.chatOppTitle {
+    font-size: 35px;
+    text-transform: uppercase;
+    margin-top: 12px;
+    width: 100%;
+}
+
+img.chatAvatar {
+    border-radius: 50%;
+    width: auto;
+    height: 60px;
+    float: right;
+    margin-right: 25px;
+}
+
+.chat-header{
+    display: flex;
+}
+
+.requestorAvatar{
+    margin-right: 30px;
+}
+
+.providerAvatar{
+    margin-left: 30px;
+    position: absolute;
+    right: 15px;
+}
+
+.chat-area-text img{
+    width: auto;
+    border-radius: 50%;
+    height: 50px;
+
+}
+
+.chat-area-text {
+    display: flex;
+    padding: 5px;
+}
+
+.chat-provider{
+    position: relative;
+}
+
+.chat-provider span {
+    margin-left: 20em !important;
+
+}
+
+.chat-requestor{
+
+}
+
+.send-msg-container{
+    position: relative;
+}
+
+.send-msg-container form{
+    position: absolute;
+    margin-top: -20px;
+    width: 100%;
+}
+
+.portlet{
+   height: 40em;
+}
+
+.modal-body{
+  padding: 0px;
+}
+
+.portlet.light .portlet-body{
+  padding-top: 0px;
+}
 
     </style>
 
@@ -145,19 +282,27 @@
                                 if ($chatHeads->count() > 0):
                                     foreach ($chatHeads as $heads):
                                         $date = date("F j, Y, g:i a", strtotime($heads->created_at));
+
+                                        $avatar = \App\UploadImages::where('company_id', $heads->sender)->where('file_category', 'PROFILE_AVATAR')
+                                            ->orderBy('id', 'desc')
+                                            ->first();
+                                        $avat = '';
+                                        if (!isset($avatar->file_name)) 
+                                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                                        else 
+                                            $avatarUrl = asset('public/images')."/".$avatar->file_name;
+                                            
+                                        
+
                                 ?>
-                                <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}')">
+                                <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $avatarUrl }}', '{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}')">
                                     <li class="list-group-item">
                                         <a href="javascript:;">
                                             <div class="col1">
                                                 <div class="cont">
-                                                    <div class="cont-col1">
-                                                        <div class="label label-sm label-info">
-                                                            <i class="fa fa-bell-o"></i>
-                                                        </div>
-                                                    </div>
+                                                            <img id="chatAvatar_{{ $heads->sender. $heads->receiver }}" class='chatAvatar' src="{{ $avatarUrl }}">
                                                     <div class="cont-col2 ">
-                                                        <div class="desc h-effect">FROM <br/> {{ App\CompanyProfile::getCompanyName($heads->sender) }}</div>
+                                                        <div class="desc h-effect"><strong> {{ App\CompanyProfile::getCompanyName($heads->sender) }}</strong></div>
                                                     </div>
                                                     <div class="cont-col2 ">
                                                         <div class="desc h-effect"> {{ $heads->opp_title }}</div>
@@ -190,24 +335,22 @@
                     <hr>
                     <div class="portlet-body">
                                 <div class="modal-body">
-
-                                      <div id="page-wrap">
-                                
-                                          
-                                          <p id="name-area"></p>
-                                          
-                                          <div id="chat-wrap"><div id="chat-area"></div></div>
-                                          
-                                          <form id="send-message-area">
-                                              <p>Your message: </p>
-                                              <textarea id="sendie" maxlength = '100' ></textarea>
-                                              <input type="hidden" id="chat-companyViewer">
-                                              <input type="hidden" id="chat-companyOpp">
-                                              <input type="hidden" id="chat-oppId">
-                                              <input type="hidden" id="chat-oppType">
-                                          </form>
-                                
-                                    </div>
+                                  <div id="page-wrap">
+                            
+                                      
+                                      <p id="name-area"></p>
+                                      
+                                      <div id="chat-wrap"><div id="chat-area"></div></div>
+                                      <div class="send-msg-container">
+                                        <form id="send-message-area">
+                                            <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="3" ></textarea>
+                                            <input type="hidden" id="chat-companyViewer">
+                                            <input type="hidden" id="chat-companyOpp">
+                                            <input type="hidden" id="chat-oppId">
+                                            <input type="hidden" id="chat-oppType">
+                                        </form>
+                                      </div>
+                                </div>
 
                         @if (session('status'))
                             <div class="alert alert-success">
@@ -224,9 +367,9 @@
                             <div class="row">
 
                             </div>
-                            <div class="table-scrollable">
+                    {{--         <div class="table-scrollable">
                                 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -262,8 +405,9 @@
     
     <script>
         
-        function loadChat(title,companyOpp,companyViewer,oppId,oppType){
+        function loadChat(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
             $('.chatOppTitle').text(title);
+            $('#chatAvatar_'+companyViewer+oppId).attr('src',avatarUrl);
             $('#chat-companyOpp').val(companyOpp);
             $('#chat-companyViewer').val(companyViewer);
             $('#chat-oppId').val(oppId);
@@ -383,6 +527,7 @@ function chatload(){
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
     var oppType = $("#chat-oppType").val();
+    var requestorAvatar = $('#chatAvatar_'+companyViewer+oppId).attr('src');
 
       formData = new FormData();
       formData.append("function", 'onload');
@@ -406,10 +551,14 @@ function chatload(){
             if(data.text != false){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
-                            $('#chat-area').append($("<p><span>"+data.text[i].sender+"</span>"+ data.text[i].text +"</p>"));
-                }                 
+                    if(data.text[i].action == 1){
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                    }else{
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div><hr>"));
+                    }
+                }    
+            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            }
-           document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
 
           }
       });
@@ -421,6 +570,7 @@ function updateChat(){
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
     var oppType = $("#chat-oppType").val();
+    var requestorAvatar = $('#chatAvatar_'+companyViewer+oppId).attr('src');
 
    if(!instanse){
      instanse = true;
@@ -447,10 +597,14 @@ function updateChat(){
             if(data.text != false){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
-                            $('#chat-area').append($("<p><span>"+data.text[i].sender+"</span>"+ data.text[i].text +"</p>"));
-                }                 
+                    if(data.text[i].action == 1){
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                    }else{
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME' /></div><hr>"));
+                    }
+                }    
+            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            }
-           document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            instanse = false;
            state = data.state;
 
