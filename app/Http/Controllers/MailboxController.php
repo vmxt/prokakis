@@ -423,7 +423,7 @@ class MailboxController extends Controller {
 			$message =  str_replace("[Requester_profile]", url('company/'.base64_encode('viewer' . $company_viewer)."/".$company_viewer) , $message);		  
 			
 			//send the email here
-			//Mailbox::sendMail($message, $rs->company_email, $mailSubject, "");  //$template->subject
+			Mailbox::sendMail($message, $rs->company_email, $mailSubject, "");  //$template->subject
 		}
 	}
 

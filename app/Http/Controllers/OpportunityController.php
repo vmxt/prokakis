@@ -804,7 +804,6 @@ class OpportunityController extends Controller {
 
 			$view_type = $request->input('viewtype_value');
 			$industry = $request->input('opp_industry');
-
 			if (User::getEBossStaffTrue($user_id) == false) {
 			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
 				$view_type == '1';	
@@ -981,6 +980,7 @@ class OpportunityController extends Controller {
 				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
 				exit;
 			}
+
 			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
 				$view_type == '1';	
 			}

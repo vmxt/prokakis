@@ -10,7 +10,7 @@
     <head>
         <!-- from the original code -->
         <!-- CSRF Token -->
-        <meta property="og:title" content="Prokakis Ebos-SG App 2020" /> 
+        <meta property="og:title" content="Prokakis Ebos-SG App {{ now()->year }}" /> 
         <meta property="og:url" content="https://app.prokakis.com/" /> 
         <meta property="og:site_name" content="Prokakis"/> 
         <meta property="og:image" content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
@@ -527,7 +527,7 @@ s0.parentNode.insertBefore(s1,s0);
 
 						<li>
                                                     <a href="{{ route('getTokenActivated') }}">
-                                                        <i class="icon-wrench"></i> Account and Token </a>
+                                                        <i class="icon-wrench"></i> Account and Credit </a>
                                                 </li>	
 
                                                 <li>
@@ -609,12 +609,12 @@ s0.parentNode.insertBefore(s1,s0);
                                     <ul class="nav navbar-nav">
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{ (request()->segment(2) == '/') ? 'active' : '' }}">
                                             @guest
-                                                <a class="navbar-brand" href="https://app.prokakis.com/home">
+                                                <a class="navbar-brand" href="{{ route('login') }}">
                                                     <i class="fa fa-home"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
                                             @else
-                                                <a href="https://app.prokakis.com/home">
+                                                <a href="{{ route('login') }}">
                                                     <i class="fa fa-home"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
@@ -1012,7 +1012,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
                                                 </li>
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Tokens</a>
+                                                    <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Credits</a>
                                                 </li>
 
                                                 <li aria-haspopup="true" class=" ">
