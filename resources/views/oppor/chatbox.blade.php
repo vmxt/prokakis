@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link href="{{asset('public/assets/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{asset('public/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css')}}"
-          rel="stylesheet" type="text/css"/>
+
 
     <style>
         html, body {
@@ -129,7 +126,6 @@
 
 #chat-area span { 
     color: black;
-    background: #82CCDD; 
     padding: 4px 8px; 
     -moz-border-radius: 5px; 
     -webkit-border-radius: 8px; 
@@ -223,12 +219,14 @@ img.chatAvatar {
     position: relative;
 }
 
-.chat-provider span {
-    margin-left: 20em !important;
 
+.chat-provider span {
+     margin-left: 20em !important;
+    background: #82CCDD; 
 }
 
-.chat-requestor{
+.chat-requestor span{
+  background: #82dd84; 
 
 }
 
@@ -278,46 +276,7 @@ img.chatAvatar {
                                 <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i>{{ App\CompanyProfile::getCompanyName($company_id) }}</span>
                             </div>
                             <div class="panel-body chat-head">
-                                <?php
-                                if ($chatHeads->count() > 0):
-                                    foreach ($chatHeads as $heads):
-                                        $date = date("F j, Y, g:i a", strtotime($heads->created_at));
-
-                                        $avatar = \App\UploadImages::where('company_id', $heads->sender)->where('file_category', 'PROFILE_AVATAR')
-                                            ->orderBy('id', 'desc')
-                                            ->first();
-                                        $avat = '';
-                                        if (!isset($avatar->file_name)) 
-                                            $avatarUrl = asset('public/images/industry')."/guest.png";
-                                        else 
-                                            $avatarUrl = asset('public/images')."/".$avatar->file_name;
-                                            
-                                        
-
-                                ?>
-                                <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $avatarUrl }}', '{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}')">
-                                    <li class="list-group-item">
-                                        <a href="javascript:;">
-                                            <div class="col1">
-                                                <div class="cont">
-                                                            <img id="chatAvatar_{{ $heads->sender. $heads->receiver }}" class='chatAvatar' src="{{ $avatarUrl }}">
-                                                    <div class="cont-col2 ">
-                                                        <div class="desc h-effect"><strong> {{ App\CompanyProfile::getCompanyName($heads->sender) }}</strong></div>
-                                                    </div>
-                                                    <div class="cont-col2 ">
-                                                        <div class="desc h-effect"> {{ $heads->opp_title }}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col2">
-                                                <div class="date"> <span style="font-size: 9px">{{ $date }}</span></div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <?php 
-                                    endforeach;
-                                endif;?>
+                                
                             </div>
                         </div>
 
@@ -380,31 +339,15 @@ img.chatAvatar {
 
 
     <script src="{{ asset('public/js/app.js') }}"></script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
-    <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
-
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script src="{{asset('public/assets/pages/scripts/table-datatables-managed.min.js')}}"
-            type="text/javascript"></script>
-    <!-- END PAGE LEVEL SCRIPTS -->
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="{{asset('public/assets/global/scripts/datatable.js')}}" type="text/javascript"></script>
-    <script src="{{asset('public/assets/global/plugins/datatables/datatables.min.js')}}"
-            type="text/javascript"></script>
-    <script src="{{asset('public/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}"
-            type="text/javascript"></script>
-    <script>
-        $(document).ready(function () {
-            $('#clickmewow').click(function () {
-                $('#radio1003').attr('checked', 'checked');
-            });
-        })
-
-    </script>
-    
     <script>
         
+        $(document).ready(function () {
+            chat.getAllState(); 
+            // chat.chatHead();
+           // setInterval('chat.chatHead( )', 1000);
+        });
+
         function loadChat(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
             $('.chatOppTitle').text(title);
             $('#chatAvatar_'+companyViewer+oppId).attr('src',avatarUrl);
@@ -421,8 +364,6 @@ img.chatAvatar {
             setInterval('chat.update( )', 1000);
      
             $('#inboxMeModal').modal();
-
-
 
         }
 
@@ -476,7 +417,9 @@ img.chatAvatar {
     });
 
 var instanse = false;
+var overAllInstance = false;
 var state;
+var overAllState;
 var mes;
 var file;
 
@@ -484,7 +427,91 @@ function Chat () {
     this.update = updateChat;
     this.send = sendChat;
     this.getState = getStateOfChat;
+    this.getAllState = getAllStateofCompanyChat;
+    this.chatHead = udpateChatHeads;
     this.onload = chatload;
+}
+
+
+
+function getAllStateofCompanyChat(){
+      formData = new FormData();
+      formData.append("function", 'getAllState');
+
+        $.ajax({
+              url: "{{ route('chatProcess') }}",
+              type: "POST",
+              data: formData,
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              processData: false,
+              contentType: false,
+              dataType: "json",
+              success: function (data) {
+                overAllState = data.overAllState;
+                overAllInstance = false;
+                //chat.chatHead();
+
+              }
+        });
+}
+
+
+function udpateChatHeads(){
+
+   if(!overAllInstance){
+     instanse = true;
+      formData = new FormData();
+      formData.append("function", 'updateChatHeads');
+      formData.append("overAllState", overAllState);
+      
+      $.ajax({
+          url: "{{ route('chatProcess') }}",
+          type: "POST",
+          data: formData,
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (data) {
+            if(data.text != false){
+                for (var i = 0; i < data.text.length; i++) {
+            console.log(data.text[i].avatarUrl);
+
+                      $('.chat-head').append($(`
+                        <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('`+data.text[i].avatarUrl+`', '`+data.text[i].opp_title+`', '`+data.text[i].company_id+`', '`+data.text[i].sender+`','`+data.text[i].receiver+`', '`+data.text[i].opp_type+`')">
+                                    <li class="list-group-item">
+                                        <a href="javascript:;">
+                                            <div class="col1">
+                                                <div class="cont">
+                                                            <img id="chatAvatar_'`+data.text[i].sender+data.text[i].receiver+`'" class='chatAvatar' src="`+data.text[i].avatarUrl+`">
+                                                    <div class="cont-col2 ">
+                                                        <div class="desc h-effect"><strong> `+data.text[i].company_name+`</strong></div>
+                                                    </div>
+                                                    <div class="cont-col2 ">
+                                                        <div class="desc h-effect"> `+data.text[i].opp_title+`</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col2">
+                                                <div class="date"> <span style="font-size: 9px">`+data.text[i].date+`</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>`));
+                }    
+            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
+           }
+
+           overAllInstance = false;
+           overAllState = data.overAllState;
+
+          }
+      });
+
+   }
+   else {
+     setTimeout(udpateChatHeads, 1500);
+   }
 }
 
 //gets the state of the chat

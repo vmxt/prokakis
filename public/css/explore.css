@@ -593,7 +593,6 @@ img {
 
 #chat-area span { 
     color: black;
-    background: #82CCDD; 
     padding: 4px 8px; 
     -moz-border-radius: 5px; 
     -webkit-border-radius: 8px; 
@@ -690,7 +689,8 @@ img#chatAvatar {
 
 .chat-provider span {
     margin-left: 29em ;
-    width: 83%
+    width: 83%;
+    background: #82CCDD; 
 }
 
 .chat-requestor{
@@ -699,7 +699,9 @@ img#chatAvatar {
 
 .chat-requestor span{
   margin-right: 50%;
-  width: 100%
+  width: 100%;
+  background: #82dd84; 
+
 }
 
 .send-msg-container{

@@ -1585,7 +1585,7 @@ input::-moz-focus-inner {
                 $('#'+id).bootstrapToggle('off')  ;
 
                 swal({
-                    title: "This feature is only available on premium members. You want to upgrade to premium?",
+                    title: "This feature is only available for premium members. Would you like to upgrade to a premium account?",
                     text: "You are about to set the view status of this opportunity to be publish with company information!",
                     icon: "success",
                     buttons: [
