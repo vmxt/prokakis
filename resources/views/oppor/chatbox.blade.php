@@ -276,7 +276,46 @@ img.chatAvatar {
                                 <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i>{{ App\CompanyProfile::getCompanyName($company_id) }}</span>
                             </div>
                             <div class="panel-body chat-head">
-                                
+                            <?php
+                                if ($chatHeads->count() > 0):
+                                    foreach ($chatHeads as $heads):
+                                        $date = date("F j, Y, g:i a", strtotime($heads->created_at));
+
+                                        $avatar = \App\UploadImages::where('company_id', $heads->sender)->where('file_category', 'PROFILE_AVATAR')
+                                            ->orderBy('id', 'desc')
+                                            ->first();
+                                        $avat = '';
+                                        if (!isset($avatar->file_name)) 
+                                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                                        else 
+                                            $avatarUrl = asset('public/images')."/".$avatar->file_name;
+                                            
+                                        
+
+                                ?>
+                                <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $avatarUrl }}', '{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}')">
+                                    <li class="list-group-item">
+                                        <a href="javascript:;">
+                                            <div class="col1">
+                                                <div class="cont">
+                                                            <img id="chatAvatar_{{ $heads->sender. $heads->receiver }}" class='chatAvatar' src="{{ $avatarUrl }}">
+                                                    <div class="cont-col2 ">
+                                                        <div class="desc h-effect"><strong> {{ App\CompanyProfile::getCompanyName($heads->sender) }}</strong></div>
+                                                    </div>
+                                                    <div class="cont-col2 ">
+                                                        <div class="desc h-effect"> {{ $heads->opp_title }}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col2">
+                                                <div class="date"> <span style="font-size: 9px">{{ $date }}</span></div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <?php 
+                                    endforeach;
+                                endif;?>
                             </div>
                         </div>
 
@@ -345,7 +384,7 @@ img.chatAvatar {
         $(document).ready(function () {
             chat.getAllState(); 
             // chat.chatHead();
-           // setInterval('chat.chatHead( )', 1000);
+           setInterval('chat.chatHead( )', 1000);
         });
 
         function loadChat(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
@@ -439,7 +478,7 @@ function getAllStateofCompanyChat(){
       formData.append("function", 'getAllState');
 
         $.ajax({
-              url: "{{ route('chatProcess') }}",
+              url: "{{ route('chatProcessHead') }}",
               type: "POST",
               data: formData,
               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -459,13 +498,13 @@ function getAllStateofCompanyChat(){
 function udpateChatHeads(){
 
    if(!overAllInstance){
-     instanse = true;
+     overAllInstance = true;
       formData = new FormData();
       formData.append("function", 'updateChatHeads');
       formData.append("overAllState", overAllState);
       
       $.ajax({
-          url: "{{ route('chatProcess') }}",
+          url: "{{ route('chatProcessHead') }}",
           type: "POST",
           data: formData,
           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -473,17 +512,20 @@ function udpateChatHeads(){
           contentType: false,
           dataType: "json",
           success: function (data) {
-            if(data.text != false){
-                for (var i = 0; i < data.text.length; i++) {
-            console.log(data.text[i].avatarUrl);
 
+            if(data.text != false){
+                            console.log(data);
+            console.log("udpateChatHeads");
+                   $('.chat-head').empty();
+            
+                for (var i = 0; i < data.text.length; i++) {
                       $('.chat-head').append($(`
                         <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('`+data.text[i].avatarUrl+`', '`+data.text[i].opp_title+`', '`+data.text[i].company_id+`', '`+data.text[i].sender+`','`+data.text[i].receiver+`', '`+data.text[i].opp_type+`')">
                                     <li class="list-group-item">
                                         <a href="javascript:;">
                                             <div class="col1">
                                                 <div class="cont">
-                                                            <img id="chatAvatar_'`+data.text[i].sender+data.text[i].receiver+`'" class='chatAvatar' src="`+data.text[i].avatarUrl+`">
+                                                            <img id="chatAvatar_`+data.text[i].sender+data.text[i].receiver+`" class='chatAvatar' src="`+data.text[i].avatarUrl+`">
                                                     <div class="cont-col2 ">
                                                         <div class="desc h-effect"><strong> `+data.text[i].company_name+`</strong></div>
                                                     </div>
@@ -499,7 +541,6 @@ function udpateChatHeads(){
                                     </li>
                                 </ul>`));
                 }    
-            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            }
 
            overAllInstance = false;

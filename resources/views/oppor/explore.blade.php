@@ -1966,6 +1966,18 @@
 
         }
 
+        function NotifyError(){
+            $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"An error occured!", 
+                text: "Reloading the page now!",
+                icon: "warning",
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+                    location.reload();
+            });
+        }
         function BlockInboxMe()
         {
             $('.modal_oppoBox').modal('hide');
@@ -2153,7 +2165,10 @@ function getStateOfChat(){
           success: function (data) {
             state = data.state;
             instanse = false;
-          }
+          },
+            error: function(){
+                NotifyError();
+            }
       });
 
   }  
@@ -2197,7 +2212,10 @@ function chatload(){
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            }
 
-          }
+          },
+        error: function(){
+            NotifyError();
+        }
       });
 }
 
@@ -2245,7 +2263,10 @@ function updateChat(){
            instanse = false;
            state = data.state;
 
-          }
+          },
+        error: function(){ 
+            NotifyError();
+        }
       });
 
    }
@@ -2283,6 +2304,9 @@ function sendChat(message, nickname)
         dataType: "json",
         success: function (data) {
             updateChat();
+        },
+        error: function(){
+            NotifyError();
         }
     });
 
