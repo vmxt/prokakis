@@ -252,6 +252,40 @@ img.chatAvatar {
   padding-top: 0px;
 }
 
+/*badge*/
+*.icon-blue {color: #0088cc}
+*.icon-grey {color: grey}
+.badge-msg {   
+    width:100px;
+    text-align:center;
+    vertical-align:middle;
+    position: relative;
+}
+.badge-msg:after{
+    content:attr(data-count);
+    position: absolute;
+    background: rgba(0,0,255,1);
+    height:2rem;
+    top: -1rem;
+    right: -1.3rem;
+    width:2rem;
+    text-align: center;
+    line-height: 2rem;;
+    font-size: 1rem;
+    border-radius: 50%;
+    color:white;
+    border:1px solid blue;
+}
+
+.col3 {
+    position: absolute;
+    left: 0;
+}
+
+.fa-border{
+  border: 0;
+}
+
     </style>
 
     <ul class="page-breadcrumb breadcrumb">
@@ -309,6 +343,9 @@ img.chatAvatar {
                                             </div>
                                             <div class="col2">
                                                 <div class="date"> <span style="font-size: 9px">{{ $date }}</span></div>
+                                            </div>
+                                            <div class="col3">
+                                              <i data-count="{{ App\ChatHistory::getStatusCount($heads->sender, $heads->receiver) }}" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg"></i>
                                             </div>
                                         </a>
                                     </li>
@@ -455,10 +492,23 @@ img.chatAvatar {
            });
     });
 
+    function NotifyError(){
+        swal({
+            title:"An error occured!", 
+            text: "Reloading the page now!",
+            icon: "warning",
+            dangerMode: true,
+
+          }).then(function(isConfirm) {
+                location.reload();
+        });
+    }
+
 var instanse = false;
 var overAllInstance = false;
 var state;
 var overAllState;
+var overAllChatStatus;
 var mes;
 var file;
 
@@ -471,7 +521,30 @@ function Chat () {
     this.onload = chatload;
 }
 
+function setStatustoSeen(sender, receiver, opp_type){
+      formData = new FormData();
+      formData.append("function", 'setStatusToSeen');
+      formData.append("sender", sender);
+      formData.append("receiver", receiver);
+      formData.append("opp_type", opp_type);
 
+        $.ajax({
+              url: "{{ route('chatSetStatus') }}",
+              type: "POST",
+              data: formData,
+              headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+              processData: false,
+              contentType: false,
+              dataType: "json",
+              success: function (data) {
+                console.log(data);
+
+              },
+                error: function(){
+                NotifyError();
+            }
+        });
+}
 
 function getAllStateofCompanyChat(){
       formData = new FormData();
@@ -486,11 +559,15 @@ function getAllStateofCompanyChat(){
               contentType: false,
               dataType: "json",
               success: function (data) {
+                console.log(data);
                 overAllState = data.overAllState;
+                overAllChatStatus = data.overAllChatStatus;
                 overAllInstance = false;
                 //chat.chatHead();
-
-              }
+              },
+                error: function(){
+                NotifyError();
+            }
         });
 }
 
@@ -502,6 +579,7 @@ function udpateChatHeads(){
       formData = new FormData();
       formData.append("function", 'updateChatHeads');
       formData.append("overAllState", overAllState);
+      formData.append("overAllChatStatus", overAllChatStatus);
       
       $.ajax({
           url: "{{ route('chatProcessHead') }}",
@@ -535,7 +613,10 @@ function udpateChatHeads(){
                                                 </div>
                                             </div>
                                             <div class="col2">
-                                                <div class="date"> <span style="font-size: 9px">`+data.text[i].date+`</span></div>
+                                              <div class="date"> <span style="font-size: 9px">`+data.text[i].date+`</span></div>
+                                            </div>
+                                            <div class="col3">
+                                              <i data-count="`+data.text[i].status+`" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg"></i>
                                             </div>
                                         </a>
                                     </li>
@@ -545,8 +626,12 @@ function udpateChatHeads(){
 
            overAllInstance = false;
            overAllState = data.overAllState;
+            overAllChatStatus = data.overAllChatStatus;
 
-          }
+          },
+            error: function(){
+                NotifyError();
+            }
       });
 
    }
@@ -584,7 +669,10 @@ function getStateOfChat(){
           success: function (data) {
             state = data.state;
             instanse = false;
-          }
+          },
+            error: function(){
+                NotifyError();
+            }
       });
 
   }  
@@ -628,8 +716,13 @@ function chatload(){
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
            }
 
-          }
+          },
+            error: function(){
+                NotifyError();
+            }
       });
+
+      setStatustoSeen(companyViewer,oppId,oppType);
 }
 
 //Updates the chat
@@ -676,7 +769,10 @@ function updateChat(){
            instanse = false;
            state = data.state;
 
-          }
+          },
+            error: function(){
+                NotifyError();
+            }
       });
 
    }
@@ -714,7 +810,10 @@ function sendChat(message, nickname)
         dataType: "json",
         success: function (data) {
             updateChat();
-        }
+        },
+            error: function(){
+                NotifyError();
+            }
     });
 
 }

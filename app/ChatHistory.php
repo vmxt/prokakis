@@ -34,7 +34,7 @@ class ChatHistory extends Model
     public static function getChatHistoryBuildOpportunity($company_id){
 
             return DB::table("chat_history as ch")
-                        ->select( 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->select( 'ch.status', 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
                         ->join('opp_building_capability as opp', 'ch.receiver', "=", 'opp.id')
                         ->where('ch.opp_type', '=', 'build')
                         ->where('opp.company_id','=',$company_id)
@@ -49,7 +49,7 @@ class ChatHistory extends Model
 
 
             return DB::table("chat_history as ch")
-                        ->select( 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->select( 'ch.status', 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
                         ->join('opp_sell_offer as opp', 'ch.receiver', "=", 'opp.id')
                         ->where('ch.opp_type', '=', 'sell')
                         ->where('opp.company_id','=',$company_id)
@@ -61,7 +61,7 @@ class ChatHistory extends Model
     public static function getChatHistoryBuyOpportunity($company_id){
 
            return DB::table("chat_history as ch")
-                        ->select( 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->select('ch.status', 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
                         ->join('opp_buy as opp', 'ch.receiver', "=", 'opp.id')
                         ->where('ch.opp_type', '=', 'buy')
                         ->where('opp.company_id','=',$company_id)
@@ -70,4 +70,19 @@ class ChatHistory extends Model
             
     }
 
+    public static function getStatusCount($sender, $receiver){
+        return   
+            ChatHistory::where('sender', $sender)
+                ->where('receiver', $receiver)
+                ->where('status', 0)
+                ->count();
+    }
+
+    public static function getChatDetails($sender, $receiver, $opp_type, $status){
+        return ChatHistory::where('sender', $sender)
+                ->where('receiver', $receiver)
+                ->where('opp_type', $opp_type)
+                ->update(['status'=>1]);
+
+    }
 }

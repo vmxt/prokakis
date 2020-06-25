@@ -33,7 +33,20 @@ class ChatHistoryController extends Controller {
 
 	}
 
+	public function changeStatus(Request $request){
+		$function = $request->input("function"); 
+		$sender = $request->input("sender"); 
+		$receiver = $request->input("receiver");
+		$opp_type = $request->input("opp_type");
+		$status = 1;
+		$log['error'] = false;
 
+		$chat = ChatHistory::getChatDetails($sender, $receiver, $opp_type, $status);
+		if($chat){
+			$log['error'] = true;
+		}
+		echo json_encode($log);
+	}
 
 	public function processHead(Request $request){
 		$function = $request->input("function"); 
@@ -44,11 +57,17 @@ class ChatHistoryController extends Controller {
 		switch ($function) {
 
 	    	case('getAllState'):
-					$resBuild = ChatHistory::getChatHistoryBuildOpportunity($company_id);
-					$resSell = ChatHistory::getChatHistorySellOpportunity($company_id)->merge($resBuild);
-					$resBuy = ChatHistory::getChatHistoryBuyOpportunity($company_id)->merge($resSell);
-					$chatHeads = $resBuy->count();
-             		$log['overAllState'] = $chatHeads;
+				$resBuild = ChatHistory::getChatHistoryBuildOpportunity($company_id);
+				$resSell = ChatHistory::getChatHistorySellOpportunity($company_id)->merge($resBuild);
+				$resBuy = ChatHistory::getChatHistoryBuyOpportunity($company_id)->merge($resSell);
+				$chatHeads = $resBuy->count();
+				$count = 0;
+				foreach ($resBuy as $heads )
+                {	
+                	$count += ChatHistory::getStatusCount($heads->sender, $heads->receiver);
+                }
+         		$log['overAllState'] = $chatHeads;
+         		$log['overAllChatStatus'] = $count;
 	    	break;
 
 			case('updateChatHeads'):
@@ -56,15 +75,22 @@ class ChatHistoryController extends Controller {
 				$resSell = ChatHistory::getChatHistorySellOpportunity($company_id)->merge($resBuild);
 				$resBuy = ChatHistory::getChatHistoryBuyOpportunity($company_id)->merge($resSell);
 				$chatHeads = $resBuy->count();
-
+				$count = 0;
+				foreach ($resBuy as $heads )
+                {	
+                	$count += ChatHistory::getStatusCount($heads->sender, $heads->receiver);
+                }
 	    	 	$state = $request->input("overAllState");
+	    	 	$overAllChatStatus = $request->input("overAllChatStatus");
 
-	    	 	if( (int)$state == (int)$chatHeads ){
+	    	 	if( (int)$state == (int)$chatHeads && $overAllChatStatus == $count ){
 	    	 		$log['overAllState'] = $state;
+	    	 		$log['overAllChatStatus'] = $overAllChatStatus;
 	        		$log['text'] = false;
 	    	 	}else{
 	    	 		 $text= array();
 	    	 		 $log['overAllState'] = $state + (int)$chatHeads - $state;
+	    	 		 $log['overAllChatStatus'] = $overAllChatStatus + (int)$count - $overAllChatStatus;
 
 		 			    foreach ($resBuy as $heads )
 	                    {	
@@ -77,17 +103,19 @@ class ChatHistoryController extends Controller {
                                 $avatarUrl = asset('public/images/industry')."/guest.png";
                             else 
                                 $avatarUrl = asset('public/images')."/".$avatar->file_name;
-	   
+	   						
+	   						$companyName = CompanyProfile::getCompanyName($heads->sender);
 	                     	$text[] = [
 	                     			'avatarUrl'=>$avatarUrl, 
-	                     			'opp_title'=>$heads->opp_title, 
+	                     			'opp_title'=>$heads->opp_title ? $heads->opp_title : " ", 
 	                     			'company_id'=>$heads->company_id, 
 	                     			'sender'=>$heads->sender, 
 	                     			'receiver'=>$heads->receiver, 
 	                     			'opp_type'=>$heads->opp_type, 
 	                     			'opp_type'=>$heads->opp_type, 
-	                     			'company_name'=> CompanyProfile::getCompanyName($heads->sender),
-	                     			'date'=>$date
+	                     			'company_name'=> $companyName ? $companyName : " ",
+	                     			'date'=>$date,
+	                     			'status'=> ChatHistory::getStatusCount($heads->sender, $heads->receiver)
 	                     			];
 	
 	                    }
