@@ -2203,10 +2203,10 @@ function chatload(){
             if(data.text != false){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
-                    if(data.text[i].action == 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                    if(data.text[i].action != 1){
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='"+requestorAvatar+"' /></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div><hr>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
@@ -2252,10 +2252,10 @@ function updateChat(){
             if(data.text != false){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
-                    if(data.text[i].action == 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                    if(data.text[i].action != 1){
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='"+requestorAvatar+"' /></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div><hr>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;

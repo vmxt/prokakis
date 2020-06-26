@@ -131,7 +131,7 @@
     -webkit-border-radius: 8px; 
     margin: 0 5px 0 0; 
     margin-left: -20px;
-    width: 40%;
+    width: 65%;
 }
 
 #chat-area p  { 
@@ -186,7 +186,7 @@ img.chatAvatar {
     width: auto;
     height: 60px;
     float: right;
-    margin-right: 25px;
+    margin-left: 30px;
 }
 
 .chat-header{
@@ -221,7 +221,7 @@ img.chatAvatar {
 
 
 .chat-provider span {
-     margin-left: 20em !important;
+     margin-left: 10em !important;
     background: #82CCDD; 
 }
 
@@ -286,6 +286,112 @@ img.chatAvatar {
   border: 0;
 }
 
+.text-container-col-4 {
+    margin-top: 6em;
+}
+
+.list-group-item a{
+  text-decoration: none;
+}
+
+.desc.h-effect {
+    margin-bottom: 5px;
+}
+
+@media (min-width: 992px){
+  .for-mobile{
+    display: none;
+  }
+  .for-desktop{
+    display: block;
+   }
+}
+
+@media (max-width: 1200px){
+  .providerAvatar{
+    right: -11px;
+  }
+}
+
+@media (max-width: 992px){
+  .for-mobile{
+    display: block;
+  }
+  .for-desktop{
+    display: none;
+   }
+
+  .panel.h-effect {
+      height: auto;
+  }
+}
+
+@media (max-width: 640px){
+  #chat-area span{
+    width: 85%;
+  }
+
+  .chat-provider span{
+    margin-left: 0em !important;
+    background: #82CCDD;
+  }
+
+  .chat-area-text img{
+    height: 30px;
+  }
+}
+
+@media (max-width: 375px){
+  #chat-area span{
+    width: 100%;
+  }
+
+  .chat-area-text img{
+    height: 20px;
+    position: absolute;
+  }
+
+  .chat-area-text{
+    position: relative;
+    width: 245px;
+  }
+
+  .providerAvatar{
+    margin-right: 20px !important;
+  }
+
+  .requestorAvatar {
+    margin-left: -20px;
+  }
+
+  #chat-area .chat-requestor span{
+    margin-left: -15px;
+    margin-top: 10px;
+    width: 125%;
+  }
+
+  .chat-provider span {
+      margin-left: -10px !important;
+      margin-top: 7px !important;
+  }
+
+}
+
+@media (max-width: 320px){
+  #chat-area span { 
+    padding: 4px 8px; 
+    -moz-border-radius: 5px; 
+    -webkit-border-radius: 8px; 
+    margin: 0 ; 
+    margin-left: 0px;
+    width: 100%;
+  }
+
+.chat-area-text {
+    width: 190px;
+}
+
+}
     </style>
 
     <ul class="page-breadcrumb breadcrumb">
@@ -306,10 +412,13 @@ img.chatAvatar {
                     <div class="card" style="width: 100%; margin-top: 15px;">
 
                         <div class="panel h-effect">
-                            <div class="panel-heading">
+                            <div class="panel-heading for-mobile" data-toggle="collapse" data-target="#chatHeads">
                                 <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i>{{ App\CompanyProfile::getCompanyName($company_id) }}</span>
                             </div>
-                            <div class="panel-body chat-head">
+                            <div class="panel-heading for-desktop">
+                                <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i>{{ App\CompanyProfile::getCompanyName($company_id) }}</span>
+                            </div>
+                            <div class="panel-body chat-head collapse"  id="chatHeads" >
                             <?php
                                 if ($chatHeads->count() > 0):
                                     foreach ($chatHeads as $heads):
@@ -333,12 +442,7 @@ img.chatAvatar {
                                             <div class="col1">
                                                 <div class="cont">
                                                             <img id="chatAvatar_{{ $heads->sender. $heads->receiver }}" class='chatAvatar' src="{{ $avatarUrl }}">
-                                                    <div class="cont-col2 ">
-                                                        <div class="desc h-effect"><strong> {{ App\CompanyProfile::getCompanyName($heads->sender) }}</strong></div>
-                                                    </div>
-                                                    <div class="cont-col2 ">
-                                                        <div class="desc h-effect"> {{ $heads->opp_title }}</div>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col2">
@@ -346,6 +450,14 @@ img.chatAvatar {
                                             </div>
                                             <div class="col3">
                                               <i data-count="{{ App\ChatHistory::getStatusCount($heads->sender, $heads->receiver) }}" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg"></i>
+                                            </div>
+                                            <div class="text-container-col-4">
+                                                <div class="cont-col2 ">
+                                                    <div class="desc h-effect"><strong> {{ App\CompanyProfile::getCompanyName($heads->sender) }}</strong></div>
+                                                </div>
+                                                <div class="cont-col2 ">
+                                                    <div class="desc h-effect"> {{ $heads->opp_title }}</div>
+                                                </div>
                                             </div>
                                         </a>
                                     </li>
