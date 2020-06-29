@@ -414,12 +414,12 @@
 
                     @if($tokenStock >= 3)
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
-                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @else
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @endif
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                     @endif
 
                 @endif
@@ -428,7 +428,7 @@
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
                 {{-- Requestor = Premium | Provider = None-Premium 
@@ -442,12 +442,12 @@
 
                     @if($tokenStock >= 3)
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
-                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @else
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @endif
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                     @endif
 
                 @endif
@@ -455,7 +455,7 @@
                 {{-- Requestor = Premium | Provider = None-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -818,13 +818,13 @@
                     @if($tokenStock >= 3)
 
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
-                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @else
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @endif
 
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                     @endif
 
                 @endif
@@ -833,7 +833,7 @@
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
                 {{-- Requestor = Premium | Provider = None-Premium
@@ -848,13 +848,13 @@
                     @if($tokenStock >= 3)
 
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
-                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @else
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @endif
 
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                     @endif
 
                 @endif
@@ -863,7 +863,7 @@
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -1226,13 +1226,13 @@
                     @if($tokenStock >= 3)
 
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
-                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @else
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @endif
 
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                     @endif
 
                 @endif
@@ -1241,7 +1241,7 @@
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
                 {{-- Requestor = Premium | Provider = None-Premium
@@ -1256,13 +1256,13 @@
                     @if($tokenStock >= 3)
 
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
-                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @else
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @endif
 
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                     @endif
 
                 @endif
@@ -1271,7 +1271,7 @@
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Inbox Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -1509,12 +1509,12 @@
 @endif
 
 
-{{-- Start Inbox Me Modal --}}
+{{-- Start Get In Touch Modal --}}
 <div 
   class="modal fade modal_oppoBox" 
   id="inboxMeModal" 
   tabindex="-1" role="dialog" 
-  aria-labelledby="Inbox Me Modal" 
+  aria-labelledby="Get In Touch Modal" 
   aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -1532,9 +1532,17 @@
               <p id="name-area"></p>
               
               <div id="chat-wrap"><div id="chat-area"></div></div>
-              <div class="send-msg-container">
+
+            <div class="message-input">
+                <div class="wrap">
+                    <input id="sendie" type="text" placeholder="Write your message here..." >
+                    {{-- <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="2" ></textarea> --}}
+                    <button title="Send" id='sendMessage' class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                </div>
+            </div>
+
+              <div class="send-msg-container" style="display: none;">
                 <form id="send-message-area">
-                    <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="3" ></textarea>
                     <input type="hidden" id="chat-companyViewer">
                     <input type="hidden" id="chat-companyOpp">
                     <input type="hidden" id="chat-oppId">
@@ -1554,7 +1562,7 @@
     </div>
   </div>
 </div>
-<!-- END INBOX ME MODAL -->
+<!-- END Get In Touch MODAL -->
 
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
@@ -1803,7 +1811,7 @@
                         success: function (data) {
                             swal({
                               title: 'Email notification succesfully sent to the opportunity provider.',
-                              text:  'You may drop a message directly to the provider through "Inbox Me"',
+                              text:  'You may drop a message directly to the provider through "Get In Touch"',
                               icon:  'success'
                             }).then(function() {
                                    //document.location = '{{ url("reports/buyTokens") }}';
@@ -2083,45 +2091,55 @@
       // chat.getState(); 
        
        // watch textarea for key presses
-            $("#sendie").keydown(function(event) {  
-           
-               var key = event.which;  
-         
-               //all keys including return.  
-               if (key >= 33) {
-                 
-                   var maxLength = $(this).attr("maxlength");  
-                   var length = this.value.length;  
-                   
-                   // don't allow new content if length is maxed out
-                   if (length >= maxLength) {  
-                       event.preventDefault();  
-                   }  
+        $("#sendie").keydown(function(event) {  
+            var key = event.which;  
+            //all keys including return.  
+            if (key >= 33) {
+                //var maxLength = $(this).attr("maxlength");  
+                var length = this.value.length;  
+                // don't allow new content if length is maxed out
+                if (length >= 200) {  
+                    event.preventDefault();  
                 }  
-            });
+            }  
+        });
+
+
        // watch textarea for release of key press
        $('#sendie').keyup(function(e) { 
-                 
-          if (e.keyCode == 13) { 
-          
-                  var text = $(this).val();
-                  var maxLength = $(this).attr("maxlength");  
-                  var length = text.length; 
-                   
-                  // send 
-                  if (length <= maxLength + 1) { 
-                   
+            if (e.keyCode == 13) { 
+                var text = $(this).val();
+                //var maxLength = $(this).attr("maxlength");  
+                var length = text.length; 
+                // send 
+                if (length > 1) { 
+                    chat.send(text, name);  
+                    $(this).val("");
+                } 
+                    // $(this).val(text.substring(0, maxLength));
+                    //event.preventDefault(); 
+            }
+        });
+
+
+       // watch textarea for release of key press
+       $('#sendMessage').click(function(e) { 
+
+            var text = $('#sendie').val();
+            //var maxLength = $('#sendie').attr("maxlength");  
+            var length = text.length; 
+            // send 
+            if (length > 1) { 
                 chat.send(text, name);  
-                $(this).val("");
-                
-                  } else {
-                  
-                  $(this).val(text.substring(0, maxLength));
+                $('#sendie').val("");
+            } 
+                // $("#sendie").val(text.substring(0, maxLength));
+                //event.preventDefault(); 
             
-              } 
-          
-          }
-           });
+        });
+
+
+
     });
 
 var instanse = false;

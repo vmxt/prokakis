@@ -305,6 +305,11 @@ img.chatAvatar {
   .for-desktop{
     display: block;
    }
+
+  .collapse{
+    display: block !important;
+    visibility: visible !important;
+  }
 }
 
 @media (max-width: 1200px){
@@ -324,6 +329,11 @@ img.chatAvatar {
   .panel.h-effect {
       height: auto;
   }
+  .portlet.light{
+    height: auto;
+  }
+
+
 }
 
 @media (max-width: 640px){
@@ -387,10 +397,80 @@ img.chatAvatar {
     width: 100%;
   }
 
-.chat-area-text {
-    width: 190px;
+  .chat-area-text {
+      width: 190px;
+  }
+
 }
 
+
+/* new start chat*/
+ .message-input {
+    position: absolute;
+    bottom: -35px;
+    width: 100%;
+    z-index: 99;
+}
+
+ .message-input .wrap {
+    position: relative;
+    display: flex;
+}
+
+.message-input .wrap input {
+    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+    float: left;
+    border: none;
+    width: calc(100% - 90px);
+    padding: 11px 32px 10px 8px;
+    font-size: 0.8em;
+    color: #32465a;
+}
+
+#sendie {
+    box-sizing: border-box;
+}
+
+#sendie {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark-color(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: textfield;
+    background-color: -internal-light-dark-color(rgb(255, 255, 255), rgb(59, 59, 59));
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: ridge;
+    border-color: -internal-light-dark-color(rgb(118, 118, 118), rgb(195, 195, 195));
+    border-image: initial;
+}
+ .message-input .wrap button {
+    float: right;
+    border: none;
+    width: 50px;
+    padding: 12px 0;
+    cursor: pointer;
+    background: #32465a;
+    color: #f5f5f5;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
     </style>
 
@@ -488,7 +568,16 @@ img.chatAvatar {
                                       <p id="name-area"></p>
                                       
                                       <div id="chat-wrap"><div id="chat-area"></div></div>
-                                      <div class="send-msg-container">
+
+                                    <div class="message-input">
+                                        <div class="wrap">
+                                            <input id="sendie" type="text" placeholder="Write your message here..." >
+                                            {{-- <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="2" ></textarea> --}}
+                                            <button title="Send" id='sendMessage' class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                        </div>
+                                    </div>
+
+                                      <div class="send-msg-container" style="display: none;">
                                         <form id="send-message-area">
                                             <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="3" ></textarea>
                                             <input type="hidden" id="chat-companyViewer">
@@ -563,45 +652,53 @@ img.chatAvatar {
       // chat.getState(); 
        
        // watch textarea for key presses
-            $("#sendie").keydown(function(event) {  
-           
-               var key = event.which;  
-         
-               //all keys including return.  
-               if (key >= 33) {
-                 
-                   var maxLength = $(this).attr("maxlength");  
-                   var length = this.value.length;  
-                   
-                   // don't allow new content if length is maxed out
-                   if (length >= maxLength) {  
-                       event.preventDefault();  
-                   }  
+       // watch textarea for key presses
+        $("#sendie").keydown(function(event) {  
+            var key = event.which;  
+            //all keys including return.  
+            if (key >= 33) {
+                //var maxLength = $(this).attr("maxlength");  
+                var length = this.value.length;  
+                // don't allow new content if length is maxed out
+                if (length >= 200) {  
+                    event.preventDefault();  
                 }  
-            });
+            }  
+        });
+
        // watch textarea for release of key press
        $('#sendie').keyup(function(e) { 
-                 
-          if (e.keyCode == 13) { 
-          
-                  var text = $(this).val();
-                  var maxLength = $(this).attr("maxlength");  
-                  var length = text.length; 
-                   
-                  // send 
-                  if (length <= maxLength + 1) { 
-                   
+            if (e.keyCode == 13) { 
+                var text = $(this).val();
+                //var maxLength = $(this).attr("maxlength");  
+                var length = text.length; 
+                // send 
+                if (length > 1) { 
+                    chat.send(text, name);  
+                    $(this).val("");
+                } 
+                    // $(this).val(text.substring(0, maxLength));
+                    //event.preventDefault(); 
+            }
+        });
+
+       // watch textarea for release of key press
+       $('#sendMessage').click(function(e) { 
+
+            var text = $('#sendie').val();
+            //var maxLength = $('#sendie').attr("maxlength");  
+            var length = text.length; 
+            // send 
+            if (length > 1) { 
                 chat.send(text, name);  
-                $(this).val("");
-                
-                  } else {
-                  
-                  $(this).val(text.substring(0, maxLength));
+                $('#sendie').val("");
+            } 
+                // $("#sendie").val(text.substring(0, maxLength));
+                //event.preventDefault(); 
             
-              } 
-          
-          }
-           });
+        });
+
+       
     });
 
     function NotifyError(){
