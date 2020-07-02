@@ -116,27 +116,33 @@
 }
 
 #chat-area { 
-    height: 300px; 
+    height: 400px; 
     overflow: auto; 
         border-width:5px;  
     border-style:groove;
     padding: 20px; 
-    background: white; 
+     /*background: #E5DDD5; */
 }
 
 #chat-area span { 
     color: black;
-    padding: 4px 8px; 
+    padding: 0px 10px; 
     -moz-border-radius: 5px; 
     -webkit-border-radius: 8px; 
     margin: 0 5px 0 0; 
     margin-left: -20px;
     width: 65%;
+/*    border: 1.5px #707080;
+    border-style: groove;*/
+      -moz-box-shadow: 0 0 1px 1px #707080 !important;
+  -webkit-box-shadow: 0 0 1px 1px #707080 !important;
+  /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
+  box-shadow: 0 0 5px 0 #707080 !important;
 }
 
 #chat-area p  { 
     margin-left: 20px;
-    padding: 15px 0;
+    padding: 1px 0;
 }
 
 #name-area { 
@@ -222,11 +228,11 @@ img.chatAvatar {
 
 .chat-provider span {
      margin-left: 10em !important;
-    background: #82CCDD; 
+    background: #DCF8C6; 
 }
 
 .chat-requestor span{
-  background: #82dd84; 
+  background: #FFFFFF; 
 
 }
 
@@ -472,7 +478,16 @@ img.chatAvatar {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+#chat-wrap {
+  background-image: url("{{ asset('public/img-resources/chat-backdrop.png') }}");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
     </style>
+
 
     <ul class="page-breadcrumb breadcrumb">
         <li>
@@ -571,7 +586,7 @@ img.chatAvatar {
 
                                     <div class="message-input">
                                         <div class="wrap">
-                                            <input id="sendie" type="text" placeholder="Write your message here..." >
+                                            <input id="sendie" type="text" placeholder="Write your message here..." disabled="disabled">
                                             {{-- <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="2" ></textarea> --}}
                                             <button title="Send" id='sendMessage' class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                         </div>
@@ -634,6 +649,8 @@ img.chatAvatar {
             $('#chat-oppType').val(oppType);
 
             $('#chat-area').empty();
+
+            $('#sendie').prop("disabled", false);
 
             chat.onload();
             chat.getState(); 
@@ -698,7 +715,7 @@ img.chatAvatar {
             
         });
 
-       
+
     });
 
     function NotifyError(){
@@ -917,9 +934,9 @@ function chatload(){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action == 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;

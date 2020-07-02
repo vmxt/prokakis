@@ -11,6 +11,16 @@
       type="text/css"/>
 
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<style>
+    #chat-wrap {
+      background-image: url("{{ asset('public/img-resources/chat-backdrop.png') }}");
+      background-position: bottom;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+
+</style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
 
@@ -1535,7 +1545,7 @@
 
             <div class="message-input">
                 <div class="wrap">
-                    <input id="sendie" type="text" placeholder="Write your message here..." >
+                    <input id="sendie" type="text" placeholder="Write your message here..."  >
                     {{-- <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="2" ></textarea> --}}
                     <button title="Send" id='sendMessage' class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                 </div>
@@ -2222,9 +2232,9 @@ function chatload(){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action != 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
@@ -2271,9 +2281,9 @@ function updateChat(){
                 $('#chat-area').empty();
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action != 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
