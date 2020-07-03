@@ -531,7 +531,7 @@ img.chatAvatar {
                                         
 
                                 ?>
-                                <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $avatarUrl }}', '{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}')">
+                                <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $avatarUrl }}', '{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}', '{{ $heads->head_id }}')">
                                     <li class="list-group-item">
                                         <a href="javascript:;">
                                             <div class="col1">
@@ -544,7 +544,7 @@ img.chatAvatar {
                                                 <div class="date"> <span style="font-size: 9px">{{ $date }}</span></div>
                                             </div>
                                             <div class="col3">
-                                              <i data-count="{{ App\ChatHistory::getStatusCount($heads->sender, $heads->receiver) }}" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg"></i>
+                                              <i data-count="{{ App\ChatHistory::getStatusCount($heads->head_id) }}" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg"></i>
                                             </div>
                                             <div class="text-container-col-4">
                                                 <div class="cont-col2 ">
@@ -599,6 +599,7 @@ img.chatAvatar {
                                             <input type="hidden" id="chat-companyOpp">
                                             <input type="hidden" id="chat-oppId">
                                             <input type="hidden" id="chat-oppType">
+                                            <input type="hidden" id="chat-headId">
                                         </form>
                                       </div>
                                 </div>
@@ -640,13 +641,14 @@ img.chatAvatar {
            setInterval('chat.chatHead( )', 1000);
         });
 
-        function loadChat(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
+        function loadChat(avatarUrl, title,companyOpp,companyViewer,oppId,oppType,headId){
             $('.chatOppTitle').text(title);
             $('#chatAvatar_'+companyViewer+oppId).attr('src',avatarUrl);
             $('#chat-companyOpp').val(companyOpp);
             $('#chat-companyViewer').val(companyViewer);
             $('#chat-oppId').val(oppId);
             $('#chat-oppType').val(oppType);
+            $('#chat-headId').val(headId);
 
             $('#chat-area').empty();
 
@@ -747,12 +749,13 @@ function Chat () {
     this.onload = chatload;
 }
 
-function setStatustoSeen(sender, receiver, opp_type){
+function setStatustoSeen(sender, receiver, opp_type, headId){
       formData = new FormData();
       formData.append("function", 'setStatusToSeen');
       formData.append("sender", sender);
       formData.append("receiver", receiver);
       formData.append("opp_type", opp_type);
+      formData.append("head_id", headId);
 
         $.ajax({
               url: "{{ route('chatSetStatus') }}",
@@ -824,7 +827,7 @@ function udpateChatHeads(){
             
                 for (var i = 0; i < data.text.length; i++) {
                       $('.chat-head').append($(`
-                        <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('`+data.text[i].avatarUrl+`', '`+data.text[i].opp_title+`', '`+data.text[i].company_id+`', '`+data.text[i].sender+`','`+data.text[i].receiver+`', '`+data.text[i].opp_type+`')">
+                        <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('`+data.text[i].avatarUrl+`', '`+data.text[i].opp_title+`', '`+data.text[i].company_id+`', '`+data.text[i].sender+`','`+data.text[i].receiver+`', '`+data.text[i].opp_type+`', '`+data.text[i].head_id+`')">
                                     <li class="list-group-item">
                                         <a href="javascript:;">
                                             <div class="col1">
@@ -909,6 +912,7 @@ function chatload(){
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
     var oppType = $("#chat-oppType").val();
+    var headId = $("#chat-headId").val();
     var requestorAvatar = $('#chatAvatar_'+companyViewer+oppId).attr('src');
 
       formData = new FormData();
@@ -936,7 +940,7 @@ function chatload(){
                     if(data.text[i].action == 1){
                       $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+"</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
@@ -948,7 +952,7 @@ function chatload(){
             }
       });
 
-      setStatustoSeen(companyViewer,oppId,oppType);
+      setStatustoSeen(companyViewer,oppId,oppType,headId);
 }
 
 //Updates the chat

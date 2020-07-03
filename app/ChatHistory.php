@@ -19,7 +19,7 @@ class ChatHistory extends Model
      * @var array
      */
     protected $fillable = [
-        'sender', 'receiver', 'text', 'opp_type', 'action'
+         'text', 'action', 'head_id'
     ];
 
     /**
@@ -34,13 +34,14 @@ class ChatHistory extends Model
     public static function getChatHistoryBuildOpportunity($company_id){
 
             return DB::table("chat_history as ch")
-                        ->select( 'ch.status', 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
-                        ->join('opp_building_capability as opp', 'ch.receiver', "=", 'opp.id')
-                        ->where('ch.opp_type', '=', 'build')
-                        ->where('opp.company_id','=',$company_id)
+                        ->select('head.id as head_id', 'ch.status', 'head.sender', 'head.receiver', 'ch.text', 'ch.created_at', 'head.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->join('chat_history_head as head', 'head.id', "=", 'ch.head_id')
+                        ->join('opp_building_capability as opp', 'head.receiver', "=", 'opp.id')
+                        ->where('head.opp_type',  'build')
+                        ->where('head.is_deleted', 0)
+                        ->where('opp.company_id', $company_id)
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
-
                         ->get();     
     }
 
@@ -49,40 +50,56 @@ class ChatHistory extends Model
 
 
             return DB::table("chat_history as ch")
-                        ->select( 'ch.status', 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
-                        ->join('opp_sell_offer as opp', 'ch.receiver', "=", 'opp.id')
-                        ->where('ch.opp_type', '=', 'sell')
+                        ->select( 'head.id as head_id', 'ch.status', 'head.sender', 'head.receiver', 'ch.text', 'ch.created_at', 'head.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->join('chat_history_head as head', 'head.id', "=", 'ch.head_id')
+                        ->join('opp_sell_offer as opp', 'head.receiver', "=", 'opp.id')
+                        ->where('head.opp_type', '=', 'sell')
+                        ->where('head.is_deleted', 0)
                         ->where('opp.company_id','=',$company_id)
                         ->groupBy('sender','receiver')
-                        ->orderBy('created_at','desc')->get();
+                        ->orderBy('created_at','desc')
+                        ->get();
             
     }
 
     public static function getChatHistoryBuyOpportunity($company_id){
 
            return DB::table("chat_history as ch")
-                        ->select('ch.status', 'ch.sender', 'ch.receiver', 'ch.text', 'ch.created_at', 'ch.opp_type', 'opp.opp_title', 'opp.company_id' )
-                        ->join('opp_buy as opp', 'ch.receiver', "=", 'opp.id')
-                        ->where('ch.opp_type', '=', 'buy')
+                        ->select( 'head.id as head_id', 'ch.status', 'head.sender', 'head.receiver', 'ch.text', 'ch.created_at', 'head.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->join('chat_history_head as head', 'head.id', "=", 'ch.head_id')
+                        ->join('opp_buy as opp', 'head.receiver', "=", 'opp.id')
+                        ->where('head.opp_type', '=', 'buy')
+                        ->where('head.is_deleted', 0)
                         ->where('opp.company_id','=',$company_id)
                         ->groupBy('sender','receiver')
-                        ->orderBy('created_at','desc')->get();
+                        ->orderBy('created_at','desc')
+                        ->get();
             
     }
 
-    public static function getStatusCount($sender, $receiver){
+    public static function getStatusCount($head_id){
         return   
-            ChatHistory::where('sender', $sender)
-                ->where('receiver', $receiver)
+            ChatHistory::where('head_id', $head_id)
                 ->where('status', 0)
                 ->count();
     }
 
-    public static function getChatDetails($sender, $receiver, $opp_type, $status){
-        return ChatHistory::where('sender', $sender)
-                ->where('receiver', $receiver)
-                ->where('opp_type', $opp_type)
+    public static function getChatDetails($headId, $status){
+        return ChatHistory::where('head_id', $headId)
                 ->update(['status'=>1]);
 
     }
+
+    public static function getChatPayStatus($oppId, $oppType, $comRequester, $comProvider)
+    {
+        $remarks = 'Inbox Me at Opportunity Page with OppId:'.$oppId.' and OppType:'.$oppType.' and Requester:'.$comRequester.' and Provider:'.$comProvider;
+        $c = SpentTokens::where('remarks', $remarks)->count();
+
+        if($c > 0){
+          return true;
+        } else {
+         return false;   
+        }
+    }
+
 }

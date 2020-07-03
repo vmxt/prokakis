@@ -567,6 +567,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <i class="icon-heart"></i> Share to Friend </a>
                                                 </li>
 
+<li>
+
+                                                  <a href="{{ route('CompanyCreditPoints') }}" >
+                                                      <i class="fa fa-trophy"></i> Rewards </a>
+                                              </li>
+
 
                                                 <li class="divider"> </li>
                                                 <li>

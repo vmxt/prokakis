@@ -28,7 +28,11 @@ Route::get('/company/{id}', 'CompanyController@previewPremiumCompany')->name('Pr
 
 Auth::routes();
 //paypal listener
-Route::post('/ipn', 'IpnController@getIpnData')->name('GetIpnData');
+Route::get('/ipn', 'IpnController@getIpnDataGet')->name('GetIpnDataGet');
+Route::post('/ipn', 'IpnController@getIpnDataPost')->name('GetIpnDataPost');
+
+//points
+Route::get('/rewards', 'TokenConfirmController@getCreditPoints')->name('CompanyCreditPoints');
 
 Route::get('/api/v1/report-req', 'ReferralController@apiRequestReportER')->name('apiRequestReportER');
 

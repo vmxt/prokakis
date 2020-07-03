@@ -1,12 +1,11 @@
 <?php
 
-
-
 namespace App\Http\Controllers;
 
 use App\User;
 use App\CompanyProfile;
 use App\ChatHistory;
+use App\ChatHistoryHead;
 use App\OpportunityBuildingCapability;
 use App\OpportunityBuy;
 use App\OpportunitySellOffer;
@@ -17,20 +16,8 @@ use Auth;
 
 class ChatHistoryController extends Controller {
 
-	/**
-
-	 * Create a new controller instance.
-
-	 *
-
-	 * @return void
-
-	 */
-
 	public function __construct() {
-
 		$this->middleware('auth');
-
 	}
 
 	public function changeStatus(Request $request){
@@ -38,10 +25,10 @@ class ChatHistoryController extends Controller {
 		$sender = $request->input("sender"); 
 		$receiver = $request->input("receiver");
 		$opp_type = $request->input("opp_type");
+		$head_id = $request->input("head_id");
 		$status = 1;
 		$log['error'] = false;
-
-		$chat = ChatHistory::getChatDetails($sender, $receiver, $opp_type, $status);
+		$chat = ChatHistory::getChatDetails($head_id, $status);
 		if($chat){
 			$log['error'] = true;
 		}
@@ -64,7 +51,7 @@ class ChatHistoryController extends Controller {
 				$count = 0;
 				foreach ($resBuy as $heads )
                 {	
-                	$count += ChatHistory::getStatusCount($heads->sender, $heads->receiver);
+                	$count += ChatHistory::getStatusCount($heads->head_id);
                 }
          		$log['overAllState'] = $chatHeads;
          		$log['overAllChatStatus'] = $count;
@@ -78,7 +65,7 @@ class ChatHistoryController extends Controller {
 				$count = 0;
 				foreach ($resBuy as $heads )
                 {	
-                	$count += ChatHistory::getStatusCount($heads->sender, $heads->receiver);
+                	$count += ChatHistory::getStatusCount($heads->head_id);
                 }
 	    	 	$state = $request->input("overAllState");
 	    	 	$overAllChatStatus = $request->input("overAllChatStatus");
@@ -92,34 +79,34 @@ class ChatHistoryController extends Controller {
 	    	 		 $log['overAllState'] = $state + (int)$chatHeads - $state;
 	    	 		 $log['overAllChatStatus'] = $overAllChatStatus + (int)$count - $overAllChatStatus;
 
-		 			    foreach ($resBuy as $heads )
-	                    {	
-	                    	$date = date("F j, Y, g:i a", strtotime($heads->created_at));
-                            $avatar = \App\UploadImages::where('company_id', $heads->sender)->where('file_category', 'PROFILE_AVATAR')
+	 			    foreach ($resBuy as $heads )
+                    {	
+                    	$date = date("F j, Y, g:i a", strtotime($heads->created_at));
+                        $avatar = \App\UploadImages::where('company_id', $heads->sender)
+                            	->where('file_category', 'PROFILE_AVATAR')
                                 ->orderBy('id', 'desc')
                                 ->first();
-                            $avat = '';
-                            if (!isset($avatar->file_name)) 
-                                $avatarUrl = asset('public/images/industry')."/guest.png";
-                            else 
-                                $avatarUrl = asset('public/images')."/".$avatar->file_name;
-	   						
-	   						$companyName = CompanyProfile::getCompanyName($heads->sender);
-	                     	$text[] = [
-	                     			'avatarUrl'=>$avatarUrl, 
-	                     			'opp_title'=>$heads->opp_title ? $heads->opp_title : " ", 
-	                     			'company_id'=>$heads->company_id, 
-	                     			'sender'=>$heads->sender, 
-	                     			'receiver'=>$heads->receiver, 
-	                     			'opp_type'=>$heads->opp_type, 
-	                     			'opp_type'=>$heads->opp_type, 
-	                     			'company_name'=> $companyName ? $companyName : " ",
-	                     			'date'=>$date,
-	                     			'status'=> ChatHistory::getStatusCount($heads->sender, $heads->receiver)
-	                     			];
-	
-	                    }
-	        			$log['text'] = $text; 
+                        $avat = '';
+                        if (!isset($avatar->file_name)) 
+                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                        else 
+                            $avatarUrl = asset('public/images')."/".$avatar->file_name;
+   						
+   						$companyName = CompanyProfile::getCompanyName($heads->sender);
+                     	$text[] = [
+                     			'avatarUrl'=>$avatarUrl, 
+                     			'opp_title'=>$heads->opp_title ? $heads->opp_title : " ", 
+                     			'company_id'=>$heads->company_id, 
+                     			'sender'=>$heads->sender, 
+                     			'receiver'=>$heads->receiver, 
+                     			'opp_type'=>$heads->opp_type, 
+                     			'opp_type'=>$heads->opp_type, 
+                     			'company_name'=> $companyName ? $companyName : " ",
+                     			'date'=>$date,
+                     			'status'=> ChatHistory::getStatusCount($heads->head_id)
+                     			];
+                    }
+	        		$log['text'] = $text; 
 				}
 	        break;
 		}
@@ -144,116 +131,107 @@ class ChatHistoryController extends Controller {
 			switch($function) {
 		    
 	    	 	case('getState'):
-	    	 		$result = ChatHistory::where('sender',$company_viewer)->where('receiver',$oppurtunityId)->count();
+	    			$result = 0;
+	    	 		if( $head = ChatHistoryHead::checkExistingData($company_viewer, $oppurtunityId, $oppurtunityType) ){
+		    	 		$result = ChatHistory::where('head_id',$head->id)->count();
+			    	}
 	             	$log['state'] = $result;
-	        	break;	
+	        		break;	
 		    	
 		    	 case('update'):
-		    	 	$result = ChatHistory::where('sender',$company_viewer)->where('receiver',$oppurtunityId);
-		    	 	$state = $request->input("state");
+		    	 	$result = false;
+		    	 	if( $head = ChatHistoryHead::checkExistingData($company_viewer, $oppurtunityId, $oppurtunityType) ){
+		    	 		$result = ChatHistory::where('head_id',$head->id)->get();
+			    	}
+					if($oppurtunityType == 'build'){
+		  	 			$opp = OpportunityBuildingCapability::find($oppurtunityId);
+		  	 		}
+		  			if($oppurtunityType == 'sell'){
+		  	 			$opp = OpportunitySellOffer::find($oppurtunityId);
+		  	 		}
+		  	 		if($oppurtunityType == 'buy'){
+		  	 			$opp = OpportunityBuy::find($oppurtunityId);
+		  	 		}
 
-		    	 	if( (int)$state == (int)$result->count() ){
+		    	 	$state = $request->input("state");	
+		    	 	if( (int)$state == ($result == false? 0 : $result->count()) ){
 		    	 		$log['state'] = $state;
 		        		$log['text'] = false;
 		    	 	}else{
 		    	 		 $text= array();
 		    	 		 $log['state'] = $state + (int)$result->count() - $state;
-		    	 
-			 			    foreach ($result->get() as $chat )
-		                    {	
-		                    	$msg = decrypt($chat->text);
-		                     	$msg =  $line = str_replace("\n", "", $msg  );
-						  	 	//$receiverName = CompanyProfile::find($chat->receiver)->first();
-
-						  	 	if($chat->action == 1){
-						  	 		$senderName = CompanyProfile::find($chat->sender);
-						  	 	}else{
-						  	 		if($oppurtunityType == 'build'){
-						  	 			$opp = OpportunityBuildingCapability::find($chat->receiver);
-						  	 		}
-						  			if($oppurtunityType == 'sell'){
-						  	 			$opp = OpportunitySellOffer::find($chat->receiver);
-						  	 		}
-						  	 		if($oppurtunityType == 'buy'){
-						  	 			$opp = OpportunityBuy::find($chat->receiver);
-						  	 		}
-						  	 		$senderName = CompanyProfile::find($opp->company_id);
-						  	 	}
-
-						  	 	$receiverName = $senderName;
-
-		                     	$text[] = ['text'=>$msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name, 'action'=>$chat->action  ];
-		
-
-		                    }
-		        			$log['text'] = $text; 
+		 			    foreach ($result as $chat )
+	                    {	
+	                    	$msg = decrypt($chat->text);
+	                     	$msg =  $line = str_replace("\n", "", $msg  );
+					  	 	if($chat->action == 1){
+					  	 		$senderName = CompanyProfile::find($company_viewer)->company_name;
+					  	 	}else{
+					  	 		$senderName = $opp->opp_title;
+					  	 	}
+					  	 	$receiverName = $senderName;
+	                     	$text[] = ['text'=>$msg, 'sender'=>$senderName, 'receiver'=>$receiverName, 'action'=>$chat->action  ];
+	                    }
+		        		$log['text'] = $text; 
 					}
-		             break;
+		            break;
 		    	 
 		    	case('onload'):
-		    	 	$result = ChatHistory::where('sender',$company_viewer)->where('receiver',$oppurtunityId);
-		    	 	//$state = $request->input("state");
-
-		    	 		 $text= array();
-		    	 		 //$log['state'] = $state + (int)$result->count() - $state;
-		    	 
-			 			    foreach ($result->get() as $chat )
-		                    {	
-		                    	$msg = decrypt($chat->text);
-		                     	$msg =  $line = str_replace("\n", "", $msg  );
-						  	 	//$senderName = CompanyProfile::find($chat->sender);
-						  	 	//$receiverName = CompanyProfile::find($chat->receiver)->first();
-
-						  	 	if($chat->action == 1){
-						  	 		$senderName = CompanyProfile::find($chat->sender);
-						  	 	}else{
-						  	 		if($oppurtunityType == 'build'){
-						  	 			$opp = OpportunityBuildingCapability::find($chat->receiver);
-						  	 		}
-						  			if($oppurtunityType == 'sell'){
-						  	 			$opp = OpportunitySellOffer::find($chat->receiver);
-						  	 		}
-						  	 		if($oppurtunityType == 'buy'){
-						  	 			$opp = OpportunityBuy::find($chat->receiver);
-						  	 		}
-						  	 		$senderName = CompanyProfile::find($opp->company_id);
-						  	 	}
-
-						  	 	$receiverName = $senderName;
-
-		                     	$text[] = ['text'=> $msg, 'sender'=>$senderName->company_name, 'receiver'=>$receiverName->company_name, 'action'=>$chat->action ];
-		                    }
-		        			$log['text'] = $text; 
+		    		$result = [];
+			    	if( $head = ChatHistoryHead::checkExistingData($company_viewer, $oppurtunityId, $oppurtunityType) ){
+		    	 		$result = ChatHistory::where('head_id',$head->id)->get();
+			    	}
+					if($oppurtunityType == 'build'){
+		  	 			$opp = OpportunityBuildingCapability::find($oppurtunityId);
+		  	 		}
+		  			if($oppurtunityType == 'sell'){
+		  	 			$opp = OpportunitySellOffer::find($oppurtunityId);
+		  	 		}
+		  	 		if($oppurtunityType == 'buy'){
+		  	 			$opp = OpportunityBuy::find($oppurtunityId);
+		  	 		}
+		    	 	$text= array();
+	 			    foreach ($result as $chat )
+                    {	
+                    	$msg = decrypt($chat->text);
+                     	$msg = str_replace("\n", "", $msg  );
+				  	 	if($chat->action == 1){
+				  	 		$senderName = CompanyProfile::find($company_viewer)->company_name;
+				  	 	}else{
+				  	 		$senderName = $opp->opp_title;
+				  	 	}
+				  	 	$receiverName = $senderName;
+                     	$text[] = ['text'=> $msg, 'sender'=>$senderName, 'receiver'=>$receiverName, 'action'=>$chat->action ];
+                    }
+		        	$log['text'] = $text; 
 		             break;
 
 		    	 case('send'):
-						$message = $request->input("message"); //viewer
-
+					 $message = $request->input("message"); //viewer
 					 $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
-					  $message = htmlentities(strip_tags($message));
-				 if(($message) != "\n"){
-		        	
-					if(preg_match($reg_exUrl, $message, $url)) {
-		       			$message = preg_replace($reg_exUrl, '<a href="'.$url[0].'" target="_blank">'.$url[0].'</a>', $message);
-					} 
-					 
-					
-					ChatHistory::create([
+					 $message = htmlentities(strip_tags($message));
+					 if(($message) != "\n"){
+						if(preg_match($reg_exUrl, $message, $url)) {
+			       			$message = preg_replace($reg_exUrl, '<a href="'.$url[0].'" target="_blank">'.$url[0].'</a>', $message);
+						} 
+						if($res = ChatHistoryHead::checkExistingData($company_viewer, $oppurtunityId, $oppurtunityType)){
+							$chatHeadId = $res->id;
+						}else{
+							$chatHeadId = ChatHistoryHead::create([
+											'sender' => $company_viewer,
+											'receiver' => $oppurtunityId,
+											'opp_type' => $oppurtunityType
+										])->id;
+						}
 
-						'sender' => $company_viewer,
-
-						'receiver' => $oppurtunityId,
-
-						'text' => encrypt($message),
-
-						'opp_type' => $oppurtunityType,
-
-						'action' => $chatAction
-
-					]);
-		        		
-		        	
-				 }
+						if($chatHeadId){
+							ChatHistory::create([
+								'head_id' => $chatHeadId,
+								'text' => encrypt($message),
+								'action' => $chatAction
+							]);
+						}
+					 }
 		        	 break;
 	    	
 	    	}#end switch
@@ -261,7 +239,6 @@ class ChatHistoryController extends Controller {
 		}
 
 	}
-
 
 }#end class
 
