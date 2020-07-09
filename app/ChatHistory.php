@@ -31,6 +31,19 @@ class ChatHistory extends Model
        'id', 'created_at', 'updated_at',
     ];
    
+    public static function getChatHistoryBuildOpportunityUnseenTotal($company_id){
+
+            return DB::table("chat_history as ch")
+                        ->select('head.id as head_id', 'ch.status', 'head.sender', 'head.receiver', 'ch.text', 'ch.created_at', 'head.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->join('chat_history_head as head', 'head.id', "=", 'ch.head_id')
+                        ->join('opp_building_capability as opp', 'head.receiver', "=", 'opp.id')
+                        ->where('head.opp_type',  'build')
+                        ->where('head.is_deleted', 0)
+                        ->where('opp.company_id', $company_id)
+                        ->where('ch.status',0)
+                        ->count();    
+    }
+
     public static function getChatHistoryBuildOpportunity($company_id){
 
             return DB::table("chat_history as ch")
@@ -43,6 +56,20 @@ class ChatHistory extends Model
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
                         ->get();     
+    }
+
+    public static function getChatHistorySellOpportunityUnseenTotal($company_id){
+
+            return DB::table("chat_history as ch")
+                        ->select( DB::raw('COUNT(ch.id) as count_refer') )
+                        ->join('chat_history_head as head', 'head.id', "=", 'ch.head_id')
+                        ->join('opp_sell_offer as opp', 'head.receiver', "=", 'opp.id')
+                        ->where('head.opp_type', '=', 'sell')
+                        ->where('head.is_deleted', 0)
+                        ->where('opp.company_id','=',$company_id)
+                        ->where('ch.status',0)
+                        ->count(); 
+            
     }
 
     public static function getChatHistorySellOpportunity($company_id){
@@ -59,6 +86,20 @@ class ChatHistory extends Model
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
                         ->get();
+            
+    }
+
+    public static function getChatHistoryBuyOpportunityUnseenTotal($company_id){
+
+           return DB::table("chat_history as ch")
+                        ->select( 'head.id as head_id', 'ch.status', 'head.sender', 'head.receiver', 'ch.text', 'ch.created_at', 'head.opp_type', 'opp.opp_title', 'opp.company_id' )
+                        ->join('chat_history_head as head', 'head.id', "=", 'ch.head_id')
+                        ->join('opp_buy as opp', 'head.receiver', "=", 'opp.id')
+                        ->where('head.opp_type', '=', 'buy')
+                        ->where('head.is_deleted', 0)
+                        ->where('opp.company_id','=',$company_id)
+                        ->where('ch.status',0)
+                        ->count(); 
             
     }
 

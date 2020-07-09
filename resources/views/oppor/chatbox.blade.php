@@ -486,6 +486,18 @@ img.chatAvatar {
   background-size: cover;
   position: relative;
 }
+
+#chat-area .chat-intro-text  { 
+    background: #FFFFFF;
+    padding: 10px;
+    box-shadow: 0 0 5px 0 #707080 !important;
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 3em;
+    color: #827e7e;
+    font-size: 14px;
+}
+
     </style>
 
 
@@ -651,7 +663,14 @@ img.chatAvatar {
             $('#chat-headId').val(headId);
 
             $('#chat-area').empty();
-
+            $("#chat-area").append(`
+                <p class="chat-intro-text">
+                    Congrats for finding your potential business match!
+                    Your opportunity has received a request! 
+                    Start connecting by providing more detail about your opportunity and answer any questions that the requestor presents to you.
+                    Good luck!  
+                </p>
+                `);
             $('#sendie').prop("disabled", false);
 
             chat.onload();
@@ -936,6 +955,14 @@ function chatload(){
             
             if(data.text != false){
                 $('#chat-area').empty();
+                $("#chat-area").append(`
+                <p class="chat-intro-text">
+                    Congrats for finding your potential business match!
+                    Your opportunity has received a request! 
+                    Start connecting by providing more detail about your opportunity and answer any questions that the requestor presents to you.
+                    Good luck!  
+                </p>
+                `);
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action == 1){
                       $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
@@ -987,6 +1014,14 @@ function updateChat(){
             
             if(data.text != false){
                 $('#chat-area').empty();
+                $("#chat-area").append(`
+                <p class="chat-intro-text">
+                    Congrats for finding your potential business match!
+                    Your opportunity has received a request! 
+                    Start connecting by providing more detail about your opportunity and answer any questions that the requestor presents to you.
+                    Good luck!  
+                </p>
+                `);
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action == 1){
                       $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));

@@ -26,6 +26,8 @@ use App\RequestReport;
 
 use App\UploadImages;
 
+use App\ChatHistory;
+
 use App\User;
 
 use Auth;
@@ -135,13 +137,15 @@ class HomeController extends Controller {
 		}
 
 
+		$company_data = CompanyProfile::find($company_id_result);
 
 		//echo $company_id_result; exit;
 
-		$company_data = CompanyProfile::find($company_id_result);
-
-
-
+		$resBuild = ChatHistory::getChatHistoryBuildOpportunityUnseenTotal($company_id_result);
+		$resSell = ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
+		$resBuy = ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
+		$oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
+		
 		$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
 
 		$profileAwards = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.awards'), 5);
@@ -201,7 +205,7 @@ class HomeController extends Controller {
 
 
 
-		return view('home.index', compact('completenessProfile', 'pendingRequestReport', 'ongoingMonitoring', 'awaitingresponsetogenreport', 'generatedreport', 'process_report','c_promo'));
+		return view('home.index', compact('completenessProfile', 'pendingRequestReport', 'ongoingMonitoring', 'awaitingresponsetogenreport', 'generatedreport', 'process_report','c_promo','oppoInbox'));
 
 	}
 

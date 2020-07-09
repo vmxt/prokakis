@@ -149,6 +149,10 @@
           box-shadow: 0 0 5px 0 #31708f !important;
           cursor: default !important;
         }
+
+        .h-effect a{
+            text-decoration: none;
+        }
     </style>
 
     <div class="container">
@@ -229,7 +233,7 @@
                 <!-- widgets -->
 
                 <div class="row widget-row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">PENDING PROFILE REQUEST</h4>
@@ -249,7 +253,7 @@
                         </div>
                         <!-- END WIDGET THUMB -->
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">AWAITING RESPONSE</h4>
@@ -272,6 +276,27 @@
                         </div>
                         <!-- END WIDGET THUMB -->
                     </div>
+
+                    <div class="col-md-4">
+                        <!-- BEGIN WIDGET THUMB -->
+                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                            <a href='{{  url('/opportunity/chatbox') }}'>
+                                <h4 class="widget-thumb-heading">OPPORTUNITY INBOX</h4>
+                                <div class="widget-thumb-wrap">
+                                    <i class="widget-thumb-icon bg-blue fa fa-envelope" aria-hidden="true"></i>
+                                    <div class="widget-thumb-body">
+                                        <span class="widget-thumb-subtitle hidden">USD</span> <br>
+                                        <span class="widget-thumb-body-stat">
+                                                <span class="counter">{{ $oppoInbox }}</span>
+
+                                            </span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- END WIDGET THUMB -->
+                    </div>
+
                 </div>
 
 

@@ -418,13 +418,13 @@
                 $token = base64_encode(date('YmdHis'));
                 ?>
 
-                {{-- Requestor = None-premium | Provider = Premium --}}
+                {{-- Requestor = Non-premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     @if($tokenStock >= 3)
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
-                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
+                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Get In Touch</a>
                         @else
                         <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                         @endif
@@ -441,12 +441,12 @@
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
-                {{-- Requestor = Premium | Provider = None-Premium 
+                {{-- Requestor = Premium | Provider = Non-Premium 
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
                 @endif --}}
 
-                {{-- Requestor = None-premium | Provider = None-Premium --}}
+                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
@@ -462,7 +462,7 @@
 
                 @endif
 
-                {{-- Requestor = Premium | Provider = None-Premium --}}
+                {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
@@ -821,7 +821,7 @@
                 $token = base64_encode(date('YmdHis'));
                 ?>
 
-                {{-- Requestor = None-premium | Provider = Premium --}}
+                {{-- Requestor = Non-premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
@@ -846,12 +846,12 @@
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
-                {{-- Requestor = Premium | Provider = None-Premium
+                {{-- Requestor = Premium | Provider = Non-Premium
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
                 @endif  --}}
 
-                {{-- Requestor = None-premium | Provider = None-Premium --}}
+                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
@@ -869,7 +869,7 @@
 
                 @endif
 
-                {{-- Requestor = Premium | Provider = None-Premium --}}
+                {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
@@ -1229,7 +1229,7 @@
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
                 ?>
-                 {{-- Requestor = None-premium | Provider = Premium --}}
+                 {{-- Requestor = Non-premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
@@ -1254,12 +1254,12 @@
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> &nbsp; Get In Touch</a>
                 @endif
 
-                {{-- Requestor = Premium | Provider = None-Premium
+                {{-- Requestor = Premium | Provider = Non-Premium
                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
                 @endif  --}}
 
-                {{-- Requestor = None-premium | Provider = None-Premium --}}
+                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
@@ -1277,7 +1277,7 @@
 
                 @endif
 
-                {{-- Requestor = Premium | Provider = None-Premium --}}
+                {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
@@ -1792,7 +1792,7 @@
         {
             $('.modal_oppoBox').modal('hide');
             swal({
-                title:"The provider of this opportunity is none-premium.", 
+                title:"The provider of this opportunity is non-premium.", 
                 text: "Are you sure to proceed? Because we will send an email notification to this company and encourage them to upgrade thier account to premium.",
                 icon: "warning",
                 buttons: [
@@ -2031,7 +2031,14 @@
             $('#chat-oppType').val(oppType);
 
             $('#chat-area').empty();
-
+            $("#chat-area").append(`
+                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                    <br>
+                        Congrats for finding your potential business match. 
+                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
+                        Good luck! 
+                </p>
+                `);
             chat.onload();
             chat.getState(); 
 
@@ -2230,6 +2237,14 @@ function chatload(){
             
             if(data.text != false){
                 $('#chat-area').empty();
+                $("#chat-area").append(`
+                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                    <br>
+                        Congrats for finding your potential business match. 
+                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
+                        Good luck! 
+                </p>
+                `);
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action != 1){
                       $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
@@ -2279,6 +2294,14 @@ function updateChat(){
             
             if(data.text != false){
                 $('#chat-area').empty();
+                $("#chat-area").append(`
+                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                    <br>
+                        Congrats for finding your potential business match. 
+                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
+                        Good luck! 
+                </p>
+                `);
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action != 1){
                       $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
