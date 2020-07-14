@@ -67,10 +67,11 @@ class MailboxController extends Controller {
 	public function compose() {
 
 		$usr = Auth::id();
+		$company_id = CompanyProfile::getCompanyId($usr);
 
-		$consMap = Mailbox::where('sender_id', '=', $usr)->orWhere('receiver_id', '=', $usr)->get();
-
-
+		$res = Mailbox::where('sender_id', '=', $usr)->orWhere('receiver_id', '=', $usr)->get();
+		$res2 = Mailbox::where('receiver_id',$company_id)->where('is_type','chat')->get();
+		$consMap = $res->merge($res2);
 
 		return view('mailbox.compose', compact('consMap'));
 
@@ -102,8 +103,6 @@ class MailboxController extends Controller {
 			$subject = $request->input('subject_mail');
 
 			$content = $request->input('composeArea');
-
-
 
 			$usr = User::where('email', $receiver)->first();
 
@@ -167,6 +166,39 @@ class MailboxController extends Controller {
 
 	}
 
+	//all admin email address only
+	public function storeEnterpriseCompose(Request $request) {
+
+		if ($request->isMethod('post')) {
+			$subject = $request->input('subject_mail');
+			$content = $request->input('composeArea');
+			$usr = User::where('user_type', '5')->get();
+
+			foreach($usr as $d){
+				$receiver = $d->email;
+
+				Mailbox::create([
+					'sender_id' => Auth::id(),
+					'receiver_id' => $d->id,
+					'receiver_email' => $receiver,
+					'subject' => $subject,
+					'message' => $content,
+					'created_at' => date('Y-m-d'),
+					'status' => 1,
+				]);
+
+				
+				Mailbox::sendMail_v2($content, $receiver, $subject, '');
+
+				AuditLog::ok(array(Auth::id(), 'mailbox', 'sent for Enterprise buying option application', 'receiver:' . $receiver));
+
+			}
+			return redirect('mailbox/compose')->with('status', 'Message successfuly sent.');
+
+		}
+
+	}
+
 
 
 	public function createCompose(Request $request) {
@@ -175,6 +207,38 @@ class MailboxController extends Controller {
 
 	}
 
+	public function composeBuyingOption(Request $request) {
+
+		$user_id = Auth::id();
+		$company_id = CompanyProfile::getCompanyId($user_id);
+		$rss = CompanyProfile::find($company_id);
+		
+		if($rss->primary_country != NULL){
+			$cc = Countries::where('country_code', trim($rss->primary_country))->first();
+		}else {
+			$cc = false;
+		}
+	
+		$p_country = (is_object($cc))? $cc->country_name : '';
+		$industry = $rss->industry;
+
+		$msg = "Hi Prokakis Administrator, <br /><br />
+
+		I would like to avail of the Enterprise option at a buying credit page. <br /><br />
+
+		The following are my details <br />
+		Country: $p_country  <br />
+		Industry: $industry <br />
+		Company Name: $rss->company_name <br />
+
+		<br /><br />
+		Thank you
+		
+		";
+
+		return view('mailbox.createBuyingOption', compact('msg'));
+
+	}
 
 
 	//method post

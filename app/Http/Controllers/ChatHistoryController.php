@@ -9,8 +9,8 @@ use App\ChatHistoryHead;
 use App\OpportunityBuildingCapability;
 use App\OpportunityBuy;
 use App\OpportunitySellOffer;
+use App\Mailbox;
 use Carbon\Carbon;
-
 use Illuminate\Http\Request;
 use Auth;
 
@@ -217,18 +217,41 @@ class ChatHistoryController extends Controller {
 						if($res = ChatHistoryHead::checkExistingData($company_viewer, $oppurtunityId, $oppurtunityType)){
 							$chatHeadId = $res->id;
 						}else{
+
+							if($oppurtunityType == 'build'){
+				  	 			$opp = OpportunityBuildingCapability::find($oppurtunityId);
+				  	 		}
+				  			if($oppurtunityType == 'sell'){
+				  	 			$opp = OpportunitySellOffer::find($oppurtunityId);
+				  	 		}
+				  	 		if($oppurtunityType == 'buy'){
+				  	 			$opp = OpportunityBuy::find($oppurtunityId);
+				  	 		}
+
 							$chatHeadId = ChatHistoryHead::create([
 											'sender' => $company_viewer,
 											'receiver' => $oppurtunityId,
 											'opp_type' => $oppurtunityType
 										])->id;
+
+							Mailbox::create([
+								'sender_id' => $company_viewer,
+								'receiver_id' => $opp->company_id,
+								'remarks' => CompanyProfile::find($company_viewer)->company_name. " sent you a message" ,
+								'subject'=> 'Prokakis Chat Messages',
+								'status' => 1,
+								'is_type'=> 'chat'
+							]);
+
+
 						}
 
 						if($chatHeadId){
 							ChatHistory::create([
 								'head_id' => $chatHeadId,
 								'text' => encrypt($message),
-								'action' => $chatAction
+								'action' => $chatAction,
+								'status' => $chatAction == '2' ? 1 : 0
 							]);
 						}
 					 }

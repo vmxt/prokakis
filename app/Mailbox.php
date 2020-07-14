@@ -16,7 +16,7 @@ class Mailbox extends Model {
 	 * @var array
 	 */
 	protected $fillable = [
-		'sender_id', 'receiver_id', 'receiver_email', 'subject', 'message', 'is_open', 'created_at', 'updated_at', 'status',
+		'sender_id', 'receiver_id', 'receiver_email', 'subject', 'message', 'is_open', 'created_at', 'updated_at', 'status', 'remarks','is_type'
 	];
 
 	/**

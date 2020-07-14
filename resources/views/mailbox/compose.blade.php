@@ -206,7 +206,7 @@
                                     <tr class="gradeX odd" role="row">
                                         <td>
                                             <a href=""> <?php
-                                                if ($data->is_open == NULL) {
+                                                if ($data->is_open == NULL and $data->is_type <> 'chat') {
                                                     echo '<b>' . $data->subject . '</b>';
                                                 } else {
                                                     echo $data->subject;
@@ -214,10 +214,16 @@
                                                 ?>
                                             </a>
                                         </td>
-                                        <td><a href=""> <?php
-                                                $res = App\User::find($data->sender_id);
-                                                echo $res->email;
-                                                ?> </a>
+                                        <td>
+                                            @if($data->is_type == 'chat')
+                                                {{ App\CompanyProfile::find($data->sender_id)->company_email }}
+                                            @else
+                                                <a href=""> <?php
+                                                    $res = App\User::find($data->sender_id);
+                                                    echo $res->email;
+                                                    ?> 
+                                                </a>
+                                            @endif
                                         </td>
                                         <td>
                                             <?php echo $data->remarks; ?>
@@ -228,7 +234,11 @@
                                         </td>
 
                                         <td>
-                                            <a href="{{ url('/mailbox/setReply/'.$data->id) }}" class="btn btn-success">View</a>
+                                            @if($data->is_type == 'chat')
+                                                <a href="{{ url('/opportunity/chatbox') }}" class="btn btn-success">View</a>
+                                            @else
+                                                <a href="{{ url('/mailbox/setReply/'.$data->id) }}" class="btn btn-success">View</a>
+                                            @endif
                                         </td>
 
                                     </tr>

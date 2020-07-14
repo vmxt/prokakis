@@ -19,7 +19,7 @@ class ChatHistory extends Model
      * @var array
      */
     protected $fillable = [
-         'text', 'action', 'head_id'
+         'text', 'action', 'head_id', 'status'
     ];
 
     /**
