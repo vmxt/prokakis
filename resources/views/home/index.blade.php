@@ -14,6 +14,7 @@
 
 @section('content')
     <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
     <style>
         .niceDisplay {
             font-family: 'PT Sans Narrow', sans-serif;
@@ -152,6 +153,10 @@
 
         .h-effect a{
             text-decoration: none;
+        }
+
+        .page-header .page-header-top .top-menu .navbar-nav>li.dropdown>.dropdown-menu{
+            z-index: 5;
         }
     </style>
 
@@ -452,10 +457,224 @@
     </div>
 
     <script src="{{ asset('public/jq1110/jquery.min.js') }}"></script>
+    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
  <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
-        $(document).ready(function () {
+// Instance the tour
+var tour = new Tour({
+  steps: [
+  {
+    element: "#nav-home-page",
+    title: "HOME",
+    content: "This is your homepage"
+  },
+  {
+    element: "#nav-system-dashboard",
+    title: "SYSTEM DASHBOARD",
+    content: "This has a list of the system dashboard links and utilities.",
+    onNext: function(){
+        $('#nav-system-dashboard').addClass('open');
+      }
+  },
+  {
+    element: "#nav-business-news",
+    title: "BUSINESS NEWS",
+    content: "Here you can create an article, or give upcoming news about your company"
+  },
+  {
+    element: "#nav-investor-alert-list",
+    title: "INVESTOR ALERT LIST",
+    content: "Here you can view a list of investors",
+    onNext: function(){
+        $('#nav-system-dashboard').removeClass('open');
+        $('#nav-system-dashboard').removeClass('active');
+    }
+  },
+  {
+    element: "#company-nav",
+    title: "COMPANY",
+    content: "This has a list of company links and utilities",
+    onNext: function(){
+        $('#company-nav').addClass('open');
+    }
+  },
+  {
+    element: "#nav-company-view",
+    title: "VIEW COMPANY",
+    content: "You can view your company profile here"
+  },
+  {
+    element: "#nav-company-edit",
+    title: "EDIT COMPANY",
+    content: "You can edit your company details here"
+  },
+  {
+    element: "#nav-company-contact",
+    title: "CONTACTS",
+    content: "You can edit company contact information here"
+  },
+  {
+    element: "#nav-company-payment",
+    title: "PAYMENT HISTORY",
+    content: "You can view your complete payment and credit history here"
+  },
+  {
+    element: "#nav-company-deactivate",
+    title: "DEACTIVATE COMPANY",
+    content: "You can completely deactivate your company here",
+    onNext: function(){
+        $('#company-nav').removeClass('open');
+        $('#company-nav').removeClass('active');
 
+    },
+  },
+  {
+    element: "#nav-opportunities",
+    title: "OPPORTUNITIES",
+    content: "This has a list of links and utilities about opportunities on the Prokakis system",
+    onNext: function(){
+        $('#nav-opportunities').addClass('open');
+    },
+  },
+  {
+    element: "#nav-my-opportunities",
+    title: "MY OPPORTUNITIES",
+    content: "Here you can view, edit or add an opportunity you have for your company"
+  },
+  {
+    element: "#nav-explore",
+    title: "EXPLORE OPPORTUNITIES",
+    content: "Here you can view the most recent build, sell and buy opportunities on the Prokakis system",
+    onNext: function(){
+        $('#nav-opportunities').removeClass('open');
+        $('#nav-opportunities').removeClass('active');
+    },
+  },
+  {
+    element: "#nav-report",
+    title: "REPORT",
+    content: "This has a list of utilities and links for reports, monitoring and your tokens",
+    onNext: function(){
+        $('#nav-report').addClass('open');
+    },
+  },
+  {
+    element: "#nav-report-status",
+    title: "REPORT STATUS",
+    content: "Here you can view the status of a requested report submission"
+  },
+  {
+    element: "#nav-ongoing-monitoring",
+    title: "ONGOING MONITORING",
+    content: "Here you can update, download and monitor your reports"
+  },
+  {
+    element: "#nav-buy-credit",
+    title: "BUY CREDITS",
+    content: "Here you can see the token packages and purchase more credits"
+  },
+  {
+    element: "#nav-report-requester",
+    title: "REPORT REQUESTER",
+    content: "Here you can view the company information of someone who is requesting a report from you",
+    onNext: function(){
+        $('#nav-report').removeClass('open');
+        $('#nav-report').removeClass('active');
+    },
+  },
+  {
+    element: "#nav-login-dropdown",
+    title: "USER MENU",
+    content: "Click here to show the links for your account",
+    placement: 'left',
+    onNext: function(){
+        $('#nav-login-dropdown').addClass('open');
+    },
+  },
+  {
+    element: "#nav-login-account-credit",
+    title: "ACCOUNT AND CREDIT",
+    content: "Here you can view your token balance and account status",
+    placement: 'left'
+  },
+  {
+    element: "#nav-login-company",
+    title: "MY COMPANY",
+    content: "Here you can view the profile of your company",
+    placement: 'left'
+  }, 
+  {
+    element: "#nav-login-inbox",
+    title: "MY INBOX",
+    content: "Here you can view, compose and send messages to other companies on the Prokakis system",
+    placement: 'left'
+  },  
+  {
+    element: "#nav-login-switch-company",
+    title: "SWITCH A COMPANY",
+    content: "Here you can switch to one of your other registered companies",
+    placement: 'left'
+  },   
+  {
+    element: "#nav-login-referrals",
+    title: "REFERRALS",
+    content: "Here you can view the affiliate program and the status of your referrals",
+    placement: 'left'
+  },  
+  {
+    element: "#nav-login-share-friend",
+    title: "SHARE TO FRIEND",
+    content: "Here you can email a friend with your referral link so they can join you on the Prokakis system",
+    placement: 'left'
+  },  
+  {
+    element: "#nav-login-logout",
+    title: "LOGOUT",
+    content: "This will log you out of the prokakis system",
+    placement: 'left'
+  },  
+],
+
+  container: "body",
+  smartPlacement: true,
+  keyboard: true,
+  // storage: window.localStorage,
+  storage: false,
+  debug: true,
+  backdrop: true,
+  backdropContainer: 'body',
+  backdropPadding: 0,
+  redirect: true,
+  orphan: false,
+  duration: false,
+  delay: false,
+  basePath: "",
+  placement: 'auto',
+
+  afterGetState: function (key, value) {},
+  afterSetState: function (key, value) {},
+  afterRemoveState: function (key, value) {},
+  onStart: function (tour) {},
+  onEnd: function (tour) {},
+  onShow: function (tour) {},
+  onShown: function (tour) {},
+  onHide: function (tour) {},
+  onHidden: function (tour) {},
+  onNext: function (tour) {},
+  onPrev: function (tour) {},
+  onPause: function (tour, duration) {},
+  onResume: function (tour, duration) {},
+  onRedirectError: function (tour) {}
+
+});
+
+// Initialize the tour
+tour.init();
+
+// Start the tour
+tour.start();
+
+        $(document).ready(function () {
             $(".close").click(function () {
                 $(".jumbotron").remove();
             });

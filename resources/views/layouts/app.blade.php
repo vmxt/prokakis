@@ -478,7 +478,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <!-- END INBOX DROPDOWN -->
                                         <!-- BEGIN USER LOGIN DROPDOWN -->
-                                        <li class="dropdown dropdown-user dropdown-dark">
+                                        <li id='nav-login-dropdown' class="dropdown dropdown-user dropdown-dark">
                                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                 <?php
                                                 if($userType == 1){
@@ -525,19 +525,19 @@ s0.parentNode.insertBefore(s1,s0);
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-default">
 
-						<li>
+						                                    <li id='nav-login-account-credit'>
                                                     <a href="{{ route('getTokenActivated') }}">
                                                         <i class="icon-wrench"></i> Account and Credit </a>
                                                 </li>	
 
-                                                <li>
+                                                <li id='nav-login-company'>
 
                                                     <a href="{{ route('viewingProfile') }}">
                                                         <i class="icon-user"></i> My Company </a>
                                                 </li>
 
 
-                                                <li>
+                                                <li id="nav-login-inbox">
                                                     <a href="{{ route('mailCompose') }}">
                                                         <i class="icon-envelope-open"></i> My Inbox
                                                         <?php
@@ -549,25 +549,25 @@ s0.parentNode.insertBefore(s1,s0);
                                                     </a>
                                                 </li>
 
-                                                <li>
+                                                <li id='nav-login-switch-company'>
 
                                                     <a href="{{ route('viewingProfile') }}"  data-popup-open="popup-company" >
                                                         <i class="icon-list"></i> Switch a Company </a>
                                                 </li>
 
-                                                <li>
+                                                <li id='nav-login-referral'>
 
                                                     <a href="{{ route('referralsList') }}" >
                                                         <i class="icon-rocket"></i> Referrals </a>
                                                 </li>
 
-                        <li>
+                                                <li id='nav-login-share-friend'>
 
                                                     <a href="{{ route('createReferals') }}" >
                                                         <i class="icon-heart"></i> Share to Friend </a>
                                                 </li>
 
-<li>
+                                                <li id='nav-login-rewards'>
 
                                                   <a href="{{ route('CompanyCreditPoints') }}" >
                                                       <i class="fa fa-trophy"></i> Rewards </a>
@@ -575,7 +575,7 @@ s0.parentNode.insertBefore(s1,s0);
 
 
                                                 <li class="divider"> </li>
-                                                <li>
+                                                <li id='nav-login-logout'>
                                                     <a href="{{ url('logout') }}">
                                                         <i class="icon-building-o"></i> Log Out </a>
                                                 </li>
@@ -613,7 +613,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                 <div class="hor-menu  ">
                                     <ul class="nav navbar-nav">
-                                        <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{ (request()->segment(2) == '/') ? 'active' : '' }}">
+                                        <li aria-haspopup="true" id="nav-home-page" class="menu-dropdown classic-menu-dropdown {{ (request()->segment(2) == '/') ? 'active' : '' }}">
                                             @guest
                                                 <a class="navbar-brand" href="{{ route('login') }}">
                                                     <i class="fa fa-home"></i>  Home
@@ -627,31 +627,9 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         </li>
                                       <?php if($userType == 1){  ?>
-                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
-                                        (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}} ">
-{{-- 
-                                                <a  href="{{ url('/home') }}" >
-                                                    <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
-                                                    <span class="arrow"></span>
-                                                </a> --}}
-{{--                                                 <ul class="dropdown-menu">
-                                                        <li aria-haspopup="true" class=" ">
-                                                               <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
-                                                               <i class="icon-bulb" style="color: white"></i> Business News</a>
-                                                        </li>
+                      
 
-                                                        <li aria-haspopup="true" class=" ">
-                                                               <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
-                                                               <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
-                                                        </li>
-
-
-
-                                                </ul> --}}
-
-                                        </li>
-
-                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
+                                        <li aria-haspopup="true" id='nav-system-dashboard' class=" menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
                                         (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}}  ">
                                             <a href="#">
                                                 <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
@@ -664,12 +642,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                             <div class="col-md-3">
                                                               <h4 class="menu_title"> System Dashboard </h4>
                                                                 <ul class="mega-menu-submenu">
-                                                        <li aria-haspopup="true" class=" ">
+                                                        <li aria-haspopup="true" id="nav-business-news">
                                                                <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
                                                                <i class="icon-bulb" style="color: white"></i> Business News</a>
                                                         </li>
 
-                                                        <li aria-haspopup="true" class=" ">
+                                                        <li aria-haspopup="true" id="nav-investor-alert-list">
                                                                <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
                                                                <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
                                                         </li>
@@ -721,7 +699,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
                                         </li>
 
-                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{ (request()->segment(2) == 'view') ? 'active' : '' ||
+                                        <li aria-haspopup="true" id="company-nav" class="menu-dropdown mega-menu-dropdown {{ (request()->segment(2) == 'view') ? 'active' : '' ||
                                         (request()->segment(2) == 'edit') ? 'active' : '' ||
                                         (request()->segment(2) == 'contacts') ? 'active' : '' ||
                                         (request()->segment(2) == 'billing') ? 'active' : '' ||
@@ -732,25 +710,25 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <i class="fa fa-user" style="color: white"></i> Company <span class="arrow"></span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" >
                                                     <a class="nav-link" href="{{ url('/profile/view') }}"> <i class="fa fa-video-camera" style="color: white"></i> View Company</a>
                                                 </li>
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class="company-edit">
                                                         <a class="nav-link" href="{{ url('/profile/edit') }}"> <i class="fa fa-edit" style="color: white"></i> Edit Company</a>
                                                 </li>
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class="company-contact">
                                                     <a href="{{ url('/profile/contacts') }}" class="nav-link "><i class="fa fa-phone-square" style="color: white"></i> Contacts </a>
                                                 </li>
                                                <!-- <li aria-haspopup="true" class=" ">
                                                     <a href="{{ url('/profile/billing') }}" class="nav-link  "><i class="fa fa-money" style="color:white;"></i> Billing</a>
                                                 </li> -->
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class="company-payment">
                                                     <a href="{{ url('/profile/paymentHistory') }}" class="nav-link"><i class="fa fa-cc-paypal" style="color: white"></i> Payments History</a>
                                                 </li>
                                                 <!--<li aria-haspopup="true" class=" ">
                                                     <a href="{{ url('/profile/socialAccounts') }}" class="nav-link"> <i class="fa fa-facebook-official" style="color: white"></i> Social Media Accounts</a>
                                                 </li> -->
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class="company-deactivate">
                                                     <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Company</a>
                                                 </li>
                                             </ul>
@@ -762,25 +740,25 @@ s0.parentNode.insertBefore(s1,s0);
                                                           <div class="col-md-3">
                                                             <h4 class="menu_title"> Company </h4>
                                                               <ul class="mega-menu-submenu">
-                                                                <li aria-haspopup="true" class=" ">
+                                                                <li aria-haspopup="true" id="nav-company-view">
                                                                     <a class="nav-link" href="{{ url('/profile/view') }}"> <i class="fa fa-video-camera" style="color: white"></i> View Company</a>
                                                                 </li>
-                                                                <li aria-haspopup="true" class=" ">
+                                                                <li aria-haspopup="true" id="nav-company-edit">
                                                                         <a class="nav-link" href="{{ url('/profile/edit') }}"> <i class="fa fa-edit" style="color: white"></i> Edit Company</a>
                                                                 </li>
-                                                                <li aria-haspopup="true" class=" ">
+                                                                <li aria-haspopup="true" id="nav-company-contact">
                                                                     <a href="{{ url('/profile/contacts') }}" class="nav-link "><i class="fa fa-phone-square" style="color: white"></i> Contacts </a>
                                                                 </li>
                                                                <!-- <li aria-haspopup="true" class=" ">
                                                                     <a href="{{ url('/profile/billing') }}" class="nav-link  "><i class="fa fa-money" style="color:white;"></i> Billing</a>
                                                                 </li> -->
-                                                                <li aria-haspopup="true" class=" ">
+                                                                <li aria-haspopup="true" id="nav-company-payment">
                                                                     <a href="{{ url('/profile/paymentHistory') }}" class="nav-link"><i class="fa fa-cc-paypal" style="color: white"></i> Payments History</a>
                                                                 </li>
                                                                 <!--<li aria-haspopup="true" class=" ">
                                                                     <a href="{{ url('/profile/socialAccounts') }}" class="nav-link"> <i class="fa fa-facebook-official" style="color: white"></i> Social Media Accounts</a>
                                                                 </li> -->
-                                                                <li aria-haspopup="true" class=" ">
+                                                                <li aria-haspopup="true" id="nav-company-deactivate">
                                                                     <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Company</a>
                                                                 </li>
                                                               </ul>
@@ -830,7 +808,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
 
                                         </li>
-                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'opportunity') ? 'active' : '' ||
+                                        <li aria-haspopup="true" id='nav-opportunities' class="menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'opportunity') ? 'active' : '' ||
                                         (request()->segment(2) == 'explore') ? 'active' : ''}}">
                                         <?php 
                                             $user_id = Auth::id();
@@ -854,8 +832,8 @@ s0.parentNode.insertBefore(s1,s0);
                                             $getRequestReportByUser = App\RequestReport::getRequestReportByUser();
 
                                         ?>
-                                            <a href="#">
-                                                <i class=" fa fa-lightbulb-o" style="color: white"></i> Opportunities
+                                            <a href="#" >
+                                                <i  class=" fa fa-lightbulb-o" style="color: white"></i> Opportunities
                                                 <span class="arrow"></span>
                                             </a>
                                             <ul class="dropdown-menu" style="max-width: 710px">
@@ -865,13 +843,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                           <div class="col-md-3">
                                                             <h4 class="menu_title"> Opportunities </h4>
                                                               <ul class="mega-menu-submenu">
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" id="nav-my-opportunities">
                                                                         <a  href="{{ url('/opportunity') }}" class="nav-link  ">
                                                                           <i class="icon-bulb" style="color: white"></i> My Opportunities 
                                                                         </a>
                                                 </li>
 
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" id="nav-explore">
                                                                       <a href="{{ url('/opportunity/explore') }}" class="nav-link  ">
                                                                         <i class="icon-magnifier" style="color: white;"></i> Explore
                                                                       </a>
@@ -994,13 +972,13 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
 
                                         </li>
-                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown {{(request()->segment(2) == 'status') ? 'active' : '' ||
+                                        <li aria-haspopup="true" id='nav-report' class="menu-dropdown mega-menu-dropdown {{(request()->segment(2) == 'status') ? 'active' : '' ||
                                         (request()->segment(2) == 'list') ? 'active' : '' ||
                                         (request()->segment(2) == 'buyTokens') ? 'active' : '' ||
                                         (request()->segment(2) == 'requesters') ? 'active' : ''}}">
 
                                             <a href="#">
-                                                <i class="fa fa-file-text-o" style="color: white"></i> Report
+                                                <i  class="fa fa-file-text-o" style="color: white"></i> Report
                                                 <span class="arrow"></span>
                                             </a>
 
@@ -1011,17 +989,17 @@ s0.parentNode.insertBefore(s1,s0);
                                                             <div class="col-md-4">
                                                               <h4 class="menu_title"> Report </h4>
                                                                 <ul class="mega-menu-submenu">
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" id="nav-report-status">
                                                     <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: white;"></i> Report Status </a>
                                                 </li>
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" id="nav-ongoing-monitoring">
                                                     <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
                                                 </li>
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" id="nav-buy-credit">
                                                     <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Credits</a>
                                                 </li>
 
-                                                <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" id="nav-report-requester">
                                                     <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: white;"></i> Report Requesters </a>
                                                 </li>
                                                                 </ul>
