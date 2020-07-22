@@ -50,6 +50,8 @@ class fetchThomsonReutersData extends Command
         if($fp === false){
             throw new Exception('Could not open: ' . $saveTo);
         }
+        chmod('public/TS/reutersData.xml', 0777);
+        
         $ch = curl_init($fileUrl);
         curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password); 
         curl_setopt($ch, CURLOPT_FILE, $fp);

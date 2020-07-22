@@ -31,6 +31,9 @@ Auth::routes();
 Route::get('/ipn', 'IpnController@getIpnDataGet')->name('GetIpnDataGet');
 Route::post('/ipn', 'IpnController@getIpnDataPost')->name('GetIpnDataPost');
 
+//for updating tour
+Route::post('/updateTour', 'TourDetailController@updateTour')->name('updateTour');
+
 //points
 Route::get('/rewards', 'TokenConfirmController@getCreditPoints')->name('CompanyCreditPoints');
 
@@ -75,11 +78,18 @@ Route::post('/chatChangeStatus', 'ChatHistoryController@changeStatus')->name('ch
 
 //credit
 Route::post('/credit/spend', 'CreditController@getChatCredit')->name('getChatCredit');
+Route::get('/advisor', 'GamificationController@listOfAdvisers')->name('listOfAdvisers');
 
+//redeeming points
+Route::post('/redemp-rewards', 'GamificationController@redeemRewards')->name('redeemRewards');
+Route::post('/redeem-details', 'GamificationController@redeemDetails')->name('redeemDetails');
+Route::post('/redeem-approval', 'GamificationController@redeemGetApproved')->name('redeemGetApproved');
 
 //staff
 Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');
 Route::post('/thomson', 'ThomsonController@searchFound')->name('thomsonSearchFound');
+Route::post('/thomsonCompanySearch', 'ThomsonController@searchFoundCompany')->name('searchFoundCompany');
+
 Route::post('/thomsonreuters/search', 'CompanyprofileController@searchThomsonReuters')->name('searchThomsonReuters');
 Route::get('/thomson-getNationality', 'ThomsonController@getNationality')->name('getNationality');
 Route::get('/thomson-getCountryLocation', 'ThomsonController@getCountryLocation')->name('getCountryLocation');
@@ -96,6 +106,7 @@ Route::get('/homeStaff', 'HomeController@ebosStaff')->name('ebosStaff');
 Route::get('/homeAdmin', 'HomeController@adminDashboard')->name('adminDashboard');
 Route::post('/home/companyAdd', 'HomeController@addCompany')->name('homeAddCompany');
 Route::post('/home/companySelect', 'HomeController@selectCompany')->name('homeSelectCompany');
+Route::get('/homeSales', 'HomeController@ebosSales')->name('ebosSales');
 
 //consultant
 Route::get('/consultants', 'ConsultantsController@index')->name('indexConsultantFAreport');
@@ -267,6 +278,7 @@ Route::get('/reports', 'ReportsController@index')->name('reportIndex');
 Route::get('/monitoring/list', 'OngoingMonitoringController@list')->name('ongoMoniList');
 Route::get('/reports/status', 'ReportsController@list')->name('listingStatusReports');
 Route::get('/reports/buyTokens', 'ReportsController@buyTokens')->name('reportsBuyTokens');
+Route::get('/reports/buyCredits', 'ReportsController@buyTokens')->name('reportsBuyCredits');
 Route::post('/reports/topUpTokens', 'ReportsController@topUpTokens')->name('reportsTopUpTokens');
 
 //report request

@@ -205,7 +205,7 @@ class ChatHistoryController extends Controller {
                     }
 		        	$log['text'] = $text; 
 		             break;
-
+ 
 		    	 case('send'):
 					 $message = $request->input("message"); //viewer
 					 $reg_exUrl = "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";

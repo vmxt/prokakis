@@ -158,6 +158,21 @@
         .page-header .page-header-top .top-menu .navbar-nav>li.dropdown>.dropdown-menu{
             z-index: 5;
         }
+
+        .intro-tour-overlay {
+            /*display: none;*/
+            background: #666;
+            opacity: 0.5;
+            z-index: 1000;
+            min-height: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
     </style>
 
     <div class="container">
@@ -221,7 +236,7 @@
                                          <br />  
                                         <?php } ?>
 
-                                        <a href="{{ route('editProfile') }}" class="btn red-mint"
+                                        <a id="home-enhance-profile" href="{{ route('editProfile') }}" class="btn red-mint"
                                            style="margin-top: 15px;">Enhance
                                             Profile</a>
 
@@ -240,7 +255,7 @@
                 <div class="row widget-row">
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-pending" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">PENDING PROFILE REQUEST</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue fa fa-clock-o"></i>
@@ -260,7 +275,7 @@
                     </div>
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-awaiting" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">AWAITING RESPONSE</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue fa fa-reply-all"></i>
@@ -284,7 +299,7 @@
 
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-oppor" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <a href='{{  url('/opportunity/chatbox') }}'>
                                 <h4 class="widget-thumb-heading">OPPORTUNITY INBOX</h4>
                                 <div class="widget-thumb-wrap">
@@ -308,7 +323,7 @@
                 <div class="row widget-row">
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-ongoing" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">ONGOING MONITORING</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue fa fa-eye" aria-hidden="true"></i>
@@ -327,7 +342,7 @@
                     </div>
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-generated" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">GENERATED REPORT</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue icon-layers"></i>
@@ -345,7 +360,7 @@
 
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id='home-completed' class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">COMPLETED REPORT</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-blue fa fa-newspaper-o"></i>
@@ -373,7 +388,7 @@
                         <div class="portlet light h-effect">
                             <div class="card" style="overflow: hidden;">
                                 <div class="card-header" style="margin-bottom: 25px;">
-                                    <center><span class="bold uppercase font-blue">Token Credit</span>
+                                    <center><span class="bold uppercase font-blue">Credit Status</span>
                                         <hr>
                                     </center>
                                 </div>
@@ -391,9 +406,9 @@
                                             echo $consumedTokens;
                                         }
                                         ?>  </b> <br/>
-                                    Token Left <br/>
+                                    Credit Left <br/>
                                     <div class="col-sm-12">
-                                        <a href="{{ route('reportsBuyTokens') }}" class="btn red-mint"
+                                        <a id='home-topup' href="{{ route('reportsBuyCredits') }}" class="btn red-mint"
                                            style="width: 100%;"> Top Up</a>
                                     </div>
 				 	@if($c_promo == 0)   
@@ -422,7 +437,7 @@
                         if (count((array)$log) > 0) {
                         foreach ($log as $l) {
                         $date = date("F j, Y, g:i a", strtotime($l->created_at));
-                        $activity = $l->action . ' ' . $l->model;
+                       $activity = $l->action . ' at ' . $l->model.' module, '. $l->details;
                         ?>
                         <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;">
                             <li class="list-group-item">
@@ -455,7 +470,7 @@
             </div>
         </div>
     </div>
-
+ {{-- <div class='intro-tour-overlay'></div> --}}
     <script src="{{ asset('public/jq1110/jquery.min.js') }}"></script>
     <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
  <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
@@ -631,8 +646,53 @@ var tour = new Tour({
     element: "#nav-login-logout",
     title: "LOGOUT",
     content: "This will log you out of the prokakis system",
-    placement: 'left'
+    placement: 'left',
+    onNext: function(){
+        $('#nav-login-dropdown').removeClass('open');
+    },
   },  
+  {
+    element: "#home-enhance-profile",
+    title: "Enhance Profile",
+    content: "It will redirect you to a page where you can edit your company information"
+
+  },  
+  {
+    element: "#home-topup",
+    title: "Top Up",
+    content: "It will redirect you to a page where you can purchase credit",
+    placement: 'left',
+  }, 
+  {
+    element: "#home-pending",
+    title: "Pending Profile Request",
+    content: "A notification regarding profile request that needs your approval"
+  },  
+  {
+    element: "#home-awaiting",
+    title: "Awaiting Response",
+    content: "A notification regarding profile request that needs your approval"
+  },  
+  {
+    element: "#home-oppor",
+    title: "Opportunity Inbox",
+    content: "A notification for incoming message reagrding your opportunity. Clikcing this block will redirect you to the prokakis chat page"
+  },
+  {
+    element: "#home-ongoing",
+    title: "Ongoing Monitoring",
+    content: "A notification for ongoing monitoring"
+  },
+  {
+    element: "#home-generated",
+    title: "Generated Report",
+    content: "Status for total reports that being generated"
+  },
+  {
+    element: "#home-completed",
+    title: "Completed Report",
+    content: "Status for total reports that being completed"
+  },
 ],
 
   container: "body",
@@ -655,7 +715,10 @@ var tour = new Tour({
   afterSetState: function (key, value) {},
   afterRemoveState: function (key, value) {},
   onStart: function (tour) {},
-  onEnd: function (tour) {},
+  onEnd: function (tour) {
+     $('.menu-dropdown').removeClass('open');
+     updateTour('end');
+  },
   onShow: function (tour) {},
   onShown: function (tour) {},
   onHide: function (tour) {},
@@ -672,7 +735,9 @@ var tour = new Tour({
 tour.init();
 
 // Start the tour
-tour.start();
+if( $('#is_tour').val() == 1 ){
+    tour.start();
+}
 
         $(document).ready(function () {
             $(".close").click(function () {
@@ -682,6 +747,7 @@ tour.start();
             progressBarUpdate(<?php echo $completenessProfile; ?>, 100);
 
         });
+
 
 
         function rotate(element, degree) {

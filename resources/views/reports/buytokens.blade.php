@@ -137,7 +137,7 @@
 
             <li>
 
-                Buy Tokens
+                Buy Credits
 
             </li>
 
@@ -150,6 +150,12 @@
     <div class=" payment  flaticon">
         <div class="wrapper">
             <section id="pricing">
+                <div class="col-6 advFooterText2">
+                    <div class="content advFooterText report-title title-top" style="text-align: center;">
+                        <h1>GO PREMIUM!</h1>
+                    </div>
+                </div>
+
                 <div class="pricing-tables">
                     <div class="container container--mobile-mg-x-none">
                         <div class="row">
@@ -262,13 +268,7 @@
                                             </div>
                                         </div>
 
-                                        <div class=" card-buyNow-bot ">
-                                            <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="1">
-                                               <button type="submit" class="btn-subscribe" >Buy Now</button>
-                                            </form>
-                                        </div>
+                                        <div class=" card-buyNow-bot "></div>
                                     </div>
                                 </div>
                                 <div class="col-4 token-card">
@@ -283,7 +283,7 @@
                                             <i class="fa fa-info-circle fa-3x info-icon " ></i>
                                         </span>
                                         <div class="col-12 card-title-content">
-                                            <h2>Pay As You Go</h2>
+                                            <h2>PAY AS YOU GO</h2>
                                             <p>3 Credits</p>
                                             <h4>$18 One Pay</h4>
                                         </div>
@@ -371,7 +371,7 @@
                                         <div class=" card-buyNow-bot ">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="2">
+                                                <input type="hidden" name="top_up" value="1">
                                                <button type="submit" class="btn-subscribe" >Buy Now</button>
                                             </form>
                                         </div>
@@ -504,15 +504,13 @@
                                                 <p>*exclusive invite to prokakis networking events</p>
                                             </div>
                                         </div>
-
                                         <div class=" card-buyNow-bot ">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="3">
+                                                <input type="hidden" name="top_up" value="2">
                                                <button type="submit" class="btn-subscribe" >Buy Now</button>
                                             </form>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class=" col-4 token-card card-yearly el-invisible">
@@ -534,7 +532,7 @@
                                         <div class="col-12 card-buyNow">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="2">
+                                                <input type="hidden" name="top_up" value="3">
                                                <button type="submit" class="btn-subscribe" >Buy Now</button>
                                             </form>
                                         </div>
@@ -653,10 +651,14 @@
 
                             <div class="col-12 token-card-container-btn">
                                 <div class="col-4 token-card-btn">
+                                    <div class="col-12 card-buyNow-bot "></div>
+                                </div>
+
+                                <div class="col-4 token-card-btn">
                                     <div class="col-12 card-buyNow-bot ">
                                         <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                             {{ csrf_field() }}
-                                            <input type="hidden" name="top_up" value="1">
+                                            <input type="hidden" name="top_up" value="3">
                                            <button type="submit" class="btn-subscribe" >Buy Now</button>
                                         </form>
                                     </div>
@@ -666,17 +668,7 @@
                                     <div class="col-12 card-buyNow-bot ">
                                         <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                             {{ csrf_field() }}
-                                            <input type="hidden" name="top_up" value="1">
-                                           <button type="submit" class="btn-subscribe" >Buy Now</button>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div class="col-4 token-card-btn">
-                                    <div class="col-12 card-buyNow-bot ">
-                                        <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="top_up" value="1">
+                                            <input type="hidden" name="top_up" value="3">
                                            <button type="submit" class="btn-subscribe" >Buy Now</button>
                                         </form>
                                     </div>
@@ -710,7 +702,7 @@
                                     <img  class="advantages-img"  src="{{ asset('public/img-resources/premium.png') }}" width="96" alt="dollars" title="dollars">
                                     
                                     <h3 class='advance-title2'><strong>PREMIUM</strong></h3>
-                                    <p class="margin-right">Upgrade your FREE Account to PREMIUM with 1 Token for 6 months to access unlimited features in ProKakis</p>
+                                    <p class="margin-right">Upgrade your FREE Account to PREMIUM by subscribing monthly or yearly to access unlimited features in Prokakis</p>
                                 </div>
                             </div>
                             <div class="col-4 col-foot">
@@ -718,12 +710,12 @@
                                     <img class="advantages-img"    src="{{ asset('public/img-resources/report-new.png') }}" width="96" alt="Tax" title="Tax">
                                     
                                     <h3 class='advance-title3'><strong>REPORT</strong></h3>
-                                    <p class="margin-center">Add on 12 Tokens yo your account to purchase KYB Business Intelligence Report from Companies.</p>
+                                    <p class="margin-center">Add on 120 Credits to your account to purchase KYB Business Intelligence Report from Companies.</p>
                                 </div>
                             </div>
                             <div class="col-6 advFooterText2">
                                 <div class="content advFooterText" style="text-align: center;">
-                                    <p>Upgrading to Premium Account will deduct 1 Token from your account, Purchase of KYB Business Intelligence Report will deduct 12 Tokens from your account.</p>
+                                    <p>Upgrading to Premium Account will require you to subscribe on a monthly/yearly basis. Prokakis of KYB Business Intelligence Report will deduct 120 credit from your account for 1 generated report</p>
                                 </div>
                             </div>
                         </div>
@@ -764,7 +756,7 @@
                                         <div class="col-12 card-buyNow">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="1">
+                                                <input type="hidden" name="top_up" value="4">
                                                <button type="submit" class="btn-subscribe" >Buy Now</button>
                                             </form>
                                         </div>
@@ -793,7 +785,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark-2.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>ASSESS YOUR POTENTIAL STAKEHOLDER'S FINANCIAL HEALTH</p>
+                                                <p>ASSESS YOUR POTENTIAL STAKEHOLDERS FINANCIAL HEALTH</p>
                                             </div>
                                         </div>
 
@@ -809,7 +801,7 @@
                                         <div class=" card-buyNow-bot ">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="1">
+                                                <input type="hidden" name="top_up" value="4">
                                                <button type="submit" class="btn-subscribe" >Buy Now</button>
                                             </form>
                                         </div>
@@ -838,7 +830,7 @@
                                         <div class="col-12 card-buyNow">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="1">
+                                                <input type="hidden" name="top_up" value="5">
                                                <button type="submit" class="btn-subscribe" >Buy Now</button>
                                             </form>
                                         </div>
@@ -867,7 +859,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark-2.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>ASSESS YOUR POTENTIAL STAKEHOLDER'S FINANCIAL HEALTH</p>
+                                                <p>ASSESS YOUR POTENTIAL STAKEHOLDERS FINANCIAL HEALTH</p>
                                             </div>
                                         </div>
 
@@ -891,7 +883,7 @@
                                         <div class=" card-buyNow-bot ">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="2">
+                                                <input type="hidden" name="top_up" value="5">
                                                <button type="submit" class="btn-subscribe" >Buy Now</button>
                                             </form>
                                         </div>
@@ -921,7 +913,7 @@
                                         <div class="col-12 card-buyNow">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="2">
+                                                <input type="hidden" name="top_up" value="6">
                                                <button type="submit" class="btn-subscribe" >Contact Us</button>
                                             </form>
                                         </div>
@@ -950,7 +942,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark-2.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>ASSESS YOUR POTENTIAL STAKEHOLDER'S FINANCIAL HEALTH</p>
+                                                <p>ASSESS YOUR POTENTIAL STAKEHOLDERS FINANCIAL HEALTH</p>
                                             </div>
                                         </div>
 
@@ -974,8 +966,8 @@
                                         <div class=" card-buyNow-bot ">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
-                                                <input type="hidden" name="top_up" value="2">
-                                               <button type="submit" class="btn-subscribe" >Buy Now</button>
+                                                <input type="hidden" name="top_up" value="6">
+                                               <button type="submit" class="btn-subscribe" >Contact Us</button>
                                             </form>
                                         </div>
 

@@ -572,9 +572,28 @@ s0.parentNode.insertBefore(s1,s0);
                                                   <a href="{{ route('CompanyCreditPoints') }}" >
                                                       <i class="fa fa-trophy"></i> Rewards </a>
                                               </li>
-
-
+                                                
                                                 <li class="divider"> </li>
+                                                <li id='nav-login-tour'>
+                                                  <?php 
+                                                        $tour = App\TourDetail::where('user_id',  $user_id)->first();
+                                                        if(request()->segment(1) == 'home' ){
+                                                            $scope = 'home';
+                                                        }
+                                                  ?>
+                                                  @if( strpos($tour->scope , $scope) !== false )
+                                                    <input type="hidden" id="is_tour" value="0">
+                                                    <a onclick='updateTour()' href="#">
+                                                        <i  class="fa fa-toggle-on"></i> Tour (OFF)
+                                                    </a>
+                                                  @else
+                                                   <input type="hidden" id="is_tour" value="1">
+                                                   <a onclick='updateTour()' href="#">
+                                                        <i  class="fa fa-toggle-off"></i> Tour (ON)
+                                                    </a>
+                                                  @endif
+                                                </li>
+
                                                 <li id='nav-login-logout'>
                                                     <a href="{{ url('logout') }}">
                                                         <i class="icon-building-o"></i> Log Out </a>
@@ -1590,6 +1609,32 @@ s0.parentNode.insertBefore(s1,s0);
         <!-- END NEW SCRIPTS FOR FIXING OF MENU BAR -->
 
 <script>
+
+function updateTour(is_end = 'none'){
+  formData = new FormData();
+  formData.append("auth_id", {{ Auth::id() }} );
+  formData.append("scope", 'home');
+  formData.append("is_end", is_end);
+
+  $.ajax({
+      url: "{{ route('updateTour') }}",
+      type: "POST",
+      data: formData,
+      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      processData: false,
+      contentType: false,
+
+      success: function (data) {
+        console.log(data.error);
+        if(is_end ==  'none'){
+          location.reload();
+        }
+// alert("weee");
+        // console.log(data);
+      }
+  });
+}
+
  function checkAlertByPremiumMenu(companyOpp, companyViewer)
         {   
             swal({
