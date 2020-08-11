@@ -688,7 +688,7 @@ class OpportunityController extends Controller {
 		$build = null;
 		$sell = null;
 		$buy = null;
-
+		$result_filter = false;
 		if(isset($request['hashTag'])){
 		  $hashT=$request['hashTag'];
 
@@ -710,7 +710,7 @@ class OpportunityController extends Controller {
 
 		$requestReport = new RequestReport;
 
-		return view("oppor.explore", compact('build', 'sell', 'buy', 'requestReport', 'hashT'));
+		return view("oppor.explore", compact('build', 'sell', 'buy', 'requestReport', 'hashT','result_filter'));
 		} else {
 			return redirect("/opportunity/explore");
 		}

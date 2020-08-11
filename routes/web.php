@@ -37,7 +37,13 @@ Route::post('/updateTour', 'TourDetailController@updateTour')->name('updateTour'
 //points
 Route::get('/rewards', 'TokenConfirmController@getCreditPoints')->name('CompanyCreditPoints');
 
+Route::get('/api/v1/get-opportunities/{accessToken}', 'ApiTokenController@getOpportunities')->name('GetOpportunities');
+
+Route::get('/api/v1/gettoken-transaction/{url}', 'ApiTokenController@validateTransactionUrl')->name('ValidateTransactionUrl');
+Route::get('/api/v1/token-validate/{accessToken}', 'ApiTokenController@validateAccessToken')->name('ValidateToken');
 Route::get('/api/v1/report-req', 'ReferralController@apiRequestReportER')->name('apiRequestReportER');
+Route::get('/api/v1/get-opp/', 'ApiTokenController@getOpportunitiesFree')->name('GetOpportunitiesFree');
+Route::get('/api/v1/top-advisers/', 'ApiTokenController@getTopAdvisers')->name('GetTopAdvisers');
 
 Route::post('/accounts-switch', 'HomeController@switchAccount')->name('switchAccount');
 Route::get('/countryListings', 'HomeController@getCountries')->name('getCountryList');

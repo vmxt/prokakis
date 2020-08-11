@@ -576,6 +576,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li class="divider"> </li>
                                                 <li id='nav-login-tour'>
                                                   <?php 
+                                                        $scope = "-";
                                                         $tour = App\TourDetail::where('user_id',  $user_id)->first();
                                                         if(request()->segment(1) == 'home' ){
                                                             $scope = 'home';
