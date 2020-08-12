@@ -910,7 +910,7 @@
                                             <br>
                                             <h4>Get in touch</h4>
                                         </div>
-                                        <div class="col-12 card-buyNow">
+                                        <div class="col-12 card-buyNow" style=" margin-left: -8px;">
                                             <form id="top1_form" method="POST" action="{{ route('reportsTopUpTokens') }}">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="top_up" value="6">

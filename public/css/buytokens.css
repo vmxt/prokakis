@@ -361,13 +361,13 @@ div.flaticon .btn-subscribe:hover {
 }
 
 .bg-image-2 .btn-subscribe{
-    color: #FF914D !important;
+    color: #24B3FA !important;
     background-color: #FFFFFF !important;
 }
 
 .desc-2 .card-buyNow-bot .btn-subscribe {
     color: #FFFFFF !important;
-    background-color: #FFBD59 !important;
+    background-color: #24B3FA !important;
 }
 
 .btn-subscribe, .modal .btn, button, input[type=submit] {
@@ -516,7 +516,14 @@ div.payment .advantages-block p {
 }
 
 .report-title h1{
-    color: #FF914D;
+    color: #24B3FA;
+    font-size: 4em;
+    font-weight: 600;
+}
+
+.title-top h1{
+    color: #3165A0;
+    font-weight: 600;
 }
 
 .report-title {
@@ -530,11 +537,13 @@ div.payment .advantages-block p {
 
 
 .token-card-heading h2 {
-    color: #FF914D;
+    color: #24B3FA;
     text-align: center;
     padding: 20px;
     font-size: 40px;
     font-weight: 600;
+    word-wrap: break-word;
+
 }
 
 
@@ -610,6 +619,14 @@ div.payment .advantages-block p {
 
 }
 
+@media (max-width: 1225px){
+    .bg-image-2{
+        height: 400px !important;
+    }
+    .token-card-heading h2 {
+        font-size: 33px;
+    }
+}
 
 @media  (min-width:960px) and (max-width:1199px) {
     .arrow_right{
@@ -632,7 +649,12 @@ div.payment .advantages-block p {
 }
 
 @media (max-width: 1025px){
-    .token-card-title{
+
+    .token-card-heading h2 {
+        font-size: 30px;
+    }
+
+    .bg-image-1{
         height: 330px !important;
     }
 
@@ -652,13 +674,30 @@ div.payment .advantages-block p {
 }
 
 @media screen and (max-width: 960px){
+    .col-4.token-card:first-child .desc-1 {
+        margin-bottom: 100px;
+    }
+
+    .col-4.token-card:first-child .desc-2 {
+        padding-bottom: 150px;
+    }
+
+    .report-title h1{
+        font-size: 7vw;
+    }
+
     .token-card{
         width: 46%;
+        margin-bottom: 40px;
     }
 
     .token-card-desc {
         height: auto !important;
         margin-bottom: 10px;
+    }
+
+    .desc-2 {
+        padding-bottom: 110px;
     }
 
     .best-icon {
@@ -760,6 +799,10 @@ div.payment .advantages-block p {
     }
     .token-card {
         margin-bottom: 40px;
+    }
+
+    .col-4.token-card:first-child .desc-2 {
+        padding-bottom: 170px;
     }
 }
 
@@ -1136,9 +1179,9 @@ div.payment .advantages-block p {
         height: 190px;
     }
 
-    .token-card-title {
+/*    .token-card-title {
         height: 360px !important;
-    }
+    }*/
 }
 
 @media  (min-width: 961px){
@@ -1252,7 +1295,8 @@ hr.top-line {
     background-size: cover;
     position: relative;
     width: 100%;
-    padding: 60px;
+    padding-top: 90px;
+    /*padding: 60px;*/
     /*border:5px solid #021a40;*/
 
 
@@ -1267,13 +1311,13 @@ hr.top-line {
 }
 
 .desc-1{
-    height: 50em;
+    height: 55em;
     /*width: 400px;*/
     /*padding-right: 75px;*/
 }
 
 .desc-2{
-    height: 30em;
+    height: 33em;
     position: relative;
     /*width: 400px;*/
     /*padding-right: 75px;*/
@@ -1353,9 +1397,14 @@ hr.top-line {
 }
 
 .card-buyNow{
-    margin: 0 auto;
+    /*margin: 0 auto;
     text-align: center;
-    margin-top: 25px;
+    margin-top: 25px;*/
+
+    bottom: 60px;
+    position: absolute;
+    left: 80px;
+    text-align: center;
 }
 
 .card-buyNow-bot{
@@ -1374,7 +1423,7 @@ hr.top-line {
 }
 
 .check-desc {
-    /*padding-right: 80px;*/
+    padding-right: 15px;
     margin-bottom: 10px;
 }
 

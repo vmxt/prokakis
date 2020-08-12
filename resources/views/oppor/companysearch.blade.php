@@ -2,971 +2,1338 @@
 
 
 
-
-
-
-
 @section('content')
 
-
-
-
-
-    <script src="{{ asset('public/jq-autocomplete/jquery-1.11.2.min.js') }}"></script>
-
-    <script src="{{ asset('public/jq-autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
-
-    <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css"/>
-
-    <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet"
-
-          type="text/css"/>
-
-
-
-
-
-    <!--<link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">-->
-
-
-
-
-
-
-
-    <style>
-
-
-
-        html, body {
-
-
-
-            width: 100%;
-
-
-
-            height: 100%;
-
-
-
-            margin: 0px;
-
-
-
-            padding: 0px;
-
-
-
-            overflow-x: hidden;
-
-            font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
-
-
-
-        }
-
-
-
-        .niceDisplay {
-
-
-
-            font-family: 'PT Sans Narrow', sans-serif;
-
-
-
-            background-color: white;
-
-
-
-            padding: 10px;
-
-
-
-
-
-            border-radius: 3px;
-
-
-
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-
-
-
-        }
-
-
-
-
-
-        .btn-x3 {
-
-
-
-            font-size: 15px;
-
-
-
-            border-radius: 5px;
-
-
-
-            width: 25%;
-
-
-
-            background-color: orangered;
-
-
-
-        }
-
-
-
-        .hr-sect {
-
-            display: flex;
-
-            flex-basis: 100%;
-
-            align-items: center;
-
-            color: rgba(0, 0, 0, 0.35);
-
-            margin: 8px 0px;
-
-        }
-
-
-
-        .hr-sect::before,
-
-        .hr-sect::after {
-
-            content: "";
-
-            flex-grow: 1;
-
-            background: rgba(0, 0, 0, 0.35);
-
-            height: 1px;
-
-            font-size: 0px;
-
-            line-height: 0px;
-
-            margin: 0px 8px;
-
-        }
-
-
-
-
-
-        /* CSS FOR NEW LAYOUT */
-
-        .card-img {
-
-            background-position: center; /* Center the image */
-
-            background-repeat: no-repeat; /* Do not repeat the image */
-
-            background-size: cover; /* Resize the background image to cover the entire container */
-
-            background-color: #eee;
-
-            padding-top: 100px;
-
-        }
-
-
-
-        .setBackground {
-
-            padding-bottom: 0.1px;
-
-        }
-
-
-
-        .card-footer {
-
-            margin-left: 5px;
-
-            text-align: center;
-
-        }
-
-
-
-        .table-scrollable {
-
-            margin: 0px;
-
-        !important;
-
-        }
-
-
-
-        .profile-img a {
-
-            bottom: 10px;
-
-            box-shadow: none;
-
-            display: block;
-
-            left: 15px;
-
-            padding: 1px;
-
-            position: absolute;
-
-            height: 160px;
-
-            width: 160px;
-
-            z-index: 9;
-
-            text-align: center;
-
-            margin-left: 10px;
-
-        }
-
-
-
-        .fb-profile-block-menu {
-
-            border-radius: 0 0 3px 3px;
-
-        }
-
-
-
-
-
-        .fb-profile-block-thumb {
-
-            display: block;
-
-            height: 100px;
-
-            position: relative;
-
-            text-decoration: none;
-
-            background-color: #3f92c3;
-
-        }
-
-
-
-        .thumbnail {
-
-            padding: 0px !important;
-
-            margin-bottom: 0px;
-
-        }
-
-
-
-        @media (max-width: 480px) and (min-width: 320px) {
-
-            .brand {
-
-                min-height: 120px;
-
-                background-color: #e5e5e5;
-
-            !important;
-
-            }
-
-
-
-            .card-body {
-
-                margin-top: 75px;
-
-            }
-
-
-
-            .profile-img a {
-
-                margin-left: 65px;
-
-            }
-
-
-
-            h3 {
-
-                margin-left: 65px;
-
-            }
-
-
-
-        }
-
-
-
-
-
-        .profile-img img {
-
-            background-color: #fff;
-
-            border-radius: 2px;
-
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
-
-            height: 158px;
-
-            padding: 5px;
-
-            width: 158px;
-
-            margin-top: 80px;
-
-        }
-
-
-
-        .table-scrollable {
-
-        !important;
-
-            border: 0px none;
-
-        !important;
-
-        }
-
-
-
-
-
-        .card-columns1 { /* Masonry container */
-
-            column-count: 3;
-
-            column-gap: 1em;
-
-        }
-
-
-
-        .card-columns1 > .card { /* Masonry bricks or child elements */
-
-            background-color: #eee;
-
-            display: inline-block;
-
-            margin: 0 0 1em;
-
-            width: 100%;
-
-        }
-
-
-
-
-
-        /* Masonry on large screens */
-
-        @media only screen and (min-width: 1024px) {
-
-            .card-columns1{
-
-                column-count: 3;
-
-            }
-
-        }
-
-
-
-        /* Masonry on medium-sized screens */
-
-        @media only screen and (max-width: 1023px) and (min-width: 768px) {
-
-            .card-columns1{
-
-                column-count: 2;
-
-            }
-
-        }
-
-
-
-        /* Masonry on small screens */
-
-        @media only screen and (max-width: 767px) and (min-width: 400px) {
-
-            .card-columns1{
-
-                column-count: 1;
-
-            }
-
-        }
-
-
-
-    </style>
-
-    <div class="container">
-
+<script src="{{ asset('public/jq-autocomplete/jquery-1.11.2.min.js') }}"></script>
+<script src="{{ asset('public/jq-autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
+<link href="{{ asset('public/jq-autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('public/jq-autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet"
+      type="text/css"/>
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<style>
+    #chat-wrap {
+      background-image: url("{{ asset('public/img-resources/chat-backdrop.png') }}");
+      background-position: bottom;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+
+    .container-grid .blog-posts .row {
+        display: unset !important;
+    }
+
+    .container-grid .blog-posts .post .image{
+        width: 20% !important;
+    }
+
+    .container-grid .blog-posts .post .content{
+        width: 65% !important;
+        height: auto !important;
+        padding-left: 100px !important;
+    }
+
+    .hr_title{
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+</style>
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
+
+
+    <div class="container container-grid">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
-
             <li>
-
                 <a href="{{ url('/home') }}">Home</a>
-
                 <i class="fa fa-circle"></i>
-
             </li>
-
             <li>
-
-                <a href="#">Company Search</a>
-
+                <a href="#">Opportunity</a>
                 <i class="fa fa-circle"></i>
-
             </li>
-
             <li>
-
-                Search Result
-
+                Explore Opportunity
+                <i class="fa fa-circle"></i>
             </li>
-
+            <?php if(isset($hashT)){ ?>
+              <li>
+                  <b>#<?php echo $hashT; ?> </b>
+              </li>
+            <?php } ?>
         </ul>
-
-      
-
-
-
-            @if (session('message'))
-
-                <div class="alert alert-danger">
-
-                    {{ session('message') }}
-
-                </div>
-
-            @endif
-
-
-
-            @if (session('status'))
-
-                <div class="alert alert-success">
-
-                    {{ session('status') }}
-
-                </div>
-
-            @endif
-
-
-
-
-
-           <!-- START BUILD OPPORTUNITY -->
-
-            <div class="hr-sect" style="margin-top: 50px; margin-bottom: 25px;">Search by company</div>
-
-            <div class="card-columns1">
-
-                <?php
-
-                $i = 0;
-
-                foreach($companySearch as $item)
-
-                {
-
-                $d_status = App\CompanyProfile::getDeactivateInfo($item->id);    
-
-
-
-                if($d_status == true){
-
-
-
-                   $company = App\CompanyProfile::find($item->id);
-
-                
-
-                    $avatar = \App\UploadImages::where('company_id', $item->id)->where('file_category', 'PROFILE_AVATAR')->orderBy('id', 'desc')->first();
-
-                    $avat = '';
-
-                    if (!isset($avatar->file_name)) {
-
-                        $avat = 'robot.jpg';
-
-                    } else {
-
-                        $avat = $avatar->file_name;
-
-                    }
-
-                    // echo $item->view_type;
-
-                    ?>
-
-                    <div class="card">
-
-
-
-                    <div class="thumbnail" style="margin-bottom: 5px; background-color:#EAFAF1">
-
-
-
-                        <?php //if( $item->view_type == 2 ){ ?>
-
-                        <img class="card-img-top img-circle" alt="profile image" style="border: saddlebrown"
-
-                             src="{{ asset('public/images/') }}/<?php echo $avat  ?>">
-
-                        <?php //} ?>
-
-
-
-                        <div class="caption">
-
-                            <?php
-
-
-
-                            //f ($item->view_type == 2) {
-
-                                echo '<h3>' . $company->company_name . '</h3>';
-
-                            //} else {
-
-                             //   echo '<h5>' . $item->relevant_describing_partner . '</h5>';
-
-                            //}
-
-
-
-                            ?>
-
+        <div class="col-md-12" >
+            <div class="form-group">
+                <div class="row">
+                    <div class="col col-sm-6">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" id="keywordSearch"
+                                   placeholder="Filter by keywords"
+                                   value="<?php if (isset($selectedKeyword)) { echo $selectedKeyword; }?>">
+                            <span class="input-group-btn"><button class="btn green" type="button"
+                                                                  id="filterKeywords">FILTER</button></span>
                         </div>
-
-
-
-                        <div class="table-scrollable">
-
-                            <table class="table table-condensed table-hover">
-
-                                <tbody>
-
-                                <tr>
-
-                                    <td><b> Ratings </b></td>
-
-                                    <td>
-
-                                        <?php
-
-
-
-                                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-
-                                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-
-                                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-
-                                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-
-                                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
-
-
-
-                                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-
-                                            $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-
-
-
-
-
-                                        if($ratingScore < 25){
-
-                                        ?>
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p1.png') }}">
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p1.png') }}">
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p1.png') }}">
-
-
-
-                                        <?php }elseif( $ratingScore >= 26 && $ratingScore <= 50){ ?>
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p2.png') }}">
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p1.png') }}">
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p1.png') }}">
-
-
-
-                                        <?php }elseif( $ratingScore >= 51 && $ratingScore <= 75){  ?>
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p2.png') }}">
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p2.png') }}">
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p1.png') }}">
-
-
-
-                                        <?php }elseif( $ratingScore >= 76 && $ratingScore <= 100){  ?>
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p2.png') }}">
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p2.png') }}">
-
-                                        <img width="30" height="32"
-
-                                             src="{{  asset('public/stars/p2.png') }}">
-
-
-
-                                        <?php } ?>
-
-                                        <br/>
-
-                                        <?php echo $ratingScore . '%'; ?>
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td><b>Description</b></td>
-
-
-
-                                    <td>
-
-                                    <?php echo $item->description; ?><br>
-
-                                        
-
-                                    </td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td><b>Industry Type </b></td>
-
-                                    <td> <?php echo $item->inddustry; ?></td>
-
-                                </tr>
-
-                                <tr>
-
-                                    <td><b>Business Type</b></td>
-
-                                    <td><?php echo $item->business_type; ?></td>
-
-                                </tr>
-
-
-
-                                <tr>
-
-                                    <td><b>Country</b></td>
-
-                                    <td><?php echo $item->primary_country; ?></td>
-
-                                </tr>
-
-
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-                        <div class="card-footer" style="text-align: center"><p>
-
-
-
-                                <a onclick="processReq('company', '<?php echo $item->id; ?>');"
-
-                                   class="btn blue"><span class="fa fa-check"></span> Interested</a>
-
-                                <?php  $viewer = base64_encode('viewer' . $company->id);  ?>
-
-
-
-                                <!--            
-
-                                <?php //if($item->view_type == 2){ ?>
-
-                                <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$company->id) }}"
-
-                                   class="btn default"><span class="fa fa-credit-card"></span> View Profile</a>
-
-                                <?php //} else { ?>
-
-                                <a href="#"
-
-                                   class="btn default"><span class="fa fa-credit-card"></span> View Profile</a>
-
-                                <?php //} ?>
-
-                                -->
-
-
-
-                            </p></div>
-
                     </div>
-
-
-
+                    <div class="col col-sm-6">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" id="keywordCountry"
+                                   placeholder="Filter by country"
+                                   value="<?php if (isset($selectedCountry)) { echo $selectedCountry; }?>">
+                            <span class="input-group-btn"><button class="btn green" type="button"
+                                                                  id="filterCountry">FILTER</button></span>
+                        </div>
+                    </div>
                 </div>
-
-                <?php  } 
-
-
-
-                }
-
-
-
-                ?>
-
             </div>
 
-            <!-- END BUILD OPPORTUNITY -->
+            @if (session('message'))
+                <div class="alert alert-danger">
+                    {{ session('message') }}
+                </div>
+            @endif
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+<?php 
+    $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
+    $tokenStock = App\SpentTokens::validateTokenStocks($requestor_id);
+    //echo $tokenStock;
+?>
+
+        <div class="row">
+            <!-- START Search Company-->
+            <div class="hr-sect opp_type" >Search by Company</div>
+                <div class='blog-posts'>
+                <?php       
+                    $i = 1;
+                    $build = [];
+                    foreach ($companySearch as $item): 
+                       //dd($item);
+                            $opportunity_type = 'build';
+                            $d_status = App\CompanyProfile::getDeactivateInfo($item->id);
+                            $company = App\CompanyProfile::find($item->id);
+                            $provider_id = $company->id;
+                    if ( $company->count() > 0 && $d_status == true):
+                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                            ->orderBy('id', 'desc')
+                            ->first();
+                        $avat = '';
+                        if (!isset($avatar->file_name)) 
+                            $avat = asset('public/images/industry')."/guest.png";
+                        else 
+                            $avat = asset('public/images')."/".$avatar->file_name;
+                        
+                        $usr = App\User::find($company->user_id);
+                        $accStatus = 'free';
+                        if ($usr->user_type == 1) 
+                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
+                                $accStatus = 'premium';   
+
+                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+
+                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+                       
+                       if(file_exists($avat) ){
+                            $avatarUrl = $avat;
+                       }else{
+                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                       }
+                    ?>
+        
+        <!-- new code start -->
+        @if($i == 1)
+            <div class='row cf list-row-build '>
+        @endif
+        @if($i <= 2)
+              <div class='post build-list'>
+                <a href='#'>
+                    <div class='image' style='background-image: url( {{ $avatarUrl }} ), url({{ asset('public/img-resources/chat-backdrop.png') }})'>
+
+                @if($accStatus == 'premium')
+                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
+                @endif
+                    </div>
+                  <div class='content'>
+                    <h1 class='upperText' title="{{ $item->company_name }}"> <?= $item->company_name != "" ? $item->company_name : 'Providing Business Valuation' ?></h1>
+                    
+                    <div class="hr-sect"><strong class="hr_title">Description</strong></div>
+                         <?php echo $item->description?$item->description: "N/A" ; ?><br>
+
+                    <div class="hr-sect"><strong class="hr_title">Industry Type</strong></div>
+                         <?php echo $item->description?$item->description: "N/A" ; ?><br>
+        
+
+                    <div class="hr-sect"><strong class="hr_title">Rating</strong></div>
+                    <div style="display: flex;">
+                        <div>
+                            @if($ratingScore < 25)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                            @endif
+                        </div>
+
+                        <div class="rating_score">
+                            <h3> {{ $ratingScore }}% </h3>
+                        </div>
+                    </div>
+                    <div class="learn_more" style="float: right" >
+                           <button onclick="showModalContent('build','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                    </div>
+                    <div class="bottom-space" >
+                        &nbsp;
+                    </div>
+                  </div>
+                </a>
+              </div>
+        @endif
+        @if($i == 2)
+            </div>
+        @endif
+        <!-- new code end -->
+<?php      
+        if($i == 2){
+            $i = 0;
+        }
+         $i++; ?>
+
+         {{-- Start modal click for build --}}
+    <div 
+        class="modal fade modal_oppoBox" 
+        id="opporBuildModal_{{ $item->id }}" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="opporDetailsContentModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
+                </div>
+        <div class="modal-body">
+
+            
+            <div >
+                <span class="title-text">
+                    <h4><strong> Ratings </strong></h4>
+                </span>
+                <div class="content-text" style="display: flex;">
+                <?php
+                                    if ($ratingScore < 25) {
+                                        ?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+
+                                            <?php }?>
+                                       
+                    <h2 class="rating_score"  > {{ $ratingScore }} % </h2>
+                </div>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> This Company is seeking </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                        <ul class="info_list lg-link">
+                            @if($item->business_goal)
+                            <li>{{ $item->business_goal }}</li>
+                            @endif
+                            @if($item->audience_target)
+                            <li>{{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
+                            <li>
+                <?php 
+                    $string = explode(",",$item->ideal_partner_base);
+                    $xx=0;
+                    foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val;
+                            $xx++;
+                            if($xx != count($string)){
+                                echo ", ";
+                            }
+                        endif;
+                    endforeach; ?>
+                            </li>
+                            @endif
+                        </ul>
+                    </h4>    
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Expectation </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity.
+                        
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Industry Keyword </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                      $string = explode(",",$item->ideal_partner_business);
+                      $xx=0;
+                      foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val." ";
+                            $xx++;
+                            if($xx != count($string)){
+                                echo ",";
+                            }
+                        endif;
+                      endforeach; ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Why partner with this company?  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->why_partner_goal }} </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Relevant industry or products  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                $rr = explode(",",$item->relevant_describing_partner);
+                if(count((array) $rr) > 0):
+                  foreach($rr as $h):
+                    if(trim($h) != ''){
+                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                    }
+                  endforeach;
+                endif;
+                ?>
+                    </h4>
+                </span>
+                <hr class="hr-sect">
+            </div> 
+
+            <div>
+              @if($tokenStock >= 12)
+                <a onclick="processReq('build', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @else
+                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @endif
+
+                <?php 
+                $viewer = base64_encode('viewer' . $company->id);
+                $token = base64_encode(date('YmdHis'));
+                ?>
+
+                {{-- Requestor = Non-premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
+                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @else
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @endif
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium 
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif --}}
+
+                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
+                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @else
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @endif
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                @endif
+
+                @if(App\User::getEBossStaffTrue(Auth::id()) == true)
+                  <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                   class="btn btn-danger btn_options"
+                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
+                @endif
+                <hr class="hr-sect">
+            </div> 
+
+      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- END MODAL -->
+<?php 
+    endif;
+    endforeach;  ?>
+    </div>
+      <!-- END BUILD OPPORTUNITY -->
+
+   
+</div></div>
+</div><!-- end row -->
+      </div>
+        </div>
+    </div>
 
 
 
+{{-- Start Connect Me Modal --}}
+<div 
+  class="modal fade modal_oppoBox" 
+  id="inboxMeModal" 
+  tabindex="-1" role="dialog" 
+  aria-labelledby="Connect Me Modal" 
+  aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header chat-header">
+            <img  id='chatAvatar'>
+            <h2 class='chatOppTitle'></h2>
+            <button type="button" class="close chat-close" data-dismiss="modal" aria-hidden="true">&times;</button>
          
+        </div>
+        <div class="modal-body">
 
+          <div id="page-wrap">
+    
+              
+              <p id="name-area"></p>
+              
+              <div id="chat-wrap"><div id="chat-area"></div></div>
 
+            <div class="message-input">
+                <div class="wrap">
+                    <input id="sendie" type="text" placeholder="Write your message here..."  >
+                    {{-- <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="2" ></textarea> --}}
+                    <button title="Send" id='sendMessage' class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                </div>
+            </div>
+
+              <div class="send-msg-container" style="display: none;">
+                <form id="send-message-area">
+                    <input type="hidden" id="chat-companyViewer">
+                    <input type="hidden" id="chat-companyOpp">
+                    <input type="hidden" id="chat-oppId">
+                    <input type="hidden" id="chat-oppType">
+                </form>
+              </div>
+        </div>
+            
 
           
 
-        </div>
-
-    </div>
-
-
-
-
-
-    <div class="container">
-
-        <div class="card-columns1">
-
-
-
         
-
         </div>
-
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default chat-close" data-dismiss="modal">Close</button>
+          </div>
     </div>
+  </div>
+</div>
+<!-- END Connect Me MODAL -->
 
 
-
+    <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
 
+
+        var builCount = $('.build-list').length;
+        if(builCount%2 != 0 ){
+            $('.list-row-build').last().append('<div class="post showLastCard" ></div>');
+        }
+
+        var sellCount = $('.sell-list').length;
+        if(sellCount%2 != 0 ){
+            $('.list-row-sell').last().append('<div class="post showLastCard" ></div>');
+        }
+
+        var buyCount = $('.buy-list').length;
+        if(buyCount%2 != 0 ){
+            $('.list-row-buy').last().append('<div class="post showLastCard" ></div>');
+        }
+
+        function showModalContent(type, id){
+            if(type == 'build'){
+                $("#opporBuildModal_"+id).modal();
+            }
+            if(type == 'sell'){
+                $("#opporSellModal_"+id).modal();
+            }
+            if(type == 'buy'){
+                $("#opporBuyModal_"+id).modal();
+            }
+        }
+
         $(document).ready(function () {
-
-            
-
-            $("#filterKeywords").click(function () {
-
-                var keyS = $("#keywordSearch").val();
-
-                var getUrl = window.location;
-
-                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-
-                if (keyS != "") {
-
-                    window.location.href = baseUrl + "/exploreKey/" + keyS;
-
-                } else {
-
-                    window.location.href = baseUrl + "/explore";
-
-                }
-
+            $('.chat-close').click(function(){
+                clearInterval(chatInterval);
             });
 
+            $('#inboxMeModal').on('hide.bs.modal', function (e) {
+                clearInterval(chatInterval);
+            })
 
+            $("#opporDetailsContentModal").modal();
+            $("#filterKeywords").click(function () {
+                var keyS = $("#keywordSearch").val();
+                var getUrl = window.location;
+                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                if (keyS != "") {
+                    window.location.href = baseUrl + "/opportunity/exploreKey/" + keyS;
+                } else {
+                    window.location.href = baseUrl + "/opportunity/explore";
+                }
+            });
 
             $("#filterCountry").click(function () {
-
                 var keyS = $("#keywordCountry").val();
-
                 var getUrl = window.location;
-
                 var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-
                 if (keyS != "") {
+                    window.location.href = baseUrl + "/opportunity/exploreCountry/" + keyS;
+                } else {
+                    window.location.href = baseUrl + "/opportunity/explore";
+                }
+            });
+        });
 
-                    window.location.href = baseUrl + "/exploreCountry/" + keyS;
+
+        function processReq(typeOpp, fkID) {
+            var getUrl = window.location;
+            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+            window.open(baseUrl + '/request/' + typeOpp + '/' + fkID, '_blank');
+        }
+
+
+        var options = {
+            url: "{{ url('public/json/keywords.json') }}",
+            getValue: "keyword",
+            list: {
+                match: {
+                    enabled: true
+                }
+            }
+        };
+        $("#keywordSearch").easyAutocomplete(options);
+
+
+        var optionsCountry = {
+            url: "{{ route('getCountryList') }}",
+            getValue: "country",
+            list: {
+                match: {
+                    enabled: true
+                }
+            }
+        };
+        $("#keywordCountry").easyAutocomplete(optionsCountry);
+
+        function stockTokenInfo(stockToken){
+          $('.modal_oppoBox').modal('hide');
+          if(stockToken)
+            stockToken = stockToken;
+          else
+            stockToken = 0;
+
+          swal({
+              title: 'Unsufficient token. You only have '+stockToken+' token in your account',
+              text:  'This action requires at least 12 token. We will redirect you to Buy token|Credit page and find options suitable on what you need',
+              icon:  'warning'
+            }).then(function() {
+                window.location.href = "{{ route('reportsBuyTokens') }}";
+            });
+        }
+        
+        function checkPremium(companyID, ptype, oppId, linker){
+            swal({
+                title: "Are you sure to open this profile, published Anonymously? ", 
+                text: "You are about to open a profile using your premuim account which will cost you 1 token.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                  swal({
+                    title: 'Premium Account',
+                    text:  'Done on setting 1 token to spent with premium account.',
+                    icon:  'success'
+                  }).then(function() {
+
+                    formData = new FormData();
+
+                    formData.append("companyID", companyID);
+                    formData.append("ptype", ptype);
+                    formData.append("oppId", oppId);
+                    
+                        $.ajax({
+                            url: "{{ route('PremiumPurchase') }}",
+                            type: "POST",
+                            data: formData,
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            processData: false,
+                            contentType: false,
+
+                            success: function (data) {
+                                window.open(data, '_blank');
+                                document.location = '{{ url("opportunity/explore") }}';
+                                
+                              
+                            }
+                        });
+                   
+
+                  });
+                } else {
+                  swal("Cancelled", "Opening a premium data was cancelled :)", "error");
+                }
+              });
+
+
+        }
+
+        function nonPremiumToNonPremium(companyOpp,companyViewer,templateType)
+        {
+            $('.modal_oppoBox').modal('hide');
+              swal({
+                  title:"This requires premium account to open this profile.", 
+                  text: "Are you sure to proceed?  Because we will send an email notification to this company and redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                  icon: "warning",
+                  buttons: [
+                    'No, cancel it!',
+                    'Yes, I am sure!'
+                  ],
+                  dangerMode: true,
+  
+                }).then(function(isConfirm) {
+  
+                  if (isConfirm) {
+  
+                      formData = new FormData();
+                      formData.append("companyOpp", companyOpp);
+                      formData.append("companyViewer", companyViewer);
+                      formData.append("templateType", templateType);
+                      $.ajax({
+                          url: "{{ route('emailNotification') }}",
+                          type: "POST",
+                          async: true,
+                          data: formData,
+                          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                          processData: false,
+                          contentType: false,
+  
+                          success: function (data) {
+                              swal({
+                                title: 'Email notification will be sent to this profile. You need to re-fill token to become a Premium Account',
+                                text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                                icon:  'success'
+                              }).then(function() {
+                                     //document.location = '{{ url("reports/buyTokens") }}';
+                                  document.location = '{{ url("/home") }}';
+                              
+                              });
+                          }
+                      });
+  
+                  } else {
+                      swal("Cancelled", "To become premium account was cancelled :)", "error");
+                  }
+                });
+  
+        }
+  
+        function premiumToNonPremium(companyOpp,companyViewer,templateType)
+        {
+            $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"The provider of this opportunity is non-premium.", 
+                text: "Are you sure to proceed? Because we will send an email notification to this company and encourage them to upgrade thier account to premium.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    formData.append("templateType", templateType);
+                    $.ajax({
+                        url: "{{ route('emailNotification') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            swal({
+                              title: 'Email notification succesfully sent to the opportunity provider.',
+                              text:  'You may drop a message directly to the provider through "Connect Me"',
+                              icon:  'success'
+                            }).then(function() {
+                                   //document.location = '{{ url("reports/buyTokens") }}';
+                                //document.location = '{{ url("/home") }}';
+                            
+                            });
+                        }
+                    });
 
                 } else {
+                    swal("Cancelled", "Notifying the opportunity provider was cancelled", "error");
+                }
+              });
+        }
+          
+        function nonPremiumToPremium(companyOpp,companyViewer,templateType)
+        {
+          $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"This requires premium account to open this profile.", 
+                text: "Are you sure to proceed?  Because we will send an email notification to this profile and redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
 
-                    window.location.href = baseUrl + "/explore";
+              }).then(function(isConfirm) {
 
+                if (isConfirm) {
+
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    formData.append("templateType", templateType);
+                    $.ajax({
+                        url: "{{ route('emailNotification') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            swal({
+                              title: 'Email notification will be sent to this profile. You need to re-fill token to become a Premium Account',
+                              text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                              icon:  'success'
+                            }).then(function() {
+                                   //document.location = '{{ url("reports/buyTokens") }}';
+                                document.location = '{{ url("/home") }}';
+                            
+                            });
+                        }
+                    });
+
+                } else {
+                    swal("Cancelled", "To become premium account was cancelled :)", "error");
+                }
+              });
+
+        }
+
+
+        function PremiumToPremium(companyOpp,companyViewer, url, templateType){
+          $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"We will send an email notification to this profile", 
+                text: "Are you sure to proceed?.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    formData.append("templateType", templateType);
+                    $.ajax({
+                        url: "{{ route('emailNotification') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            swal({
+                              title: 'Email notification will be sent to this profile.',
+                              text:  'You will now redirect to this profile.',
+                              icon:  'success'
+                            }).then(function() {
+                                window.open( 
+                                url , "_blank"); 
+                              });
+                        }
+                    });
+
+                } else {
+                    swal("Cancelled", "To become premium account was cancelled :)", "error");
+                }
+              });
+        }
+        
+        function DeductThreeInboxMe(avatarUrl, oppTitle, oppId, companyOpp, companyViewer, oppType)
+        {
+            $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"This will cost you 3 credits", 
+                text: "Are you sure to proceed?.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+
+                    formData = new FormData();
+                    formData.append("companyProvider", companyOpp);
+                    formData.append("companyRequester", companyViewer);
+                    formData.append("oppId", oppId);
+                    formData.append("oppType", oppType);
+                    
+                    $.ajax({
+                        url: "{{ route('getChatCredit') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
+
+                        success: function (data) {
+                            
+                            if(data == 0){
+                                swal("Error", "Error in paying with 3 credits company requester and viewer does not matched", "error");    
+                            } else {
+                                OppInboxMe(avatarUrl, oppTitle, companyOpp, companyViewer, oppId, oppType); //open the chat box
+                            }
+                        }
+                    });
+
+                } else {
+                    swal("Cancelled", "To pay 3 credit to message via inbox was cancelled :)", "error");
+                }
+              });
+
+        }
+
+        function NotifyError(){
+            $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"An error occured!", 
+                text: "Reloading the page now!",
+                icon: "warning",
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+                    location.reload();
+            });
+        }
+        function BlockInboxMe()
+        {
+            $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"You are not a premium account, and you don't have 3 credits in your wallet to inbox the company of this opportunity.", 
+                text: "Are you sure to proceed?, and I will redirect you to buying credit page.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                    document.location = '{{ url("reports/buyTokens") }}';   
+                }else {
+                    swal("Cancelled", "To become premium account was cancelled :)", "error");
                 }
 
             });
+      
+        }
 
+        var chatInterval;
+        function OppInboxMe(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
+            $('.chatOppTitle').text(title);
+            $('#chatAvatar').attr('src',avatarUrl);
+            $('#chat-companyOpp').val(companyOpp);
+            $('#chat-companyViewer').val(companyViewer);
+            $('#chat-oppId').val(oppId);
+            $('#chat-oppType').val(oppType);
+
+            $('#chat-area').empty();
+            $("#chat-area").append(`
+                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                    <br>
+                        Congrats for finding your potential business match. 
+                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
+                        Good luck! 
+                </p>
+                `);
+            chat.onload();
+            chat.getState(); 
+
+            chatInterval = setInterval('chat.update( )', 1000);
+     
+            $('#inboxMeModal').modal();
+
+
+
+        }
+
+
+        function checkAlertByPremium(companyOpp, companyViewer)
+        {   
+          $('.modal_oppoBox').modal('hide');
+            swal({
+                title: "This profile is a free account.", 
+                text:  "Are you sure to proceed? Because we will send an email notification to this profile. To encourage them buy token and become a premium account.",
+                icon:  "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                  swal({
+                    title: 'Email will be sent to this profile, to encourage them to become premium account.',
+                    text:  'To interact fully and avail the system priviledge must become a premium account',
+                    icon:  'success'
+                  }).then(function() {
+                    
+                    formData = new FormData();
+                    formData.append("companyOpp", companyOpp);
+                    formData.append("companyViewer", companyViewer);
+                    
+                        $.ajax({
+                            url: "{{ route('AlertFreeAccount') }}",
+                            type: "POST",
+                            data: formData,
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            processData: false,
+                            contentType: false,
+
+                            success: function (data) {
+                                window.open(data, '_blank');
+                                document.location = '{{ url("opportunity/explore") }}';
+                                
+                              
+                            }
+                        });
+                  
+                  });
+                } else {
+                  swal("Cancelled", "Alerting this profile to become premium account was cancelled :)", "error");
+                }
+              });
+
+        }
+
+//for chat script
+    var chat =  new Chat();
+    $(function() {
+    
+      // chat.getState(); 
+       
+       // watch textarea for key presses
+        $("#sendie").keydown(function(event) {  
+            var key = event.which;  
+            //all keys including return.  
+            if (key >= 33) {
+                //var maxLength = $(this).attr("maxlength");  
+                var length = this.value.length;  
+                // don't allow new content if length is maxed out
+                if (length >= 200) {  
+                    event.preventDefault();  
+                }  
+            }  
+        });
+
+
+       // watch textarea for release of key press
+       $('#sendie').keyup(function(e) { 
+            if (e.keyCode == 13) { 
+                var text = $(this).val();
+                //var maxLength = $(this).attr("maxlength");  
+                var length = text.length; 
+                // send 
+                if (length > 1) { 
+                    chat.send(text, name);  
+                    $(this).val("");
+                } 
+                    // $(this).val(text.substring(0, maxLength));
+                    //event.preventDefault(); 
+            }
+        });
+
+
+       // watch textarea for release of key press
+       $('#sendMessage').click(function(e) { 
+
+            var text = $('#sendie').val();
+            //var maxLength = $('#sendie').attr("maxlength");  
+            var length = text.length; 
+            // send 
+            if (length > 1) { 
+                chat.send(text, name);  
+                $('#sendie').val("");
+            } 
+                // $("#sendie").val(text.substring(0, maxLength));
+                //event.preventDefault(); 
+            
         });
 
 
 
+    });
 
+var instanse = false;
+var state;
+var mes;
+var file;
 
-        function processReq(typeOpp, fkID) {
+function Chat () {
+    this.update = updateChat;
+    this.send = sendChat;
+    this.getState = getStateOfChat;
+    this.onload = chatload;
+}
 
-            var getUrl = window.location;
+//gets the state of the chat
+function getStateOfChat(){
+    var companyOpp = $("#chat-companyOpp").val();
+    var companyViewer = $("#chat-companyViewer").val();
+    var oppId = $("#chat-oppId").val();
+    var oppType = $("#chat-oppType").val();
 
-            var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + "opportunity"; //getUrl.pathname.split('/')[1];
+  if(!instanse){
+     instanse = true;
+      formData = new FormData();
+      formData.append("function", 'getState');
+      formData.append("companyOpp", companyOpp);
+      formData.append("companyViewer", companyViewer);
+      formData.append("oppId", oppId);
+      formData.append("oppType", oppType);
+      formData.append("chatAction", "1");
 
-            window.open(baseUrl + '/request/' + typeOpp + '/' + fkID, '_blank');
+      
+      $.ajax({
+          url: "{{ route('chatProcess') }}",
+          type: "POST",
+          data: formData,
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (data) {
+            state = data.state;
+            instanse = false;
+          },
+            error: function(){
+                NotifyError();
+            }
+      });
 
-            //window.open(baseUrl + '/opportunity/request/' + typeOpp + '/' + fkID, '_blank');
+  }  
+}
 
+function chatload(){
+    var companyOpp = $("#chat-companyOpp").val();
+    var companyViewer = $("#chat-companyViewer").val();
+    var oppId = $("#chat-oppId").val();
+    var oppType = $("#chat-oppType").val();
+    var requestorAvatar = $('#chatAvatar').attr('src');
+
+      formData = new FormData();
+      formData.append("function", 'onload');
+      formData.append("companyOpp", companyOpp);
+      formData.append("companyViewer", companyViewer);
+      formData.append("oppId", oppId);
+      formData.append("oppType", oppType);
+      formData.append("chatAction", "1");
+
+      
+      $.ajax({
+          url: "{{ route('chatProcess') }}",
+          type: "POST",
+          data: formData,
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (data) {
             
+            if(data.text != false){
+                $('#chat-area').empty();
+                $("#chat-area").append(`
+                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                    <br>
+                        Congrats for finding your potential business match. 
+                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
+                        Good luck! 
+                </p>
+                `);
+                for (var i = 0; i < data.text.length; i++) {
+                    if(data.text[i].action != 1){
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
+                    }else{
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
+                    }
+                }    
+            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
+           }
 
+          },
+        error: function(){
+            NotifyError();
         }
+      });
+}
 
+//Updates the chat
+function updateChat(){
+    var companyOpp = $("#chat-companyOpp").val();
+    var companyViewer = $("#chat-companyViewer").val();
+    var oppId = $("#chat-oppId").val();
+    var oppType = $("#chat-oppType").val();
+    var requestorAvatar = $('#chatAvatar').attr('src');
 
+   if(!instanse){
+     instanse = true;
 
+      formData = new FormData();
+      formData.append("function", 'update');
+      formData.append("companyOpp", companyOpp);
+      formData.append("companyViewer", companyViewer);
+      formData.append("oppId", oppId);
+      formData.append("oppType", oppType);
+      formData.append("state", state);
+      formData.append("chatAction", "1");
+      
+      $.ajax({
+          url: "{{ route('chatProcess') }}",
+          type: "POST",
+          data: formData,
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          processData: false,
+          contentType: false,
+          dataType: "json",
+          success: function (data) {
+            
+            if(data.text != false){
+                $('#chat-area').empty();
+                $("#chat-area").append(`
+                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                    <br>
+                        Congrats for finding your potential business match. 
+                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
+                        Good luck! 
+                </p>
+                `);
+                for (var i = 0; i < data.text.length; i++) {
+                    if(data.text[i].action != 1){
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
+                    }else{
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
+                    }
+                }    
+            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
+           }
+           instanse = false;
+           state = data.state;
 
+          },
+        error: function(){ 
+            NotifyError();
+        }
+      });
 
-        var options = {
+   }
+   else {
+     setTimeout(updateChat, 1500);
+   }
+}
 
-            url: "{{ url('public/json/keywords.json') }}",
+//send the message
+function sendChat(message, nickname)
+{       
+    var companyOpp = $("#chat-companyOpp").val();
+    var companyViewer = $("#chat-companyViewer").val();
+    var oppId = $("#chat-oppId").val();
+    var oppType = $("#chat-oppType").val();
 
-            getValue: "keyword",
+    // updateChat(companyOpp, companyViewer );
 
-            list: {
+    formData = new FormData();
+    formData.append("function", 'send');
+    formData.append("message", message);
+    formData.append("companyOpp", companyOpp);
+    formData.append("companyViewer", companyViewer);
+    formData.append("oppId", oppId);
+    formData.append("oppType", oppType);
+    formData.append("chatAction", "1");
+    
+    $.ajax({
+        url: "{{ route('chatProcess') }}",
+        type: "POST",
+        data: formData,
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function (data) {
+            updateChat();
+        },
+        error: function(){
+            NotifyError();
+        }
+    });
 
-                match: {
-
-                    enabled: true
-
-                }
-
-            }
-
-        };
-
-        $("#keywordSearch").easyAutocomplete(options);
-
-
-
-
-
-        var optionsCountry = {
-
-            url: "{{ route('getCountryList') }}",
-
-            getValue: "country",
-
-            list: {
-
-                match: {
-
-                    enabled: true
-
-                }
-
-            }
-
-        };
-
-        $("#keywordCountry").easyAutocomplete(optionsCountry);
-
-
-
+}
 
 
     </script>
-
-
-
-
-
-
+{{-- <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script> --}}
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

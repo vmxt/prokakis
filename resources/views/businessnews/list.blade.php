@@ -5,7 +5,7 @@
 @section('content')
 
 <script src="{{ asset('public/tinymce/js/tinymce/tinymce.min.js') }}"></script> 
-
+<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -231,7 +231,9 @@
         }
 
 
-
+        .page-header .page-header-top .top-menu .navbar-nav>li.dropdown>.dropdown-menu{
+            z-index: 5;
+        }
 
 
     </style>
@@ -308,7 +310,7 @@
 
 
 
-           <center> <a align="right"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
+           <center> <a align="right" id="add-news-content"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
 
               ADD NEWS CONTENT </a> </center>
 
@@ -336,7 +338,7 @@
 
                     
 
-                    <tbody>
+                    <tbody class='systemData-tbody'>
 
                     <?php  
 
@@ -370,7 +372,7 @@
 
                             <a   onclick="ajxDel('<?php echo $data->id; ?>', '<?php echo $data->business_title; ?>')"
 
-                               class=" edit_icon btn btn-outline btn-circle btn-sm red">
+                               class="delete_btn edit_icon btn btn-outline btn-circle btn-sm red">
 
                              <i class="fa fa-eraser"></i> Delete </a>
 
@@ -573,7 +575,7 @@
 {{-- <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script> --}}
 
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
-
+<script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
 
 
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -581,6 +583,10 @@
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
 
 <script>
 
@@ -973,6 +979,86 @@ function ajxProcess(cId, nTitle){
 
     </script>
 
+<script>
+    
+    // Instance the tour
+var tour = new Tour({
+  steps: [
+  {
+    element: "#add-news-content",
+    title: "Add News Content",
+    content: "A button where it will redirect you to a apge where you can create your own news."
+  },
+  {
+    element: "#system_data",
+    title: "News Content Data",
+    content: "In this table, it display all your news content ",
+    placement: 'bottom'
+  },
+  {
+    element: ".edit_btn",
+    title: "Edit News",
+    content: "Can modify news information ",
+    placement: 'left'
+  },
+   {
+    element: ".delete_btn",
+    title: "Remove News",
+    content: "Remove the news in the list",
+    placement: 'left'
+  },
+   {
+    element: ".panel-info",
+    title: "Ten most/recent News",
+    content: "Display the most recent created news",
+    placement: 'top'
+  }
 
+  
+],
+
+  container: "body",
+  smartPlacement: true,
+  keyboard: true,
+  // storage: window.localStorage,
+  storage: false,
+  debug: true,
+  backdrop: true,
+  backdropContainer: 'body',
+  backdropPadding: 0,
+  redirect: true,
+  orphan: false,
+  duration: false,
+  delay: false,
+  basePath: "",
+  placement: 'auto',
+
+  afterGetState: function (key, value) {},
+  afterSetState: function (key, value) {},
+  afterRemoveState: function (key, value) {},
+  onStart: function (tour) {},
+  onEnd: function (tour) {
+     $('.menu-dropdown').removeClass('open');
+     updateTour('end');
+  },
+  onShow: function (tour) {},
+  onShown: function (tour) {},
+  onHide: function (tour) {},
+  onHidden: function (tour) {},
+  onNext: function (tour) {},
+  onPrev: function (tour) {},
+  onPause: function (tour, duration) {},
+  onResume: function (tour, duration) {},
+  onRedirectError: function (tour) {}
+
+});
+
+// Initialize the tour
+tour.init();
+// Start the tour
+if( $('#is_tour').val() == 1 ){
+    tour.start();
+}
+</script>
 
 @endsection

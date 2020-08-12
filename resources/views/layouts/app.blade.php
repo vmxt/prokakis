@@ -580,7 +580,10 @@ s0.parentNode.insertBefore(s1,s0);
                                                         $tour = App\TourDetail::where('user_id',  $user_id)->first();
                                                         if(request()->segment(1) == 'home' ){
                                                             $scope = 'home';
+                                                        }else{
+                                                          $scope = request()->segment(1)."/".request()->segment(2);
                                                         }
+                     
                                                   ?>
                                                   @if( strpos($tour->scope , $scope) !== false )
                                                     <input type="hidden" id="is_tour" value="0">
@@ -1614,7 +1617,7 @@ s0.parentNode.insertBefore(s1,s0);
 function updateTour(is_end = 'none'){
   formData = new FormData();
   formData.append("auth_id", {{ Auth::id() }} );
-  formData.append("scope", 'home');
+  formData.append("scope", '<?=  request()->segment(1)."/".request()->segment(2) ?>');
   formData.append("is_end", is_end);
 
   $.ajax({

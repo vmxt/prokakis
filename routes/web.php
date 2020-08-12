@@ -31,6 +31,10 @@ Auth::routes();
 Route::get('/ipn', 'IpnController@getIpnDataGet')->name('GetIpnDataGet');
 Route::post('/ipn', 'IpnController@getIpnDataPost')->name('GetIpnDataPost');
 
+//videochat
+Route::get('/vc/{oppId}/{oppType}/{companyOpp}/{companyViewer}', 'VideoChatController@loadVideoPage')->name('vcloadVideoPage');
+Route::post('/vc-details', 'VideoChatController@getVideoChatDetails')->name('getVideoChatDetails');
+
 //for updating tour
 Route::post('/updateTour', 'TourDetailController@updateTour')->name('updateTour');
 
@@ -90,6 +94,12 @@ Route::get('/advisor', 'GamificationController@listOfAdvisers')->name('listOfAdv
 Route::post('/redemp-rewards', 'GamificationController@redeemRewards')->name('redeemRewards');
 Route::post('/redeem-details', 'GamificationController@redeemDetails')->name('redeemDetails');
 Route::post('/redeem-approval', 'GamificationController@redeemGetApproved')->name('redeemGetApproved');
+Route::post('/redeem-approvalAP', 'GamificationController@redeemGetApprovedAP')->name('redeemGetApprovedAP');
+Route::post('/redemp-entlevel', 'GamificationController@redeemRewardsEntLevel')->name('redeemEnterpriseRewards');
+
+//approval by AP
+Route::get('/redeem-accpay', 'GamificationController@finalApproverList')->name('APfinalApproverList');
+Route::get('/redeem-accpay-preview/{requestId}', 'GamificationController@apPrintPreview')->name('APapproverPrintPreview');
 
 //staff
 Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');
@@ -113,6 +123,7 @@ Route::get('/homeAdmin', 'HomeController@adminDashboard')->name('adminDashboard'
 Route::post('/home/companyAdd', 'HomeController@addCompany')->name('homeAddCompany');
 Route::post('/home/companySelect', 'HomeController@selectCompany')->name('homeSelectCompany');
 Route::get('/homeSales', 'HomeController@ebosSales')->name('ebosSales');
+Route::get('/homeAP', 'HomeController@ebosAP')->name('ebosAP');
 
 //consultant
 Route::get('/consultants', 'ConsultantsController@index')->name('indexConsultantFAreport');
