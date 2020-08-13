@@ -147,7 +147,7 @@
                                             foreach($rs_buy as $data){ ?>
                                             <tr>
                                                 <td><?php echo $data->id; ?></td>
-                                                <td><?php echo 'Token Purchased: '. $data->num_tokens; ?></td>
+                                                <td><?php echo 'Credit Purchased: '. $data->num_tokens; ?></td>
                                                 <td><?php echo $data->amount; ?> </td>
                                                 <td><?php echo $data->created_at; ?> </td>
 
@@ -177,7 +177,7 @@
                                 <div class="portlet light">
                                     <div class="card">
 
-                                        <div class="card-header"><b>TOKEN SPENT HISTORY INFORMATION</b></div>
+                                        <div class="card-header"><b>CREDIT SPENT HISTORY INFORMATION</b></div>
 
                                         <div align="right">
                                             <a  href="{{ url('/profile/printPreviewTokenSpent').'/'.$company_id_result }}" target="_blank"><button class="btn-info">Print Preview</button></a>
@@ -190,7 +190,7 @@
                                             <tr>
                                                 <th>Id</th>
                                                 <th>Request Id</th>
-                                                <th>Number of Tokens</th>
+                                                <th>Number of Credit</th>
                                                 <th>Date Created</th>
 
                                             </tr>
@@ -209,7 +209,7 @@
                                             <?php }
                                             } else { ?>
                                             <tr>
-                                                <td colspan="4">You have no token spending record.</td>
+                                                <td colspan="4">You have no credit spending record.</td>
                                             </tr>
                                             <?php
 
