@@ -629,6 +629,9 @@ div.payment .advantages-block p {
 }
 
 @media  (min-width:960px) and (max-width:1199px) {
+    .desc-1 {
+        height: 60em !important
+    }
     .arrow_right{
         width: 130px;
     }
@@ -649,6 +652,17 @@ div.payment .advantages-block p {
 }
 
 @media (max-width: 1025px){
+    .card-buyNow {
+        left: 45px !important;
+    }
+
+    .desc-1 .card-buyNow-bot {
+        left: 25px !important;
+    }
+
+    .desc-2 .card-buyNow-bot{
+        left: 55px !important;
+    }
 
     .token-card-heading h2 {
         font-size: 30px;
@@ -674,6 +688,8 @@ div.payment .advantages-block p {
 }
 
 @media screen and (max-width: 960px){
+
+
     .col-4.token-card:first-child .desc-1 {
         margin-bottom: 100px;
     }
@@ -1186,7 +1202,7 @@ div.payment .advantages-block p {
 
 @media  (min-width: 961px){
     .desc-1 .card-buyNow-bot {
-        display: none;
+        /*display: none;*/
     }
 }
 
@@ -1312,6 +1328,7 @@ hr.top-line {
 
 .desc-1{
     height: 55em;
+    position: relative;
     /*width: 400px;*/
     /*padding-right: 75px;*/
 }
@@ -1389,6 +1406,7 @@ hr.top-line {
 }
 
 .btn-subscribe{
+    color: #fff!important;
     font-size: 25px;
     font-weight: 700;
     height: 65px;
@@ -1407,11 +1425,18 @@ hr.top-line {
     text-align: center;
 }
 
-.card-buyNow-bot{
+.desc-1 .card-buyNow-bot{
     margin: 0 auto;
     text-align: center;
     margin-top: 25px;
     margin-left: 30px;
+    position: absolute;
+    bottom: 20px;
+    left: 58px;
+}
+
+.desc-2 .card-buyNow-bot{
+    left: 75px;
 }
 
 .margin-top {

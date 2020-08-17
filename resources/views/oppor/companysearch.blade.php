@@ -39,6 +39,23 @@
         margin-top: 5px;
     }
 
+    .content{
+        text-align: center;
+    }
+
+    .ratingScore1 {
+        margin: 8px !important;
+        position: absolute;
+        right: 210px;
+        font-size: 20px;
+    }
+    .social-icon{
+        font-size: 30px !important;
+    }
+    .content-text a {
+        margin-left: 20px;
+    }
+
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
@@ -106,6 +123,7 @@
 
         <div class="row">
             <!-- START Search Company-->
+             {{ $companySearch->links() }}    
             <div class="hr-sect opp_type" >Search by Company</div>
                 <div class='blog-posts'>
                 <?php       
@@ -118,7 +136,7 @@
                             $company = App\CompanyProfile::find($item->id);
                             $provider_id = $company->id;
                     if ( $company->count() > 0 && $d_status == true):
-                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                        $avatar = \App\UploadImages::where('company_id', $item->id)->where('file_category', 'PROFILE_AVATAR')
                             ->orderBy('id', 'desc')
                             ->first();
                         $avat = '';
@@ -130,7 +148,7 @@
                         $usr = App\User::find($company->user_id);
                         $accStatus = 'free';
                         if ($usr->user_type == 1) 
-                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
+                            if( App\SpentTokens::validateAccountActivation($item->id) != false )
                                 $accStatus = 'premium';   
 
                         $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
@@ -142,11 +160,9 @@
                         $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
                         $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
                        
-                       if(file_exists($avat) ){
-                            $avatarUrl = $avat;
-                       }else{
-                            $avatarUrl = asset('public/images/industry')."/guest.png";
-                       }
+                        $avatarUrl = $avat;
+
+
                     ?>
         
         <!-- new code start -->
@@ -156,7 +172,7 @@
         @if($i <= 2)
               <div class='post build-list'>
                 <a href='#'>
-                    <div class='image' style='background-image: url( {{ $avatarUrl }} ), url({{ asset('public/img-resources/chat-backdrop.png') }})'>
+                    <div class='image' style='background-image: url( {{ $avatarUrl }}  )'>
 
                 @if($accStatus == 'premium')
                     <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
@@ -166,15 +182,15 @@
                     <h1 class='upperText' title="{{ $item->company_name }}"> <?= $item->company_name != "" ? $item->company_name : 'Providing Business Valuation' ?></h1>
                     
                     <div class="hr-sect"><strong class="hr_title">Description</strong></div>
-                         <?php echo $item->description?$item->description: "N/A" ; ?><br>
+                         <p><?php echo $item->description?$item->description: "N/A" ; ?></p><br>
 
                     <div class="hr-sect"><strong class="hr_title">Industry Type</strong></div>
-                         <?php echo $item->description?$item->description: "N/A" ; ?><br>
+                         <p><?php echo $item->industry?$item->industry: "N/A" ; ?></p><br>
         
 
                     <div class="hr-sect"><strong class="hr_title">Rating</strong></div>
                     <div style="display: flex;">
-                        <div>
+                        <div style="margin: 0 auto;">
                             @if($ratingScore < 25)
                                 <img width="30" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
@@ -206,7 +222,7 @@
                             @endif
                         </div>
 
-                        <div class="rating_score">
+                        <div class="rating_score ratingScore1">
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
                     </div>
@@ -241,7 +257,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
+                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->company_name != "" ? $item->company_name : 'Providing Company' ?></h4>
                 </div>
         <div class="modal-body">
 
@@ -287,113 +303,164 @@
 
                                             <?php }?>
                                        
-                    <h2 class="rating_score"  > {{ $ratingScore }} % </h2>
+                    <h2 class="rating_score" style="font-size: 20px;" > {{ $ratingScore }} % </h2>
                 </div>
                 <hr>
             </div>
 
             <div>
                 <span class="title-text">
-                    <h4><strong> This Company is seeking </strong></h4>
+                    <h4><strong> Business Type </strong></h4>
                 </span>
                 <span class="content-text">
-                    <h4>
-                        <ul class="info_list lg-link">
-                            @if($item->business_goal)
-                            <li>{{ $item->business_goal }}</li>
-                            @endif
-                            @if($item->audience_target)
-                            <li>{{ $item->audience_target }}</li>
-                            @endif
-                            @if($item->ideal_partner_base)
-                            <li>
-                <?php 
-                    $string = explode(",",$item->ideal_partner_base);
-                    $xx=0;
-                    foreach( $string as $val ):
-                        if(trim($val) != ''):
-                            echo $val;
-                            $xx++;
-                            if($xx != count($string)){
-                                echo ", ";
-                            }
-                        endif;
-                    endforeach; ?>
-                            </li>
-                            @endif
-                        </ul>
-                    </h4>    
+                    <h5>{{ $item->business_type ? $item->business_type : "N/A"  }}</h5>   
                 </span>
                 <hr class="hr-sect">
             </div>
 
             <div>
                 <span class="title-text">
-                    <h4><strong> Expectation </strong></h4>
+                    <h4><strong> Years Establisment </strong></h4>
                 </span>
                 <span class="content-text">
-                    <h4> 
-                        {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity.
-                        
-                    </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Industry Keyword </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4>
-                <?php 
-                      $string = explode(",",$item->ideal_partner_business);
-                      $xx=0;
-                      foreach( $string as $val ):
-                        if(trim($val) != ''):
-                            echo $val." ";
-                            $xx++;
-                            if($xx != count($string)){
-                                echo ",";
-                            }
-                        endif;
-                      endforeach; ?>
-                    </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Why partner with this company?  </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4> {{ $item->why_partner_goal }} </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Relevant industry or products  </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4>
-                <?php 
-                $rr = explode(",",$item->relevant_describing_partner);
-                if(count((array) $rr) > 0):
-                  foreach($rr as $h):
-                    if(trim($h) != ''){
-                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
-                    }
-                  endforeach;
-                endif;
-                ?>
-                    </h4>
+                    <h5>{{ $item->years_establishment ? $item->years_establishment : "N/A"  }}</h5>   
                 </span>
                 <hr class="hr-sect">
-            </div> 
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Anual Tax Return </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->annual_tax_return ? $item->annual_tax_return : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Gross Profit </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->gross_profit ? $item->gross_profit : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Net Profit </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->net_profit ? $item->net_profit : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Currency </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->currency ? $item->currency : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> # of Staff </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->no_of_staff ? $item->no_of_staff : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Corporate Tax </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->corporate_tax ? $item->corporate_tax : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Solvent </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->solvent_value ? $item->solvent_value : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Office Address </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->registered_address ? $item->registered_address : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Office Phone </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->office_phone ? $item->office_phone : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Mobile Phone </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->mobile_phone ? $item->mobile_phone : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Company Email </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h5>{{ $item->company_email ? $item->company_email : "N/A"  }}</h5>   
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4 style="margin-bottom: 10px !important"><strong> Social Media </strong></h4>
+                </span>
+                <span class="content-text" style="padding:10px" >
+                @if( $item->facebook )
+                  <a target="_blank" href="{{ $item->facebook }}"><i class="fa fa-facebook-square fa-fw fa-5x social-icon" style="color: black" aria-hidden="true"></i></a>
+                @endif
+                @if( $item->twitter )
+                  <a target="_blank" href="{{ $item->twitter }}"><i class="fa fa-twitter fa-fw fa-5x social-icon" style="color: black" aria-hidden="true"></i></a>
+                @endif
+                @if( $item->linkedin )
+                  <a target="_blank" href="{{ $item->linkedin }}"><i class="fa fa-linkedin fa-fw fa-5x social-icon" style="color: black" aria-hidden="true"></i></a>
+                @endif
+                @if( $item->googleplus )
+                  <a target="_blank" href="{{ $item->googleplus }}"><i class="fa fa-google-plus-square fa-fw fa-5x social-icon" style="color: black" aria-hidden="true"></i></a>
+                @endif
+                @if( $item->otherlink )
+                  <a target="_blank" href="{{ $item->googleplus }}"><i class="fa fa-link fa-fw fa-5x social-icon" style="color: black" aria-hidden="true"></i></a>
+                @endif
+                </span>
+                <hr class="hr-sect">
+            </div>
 
             <div>
               @if($tokenStock >= 12)

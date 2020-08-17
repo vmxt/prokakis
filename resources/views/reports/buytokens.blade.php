@@ -649,7 +649,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 token-card-container-btn">
+{{--                             <div class="col-12 token-card-container-btn">
                                 <div class="col-4 token-card-btn">
                                     <div class="col-12 card-buyNow-bot "></div>
                                 </div>
@@ -673,7 +673,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
