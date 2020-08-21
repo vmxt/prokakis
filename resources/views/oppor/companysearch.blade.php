@@ -57,7 +57,7 @@
     }
 
 </style>
-<link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/companySearch.css') }}">
 
 
     <div class="container container-grid">
@@ -249,7 +249,7 @@
          {{-- Start modal click for build --}}
     <div 
         class="modal fade modal_oppoBox" 
-        id="opporBuildModal_{{ $item->id }}" 
+        id="searchCompanyModal{{ $item->id }}" 
         tabindex="-1" role="dialog" 
         aria-labelledby="opporDetailsContentModalLabel" 
         aria-hidden="true">
@@ -482,7 +482,7 @@
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
                         <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->company_name }}', '{{ $company->id }}', '{{ $item->user_id }}', '{{ $item->company_email}}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @endif
                     @else
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
@@ -494,7 +494,7 @@
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->company_name }}', '{{ $company->id }}', '{{ $item->user_id }}', '{{ $item->company_email}}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                 @endif
 
                 {{-- Requestor = Premium | Provider = Non-Premium 
@@ -510,7 +510,7 @@
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
                         <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->company_name }}', '{{ $company->id }}', '{{ $item->user_id }}', '{{ $item->company_email}}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @endif
                     @else
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
@@ -521,7 +521,7 @@
                 {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->company_name }}', '{{ $company->id }}', '{{ $item->user_id }}', '{{ $item->company_email}}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -559,6 +559,7 @@
 <div 
   class="modal fade modal_oppoBox" 
   id="inboxMeModal" 
+  data-backdrop="static"
   tabindex="-1" role="dialog" 
   aria-labelledby="Connect Me Modal" 
   aria-hidden="true">
@@ -572,38 +573,27 @@
         </div>
         <div class="modal-body">
 
-          <div id="page-wrap">
-    
-              
-              <p id="name-area"></p>
-              
-              <div id="chat-wrap"><div id="chat-area"></div></div>
-
-            <div class="message-input">
-                <div class="wrap">
-                    <input id="sendie" type="text" placeholder="Write your message here..."  >
-                    {{-- <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="2" ></textarea> --}}
-                    <button title="Send" id='sendMessage' class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                </div>
-            </div>
-
-              <div class="send-msg-container" style="display: none;">
-                <form id="send-message-area">
-                    <input type="hidden" id="chat-companyViewer">
-                    <input type="hidden" id="chat-companyOpp">
-                    <input type="hidden" id="chat-oppId">
-                    <input type="hidden" id="chat-oppType">
-                </form>
+            <div class="mail-area">
+              <div class="form-group">
+                <label for="e_subject" class="col-form-label">Subject:</label>
+                <input type="text" placeholder="Subject" class="form-control" id="e_subject">
               </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" placeholder="Type your message here..." cols="20" rows='5' id="message-text"></textarea>
+              </div>
+          </div>
         </div>
-            
-
-          
-
-        
-        </div>
+            <div class="send-msg-container" style="display: none;">
+                <form id="send-message-area">
+                    <input type="hidden" id="recipient_email" >
+                    <input type="hidden" id="recipient_id" >
+                    <input type="hidden" id="company_user_id" >
+                </form>
+            </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-default chat-close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" onclick="connectMe()" class="btn btn-success">Send message</button>
           </div>
     </div>
   </div>
@@ -615,41 +605,11 @@
     <script>
 
 
-        var builCount = $('.build-list').length;
-        if(builCount%2 != 0 ){
-            $('.list-row-build').last().append('<div class="post showLastCard" ></div>');
-        }
-
-        var sellCount = $('.sell-list').length;
-        if(sellCount%2 != 0 ){
-            $('.list-row-sell').last().append('<div class="post showLastCard" ></div>');
-        }
-
-        var buyCount = $('.buy-list').length;
-        if(buyCount%2 != 0 ){
-            $('.list-row-buy').last().append('<div class="post showLastCard" ></div>');
-        }
-
         function showModalContent(type, id){
-            if(type == 'build'){
-                $("#opporBuildModal_"+id).modal();
-            }
-            if(type == 'sell'){
-                $("#opporSellModal_"+id).modal();
-            }
-            if(type == 'buy'){
-                $("#opporBuyModal_"+id).modal();
-            }
+            $("#searchCompanyModal"+id).modal();
         }
 
         $(document).ready(function () {
-            $('.chat-close').click(function(){
-                clearInterval(chatInterval);
-            });
-
-            $('#inboxMeModal').on('hide.bs.modal', function (e) {
-                clearInterval(chatInterval);
-            })
 
             $("#opporDetailsContentModal").modal();
             $("#filterKeywords").click(function () {
@@ -1057,32 +1017,14 @@
       
         }
 
-        var chatInterval;
-        function OppInboxMe(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
+        function OppInboxMe(avatarUrl, title,companyId,companyUserId,companyEmail){
             $('.chatOppTitle').text(title);
             $('#chatAvatar').attr('src',avatarUrl);
-            $('#chat-companyOpp').val(companyOpp);
-            $('#chat-companyViewer').val(companyViewer);
-            $('#chat-oppId').val(oppId);
-            $('#chat-oppType').val(oppType);
+            $('#recipient_email').val(companyEmail);
+            $('#recipient_id').val(companyId);
+            $('#company_user_id').val(companyUserId);
 
-            $('#chat-area').empty();
-            $("#chat-area").append(`
-                <p class="chat-intro-text"> Welcome to ProKakis chat! 
-                    <br>
-                        Congrats for finding your potential business match. 
-                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
-                        Good luck! 
-                </p>
-                `);
-            chat.onload();
-            chat.getState(); 
-
-            chatInterval = setInterval('chat.update( )', 1000);
-     
             $('#inboxMeModal').modal();
-
-
 
         }
 
@@ -1137,267 +1079,58 @@
 
         }
 
-//for chat script
-    var chat =  new Chat();
-    $(function() {
-    
-      // chat.getState(); 
-       
-       // watch textarea for key presses
-        $("#sendie").keydown(function(event) {  
-            var key = event.which;  
-            //all keys including return.  
-            if (key >= 33) {
-                //var maxLength = $(this).attr("maxlength");  
-                var length = this.value.length;  
-                // don't allow new content if length is maxed out
-                if (length >= 200) {  
-                    event.preventDefault();  
-                }  
-            }  
-        });
+        function connectMe(){
+          $('.modal_oppoBox').modal('hide');
+            swal({
+                title:"We will send an email notification to this profile", 
+                text: "Are you sure to proceed?.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
 
+              }).then(function(isConfirm) {
 
-       // watch textarea for release of key press
-       $('#sendie').keyup(function(e) { 
-            if (e.keyCode == 13) { 
-                var text = $(this).val();
-                //var maxLength = $(this).attr("maxlength");  
-                var length = text.length; 
-                // send 
-                if (length > 1) { 
-                    chat.send(text, name);  
-                    $(this).val("");
-                } 
-                    // $(this).val(text.substring(0, maxLength));
-                    //event.preventDefault(); 
-            }
-        });
+                if (isConfirm) {
 
+                    formData = new FormData();
+                    formData.append("e_subject", $('#e_subject').val());
+                    formData.append("e_message", $('#message-text').val());
+                    formData.append("recipient_email", $('#recipient_email').val());
+                    formData.append("company_user_id", $('#company_user_id').val());
+                    formData.append("recipient_id", $('#recipient_id').val());
+                    formData.append("template", "searchCompanyNotificaiton");
 
-       // watch textarea for release of key press
-       $('#sendMessage').click(function(e) { 
+                    $.ajax({
+                        url: "{{ route('emailNotification') }}",
+                        type: "POST",
+                        async: true,
+                        data: formData,
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        processData: false,
+                        contentType: false,
 
-            var text = $('#sendie').val();
-            //var maxLength = $('#sendie').attr("maxlength");  
-            var length = text.length; 
-            // send 
-            if (length > 1) { 
-                chat.send(text, name);  
-                $('#sendie').val("");
-            } 
-                // $("#sendie").val(text.substring(0, maxLength));
-                //event.preventDefault(); 
-            
-        });
+                        success: function (data) {
+                            swal({
+                              title: 'Email notification will be sent to this profile.',
+                              text:  'You will now redirect to this profile.',
+                              icon:  'success'
+                            }).then(function() {
+                                window.open( 
+                                url , "_blank"); 
+                              });
+                        }
+                    });
 
-
-
-    });
-
-var instanse = false;
-var state;
-var mes;
-var file;
-
-function Chat () {
-    this.update = updateChat;
-    this.send = sendChat;
-    this.getState = getStateOfChat;
-    this.onload = chatload;
-}
-
-//gets the state of the chat
-function getStateOfChat(){
-    var companyOpp = $("#chat-companyOpp").val();
-    var companyViewer = $("#chat-companyViewer").val();
-    var oppId = $("#chat-oppId").val();
-    var oppType = $("#chat-oppType").val();
-
-  if(!instanse){
-     instanse = true;
-      formData = new FormData();
-      formData.append("function", 'getState');
-      formData.append("companyOpp", companyOpp);
-      formData.append("companyViewer", companyViewer);
-      formData.append("oppId", oppId);
-      formData.append("oppType", oppType);
-      formData.append("chatAction", "1");
-
-      
-      $.ajax({
-          url: "{{ route('chatProcess') }}",
-          type: "POST",
-          data: formData,
-          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (data) {
-            state = data.state;
-            instanse = false;
-          },
-            error: function(){
-                NotifyError();
-            }
-      });
-
-  }  
-}
-
-function chatload(){
-    var companyOpp = $("#chat-companyOpp").val();
-    var companyViewer = $("#chat-companyViewer").val();
-    var oppId = $("#chat-oppId").val();
-    var oppType = $("#chat-oppType").val();
-    var requestorAvatar = $('#chatAvatar').attr('src');
-
-      formData = new FormData();
-      formData.append("function", 'onload');
-      formData.append("companyOpp", companyOpp);
-      formData.append("companyViewer", companyViewer);
-      formData.append("oppId", oppId);
-      formData.append("oppType", oppType);
-      formData.append("chatAction", "1");
-
-      
-      $.ajax({
-          url: "{{ route('chatProcess') }}",
-          type: "POST",
-          data: formData,
-          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (data) {
-            
-            if(data.text != false){
-                $('#chat-area').empty();
-                $("#chat-area").append(`
-                <p class="chat-intro-text"> Welcome to ProKakis chat! 
-                    <br>
-                        Congrats for finding your potential business match. 
-                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
-                        Good luck! 
-                </p>
-                `);
-                for (var i = 0; i < data.text.length; i++) {
-                    if(data.text[i].action != 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
-                    }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
-                    }
-                }    
-            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
-           }
-
-          },
-        error: function(){
-            NotifyError();
+                } else {
+                    swal("Cancelled", "Sending this message was cancelled :)", "error");
+                }
+              });
         }
-      });
-}
 
-//Updates the chat
-function updateChat(){
-    var companyOpp = $("#chat-companyOpp").val();
-    var companyViewer = $("#chat-companyViewer").val();
-    var oppId = $("#chat-oppId").val();
-    var oppType = $("#chat-oppType").val();
-    var requestorAvatar = $('#chatAvatar').attr('src');
 
-   if(!instanse){
-     instanse = true;
-
-      formData = new FormData();
-      formData.append("function", 'update');
-      formData.append("companyOpp", companyOpp);
-      formData.append("companyViewer", companyViewer);
-      formData.append("oppId", oppId);
-      formData.append("oppType", oppType);
-      formData.append("state", state);
-      formData.append("chatAction", "1");
-      
-      $.ajax({
-          url: "{{ route('chatProcess') }}",
-          type: "POST",
-          data: formData,
-          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          success: function (data) {
-            
-            if(data.text != false){
-                $('#chat-area').empty();
-                $("#chat-area").append(`
-                <p class="chat-intro-text"> Welcome to ProKakis chat! 
-                    <br>
-                        Congrats for finding your potential business match. 
-                        Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
-                        Good luck! 
-                </p>
-                `);
-                for (var i = 0; i < data.text.length; i++) {
-                    if(data.text[i].action != 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
-                    }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
-                    }
-                }    
-            document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
-           }
-           instanse = false;
-           state = data.state;
-
-          },
-        error: function(){ 
-            NotifyError();
-        }
-      });
-
-   }
-   else {
-     setTimeout(updateChat, 1500);
-   }
-}
-
-//send the message
-function sendChat(message, nickname)
-{       
-    var companyOpp = $("#chat-companyOpp").val();
-    var companyViewer = $("#chat-companyViewer").val();
-    var oppId = $("#chat-oppId").val();
-    var oppType = $("#chat-oppType").val();
-
-    // updateChat(companyOpp, companyViewer );
-
-    formData = new FormData();
-    formData.append("function", 'send');
-    formData.append("message", message);
-    formData.append("companyOpp", companyOpp);
-    formData.append("companyViewer", companyViewer);
-    formData.append("oppId", oppId);
-    formData.append("oppType", oppType);
-    formData.append("chatAction", "1");
-    
-    $.ajax({
-        url: "{{ route('chatProcess') }}",
-        type: "POST",
-        data: formData,
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        processData: false,
-        contentType: false,
-        dataType: "json",
-        success: function (data) {
-            updateChat();
-        },
-        error: function(){
-            NotifyError();
-        }
-    });
-
-}
 
 
     </script>

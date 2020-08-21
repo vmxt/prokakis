@@ -71,7 +71,8 @@ class MailboxController extends Controller {
 
 		$res = Mailbox::where('sender_id', '=', $usr)->orWhere('receiver_id', '=', $usr)->get();
 		$res2 = Mailbox::where('receiver_id',$company_id)->where('is_type','chat')->get();
-		$consMap = $res->merge($res2);
+		$res3 = Mailbox::where('receiver_id',$company_id)->where('is_type','company_search')->get();
+		$consMap = $res->merge($res2)->merge($res3)->sortByDesc('updated_at');
 
 		return view('mailbox.compose', compact('consMap'));
 
@@ -448,48 +449,118 @@ class MailboxController extends Controller {
 	public function notification(Request $request){
 
 		if ($request->isMethod('post')) {
-			
-			$company_opp = $request->input("companyOpp"); //opportunity owner
-			$company_viewer = $request->input("companyViewer"); //viewer
-			$templateType = $request->input("templateType"); //viewer
+			if($request->input('template') == 'searchCompanyNotificaiton' ){
+				return $this->searchCompanyNotificaiton($request);
+			}else{
+				$company_opp = $request->input("companyOpp"); //opportunity owner
+				$company_viewer = $request->input("companyViewer"); //viewer
+				$templateType = $request->input("templateType"); //viewer
 
-			$user_id = Auth::id();			
-			$rs = CompanyProfile::find($company_opp);
+				$user_id = Auth::id();			
+				$rs = CompanyProfile::find($company_opp);
 
-			$rss = CompanyProfile::find($company_viewer); //requester
+				$rss = CompanyProfile::find($company_viewer); //requester
 
-			$cc = ($rss->primary_country != null)? Countries::where('country_code', $rss->primary_code)->first() : '';
-			$p_country = (is_object($cc))? $cc->country_name : '';
-			$industry = $rss->industry;
-			$mailSubject = "";
-			
-			if($p_country != '' || $p_country != null){
-				$mailSubject = "A partner from ".$p_country." is looking for you in Prokakis";
-			} else {
-				$mailSubject = "A partner is looking for you in Prokakis";
+				$cc = ($rss->primary_country != null)? Countries::where('country_code', $rss->primary_code)->first() : '';
+				$p_country = (is_object($cc))? $cc->country_name : '';
+				$industry = $rss->industry;
+				$mailSubject = "";
+				
+				if($p_country != '' || $p_country != null){
+					$mailSubject = "A partner from ".$p_country." is looking for you in Prokakis";
+				} else {
+					$mailSubject = "A partner is looking for you in Prokakis";
+				}
+
+				AuditLog::ok(array($user_id, 'opportunity', 'express interest to a company at explore page', 'company id:'. $company_viewer.' express interest to company id:' . $company_opp));
+
+	            $template = MailTemplate::find(1);
+
+				$message = "
+	                  	<h1>Dear  $rs->registered_company_name,</h1>
+	  					$template->content
+					  ";
+
+					  
+	            //$message .= "Requestor profile: ".url('company/'.$company_viewer);
+				
+				$message =  str_replace("[Industry]", $industry, $message);		  
+				$message =  str_replace("[msgTitle]", $mailSubject, $message);		  
+				$message =  str_replace("[Country]", $p_country, $message);		  
+				$message =  str_replace("[Requester_profile]", url('company/'.base64_encode('viewer' . $company_viewer)."/".$company_viewer) , $message);		  
+				
+				//send the email here
+				Mailbox::sendMail($message, $rs->company_email, $mailSubject, "");  //$template->subject
 			}
-
-			AuditLog::ok(array($user_id, 'opportunity', 'express interest to a company at explore page', 'company id:'. $company_viewer.' express interest to company id:' . $company_opp));
-
-            $template = MailTemplate::find(1);
-
-			$message = "
-                  	<h1>Dear  $rs->registered_company_name,</h1>
-  					$template->content
-				  ";
-
-				  
-            //$message .= "Requestor profile: ".url('company/'.$company_viewer);
-			
-			$message =  str_replace("[Industry]", $industry, $message);		  
-			$message =  str_replace("[msgTitle]", $mailSubject, $message);		  
-			$message =  str_replace("[Country]", $p_country, $message);		  
-			$message =  str_replace("[Requester_profile]", url('company/'.base64_encode('viewer' . $company_viewer)."/".$company_viewer) , $message);		  
-			
-			//send the email here
-			Mailbox::sendMail($message, $rs->company_email, $mailSubject, "");  //$template->subject
 		}
 	}
 
-}
+	public function searchCompanyNotificaiton($request){
+				$user_id = Auth::id();
+				$sender_company_id = CompanyProfile::getCompanyId($user_id);
+				$rs = CompanyProfile::find($sender_company_id);
+				$recipient_email = $request->input("recipient_email")?$request->input("recipient_email"):"it@ebos-sg.com"; //opportunity owner
+				$company_user_id = $request->input("company_user_id"); //opportunity owner
+				$recipient_id = $request->input("recipient_id"); //opportunity owner
+				$recipientName = CompanyProfile::getCompanyName($recipient_id);
+
+
+
+	     
+
+				$sender_email =  $rs->company_email; //opportunity owner
+
+				$e_subject = $request->input("e_subject"); //subject
+				$e_message = $request->input("e_message"); //message
+
+				$mailSubject = $e_subject;
+
+				AuditLog::ok(array($user_id, 'Company Search', 'send an email to a company at company search page', 'sender email:'. $user_id.' express interest to company id:' . $recipient_id."/ email: $recipient_email"));
+
+	            $template = MailTemplate::find(3); #searchCompanyNotificaiton
+
+
+				$message = "
+                  <h1>Dear  $rs->registered_company_name, </h1>
+  					$template->content
+				  ";
+				 
+				  
+				$cc = ($rs->primary_country != null)? Countries::where('country_code', $rs->primary_country)->first() : '';
+				$p_country = (is_object($cc))? $cc->country_name : '';
+				$industry = $rs->industry;
+					  
+	            //$message .= "Requestor profile: ".url('company/'.$company_viewer);
+				
+				if($company_user_id == '25'){
+					$message =  str_replace("[action]", " Register ", $message);
+					$message =  str_replace("[actionButton]", '<a class="button" href="https://app-prokakis.com/login">REGISTER</a>', $message);
+				}else{
+					$message =  str_replace("[action]", " Login " , $message);
+					$message =  str_replace("[actionButton]", '<a class="button" href="https://app-prokakis.com/register">LOGIN</a>', $message);
+				}
+
+				$message =  str_replace("[Industry]", $industry, $message);		  
+				$message =  str_replace("[msgTitle]", $mailSubject, $message);		  
+				$message =  str_replace("[Country]", $p_country, $message);		  
+				$message =  str_replace("[Requester_profile]", url('company/'.base64_encode('viewer' . $rs->id)."/".$rs->id) , $message);		  
+				
+				Mailbox::create([
+					'sender_id' => $user_id,
+					'receiver_id' => $recipient_id,
+					'receiver_email' => $recipient_email,
+					'remarks' => $rs->registered_company_name. " sent you a message" ,
+					'message' => $e_message,
+					'subject'=> $e_subject,
+					'status' => 1,
+					'is_type'=> 'company_search'
+				]);
+
+				//send the email here
+				//Mailbox::sendMail($message, $recipient_email, $mailSubject, "");  //$template->subject
+	}
+
+
+
+}#end class
 

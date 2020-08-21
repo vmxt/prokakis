@@ -236,6 +236,18 @@ class CompanyProfile extends Model {
 
 	}
 
+	public static function getCompanyEmail($uid) {
+
+		$rs = CompanyProfile::find($uid);
+
+		if ( $rs->count() > 0) {
+
+			return $rs->company_email;
+
+		}
+
+	}
+
 	public static function getCompanyId($uid) {
 
 		if (Session::get('SELECTED_COMPANY_ID') != NULL || Session::get('SELECTED_COMPANY_ID') != '') {

@@ -35,6 +35,10 @@ Route::post('/ipn', 'IpnController@getIpnDataPost')->name('GetIpnDataPost');
 Route::get('/vc/{oppId}/{oppType}/{companyOpp}/{companyViewer}', 'VideoChatController@loadVideoPage')->name('vcloadVideoPage');
 Route::post('/vc-details', 'VideoChatController@getVideoChatDetails')->name('getVideoChatDetails');
 
+//update password
+Route::post('/psswrd-update', 'UpdatePasswordController@getData')->name('getPasswordData');
+Route::get('/psswrd-set', 'UpdatePasswordController@setData')->name('setPasswordData');
+
 //for updating tour
 Route::post('/updateTour', 'TourDetailController@updateTour')->name('updateTour');
 
