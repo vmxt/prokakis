@@ -50,9 +50,10 @@ class TourDetail extends Model
             $res->update(['scope'=> $scope]);
         }else{
             TourDetail::create([
-                'user_id' => $headId,
-                'scope' => $scope
+                'user_id' => $headId
             ]);
+
+            TourDetail::updateTourDetail($headId, $scope, $is_end);
         }
                 
 

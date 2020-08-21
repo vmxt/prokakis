@@ -573,6 +573,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                       <i class="fa fa-trophy"></i> Rewards </a>
                                               </li>
                                                 
+<li>
+
+                                                  <a href="{{ route('setPasswordData') }}" >
+                                                      <i class="icon-key"></i> Change Password </a>
+                                                </li>
+
                                                 <li class="divider"> </li>
                                                 <li id='nav-login-tour'>
                                                   <?php 
@@ -581,11 +587,11 @@ s0.parentNode.insertBefore(s1,s0);
                                                         if(request()->segment(1) == 'home' ){
                                                             $scope = 'home';
                                                         }else{
-                                                          $scope = request()->segment(1)."/".request()->segment(2);
+                                                            $scope = request()->segment(1)."/".request()->segment(2);
                                                         }
                      
                                                   ?>
-                                                  @if( strpos($tour->scope , $scope) !== false )
+                                                  @if( isset($tour->scope) AND strpos($tour->scope , $scope) !== false )
                                                     <input type="hidden" id="is_tour" value="0">
                                                     <a onclick='updateTour()' href="#">
                                                         <i  class="fa fa-toggle-on"></i> Tour (OFF)
@@ -997,7 +1003,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         </li>
                                         <li aria-haspopup="true" id='nav-report' class="menu-dropdown mega-menu-dropdown {{(request()->segment(2) == 'status') ? 'active' : '' ||
                                         (request()->segment(2) == 'list') ? 'active' : '' ||
-                                        (request()->segment(2) == 'buyTokens') ? 'active' : '' ||
+                                        (request()->segment(2) == 'buyCredits') ? 'active' : '' ||
                                         (request()->segment(2) == 'requesters') ? 'active' : ''}}">
 
                                             <a href="#">
@@ -1019,7 +1025,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
                                                 </li>
                                                 <li aria-haspopup="true" id="nav-buy-credit">
-                                                    <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Credits</a>
+                                                    <a href="{{ url('/reports/buyCredits') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Credits</a>
                                                 </li>
 
                                                 <li aria-haspopup="true" id="nav-report-requester">
@@ -1617,7 +1623,7 @@ s0.parentNode.insertBefore(s1,s0);
 function updateTour(is_end = 'none'){
   formData = new FormData();
   formData.append("auth_id", {{ Auth::id() }} );
-  formData.append("scope", '<?=  request()->segment(1)."/".request()->segment(2) ?>');
+  formData.append("scope", '<?=  $scope ?>');
   formData.append("is_end", is_end);
 
   $.ajax({
