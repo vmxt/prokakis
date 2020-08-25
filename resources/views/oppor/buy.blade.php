@@ -844,12 +844,42 @@ input::-moz-focus-inner {
                             <div class="portlet light" style="margin-top: 10px;">
 
                                 <div class="portlet-body">
+<?php 
+                                                    if(isset( $data->is_anywhere )){
+                                                        $is_anywhere = $data->is_anywhere;
+                                                    }else{
+                                                        $is_anywhere = 1;
+                                                    }
 
+?>
+                    <input type="hidden" name="is_anywhere" id="is_anywhere" value="{{  $is_anywhere }}" />
+
+
+                                    <div class="form-group">
+                                        <label for="ideal_partner_base"><b>(Indicate the location of your ideal partners). If your are looking for a partners all around the world! (Set the toggle to Anywhere).  </label>
+                                        <div class="col-sm-12">
+                                            <input type="checkbox" 
+                                        <?= $is_anywhere == 2 ? "checked" : "" ?>
+                                              id="ideal_partner_toggle"
+                                              onchange="set_ideal_partner(this)" 
+                                              data-toggle="toggle" 
+                                              data-off="Particular" 
+                                              data-on="Anywhere" 
+                                              data-width="250" 
+                                              data-onstyle="success" 
+                                              data-offstyle="info" 
+                                              data-style="slow">
+                                        </div>
+                                    <br/>
+                                    <br/>
+
+                                    </div>
+                                <div class=" particular_partner " >
                                     <div class="form-group">
 
 
 
-                                        <label for="ideal_partner_base"><b>(Indicate the location of your ideal partners)</b> Type and click to add Countries </label>
+                                        <label for="ideal_partner_base">Type and click to add Countries </label>
 
                                         <select class="form-control" id="ideal_partner_base"  dataName="ideal_partner_base"
 
@@ -896,6 +926,7 @@ input::-moz-focus-inner {
 
 
                                     </div>
+                                </div>
 
                                 </div>
 
@@ -2017,6 +2048,14 @@ input::-moz-focus-inner {
 
         $('#ideal_partner_base').select2();
 
+
+        var is_anywhere = $('#is_anywhere').val();
+        if(is_anywhere == 2){
+            $('.particular_partner').hide();
+        }else{
+            $('.particular_partner').show();
+        }
+        
         $('#myCarousel').carousel({
         pause: true,
           interval: false
@@ -2184,6 +2223,55 @@ if( $('#oppor_id').val() ){
     } )
 
 
+}
+
+
+function set_ideal_partner(e){
+    var partner_check = 1;
+    if($(e).prop('checked')) partner_check = 2;
+        console.log(partner_check);
+    if(partner_check == 1){
+        $('.particular_partner').show();
+    }else{
+        $('.particular_partner').hide();
+        $('#is_anywhere').val(partner_check);
+    }
+
+    var dataName = $('#'+this.id).attr('dataName');
+    var oppor_id = $('#oppor_id').val();
+    if(oppor_id){
+        
+        formData = new FormData();
+        formData.append("resultStatus", partner_check);
+        formData.append("opporId", oppor_id);
+        formData.append("opporType", 'buy');
+        formData.append("opporSection", 'partner_check');
+       
+        $.ajax({
+
+            url: "{{ route('updateOpportunityDetail') }}",
+
+            type: "POST",
+
+            data: formData,
+
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+            processData: false,
+
+            contentType: false,
+
+            cache: false,
+
+            success: function (data) {
+
+                console.log(data);
+
+            }
+
+        });
+
+    }
 }
 
     </script>

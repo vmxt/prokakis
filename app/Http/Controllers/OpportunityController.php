@@ -888,6 +888,9 @@ class OpportunityController extends Controller {
 
 					'avatar_status' => $request->input('avatar_status'),
 
+					'is_anywhere' => $request->input('is_anywhere'),
+
+
 				]);
 
 				if ($isOk) {
@@ -1058,6 +1061,8 @@ class OpportunityController extends Controller {
 
 					'avatar_status' => $request->input('avatar_status'),
 
+					'is_anywhere' => $request->input('is_anywhere'),
+
 				]);
 
 				if ($isOk) {
@@ -1226,6 +1231,8 @@ class OpportunityController extends Controller {
 					'industry' => $industry,
 
 					'avatar_status' => $request->input('avatar_status'),
+
+					'is_anywhere' => $request->input('is_anywhere'),
 
 				]);
 
@@ -1587,18 +1594,20 @@ public static function validateAccLimits($company_id){
 			{
 				$fieldName = $request->input('fieldName');
 				$result->update(array($fieldName => $resultValue) );
-				print_r($resultValue);
-				print_r($fieldName);
+			//	print_r($result);
+			//	print_r($fieldName);
 			}
 			else{
-			if($result){
-					if($request->input('opporSection') == 'imageAvatar' )
-						$result->avatar_status = $resultValue;
-					if($request->input('opporSection') == 'viewType' )
-						$result->view_type = $resultValue;
+				if($result){
+						if($request->input('opporSection') == 'imageAvatar' )
+							$result->avatar_status = $resultValue;
+						if($request->input('opporSection') == 'viewType' )
+							$result->view_type = $resultValue;
+						if($request->input('opporSection') == 'partner_check' )
+							$result->is_anywhere = $resultValue;
 
-				$result->save();
-			}
+					$result->save();
+				}
 
 			}
 		}

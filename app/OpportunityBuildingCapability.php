@@ -20,7 +20,7 @@ class OpportunityBuildingCapability extends Model
      */
     protected $fillable = [
         'company_id', 'opp_title', 'business_goal', 'audience_target', 'intro_describe_business', 'why_partner_goal', 'timeframe_goal', 'approx_large', 'ideal_partner_base',
-        'ideal_partner_business', 'relevant_describing_partner', 'created_at', 'updated_at', 'added_by', 'edited_by', 'status', 'view_type' , 'industry', 'avatar_status'
+        'ideal_partner_business', 'relevant_describing_partner', 'created_at', 'updated_at', 'added_by', 'edited_by', 'status', 'view_type' , 'industry', 'avatar_status', 'is_anywhere'
     ];
 
     /**

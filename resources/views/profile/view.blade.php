@@ -15,6 +15,8 @@
 
 @section('content')
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
+
     <link href="{{ asset('public/mini-upload/assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('public/img-cropper/css/style.css') }}" rel="stylesheet">
     
@@ -655,7 +657,7 @@
 
                             <br/>
                            <!-- <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p> -->
-                            <ul>
+                            <ul class='error-list'>
                                 <?php if(isset($completenessMessages)){
                                 foreach($completenessMessages as $d){
                                 ?>
@@ -763,7 +765,7 @@
                                                 Be sure to include accurate information.</strong>
                                             </p>
                                         </div>
-                                        <a href="{{ route('editProfile') }}" class="btn red-mint btn-full" style="margin-top: 15px; width: 200px;">Enhance Company
+                                        <a href="{{ route('editProfile') }}" class="btn red-mint btn-full" id='enhance_com_btn' style="margin-top: 15px; width: 200px;">Enhance Company
                                             Profile</a>
                     
   <a data-popup-open="popup-previewcompany" id="companyProfilePreview" class="btn yellow btn-full" style="margin-top: 15px; width: 220px; cursor: zoom-in;">
@@ -784,19 +786,19 @@
                             <span class="caption-subject font-dark bold uppercase">PROFILE ACCOUNT</span>
                         </div>
                         <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#tab-1" data-toggle="tab"> OVERVIEW </a>
+                            <li class="active profile-tab-1">
+                                <a href="#tab-1" id='profile-tab-1' data-toggle="tab"> OVERVIEW </a>
                             </li>
-                            <li>
+                            <li class="profile-tab-2">
                                 <a href="#tab-2" data-toggle="tab"> KEY MANAGEMENT </a>
                             </li>
-                            <li>
+                            <li class="profile-tab-3">
                                 <a href="#tab-3" data-toggle="tab"> COMPANY INFORMATION </a>
                             </li>
-                            <li>
+                            <li class="profile-tab-4">
                                 <a href="#tab-4" data-toggle="tab"> STRENGTH </a>
                             </li>
-                            <li>
+                            <li class="profile-tab-5">
                                 <a href="#tab-5" data-toggle="tab"> FINANCIAL STATUS </a>
                             </li>
                         </ul>
@@ -1660,9 +1662,157 @@
     <!-- script for banner new
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>-->
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
     <script type="text/javascript">
+
+    // Instance the tour
+var tour = new Tour({
+    steps: [
+    {
+        element: ".fb-profile-block-thumb",
+        title: "Cover Photo",
+        content: "You can update your cover photo by hovering and click at the button in the center!",
+        placement: 'bottom',
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: ".progress",
+        title: "Progress Bar",
+        content: "Progress Percentage of your Profile!",
+        onNext: function(){
+           
+        }
+    },
+
+    {
+        element: ".error-list",
+        title: "Progress Requirements",
+        content: "This are the list that needed to increase your profile percentage!",
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: "#enhance_com_btn",
+        title: "Enhance Company Profile Information",
+        content: "You can modify your company profile information by clikcing this button!",
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: "#companyProfilePreview",
+        title: "Company Preview",
+        content: "Can preview your profile by clicking this button!",
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: "#profile-tab",
+        placement: 'top',
+        title: "Profile Account Information",
+        content: "Can preview your company Information!",
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: ".profile-tab-1",
+        title: "Overview",
+        content: "preview overview of your company information!",
+        onNext: function(){
+           $('.profile-tab-1').removeClass('active');
+           $('.profile-tab-2').addClass('active');
+   
+           // $( ".profile-tab-1" ).tabs( "option", "active", 0 );
+           // $( ".profile-tab-2" ).tabs( "option", "active", 1 );
+        }
+    },
+    {
+        element: ".profile-tab-2",
+        title: "Key Management",
+        content: "preview key management of your company information!",
+        onNext: function(){
+           $('.profile-tab-2').removeClass('active');
+           $('.profile-tab-3').addClass('active');
+        }
+    },
+    {
+        element: ".profile-tab-3",
+        title: "Company Information",
+        content: "preview more details of your Company Information!",
+        onNext: function(){
+            $('.profile-tab-3').removeClass('active');
+            $('.profile-tab-4').addClass('active');
+        }
+    },
+    {
+        element: ".profile-tab-4",
+        title: "Strenght",
+        content: "preview more details of your Company Information!",
+        onNext: function(){
+            $('.profile-tab-4').removeClass('active');
+            $('.profile-tab-5').addClass('active');
+        }
+    },
+    {
+        element: ".profile-tab-5",
+        title: "Financial Status",
+        content: "preview financial status information!",
+        onNext: function(){
+            $('.profile-tab-5').removeClass('active');
+            $('.profile-tab-6').addClass('active');
+        }
+    }
+ 
+
+  
+],
+
+  container: "body",
+  smartPlacement: true,
+  keyboard: true,
+  // storage: window.localStorage,
+  storage: false,
+  debug: true,
+  backdrop: true,
+  backdropContainer: 'body',
+  backdropPadding: 0,
+  redirect: true,
+  orphan: false,
+  duration: false,
+  delay: false,
+  basePath: "",
+  placement: 'auto',
+
+  afterGetState: function (key, value) {},
+  afterSetState: function (key, value) {},
+  afterRemoveState: function (key, value) {},
+  onStart: function (tour) {
+    $('#theBanner').removeClass('imghov');
+
+  },
+  onEnd: function (tour) {
+     $('#theBanner').addClass('imghov');
+     $('.menu-dropdown').removeClass('open');
+     updateTour('end');
+  },
+  onShow: function (tour) {},
+  onShown: function (tour) {},
+  onHide: function (tour) {},
+  onHidden: function (tour) {},
+  onNext: function (tour) {},
+  onPrev: function (tour) {},
+  onPause: function (tour, duration) {},
+  onResume: function (tour, duration) {},
+  onRedirectError: function (tour) {}
+
+});
 
         function notifytoPremium(){
             swal({
@@ -1684,6 +1834,14 @@
 
           });
         }
+
+// Initialize the tour
+tour.init();
+
+// Start the tour
+if( $('#is_tour').val() == 1 ){
+    tour.start();
+}
 
         $(document).ready(function () {
 
