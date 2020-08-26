@@ -228,7 +228,7 @@
                                             </p>
                                         </div>
 
-					<?php 
+                    <?php 
                                         $user_id = Auth::id();
                                         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
 
@@ -240,7 +240,7 @@
                                            style="margin-top: 15px;">Enhance
                                             Profile</a>
 
-					
+                    
 
                                     </div>
                                 </div>
@@ -301,17 +301,17 @@
                         <!-- BEGIN WIDGET THUMB -->
                         <div id="home-oppor" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <a href='{{  url('/opportunity/chatbox') }}'>
-                                <h4 class="widget-thumb-heading">OPPORTUNITY INBOX</h4>
-                                <div class="widget-thumb-wrap">
-                                    <i class="widget-thumb-icon bg-blue fa fa-envelope" aria-hidden="true"></i>
-                                    <div class="widget-thumb-body">
-                                        <span class="widget-thumb-subtitle hidden">USD</span> <br>
-                                        <span class="widget-thumb-body-stat">
-                                                <span class="counter">{{ $oppoInbox }}</span>
+                            <h4 class="widget-thumb-heading">OPPORTUNITY INBOX</h4>
+                            <div class="widget-thumb-wrap">
+                                <i class="widget-thumb-icon bg-blue fa fa-envelope" aria-hidden="true"></i>
+                                <div class="widget-thumb-body">
+                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
+                                    <span class="widget-thumb-body-stat">
+                                            <span class="counter">{{ $oppoInbox }}</span>
 
-                                            </span>
-                                    </div>
+                                        </span>
                                 </div>
+                            </div>
                             </a>
                         </div>
                         <!-- END WIDGET THUMB -->
@@ -408,10 +408,10 @@
                                         ?>  </b> <br/>
                                     Credit Left <br/>
                                     <div class="col-sm-12">
-                                        <a id='home-topup' href="{{ route('reportsBuyCredits') }}" class="btn red-mint"
+                                        <a id='home-topup' href="{{ route('reportsBuyTokens') }}" class="btn red-mint"
                                            style="width: 100%;"> Top Up</a>
                                     </div>
-				 	@if($c_promo == 0)   
+                                        @if($c_promo == 0)   
                                         <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>    
                                         <a onclick="PromoOne('{{ $valid_token }}')" class="btn yellow"
                                             style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
@@ -437,7 +437,7 @@
                         if (count((array)$log) > 0) {
                         foreach ($log as $l) {
                         $date = date("F j, Y, g:i a", strtotime($l->created_at));
-                       $activity = $l->action . ' at ' . $l->model.' module, '. $l->details;
+                        $activity = $l->action . ' at ' . $l->model.' module, '. $l->details;
                         ?>
                         <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;">
                             <li class="list-group-item">
@@ -609,7 +609,7 @@ var tour = new Tour({
   {
     element: "#nav-login-account-credit",
     title: "ACCOUNT AND CREDIT",
-    content: "Here you can view your token balance and account status",
+    content: "Here you can view your credit balance and account status",
     placement: 'left'
   },
   {
@@ -676,7 +676,7 @@ var tour = new Tour({
   {
     element: "#home-oppor",
     title: "Opportunity Inbox",
-    content: "A notification for incoming message reagrding your opportunity. Clikcing this block will redirect you to the prokakis chat page"
+    content: "A notification for incoming message reagrding your opportunity. Clicking this block will redirect you to the prokakis chat page"
   },
   {
     element: "#home-ongoing",
