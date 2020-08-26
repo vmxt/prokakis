@@ -65,7 +65,7 @@
     <!-- override the css values above -->
      <style>
 
-        @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 body {
   font-family: 'Open Sans', 'sans-serif';
   background: #f0f0f0;

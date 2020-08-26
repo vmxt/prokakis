@@ -649,6 +649,7 @@ var tour = new Tour({
     placement: 'left',
     onNext: function(){
         $('#nav-login-dropdown').removeClass('open');
+        return false;
     },
   },  
   {
