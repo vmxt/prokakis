@@ -31,6 +31,12 @@ Auth::routes();
 Route::get('/ipn', 'IpnController@getIpnDataGet')->name('GetIpnDataGet');
 Route::post('/ipn', 'IpnController@getIpnDataPost')->name('GetIpnDataPost');
 
+//request company ownership and company removal
+Route::get('/req-own-company/{reqId}/{provId}', 'CompanyOwningRemovalController@reqCompanyOwn')->name('reqCompanyOwn');
+Route::get('/req-rem-company/{reqId}/{provId}', 'CompanyOwningRemovalController@reqCompanyRem')->name('reqCompanyRem');
+Route::post('/reqown', 'CompanyOwningRemovalController@getDocumentRequest')->name('getDocumentRequest');
+Route::post('/reqremove', 'CompanyOwningRemovalController@getRemoveRequest')->name('getRemoveRequest');
+
 //videochat
 Route::get('/vc/{oppId}/{oppType}/{companyOpp}/{companyViewer}', 'VideoChatController@loadVideoPage')->name('vcloadVideoPage');
 Route::post('/vc-details', 'VideoChatController@getVideoChatDetails')->name('getVideoChatDetails');

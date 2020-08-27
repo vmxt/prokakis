@@ -562,9 +562,24 @@ class CompanyprofileController extends Controller {
 
 				$cp->edited_by = $user_id;
 
+				$cp->incorporation_date =  $request['incorporation_date'];
+
 				if ($cp->save()) {
 
+					if ($request->hasfile('uploadCSV')) {
+
+						$file = $request->file('uploadCSV');
+						$name = $user_id . '_financialStatus_' . time() . '_' . $file->getClientOriginalName();
+						$file->move(public_path() . '/uploads/', $name);
+						$filePathCsv =  asset('public/uploads/'.$name);
+
+						FinancialAnalysis::saveCreateCSV($filePathCsv, $company_id_result, $user_id);
+		
+					} else {
+
 					FinancialAnalysis::saveCreate($request, $company_id_result, $user_id);
+
+				}
 
 				}
 

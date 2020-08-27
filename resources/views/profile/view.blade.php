@@ -1401,6 +1401,7 @@
                             </div>
                             <!-- END TAB-3 -->
 
+
                             <!-- START TAB-4 -->
                             <div class="tab-pane" id="tab-4">
                               
@@ -1498,6 +1499,7 @@
 
                             </div>
                             <!-- END TAB-4 -->
+
                             <!-- START TAB-5 -->
                             <div class="tab-pane" id="tab-5">
                                 <div class="card">
@@ -1506,12 +1508,19 @@
                                         $param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
                                         $fa = App\FA_Results::getEntries($user_id);
                                         $totalMax = App\FA_Results::getTotalByMax($user_id);
+                                        $month_param = "";
                                     ?>
                                     <div class="forMobile">
                                         @if($fa)
                                             @foreach($fa as $data)
                                                 <div class="col-record">
-                                                    <p class="title"><strong>{{ $param_months[$data->month_param].' '.$data->year_param }}</strong></p>
+                                                    <p class="title"><strong>
+                                                    <?php 
+                                                        if(isset( $param_months[$data->month_param] )){
+                                                            $month_param = $param_months[$data->month_param];
+                                                        }
+                                                    ?>
+                                                        {{ $month_param.' '.$data->year_param }}</strong></p>
                                                     <p class="desc descBox">
                                                            Total Scores {{ App\FA_Results::getTotalByMonthYears($data->entry, $user_id, $data->month_param, $data->year_param) }}
                                                     </p>
@@ -1532,7 +1541,7 @@
                                         if($fa){
                                          echo '<tr>';
                                         foreach($fa as $data){
-                                        echo '<td>'.$param_months[$data->month_param].' '.$data->year_param.'</td>';
+                                        echo '<td>'.$month_param.' '.$data->year_param.'</td>';
                                         }
                                         echo '<td>Maximum Mark</td></tr>';
 
@@ -1646,7 +1655,6 @@
             </div>
         </div>
     </div>
-
 
     <!--
 <script src="{{ asset('public/mini-upload/assets/js/jquery.knob.js') }}"></script>
@@ -1764,9 +1772,27 @@ var tour = new Tour({
         element: ".profile-tab-5",
         title: "Financial Status",
         content: "preview financial status information!",
+        placement: 'left',
         onNext: function(){
             $('.profile-tab-5').removeClass('active');
             $('.profile-tab-6').addClass('active');
+        }
+    },
+    {
+        element: "#cancelButtonCompanyProfile",
+        title: "Cancel",
+        content: "Cancel any changes you have made",
+        placement: 'left',
+        onNext: function(){
+
+        }
+    },
+    {
+        element: "#saveButtonCompanyProfile",
+        title: "Save",
+        content: "Save any changes you have made",
+        onNext: function(){
+
         }
     }
  

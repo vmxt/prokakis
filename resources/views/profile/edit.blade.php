@@ -982,6 +982,23 @@
                                             </div>
 
 
+                                            <div class="form-group">
+
+                                                <label for="incorporation_date">Incorporation Date </label>
+
+                                                <input type="text" class="form-control"  id="mask_incorporation_date"
+
+                                                       name="incorporation_date"
+
+                                                       value="<?php if (isset($company_data->incorporation_date)) {
+
+                                                           echo $company_data->incorporation_date;
+
+                                                       } ?>">
+                                                <span class="form-text text-muted">Custom date format:<code>yyyy-mm-dd</code></span>
+                                            </div>
+
+
 
                                             <div class="form-group">
 
@@ -2120,6 +2137,12 @@
 
                                     <div class="card-header"><b>Financial Entries</b>
                     <div style="color:red">To avoid delays, please don't use comma in your numerical entries. </div>
+ <?php 
+                                $csvLink = asset('public/assets/templates/TemplateProkakisFnancialStatus.csv');
+                                ?>
+
+<a style="float:right" target="_blank" href="{{ $csvLink }}">Download CSV Template</a> <br />
+
                    </div>
 
                                     <div class="card-body center table-outer">
@@ -3587,6 +3610,22 @@
 
                                             </tr>
 
+						 <tr>
+
+                                             <td colspan="5">
+                                                <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
+                                                    <strong>Upload CSV</strong>
+                                                <input type="file" name="uploadCSV" id="uploadCSV" class="btn btn-info" style="float:right">
+                                                 
+                                                </p>
+                                                </div>
+                                             
+                                            </td>   
+                                            </tr>   
+
+
+
+
                                         </table>
 
                                     </div>
@@ -4624,6 +4663,8 @@ if( $('#is_tour').val() == 1 ){
                     required: true
                 });
                 
+		$('#mask_incorporation_date').mask('0000-00-00');	
+                
                 // Set all hidden fields to type text for the demo
                 // $('input[type="hidden"]').attr('type', 'text').attr('readonly', 'readonly');
             });
@@ -4637,4 +4678,7 @@ if( $('#is_tour').val() == 1 ){
     {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
 
     <script src="{{ asset('public/drop-date/jquery.date-dropdowns.js') }}"></script>
+	
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
 @endsection
