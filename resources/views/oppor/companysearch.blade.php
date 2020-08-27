@@ -524,6 +524,11 @@
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->company_name }}', '{{ $company->id }}', '{{ $item->user_id }}', '{{ $item->company_email}}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                 @endif
 
+		&nbsp;&nbsp;&nbsp; <span>
+                <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestOwnership({{ $requestor_id }}, {{ $provider_id }})"  class="btn green btn_options"> <span class="fa fa-comment"></span> &nbsp;Company Ownership </a>
+                <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestRemoval({{ $requestor_id }}, {{ $provider_id }})"  class="btn red btn_options"> <span class="fa fa-comment"></span> &nbsp; Removal in Prokakis</a>
+                </span>
+
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
                   <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
                    class="btn btn-danger btn_options"
@@ -603,6 +608,16 @@
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
+
+	 function alertRequestOwnership(reqId, provId)
+        {
+         window.open('{{ url("/req-own-company/") }}'+'/'+reqId+'/'+provId, '_blank');
+        }
+
+        function alertRequestRemoval(reqId, provId)
+        {
+         window.open('{{ url("/req-rem-company/") }}'+'/'+reqId+'/'+provId, '_blank');
+        }
 
 
         function showModalContent(type, id){
