@@ -16,6 +16,7 @@ use App\PremiumOpportunityPurchased;
 use App\OpportunityBuildingCapability;
 use App\OpportunityBuy;
 use App\OpportunitySellOffer;
+use App\CompanyFollow;
 
 class CompanyController extends Controller {
 
@@ -250,6 +251,15 @@ class CompanyController extends Controller {
 			}
 
 		}
+
+	}
+
+	public function followCompany(Request $request){
+		$status = [];
+		$user_id = $user_id = Auth::id();
+		$follow_company_id =  $request->input("company_id");
+		$result = CompanyFollow::getFollowCompany($user_id, $follow_company_id);
+		echo $result;
 
 	}
 

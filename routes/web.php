@@ -25,6 +25,8 @@ Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken
 Route::get('/company/{brand}/{id}', 'CompanyController@index')->name('companySocialsharing');
 Route::get('/fbshare/{id}/{brand}', 'FbshareController@shareOnFB')->name('fbcompanyshare');
 Route::get('/company/{id}', 'CompanyController@previewPremiumCompany')->name('PreviewPremiumCompany');
+Route::post('/company/follow', 'CompanyController@followCompany')->name('updateFollowCompany');
+
 
 Auth::routes();
 //paypal listener

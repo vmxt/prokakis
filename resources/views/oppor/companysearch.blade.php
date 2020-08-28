@@ -10,7 +10,10 @@
 <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet"
       type="text/css"/>
 
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 <style>
     #chat-wrap {
       background-image: url("{{ asset('public/img-resources/chat-backdrop.png') }}");
@@ -61,49 +64,7 @@
 
 
     <div class="container container-grid">
-        <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
-            <li>
-                <a href="{{ url('/home') }}">Home</a>
-                <i class="fa fa-circle"></i>
-            </li>
-            <li>
-                <a href="#">Opportunity</a>
-                <i class="fa fa-circle"></i>
-            </li>
-            <li>
-                Explore Opportunity
-                <i class="fa fa-circle"></i>
-            </li>
-            <?php if(isset($hashT)){ ?>
-              <li>
-                  <b>#<?php echo $hashT; ?> </b>
-              </li>
-            <?php } ?>
-        </ul>
         <div class="col-md-12" >
-            <div class="form-group">
-                <div class="row">
-                    <div class="col col-sm-6">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" id="keywordSearch"
-                                   placeholder="Filter by keywords"
-                                   value="<?php if (isset($selectedKeyword)) { echo $selectedKeyword; }?>">
-                            <span class="input-group-btn"><button class="btn green" type="button"
-                                                                  id="filterKeywords">FILTER</button></span>
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" id="keywordCountry"
-                                   placeholder="Filter by country"
-                                   value="<?php if (isset($selectedCountry)) { echo $selectedCountry; }?>">
-                            <span class="input-group-btn"><button class="btn green" type="button"
-                                                                  id="filterCountry">FILTER</button></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             @if (session('message'))
                 <div class="alert alert-danger">
                     {{ session('message') }}
@@ -170,7 +131,22 @@
             <div class='row cf list-row-build '>
         @endif
         @if($i <= 2)
-              <div class='post build-list'>
+              <div class='post company-list' >
+                <?php 
+                    $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
+                    if( $followComp > 0) {
+                        $iconName = 'fa-user-minus';
+                        $iconTitle = "Unfollow this company";
+                    }else{
+                        $iconName = 'fa-user-plus';
+                        $iconTitle = "Follow this company";
+
+                    }
+                ?>
+                    <div class='follow-cont' dataVal="{{ $company->id }}">
+                        <i class="fas {{ $iconName }} fa-2x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
+                    </div>
+
                 <a href='#'>
                     <div class='image' style='background-image: url( {{ $avatarUrl }}  )'>
 
@@ -180,7 +156,7 @@
                     </div>
                   <div class='content'>
                     <h1 class='upperText' title="{{ $item->company_name }}"> <?= $item->company_name != "" ? $item->company_name : 'Providing Business Valuation' ?></h1>
-                    
+
                     <div class="hr-sect"><strong class="hr_title">Description</strong></div>
                          <p><?php echo $item->description?$item->description: "N/A" ; ?></p><br>
 
@@ -625,6 +601,35 @@
         }
 
         $(document).ready(function () {
+
+            $(".follow-cont").click(function (e) {
+                    formData = new FormData();
+                    var comp_id = $(this).attr('dataVal');
+                      formData.append("company_id", comp_id );
+                      $.ajax({
+                          url: "{{ route('updateFollowCompany') }}",
+                          type: "POST",
+                          async: true,
+                          data: formData,
+                          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                          processData: false,
+                          contentType: false,
+  
+                          success: function (data) {
+                            if(data == 'add'){
+                                $('.followicon_'+comp_id).addClass('fa-user-minus');
+                                $('.followicon_'+comp_id).removeClass('fa-user-plus');
+                                $('.followicon_'+comp_id).attr('title','Unfollow Company');
+
+                            }else{
+                                $('.followicon_'+comp_id).removeClass('fa-user-minus');
+                                $('.followicon_'+comp_id).addClass('fa-user-plus');
+                                $('.followicon_'+comp_id).attr('title','Follow Company');
+                            }
+                          }
+                    });
+
+            });
 
             $("#opporDetailsContentModal").modal();
             $("#filterKeywords").click(function () {
