@@ -11,6 +11,9 @@
       type="text/css"/>
 
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+
 <style>
     #chat-wrap {
       background-image: url("{{ asset('public/img-resources/chat-backdrop.png') }}");
@@ -147,6 +150,20 @@
         @endif
         @if($i <= 2)
               <div class='post build-list'>
+                <?php 
+                    $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
+                    if( $followComp > 0) {
+                        $iconName = 'fa-user-minus';
+                        $iconTitle = "Unfollow this company";
+                    }else{
+                        $iconName = 'fa-user-plus';
+                        $iconTitle = "Follow this company";
+                    }
+                ?>
+                    <div class='follow-cont' dataVal="{{ $company->id }}">
+                        <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
+                    </div>
+
                 <a href='#'>
                     <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
 
@@ -550,6 +567,19 @@
         @endif
         @if($i <= 2)
               <div class='post sell-list'>
+                <?php 
+                    $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
+                    if( $followComp > 0) {
+                        $iconName = 'fa-user-minus';
+                        $iconTitle = "Unfollow this company";
+                    }else{
+                        $iconName = 'fa-user-plus';
+                        $iconTitle = "Follow this company";
+                    }
+                ?>
+                    <div class='follow-cont' dataVal="{{ $company->id }}">
+                        <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
+                    </div>
                 <a href='#'>
                     <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
 
@@ -960,6 +990,21 @@
         @endif
         @if($i <= 2)
               <div class='post buy-list'>
+
+                <?php 
+                    $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
+                    if( $followComp > 0) {
+                        $iconName = 'fa-user-minus';
+                        $iconTitle = "Unfollow this company";
+                    }else{
+                        $iconName = 'fa-user-plus';
+                        $iconTitle = "Follow this company";
+                    }
+                ?>
+                    <div class='follow-cont' dataVal="{{ $company->id }}">
+                        <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
+                    </div>
+
                 <a href='#'>
                     <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
 
@@ -1607,6 +1652,36 @@
         }
 
         $(document).ready(function () {
+
+            $(".follow-cont").click(function (e) {
+                    formData = new FormData();
+                    var comp_id = $(this).attr('dataVal');
+                      formData.append("company_id", comp_id );
+                      $.ajax({
+                          url: "{{ route('updateFollowCompany') }}",
+                          type: "POST",
+                          async: true,
+                          data: formData,
+                          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                          processData: false,
+                          contentType: false,
+  
+                          success: function (data) {
+                            if(data == 'add'){
+                                $('.followicon_'+comp_id).addClass('fa-user-minus');
+                                $('.followicon_'+comp_id).removeClass('fa-user-plus');
+                                $('.followicon_'+comp_id).attr('title','Unfollow Company');
+
+                            }else{
+                                $('.followicon_'+comp_id).removeClass('fa-user-minus');
+                                $('.followicon_'+comp_id).addClass('fa-user-plus');
+                                $('.followicon_'+comp_id).attr('title','Follow Company');
+                            }
+                          }
+                    });
+
+            });
+
             $('.chat-close').click(function(){
                 clearInterval(chatInterval);
             });
