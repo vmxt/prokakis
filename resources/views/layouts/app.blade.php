@@ -11,9 +11,9 @@
         <!-- from the original code -->
         <!-- CSRF Token -->
         <meta property="og:title" content="Prokakis Ebos-SG App {{ now()->year }}" /> 
-        <meta property="og:url" content="https://app.prokakis.com/" /> 
+        <meta property="og:url" content="https://app-prokakis.com//" /> 
         <meta property="og:site_name" content="Prokakis"/> 
-        <meta property="og:image" content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
+        <meta property="og:image" content="https://app-prokakis.com//public/img-resources/ProKakisNewLogo.png" /> 
         <meta property="og:type" content="website" /> 
         <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." />
         <!-- end from the original code -->
@@ -55,7 +55,7 @@
         <link href="{{ asset('public/assets/layouts/layout3/css/themes/default.min.css')}}" rel="stylesheet" type="text/css" id="style_color" />
         <link href="{{ asset('public/assets/layouts/layout3/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
         <!-- END THEME LAYOUT STYLES -->
-        <link rel="shortcut icon" href="https://app.prokakis.com/favicon.ico" />
+        <link rel="shortcut icon" href="https://app-prokakis.com//favicon.ico" />
         <!-- for new banner
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
             -->
@@ -397,7 +397,7 @@ s0.parentNode.insertBefore(s1,s0);
                                 <div class="top-menu">
 
                                         <?php
-                                          if(App\User::securePage($user_id) != 5){
+                                          if(App\User::securePage($user_id) == 2 || App\User::securePage($user_id) == 3){
 
                                             if(Session::get('SwitchedAccount') == '' &&  App\User::securePage($user_id) != 1) {
                                             ?>
@@ -642,7 +642,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                 <div class="hor-menu  ">
                                     <ul class="nav navbar-nav">
-                                        <li aria-haspopup="true" id="nav-home-page" class="menu-dropdown classic-menu-dropdown {{ (request()->segment(2) == '/') ? 'active' : '' }}">
+                                        <li aria-haspopup="true" id="nav-home-page" class="menu-dropdown classic-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' }}">
                                             @guest
                                                 <a class="navbar-brand" href="{{ route('login') }}">
                                                     <i class="fa fa-home"></i>  Home
@@ -658,9 +658,9 @@ s0.parentNode.insertBefore(s1,s0);
                                       <?php if($userType == 1){  ?>
                       
 
-                                        <li aria-haspopup="true" id='nav-system-dashboard' class=" menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' ||
+                                        <li aria-haspopup="true" id='nav-system-dashboard' class=" menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'dashboard') ? 'active' : '' ||
                                         (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}}  ">
-                                            <a href="#">
+                                            <a href="{{ route('dashboard') }}">
                                                 <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
                                                 <span class="arrow"></span>
                                                 </a>
@@ -1277,6 +1277,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <a href="{{url('/sysconfig/reportTemplate')}}" class="nav-link  ">
                                                         Configure Report Templates</a>
                                                 </li>
+						
+ 						<li aria-haspopup="true" class=" ">
+                                                  <a href="{{url('/req-list')}}" class="nav-link  ">
+                                                      Company Request Ownership and Removal</a>
+                                              </li>
+
                                             </ul>
                                         </li>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
@@ -1448,7 +1454,7 @@ s0.parentNode.insertBefore(s1,s0);
                 }
               }
              }
-             $rs_company = App\CompanyProfile::where('user_id',  $userId)->get();
+             $rs_company = App\CompanyProfile::where('user_id',  $userId)->where('status', 1)->get();
 
             if(sizeof($rs_company) < $numAccount){            ?>
 

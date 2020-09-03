@@ -30,6 +30,8 @@ use App\ChatHistory;
 
 use App\User;
 
+use App\CompanyFollow;
+
 use Auth;
 
 use Config;
@@ -40,7 +42,17 @@ use Session;
 
 use App\PromotionToken;
 
+use App\OpportunityBuildingCapability;
+use App\OpportunityBuy;
+use App\OpportunitySellOffer;
+
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 use Illuminate\Support\Facades\DB;
+
+use App\InOutUsers;
 
 class HomeController extends Controller {
 
@@ -72,7 +84,7 @@ class HomeController extends Controller {
 
 	 */
 
-	public function index() {
+	public function dashboard() {
 
 		$user_id = Auth::id();
 
@@ -81,6 +93,8 @@ class HomeController extends Controller {
 		//$userType = User::securePage($user_id);
 
 		$userType = User::validateAccountNavigations($user_id);
+
+		InOutUsers::insert_updateDB(array('user_id'=>$user_id, 'status'=>1));
 
 
 
@@ -118,6 +132,16 @@ class HomeController extends Controller {
 
 			return redirect('homeAdmin');
 
+		}
+
+		if ($userType == 6) {
+
+			return redirect('homeSales');
+
+		}
+
+		if ($userType == 7) {
+			return redirect('homeAP');
 		}
 
 
@@ -205,10 +229,65 @@ class HomeController extends Controller {
 
 
 
-		return view('home.index', compact('completenessProfile', 'pendingRequestReport', 'ongoingMonitoring', 'awaitingresponsetogenreport', 'generatedreport', 'process_report','c_promo','oppoInbox'));
+		return view('home.dashboard', compact('completenessProfile', 'pendingRequestReport', 'ongoingMonitoring', 'awaitingresponsetogenreport', 'generatedreport', 'process_report','c_promo','oppoInbox'));
 
 	}
 
+public function index() {
+
+		$resultData = [];
+		$resultOpp = [];
+		$user_id = Auth::id();
+		$company_follow = CompanyFollow::GetAllFollowCompany($user_id);
+				//array_push($resultData, $company_follow->get());	
+
+
+		foreach ($company_follow->get() as $value) {
+			$res = 	[
+					'state' => 'company',
+					'updated_at' => $value->updated_at,
+					'content'=> [
+								'company_id'=>$value->id,
+								'company_name'=>$value->company_name,
+								'company_website'=>$value->company_website,
+								'description'=>$value->description
+								]
+					];
+
+			array_push($resultData, $res);	
+			$company_id = $value->id;
+				$resBuild = OpportunityBuildingCapability::where('company_id', $company_id)->where('status', 1)->get();
+				$resSell = OpportunitySellOffer::where('company_id', $company_id)->where('status', 1)->get()->merge($resBuild);
+				$resBuy = OpportunityBuy::where('company_id', $company_id)->where('status', 1)->get()->merge($resSell);
+				array_push($resultOpp, $resBuy);	
+		}
+
+		if(isset($resultOpp[0])) {
+			foreach ($resultOpp[0] as $val) {
+				$res = 	[
+				'state' => 'opportunity',
+				'updated_at' => $val->updated_at,
+				'content'=> [
+							'oppo_id'=>$val->id,
+							'opp_title'=>$val->opp_title,
+							'intro_describe_business'=>$val->intro_describe_business,
+							'industry'=>$val->industry
+							]
+				];
+				array_push($resultData, $res);	
+			}
+		}
+		
+		usort($resultData, function($a, $b) {
+		    return $a['updated_at'] < $b['updated_at'];
+		});
+
+		$data = $this->paginate($resultData);
+
+		$followingCount = $company_follow->count();
+		return view('home.index', compact('data','followingCount'));
+
+	}
 
 
 	//dashboard for sub consultant
@@ -361,6 +440,15 @@ class HomeController extends Controller {
 
 	}
 
+	public function ebosSales() {
+
+		return view('sales.dashboard');
+
+	}
+
+	public function ebosAP() {
+		return view('ap.dashboard');
+	}
 
 
 	//switching happens here consultant to company, and in vice versa
@@ -577,7 +665,12 @@ class HomeController extends Controller {
 
 	}
 
-
+    public function paginate($items, $perPage = 5, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
 
 
 

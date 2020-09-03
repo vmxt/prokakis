@@ -6,7 +6,7 @@ use App;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-
+use Illuminate\Support\Facades\DB;
 
 class CompanyFollow extends Model
 {
@@ -56,5 +56,13 @@ class CompanyFollow extends Model
         return $result;
     }
 
+    public static function GetAllFollowCompany($user_id){
+        return DB::table("company_follow as cf")
+                    ->select("cp.*",DB::raw("'company' as state") )
+                    ->join('company_profiles as cp','cp.id','=','cf.company_id')
+                    ->where('cf.user_id', $user_id);
+    }
+
    
-}
+}#end class
+

@@ -13,8 +13,18 @@
 </style>
 
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/css/dashboard.css') }}">
+{{-- 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script> --}}
+
     <style>
         .niceDisplay {
             font-family: 'PT Sans Narrow', sans-serif;
@@ -173,19 +183,11 @@
             left: 0;
         }
 
+
+
     </style>
 
     <div class="container">
-        <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
-            <li>
-                <a href="{{ url('/home') }}">Home</a>
-                <i class="fa fa-circle"></i>
-            </li>
-            <li>
-                <span>Dashboard</span>
-            </li>
-        </ul>
-
         @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
@@ -197,272 +199,175 @@
             </div>
         @endif
 
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+        <div class="bootstrap row justify-content-center">
+            <div class="bootstrap col-md-9">
+               {{ $data->links() }}   
+
+            @foreach($data as $val)
+ 
+            @if($val['state'] == 'company')
                 <!-- graph card -->
-                <div class="page-content-inner">
-                    <div class="mt-content-body">
-                        <div class="portlet light h-effect">
-                            <div class="card">
-                                <div class="note note-success">
-                                    <h4 class="block"><strong>ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</strong></h4>
-                                </div>
-                                <div class="row">
-                                    <div class="col col-md-4">
-                                        <div class="pie">
-                                            <div class="clip1">
-                                                <div class="slice1"></div>
-                                            </div>
-                                            <div class="clip2">
-                                                <div class="slice2"></div>
-                                            </div>
-                                            <div class="status"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col col-lg-8" style="margin-top: 5px;">
-                                        <div class="alert alert-info"
-                                             style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
-                                                <strong>Prokakis members are three times more likely
-                                                to engage with you if your company profile is over 30% complete.
-                                                Be sure to include accurate information.</strong>
-                                            </p>
-                                        </div>
-
-                    <?php 
-                                        $user_id = Auth::id();
-                                        $company_id_result = App\CompanyProfile::getCompanyId($user_id);
-
-                                        if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>  
-                                         <br />  
-                                        <?php } ?>
-
-                                        <a id="home-enhance-profile" href="{{ route('editProfile') }}" class="btn red-mint"
-                                           style="margin-top: 15px;">Enhance
-                                            Profile</a>
-
-                    
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="bootstrap page-content-inner">
+                    <div class="bootstrap mt-content-body">
+                        <div class="bootstrap portlet light h-effect">
+                                 <!--- \\\\\\\Post-->
+                                <div class="bootstrap card gedf-card">
+                                    <div class="bootstrap card-header">
+                                        <div class="bootstrap d-flex justify-content-between align-items-center">
+                                            <div class="bootstrap d-flex justify-content-between align-items-center">
+                                                <div class="bootstrap mr-2">
+<?php 
+                        $avatar = \App\UploadImages::where('company_id', $val['content']['company_id'])->where('file_category', 'PROFILE_AVATAR')
+                            ->orderBy('id', 'desc')
+                            ->first();
+                        $avat = '';
+                        if (!isset($avatar->file_name)) 
+                            $avat = asset('public/images/industry')."/guest.png";
+                        else 
+                            $avat = asset('public/images')."/".$avatar->file_name;
+                        $avatarUrl = $avat;
+                        $dt = Carbon\Carbon::parse($val['updated_at']);
 
 
-                <!-- widgets -->
-
-                <div class="row widget-row">
-                    <div class="col-md-4">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-pending" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
-                            <h4 class="widget-thumb-heading">PENDING PROFILE REQUEST</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-clock-o"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden"></span>
-                                    <span class="widget-thumb-body-stat" style="margin-top: 20px;">
-                                            <span class="counter"
-                                                  data-count=" <?php if (!empty($pendingRequestReport)) {
-                                                      echo $pendingRequestReport;
-                                                  } ?>"></span>
-
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-                    <div class="col-md-4">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-awaiting" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
-                            <h4 class="widget-thumb-heading">AWAITING RESPONSE</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-reply-all"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden"></span>
-                                    <span class="widget-thumb-body-stat" style="margin-top: 20px;">
-                                            <span class="counter" data-count=" <?php
-                                            if (!empty($awaitingresponsetogenreport)) {
-                                                if ($awaitingresponsetogenreport == 0) {
-                                                    echo "0";
-                                                } else echo $awaitingresponsetogenreport;
-                                            }?>"></span>
-
-                                        </span>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-
-                    <div class="col-md-4">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-oppor" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
-                            <a href='{{  url('/opportunity/chatbox') }}'>
-                            <h4 class="widget-thumb-heading">OPPORTUNITY INBOX</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-envelope" aria-hidden="true"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
-                                    <span class="widget-thumb-body-stat">
-                                            <span class="counter">{{ $oppoInbox }}</span>
-
-                                        </span>
-                                </div>
-                            </div>
-                            </a>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-
-                </div>
-
-
-                <div class="row widget-row">
-                    <div class="col-md-4">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-ongoing" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
-                            <h4 class="widget-thumb-heading">ONGOING MONITORING</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-eye" aria-hidden="true"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
-                                    <span class="widget-thumb-body-stat">
-                                            <span class="counter" data-count=" <?php if (!empty($ongoingMonitoring)) {
-                                                echo $ongoingMonitoring;
-                                            } ?>"></span>
-
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-                    <div class="col-md-4">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-generated" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
-                            <h4 class="widget-thumb-heading">GENERATED REPORT</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue icon-layers"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
-                                    <span class="widget-thumb-body-stat"> <span class="counter"
-                                                                                data-count="<?php if (!empty($generatedreport)) {
-                                                                                    echo $generatedreport;
-                                                                                } ?>"></span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-
-                    <div class="col-md-4">
-                        <!-- BEGIN WIDGET THUMB -->
-                        <div id='home-completed' class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
-                            <h4 class="widget-thumb-heading">COMPLETED REPORT</h4>
-                            <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-newspaper-o"></i>
-                                <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
-                                    <span class="widget-thumb-body-stat">
-                                            <span class="counter" data-count=" <?php if (!empty($process_report)) {
-                                                echo $process_report;
-                                            } ?>"></span>
-
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END WIDGET THUMB -->
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-4" style="min-height:800px;">
-                <!-- sidebar token credit -->
-                <div class="page-content-inner">
-                    <div class="mt-content-body">
-                        <div class="portlet light h-effect">
-                            <div class="card" style="overflow: hidden;">
-                                <div class="card-header" style="margin-bottom: 25px;">
-                                    <center><span class="bold uppercase font-blue">Credit Status</span>
-                                        <hr>
-                                    </center>
-                                </div>
-                                <div class="card-body center" style="text-align: center;">
-                                    <b class="font-prokakis-blue" style="font-size: 20px;"> <?php
-
-                                        $user_id = Auth::id();
-                                        $company_id_result = App\CompanyProfile::getCompanyId($user_id);
-                                        $valid_token = 0;
-                                        if (App\SpentTokens::validateTokenStocks($company_id_result) == false) {
-                                            echo "0";
-                                        } else {
-                                            $consumedTokens = App\SpentTokens::validateTokenStocks($company_id_result);
-                                            $valid_token = $consumedTokens;
-                                            echo $consumedTokens;
-                                        }
-                                        ?>  </b> <br/>
-                                    Credit Left <br/>
-                                    <div class="col-sm-12">
-                                        <a id='home-topup' href="{{ route('reportsBuyTokens') }}" class="btn red-mint"
-                                           style="width: 100%;"> Top Up</a>
-                                    </div>
-                                        @if($c_promo == 0)   
-                                        <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>    
-                                        <a onclick="PromoOne('{{ $valid_token }}')" class="btn yellow"
-                                            style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
-                                        </a>
-                                        <?php } ?>
-                                        @endif
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Log activity sidebar -->
-
-                <div class="panel h-effect">
-                    <div class="panel-heading">
-                        <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
-                    </div>
-                    <div class="panel-body">
-                        <?php
-                        $log = App\AuditLog::where('user_id', Auth::id())->orderBy('id', 'desc')->take(100)->get();
-                        if (count((array)$log) > 0) {
-                        foreach ($log as $l) {
-                        $date = date("F j, Y, g:i a", strtotime($l->created_at));
-                        $activity = $l->action . ' at ' . $l->model.' module, '. $l->details;
-                        ?>
-                        <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;">
-                            <li class="list-group-item">
-                                <a href="javascript:;">
-                                    <div class="col1">
-                                        <div class="cont">
-                                            <div class="cont-col1">
-                                                <div class="label label-sm label-info">
-                                                    <i class="fa fa-bell-o"></i>
+?>
+                                                    <img class="bootstrap rounded-circle" width="45" src="{{ $avatarUrl }}" alt="">
+                                                </div>
+                                                <div class="bootstrap ml-2">
+                                                    <div class="bootstrap h5 m-0">{{ strtoupper($val['state']) }}</div>
+                                                    <div class="bootstrap h7 text-muted">{{ $val['content']['company_name'] }}</div>
                                                 </div>
                                             </div>
-                                            <div class="cont-col2">
-                                                <div class="desc"> <?php echo $activity?></div>
-                                            </div>
+    {{--                                         <div>
+                                                <div class="bootstrap dropdown">
+                                                    <button class="bootstrap btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </button>
+                                                    <div class="bootstrap dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                                        <a class="bootstrap dropdown-item" href="#">View Profile</a>
+                                                        <a class="bootstrap dropdown-item" href="#">Unfollow</a>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
                                         </div>
-                                    </div>
-                                    <div class="col2">
-                                        <div class="date"> <span style="font-size: 9px"><?php  echo $date; ?></span></div>
-                                    </div>
-                                </a>
-                            </li>
 
-                        </ul>
-                        <?php }
-                        }?>
+                                    </div>
+                                    <div class="bootstrap card-body">
+                                        <div class="bootstrap text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ $dt->diffForHumans() }}</div>
+                                        <a class="bootstrap card-link" href="#">
+                                            <h5 class="bootstrap card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
+                                        </a>
+
+                                        <p class="bootstrap card-text">
+                                            {{ $val['content']['description']  }}
+                                        </p>
+                                    </div>
+{{--                                     <div class="bootstrap card-footer">
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-gittip"></i> Like</a>
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-comment"></i> Comment</a>
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                                    </div> --}}
+                                </div>
+                                <!-- Post /////-->
+
+                    
+                           
+                        </div>
+                    </div>
+                </div>
+                 <!-- graph card -->
+            @else
+                <!-- graph card -->
+                <div class="bootstrap page-content-inner">
+                    <div class="bootstrap mt-content-body">
+                        <div class="bootstrap portlet light h-effect">
+                                 <!--- \\\\\\\Post-->
+                                <div class="bootstrap card gedf-card">
+                                    <div class="bootstrap card-header">
+                                        <div class="bootstrap d-flex justify-content-between align-items-center">
+                                            <div class="bootstrap d-flex justify-content-between align-items-center">
+                                                <div class="bootstrap mr-2">
+<?php 
+
+                        $industryImage = App\OppIndustry::find($val['content']['industry']);
+                        if($industryImage){
+                            $avatarName = $industryImage->image;
+                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                        }else{
+                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                        }
+                        $dt = Carbon\Carbon::parse($val['updated_at']);
+
+
+?>
+                                                    <img class="bootstrap rounded-circle" width="45" src="{{ $avatarUrl }}" alt="">
+                                                </div>
+                                                <div class="bootstrap ml-2">
+                                                    <div class="bootstrap h5 m-0">{{ strtoupper($val['state']) }}</div>
+                                                    <div class="bootstrap h7 text-muted">{{ $val['content']['opp_title'] }}</div>
+                                                </div>
+                                            </div>
+    {{--                                         <div>
+                                                <div class="bootstrap dropdown">
+                                                    <button class="bootstrap btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-ellipsis-h"></i>
+                                                    </button>
+                                                    <div class="bootstrap dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                                        <a class="bootstrap dropdown-item" href="#">View Profile</a>
+                                                        <a class="bootstrap dropdown-item" href="#">Unfollow</a>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
+                                        </div>
+
+                                    </div>
+                                    <div class="bootstrap card-body">
+                                        <div class="bootstrap text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ $dt->diffForHumans() }}</div>
+                                        <a class="bootstrap card-link" href="#">
+                                            <h5 class="bootstrap card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
+                                        </a>
+
+                                        <p class="bootstrap card-text">
+                                            {{ $val['content']['intro_describe_business']  }}
+                                        </p>
+                                    </div>
+{{--                                     <div class="bootstrap card-footer">
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-gittip"></i> Like</a>
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-comment"></i> Comment</a>
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                                    </div> --}}
+                                </div>
+                                <!-- Post /////-->
+
+                    
+                           
+                        </div>
+                    </div>
+                </div>
+                 <!-- graph card -->
+
+
+            @endif
+            @endforeach
+            </div>
+            <div class="bootstrap col-md-2" style="min-height:800px;">
+                <!-- sidebar token credit -->
+                <div class="bootstrap panel h-effect">
+                    <div class="bootstrap panel-heading" style="text-align: center;">
+                        <span class="bootstrap caption-subject font-blue-steel bold uppercase"> <i class="fa fa-users" style="color: black;"></i> Status </span>
+                    </div>
+                    <div class="bootstrap panel-body">
+                        <div class="bootstrap card">
+                            <ul class="bootstrap list-group list-group-flush">
+                                <li class="bootstrap list-group-item">
+                                    <div class="bootstrap h6 text-muted">Followers</div>
+                                    <div class="bootstrap h5">3</div>
+                                </li>
+                                <li class="bootstrap list-group-item">
+                                    <div class="bootstrap h6 text-muted">Following</div>
+                                    <div class="bootstrap h5">{{ $followingCount }}</div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
 
@@ -744,46 +649,7 @@ if( $('#is_tour').val() == 1 ){
             $(".close").click(function () {
                 $(".jumbotron").remove();
             });
-
-            progressBarUpdate(<?php echo $completenessProfile; ?>, 100);
-
         });
-
-
-
-        function rotate(element, degree) {
-            element.css({
-                '-webkit-transform': 'rotate(' + degree + 'deg)',
-                '-moz-transform': 'rotate(' + degree + 'deg)',
-                '-ms-transform': 'rotate(' + degree + 'deg)',
-                '-o-transform': 'rotate(' + degree + 'deg)',
-                'transform': 'rotate(' + degree + 'deg)',
-                'zoom': 1
-            });
-        }
-
-        function progressBarUpdate(x, outOf) {
-            var firstHalfAngle = 180;
-            var secondHalfAngle = 0;
-
-            // caluclate the angle
-            var drawAngle = x / outOf * 360;
-
-            // calculate the angle to be displayed if each half
-            if (drawAngle <= 180) {
-                firstHalfAngle = drawAngle;
-            } else {
-                secondHalfAngle = drawAngle - 180;
-            }
-
-            // set the transition
-            rotate($(".slice1"), firstHalfAngle);
-            rotate($(".slice2"), secondHalfAngle);
-
-            // set the values on the text
-            $(".status").html(x + "%");
-        }
-
 
     </script>
 
@@ -812,74 +678,6 @@ if( $('#is_tour').val() == 1 ){
 
 
         });
-
-    function PromoOne(token){
-            if(token <= 0){
-                swal({
-                      title: 'Upgrading your account to premium failed!',
-                      text: "Sorry, You dont have sufficient token to upgrade your account. Do you want to purchase a token?",
-                      icon: 'warning',
-                      buttons: [
-                          'No, cancel it!',
-                          'Yes, Purchase Now!'
-                        ],
-                   dangerMode: false,
-                    }).then(function(isConfirm) {
-                        if (isConfirm) {
-                            document.location = "{{ route('reportsBuyTokens') }}"
-                        } else {
-                            swal("Cancelled", "Upgrading to premium was cancelled :)", "error");
-                        }
-
-                      })
-
-                    return false;
-            }
-
-            swal({
-
-                title: "Are you sure to upgrade your account?",
-
-                text: "You are about to upgrade to premium account.",
-
-                icon: "warning",
-
-                buttons: [
-
-                  'No, cancel it!',
-
-                  'Yes, I am sure!'
-
-                ],
-
-                dangerMode: true,
-
-              }).then(function(isConfirm) {
-
-                if (isConfirm) {
-
-                  swal({
-
-                    title: 'Upgrading to premium account',
-
-                    text: 'Done on setting to premium',
-
-                    icon: 'success'
-
-                  }).then(function() {
-                    document.location = "{{ route('promoOneToken') }}"
-                  });
-
-                } else {
-
-                  swal("Cancelled", "Upgrading to premium was cancelled :)", "error");
-
-                }
-
-              })
-
-
-        }
 
 
     </script>

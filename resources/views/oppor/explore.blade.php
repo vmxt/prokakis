@@ -273,7 +273,6 @@
                 </div>
         <div class="modal-body">
 
-            
             <div >
                 <span class="title-text">
                     <h4><strong> Ratings </strong></h4>
@@ -444,6 +443,13 @@
                         <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
                         <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                        <?php if(App\VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <?php } ?>    
+
                         @endif
                     @else
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
@@ -456,6 +462,13 @@
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                   
+                    <?php if(App\VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = Non-Premium 
@@ -472,6 +485,13 @@
                         <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
                         <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        
+                        <?php if(VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <?php } ?> 
+
                         @endif
                     @else
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
@@ -483,6 +503,13 @@
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -689,7 +716,6 @@
                 </div>
         <div class="modal-body">
 
-            
             <div >
                 <span class="title-text">
                     <h4><strong> Ratings </strong></h4>
@@ -861,10 +887,17 @@
                             <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
                             <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                            <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?>    
+                            
                         @endif
 
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
                     @endif
 
                 @endif
@@ -874,6 +907,13 @@
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                    <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?>  
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = Non-Premium
@@ -891,6 +931,13 @@
                             <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
                             <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                            <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?> 
+
                         @endif
 
                     @else
@@ -904,6 +951,13 @@
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -1280,10 +1334,17 @@
 
                     @if($tokenStock >= 3)
 
-                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'buy', $requestor_id, $provider_id) == false)
                             <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
                             <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                            
+                            <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?>     
+
                         @endif
 
                     @else
@@ -1297,6 +1358,13 @@
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
                 @endif
 
                 {{-- Requestor = Premium | Provider = Non-Premium
@@ -1314,6 +1382,13 @@
                             <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
                             <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                            
+                            <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
+                                <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                                <?php } else { ?>
+                                <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?> 
+
                         @endif
 
                     @else
@@ -1327,6 +1402,13 @@
                     <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
                 @endif
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -1618,6 +1700,49 @@
   </div>
 </div>
 <!-- END Connect Me MODAL -->
+
+
+{{-- Start Video Chat Me Modal --}}
+<div 
+  class="modal fade modal_oppoBox" 
+  id="videochatMeModal" 
+  tabindex="-1" role="dialog" 
+  aria-labelledby="Connect Me Modal" 
+  aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header chat-header">
+            <img  id='chatAvatar'>
+            <h2 class='chatOppTitle'></h2>
+            <button type="button" class="close chat-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+         
+        </div>
+        <div class="modal-body">
+
+          <div id="page-wrap">
+    
+              
+              <p id="name-area"></p>
+              
+              <div id="chat-wrap">
+                <video id="localVideo" style="float:right;" autoplay muted></video>
+
+                <video id="remoteVideo" style="float:left;" autoplay></video>    
+              </div>
+            
+        </div>
+
+        
+        </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default chat-close" data-dismiss="modal">Close</button>
+          </div>
+    </div>
+  </div>
+</div>
+<!-- END Connect Me MODAL -->
+
+
 
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
@@ -2121,10 +2246,15 @@
      
             $('#inboxMeModal').modal();
 
-
-
         }
 
+        function OppVcMe(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
+
+            //window.open("http://localhost/prokakis/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
+            window.open("https://test.app-prokakis.com/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
+            //window.open("https://app-prokakis.com//vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
+
+        }
 
         function checkAlertByPremium(companyOpp, companyViewer)
         {   

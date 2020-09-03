@@ -39,9 +39,19 @@ Route::get('/req-rem-company/{reqId}/{provId}', 'CompanyOwningRemovalController@
 Route::post('/reqown', 'CompanyOwningRemovalController@getDocumentRequest')->name('getDocumentRequest');
 Route::post('/reqremove', 'CompanyOwningRemovalController@getRemoveRequest')->name('getRemoveRequest');
 
+Route::get('/req-list', 'CompanyOwningRemovalController@adminReqList')->name('adminReqList');
+Route::post('/req-approve', 'CompanyOwningRemovalController@adminApproveCompanyReq')->name('adminApproveCompanyReq');
+Route::post('/req-reject', 'CompanyOwningRemovalController@adminRejectRequest')->name('adminRejectRequest');
+
 //videochat
+Route::get('/vc-end/{channel}', 'VideoChatController@endVideo')->name('vcEndVideo');
 Route::get('/vc/{oppId}/{oppType}/{companyOpp}/{companyViewer}', 'VideoChatController@loadVideoPage')->name('vcloadVideoPage');
 Route::post('/vc-details', 'VideoChatController@getVideoChatDetails')->name('getVideoChatDetails');
+
+Route::post('/vc-companyDetails', 'VideoChatController@getVideoChatCompanyDetails')->name('getVideoChatCompanyDetails');
+Route::get('/vc-companysearch/{companyId}', 'VideoChatController@companySearchVideoChat')->name('companySearchVideoChat');
+Route::get('/vc-end-companysearch/{channel}', 'VideoChatController@endVideoCompanySearch')->name('vcEndVideoCompanySearch');
+
 
 //update password
 Route::post('/psswrd-update', 'UpdatePasswordController@getData')->name('getPasswordData');
@@ -128,6 +138,7 @@ Route::get('/thomson-pdfprint/{ids}', 'ThomsonController@pdfPrintDownload')->nam
 
 //dashboard
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('/homeSubConsul', 'HomeController@subConsultant')->name('homeSubConsultant');
 Route::get('/homeMasterConsul', 'HomeController@masterConsultant')->name('homeMasterConsultant');
 Route::get('/homeStaff', 'HomeController@ebosStaff')->name('ebosStaff');
