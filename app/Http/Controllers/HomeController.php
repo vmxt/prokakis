@@ -240,7 +240,9 @@ public function index() {
 		$user_id = Auth::id();
 		$company_follow = CompanyFollow::GetAllFollowCompany($user_id);
 				//array_push($resultData, $company_follow->get());	
-
+		if($company_follow->count() < 1){
+			return redirect()->route('dashboard');
+		}
 
 		foreach ($company_follow->get() as $value) {
 			$res = 	[
