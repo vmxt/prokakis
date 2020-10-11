@@ -3,6 +3,7 @@
 
 
 @section('content')
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
@@ -32,7 +33,19 @@
 
         }
 
-
+        .intro-tour-overlay {
+            display: none;
+            background: #666;
+            opacity: 0.5;
+            z-index: 1000;
+            min-height: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
 
     </style>
 
@@ -243,23 +256,23 @@
 
                                    <!-- <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> No </th> -->
 
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 221px;" aria-label=" Browser : activate to sort column ascending"> Requested Report </th>
+                                    <th id="th1" class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 221px;" aria-label=" Browser : activate to sort column ascending"> Requested Report </th>
 
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 221px;" aria-label=" Browser : activate to sort column ascending"> Company </th>
+                                    <th id="th2" class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 221px;" aria-label=" Browser : activate to sort column ascending"> Company </th>
 
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 198px;" aria-label=" Platform(s) : activate to sort column ascending"> Interval </th>
+                                    <th id="th3" class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 198px;" aria-label=" Platform(s) : activate to sort column ascending"> Interval </th>
 
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 150px;" aria-label=" Engine version : activate to sort column ascending"> Start Date </th>
+                                    <th id="th4" class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 150px;" aria-label=" Engine version : activate to sort column ascending"> Start Date </th>
 
-                                    <th class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 107px;" aria-label=" CSS grade : activate to sort column ascending"> End Date </th>
+                                    <th id="th5" class="sorting" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 107px;" aria-label=" CSS grade : activate to sort column ascending"> End Date </th>
 
                                    <!-- <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Generated Report Status </th> -->
 
-                                   <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Status </th>
+                                   <th id="th6" class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Status </th>
 
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Download Report </th>
+                                    <th id="th7" class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Download Report </th>
                                    
-                                    <th class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Request Update </th>
+                                    <th id="th8" class="sorting_asc" tabindex="0" aria-controls="sample_3" rowspan="1" colspan="1" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> Request Update </th>
 
                                 </tr>
 
@@ -430,6 +443,7 @@
 
 
 
+ <div class='intro-tour-overlay'></div>
 
 
 
@@ -443,6 +457,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
 
 
 
@@ -467,6 +482,132 @@
 
     </script>
 
+ <script>
+// Instance the tour
+var tour = new Tour({
+  steps: [
+  {
+    element: ".portlet",
+    title: "Ongoing Monitoring Report",
+    content: "Ongoing Monitoring Report Section",
+    placement: 'top'
+  },
+    {
+    element: "#system_data_length",
+    title: "Show Entries",
+    content: "Choose how many entries to display",
+    placement: 'top'
+  },
+ {
+    element: "#system_data_filter",
+    title: "Filter Entries",
+    content: "Enter text to filter the entries",
+    placement: 'top'
+  },
+    {
+    element: "#th1",
+    title: "Requested Report",
+    content: "Unique Report Id",
+    placement: 'top'
+  },
+     {
+    element: "#th2",
+    title: "Company",
+    content: "Name of the company",
+    placement: 'top'
+  },
+     {
+    element: "#th3",
+    title: "Interval",
+    content: "Interval of the report",
+    placement: 'down'
+  },
+       {
+    element: "#th4",
+    title: "Start Date",
+    content: "Date Start",
+    placement: 'top'
+  },
+         {
+    element: "#th5",
+    title: "End Date ",
+    content: "Completed Date",
+    placement: 'top'
+  },
+           {
+    element: "#th6",
+    title: "Status",
+    content: "Indicate the status of the report",
+    placement: 'top'
+  },
+             {
+    element: "#th7",
+    title: "Download",
+    content: "Clicking this button will download company report",
+    placement: 'top'
+  },
+               {
+    element: "#th8",
+    title: "Request",
+    content: "Clicking this button will send request of the company details ",
+    placement: 'top'
+  }
+],
 
+  container: "body",
+  smartPlacement: false,
+  keyboard: true,
+  // storage: window.localStorage,
+  storage: false,
+  debug: false,
+  backdrop: true,
+  backdropContainer: 'body',
+  backdropPadding: 0,
+  redirect: false,
+  orphan: false,
+  duration: false,
+  delay: false,
+  basePath: "",
+  placement: 'auto',
+    autoscroll: true,
+  afterGetState: function (key, value) {},
+  afterSetState: function (key, value) {},
+  afterRemoveState: function (key, value) {},
+  onStart: function (tour) {},
+  onEnd: function (tour) {
+     $('.intro-tour-overlay').hide();
+      $('html').css('overflow','unset')
+     $('.menu-dropdown').removeClass('open');
+     updateTour('end');
+  },
+  onShow: function (tour) {},
+  onShown: function (tour) {},
+  onHide: function (tour) {},
+  onHidden: function (tour) {},
+  onNext: function (tour) {},
+  onPrev: function (tour) {},
+  onPause: function (tour, duration) {},
+  onResume: function (tour, duration) {},
+  onRedirectError: function (tour) {}
+
+});
+
+// Initialize the tour
+tour.init();
+
+// Start the tour
+if( $('#is_tour').val() == 1 ){
+    $('html').css('overflow','visible');
+     $('.intro-tour-overlay').show();
+    tour.start();
+}
+
+        $(document).ready(function () {
+            $(".close").click(function () {
+                $(".jumbotron").remove();
+            });
+        });
+
+    </script>
 
 @endsection

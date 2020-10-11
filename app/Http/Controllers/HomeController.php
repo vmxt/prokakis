@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 
+use App\BusinessOpportunitiesNews;
 
 use App\CompanyProfile;
 
@@ -236,58 +237,104 @@ class HomeController extends Controller {
 public function index() {
 
 		$resultData = [];
-		$resultOpp = [];
+		$oppArr = [];
+		$OppData = [];
+		$businessNewsArr = [];
+		$businessNewsData = [];
 		$user_id = Auth::id();
 		$company_follow = CompanyFollow::GetAllFollowCompany($user_id);
-				//array_push($resultData, $company_follow->get());	
-		if($company_follow->count() < 1){
-			return redirect()->route('dashboard');
+		$company_id_result = CompanyProfile::getCompanyId($user_id);
+		$followingCount = $company_follow->count();
+		$followerCount = CompanyFollow::checkFollowerCompany($company_id_result);
+		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
+		$topBusinessNewsOpportunity = BusinessOpportunitiesNews::orderBy('updated_at','desc')->limit(5)->get();
+
+		$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
+
+//fetch result
+		foreach ($company_follow->get() as $value) {
+			$company_id = $value->id;
+
+		### company
+			// $res = 	[
+			// 		'state' => 'company',
+			// 		'updated_at' => $value->updated_at,
+			// 		'content'=> [
+			// 					'company_id'=>$value->id,
+			// 					'company_name'=>$value->company_name,
+			// 					'company_website'=>$value->company_website,
+			// 					'description'=>$value->description
+			// 					]
+			// 		];
+			// array_push($resultData, $res);	
+		### company
+
+		### business news
+			$businessNewsOpportunity = BusinessOpportunitiesNews::where('company_id', $company_id)->get();
+			array_push($businessNewsArr, $businessNewsOpportunity);	
+			
+		### business news
+
+		### opportunity
+			$resBuild = OpportunityBuildingCapability::where('company_id', $company_id)->where('status', 1)->get();
+			$resSell = OpportunitySellOffer::where('company_id', $company_id)->where('status', 1)->get()->merge($resBuild);
+			$resBuy = OpportunityBuy::where('company_id', $company_id)->where('status', 1)->get()->merge($resSell);
+			array_push($oppArr, $resBuy);	
+		### opportunity
 		}
 
-		foreach ($company_follow->get() as $value) {
-			$res = 	[
-					'state' => 'company',
-					'updated_at' => $value->updated_at,
+//fetch result
+##modify Business News elements
+		if(isset($businessNewsArr[0])) {
+			foreach ($businessNewsArr as $value) {
+				foreach ($value as $val) {
+					$res = 	[
+					'state' => 'businessNews',
+					'updated_at' => $val->updated_at,
 					'content'=> [
-								'company_id'=>$value->id,
-								'company_name'=>$value->company_name,
-								'company_website'=>$value->company_website,
-								'description'=>$value->description
+								'id'=>$val->id,
+								'business_title'=>$val->business_title,
+								'content_business'=>$val->content_business,
+								'company_id'=>$val->company_id,
+								'feature_image'=>$val->feature_image
 								]
 					];
-
-			array_push($resultData, $res);	
-			$company_id = $value->id;
-				$resBuild = OpportunityBuildingCapability::where('company_id', $company_id)->where('status', 1)->get();
-				$resSell = OpportunitySellOffer::where('company_id', $company_id)->where('status', 1)->get()->merge($resBuild);
-				$resBuy = OpportunityBuy::where('company_id', $company_id)->where('status', 1)->get()->merge($resSell);
-				array_push($resultOpp, $resBuy);	
-		}
-
-		if(isset($resultOpp[0])) {
-			foreach ($resultOpp[0] as $val) {
-				$res = 	[
-				'state' => 'opportunity',
-				'updated_at' => $val->updated_at,
-				'content'=> [
-							'oppo_id'=>$val->id,
-							'opp_title'=>$val->opp_title,
-							'intro_describe_business'=>$val->intro_describe_business,
-							'industry'=>$val->industry
-							]
-				];
-				array_push($resultData, $res);	
+					array_push($businessNewsData, $res);	
+				}
 			}
 		}
-		
-		usort($resultData, function($a, $b) {
+
+		usort($businessNewsData, function($a, $b) {
 		    return $a['updated_at'] < $b['updated_at'];
 		});
+		$businessNewsData = $this->paginate($businessNewsData);
 
-		$data = $this->paginate($resultData);
+##modify Business News elements
+##modify opportunity elements
+		if(isset($oppArr[0])) {
+			foreach ($oppArr as $value) {
+				foreach($value as $val){
+					$res = 	[
+					'state' => 'opportunity',
+					'updated_at' => $val->updated_at,
+					'content'=> [
+								'oppo_id'=>$val->id,
+								'opp_title'=>$val->opp_title,
+								'intro_describe_business'=>$val->intro_describe_business,
+								'industry'=>$val->industry
+								]
+					];
+					array_push($OppData, $res);	
+				}
+			}
+		}
+		usort($OppData, function($a, $b) {
+		    return $a['updated_at'] < $b['updated_at'];
+		});
+		$oppResultdata = $this->paginate($OppData);
+##modify opportunity elements
 
-		$followingCount = $company_follow->count();
-		return view('home.index', compact('data','followingCount'));
+		return view('home.index', compact('oppResultdata','businessNewsData', 'topBusinessNewsOpportunity','followingCount','followerCount','profileCoverPhoto','profileAvatar'));
 
 	}
 

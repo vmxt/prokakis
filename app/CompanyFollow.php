@@ -56,9 +56,15 @@ class CompanyFollow extends Model
         return $result;
     }
 
+    public static function checkFollowerCompany( $company_id){
+        $result =  CompanyFollow::where('company_id', $company_id)->count();
+   
+        return $result;
+    }
+
     public static function GetAllFollowCompany($user_id){
         return DB::table("company_follow as cf")
-                    ->select("cp.*",DB::raw("'company' as state") )
+                    ->select("cp.*" )
                     ->join('company_profiles as cp','cp.id','=','cf.company_id')
                     ->where('cf.user_id', $user_id);
     }

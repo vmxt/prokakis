@@ -4,6 +4,8 @@
 
 @section('content')
 
+<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
+
 <script src="{{ asset('public/jq-autocomplete/jquery-1.11.2.min.js') }}"></script>
 <script src="{{ asset('public/jq-autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -23,6 +25,20 @@
       position: relative;
     }
 
+
+        .intro-tour-overlay {
+            display: none;
+            background: #666;
+            opacity: 0.5;
+            z-index: 1000;
+            min-height: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
@@ -90,10 +106,11 @@
 
         <div class="row">
             <!-- START BUILD OPPORTUNITY -->
-            <div class="hr-sect opp_type" >Build Opportunity</div>
-                <div class='blog-posts'>
+            <div class="hr-sect opp_type"  >Build Opportunity</div>
+                <div class='blog-posts' id="build-sect">
                 <?php       
                     $i = 1;
+                    $buildCount = 0;
                     foreach ($build as $item): 
                             $opportunity_type = 'build';
                             $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
@@ -260,7 +277,7 @@
 
          {{-- Start modal click for build --}}
     <div 
-        class="modal fade modal_oppoBox" 
+        class="modal fade modal_oppoBox build_modal_{{ $buildCount }}" 
         id="opporBuildModal_{{ $item->id }}" 
         tabindex="-1" role="dialog" 
         aria-labelledby="opporDetailsContentModalLabel" 
@@ -273,7 +290,7 @@
                 </div>
         <div class="modal-body">
 
-            <div >
+            <div id='rating_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> Ratings </strong></h4>
                 </span>
@@ -319,7 +336,7 @@
                 <hr>
             </div>
 
-            <div>
+            <div id='seeking_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> This Company is seeking </strong></h4>
                 </span>
@@ -354,7 +371,7 @@
                 <hr class="hr-sect">
             </div>
 
-            <div>
+            <div id='expectation_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> Expectation </strong></h4>
                 </span>
@@ -368,7 +385,7 @@
                 <hr>
             </div>
 
-            <div>
+            <div id='keyword_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> Industry Keyword </strong></h4>
                 </span>
@@ -391,7 +408,7 @@
                 <hr>
             </div>
 
-            <div>
+            <div id='whypartner_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> Why partner with this company?  </strong></h4>
                 </span>
@@ -401,7 +418,7 @@
                 <hr>
             </div>
 
-            <div>
+            <div id='relevant_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> Relevant industry or products  </strong></h4>
                 </span>
@@ -424,9 +441,9 @@
 
             <div>
               @if($tokenStock >= 12)
-                <a onclick="processReq('build', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                <a id='dilligence_btn_{{ $buildCount }}' onclick="processReq('build', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
               @else
-                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                <a id='dilligence_btn_{{ $buildCount }}' onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
               @endif
 
                 <?php 
@@ -436,37 +453,37 @@
 
                 {{-- Requestor = Non-premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a id='viewprofile_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     @if($tokenStock >= 3)
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
-                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
 
                         <?php if(App\VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <a id='videochat_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
                         <?php } else { ?>
-                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <a id='videochat_btn_{{ $buildCount }}' href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
                         <?php } ?>    
 
                         @endif
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                     @endif
 
                 @endif
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a id='viewprofile_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                    
                     <?php if(App\VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <a id='videochat_btn_{{ $buildCount }}'  href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
                         <?php } else { ?>
-                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <a id='videochat_btn_{{ $buildCount }}'  href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
                     <?php } ?> 
 
                 @endif
@@ -478,36 +495,36 @@
 
                 {{-- Requestor = Non-premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a id='viewprofile_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     @if($tokenStock >= 3)
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'build', $requestor_id, $provider_id) == false)
-                        <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'build');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         @else
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                         
                         <?php if(VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <a id='videochat_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
                             <?php } else { ?>
-                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <a id='videochat_btn_{{ $buildCount }}' href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
                         <?php } ?> 
 
                         @endif
                     @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                     @endif
 
                 @endif
 
                 {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a id='viewprofile_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                     
                     <?php if(App\VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <a id='videochat_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
                         <?php } else { ?>
-                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                        <a id='videochat_btn_{{ $buildCount }}' href="<?php echo App\VideoChat::getVcURL($item->id, 'build', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
                     <?php } ?> 
 
                 @endif
@@ -530,13 +547,14 @@
 <!-- END MODAL -->
 <?php 
     endif;
+    $buildCount++;
     endforeach;  ?>
     </div>
       <!-- END BUILD OPPORTUNITY -->
 
     <!-- START SELL OPPORTUNITY -->
             <div class="hr-sect opp_type" >Sell Opportunity</div>
-                <div class='blog-posts'>
+                <div class='blog-posts' id='sell-sect'>
                 <?php       
                     $i = 1;
                     foreach ($sell as $item): 
@@ -985,7 +1003,7 @@
 
     <!-- START BUY OPPORTUNITY -->
             <div class="hr-sect opp_type" >Buy Opportunity</div>
-                <div class='blog-posts'>
+                <div class='blog-posts' id='buy-sect'>
                 <?php       
                     $i = 1;
                     foreach ($buy as $item): 
@@ -1431,6 +1449,7 @@
     endif;
     endforeach;  ?>
     </div>
+    </div>
     <!-- END BUY OPPORTUNITY -->
 </div></div>
 </div><!-- end row -->
@@ -1742,9 +1761,9 @@
 </div>
 <!-- END Connect Me MODAL -->
 
+ <div class='intro-tour-overlay'></div>
 
-
-
+    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
 
@@ -2571,5 +2590,201 @@ function sendChat(message, nickname)
 
     </script>
 {{-- <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script> --}}
+
+ <script>
+// Instance the tour
+var tour = new Tour({
+  steps: [
+  {
+    title: "This is the Explore Page",
+    content: "where you can find opportunities that help you to find potential partners",
+    orphan: true
+  },
+    {
+    element: "#keywordSearch",
+    title: "Filter by Keyword",
+    content: "you can filter your search result by keyword"
+  },
+  {
+    element: "#keywordCountry",
+    title: "Filter by Country",
+    content: "you can filter your search result by country"
+  },
+    {
+    element: "#build-sect",
+    title: "Build Opportunities",
+    content: "Opportunities created under Build Category",
+    placement: "top"
+  },
+    {
+    element: "#sell-sect",
+    title: "Sell Opportunities",
+    content: "Opportunities created under Sell Category" ,
+    placement: "top"
+  },
+    {
+    element: "#buy-sect",
+    title: "Buy Opportunities",
+    content: "Opportunities created under Buy Category",
+    placement: "top"
+  },
+    {
+    element: "div.build-list:first",
+    title: "Build Opportunity",
+    content: "build opportunity",
+    placement: "top"
+  },
+{
+    element: "div.content :first",
+    title: "Content Preview",
+    content: "This are the preview content of the opportunity.",
+    placement: "top"
+  },
+  {
+    element: "div.learn_more :first",
+    title: "Learn More",
+    content: "Click this button to read more details about this opportunity",
+    placement: "top"
+  },
+    {
+    element: "div.follow-cont :first",
+    title: "Follow/Unfollow",
+    content: "Click this icon if you want to follow/Unfollow opportunity",
+    placement: "top",
+    onNext: function(){
+        $('div.learn_more').find('button').eq(0).trigger('click');
+        $(".modal-backdrop").hide();
+       $(".modal").css('z-index','5'); 
+       $(".popover").css('z-index','7'); 
+    },
+  },
+    {
+    element: "div.build_modal_0  h4.modal-title",
+    title: "Title",
+    content: "This is the title of the opportunity",
+    placement: "bottom"
+
+  },
+    {
+    element: "#rating_section_0",
+    title: "Ratings",
+    content: "This is where the company rating shown",
+    placement: "bottom"
+
+  },
+    {
+    element: "#seeking_section_0",
+    title: "The Company is Seeking",
+    content: "Information what the company is seeking",
+     placement: "top"
+  },
+    {
+    element: "#expectation_section_0",
+    title: "Expectation",
+    content: "Information what is the expectation of the company",
+     placement: "top"
+  },
+      {
+    element: "#keyword_section_0",
+    title: "Industry Keyword",
+    content: "List of keyword used",
+     placement: "top"
+  },
+        {
+    element: "#whypartner_section_0",
+    title: "Why Partner with this Company?",
+    content: "Information and benefits to make partners with this company",
+     placement: "top"
+  },
+          {
+    element: "#relevant_section_0",
+    title: "Relevant Industry or products",
+    content: "List of relevant industry or products ",
+    placement: "top"
+  },
+{
+    element: "#dilligence_btn_0",
+    title: "Due Dilligence Report",
+    content: " Can Generate Report by clicking this button ",
+    placement: "top"
+  },
+  {
+    element: "#viewprofile_btn_0",
+    title: "View Profile",
+    content: " Can View the Company Profile",
+    placement: "top"
+  },
+    {
+    element: "#connectme_btn_0",
+    title: "Connect Me",
+    content: "This is prokakis chat where you and the partners can exchange text realtime",
+    placement: "top"
+  },
+      {
+    element: "#videochat_btn_0",
+    title: "Video Chat",
+    content: "You can video chat here together with possible parters",
+    placement: "top"
+  }
+],
+
+  container: "body",
+  smartPlacement: false,
+  keyboard: true,
+  // storage: window.localStorage,
+  storage: false,
+  debug: false,
+  backdrop: true,
+  backdropContainer: 'body',
+  backdropPadding: 0,
+  redirect: false,
+  orphan: true,
+  duration: false,
+  delay: false,
+  basePath: "",
+  placement: 'auto',
+    autoscroll: true,
+  afterGetState: function (key, value) {},
+  afterSetState: function (key, value) {},
+  afterRemoveState: function (key, value) {},
+  onStart: function (tour) {},
+  onEnd: function (tour) {
+     $('.intro-tour-overlay').hide();
+      $('html').css('overflow','unset')
+     $('.menu-dropdown').removeClass('open');
+     $(".modal-backdrop").show();
+        $(".modal").css('z-index','10050'); 
+       $(".popover").css('z-index','1102'); 
+     updateTour('end');
+  },
+  onShow: function (tour) {},
+  onShown: function (tour) {},
+  onHide: function (tour) {},
+  onHidden: function (tour) {},
+  onNext: function (tour) {},
+  onPrev: function (tour) {},
+  onPause: function (tour, duration) {},
+  onResume: function (tour, duration) {},
+  onRedirectError: function (tour) {}
+
+});
+
+// Initialize the tour
+tour.init();
+
+// Start the tour
+if( $('#is_tour').val() == 1 ){
+    $('html').css('overflow','visible');
+     $('.intro-tour-overlay').show();
+    tour.start();
+}
+
+        $(document).ready(function () {
+            $(".close").click(function () {
+                $(".jumbotron").remove();
+            });
+        });
+
+    </script>
 
 @endsection
