@@ -102,6 +102,7 @@
     $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
     $tokenStock = App\SpentTokens::validateTokenStocks($requestor_id);
     //echo $tokenStock;
+    $opportunity_type ="";
 ?>
 
         <div class="row">
@@ -404,6 +405,16 @@
                         endif;
                       endforeach; ?>
                     </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div id='oppo_desciption_section_{{ $buildCount }}'>
+                <span class="title-text">
+                    <h4><strong> Description about this opporunity?  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->oppo_description }} </h4>
                 </span>
                 <hr>
             </div>

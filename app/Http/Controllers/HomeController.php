@@ -321,6 +321,7 @@ public function index() {
 								'oppo_id'=>$val->id,
 								'opp_title'=>$val->opp_title,
 								'intro_describe_business'=>$val->intro_describe_business,
+								'oppo_description'=>$val->oppo_description,
 								'industry'=>$val->industry
 								]
 					];
