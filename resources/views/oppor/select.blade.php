@@ -89,16 +89,16 @@
                                             <a id="building" href="javascript:;"
                                                class="btn green-sharp btn-outline  btn-block sbold uppercase"
                                                type="submit" style="height: 100px; "> <span class="wrapword"
-                                                        style="font-size: 25px;">BUILDING CAPABILITY</span> </a>
-                                            <center><span style="margin-top: 5px;">Partnership or Investments</span>
+                                                        style="font-size: 25px;">INVEST CAPABILITY</span> </a>
+                                            <center><span style="margin-top: 5px;">Partnerships or Ventures</span>
                                             </center>
                                         </div>
                                         <div  class="col col-sm-4" style="padding: 0px;" id='sect_selling'>
                                             <a id="selling" href="javascript:;"
                                                class="btn green-sharp btn-outline  btn-block sbold uppercase"
                                                type="submit" style="height: 100px; line-height: 3.5;"> <span
-                                                        style="font-size: 25px;">SELL / OFFER</span> </a>
-                                            <center>Product Service or Business</center>
+                                                        style="font-size: 25px;">SELL</span> </a>
+                                            <center>Product/Service or Business</center>
                                         </div>
                                         <div class="col col-sm-4" style="padding: 0px;" id='sect_buying'>
                                             <a id="buying" href="javascript:;"

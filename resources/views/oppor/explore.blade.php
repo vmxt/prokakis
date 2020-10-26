@@ -1851,9 +1851,9 @@
                 var getUrl = window.location;
                 var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                 if (keyS != "") {
-                    window.location.href = baseUrl + "/opportunity/exploreKey/" + keyS;
+                    window.location.href = baseUrl + "/exploreKey/" + encodeURIComponent(keyS);
                 } else {
-                    window.location.href = baseUrl + "/opportunity/explore";
+                    window.location.href = baseUrl + "/explore";
                 }
             });
 
@@ -1862,9 +1862,9 @@
                 var getUrl = window.location;
                 var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                 if (keyS != "") {
-                    window.location.href = baseUrl + "/opportunity/exploreCountry/" + keyS;
+                    window.location.href = baseUrl + "/exploreCountry/" + encodeURIComponent(keyS);
                 } else {
-                    window.location.href = baseUrl + "/opportunity/explore";
+                    window.location.href = baseUrl + "/explore";
                 }
             });
         });
@@ -2606,11 +2606,6 @@ function sendChat(message, nickname)
 // Instance the tour
 var tour = new Tour({
   steps: [
-  {
-    title: "This is the Explore Page",
-    content: "where you can find opportunities that help you to find potential partners",
-    orphan: true
-  },
     {
     element: "#keywordSearch",
     title: "Filter by Keyword",

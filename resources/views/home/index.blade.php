@@ -499,11 +499,17 @@
 
 <!--- \\\\\\\Youtube - videos-->
 <?php 
-
+            $embedVideo2 = [];
             $embedVideo = App\Configurations::where('code_name','video_link_advertisement')->first();
-            $embedVideo2 = explode(',',$embedVideo->json_value );
+            if($embedVideo){
+                $embedVideo2 = explode(',',$embedVideo->json_value );
+                $embedVideoCount = $embedVideo->count();
+            }else{
+                $embedVideoCount = 0;
+            }
+            
 ?>
-            @if( $embedVideo->count() > 0 and $embedVideo->json_value)
+            @if( $embedVideoCount > 0 and $embedVideo->json_value)
             <div class="hr-sect opp_type"  >Video</div>
             <div id="video-ads">
             @foreach($embedVideo2 as $val)
