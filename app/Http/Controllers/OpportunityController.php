@@ -53,6 +53,16 @@ class OpportunityController extends Controller {
 
 	}
 
+	public function details() {
+		if (User::securePage(Auth::id()) != 5) {
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+		$build = OpportunityBuildingCapability::getListBuildOpportunity();
+		$sell = OpportunitySellOffer::getListSellOpportunity()->merge($build);
+		$buy = OpportunityBuy::getListBuyOpportunity()->merge($sell);
+		$result = $buy;
+		return view('oppor.details', compact('result'));
+	}
 
 	public function requestReport(Request $request) {
 

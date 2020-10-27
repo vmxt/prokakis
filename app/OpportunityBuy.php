@@ -6,7 +6,7 @@ use App;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-
+use Illuminate\Support\Facades\DB;
 
 class OpportunityBuy extends Model
 {
@@ -32,4 +32,16 @@ class OpportunityBuy extends Model
         'id',  
     ];
    
+    public static function getListBuyOpportunity(){
+        return DB::table('opp_buy as opp')
+                    ->select('opp.opp_title as opp_title', 
+                             DB::raw("'buy' as opp_type"),
+                            'com.company_email AS company_email', 
+                            'users.lastname AS last_name', 
+                            'users.firstname AS first_name', 
+                            'opp.id as opp_id', 
+                            'users.email AS user_email')
+                    ->join('company_profiles as com', 'opp.company_id', '=', 'com.id')
+                     ->join('users as users', 'users.id', '=', 'com.user_id')->get();
+    }
 }

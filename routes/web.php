@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D5C3D8', 'TestController@index')->name('testMail');
 Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsubscribeMe');
 Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken');
+Route::get('/worldData', 'Test2Controller@getWorldData')->name('updateWorldData');
 
 //for social media. public usage
 //Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing'); #old
@@ -52,6 +53,9 @@ Route::post('/vc-companyDetails', 'VideoChatController@getVideoChatCompanyDetail
 Route::get('/vc-companysearch/{companyId}', 'VideoChatController@companySearchVideoChat')->name('companySearchVideoChat');
 Route::get('/vc-end-companysearch/{channel}', 'VideoChatController@endVideoCompanySearch')->name('vcEndVideoCompanySearch');
 
+
+//points
+Route::get('/rewards', 'TokenConfirmController@getCreditPoints')->name('CompanyCreditPoints');
 
 //update password
 Route::post('/psswrd-update', 'UpdatePasswordController@getData')->name('getPasswordData');
@@ -219,6 +223,7 @@ Route::post('/opportunity/buy/create', 'OpportunityController@storeBuy')->name('
 Route::get('/opportunity/deleteBuy/{id}', 'OpportunityController@deleteBuy')->name('opportunityDeleteBuy');
 
 Route::get('/opportunity/explore', 'OpportunityController@explore')->name('opportunityExploreIndex');
+Route::get('/opportunity/details', 'OpportunityController@details')->name('opportunityDetailsIndex');
 Route::get('/opportunity/hashtag/{hashTag}', 'OpportunityController@getHashtag')->name('opportunityExploreHashtag');
 
 Route::get('/opportunity/exploreKey/{key}', 'OpportunityController@exploreKey')->name('opportunityExploreKey');
