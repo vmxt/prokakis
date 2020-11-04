@@ -270,6 +270,24 @@
         }
 
     } 
+    @media(max-width: 992px){
+        .disp-sm{
+            flex: inherit !important;
+            max-width: inherit !important;
+        }
+        .disp-lg{
+            display: none;
+        }
+
+        .content-card{
+            max-width: inherit !important;
+        }
+    }
+    @media(min-width: 992px){
+        .disp-sm{
+            display: none;
+        }
+    }
     </style>
         <div class="container">
             <div class="bootstrap row justify-content-center">
@@ -303,7 +321,33 @@
 
     <div class="container">
         <div class="bootstrap row justify-content-center">
-            <div class="bootstrap col-md-9">
+
+            <div class="bootstrap col-md-2 disp-sm" >
+                <!-- sidebar token credit -->
+                <div class="bootstrap panel h-effect">
+                    <div class="bootstrap panel-heading" style="text-align: center;">
+                        <span class="bootstrap caption-subject font-blue-steel bold uppercase"> <i class="fa fa-users" style="color: black;"></i> Status </span>
+                    </div>
+                    <div class="bootstrap panel-body">
+                        <div class="bootstrap card">
+                            <ul class="bootstrap list-group list-group-flush">
+                                <li class="bootstrap list-group-item">
+                                    <div class="bootstrap h6 text-muted">Followers</div>
+                                    <div class="bootstrap h5">{{ $followerCount }}</div>
+                                </li>
+                                <li class="bootstrap list-group-item">
+                                    <div class="bootstrap h6 text-muted">Following</div>
+                                    <div class="bootstrap h5">{{ $followingCount }}</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+ 
+            <div class="bootstrap col-md-9 content-card">
                 <div  id='followBusinessNews'>
 <!--- \\\\\\\BUSINESS NEWS-->
                     @if($businessNewsData->count() > 0)
@@ -346,10 +390,15 @@
                                             <div class="bootstrap card-text">
                                                 {{ $businessNews['content']['business_title'] }}
                                             </div>
-                                            <div class="viewBtn">
-                                                <a href="#"  class="btn btn-info">View</a>
-                                            </div>
+
                                         </div>
+                                        <div class="bootstrap card-footer">
+                                            <a href="#"  class="bootstrap card-link btn btn-info ">View</a>
+                                       
+                    {{--                     <a href="#" class="bootstrap card-link"><i class="fa fa-gittip"></i> Like</a>
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-comment"></i> Comment</a>
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-mail-forward"></i> Share</a> --}}
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -388,6 +437,9 @@
                                                 {{-- <div class="bootstrap h5 m-0">{{ $businessNews->business_title }}</div> --}}
                                                 <div class="bootstrap h7 text-muted">{{ $dt->diffForHumans() }}</div>
                                             </div>
+                                      {{--       <div class="viewBtn disp-lg">
+                                                <a href="#"  class="btn btn-info">View</a>
+                                            </div> --}}
                                         </div>
 
                                     </div>
@@ -400,9 +452,12 @@
                                     <div class="bootstrap card-text">
                                         {{ $topbusinessNews->business_title }}
                                     </div>
-                                    <div class="viewBtn">
-                                        <a href="#"  class="btn btn-info">View</a>
-                                    </div>
+
+                                </div>
+                                <div class="bootstrap card-footer">
+                                        <a href="#"  class="bootstrap card-link btn btn-info ">View</a>
+                                   
+                
                                 </div>
                             </div>
                         </div>
@@ -447,9 +502,7 @@
                                                     <div class="bootstrap h5 m-0">{{ strtoupper($val['state']) }}</div>
                                                     <div class="bootstrap h7 text-muted">{{ $val['content']['opp_title'] }}</div>
                                                 </div>
-                                                <div class="viewBtn ">
-                                                    <a href="{{ route('opportunityExploreIndex')."?type=build&ids=".$oppid }}"  class="btn btn-info">View</a>
-                                                </div>
+                
                                             </div>
     {{--                                         <div>
                                                 <div class="bootstrap dropdown">
@@ -479,11 +532,13 @@
                                             </div> --}}
                                         </div>
                                     </div>
-{{--                                     <div class="bootstrap card-footer">
-                                        <a href="#" class="bootstrap card-link"><i class="fa fa-gittip"></i> Like</a>
+                                    <div class="bootstrap card-footer">
+                                            <a href="{{ route('opportunityExploreIndex')."?type=build&ids=".$oppid }}"  class="bootstrap card-link btn btn-info ">View</a>
+                                       
+                    {{--                     <a href="#" class="bootstrap card-link"><i class="fa fa-gittip"></i> Like</a>
                                         <a href="#" class="bootstrap card-link"><i class="fa fa-comment"></i> Comment</a>
-                                        <a href="#" class="bootstrap card-link"><i class="fa fa-mail-forward"></i> Share</a>
-                                    </div> --}}
+                                        <a href="#" class="bootstrap card-link"><i class="fa fa-mail-forward"></i> Share</a> --}}
+                                    </div>
                                 </div>
                                 <!-- Post /////-->
 
@@ -583,7 +638,7 @@
 
             </div>
 
-            <div class="bootstrap col-md-2" style="min-height:800px;">
+            <div class="bootstrap col-md-2 disp-lg" style="min-height:800px;">
                 <!-- sidebar token credit -->
                 <div class="bootstrap panel h-effect">
                     <div class="bootstrap panel-heading" style="text-align: center;">
