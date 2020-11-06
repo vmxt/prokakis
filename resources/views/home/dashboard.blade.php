@@ -173,6 +173,59 @@
             left: 0;
         }
 
+@media (max-width: 1200px) {
+  .pie{
+    margin: 0 auto;
+  }
+  .card .col-md-4{
+    width: 100%;
+  }
+  #home-enhance-profile{
+    margin-top: 1px !important;
+    margin-left: 39%;
+  }
+
+  .widget-row {
+        column-count: 3;
+  }
+
+  .block-icon{
+    width: 95%;
+  }
+
+  .widget-thumb {
+    height: 25vh;
+    }
+
+}
+
+@media (max-width: 720px) {
+ .widget-row {
+        column-count: 1;
+  }
+  .block-icon{
+    width: 110%;
+    padding-left: unset;
+  }
+}
+
+@media (max-width: 520px) {
+  #home-enhance-profile{
+    margin-left: 35%;
+  }
+}
+
+@media (max-width: 375px) {
+  #home-enhance-profile{
+    margin-left: 25%;
+  }
+}
+
+@media (max-width: 320px) {
+  #home-enhance-profile{
+    margin-left: 20%;
+  }
+}
     </style>
 
     <div class="container">
@@ -198,7 +251,7 @@
         @endif
 
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-8 block-icon">
                 <!-- graph card -->
                 <div class="page-content-inner">
                     <div class="mt-content-body">
@@ -235,11 +288,11 @@
                                         if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>  
                                          <br />  
                                         <?php } ?>
-
+                                        <div>
                                         <a id="home-enhance-profile" href="{{ route('editProfile') }}" class="btn red-mint"
                                            style="margin-top: 15px;">Enhance
                                             Profile</a>
-
+</div>
                     
 
                                     </div>
@@ -381,7 +434,7 @@
             </div>
 
 
-            <div class="col-md-4" style="min-height:800px;">
+            <div class="col-md-4 block-icon" style="min-height:800px;">
                 <!-- sidebar token credit -->
                 <div class="page-content-inner">
                     <div class="mt-content-body">
