@@ -724,12 +724,12 @@
                                     <img class="advantages-img"    src="{{ asset('public/img-resources/report-new.png') }}" width="96" alt="Tax" title="Tax">
                                     
                                     <h3 class='advance-title3'><strong>REPORT</strong></h3>
-                                    <p class="margin-center">Add on 120 Credits to your account to purchase KYB Business Intelligence Report from Companies.</p>
+                                    <p class="margin-center">Add on 120 Credits to your account to purchase KYC Business Intelligence Report from Companies.</p>
                                 </div>
                             </div>
                             <div class="col-6 advFooterText2">
                                 <div class="content advFooterText" style="text-align: center;">
-                                    <p>Upgrading to Premium Account will require you to subscribe on a monthly/yearly basis. Prokakis of KYB Business Intelligence Report will deduct 120 credit from your account for 1 generated report</p>
+                                    <p>Upgrading to Premium Account will require you to subscribe on a monthly/yearly basis. Prokakis of KYC Business Intelligence Report will deduct 120 credit from your account for 1 generated report</p>
                                 </div>
                             </div>
                         </div>

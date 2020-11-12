@@ -418,7 +418,7 @@ class MailboxController extends Controller {
 		$url_result = \App\CompanyProfile::generateReferralLinkEncoded($userId);
 
 		$message ="Hi, <br /> I use <b>ProKakis</b> to buy/ sell companies, advertise products & services and connect to other business owners 
-		globally. Wanna get <b>ProKakis</b>, Online Marketplace with KYB Due Diligence for yourself? Your registration fee is $0! Join me now: <a href='".$url_result."'>$url_result</a> or may copy-paste this url <i>$url_result</i> to your browser.
+		globally. Wanna get <b>ProKakis</b>, Online Marketplace with KYC Due Diligence for yourself? Your registration fee is $0! Join me now: <a href='".$url_result."'>$url_result</a> or may copy-paste this url <i>$url_result</i> to your browser.
 		<br />
 		<br />
 		Thank you, <br />

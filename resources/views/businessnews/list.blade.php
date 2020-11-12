@@ -230,6 +230,9 @@
 
         }
 
+        .list-group-item a{
+                padding: 7px;
+        }
 
         .page-header .page-header-top .top-menu .navbar-nav>li.dropdown>.dropdown-menu{
             z-index: 5;
