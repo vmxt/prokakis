@@ -1,13 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="{{ asset('public/jq-autocomplete/jquery-1.11.2.min.js') }}"></script>
-<script src="{{ asset('public/jq-autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
-<link href="{{ asset('public/jq-autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('public/jq-autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{ asset('public/multiselectJS/select2.css') }}" rel="stylesheet">
 
+{{-- <script src="{{ asset('public/jq-autocomplete/jquery-1.11.2.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('public/jq-autocomplete/jquery.easy-autocomplete.min.js') }}"></script> --}}
+{{-- <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css"/> --}}
+{{-- <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet" type="text/css"/> --}}
+<script src="{{ asset('public/multiselectJS/select2.js') }}"></script> 
 <!--<script src="{{ asset('public/js/app.js') }}"></script>-->
-   
+
     <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
     
@@ -31,58 +33,58 @@
 
      /* Outer */
 .popup {
-	width:100%;
-	height:100%;
-	display:none;
-	position:fixed;
-	top:0px;
-	left:0px;
+    width:100%;
+    height:100%;
+    display:none;
+    position:fixed;
+    top:0px;
+    left:0px;
     background:rgba(0,0,0,0.75);
     z-index: 10;
 }       
 
         /* Inner */
 .popup-inner {
-	max-width:900px;
-	width:90%;
-	padding:40px;
-	position:absolute;
-	top:50%;
-	left:50%;
-	-webkit-transform:translate(-50%, -50%);
-	transform:translate(-50%, -50%);
-	box-shadow:0px 2px 6px rgba(0,0,0,1);
-	border-radius:3px;
+    max-width:900px;
+    width:90%;
+    padding:40px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
+    box-shadow:0px 2px 6px rgba(0,0,0,1);
+    border-radius:3px;
     background:#fff;
     z-index: 10;
 }
 
 /* Close Button */
 .popup-close {
-	width:30px;
-	height:30px;
-	padding-top:4px;
-	display:inline-block;
-	position:absolute;
-	top:25px;
-	left:0px;
-	transition:ease 0.25s all;
-	-webkit-transform:translate(50%, -50%);
-	transform:translate(50%, -50%);
-	border-radius:1000px;
-	background:rgba(0,0,0,0.8);
-	font-family:Arial, Sans-Serif;
-	font-size:20px;
-	text-align:center;
-	line-height:100%;
-	color:#fff;
+    width:30px;
+    height:30px;
+    padding-top:4px;
+    display:inline-block;
+    position:absolute;
+    top:25px;
+    left:0px;
+    transition:ease 0.25s all;
+    -webkit-transform:translate(50%, -50%);
+    transform:translate(50%, -50%);
+    border-radius:1000px;
+    background:rgba(0,0,0,0.8);
+    font-family:Arial, Sans-Serif;
+    font-size:20px;
+    text-align:center;
+    line-height:100%;
+    color:#fff;
 }
 
 .popup-close:hover {
-	-webkit-transform:translate(50%, -50%) rotate(180deg);
-	transform:translate(50%, -50%) rotate(180deg);
-	background:rgba(0,0,0,1);
-	text-decoration:none;
+    -webkit-transform:translate(50%, -50%) rotate(180deg);
+    transform:translate(50%, -50%) rotate(180deg);
+    background:rgba(0,0,0,1);
+    text-decoration:none;
 }
 
 .container, .container-fluid {
@@ -98,6 +100,17 @@ td{
       word-wrap:break-word;
   
   }   
+
+  .loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('public/spinner/lg.rotating-balls-spinner.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+    }
   
 </style>
 
@@ -116,7 +129,8 @@ td{
                 <div class="portlet light">
                     <div class="portlet-body light">
 
-                        
+                        <!-- <div class="loader"></div> -->
+
                 @if ($errors->any())
 
                 <div class="alert alert-danger">
@@ -136,22 +150,29 @@ td{
             @endif
 
                     <div class="card">
-                        <form id="thomson_search" method="POST" action="{{ route('thomsonSearchFound') }}">
+                        <div class="form-group">
+                            <label> Search Type: </label>    
+                            <input type="checkbox" id="SearchCategory" data-toggle="switchbutton" checked data-onlabel="Person" data-offlabel="Company" data-onstyle="success" data-offstyle="info">
+                        </div>
+                           
+                        <div id="front"> 
+                            <form id="thomson_search" method="POST" action="{{ route('thomsonSearchFound') }}">
                             {{ csrf_field() }}
 
+                         
                                 <div class="form-group">
                                     <label> First Name </label>
-                                    <input id="first_name" name="first_name"  class="form-control placeholder-no-fix form-body" type="text" placeholder="Write First Name" autofocus>
+                                    <input id="first_name" name="first_name" minlength="3" class="form-control placeholder-no-fix form-body" type="text" placeholder="Write First Name" autofocus>
                
                                 </div>
                                 
                                 <div class="form-group">
                                         <label> Last Name </label>
-                                        <input id="last_name" name="last_name"  class="form-control placeholder-no-fix" type="text" placeholder="Write Last Name"  autofocus>
+                                        <input id="last_name" name="last_name" minlength="3"  class="form-control placeholder-no-fix" type="text" placeholder="Write Last Name"  autofocus>
                                 </div>
                                 
                                 <div class="form-group">
-                                        <label> Gender </label>
+                                        <label> Gender <code>required *</code></label>
                                         <select name="gender" multiple="" class="form-control" style="height:90px">
                                                 <option value="M">Male</option>
                                                 <option value="F">Female</option>
@@ -160,35 +181,124 @@ td{
                             
                                 </div>
 
-                                
+                                   
                                 <div class="form-group">
-                                    <label> Country </label>
-                                    <input style="text-transform:capitalize;" id="country_location" name="country_location" class="form-control" type="text" placeholder="Write Country Location">
+                                    <label> Other Names (Alias) </label>
+                                    <input style="text-transform:capitalize;" minlength="3" id="alias" name="alias" class="form-control" type="text" placeholder="Alias">
+                                </div>
+
+                                   
+                                <div class="form-group">
+                                    <label> DOB </label>
+                                    <input style="text-transform:capitalize;" id="dob" name="dob" class="form-control" type="text" placeholder="Date of Birth">
+                                    <span class="form-text text-muted">Custom date format:<code>yyyy-mm-dd</code></span>
+                                </div>
+ <?php
+                                            $locations = array();
+                                            foreach ($country_list as $d) {
+                                                $arr = $d->COUNTRIES;
+                                                // echo $arr.'<br />';
+                                                $ar = explode(",", $arr);
+                                                if (count((array) $ar) > 0) {
+                                                    foreach ($ar as $b) {
+                                                        $c = trim($b);
+                                                        if ($c != '-') {
+                                                            $locations[] = $c;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            $country_arr = array_unique($locations);
+                                            sort($country_arr);
+                                            $citizenship = array();
+                                            foreach ($citenzenship_list as $d) {
+                                                $arr = $d->CITIZENSHIP;
+                                                // echo $arr.'<br />';
+                                                $ar = explode(";", $arr);
+                                                if (count((array) $ar) > 0) {
+                                                    foreach ($ar as $b) {
+                                                        $c = trim($b);
+                                                        if ($c != '-') {
+                                                            $citizenship[] = $c;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            $citizenship_arr = array_unique($citizenship);
+                                            sort($citizenship_arr);
+
+?>
+                                <div class="form-group">
+                                    <label> Country <code>required *</code></label>
+                                    <!-- <input style="text-transform:capitalize;" id="country_location" name="country_location" class="form-control" type="text" placeholder="Write Country Location"> -->
+                                    <select style="text-transform:capitalize;" class="form-control placeholder-no-fix" id="country_location"  dataName="country_location" placeholder="Write Country Location" name="country_location">
+                                            <option value="" id="">Please select the following</option>
+                                            @foreach($country_arr as $countries)
+                                            <option
+                                                 value="<?php echo $countries  ?>"><?php echo $countries; ?>
+                                            </option>
+                                            @endforeach
+                                    </select>
                                 </div>
 
                                 
 
                                 <div class="form-group">
                                     <label> Nationality </label>
-                                    <input style="text-transform:capitalize;" id="nationality" name="nationality" class="form-control placeholder-no-fix" type="text" placeholder="Write Nationality" autofocus>
+                                  <!--   <input style="text-transform:capitalize;" id="nationality" name="nationality" class="form-control placeholder-no-fix" type="text" placeholder="Write Nationality" autofocus> -->
+
+                                    <select style="text-transform:capitalize;" class="form-control placeholder-no-fix" id="nationality"  dataName="nationality" placeholder="Write Nationality" name="nationality">
+                                            <option value="" id="">Please select the following</option>
+                                            @foreach($citizenship_arr as $citizenship)
+                                            <option
+                                                 value="<?php echo $citizenship  ?>"><?php echo $citizenship; ?>
+                                            </option>
+                                            @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label> Passport </label>
-                                    <input id="passport" name="passport" class="form-control placeholder-no-fix" type="text" placeholder="Write Passport" autofocus>
+                                    <label> Write Passport / IC No. </label>
+                                    <input id="passport" name="passport" class="form-control placeholder-no-fix" type="text" placeholder="Write Passport / IC No." autofocus>
                                 </div>
+ 
+
+                                <div class="actions">
+                                    <input type="submit" class="btn btn-primary" id="searchFormSubmit" value="Search">
+                                </div>
+                           
+                            </form>
+                        </div>
+
+                        <div id="back">
+                            <form id="thomson_search" method="POST" action="{{ route('searchFoundCompany') }}">
+                                {{ csrf_field() }}
 
                                 <div class="form-group">
-                                    <label> Further Information </label>
+                                    <label> Company Name </label>
                                     <input id="company_name" name="company_name" class="form-control placeholder-no-fix" type="text" placeholder="Write Company Name" autofocus>
                
                                 </div>
 
-                                <div class="actions">
-                                    <input type="submit" class="btn btn-primary" value="Search">
+                                <div class="form-group">
+                                    <label> Country </label>
+                                    <select style="text-transform:capitalize;" class="form-control placeholder-no-fix" id="country_location"  dataName="country_location" placeholder="Write Country Location" name="country_location">
+                                            <option value="" id="">Please select the following</option>
+                                            @foreach($country_arr as $countries)
+                                            <option
+                                                 value="<?php echo $countries  ?>"><?php echo $countries; ?>
+                                            </option>
+                                            @endforeach
+                                    </select>
                                 </div>
-                           
-                        </form>
+
+                                <div class="actions">
+                                    <input type="submit" class="btn btn-primary" id="searchFormSubmit" value="Search">
+                                </div>
+                    
+                            </form>
+                        </div> 
+
                     </div>
                 </div>
                 </div>
@@ -313,92 +423,7 @@ td{
                                             }
                                     } 
                                     
-                                    if(isset($rs2) && $rs2 != null){
-                                        foreach($rs2 as $d){
-                                 ?>    
-                                 <tr>
-                                    <td>
-                                        <span class="card" style="float:left;">
-                                            <div class="md-checkbox">
-
-                                                <input type="checkbox" name="checkboxes1[]" value="<?php echo $d->UID; ?>" id="checkbox_<?php echo $d->UID; ?>"  class="md-check" >
-
-                                                    <label for="checkbox_<?php echo $d->UID; ?>">
-
-                                                        <span class="inc"></span>
-
-                                                        <span class="check"></span>
-
-                                                        <span class="box"></span>
-                                                </label>
-
-                                            </div>
-                                        </span>
-                                    </td>
-                                         <td>
-                                             <span class="card" style="float:left;">
-                                                 <input data-popup-open="popup-2" onclick="openTR(<?php echo $d->UID; ?>);" type="button" class="btn btn-danger" value="view" />
-                                             </span>
-                                         </td>
-                                         <td><?php echo (isset($d->FIRST_NAME))? $d->FIRST_NAME : ''; ?></td>
-                                         <td><?php echo (isset($d->LAST_NAME))? $d->LAST_NAME : ''; ?></td>
-                                         <td width="5%"><?php echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td>
-                                         <td width="5%"><?php echo (isset($d->CATEGORY))? $d->CATEGORY : ''; ?></td> 
-                                         <td width="5%"><?php echo (isset($d->POSITION))? $d->POSITION : ''; ?></td> 
-                                         <td width="5%"><?php echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td> 
-                                         <td width="5%"><?php echo (isset($d->PASSPORT_COUNTRY))? $d->PASSPORT_COUNTRY : ''; ?></td>
-                                         <td width="5%"><?php echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
-                                         <td><?php echo (isset($d->FURTHER_INFORMATION))? $d->FURTHER_INFORMATION : ''; ?></td>
-                                        
-                                 </tr>
-                                
-                                <?php 
-                                        }
-                                } 
-                                
-                                if(isset($rs3) && $rs3 != null){
-                                    foreach($rs3 as $d){
-                                ?>    
-                                <tr>
-                                    <td>
-                                        <span class="card" style="float:left;">
-                                            <div class="md-checkbox">
-
-                                                <input type="checkbox" name="checkboxes1[]" value="<?php echo $d->UID; ?>" id="checkbox_<?php echo $d->UID; ?>"  class="md-check" >
-
-                                                    <label for="checkbox_<?php echo $d->UID; ?>">
-
-                                                        <span class="inc"></span>
-
-                                                        <span class="check"></span>
-
-                                                        <span class="box"></span>
-                                                    </label>
-
-                                            </div>
-                                        </span>
-                                    </td>
-                                     <td>
-                                         <span class="card" style="float:left;">
-                                             <input data-popup-open="popup-2" onclick="openTR(<?php echo $d->UID; ?>);" type="button" class="btn btn-danger" value="view" />
-                                         </span>
-                                     </td>
-                                     <td><?php echo (isset($d->FIRST_NAME))? $d->FIRST_NAME : ''; ?></td>
-                                            <td><?php echo (isset($d->LAST_NAME))? $d->LAST_NAME : ''; ?></td>
-                                            <td width="5%"><?php echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td>
-                                            <td width="5%"><?php echo (isset($d->CATEGORY))? $d->CATEGORY : ''; ?></td> 
-                                            <td width="5%"><?php echo (isset($d->POSITION))? $d->POSITION : ''; ?></td> 
-                                            <td width="5%"><?php echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td> 
-                                            <td width="5%"><?php echo (isset($d->PASSPORT_COUNTRY))? $d->PASSPORT_COUNTRY : ''; ?></td>
-                                            <td width="5%"><?php echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
-                                            <td><?php echo (isset($d->FURTHER_INFORMATION))? $d->FURTHER_INFORMATION : ''; ?></td>
-                                    
-                             </tr>
-                            
-                            <?php 
-                              }
-                             } 
-                             ?> 
+                                   ?>
                                
                                     </tbody>
                                 </table>
@@ -502,69 +527,75 @@ td{
     </div> 
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
+
      <script>
+        $(document).ready(function() {  
+        $("#back").fadeOut("slow");
+        $('#dob').mask('0000-00-00');
+        $('#country_location').select2();
+        $('#nationality').select2();
+        });    
+            // var options = {
+            //     url: "{{ route('getCountryLocation') }}",
+            //     getValue: "LOCATIONS",
+            //     list: {
+            //         maxNumberOfElements: 5,
+            //         match: {
+            //             enabled: true
+            //         },
+            //         sort: {
+            //             enabled: true
+            //         },
+            //         onClickEvent: function() {
+            //             console.log('click');
 
-            var options = {
-                url: "{{ route('getCountryLocation') }}",
-                getValue: "LOCATIONS",
-                list: {
-                    maxNumberOfElements: 5,
-                    match: {
-                        enabled: true
-                    },
-                    sort: {
-                        enabled: true
-                    },
-                    onClickEvent: function() {
-                        console.log('click');
+            //         },
+            //         showAnimation: {
+            //             type: "fade", //normal|slide|fade
+            //             time: 400,
+            //             callback: function() {}
+            //         },
+            
+            //         hideAnimation: {
+            //             type: "slide", //normal|slide|fade
+            //             time: 400,
+            //             callback: function() {}
+            //         }    
 
-                    },
-                    showAnimation: {
-                        type: "fade", //normal|slide|fade
-                        time: 400,
-                        callback: function() {}
-                    },
+            //     }
+            // };
+            // $("#country_location").easyAutocomplete(options); 
             
-                    hideAnimation: {
-                        type: "slide", //normal|slide|fade
-                        time: 400,
-                        callback: function() {}
-                    }	
+            
+            // var optionsNationality = {
+            //     url: "{{ route('getNationality') }}",
+            //     getValue: "CITIZENSHIP",
+            //     list: {
+            //         maxNumberOfElements: 5,
+            //         match: {
+            //             enabled: true
+            //         },
+            //         sort: {
+            //             enabled: true
+            //         },
+            //         onClickEvent: function() {
+            //             console.log('click');
 
-                }
-            };
-            $("#country_location").easyAutocomplete(options); 
+            //         },
+            //         showAnimation: {
+            //             type: "fade", //normal|slide|fade
+            //             time: 400,
+            //             callback: function() {}
+            //         },
             
-            
-            var optionsNationality = {
-                url: "{{ route('getNationality') }}",
-                getValue: "CITIZENSHIP",
-                list: {
-                    maxNumberOfElements: 5,
-                    match: {
-                        enabled: true
-                    },
-                    sort: {
-                        enabled: true
-                    },
-                    onClickEvent: function() {
-                        console.log('click');
-
-                    },
-                    showAnimation: {
-                        type: "fade", //normal|slide|fade
-                        time: 400,
-                        callback: function() {}
-                    },
-            
-                    hideAnimation: {
-                        type: "slide", //normal|slide|fade
-                        time: 400,
-                        callback: function() {}
-                    }	
-                }
-            };
-            $("#nationality").easyAutocomplete(optionsNationality); 
+            //         hideAnimation: {
+            //             type: "slide", //normal|slide|fade
+            //             time: 400,
+            //             callback: function() {}
+            //         }    
+            //     }
+            // };
+            // $("#nationality").easyAutocomplete(optionsNationality); 
             
 
                 $(".easy-autocomplete-container").on("show.eac", function(e) {
@@ -636,6 +667,7 @@ td{
                 
 
                 function openTR(tor){
+                    // $(".loader").fadeIn("slow");
                     formData= new FormData();
                     formData.append("tr_id", tor);
                     
@@ -649,6 +681,7 @@ td{
                 
                     success: function(data){
                         $("#tr_result").html(data);
+                        // $(".loader").fadeOut("slow");
                     }
                     }); 
                 }
@@ -759,9 +792,37 @@ td{
                   });
                 }
 
-      
+
+                  $(window).load(function() {
+                    // $(".loader").fadeOut("slow");
+                  });
+
+                  $("#thomson_search").submit(function(){
+                    // $(".loader").fadeIn("slow");
+                  });
+
+       
+              $('#SearchCategory').change(function() {
+               
+                if(this.checked) {
+                
+                    $("#back").fadeOut("slow");
+                    $("#front").fadeIn("slow");
+                    
+                }else {
+                    $("#back").fadeIn("slow");
+                    $("#front").fadeOut("slow");
+                }
+                
+              });
+
+           
 
     </script>
+
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
 @endsection
 

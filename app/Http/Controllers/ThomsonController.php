@@ -33,23 +33,29 @@ class ThomsonController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function search() {
-	
-	   $rr = ThomsonReuters::getTheActiveRequestReport();
-
-		return view('staff.search', compact('rr'));
+	public function search()
+	{
+		if(User::getEBossStaffTrue(Auth::id()) == true)
+        {	
+	     $rr = ThomsonReuters::getTheActiveRequestReport();
+	     $country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
+	     $citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
+   		 return view('staff.search', compact('rr','country_list','citenzenship_list'));
+		}
 	}
 
-	public function searchFound(Request $request) {
+	public function searchFound(Request $request){
 
 		if ($request->isMethod('post')) {
 
 			$validatedData = $request->validate([
 				'gender' => 'required',
 				'country_location' => 'required',
-			//	'first_name' => 'required|max:255',
-				
-			]);	
+				'dob' => 'date|date_format:Y-m-d|nullable',
+				],[
+				'dob.date' => 'Date of birth is not a valid date.',
+				'dob.date_format' => 'Date of birth should be in this format yyyy-mm-dd',
+				]);	
 
 
 			$fn = $request->input('first_name');
@@ -60,6 +66,10 @@ class ThomsonController extends Controller {
 			$cl = $request->input('country_location');
 			$cn = $request->input('company_name');
 			$g = $request->input('gender');
+			
+			$dob = $request->input('dob');
+			$alias = $request->input('alias');
+
 
 			$search = '';
 			if($fn != null){
@@ -81,22 +91,74 @@ class ThomsonController extends Controller {
 				$search = $search ."<p> COMPANY NAME: <b>". $cn.'</b> </p>';		
 			}
 			if($g != null){
-				$search = $search ."<p> GENDER: <b>". $g.'</b></p>';		
+				$search = $search ."<p> GENDER CODE: <b>". $g.'</b></p>';		
+			}
+
+			if($dob != null){
+				$search = $search ."<p> DATE OF BIRTH: <b>". $dob.'</b></p>';		
+			}
+
+			if($alias != null){
+				$search = $search ."<p> ALIAS: <b>". $alias.'</b></p>';		
 			}
 		
 		
-			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank');
-			$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
-			$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
+			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, $dob, $alias, 'reuters_databank');
+			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
+			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
-			$sumRec = count((array)$rs) + count((array) $rs2) + count((array) $rs3);
+			$sumRec = count((array)$rs); //+ count((array) $rs2) + count((array) $rs3);
 
 			$rr = ThomsonReuters::getTheActiveRequestReport();
+	     	$country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
+			$citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
+			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
 
-			return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
+			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr'));
+			
 
 		}
 	}
+
+	public function searchFoundCompany(Request $request){
+
+		if ($request->isMethod('post')) {
+
+			$validatedData = $request->validate([
+				'company_name' => 'required',
+				'country_location' => 'required',
+			]);	
+
+			$cl = $request->input('country_location');
+			$cn = $request->input('company_name');
+
+			$search = '';
+		
+			if($cl != null){
+				$search = $search ."<p> COUNTRY: <b>". $cl.'</b> </p>';		
+			}
+			if($cn != null){
+				$search = $search ."<p> COMPANY NAME: <b>". $cn.'</b> </p>';		
+			}
+			
+			$fn = null; $ln = null; $n = null; $p = null; $g = null; $dob = null; $alias = null;
+		
+			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, $dob, $alias, 'reuters_databank');
+			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
+			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
+			
+			$sumRec = count((array)$rs); //+ count((array) $rs2) + count((array) $rs3);
+
+			$rr = ThomsonReuters::getTheActiveRequestReport();
+
+			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
+
+			return view('staff.search', compact('rs', 'sumRec', 'search', 'rr'));
+			
+
+		}
+	}
+
 
 	public function trProcess(Request $request){
 
@@ -165,7 +227,7 @@ class ThomsonController extends Controller {
 
 	}
 
-	public function getNationality(Request $request) {
+	public function getNationality(Request $request){
 		$rs = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
 
 		$arr = array();
@@ -181,7 +243,7 @@ class ThomsonController extends Controller {
 		echo json_encode($arr);
 	}
 
-	public function getCountryLocation() {
+	public function getCountryLocation(){
 		$rs = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
 		$locations = array();
 		$result = array();
@@ -229,7 +291,7 @@ class ThomsonController extends Controller {
 
 	}
 
-	public function printPreview(Request $request) {
+	public function printPreview(Request $request){
 		if (isset($request['id'])) {
 			$user_id = Auth::id();
 			$rs = User::find($user_id);
