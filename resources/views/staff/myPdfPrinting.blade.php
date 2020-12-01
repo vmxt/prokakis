@@ -82,7 +82,15 @@ table td{
                                  $timestamp = strtotime($data->UPDATED);
                                  // Creating new date format from that timestamp
                                  $updated_prokakis = date("F j, Y", $timestamp);
-                          }      
+                          }  
+      $pecentage = "";
+      $r_id = explode(",", $ids);
+      foreach($r_id as $t){
+        $tt = explode("||", $t);
+        if($data->UID == $tt[0]){
+          $pecentage = $tt[1];
+        }
+      }
 ?>
 
 
@@ -91,6 +99,7 @@ table td{
           <h4>
             {{ $data->FIRST_NAME. '  '.$data->LAST_NAME}}
           </h4>
+          <h6><strong>Mach Result Percentage:</strong><em> {{ $pecentage }}%</em></h6>
         </div>
       </div>
 

@@ -216,23 +216,27 @@ class ThomsonController extends Controller {
 
 		//echo count($r_id); exit;
 
-			$fileNameDownload = implode("-",$r_id);
-
+			$filename = "";
 			$dataR = array();
 			foreach($r_id as $t){
-				$rs = ThomsonReuters::searchAllThree($t);
+				$tt = explode("||", $t);
+
+				$rs = ThomsonReuters::searchAllThree($tt[0]);
 				//echo $t . '<br />';
 
 				if($rs != null){
 					$dataR[] = $rs;
+					// $dataR['match_percentage'] = $tt[1];
+
 					//echo $rs->FIRST_NAME . ' <br />';
 				}
+				$filename .= $tt[0]."-";
 			}
+			$fileNameDownload = $filename;
 
-
-			$pdf = PDF::loadView('staff.myPdfPrinting', compact('dataR'));
+			$pdf = PDF::loadView('staff.myPdfPrinting', compact('dataR','ids'));
 			return $pdf->download($fileNameDownload . '.pdf');
-			//return view('staff.myPdfPrinting', compact('dataR'));
+			//return view('staff.myPdfPrinting', compact('dataR','ids'));
 
 		}
 
@@ -326,15 +330,20 @@ class ThomsonController extends Controller {
 
 				$inserted_prokakis = '';
 				if ($data->CREATED_AT != NULL) {
-					$date = date_create($data->CREATED_AT);
-					$dateFinal = date_format($date, "Y-m-d");
+					$date1 = Carbon::createFromFormat('Y-m-d', $data->CREATED_AT);
+					// $date = date_create($data->CREATED_AT);
+					// $dateFinal = date_format($date, "Y-m-d");
+					$dateFinal = Carbon::parse($date1)->format('Y-m-d');
 					$inserted_prokakis = date("F j, Y", strtotime($dateFinal));
 				}
 
 				$updated_prokakis = '';
 				if ($data->UPDATED != NULL) {
-					$date2 = date_create($data->UPDATED);
-					$dateFinal2 = date_format($date2, "Y-m-d");
+					$date2 = Carbon::createFromFormat('Y-m-d', $data->CREATED_AT);
+
+					// $date2 = date_create($data->UPDATED);
+					// $dateFinal2 = date_format($date2, "Y-m-d");
+					$dateFinal2 =  Carbon::parse($date2)->format('Y-m-d');
 					$updated_prokakis = date("F j, Y", strtotime($dateFinal2));
 				}
 

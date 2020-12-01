@@ -401,7 +401,7 @@ td{
                                             <span class="card" style="float:left;">
                                                 <div class="md-checkbox">
 
-                                                    <input type="checkbox" name="checkboxes1[]" value="<?php echo $d->UID; ?>" id="checkbox_<?php echo $d->UID; ?>" class="md-check" >
+                                                    <input type="checkbox" name="checkboxes1[]" value="<?php echo $d->UID; ?>" id="checkbox_<?php echo $d->UID; ?>" class="md-check" resultPecentage="<?=number_format($total_percent,2)?>" >
 
                                                     <label for="checkbox_<?php echo $d->UID; ?>">
 
@@ -654,10 +654,11 @@ td{
                    
                     var forPrint = [];
                     $.each($("input[name='checkboxes1[]']:checked"), function(){            
-                        forPrint.push($(this).val());
+                        forPrint.push($(this).val()+'||'+$(this).attr('resultPecentage'));
                     });
                     //alert("My favourite for printing are: " + forPrint.join(", "));
                     var result = forPrint.join(",");
+                    console.log(result);
                     if(result != ''){
                     window.open(encodeURI("{{ url('/thomson-pdfprint/') }}"+"/"+result), '_blank'); 
                     } else {
