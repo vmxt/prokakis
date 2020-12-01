@@ -26,150 +26,197 @@ td.social-table2
   
 .page-break  { display: block; }
 
+#home tr:nth-child(even) {background-color: #f2f2f2;}
+
+#profile tr:hover {background-color: #ddd;}
+
+table thead th {text-align:center}
+
+#home th:nth-child(4) {display:none}
+
+#home td:nth-child(4) {display:none}
+
+.jumbotron {
+  padding: 20px;
+
+}
+
+table td{
+  word-break: break-all;
+}
+.match-result{
+  background-color:  #1A4275;
+  padding: 20px;
+}
+
+.name-header{
+    width: 40%;
+  word-break: break-all;
+}
+
 </style>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-    
-      
-            <?php
-            if(count((array) $dataR) > 0){
-            $out = "";  
-            
-            foreach($dataR as $data)
-            {    
-              $out = $out .  ' <table class="table table-bordered table-striped table-condensed flip-content" >
-                       <tr>
-                       <th colspan="2">'.$data->FIRST_NAME. '  '.$data->LAST_NAME.' </th>
-                       </tr> <thead></thead>
-              <tbody>';
-             
-             
-              $company_out = (isset($data->COMPANIES))? $data->COMPANIES : '';
-            
-              $inserted_prokakis = '';
-              if ($data->CREATED_AT != NULL) {
-                    // Creating timestamp from given date
-                    $timestamp = strtotime($data->CREATED_AT);
-                            
-                    // Creating new date format from that timestamp
-                    $inserted_prokakis = date("F j, Y", $timestamp);
-                   
-              }
+          @if(count((array) $dataR) > 0)
+          <div class="row">
+            <div class="jumbotron match-result">
+              <h3 class="text-center text-white">
+                Prokakis Match Result
+              </h3>
+            </div>
+          </div>
+            @foreach($dataR as $data)
+<?php       
+                          $company_out = (isset($data->COMPANIES))? $data->COMPANIES : '';
+                          $inserted_prokakis = '';
+                          if ($data->CREATED_AT != NULL) {
+                                // Creating timestamp from given date
+                                $timestamp = strtotime($data->CREATED_AT);
+                                // Creating new date format from that timestamp
+                                $inserted_prokakis = date("F j, Y", $timestamp);
+                          }
+                          $updated_prokakis = '';
+                          if ($data->UPDATED != NULL) {
+                                 $timestamp = strtotime($data->UPDATED);
+                                 // Creating new date format from that timestamp
+                                 $updated_prokakis = date("F j, Y", $timestamp);
+                          }      
+?>
 
-              $updated_prokakis = '';
-              if ($data->UPDATED != NULL) {
-                     $timestamp = strtotime($data->UPDATED);
-                            
-                     // Creating new date format from that timestamp
-                     $updated_prokakis = date("F j, Y", $timestamp);
-              }      
-    
 
-            $out = $out . '<tr>
-                    <td> INSERTED TO PROKAKIS  </td>
-                    <td> '.$inserted_prokakis.' </td>
-                    </tr>';
-            
-            $out = $out . '<tr>
-                    <td> UPDATED   </td>
-                    <td> '.$updated_prokakis.' </td>
-                    </tr>'; 
+      <div class="row">
+        <div class="jumbotron name-header">
+          <h4>
+            {{ $data->FIRST_NAME. '  '.$data->LAST_NAME}}
+          </h4>
+        </div>
+      </div>
 
-            $out = $out . '<tr>
-                    <td class="social-table1"> First Name   </td>
-                    <td class="social-table2"> '.$data->FIRST_NAME.' </td>
-                    </tr>';
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          <table class="table">
+{{--             <thead>
+              <tr>
+                <th>Item ID</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>2-DAY SHIPPING</th>
+              </tr>
+            </thead> --}}
+            <tbody>
+              <tr>
+                <th width="30%">INSERTED TO PROKAKIS</th>
+                <td   width="70%">{{ $inserted_prokakis }}</td>
+              </tr>
 
-            $out = $out . '<tr>
-                   <td class="social-table1"> Last Name   </td>
-                   <td class="social-table2"> '.$data->LAST_NAME.' </td>
-                   </tr>';
-            $out = $out . '<tr>
-                   <td class="social-table1"> Companies   </td>
-                   <td class="social-table2"> '.$company_out.' </td>
-                   </tr>';
-            $out = $out . '<tr>
-                   <td class="social-table1"> Aliases   </td>
-                   <td class="social-table2"> '.$data->ALIASES.' </td>
-                   </tr>';
-            $out = $out . '<tr>
-                   <td class="social-table1"> Category  </td>
-                   <td class="social-table2"> '.$data->CATEGORY.' </td>
-                   </tr>';
-            $out = $out . '<tr>
-                   <td class="social-table1"> Title   </td>
-                   <td class="social-table2"> '.$data->TITLE.' </td>
-                   </tr>';
-            
-           $out = $out . '<tr>
-                   <td class="social-table1"> Gender   </td>
-                   <td class="social-table2"> '.$data->E_I.' </td>
-                   </tr>';
-                          
-            $out = $out . '<tr>
-                   <td class="social-table1""> Position  </td>
-                   <td class="social-table2"> '.$data->POSITION.' </td>
-                   </tr>';
-            $out = $out . '<tr>
-                   <td class="social-table1"> DOB   </td>
-                   <td class="social-table2"> '.$data->DOB.' </td>
-                   </tr>';
-            $out = $out . '<tr>
-                   <td class="social-table1"> Locations   </td>
-                   <td class="social-table2"> '.$data->LOCATIONS.' </td>
-                   </tr>';
-            $out = $out . '<tr>
-                   <td class="social-table1"> Passport   </td>
-                   <td class="social-table2"> '.$data->PASSPORTS.' </td>
-                   </tr>';
-                   
-            $out = $out . '<tr>
-                   <td class="social-table1"> Citizenship   </td>
-                   <td class="social-table2"> '.$data->CITIZENSHIP.' </td>
-                   </tr>';
-            $out = $out . '<tr>
-                   <td class="social-table1"> Place of birth   </td>
-                   <td class="social-table2"> '.$data->PLACE_OF_BIRTH.' </td>
-                   </tr>';
-            
-            $out = $out . '<tr>
-                   <td class="social-table1"> Companies   </td>
-                   <td class="social-table2"> '.$data->COMPANIES.' </td>
-                   </tr>';
-            
-            $out = $out . '<tr>
-                   <td class="social-table1"> Country Location   </td>
-                   <td class="social-table2"> '.$data->LOCATIONS.' </td>
-                   </tr>';
-            
-            $out = $out . '<tr>
-                   <td class="social-table1"> Key Words   </td>
-                   <td class="social-table2"> '.$data->KEYWORDS.' </td>
-                   </tr>';       
-            
-            $out = $out . '<tr>
-                   <td class="social-table1"> Further Information   </td>
-                   <td class="social-table2"> '.$data->FURTHER_INFORMATION.' </td>
-                   </tr>';
-            
-            $out = $out . '<tr>
-                   <td class="social-table1"> External sources   </td>
-                   <td class="social-table2"> '.$data->EXTERNAL_SOURCES.' </td>
-                   </tr>';
-              
+              <tr>
+                <th width="30%">UPDATED</th>
+                <td   width="70%">{{ $updated_prokakis }}</td>
+              </tr>
 
-             $out = $out .  '</tbody>
-           </table><div class="page-break"></div>';
-               
-       
-              }  
+              <tr>
+                <th width="30%">First Name</th>
+                <td   width="70%">{{ $data->FIRST_NAME }}</td>
+              </tr>
 
-              echo $out;
-          
-            } 
-            ?>
+              <tr>
+                <th width="30%">Last Name</th>
+                <td   width="70%">{{ $data->LAST_NAME }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Companies</th>
+                <td   width="70%">{{ $company_out }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Aliases</th>
+                <td   width="70%">{{ $data->ALIASES }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">CATEGORY</th>
+                <td   width="70%">{{ $data->CATEGORY }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">TITLE</th>
+                <td   width="70%">{{ $data->TITLE }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">Gender</th>
+                <td   width="70%">{{ $data->E_I }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">POSITION</th>
+                <td   width="70%">{{ $data->POSITION }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">DATE OF BIRTH</th>
+                <td   width="70%">{{ $data->DOB }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">LOCATIONS</th>
+                <td   width="70%">{{ $data->LOCATIONS }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">PASSPORTS</th>
+                <td   width="70%">{{ $data->PASSPORTS }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">CITIZENSHIP</th>
+                <td   width="70%">{{ $data->CITIZENSHIP }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">PLACE OF BIRTH</th>
+                <td   width="70%">{{ $data->PLACE_OF_BIRTH }}</td>
+              </tr>
+
+              <tr>
+                <th width="30%">COMPANIES</th>
+                <td   width="70%">{{ $data->COMPANIES }}</td>
+              </tr>
+
+               <tr>
+                <th width="30%">COUNTRY LOCATIONS</th>
+                <td   width="70%">{{ $data->LOCATIONS }}</td>
+              </tr>             
+
+               <tr>
+                <th width="30%">KEY WORDS</th>
+                <td   width="70%">{{ $data->KEYWORDS }}</td>
+              </tr>   
+
+               <tr>
+                <th width="30%">FURTHER INFORMATION</th>
+                <td   width="70%">{{ $data->FURTHER_INFORMATION }}</td>
+              </tr>  
+
+               <tr>
+                <th width="30%">EXTERNAL SOURCES</th>
+                <td   width="70%">{{ $data->EXTERNAL_SOURCES }}</td>
+              </tr>  
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+            @endforeach
+          @endif
+           
+
            
     
       

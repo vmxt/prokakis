@@ -129,7 +129,7 @@ td{
                 <div class="portlet light">
                     <div class="portlet-body light">
 
-                        <!-- <div class="loader"></div> -->
+                        <div class="loader"></div>
 
                 @if ($errors->any())
 
@@ -152,7 +152,7 @@ td{
                     <div class="card">
                         <div class="form-group">
                             <label> Search Type: </label>    
-                            <input type="checkbox" id="SearchCategory" data-toggle="switchbutton" checked data-onlabel="Person" data-offlabel="Company" data-onstyle="success" data-offstyle="info">
+                            <input type="checkbox" id="SearchCategory" name="SearchCategory" data-toggle="switchbutton" checked data-onlabel="Person" data-offlabel="Company" data-onstyle="success" data-offstyle="info">
                         </div>
                            
                         <div id="front"> 
@@ -281,8 +281,8 @@ td{
                                 </div>
 
                                 <div class="form-group">
-                                    <label> Country </label>
-                                    <select style="text-transform:capitalize;" class="form-control placeholder-no-fix" id="country_location"  dataName="country_location" placeholder="Write Country Location" name="country_location">
+                                    <label> Country <code>required *</code></label>
+                                    <select style="text-transform:capitalize;" class="form-control placeholder-no-fix" id="country_location2"  dataName="country_location" placeholder="Write Country Location" name="country_location">
                                             <option value="" id="">Please select the following</option>
                                             @foreach($country_arr as $countries)
                                             <option
@@ -365,6 +365,7 @@ td{
                                             </div> 
                                        </th>
                                         <th width="5%">Action</th>
+                                        <th width="5%">Match %</th>
                                         <th width="8%">First Name</th>
                                         <th width="8%">Last Name</th>
                                         <th width="5%">Aliases</th>
@@ -381,6 +382,17 @@ td{
                                     
                                     <?php if(isset($rs) && $rs != null){
                                            foreach($rs as $d){
+                                             similar_text(strtolower($input['first_name']), strtolower($d->FIRST_NAME), $fname_percent); 
+                                             similar_text(strtolower($input['last_name']), strtolower($d->LAST_NAME), $lname_percent); 
+                                             similar_text(strtolower($input['gender']), strtolower($d->E_I), $gender_percent); 
+                                             similar_text(strtolower($input['alias']), strtolower($d->ALIASES), $alias_percent); 
+                                             similar_text(strtolower($input['dob']), strtolower($d->DOB), $dob_percent); 
+                                             similar_text(strtolower($input['country_location']), strtolower($d->COUNTRIES), $countries_percent); 
+                                             similar_text(strtolower($input['nationality']), strtolower($d->CITIZENSHIP), $citizenship_percent); 
+                                             similar_text(strtolower($input['passport']), strtolower($d->PASSPORTS), $passport_percent); 
+                                             $total_percent = $fname_percent + $lname_percent + $gender_percent + $alias_percent + $dob_percent + $countries_percent + $citizenship_percent + $passport_percent;
+                                             $total_percent = $total_percent / 8;
+
                                     ?>    
                                     <tr>
 
@@ -407,13 +419,14 @@ td{
                                                     <input data-popup-open="popup-2" onclick="openTR(<?php echo $d->UID; ?>);" type="button" class="btn btn-danger" value="view" />
                                                 </span>
                                             </td>
+                                            <td><?=number_format($total_percent,2)?> %</td>
                                             <td><?php echo (isset($d->FIRST_NAME))? $d->FIRST_NAME : ''; ?></td>
                                             <td><?php echo (isset($d->LAST_NAME))? $d->LAST_NAME : ''; ?></td>
                                             <td width="5%"><?php echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td>
                                             <td width="5%"><?php echo (isset($d->CATEGORY))? $d->CATEGORY : ''; ?></td> 
                                             <td width="5%"><?php echo (isset($d->POSITION))? $d->POSITION : ''; ?></td> 
                                             <td width="5%"><?php echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td> 
-                                            <td width="5%"><?php echo (isset($d->PASSPORT_COUNTRY))? $d->PASSPORT_COUNTRY : ''; ?></td>
+                                            <td width="5%"><?php echo (isset($d->COUNTRIES))? $d->COUNTRIES : ''; ?></td>
                                             <td width="5%"><?php echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
                                             <td><?php echo (isset($d->FURTHER_INFORMATION))? $d->FURTHER_INFORMATION : ''; ?></td>
                                            
@@ -533,6 +546,7 @@ td{
         $("#back").fadeOut("slow");
         $('#dob').mask('0000-00-00');
         $('#country_location').select2();
+        $('#country_location2').select2();
         $('#nationality').select2();
         });    
             // var options = {
@@ -667,7 +681,7 @@ td{
                 
 
                 function openTR(tor){
-                    // $(".loader").fadeIn("slow");
+                    $(".loader").fadeIn("slow");
                     formData= new FormData();
                     formData.append("tr_id", tor);
                     
@@ -681,7 +695,7 @@ td{
                 
                     success: function(data){
                         $("#tr_result").html(data);
-                        // $(".loader").fadeOut("slow");
+                        $(".loader").fadeOut("slow");
                     }
                     }); 
                 }
@@ -794,11 +808,11 @@ td{
 
 
                   $(window).load(function() {
-                    // $(".loader").fadeOut("slow");
+                    $(".loader").fadeOut("slow");
                   });
 
                   $("#thomson_search").submit(function(){
-                    // $(".loader").fadeIn("slow");
+                    $(".loader").fadeIn("slow");
                   });
 
        

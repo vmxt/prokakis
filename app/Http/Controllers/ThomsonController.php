@@ -48,14 +48,14 @@ class ThomsonController extends Controller {
 
 		if ($request->isMethod('post')) {
 
-			$validatedData = $request->validate([
-				'gender' => 'required',
-				'country_location' => 'required',
-				'dob' => 'date|date_format:Y-m-d|nullable',
-				],[
-				'dob.date' => 'Date of birth is not a valid date.',
-				'dob.date_format' => 'Date of birth should be in this format yyyy-mm-dd',
-				]);	
+			// $validatedData = $request->validate([
+			// 	'gender' => 'required',
+			// 	'country_location' => 'required',
+			// 	'dob' => 'date|date_format:Y-m-d|nullable',
+			// 	],[
+			// 	'dob.date' => 'Date of birth is not a valid date.',
+			// 	'dob.date_format' => 'Date of birth should be in this format yyyy-mm-dd',
+			// 	]);	
 
 
 			$fn = $request->input('first_name');
@@ -70,6 +70,17 @@ class ThomsonController extends Controller {
 			$dob = $request->input('dob');
 			$alias = $request->input('alias');
 
+			$input = [
+				'first_name' => $fn,
+				'last_name' => $ln,
+				'nationality' => $n,
+				'passport' => $p,
+				'country_location' => $cl,
+				'company_name' => $cn,
+				'gender' => $g,
+				'dob' => $dob,
+				'alias' => $alias
+					];
 
 			$search = '';
 			if($fn != null){
@@ -107,14 +118,14 @@ class ThomsonController extends Controller {
 			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
-			$sumRec = count((array)$rs); //+ count((array) $rs2) + count((array) $rs3);
-
+			$sumRec = $rs->count(); //+ count((array) $rs2) + count((array) $rs3);
+			$rs = $rs->get();
 			$rr = ThomsonReuters::getTheActiveRequestReport();
 	     	$country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
 			$citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
 			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
 
-			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr'));
+			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr', 'input'));
 			
 
 		}
@@ -147,13 +158,14 @@ class ThomsonController extends Controller {
 			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
-			$sumRec = count((array)$rs); //+ count((array) $rs2) + count((array) $rs3);
-
+			$sumRec = $rs->count(); //+ count((array) $rs2) + count((array) $rs3);
+			$rs = $rs->get();
 			$rr = ThomsonReuters::getTheActiveRequestReport();
-
+	     	$country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
+			$citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
 			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
 
-			return view('staff.search', compact('rs', 'sumRec', 'search', 'rr'));
+			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr'));
 			
 
 		}
@@ -217,7 +229,6 @@ class ThomsonController extends Controller {
 				}
 			}
 
-			//echo count($dataR); exit;
 
 			$pdf = PDF::loadView('staff.myPdfPrinting', compact('dataR'));
 			return $pdf->download($fileNameDownload . '.pdf');

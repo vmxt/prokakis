@@ -14,10 +14,18 @@
    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet"> 
     <link href="{{ asset('public/css/monitoring.css') }}" rel="stylesheet">
 </head>
-   
+          @include('staff.reports.footer' )
+          @include('staff.reports.header' )
           
 <body>
-   
+<style>
+    .btn-x4 {
+    font-size: 15px;
+    border-radius: 5px;
+    width: 15%;
+    background-color: orangered;
+    }
+</style>
     <div id="app">
        
 
