@@ -114,7 +114,7 @@ td{
   
 </style>
 
-    <div class="container" style="width:1500px;">
+    <div class="container" >
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
             <li>
                 <a href="{{ url('/home') }}">Dashboard</a>
@@ -348,13 +348,14 @@ td{
                                     <i class="icon-login"></i>  Process Selected Items for Request Report? </span>
                                 <span class="ladda-spinner"></span>
                             </button>
-                     
+                            <br>
+                            <br>
                             <div class="table-scrollable">
 
                                 <table  class="table table-bordered table-striped table-condensed flip-content">
                                     <thead class="flip-content">
                                     <tr>
-                                        <th width="2%"> 
+                                        <th width="5%"> 
                                             <div class="md-checkbox">
                                             <input type="checkbox" name="checkboxesAll" value="all" id="checkboxesAll" class="md-check" >
                                             <label for="checkboxesAll">
@@ -364,17 +365,17 @@ td{
                                             </label>
                                             </div> 
                                        </th>
-                                        <th width="5%">Action</th>
-                                        <th width="5%">Match %</th>
-                                        <th width="8%">First Name</th>
-                                        <th width="8%">Last Name</th>
-                                        <th width="5%">Aliases</th>
-                                        <th width="5%">Category</th> 
-                                        <th width="5%">Position</th> 
-                                        <th width="8%">Place of birth</th> 
-                                        <th width="8%">Country</th>
-                                        <th width="8%">Locations</th>
-                                        <th width="15%">Further Information</th>
+                                        <th >Action</th>
+                                        <th>Match %</th>
+                                        <th >First Name</th>
+                                        <th >Last Name</th>
+                                        <!-- <th width="5%">Aliases</th> -->
+                                        <th >Category</th> 
+                                        <th >Position</th> 
+                                        <!-- <th width="8%">Place of birth</th>  -->
+                                        <th >Country</th>
+                                        <!-- <th width="8%">Locations</th> -->
+                                        <!-- <th width="15%">Further Information</th> -->
                                         
                                     </tr>
                                     </thead>
@@ -422,13 +423,13 @@ td{
                                             <td><?=number_format($total_percent,2)?> %</td>
                                             <td><?php echo (isset($d->FIRST_NAME))? $d->FIRST_NAME : ''; ?></td>
                                             <td><?php echo (isset($d->LAST_NAME))? $d->LAST_NAME : ''; ?></td>
-                                            <td width="5%"><?php echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td>
+                                            <!-- <td width="5%"><?php //echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td> -->
                                             <td width="5%"><?php echo (isset($d->CATEGORY))? $d->CATEGORY : ''; ?></td> 
                                             <td width="5%"><?php echo (isset($d->POSITION))? $d->POSITION : ''; ?></td> 
-                                            <td width="5%"><?php echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td> 
+                                        <!--     <td width="5%"><?php //echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td>  -->
                                             <td width="5%"><?php echo (isset($d->COUNTRIES))? $d->COUNTRIES : ''; ?></td>
-                                            <td width="5%"><?php echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
-                                            <td><?php echo (isset($d->FURTHER_INFORMATION))? $d->FURTHER_INFORMATION : ''; ?></td>
+                                            <!-- <td width="5%"><?php //echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
+                                            <td><?php //echo (isset($d->FURTHER_INFORMATION))? $d->FURTHER_INFORMATION : ''; ?></td> -->
                                            
                                     </tr>
                                    
@@ -451,7 +452,7 @@ td{
 
      
      <div class="popup" data-popup="popup-2">
-                <div class="popup-inner" style="overflow: scroll; height:850px; width:900px;">
+                <div class="popup-inner" style="overflow: scroll;height: -webkit-fill-available;">
                     <div id="tr_result"></div>
                     <a class="popup-close" data-popup-close="popup-2" href="#">x</a>
                 </div>

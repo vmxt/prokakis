@@ -566,20 +566,7 @@ class CompanyprofileController extends Controller {
 
 				if ($cp->save()) {
 
-					if ($request->hasfile('uploadCSV')) {
-
-						$file = $request->file('uploadCSV');
-						$name = $user_id . '_financialStatus_' . time() . '_' . $file->getClientOriginalName();
-						$file->move(public_path() . '/uploads/', $name);
-						$filePathCsv =  asset('public/uploads/'.$name);
-
-						FinancialAnalysis::saveCreateCSV($filePathCsv, $company_id_result, $user_id);
-		
-					} else {
-
 					FinancialAnalysis::saveCreate($request, $company_id_result, $user_id);
-
-				}
 
 				}
 
@@ -1162,15 +1149,16 @@ public function searchThomsonReuters(Request $request) {
 
 					$updated_prokakis = '';
 
-					if ($data->UPDATED != NULL) {
+					/*if ($data->UPDATED != NULL) {
 
-						$date2 = date_create($data->UPDATED);
+						$upd = (string) $data->UPDATED;
+						$date2 = date_create($upd);
 
 						$dateFinal2 = date_format($date2, "Y-m-d");
 
 						$updated_prokakis = date("F j, Y", strtotime($dateFinal2));
 
-					}
+					}*/
 
 					$printUrl = url("/thomson-print/" . $data->ID);
 
@@ -1190,7 +1178,7 @@ public function searchThomsonReuters(Request $request) {
 
                       <td> UPDATED   </td>
 
-                      <td> ' . $updated_prokakis . ' </td>
+                      <td> ' . $data->UPDATED . ' </td>
 
                       </tr>';
 
