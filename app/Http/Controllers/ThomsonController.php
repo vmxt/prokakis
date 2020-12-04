@@ -15,6 +15,7 @@ use App\ConsultantProjects;
 use App\TR_reportgeneration;
 use App\ProcessedReport;
 use App\RequestApproval;
+use App\ThomsonAuditTrail;
 use PDF;
 
 
@@ -114,6 +115,13 @@ class ThomsonController extends Controller {
 			}
 		
 		
+
+			ThomsonAuditTrail::create([
+				'actions' => "person_search",
+				'requestor_id' => Auth::id(),
+				'info'=>serialize($input)
+			]);
+
 			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, $dob, $alias, 'reuters_databank');
 			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
@@ -128,7 +136,7 @@ class ThomsonController extends Controller {
 			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr', 'input'));
 			
 
-		}
+		} 
 	}
 
 	public function searchFoundCompany(Request $request){
@@ -142,6 +150,11 @@ class ThomsonController extends Controller {
 
 			$cl = $request->input('country_location');
 			$cn = $request->input('company_name');
+
+			$input = [
+				'country_location' => $cn,
+				'company_name' => $cl
+					];
 
 			$search = '';
 		
@@ -158,6 +171,12 @@ class ThomsonController extends Controller {
 			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
+			ThomsonAuditTrail::create([
+				'action' => "company_search",
+				'requestor_id' => Auth::id(),
+				'info'=>serialize($input)
+			]);
+
 			$sumRec = $rs->count(); //+ count((array) $rs2) + count((array) $rs3);
 			$rs = $rs->get();
 			$rr = ThomsonReuters::getTheActiveRequestReport();
@@ -237,6 +256,41 @@ class ThomsonController extends Controller {
 			$pdf = PDF::loadView('staff.myPdfPrinting', compact('dataR','ids'));
 			return $pdf->download($fileNameDownload . '.pdf');
 			//return view('staff.myPdfPrinting', compact('dataR','ids'));
+
+		}
+
+	}
+
+	public function pdfcasePrintDownload(Request $request){
+		
+		if(isset($request['ids'])){
+			$ids = $request['ids'];
+			$r_id = explode(",", $ids);
+
+		//echo count($r_id); exit;
+
+			$filename = "";
+			$dataR = array();
+			foreach($r_id as $t){
+				$tt = explode("||", $t);
+
+				$rs = ThomsonReuters::searchAllThree($tt[0]);
+				// $rs = [];
+				//echo $t . '<br />';
+
+				if($rs != null){
+					$dataR[] = $rs;
+					// $dataR['match_percentage'] = $tt[1];
+
+					//echo $rs->FIRST_NAME . ' <br />';
+				}
+				$filename .= $tt[0]."-";
+			}
+			$fileNameDownload = "Case Report (".time().") ";
+// $dataR = [];
+			$pdf = PDF::loadView('staff.myPdfCasePrinting', compact('dataR','ids'));
+			return $pdf->download($fileNameDownload . '.pdf');
+			// return view('staff.myPdfCasePrinting', compact('dataR','ids'));
 
 		}
 

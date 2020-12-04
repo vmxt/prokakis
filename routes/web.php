@@ -139,6 +139,7 @@ Route::get('/thomson-print/{id}', 'ThomsonController@printPreview')->name('print
 Route::post('/tr-tagging', 'ThomsonController@trProcess')->name('trTagging');
 Route::post('/tr-deleting', 'ThomsonController@trDelete')->name('trDeleting');
 Route::get('/thomson-pdfprint/{ids}', 'ThomsonController@pdfPrintDownload')->name('downloadPdf');
+Route::get('/thomson-pdfcaseprint/{ids}', 'ThomsonController@pdfcasePrintDownload')->name('downloadPdf');
 
 //dashboard
 Route::get('/home', 'HomeController@index')->name('home');

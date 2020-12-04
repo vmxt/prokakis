@@ -336,7 +336,14 @@ td{
 
                         <div class="portlet-body">
 
-                           
+                            <button type="button" name="forCaseReportProcess" id="forCaseReportProcess" class="btn red mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-right" data-spinner-color="#333">
+                                <span class="ladda-label">
+                                    <i class="icon-login"></i> Case Report </span>
+                                <span class="ladda-spinner"></span>
+                            </button>
+                        </div>
+                        <div class="portlet-body">
+ 
                             <button type="button" name="forPrintingProcess" id="forPrintingProcess" style="float:right;" class="btn yellow mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-right" data-spinner-color="#333">
                                 <span class="ladda-label">
                                     <i class="icon-login"></i> Items for PDF Download and Printing? </span>
@@ -661,6 +668,24 @@ td{
                     console.log(result);
                     if(result != ''){
                     window.open(encodeURI("{{ url('/thomson-pdfprint/') }}"+"/"+result), '_blank'); 
+                    } else {
+                        alert('Please select at-least one Thomson Reuters search results item.')
+                        return false
+                    } 
+
+                });
+
+                $("#forCaseReportProcess").on('click', function(e){
+                   
+                    var forPrint = [];
+                    $.each($("input[name='checkboxes1[]']"), function(){            
+                        forPrint.push($(this).val()+'||'+$(this).attr('resultPecentage'));
+                    });
+                    // alert("My favourite for printing are: " + forPrint.join(", "));
+                    var result = forPrint.join(",");
+                    console.log(result);
+                    if(result != ''){
+                    window.open(encodeURI("{{ url('/thomson-pdfcaseprint/') }}"+"/"+result), '_blank'); 
                     } else {
                         alert('Please select at-least one Thomson Reuters search results item.')
                         return false
