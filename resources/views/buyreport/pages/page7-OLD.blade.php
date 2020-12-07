@@ -33,36 +33,20 @@
         <thead>
           <tr>
             <th>Ratio</th>
-
-            @if(sizeof($MONTH_RATIO) == 0)
-              @foreach($MONTH_RATIO as $data )
-              <th>{{ $data }}</th>
-              @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Receivable Turnover:</td>
-
-            @if(sizeof($MONTH_RATIO) == 0)
-              @foreach($MONTH_RATIO as $data )
-              <td>{{ $RT[$data] }}</td>
-              @endforeach
-            @endif
-
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
           <tr>
             <td>Average Collection Period:</td>
-
-            @if(sizeof($MONTH_RATIO) == 0)
-              @foreach($MONTH_RATIO as $data )
-              <td>{{ $ACP[$data] }}</td>
-              @endforeach
-            @endif
-        
-
+            <td>N.A.</td>
+            <td>7.30</td>
           </tr>
         </tbody>
       </table>
@@ -81,40 +65,24 @@
         <thead>
           <tr>
             <th>Ratio</th>
-            
-
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Inventory Turnover:</td>
-
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $IT[$data] }}</td>
-            @endforeach
-            @endif
-       
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
           <tr>
             <td>Days in Inventory:</td>
-         
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $DII[$data] }}</td>
-            @endforeach
-            @endif
-
+            <td>N.A.</td>
+            <td>7.30</td>
           </tr>
         </tbody>
       </table>
- 
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.1.3 {{ strtoupper($reportTemplates['TITLE4_TXT_PG7']) }}</small>
@@ -129,42 +97,24 @@
         <thead>
           <tr>
             <th>Ratio</th>
-           
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Payable Turnover:</td>
-            
-            
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $PT[$data] }}</td>
-            @endforeach
-            @endif
-
-
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
           <tr>
             <td>Average Payment Period:</td>
-           
-             
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $APP[$data] }}</td>
-            @endforeach
-            @endif
-
+            <td>N.A.</td>
+            <td>7.30</td>
           </tr>
         </tbody>
       </table>
-  
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="bg-orange">
     </div>
@@ -189,29 +139,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-
-            @if(sizeof($MONTH_RATIO) == 0)
-              @foreach($MONTH_RATIO as $data )
-              <th>{{ $data }}</th>
-              @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Net Working Capital:</td>
-        
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $NWP[$data] }}</td>
-            @endforeach
-            @endif
-
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-    
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.2.2 {{ strtoupper($reportTemplates['TITLE7_TXT_PG7']) }}</small>
@@ -226,29 +166,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-           
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-           @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Current Ratio:</td>
-
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $CR[$data] }}</td>
-            @endforeach
-            @endif
-            
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.2.3 {{ strtoupper($reportTemplates['TITLE8_TXT_PG7']) }}</small>
@@ -263,29 +193,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-            
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-           @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Quick Ratio:</td>
-           
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $QR[$data] }}</td>
-            @endforeach
-            @endif
-           
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-  
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.3 {{ strtoupper($reportTemplates['TITLE9_TXT_PG7']) }}</small>
@@ -308,29 +228,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-           @endif
-           
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Debt to Equity:</td>
-            
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $DTE[$data] }}</td>
-            @endforeach
-            @endif
-            
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-   
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.3.2 {{ strtoupper($reportTemplates['TITLE11_TXT_PG7']) }}</small>
@@ -345,30 +255,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-           
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Debt to Asset:</td>
-       
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $DTA[$data] }}</td>
-            @endforeach
-            @endif
-            
-            
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.3.3 {{ strtoupper($reportTemplates['TITLE12_TXT_PG7']) }}</small>
@@ -383,29 +282,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-          
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Interest Coverage:</td>
-          
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $IC[$data] }}</td>
-            @endforeach
-            @endif
-
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-  
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.4 {{ strtoupper($reportTemplates['TITLE13_TXT_PG7']) }}</small>
@@ -428,29 +317,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-            
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Gross Profit Margin:</td>
-        
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $GPM[$data] }}</td>
-            @endforeach
-            @endif
-
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-    
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.4.2 {{ strtoupper($reportTemplates['TITLE15_TXT_PG7']) }}</small>
@@ -465,28 +344,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Operating Profit Margin:</td>
-           
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $OPM[$data] }}</td>
-            @endforeach
-            @endif
-
+            <td>Gross Profit Margin:</td>
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-     
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.4.3 {{ strtoupper($reportTemplates['TITLE16_TXT_PG7']) }}</small>
@@ -501,29 +371,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-          
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Net Profit Margin:</td>
-
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $NPM[$data] }}</td>
-            @endforeach
-            @endif
-        
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-  
+      @include('buyreport.cosultantAnalysis')
     </div>
 
     <div class="p-1">
@@ -539,30 +399,19 @@
         <thead>
           <tr>
             <th>Ratio</th>
-           
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Ratio of Investment:</td>
-            
-            
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $ROI[$data] }}</td>
-            @endforeach
-            @endif
-
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>
-     
+      @include('buyreport.cosultantAnalysis')
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.4.5 {{ strtoupper($reportTemplates['TITLE18_TXT_PG7']) }}</small>
@@ -577,24 +426,15 @@
         <thead>
           <tr>
             <th>Ratio</th>
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <th>{{ $data }}</th>
-            @endforeach
-            @endif
-
+            <th>Result</th>
+            <th>Result</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Return of Equity:</td>
-           
-            @if(sizeof($MONTH_RATIO) == 0)
-            @foreach($MONTH_RATIO as $data )
-            <td>{{ $ROE[$data] }}</td>
-            @endforeach
-            @endif
-
+            <td>N.A.</td>
+            <td>50</td>
           </tr>
         </tbody>
       </table>

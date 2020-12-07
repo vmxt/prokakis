@@ -6,11 +6,27 @@
         <div class="bg-orange">
         </div>
         <div class="row p-5">
+            <br />
             &#160;
+
+            <ul style="list-style-type: upper-roman; margin-top:20px;">
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Introduction</li>
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Company Overview</li>
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Key Management</li>
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Company Information</li>
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Financial Analysis</li>
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">AML Data (World check risk intellegence by
+                    Refinitive (Thomson Reuters)
+                    )</li>
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Investors Alert</li>
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Adverse Media (EBOS Reputation Analysis)</li>
+            </ul>
+
         </div>
         <div class="row p-5">
             <div class="col-md-12">
                 &#160;
+            
             </div>
         </div>
         

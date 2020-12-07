@@ -1,3 +1,28 @@
+
+<style>
+
+  table{
+    table-layout: fixed;
+  }       
+  
+  td.social-table1
+  {
+      max-width: 20%;
+      overflow: wrap;
+      word-wrap:break-word;
+  
+  }
+  
+  td.social-table2
+  {
+      max-width: 80%;
+      overflow: wrap;
+      word-wrap:break-word;
+  
+  }
+    
+  </style>
+
 <div class="card">
 
   <div class="card-body p-0">
@@ -6,7 +31,7 @@
 
       <div class="bg-orange">
 
-        <p class="h2 text-header">6.  {!! !empty($reportTemplates['HEADER_TXT_PG8']) ? strtoupper($reportTemplates['HEADER_TXT_PG8']) : 'Variable [HEADER_TXT_PG8] does not exist' !!}</p>
+        <p class="h2 text-header">{!! !empty($reportTemplates['HEADER_TXT_PG8']) ? strtoupper($reportTemplates['HEADER_TXT_PG8']) : 'Variable [HEADER_TXT_PG8] does not exist' !!}</p>
 
       </div>
 
@@ -26,63 +51,29 @@
 
     </div>
 
-  
 
+@if(sizeof($tr_peps) == 0)
 
-
-    <div class=" p-0">
-
-      <table class="table table-sm table-bordered" >
-
-        <thead>
-
-          <tr>
-
-            <th>Ratio</th>
-
-            <th>Result</th>
-
-            <th>Result</th>
-
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          <tr>
-
-            <td>Refinitiv (Thomson Reuters):</td>
-
-            <td>N.A.</td>
-
-            <td>50</td>
-
-          </tr>
-
-        </tbody>
-
-      </table>
-	
-    </div>
-
- @if(sizeof($tr_peps) == 0)
-
-<p>World-Check’s Analysis: There is no indication that the company or the members of the company is in breach of
+<p>World-Checks Analysis: There is no indication that the company or the members of the company is in breach of
 FATF regulation as at {{ $tr_inserted_date }}.</p>  
 
-
- @endif
+@endif
 	
       @if(sizeof($tr_peps) > 0)
      
-      <p>World-Check’s Analysis: There is indication that the company or the members of the company is in breach of
+      <p>World-Check`s Analysis: There is indication that the company or the members of the company is in breach of
 FATF regulation as at {{ $tr_inserted_date }}.</p>  
 
 
   @foreach( $tr_peps as $data )
   <div class="row p-5">
   <table class="table table-sm table-bordered">
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Result</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
         <th scope="row">First Name: </th>
@@ -155,7 +146,7 @@ FATF regulation as at {{ $tr_inserted_date }}.</p>
 
       <tr>
         <th scope="row">External Sources: </th>
-        <td colspan="2">{{ strtoupper($data->EXTERNAL_SOURCES) }}</td>
+        <td colspan="2">{{ substr(strtoupper($data->EXTERNAL_SOURCES), 0, 1000) }}</td>
       </tr>
     </tbody>
   </table>
