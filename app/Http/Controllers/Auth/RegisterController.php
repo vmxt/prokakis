@@ -154,7 +154,13 @@ class RegisterController extends Controller
 
       $user_status = "1";
 
-      $referralId = isset($data['referral_id'])? $data['referral_id'] : NULL;
+      $referralId = isset($data['referral_id'])? $data['referral_id'] : null;
+
+      $m_id = isset($data['m_id'])? $data['m_id'] : null;
+        
+      if($m_id != null){
+        $m_id = (int) base64_decode($m_id);
+      } 	
 
 
 
@@ -195,6 +201,8 @@ class RegisterController extends Controller
             'status' => $user_status,
 
             'referral_id' => $referralId,
+
+	    'm_id' => $m_id, 
 
         ]);
 
@@ -255,7 +263,7 @@ class RegisterController extends Controller
         ]);
 
    	//trigger an email for the welcome
-        $message =  file_get_contents("http://app.prokakis.com/public/emailtemplate/welcome_final.html");
+        $message =  file_get_contents("http://test.app-prokakis.com/public/emailtemplate/welcome_final.html");
         $message = str_replace("[First Name]", $data['firstname'], $message);
         //send the email here  
         Mailbox::sendMail_EmailTemplate($message, $data['email'], "Welcome to Prokakis", "");   

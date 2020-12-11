@@ -87,7 +87,6 @@ class CompanyPaymentController extends Controller
       }
     }
 
-
     public function generatePdf(Request $request){
         if(!isset($request['reportType'])){
           return "Please Specify Report Type";

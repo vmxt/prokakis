@@ -1,5 +1,5 @@
 .bg-orange{
-    background-color: #eb6e0e;
+    background-color: white;
 }
 
 .color-orange{
@@ -47,6 +47,7 @@ table tr {
 
 @page {
     margin: 0cm 0cm;
+    margin-bottom: 2cm;
     line-height: 1.6 !important;
 }
 
@@ -59,17 +60,18 @@ body {
 
 footer {
     position: fixed;
-    bottom: .5cm;
+    bottom: -105px;
     left: 0cm;
     right: 0cm;
-    height: 2cm;
-    margin-right: 10%;
-    margin-left: 10%;
+    height: 4cm;
+    /*margin-right: 1%;*/
+    /*margin-left: 1%;*/
     text-align: left;
+
 }
 
 footer p{
-    font-size: 9px !important;
+    font-size: 9px !important; 
 }
 
 header {
@@ -93,7 +95,14 @@ header {
 .pageNum-div{
     position: absolute;
     top: 0px;
-    right: -15px;
+    right: 20px;
+    color: white;
+
+}
+
+footer .footer-text{
+        margin-right: 10%;
+    margin-left: 10%;
 }
 
 .foot-content{
@@ -165,3 +174,63 @@ top: 335px !important;
 .social-table2 a{
     font-size: 13px !important;
 }
+
+/*VERSION 2 DESIGN ADDITIONAL UPDATE*/
+.header_logo{
+    float: left;
+}
+
+#watermark {
+    position:fixed;
+    bottom:5px;
+    right:5px;
+    opacity:0.5;
+    z-index:99;
+    color:white;
+}
+
+.heading1{
+    font-size: 36px;
+    font-weight: bolder;
+}
+
+.report-line{
+    border: 5px solid #1A4275;
+    border-radius: 5px;
+    width: 90%;
+}
+
+.gray-box{
+    padding: 40px;
+    background-color: #ECECEC;
+    margin: 0 auto;
+}
+
+
+
+.section-title{
+    background-color: #8DA1BB;
+}
+
+
+ .card-body, .card, .row *, .page-break, #app, .container-fluid {
+    background-color: white !important;
+}
+
+
+#app *, .card *, .page-break *{
+    background-color: white !important;
+}
+
+footer{
+    background-color: #1A4275 !important;  
+    color: white;
+}
+
+.card-body img{
+    width: 60%;
+    height: auto;
+}
+/*.card{
+    margin-bottom:  50px !important;
+}*/

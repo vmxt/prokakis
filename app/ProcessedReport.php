@@ -64,21 +64,24 @@ class ProcessedReport extends Model {
 		
 		 if($rs != null)
 		 {
-		  $arr = explode(",", $rs->remarks);
-		  foreach($arr as $d){
-			  $a = explode(":", $d);
-		  
-			  $b = explode("]", $a[1]);
-  
-				  if(!empty($b[0])){
-				  $ui = UploadImages::where('id', $b[0])->where('file_category', 'CONSULTANT_PROJECT_REPORT')->first();
-  
-					  if($ui != null){
-						  $fileName[] = $ui->file_name;
-					  }
-				   }
-		  }
-  
+			 if($rs->remarks != null){
+				$arr = explode(",", $rs->remarks);
+				foreach($arr as $d){
+						$a = explode(":", $d);
+						$b=[];
+						if(isset($a[1])){
+							$b = explode("]", $a[1]);
+						}
+		
+						if(!empty($b[0])){
+						$ui = UploadImages::where('id', $b[0])->where('file_category', 'CONSULTANT_PROJECT_REPORT')->first();
+		
+							if($ui != null){
+								$fileName[] = $ui->file_name;
+							}
+						}
+				}
+			 }	
 		 }
   
 		 return $fileName;

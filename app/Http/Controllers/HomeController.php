@@ -55,6 +55,9 @@ use Illuminate\Support\Facades\DB;
 
 use App\InOutUsers;
 
+use App\SAaccess;
+
+
 class HomeController extends Controller {
 
 	/**
@@ -98,15 +101,6 @@ class HomeController extends Controller {
 		InOutUsers::insert_updateDB(array('user_id'=>$user_id, 'status'=>1));
 
 
-
-		//if($userType == 1){
-
-		//echo "Company";
-
-		//}
-
-
-
 		if ($userType == 2) {
 
 			return redirect('homeSubConsul');
@@ -145,6 +139,12 @@ class HomeController extends Controller {
 			return redirect('homeAP');
 		}
 
+		if ($userType == 8) {  //subaccounts
+
+		   return redirect('homeSA');
+		}
+
+
 
 
 		$company_id_result = CompanyProfile::getCompanyId($user_id);
@@ -170,7 +170,7 @@ class HomeController extends Controller {
 		$resSell = ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
 		$resBuy = ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
 		$oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
-		
+
 		$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
 
 		$profileAwards = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.awards'), 5);
@@ -272,7 +272,7 @@ public function index() {
 		### business news
 			$businessNewsOpportunity = BusinessOpportunitiesNews::where('company_id', $company_id)->get();
 			array_push($businessNewsArr, $businessNewsOpportunity);	
-			
+
 		### business news
 
 		### opportunity
@@ -288,7 +288,7 @@ public function index() {
 		if(isset($businessNewsArr[0])) {
 			foreach ($businessNewsArr as $value) {
 				foreach ($value as $val) {
-					$res = 	[
+			$res = 	[
 					'state' => 'businessNews',
 					'updated_at' => $val->updated_at,
 					'content'=> [
@@ -314,20 +314,20 @@ public function index() {
 		if(isset($oppArr[0])) {
 			foreach ($oppArr as $value) {
 				foreach($value as $val){
-					$res = 	[
-					'state' => 'opportunity',
-					'updated_at' => $val->updated_at,
-					'content'=> [
-								'oppo_id'=>$val->id,
-								'opp_title'=>$val->opp_title,
-								'intro_describe_business'=>$val->intro_describe_business,
+				$res = 	[
+				'state' => 'opportunity',
+				'updated_at' => $val->updated_at,
+				'content'=> [
+							'oppo_id'=>$val->id,
+							'opp_title'=>$val->opp_title,
+							'intro_describe_business'=>$val->intro_describe_business,
 								'oppo_description'=>$val->oppo_description,
-								'industry'=>$val->industry
-								]
-					];
+							'industry'=>$val->industry
+							]
+				];
 					array_push($OppData, $res);	
-				}
 			}
+		}
 		}
 		usort($OppData, function($a, $b) {
 		    return $a['updated_at'] < $b['updated_at'];
@@ -498,6 +498,13 @@ public function index() {
 
 	public function ebosAP() {
 		return view('ap.dashboard');
+	}
+
+	public function ebosSA() {
+		$user_id = Auth::id();
+	
+		$rs = SAaccess::where('user_id', $user_id)->select('company_id')->distinct()->get();
+		return view('sa.dashboard', compact('rs'));
 	}
 
 

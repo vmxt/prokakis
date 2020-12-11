@@ -67,7 +67,7 @@ class CompanyFollow extends Model
                     ->select("cp.*" )
                     ->join('company_profiles as cp','cp.id','=','cf.company_id')
                     ->where('cf.user_id', $user_id);
-    }
+}
 
    
 }#end class

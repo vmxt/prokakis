@@ -32,14 +32,14 @@ $data["COMP_STRENGTHS"] = "N.A.";
           {{-- @include('buyreport.footer.disclaimer') --}}
         @include('buyreport.pages.page1')
       </div>
-      <div class="page-break">
+      {{-- <div class="page-break"> --}}
           {{-- @include('buyreport.footer.disclaimer') --}}
-        @include('buyreport.pages.page2')
-      </div>
-      <div class="page-break">
+        {{-- @include('buyreport.pages.page2') --}}
+      {{-- </div> --}}
+      {{-- <div class="page-break"> --}}
           {{-- @include('buyreport.footer.disclaimer') --}}
-        @include('buyreport.pages.page3')
-      </div>
+        {{-- @include('buyreport.pages.page3') --}}
+      {{-- </div> --}}
       <div class="page-break">
           {{-- @include('buyreport.footer.disclaimer') --}}
         @include('buyreport.pages.page4')

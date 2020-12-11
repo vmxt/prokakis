@@ -15,7 +15,6 @@ use App\ConsultantProjects;
 use App\TR_reportgeneration;
 use App\ProcessedReport;
 use App\RequestApproval;
-use App\ThomsonAuditTrail;
 use PDF;
 
 
@@ -39,9 +38,7 @@ class ThomsonController extends Controller {
 		if(User::getEBossStaffTrue(Auth::id()) == true)
         {	
 	     $rr = ThomsonReuters::getTheActiveRequestReport();
-	     $country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
-	     $citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
-   		 return view('staff.search', compact('rr','country_list','citenzenship_list'));
+   		 return view('staff.search', compact('rr'));
 		}
 	}
 
@@ -49,14 +46,14 @@ class ThomsonController extends Controller {
 
 		if ($request->isMethod('post')) {
 
-			// $validatedData = $request->validate([
-			// 	'gender' => 'required',
-			// 	'country_location' => 'required',
-			// 	'dob' => 'date|date_format:Y-m-d|nullable',
-			// 	],[
-			// 	'dob.date' => 'Date of birth is not a valid date.',
-			// 	'dob.date_format' => 'Date of birth should be in this format yyyy-mm-dd',
-			// 	]);	
+			$validatedData = $request->validate([
+				'gender' => 'required',
+				'country_location' => 'required',
+				'dob' => 'date|date_format:Y-m-d|nullable',
+				],[
+				'dob.date' => 'Date of birth is not a valid date.',
+				'dob.date_format' => 'Date of birth should be in this format yyyy-mm-dd',
+				]);	
 
 
 			$fn = $request->input('first_name');
@@ -71,17 +68,6 @@ class ThomsonController extends Controller {
 			$dob = $request->input('dob');
 			$alias = $request->input('alias');
 
-			$input = [
-				'first_name' => $fn,
-				'last_name' => $ln,
-				'nationality' => $n,
-				'passport' => $p,
-				'country_location' => $cl,
-				'company_name' => $cn,
-				'gender' => $g,
-				'dob' => $dob,
-				'alias' => $alias
-					];
 
 			$search = '';
 			if($fn != null){
@@ -115,28 +101,20 @@ class ThomsonController extends Controller {
 			}
 		
 		
-
-			ThomsonAuditTrail::create([
-				'actions' => "person_search",
-				'requestor_id' => Auth::id(),
-				'info'=>serialize($input)
-			]);
-
 			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, $dob, $alias, 'reuters_databank');
 			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
-			$sumRec = $rs->count(); //+ count((array) $rs2) + count((array) $rs3);
-			$rs = $rs->get();
+			$sumRec = count((array)$rs); //+ count((array) $rs2) + count((array) $rs3);
+
 			$rr = ThomsonReuters::getTheActiveRequestReport();
-	     	$country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
-			$citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
+
 			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
 
-			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr', 'input'));
+			return view('staff.search', compact('rs', 'sumRec', 'search', 'rr'));
 			
 
-		} 
+		}
 	}
 
 	public function searchFoundCompany(Request $request){
@@ -150,11 +128,6 @@ class ThomsonController extends Controller {
 
 			$cl = $request->input('country_location');
 			$cn = $request->input('company_name');
-
-			$input = [
-				'country_location' => $cn,
-				'company_name' => $cl
-					];
 
 			$search = '';
 		
@@ -171,20 +144,13 @@ class ThomsonController extends Controller {
 			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
-			ThomsonAuditTrail::create([
-				'action' => "company_search",
-				'requestor_id' => Auth::id(),
-				'info'=>serialize($input)
-			]);
+			$sumRec = count((array)$rs); //+ count((array) $rs2) + count((array) $rs3);
 
-			$sumRec = $rs->count(); //+ count((array) $rs2) + count((array) $rs3);
-			$rs = $rs->get();
 			$rr = ThomsonReuters::getTheActiveRequestReport();
-	     	$country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
-			$citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
+
 			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
 
-			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr'));
+			return view('staff.search', compact('rs', 'sumRec', 'search', 'rr'));
 			
 
 		}
@@ -235,62 +201,24 @@ class ThomsonController extends Controller {
 
 		//echo count($r_id); exit;
 
-			$filename = "";
+			$fileNameDownload = implode("-",$r_id);
+
 			$dataR = array();
 			foreach($r_id as $t){
-				$tt = explode("||", $t);
-
-				$rs = ThomsonReuters::searchAllThree($tt[0]);
+				$rs = ThomsonReuters::searchAllThree($t);
 				//echo $t . '<br />';
 
 				if($rs != null){
 					$dataR[] = $rs;
-					// $dataR['match_percentage'] = $tt[1];
-
 					//echo $rs->FIRST_NAME . ' <br />';
 				}
-				$filename .= $tt[0]."-";
 			}
-			$fileNameDownload = $filename;
 
-			$pdf = PDF::loadView('staff.myPdfPrinting', compact('dataR','ids'));
+			//echo count($dataR); exit;
+
+			$pdf = PDF::loadView('staff.myPdfPrinting', compact('dataR'));
 			return $pdf->download($fileNameDownload . '.pdf');
-			//return view('staff.myPdfPrinting', compact('dataR','ids'));
-
-		}
-
-	}
-
-	public function pdfcasePrintDownload(Request $request){
-		
-		if(isset($request['ids'])){
-			$ids = $request['ids'];
-			$r_id = explode(",", $ids);
-
-		//echo count($r_id); exit;
-
-			$filename = "";
-			$dataR = array();
-			foreach($r_id as $t){
-				$tt = explode("||", $t);
-
-				$rs = ThomsonReuters::searchAllThree($tt[0]);
-				// $rs = [];
-				//echo $t . '<br />';
-
-				if($rs != null){
-					$dataR[] = $rs;
-					// $dataR['match_percentage'] = $tt[1];
-
-					//echo $rs->FIRST_NAME . ' <br />';
-				}
-				$filename .= $tt[0]."-";
-			}
-			$fileNameDownload = "Case Report (".time().") ";
-// $dataR = [];
-			$pdf = PDF::loadView('staff.myPdfCasePrinting', compact('dataR','ids'));
-			return $pdf->download($fileNameDownload . '.pdf');
-			// return view('staff.myPdfCasePrinting', compact('dataR','ids'));
+			//return view('staff.myPdfPrinting', compact('dataR'));
 
 		}
 
@@ -384,20 +312,15 @@ class ThomsonController extends Controller {
 
 				$inserted_prokakis = '';
 				if ($data->CREATED_AT != NULL) {
-					$date1 = Carbon::createFromFormat('Y-m-d', $data->CREATED_AT);
-					// $date = date_create($data->CREATED_AT);
-					// $dateFinal = date_format($date, "Y-m-d");
-					$dateFinal = Carbon::parse($date1)->format('Y-m-d');
+					$date = date_create($data->CREATED_AT);
+					$dateFinal = date_format($date, "Y-m-d");
 					$inserted_prokakis = date("F j, Y", strtotime($dateFinal));
 				}
 
 				$updated_prokakis = '';
 				if ($data->UPDATED != NULL) {
-					$date2 = Carbon::createFromFormat('Y-m-d', $data->CREATED_AT);
-
-					// $date2 = date_create($data->UPDATED);
-					// $dateFinal2 = date_format($date2, "Y-m-d");
-					$dateFinal2 =  Carbon::parse($date2)->format('Y-m-d');
+					$date2 = date_create($data->UPDATED);
+					$dateFinal2 = date_format($date2, "Y-m-d");
 					$updated_prokakis = date("F j, Y", strtotime($dateFinal2));
 				}
 

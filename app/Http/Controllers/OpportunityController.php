@@ -804,7 +804,7 @@ class OpportunityController extends Controller {
 
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
-
+			
 			if (User::getEBossStaffTrue($user_id) == false) {
 			if(OpportunityController::validateAccLimits($company_id) == false){
 				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
@@ -815,9 +815,9 @@ class OpportunityController extends Controller {
 			$view_type = $request->input('viewtype_value');
 			$industry = $request->input('opp_industry');
 			if (User::getEBossStaffTrue($user_id) == false) {
-			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-				$view_type == '1';	
-			}
+				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+					$view_type == '1';	
+				}
 			}
 
 			//$opp = OpportunityBuildingCapability::where('company_id', $company_id)->first();
@@ -993,14 +993,14 @@ class OpportunityController extends Controller {
 
 			if (User::getEBossStaffTrue($user_id) == false) {
 				
-			if(OpportunityController::validateAccLimits($company_id) == false){
-				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
-				exit;
-			}
+				if(OpportunityController::validateAccLimits($company_id) == false){
+					return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+					exit;
+				}
 
-			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-				$view_type == '1';	
-			}
+				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+					$view_type == '1';	
+				}
 			}
 
 			$opp = OpportunitySellOffer::find($request->input("id"));
@@ -1167,15 +1167,15 @@ class OpportunityController extends Controller {
 
 			if (User::getEBossStaffTrue($user_id) == false) {
 
-			if( OpportunityController::validateAccLimits($company_id) == false){
+				if( OpportunityController::validateAccLimits($company_id) == false){
 
-				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
-				exit;
-			}
+					return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+					exit;
+				}
 
-			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-				$view_type == '1';	
-			}
+				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+					$view_type == '1';	
+				}
 
 			}
 			$opp = OpportunityBuy::find($request->input("id"));
@@ -1620,16 +1620,16 @@ public static function validateAccLimits($company_id){
 			//	print_r($fieldName);
 			}
 			else{
-				if($result){
-						if($request->input('opporSection') == 'imageAvatar' )
-							$result->avatar_status = $resultValue;
-						if($request->input('opporSection') == 'viewType' )
-							$result->view_type = $resultValue;
+			if($result){
+					if($request->input('opporSection') == 'imageAvatar' )
+						$result->avatar_status = $resultValue;
+					if($request->input('opporSection') == 'viewType' )
+						$result->view_type = $resultValue;
 						if($request->input('opporSection') == 'partner_check' )
 							$result->is_anywhere = $resultValue;
 
-					$result->save();
-				}
+				$result->save();
+			}
 
 			}
 		}

@@ -79,58 +79,61 @@ class ThomsonReuters extends Model {
 */
 	public static function getMatched_FullParams($fname, $lname, $companies, $nationality, $passport, $countryLocation, $gender, $dob, $alias, $tbname) {
 		$rs = array();
+		//
 
-		$result = DB::table($tbname)
-		->whereNotNull('UID');
+		$SQL = "SELECT * FROM $tbname WHERE UID IS NOT NULL";
 
 		if ($fname != null) {
-			$res = ucfirst($fname).'%';
-			$result->whereRaw("LOWER(FIRST_NAME) LIKE '$res'");
+			$SQL = $SQL . " AND UPPER(FIRST_NAME) = UPPER(:fname)";
+			$rs[':fname'] = $fname;
 		}
-
 		if ($lname != null) {
-			$res = '%'.strtoupper($lname).'%';
-			$result->whereRaw("UPPER(LAST_NAME) LIKE '$res'");
+			$SQL = $SQL . " AND UPPER(LAST_NAME) = UPPER(:lname)";
+			$rs[':lname'] = $lname;
 		}
-
+	
 		if ($nationality != null) {
-			$res = '%'.strtolower($nationality).'%';
-			$result->whereRaw("LOWER(CITIZENSHIP) LIKE '$res'");
+			$SQL = $SQL . " AND UPPER(CITIZENSHIP) = UPPER(:nationality)";
+			$rs[':nationality'] = strtoupper($nationality);
 		}
-
 		if ($passport != null) {
-			$res = '%'.strtoupper($passport).'%';
-			$result->whereRaw("UPPER(PASSPORTS) LIKE '$res'");
+			$SQL = $SQL . " AND UPPER(PASSPORTS) = UPPER(:passport)";
+			$rs[':passport'] = $passport;
 		}
-
+	
 		if ($gender != null) {
-			$result->where('E_I','=',$gender);
+			$SQL = $SQL . " AND E_I = :gender";
+			$rs[':gender'] = $gender;
 		}
 
 		if ($countryLocation != null) {
-			$res = '%'.strtoupper($countryLocation).'%';
-			$result->whereRaw("UPPER(COUNTRIES) LIKE '$res'");
+			$SQL = $SQL . " AND UPPER(COUNTRIES) = UPPER(:countryLocation)";
+			$rs[':countryLocation'] = strtoupper($countryLocation);
 		}
 
 		if ($dob != null) {
-			$result->where('DOB','=',$dob);
+			$SQL = $SQL . " AND DOB = :dateOfBirth";
+			$rs[':dateOfBirth'] = $dob;
 		}
-
+		
 		if ($alias != null) {
-			$res = '%'.strtolower($alias).'%';
-			$result->whereRaw("LOWER(ALIASES) LIKE '$res'");
+			$SQL = $SQL . " AND UPPER(ALIASES) = UPPER(:aliases)";
+			$rs[':aliases'] = strtoupper($alias);
 		}
+		
 
 		if ($companies != null) {
-			$res = '%'.strtolower($companies).'%';
-			$result->whereRaw("LOWER(COMPANIES) LIKE '$res'");
+			$SQL = $SQL . " AND COMPANIES LIKE '% ".$companies." %' ";
+			//$rs[':companies'] = $companies;
 		}
-		// echo "<pre>";
-		// print_r($companies);
-		// print_r($countryLocation);
-		// echo "</pre>";
-		// $result = $result;
-		return $result;
+
+		//print_r($rs);
+		//echo '<br />'.$SQL;
+		//exit;
+
+		$results = DB::select(DB::raw($SQL), $rs);
+
+		return $results;
 	}
 
 	public static function searchAllThree($id){

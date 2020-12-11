@@ -134,17 +134,11 @@ class ReportsController extends Controller
 
         {  
 
-
-
-            $formatPay = array(1=>120, 2=>720, 3=>1200);
-
-
+            $formatPay = array(1=>18, 2=>36, 3=>396, 4=>720, 5=>3540, 6=>0);
 
             $input = $request->input("top_up");
 
-
-
-            AuditLog::ok(array(Auth::id(), 'reports', 'top up tokens', 'buying a new tokens of worth '.$input)); 
+            AuditLog::ok(array(Auth::id(), 'reports', 'top up tokens', 'buying a new credit of worth '.$input)); 
 
 
 
@@ -153,13 +147,12 @@ class ReportsController extends Controller
                 case 1:
 
                     Session::put('TokenAmount', $formatPay[1]);
-
                     Session::put('TokenBuyerId', Auth::id());
-
-                    Session::put('TokenCount', 2);
+                    Session::put('TokenCount', 3);
 
                     Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[1]);
-
+                    Session::put('TopUp', 1);
+                    
                     $rs = ReportsController::executeSetExpressCheckout($formatPay[1]);
 
                         if($rs['ACK'] == 'Success') {
@@ -177,57 +170,96 @@ class ReportsController extends Controller
                 case 2:
 
                     Session::put('TokenAmount', $formatPay[2]);
-
                     Session::put('TokenBuyerId', Auth::id());
-
                     Session::put('TokenCount', 12);
+                    Log::info('User Id:' . Auth::id() .' Buy Credit Amount:'.$formatPay[2]);
+                    Session::put('TopUp', 2);
 
-                    Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[2]);
-
-                    $rs = ReportsController::executeSetExpressCheckout($formatPay[2]);
-
-
+                    $rs = ReportsController::executeRecurringSetExpressCheckout("Prokakis Monthly Subscription", 36.0);
 
                         if($rs['ACK'] == 'Success') {
 
                           Session::put('PaypalToken', $rs['TOKEN']);
-
-                          return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);  
-
+                          return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
+                       
                         } 
 
                     break;
-
-                
 
                 case 3:
 
                     Session::put('TokenAmount', $formatPay[3]);
-
                     Session::put('TokenBuyerId', Auth::id());
-
                     Session::put('TokenCount', 20);
-
                     Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[3]);
 
-                    $rs =ReportsController::executeSetExpressCheckout($formatPay[3]);
+                    Session::put('TopUp', 3);
+                    
+                    $rs = ReportsController::executeRecurringSetExpressCheckout("Prokakis Yearly Subscription", 396.0);
 
                         if($rs['ACK'] == 'Success') {
 
-                          Session::put('PaypalToken', $rs['TOKEN']);
-
-                          return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);  
+                            Session::put('PaypalToken', $rs['TOKEN']);
+                            return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
+                            
                         } 
 
                     break;
+                
+                case 4:
+
+                    Session::put('TokenAmount', $formatPay[4]);
+                    Session::put('TokenBuyerId', Auth::id());
+                    Session::put('TokenCount', 120);
+                    
+                    Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[4]);
+                    Session::put('TopUp', 4);
+                    
+                    $rs = ReportsController::executeSetExpressCheckout($formatPay[4]);
+
+                        if($rs['ACK'] == 'Success') {
+
+                            Session::put('PaypalToken', $rs['TOKEN']);
+
+                            return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
+
+                        }   
+                    
+                break;
+
+                case 5:
+
+                    Session::put('TokenAmount', $formatPay[5]);
+                    Session::put('TokenBuyerId', Auth::id());
+                    Session::put('TokenCount', 590);
+                    
+                    Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[5]);
+                    Session::put('TopUp', 5);
+                    
+                    $rs = ReportsController::executeSetExpressCheckout($formatPay[5]);
+
+                        if($rs['ACK'] == 'Success') {
+
+                            Session::put('PaypalToken', $rs['TOKEN']);
+
+                            return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
+
+                        } 
 
 
 
+                break;
+
+                case 6:
+                    //https://test.app.prokakis.com/mailbox/createCompose
+                    return redirect('/mailbox/buyingOption');
+                break;
+               
                 default:
 
                     return redirect('/reports/buyTokens')->with('message', 'Invalid Top Up value.');
 
-                    break;    
+                break;    
 
             }    
 
@@ -242,136 +274,83 @@ class ReportsController extends Controller
 
 
     public static function executeSetExpressCheckout($amount)
-
     {
-
-
-
         $request_params = array
-
-
-
                     (
-
-
-
                     'USER' => Config::get('constants.options.PAYPAL_API_USERNAME'), 
-
-
-
                     'PWD' => Config::get('constants.options.PAYPAL_API_PASSWORD'), 
-
-
-
                     'SIGNATURE' => Config::get('constants.options.PAYPAL_API_SIGNATURE'), 
-
-
-
                     'METHOD' => 'SetExpressCheckout', 
-
-
-
-                    'VERSION' => 93, 
-
-
-
+                    'VERSION' => 124.0, 
                     'PAYMENTREQUEST_0_PAYMENTACTION' => 'SALE', 
-
-
-
                     'PAYMENTREQUEST_0_AMT' => $amount, 
-
-
-
                     'PAYMENTREQUEST_0_CURRENCYCODE' => 'USD', 
-
-
-
                     'RETURNURL' => Config::get('constants.options.PAYPAL_SUCCESS_URL'), 
-
-
-
                     'CANCELURL' => Config::get('constants.options.PAYPAL_CANCEL_URL'), 
-
-
-
                     );
 
+        return ReportsController::executeCurl($request_params);
+    }
+
+    public static function executeRecurringSetExpressCheckout($description, $amount)
+    {
+        $request_params = array
+                    (
+                    'USER' => Config::get('constants.options.PAYPAL_API_USERNAME'), 
+                    'PWD' => Config::get('constants.options.PAYPAL_API_PASSWORD'), 
+                    'SIGNATURE' => Config::get('constants.options.PAYPAL_API_SIGNATURE'), 
+                    'METHOD' => 'SetExpressCheckout', 
+                    'VERSION' => 124.0, 
+                    'RETURNURL' => Config::get('constants.options.PAYPAL_SUCCESS_URL'), 
+                    'CANCELURL' => Config::get('constants.options.PAYPAL_CANCEL_URL'),
+                    //'PAYMENTACTION' => 'Authorization',
+                    'AMT' => $amount,
+                    'CURRENCYCODE' => 'USD',
+                    'DESC' => $description,
+                    'L_BILLINGTYPE0' => 'RecurringPayments', 
+                    'L_BILLINGAGREEMENTDESCRIPTION0' => $description, 
+                    );
+
+        return ReportsController::executeCurl($request_params);
+    }
+    
 
 
-
-
-
+    public static function executeCurl($request_params)
+    {
 
         $nvp_string = '';
 
-
-
         foreach($request_params as $var=>$val)
-
         {
-
             $nvp_string .= '&'.$var.'='.urlencode($val);    
-
-
-
-        }           
-
-
+        }   
 
         $curl = curl_init();
 
-
-
         curl_setopt($curl, CURLOPT_VERBOSE, 1);
-
-
 
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 
-
-
         curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-
-
 
         curl_setopt($curl, CURLOPT_URL, Config::get('constants.options.PAYPAL_API_ENDPOINT'));
 
-
-
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-
 
         curl_setopt($curl, CURLOPT_POSTFIELDS, $nvp_string);
 
-
-
         $result = curl_exec($curl);     
-
-
 
         curl_close($curl);
 
-
-
         $rs = array();
-
-
 
         parse_str($result, $rs);
 
-
-
-        return $rs;
-
-
+        return $rs;  
 
     }
-
-
-
-   
 
     
 

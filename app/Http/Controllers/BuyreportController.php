@@ -20,6 +20,7 @@ use PDF;
 use App\ThomsonReuters;
 use App\TR_reportgeneration;
 use App\FA_Results;
+use App\BuyReport;
 
 class BuyreportController extends Controller {
 
@@ -179,13 +180,75 @@ class BuyreportController extends Controller {
 
 			$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 
-			$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
-				'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+		$ReportGenerationTemplate = ReportGenerationTemplate::where('status', 1)->get();
+		$reportTemplates = [];
 
-				'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+		foreach ($ReportGenerationTemplate as $key => $value) {
+			$reportTemplates[ $value['variable_name'] ]  = $value['content'];
+		}
 
-				'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons'));
+		$twitter_token = env('APP_ENV');
+		$twitter_keyword = urlencode($company_data->company_name);
+	
+		$reportTrackNumber = "--";
+		if(isset($_GET['aprvl']) ){
+			$aproval_id=$_GET['aprvl'];
+	        $rc = ProcessedReport::getReqRepId($aproval_id);
+	        if($rc != false){
+	           $reportTrackNumber = $rc->id."-".$rc->source_company_id."-".$rc->fk_opportunity_id."-".date("Y");
+	        }
+		}
+		
+		//MAS records
+		$MASinvestors = BuyReport::findMatchedMAS($company_data->company_name);
+
+		$cSession = curl_init(); 
+		curl_setopt($cSession,CURLOPT_URL,'https://reputation.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
+		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
+		curl_setopt($cSession,CURLOPT_HEADER, false); 
+		$result=curl_exec($cSession);
+		$response_twitter = json_decode($result);
+		curl_close($cSession);
+
+		$tr_peps = [];
+		$tr_inserted_date = '';
+		$MONTH_RATIO = [];
+		$ACP = [];
+		$IT = [];
+		$DII = [];
+		$PT = [];
+		$APP = [];
+		$NWP = [];
+		$CR = [];
+		$QR = [];
+		$DTE = [];
+		$DTA = [];
+		$IC = [];
+		$GPM = [];
+		$OPM = [];
+		$NPM = [];
+
+
+			// $pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+
+			// 	'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+
+			// 	'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+
+			// 	'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons'));
+
+		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+
+			'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+
+			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+
+			'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber', 
+			
+			'tr_peps', 'tr_inserted_date', 'MONTH_RATIO', 'RT', 'ACP', 'IT', 'DII', 'PT', 'APP', 'NWP', 'CR', 'QR', 'DTE', 'DTA', 'IC','GPM','OPM', 'NPM',
+
+			'ROI', 'ROE', 'consultantFiles', 'MASinvestors'));
 
 			//--------------
 
@@ -295,6 +358,7 @@ class BuyreportController extends Controller {
 					if ($ok) {
 						
 						$ra_processed = ProcessedReport::getProcessedReportByApprovalId($req_app->id);
+
 						return BuyreportController::generateReportDownload($ra_processed);
 
 						//return $pdf->download($company_data->company_name . '.pdf');
@@ -406,13 +470,13 @@ class BuyreportController extends Controller {
 
 			}
 
-			if ($today > $dEnd) {
+			// if ($today > $dEnd) {
 
-				return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
+			// 	return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
 
-				exit;
+			// 	exit;
 
-			}
+			// }
 
 		}
 
@@ -537,6 +601,8 @@ class BuyreportController extends Controller {
 
 		//--Financial Analysis---
 		$fa_count = FA_Results::where('company_id', $proc->source_company_id)->count();
+		//echo $fa_count . ' ' . $proc->source_company_id;
+		//exit;
 		$arrMonths = array(1=>'Jan', 2=>'Feb', 3=>'Mar', 4=>'Apr', 5=>'May', 6=>'Jun', 7=>'Jul', 8=>'Aug', 9=>'Sep', 10=>'Oct', 11=>'11', 12=>'Dec');
 		$MONTH_RATIO = [];
 		$RT = [];
@@ -623,18 +689,23 @@ class BuyreportController extends Controller {
 	        if($rc != false){
 	           $reportTrackNumber = $rc->id."-".$rc->source_company_id."-".$rc->fk_opportunity_id."-".date("Y");
 	        }
-    		}
+    	}
 		$twitter_token = env('APP_ENV');
 		$twitter_keyword = urlencode($company_data->company_name);
-	
-		$cSession = curl_init(); 
-		curl_setopt($cSession,CURLOPT_URL,'https://reputation.prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
-		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
-		curl_setopt($cSession,CURLOPT_HEADER, false); 
-		$result=curl_exec($cSession);
-		$response_twitter = json_decode($result);
-		curl_close($cSession);
 
+		//MAS investors
+		$MASinvestors = BuyReport::findMatchedMAS($company_data->company_name);
+
+		//check Panamas, Bahamas, Offshore, Paradise
+		$Panama = BuyReport::searchMatchInPanama($company_data->company_name);
+		$Paradise = BuyReport::searchMatchInParadise($company_data->company_name);
+		$Offshore = BuyReport::searchMatchInOffShore($company_data->company_name);
+		$Bahamas = BuyReport::searchMatchInBahamas($company_data->company_name);
+	
+		$response_twitter = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='Twitter');
+		$response_youtube = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='Youtube');
+		$response_theweb = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='The Web');
+		
 		 // return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
 			//       'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
@@ -643,7 +714,23 @@ class BuyreportController extends Controller {
 
 			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter' , 'reportTrackNumber'));
 
-			  
+		$originalDate = $company_data->updated_at;
+		$obtainDate = date("F, Y", strtotime($originalDate));	
+
+		$pdf = PDF::setOptions(['dpi' => 150,'fontHeightRatio'=> '1.1' , 'defaultFont' => 'sans-serif']);
+
+
+		// return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+
+		// 	'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+
+		// 	'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+
+		// 	'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber', 
+			
+		// 	'tr_peps', 'tr_inserted_date', 'MONTH_RATIO', 'RT', 'ACP', 'IT', 'DII', 'PT', 'APP', 'NWP', 'CR', 'QR', 'DTE', 'DTA', 'IC','GPM','OPM', 'NPM',
+
+		// 	'ROI', 'ROE', 'consultantFiles', 'MASinvestors', 'obtainDate', 'Panama', 'Paradise', 'Offshore', 'Bahamas','response_youtube','response_theweb'));
 
 		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
@@ -655,12 +742,24 @@ class BuyreportController extends Controller {
 			
 			'tr_peps', 'tr_inserted_date', 'MONTH_RATIO', 'RT', 'ACP', 'IT', 'DII', 'PT', 'APP', 'NWP', 'CR', 'QR', 'DTE', 'DTA', 'IC','GPM','OPM', 'NPM',
 
-			'ROI', 'ROE', 'consultantFiles'));
+			'ROI', 'ROE', 'consultantFiles', 'MASinvestors', 'obtainDate', 'Panama', 'Paradise', 'Offshore', 'Bahamas','response_youtube','response_theweb'));
 
 		return $pdf->download($company_data->company_name . '.pdf');
 
 		// return $pdf->download('.pdf');
 
+	}
+
+	public static function curlER($twitter_token, $twitter_keyword, $sm='Twitter')
+	{
+		$cSession = curl_init(); 
+		curl_setopt($cSession,CURLOPT_URL,'https://reputation.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+'.$sm.'++&search_keyword_selections='.$twitter_keyword);
+		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
+		curl_setopt($cSession,CURLOPT_HEADER, false); 
+		$result=curl_exec($cSession);
+		$response_twitter = json_decode($result);
+		curl_close($cSession);
+		return $response_twitter;
 	}
 
 }
