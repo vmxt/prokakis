@@ -349,6 +349,12 @@ color: white;
 .div_right{
   border-left:  solid 1px #f90;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -623,9 +629,9 @@ s0.parentNode.insertBefore(s1,s0);
                                 <!-- BEGIN HEADER SEARCH BOX -->
                                 <form id="search_box" class="search-form" action="{{ route('searchByCompany') }}" method="GET">
                                 {{ csrf_field() }}
-                                    <div class="input-group">
+                                    <div class="input-group nav-search">
 
-                                        <input type="text" title="Click on the magnifier icon to submit search" style="background:white; font:strong;" class="form-control" placeholder="Search company..." name="seach_entry_key" id="seach_entry_key">
+                                        <input type="text" title="Click on the magnifier icon to submit search" style="background:white; font:strong;" class="form-control" placeholder="Search company..." name="seach_entry_key" id="seach_entry_key" required>
                                         <span class="input-group-btn" style="background:white;">
                                             <a href="javascript:;" class="btn submit" title="After selecting an item, you may press enter in the keyboard or click on the magnifier icon to submit search">
                                                 <i class="icon-magnifier"></i>
@@ -1875,7 +1881,9 @@ $(document).ready(function()
   $("#seach_entry_key").on('keyup', function (e) {
     if (e.keyCode === 13) {
         // Do something
-        $( "#search_box" ).submit();
+        if($('#seach_entry_key').length() > 0 ){
+          $( "#search_box" ).submit();
+        }
     }
    });
 
