@@ -530,7 +530,7 @@
         }
 
         @media (min-width: 320px) and (max-width: 480px) {
-            .profile-img imgÂ {
+            .profile-img img {
                 margin-left: 35px;
             }
             .ctr{
@@ -604,15 +604,15 @@
                     <div class="fb-profile-block-thumb">
                         <!-- THIS IS WHERE THE COVER PHOTO BEING PLACED -->
                         <div class="overlay ctr">
-                            <?php 
+          <!--                   <?php 
                             $company_id_result = App\CompanyProfile::getCompanyId(Auth::id()); 
                             ?>
                             @if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false)
                                 <button data-popup-open="popup-1" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
                             @else
                                 <button onclick="notifytoPremium()" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
-                            @endif
-                        
+                            @endif -->
+                          <button data-popup-open="popup-1" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
                         </div>
                     </div>
 
@@ -1589,7 +1589,7 @@
 
             <?php  
             $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-            if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
+           // if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false) { 
             ?>
 
             <h2>Find a file to upload as your new cover photo.</h2>
@@ -1601,7 +1601,7 @@
             </div>
 
             <br/>
-            <?php } ?>
+            <?php //} ?>
             <div class="form-group">
                 <label for="bannerBrandName">Company Brand</label> <br/><span style="font-size: 12px;">For best result limit your characters upto 50</span>
                 <p><input type="text" style="width:100%" name="bannerBrandName" id="bannerBrandName"

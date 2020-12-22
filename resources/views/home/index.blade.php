@@ -184,6 +184,8 @@
     .hero-image {
         <?php if(isset($profileCoverPhoto)){ ?>
             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/') }}/<?php echo $profileCoverPhoto; ?>");
+        <?php }else{ ?>
+             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/explore_oppo.png') }}");
         <?php } ?>
 
         height: 300px;

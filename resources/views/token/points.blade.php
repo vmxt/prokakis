@@ -228,33 +228,38 @@
 
                                 <!-- sidebar token credit -->
 
-                           
 
-
-
-                                <form id="company_contact_form" method="POST" action="{{ route('createContacts') }}">
-
-
-
-                                    {{ csrf_field() }}
 
                                     <div class="card">
 
 
 
-                                        <div class="card-header"><b>COMPANY ACCOUNT ACTIVATION</b></div>
+                                        <div class="card-header"><b>Prokakis Rewards</b></div>
 
                                         <br>
 
                                         <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
 
-                                            <p>
+                                            <table>
+                                                <tr>
+                                                  <td valign="top">  
+                                                <b>How Do I Earn ProKakis Reward Points?</b> <br />
+                                                - Get 0.1 points for every credit purchased. <br />
+                                                - Introduce and share to a friend or <br /> business associate and get 0.05 points. <br />
+                                                - Earn 0.01 points passively every time your <br /> referrals purchase 1 credit for Prokakis services. <br />
+                                                  </td>
 
-                                               In order to avail the premium features, <strong>Prokakis members</strong> should activate thier account to premium.
+                                                  <td valign="top">  
+                                                 <b>Cashing in Reward Points?</b> <br />
+                                                    - 50 Points = Advisor Level Worth USD$100 <br />
+                                                    - 150 Points = Gold Advisor Worth USD$375 <br />
+                                                    - 500 Points = Platinum Advisor Worth USD$1750 <br />
+                                                    - ONLY ADVISORS LEVEL CAN REDEEM POINTS <br />
+                                                 </td>
 
-                                               Please click the button below "Upgrade to Premium Account"
-
-                                           </p>
+                                                </tr> 
+                                                  
+                                            </table>
 
                                        </div>
 
@@ -282,20 +287,6 @@
 
                                         </div>        
 
-                                          
-
-                                        <?php 
-
-                                        $user_id = Auth::id();
-
-                                        $company_id_result = App\CompanyProfile::getCompanyId($user_id);
-
-                                        ?>
-
-                                      
-
-
-
                                         <table class="table table-hover table-light">
 
                                         
@@ -306,63 +297,44 @@
 
 
 
-                                                    <?php if( App\SpentTokens::validateAccountActivation($company_id_result) == false ){ ?>
-
-                                                   <!-- <a onclick="PromoOne()" class="btn yellow"
-
-                                                        style="margin-top: 15px; width: 50%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account
-
-                                                    </a> -->
-
-                                                    <?php } else { ?>
-
-
-
-
-
                                                         <div class="card" style="overflow: hidden;">
 
                                                             <div class="card-header">
 
-                                                                <center><span class="bold uppercase font-blue">You are already a premium account <br /></span>
+                                                        
+                                                                    
+                                                                    <span class="bold font-blue">Your total credit is {{ $totalCreditPurchased }}. <br /></span>
 
                                                                     <hr>
 
-                                                                    Premium account expires on <?php 
+                                                                    <span class="bold font-blue">Your total number of referrals is {{ $totalNumberOfReferrals }}. <br /></span>
+
+
+                                                                    <hr>
+
+
+                                                                    <span class="bold font-blue">Your points on referrals credit purchased a combined total of {{ $totalNumberOfReferralsPurchasedPoints }}. <br /></span>
+
+                                                                    
+                                                                    <hr>
+
+                                                                    <span class="bold font-blue">Your points on referrals report request a combined total of {{ $totalNumberOfReferralsReportsPoints }}. <br /></span>
+
+                                                                    
+                                                                    <br /><br />
+
+                                                                    <?php 
 
                                                                     $ed = App\SpentTokens::getPremiumExpiryDate($company_id_result);
 
                                                                     if($ed != false){
-
-                                                                    echo $ed;
-
+                                                                    echo ' Premium account expires on ' . $ed;
                                                                     }
-
- 
-
                                                                     ?>
-
-                                                                </center>
 
                                                             </div>
 
-            
-
                                                         </div>
-
-
-
-
-
-                                                    <?php } ?>
-
-
-                                                       <center> 
-                                                    <a href="{{ route('reportsBuyCredits') }}" class="btn yellow"
-
-                                                        style="margin-top: 55px; width: 50%;"> <i class="fa" style="color: white;"></i> Change Plan
-
-                                                    </a> </center>
 
                                                 </td>
 
@@ -376,52 +348,58 @@
 
                                                         <div class="card-header">
 
-                                                            <center><span class="bold uppercase font-blue">Credit</span>
-
-                                                                <hr>
-
-                                                             
-
+                                                            <center><span class="bold uppercase font-blue">TOTAL POINTS EARNED</span>
                                                             </center>
 
                                                         </div>
 
-        
-
                                                         <div class="card-body center" style="text-align: center;">
 
-                                                            <b class="font-red-mint" style="font-size: 20px;"> <?php
-
-                                                                     
-
-                                                                if (App\SpentTokens::validateTokenStocks($company_id_result) == false) {
-
-                                                                    echo "0";
-
-                                                                } else {
-
-                                                                    $consumedTokens = App\SpentTokens::validateTokenStocks($company_id_result);
-
-                                                                    echo $consumedTokens;
-
-                                                                }
-
-                                                                ?>  </b> <br/>
-
-                                                            Credit Left 
+                                                            <b class="font-red-mint" style="font-size: 20px;"> {{ $totalScore }}  </b> <br/>
 
                                                             <br/>
 
-                                                            <div class="cont-col2">
 
-                                                               
+                                                        </div>
 
-                                                               
+                                                    </div>
 
+
+                                                    @if( $nextScoreLevel >= 50 || $nextScoreLevel == 'Reached Max')
+                                                        <div class="card" style="overflow: hidden;">
+                                                            <div class="card-header">
+                                                                <center><span class="bold uppercase font-blue">NEEDED POINTS TO NEXT LEVEL</span>
+                                                                </center>
                                                             </div>
 
-                                                     
+                                                            <div class="card-body center" style="text-align: center;">
+                                                                <b class="font-red-mint" style="font-size: 20px;"> {{ $nextScoreLevel }}  </b> <br/>
+                                                                <br/>
+                                                            </div>
+                                                        </div>
+                                                    @endif
 
+                                                    <div class="card" style="overflow: hidden;">
+
+                                                        <div class="card-header"> 
+                                                            @if( $currentAdvisorLevel >= 1 )
+                                                                <center>
+                                                                <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
+                                                                {{ csrf_field() }}  
+                                                                <input type="hidden" name="amount_to_redeem" value="{{ $amountToRedemp }}">
+                                                                <input type="hidden" name="advisor_level" value="{{ $amountToRedemp }}">
+                                                                <input type="button" id="submit_button" name="submit_button" class="btn red-mint btn-full" value="REDEEM USD ${{ $amountToRedemp }} NOW">
+                                                                </form>    
+                                                                </center>
+                                                            @else  
+                                                            <center>
+                                                            <button class="btn red-mint btn-full" type="button" disabled>REDEEM USD $100 NOW</button> 
+                                                            </center>
+                                                            @endif 
+                                                        </div>
+
+                                                        <div class="card-body center" style="text-align: center;">
+                                                           {{ $advisorTips }}
                                                         </div>
 
                                                     </div>
@@ -439,8 +417,6 @@
                                     </div>
 
 
-
-                                </form>
 
 
 
@@ -474,159 +450,34 @@
 
 <script type="text/javascript">
 
-
-
-    function PromoOne(){
-
+    $("#submit_button").click(function(){
         swal({
 
-
-
-            title: "Are you sure to upgrade your account?",
-
-
-
-            text: "You are about to upgrade to premium account.",
-
-
-
+            title: "Redeeming your points now will reset them to zero",
+            text: "Are you sure you want to proceed?",
             icon: "warning",
 
-
-
             buttons: [
-
-
-
               'No, cancel it!',
-
-
-
               'Yes, I am sure!'
-
-
-
             ],
-
-
-
             dangerMode: true,
-
-
 
           }).then(function(isConfirm) {
 
-
-
             if (isConfirm) {
-
-
-
-              swal({
-
-
-
-                title: 'Upgrading to premium account',
-
-
-
-                text: 'Done on setting to premium',
-
-
-
-                icon: 'success'
-
-
-
-              }).then(function() {
-
-                document.location = "{{ route('promoOneToken') }}"
-
-              });
-
-
-
+                $("#redeemForm").submit();  
             } else {
 
-
-
-              swal("Cancelled", "Upgrading to premium was cancelled :)", "error");
-
-
+              swal("Cancelled", "Redeeming pprocess was cancelled :)", "error");
+               return false; 
 
             }
 
-
-
           })
 
+      });    
 
-
-
-
-    }
-
-
-
-
-
-  
-
-   function processUpdate(){
-
-      swal({
-
-      title: "Are you sure you want to update company contact information? ",
-
-      text: "Updating Company Contact Information",
-
-      icon: "warning",
-
-      buttons: [
-
-        'No, cancel it!',
-
-        'Yes, I am sure!'
-
-      ],
-
-      dangerMode: true,
-
-    }).then(function(isConfirm) {
-
-      if (isConfirm) {
-
-        swal({
-
-          title: 'Success',
-
-          text: 'Request change for contact information has been submitted.',
-
-          icon: 'success'
-
-        }).then(function() {
-
-      
-
-            $("#company_contact_form").submit();
-
-              
-
-        });
-
-      } else {
-
-        swal("Cancelled", "", "error");
-
-        return false;  
-
-      }
-
-    }); 
-
-      
-
-  };
 
   
 
