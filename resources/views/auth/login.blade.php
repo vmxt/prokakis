@@ -263,11 +263,6 @@
     }
 }
 
-@media (max-width: 991px){
-    .page-content {
-        padding-top: 30px !important;
-    }
-}
 </style>
 
 

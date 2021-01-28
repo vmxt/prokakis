@@ -2,7 +2,6 @@
 
 @section('content')
     {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -32,19 +31,7 @@
         padding-left: 0px !important;
     }
 }
-        .intro-tour-overlay {
-            display: none;
-            background: #666;
-            opacity: 0.5;
-            z-index: 1000;
-            min-height: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
+
     </style>
 
     <div class="container">
@@ -97,7 +84,7 @@
 
             <div class="col-md-12">
 
-                    <div class="portlet light " id="sect_list_oppo_sub">
+                    <div class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-bulb font-blue"></i>
@@ -105,10 +92,10 @@
                             </div>
 
                             <div class="actions">
-                                        <a href="{{ url('/opportunity/select') }}" class="btn blue" id="btn-add-oppo"
+                                        <a href="{{ url('/opportunity/select') }}" class="btn blue"
                                            style="color:white">Add An Opportunity</a>
 
-                                        <a href="{{ url('/opportunity/chatbox') }}" class="btn blue"  id="btn-view-msg"
+                                        <a href="{{ url('/opportunity/chatbox') }}" class="btn blue"
                                            style="color:white">View Messages</a>
 
                             </div>
@@ -170,11 +157,11 @@
                                                                         <td class="btn">
 
                                                                                 <a href="{{ url('/opportunity/editBuild/'.$b->id) }}"
-                                                                                    target="_blank" class="btn btn-primary"  id="btn_edit_opo_<?=$counter?>"
+                                                                                     class="btn btn-primary"
                                                                                     style="color: white">Edit</a>
 
                                             <a href="{{ url('/opportunity/deleteBuild/'.$b->id) }}"
-                                                                            class="btn btn-danger"  id="btn_delete_opo_<?=$counter?>" onclick="return confirm('Are you sure to delete an opportunity item?')"
+                                                                            class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                                             style="color: white">Delete</a>
 
                                        
@@ -216,10 +203,10 @@
                                             <td class="btn">
 
                                                     <a href="{{ url('/opportunity/editSellOffer/'.$s->id) }}"
-                                                        target="_blank" class="btn btn-primary"  style="color: white">Edit</a>
+                                                         class="btn btn-primary" style="color: white">Edit</a>
 
                                             <a href="{{ url('/opportunity/deleteSell/'.$s->id) }}"
-                                                     class="btn btn-danger"   onclick="return confirm('Are you sure to delete an opportunity item?')"
+                                                     class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                     style="color: white">Delete</a>
 
 
@@ -258,7 +245,7 @@
 
                                                         </td>
                                                         <td class="btn">
-                                            <a href="{{ url('/opportunity/editBuy/'.$bb->id) }}" target="_blank"
+                                            <a href="{{ url('/opportunity/editBuy/'.$bb->id) }}" 
                                                                     class="btn btn-primary" style="color: white">Edit</a>
 
                                             <a href="{{ url('/opportunity/deleteBuy/'.$bb->id) }}"
@@ -287,13 +274,11 @@
 
         </div>
 
-    <div class='intro-tour-overlay'></div>
 
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     {{-- <script src="{{ asset('public/js/app.js') }}"></script> --}}
-    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
     <script>
@@ -384,102 +369,5 @@
 
 
     </script>
- <script>
-// Instance the tour
-var tour = new Tour({
-  steps: [
-  
-  {
-    element: "#sect_list_oppo_sub",
-    title: "Opportunity List",
-    content: "This are the list of submitted build, sell and buy opportunities.",
-    placement: "top"
-  },
-  {
-    element: "#btn-add-oppo",
-    title: "Add An Opporturnity",
-    content: "Click this button to add an opportunity.",
-  },
- {
-    element: "#btn-view-msg",
-    title: "View Messages",
-    content: "Click this button to view messages.",
-  },
 
- {
-    element: "#system_data_filter",
-    title: "Search",
-    content: "Type here to filter the data",
-  },
-
- {
-    element: "#btn_edit_opo_1",
-    title: "Edit",
-    content: "Click this button to redirect where you can modify your opportunity",
-  },
- {
-    element: "#btn_delete_opo_1",
-    title: "Delete",
-    content: "Click this button to delete this opportunity",
-  },
-
-
-
-],
-
-  container: "body",
-  smartPlacement: false,
-  keyboard: true,
-  // storage: window.localStorage,
-  storage: false,
-  debug: false,
-  backdrop: true,
-  backdropContainer: 'body',
-  backdropPadding: 0,
-  redirect: false,
-  orphan: false,
-  duration: false,
-  delay: false,
-  basePath: "",
-  placement: 'auto',
-    autoscroll: true,
-  afterGetState: function (key, value) {},
-  afterSetState: function (key, value) {},
-  afterRemoveState: function (key, value) {},
-  onStart: function (tour) {},
-  onEnd: function (tour) {
-     $('.intro-tour-overlay').hide();
-      $('html').css('overflow','unset')
-     $('.menu-dropdown').removeClass('open');
-     updateTour('end');
-  },
-  onShow: function (tour) {},
-  onShown: function (tour) {},
-  onHide: function (tour) {},
-  onHidden: function (tour) {},
-  onNext: function (tour) {},
-  onPrev: function (tour) {},
-  onPause: function (tour, duration) {},
-  onResume: function (tour, duration) {},
-  onRedirectError: function (tour) {}
-
-});
-
-// Initialize the tour
-tour.init();
-
-// Start the tour
-if( $('#is_tour').val() == 1 ){
-    $('html').css('overflow','visible');
-     $('.intro-tour-overlay').show();
-    tour.start();
-}
-
-        $(document).ready(function () {
-            $(".close").click(function () {
-                $(".jumbotron").remove();
-            });
-        });
-
-    </script>
 @endsection

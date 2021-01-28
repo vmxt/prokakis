@@ -69,7 +69,7 @@ class ChatHistory extends Model
                         ->where('opp.company_id','=',$company_id)
                         ->where('ch.status',0)
                         ->count(); 
-            
+
     }
 
     public static function getChatHistorySellOpportunity($company_id){
@@ -124,7 +124,7 @@ class ChatHistory extends Model
                 ->where('status', 0)
                 ->count();
     }
-
+            
     public static function getChatDetails($headId, $status){
         return ChatHistory::where('head_id', $headId)
                 ->update(['status'=>1]);

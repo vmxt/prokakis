@@ -217,7 +217,7 @@ class ChatHistoryController extends Controller {
 						if($res = ChatHistoryHead::checkExistingData($company_viewer, $oppurtunityId, $oppurtunityType)){
 							$chatHeadId = $res->id;
 						}else{
-
+					 
 							if($oppurtunityType == 'build'){
 				  	 			$opp = OpportunityBuildingCapability::find($oppurtunityId);
 				  	 		}
@@ -227,7 +227,7 @@ class ChatHistoryController extends Controller {
 				  	 		if($oppurtunityType == 'buy'){
 				  	 			$opp = OpportunityBuy::find($oppurtunityId);
 				  	 		}
-
+					
 							$chatHeadId = ChatHistoryHead::create([
 						'sender' => $company_viewer,
 						'receiver' => $oppurtunityId,

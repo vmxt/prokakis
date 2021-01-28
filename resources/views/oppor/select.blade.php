@@ -89,8 +89,8 @@
                                             <a id="building" href="javascript:;"
                                                class="btn green-sharp btn-outline  btn-block sbold uppercase"
                                                type="submit" style="height: 100px; "> <span class="wrapword"
-                                                        style="font-size: 25px;">INVEST CAPABILITY</span> </a>
-                                            <center><span style="margin-top: 5px;">Partnerships or Ventures</span>
+                                                        style="font-size: 25px;">INVEST</span> </a>
+                                            <center><span style="margin-top: 5px;">Partnerships or Investments</span>
                                             </center>
                                         </div>
                                         <div  class="col col-sm-4" style="padding: 0px;" id='sect_selling'>
@@ -105,7 +105,7 @@
                                                class="btn green-sharp btn-outline  btn-block sbold uppercase"
                                                type="submit" style="height: 100px; line-height: 3.5;"> <span
                                                         style="font-size: 25px;">BUY</span> </a>
-                                            <center>Product Services or Business</center>
+                                            <center>Product/Service or Business</center>
                                         </div>
                                     </div>
                                 </div>

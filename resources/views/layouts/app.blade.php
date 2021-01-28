@@ -11,11 +11,11 @@
         <!-- from the original code -->
         <!-- CSRF Token -->
         <meta property="og:title" content="Prokakis Ebos-SG App {{ now()->year }}" /> 
-        <meta property="og:url" content="https://app-prokakis.com//" /> 
+        <meta property="og:url" content="https://app-prokakis.com/" /> 
         <meta property="og:site_name" content="Prokakis"/> 
-        <meta property="og:image" content="https://app-prokakis.com//public/img-resources/ProKakisNewLogo.png" /> 
+        <meta property="og:image" content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
         <meta property="og:type" content="website" /> 
-        <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." />
+        <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." /> 
         <!-- end from the original code -->
 
         <meta charset="utf-8" />
@@ -354,7 +354,6 @@ color: white;
     margin: 0;
     padding: 0;
 }
-
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -375,7 +374,7 @@ s0.parentNode.insertBefore(s1,s0);
 
     $user_id = Auth::id();
     $userType = App\User::validateAccountNavigations($user_id);
-
+    $scope = "";
     ?>
     </head>
     <body class="page-container-bg-solid">
@@ -403,7 +402,7 @@ s0.parentNode.insertBefore(s1,s0);
                                 <div class="top-menu">
 
                                         <?php
-                                          if(App\User::securePage($user_id) == 2 || App\User::securePage($user_id) == 3){
+                                           if(App\User::securePage($user_id) == 2 || App\User::securePage($user_id) == 3){
 
                                             if(Session::get('SwitchedAccount') == '' &&  App\User::securePage($user_id) != 1) {
                                             ?>
@@ -530,11 +529,20 @@ s0.parentNode.insertBefore(s1,s0);
                                               echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?> <?php echo $accStatus; ?></span>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-default">
+					    <?php   
+                                            $user_id = Auth::id();
+                                            $u = App\User::find($user_id);
+					    if($u->m_id == null || $u->m_id == 0){ 	
+                                            ?>
 
 						                                    <li id='nav-login-account-credit'>
                                                     <a href="{{ route('getTokenActivated') }}">
-                                                        <i class="icon-wrench"></i> Account and Credit </a>
+                                                        <i class="icon-wrench"></i> Manage Account </a>
                                                 </li>	
+
+                                                <li aria-haspopup="true" id="nav-buy-credit">
+                                                    <a href="{{ url('/reports/buyCredits') }}" class="nav-link  "><i class="fa fa-dollar"></i> Buy Credits</a>
+                                                </li>
 
                                                 <li id='nav-login-company'>
 
@@ -578,8 +586,8 @@ s0.parentNode.insertBefore(s1,s0);
                                                   <a href="{{ route('CompanyCreditPoints') }}" >
                                                       <i class="fa fa-trophy"></i> Rewards </a>
                                               </li>
-                                                
-<li>
+
+ 						<li>
 
                                                   <a href="{{ route('setPasswordData') }}" >
                                                       <i class="icon-key"></i> Change Password </a>
@@ -610,6 +618,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                   @endif
                                                 </li>
 
+						<li>
+                                                  <a href="{{ route('setSubaccounts') }}" >
+                                                      <i class="icon-user"></i> User Control </a>
+                                                </li>
+						<?php } ?>
+
                                                 <li id='nav-login-logout'>
                                                     <a href="{{ url('logout') }}">
                                                         <i class="icon-building-o"></i> Log Out </a>
@@ -629,9 +643,9 @@ s0.parentNode.insertBefore(s1,s0);
                                 <!-- BEGIN HEADER SEARCH BOX -->
                                 <form id="search_box" class="search-form" action="{{ route('searchByCompany') }}" method="GET">
                                 {{ csrf_field() }}
-                                    <div class="input-group nav-search">
+                                    <div class="input-group">
 
-                                        <input type="text" title="Click on the magnifier icon to submit search" style="background:white; font:strong;" class="form-control" placeholder="Search company..." name="seach_entry_key" id="seach_entry_key" required>
+                                        <input type="text" title="Click on the magnifier icon to submit search" style="background:white; font:strong;" class="form-control" placeholder="Search company..." name="seach_entry_key" id="seach_entry_key">
                                         <span class="input-group-btn" style="background:white;">
                                             <a href="javascript:;" class="btn submit" title="After selecting an item, you may press enter in the keyboard or click on the magnifier icon to submit search">
                                                 <i class="icon-magnifier"></i>
@@ -662,12 +676,12 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         </li>
                                       <?php if($userType == 1){  ?>
-                      
+
 
                                         <li aria-haspopup="true" id='nav-system-dashboard' class=" menu-dropdown mega-menu-dropdown {{(request()->segment(1) == 'dashboard') ? 'active' : '' ||
                                         (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}}  ">
                                             <a href="{{ route('dashboard') }}">
-                                                <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
+                                                <i class=" fa fa-dashboard" style="color: white"></i>Dashboard
                                                 <span class="arrow"></span>
                                                 </a>
                                             <ul class="dropdown-menu" style="min-width: 710px">
@@ -675,7 +689,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <div class="mega-menu-content">
                                                         <div class="row">
                                                             <div class="col-md-3">
-                                                              <h4 class="menu_title"> System Dashboard </h4>
+                                                              <h4 class="menu_title"> Dashboard </h4>
                                                                 <ul class="mega-menu-submenu">
                                                         <li aria-haspopup="true" id="nav-business-news">
                                                                <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
@@ -686,6 +700,28 @@ s0.parentNode.insertBefore(s1,s0);
                                                                <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
                                                                <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
                                                         </li>
+
+                                                          <li aria-haspopup="true" class=" ">
+                                                          <a href="{{ route('panamaList') }}" class="nav-link  ">
+                                                          <i class="icon-magnifier" style="color: white"></i>Panama</a>
+                                                          </li>
+
+                                                          <li aria-haspopup="true" class=" ">
+                                                            <a href="{{ route('bahamasList') }}" class="nav-link  ">
+                                                            <i class="icon-magnifier" style="color: white"></i>Bahamas</a>
+                                                          </li>
+                                                          
+                                                          <li aria-haspopup="true" class=" ">
+                                                            <a href="{{ route('paradiseList') }}" class="nav-link  ">
+                                                              <i class="icon-magnifier" style="color: white"></i>Paradise</a>
+                                                          </li>
+                                                          
+                                                          <li aria-haspopup="true" class=" ">
+                                                            <a href="{{ route('offshoreList') }}" class="nav-link  ">
+                                                            <i class="icon-magnifier" style="color: white"></i>Offshore</a>
+                                                        </li>
+
+
                                                 </ul>
                                                                 <hr width="1" size="400">
                                                             </div>
@@ -867,8 +903,8 @@ s0.parentNode.insertBefore(s1,s0);
                                             $getRequestReportByUser = App\RequestReport::getRequestReportByUser();
 
                                         ?>
-                                            <a href="#" >
-                                                <i  class=" fa fa-lightbulb-o" style="color: white"></i> Opportunities
+                                            <a href="#">
+                                                <i class=" fa fa-lightbulb-o" style="color: white"></i> Opportunities
                                                 <span class="arrow"></span>
                                             </a>
                                             <ul class="dropdown-menu" style="max-width: 710px">
@@ -1013,7 +1049,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         (request()->segment(2) == 'requesters') ? 'active' : ''}}">
 
                                             <a href="#">
-                                                <i  class="fa fa-file-text-o" style="color: white"></i> Report
+                                                <i class="fa fa-file-text-o" style="color: white"></i> Report
                                                 <span class="arrow"></span>
                                             </a>
 
@@ -1030,9 +1066,9 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li aria-haspopup="true" id="nav-ongoing-monitoring">
                                                     <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
                                                 </li>
-                                                <li aria-haspopup="true" id="nav-buy-credit">
+<!--                                                 <li aria-haspopup="true" id="nav-buy-credit">
                                                     <a href="{{ url('/reports/buyCredits') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Credits</a>
-                                                </li>
+                                                </li> -->
 
                                                 <li aria-haspopup="true" id="nav-report-requester">
                                                     <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: white;"></i> Report Requesters </a>
@@ -1096,7 +1132,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a  href="{{ url('/homeSubConsul') }}" >
-                                                    <i class="icon-grid"></i> System Dashboard
+                                                    <i class="icon-grid"></i> Dashboard
                                                     <span class="arrow"></span>
                                                 </a>
 
@@ -1323,6 +1359,18 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
                                         </li>
 
+
+                                       <?php } elseif($userType == 8) { ?>
+
+                                        <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+
+                                          <a  href="{{ url('/homeSA') }}" >
+                                              <i class="icon-grid"></i> System Dashboard
+                                              <span class="arrow"></span>
+                                          </a>
+
+                                       
+                                      </li>
 
                                        <?php }  ?>
 
@@ -1874,7 +1922,7 @@ function autocomplete(inp, arr) {
 $(document).ready(function()
 {
     $('[data-toggle="popover"]').popover();   
-   $.getJSON('https://app.prokakis.com/getCompanyNames', function(dataA) {
+   $.getJSON('https://app-prokakis.com/getCompanyNames', function(dataA) {
      autocomplete(document.getElementById("seach_entry_key"), dataA);
   });
 

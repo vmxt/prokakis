@@ -304,6 +304,7 @@ Fight identity theft by monitoring and reviewing your vendors credit report. It'
                                 
 
                         <select class="btn btn-primary btn-x3" name="request_frequency_id" id="request_frequency_id">
+				  <option value="1">-- Select Duration --</option>
 
                                 <option value="1">One-Time</option>
 
@@ -357,8 +358,8 @@ Fight identity theft by monitoring and reviewing your vendors credit report. It'
 
       
 
-            
-
+            <!--
+	
             <div class="card">
 
                   <div class="card-header"><b>Token Credit</b> </div>
@@ -396,7 +397,7 @@ Fight identity theft by monitoring and reviewing your vendors credit report. It'
                     </div>    
 
             </div>
-
+	 -->
 
 
 

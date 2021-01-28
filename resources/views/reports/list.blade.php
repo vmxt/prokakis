@@ -3,7 +3,6 @@
 
 
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
@@ -49,19 +48,7 @@
 
         }
 
-        .intro-tour-overlay {
-            display: none;
-            background: #666;
-            opacity: 0.5;
-            z-index: 1000;
-            min-height: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
+
 
     </style>
 
@@ -137,17 +124,17 @@
 
                         <tr>
 
-                            <th id='th1'>No</th>
+                            <th>No</th>
 
-                            <th id='th2'>Requested Report</th>
+                            <th>Requested Report</th>
 
-                            <th id='th3'>Search On</th>
+                            <th>Search On</th>
 
-                            <th id='th4'>Report Status</th>
+                            <th>Report Status</th>
 
-                            <th id='th5'>Completed Date</th>
+                            <th>Completed Date</th>
 
-                            <th id='th6'>Action</th>
+                            <th>Action</th>
 
                         </tr>
 
@@ -262,7 +249,7 @@ $rec = App\ConsultantProjects::where('request_id', $data->id)->where('project_st
 
     } else {
 
-        echo 'Our consultants is now preparing the report. ';
+        echo 'Our consultants are now preparing the report. ';
 
     }
 
@@ -372,7 +359,6 @@ $disabled = '';
 
 
 
- <div class='intro-tour-overlay'></div>
   
 
 
@@ -382,7 +368,6 @@ $disabled = '';
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
 
 
 
@@ -406,121 +391,7 @@ $disabled = '';
 
 
     </script>
- <script>
-// Instance the tour
-var tour = new Tour({
-  steps: [
-  {
-    element: ".portlet",
-    title: "Report Status",
-    content: "Report Status Section",
-    placement: 'top'
-  },
-    {
-    element: "#system_data_length",
-    title: "Show Entries",
-    content: "Choose how many entries to display",
-    placement: 'top'
-  },
-   {
-    element: "#system_data_filter",
-    title: "Filter Entries",
-    content: "Enter text to filter the entries",
-    placement: 'top'
-  },
-    {
-    element: "#th1",
-    title: "Number of Entries",
-    content: "Number of Entries",
-    placement: 'down'
-  },
-     {
-    element: "#th2",
-    title: "Requested Report",
-    content: "Requested Reports",
-    placement: 'down'
-  },
-     {
-    element: "#th3",
-    title: "Report Status ",
-    content: "Report Reports",
-    placement: 'down'
-  },
-       {
-    element: "#th4",
-    title: "Report Status ",
-    content: "Report Reports",
-    placement: 'down'
-  },
-         {
-    element: "#th5",
-    title: "Completed Date ",
-    content: "Completed Date",
-    placement: 'down'
-  },
-           {
-    element: "#th6",
-    title: "Action ",
-    content: "clicking the button to buy a report",
-    placement: 'down'
-  },
-],
 
-  container: "body",
-  smartPlacement: false,
-  keyboard: true,
-  // storage: window.localStorage,
-  storage: false,
-  debug: false,
-  backdrop: true,
-  backdropContainer: 'body',
-  backdropPadding: 0,
-  redirect: false,
-  orphan: false,
-  duration: false,
-  delay: false,
-  basePath: "",
-  placement: 'auto',
-    autoscroll: true,
-  afterGetState: function (key, value) {},
-  afterSetState: function (key, value) {},
-  afterRemoveState: function (key, value) {},
-  onStart: function (tour) {},
-  onEnd: function (tour) {
-     $('.intro-tour-overlay').hide();
-      $('html').css('overflow','unset')
-     $('.menu-dropdown').removeClass('open');
-     updateTour('end');
-  },
-  onShow: function (tour) {},
-  onShown: function (tour) {},
-  onHide: function (tour) {},
-  onHidden: function (tour) {},
-  onNext: function (tour) {},
-  onPrev: function (tour) {},
-  onPause: function (tour, duration) {},
-  onResume: function (tour, duration) {},
-  onRedirectError: function (tour) {}
-
-});
-
-// Initialize the tour
-tour.init();
-
-// Start the tour
-if( $('#is_tour').val() == 1 ){
-    $('html').css('overflow','visible');
-     $('.intro-tour-overlay').show();
-    tour.start();
-}
-
-        $(document).ready(function () {
-            $(".close").click(function () {
-                $(".jumbotron").remove();
-            });
-        });
-
-    </script>
 
 
 @endsection

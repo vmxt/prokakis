@@ -92,18 +92,8 @@
                                 ?> &nbsp;
                             <span class="caption-subject font-green-steel uppercase bold">To: </span>
                             <span class="caption-helper">
-                           <?php 
-                           $r = App\User::find($res->receiver_id);
-                           if(isset($r->firstname)){
+                           <?php $r = App\User::find($res->receiver_id);
                                 echo $r->firstname;
-                           }else{
-                            $com = App\CompanyProfile::find($res->receiver_id);
-                                if(isset($com->company_email)){
-                                    echo $com->company_email;
-                                }else{
-                                    echo "Not a User";
-                                }
-                           }
                                 ?> </span>
                         </div>
                         <div class="actions">

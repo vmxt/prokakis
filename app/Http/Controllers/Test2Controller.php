@@ -32,9 +32,9 @@ use App\RegistrationLinks;
 
 use App\Mailbox; 
 
+use App\Console\Commands\thomsonReutersWorldUpdate;
 
-
-class TestController extends Controller
+class Test2Controller extends Controller
 
 {
 
@@ -58,13 +58,19 @@ class TestController extends Controller
 
     }
 
+    public function getWorldData()
+    {
+        $rs = new thomsonReutersWorldUpdate;
+        $rs->handle();
+    }
+
     
 
     public function index(Request $request)
 
     {
 
-        $data = file_get_contents("http://app.prokakis.com/public/emailtemplate/ProkakisEnhanceProfile.html");
+        $data = file_get_contents("http://app-prokakis.com/public/emailtemplate/ProkakisEnhanceProfile.html");
 
     
         $data = str_replace("[First Name]", "Test Victor", $data);

@@ -21,6 +21,9 @@ use App\ThomsonReuters;
 use App\TR_reportgeneration;
 use App\FA_Results;
 use App\BuyReport;
+use App\ConsultantProjects;
+use ZipArchive;
+use Illuminate\Support\Facades\File;
 
 class BuyreportController extends Controller {
 
@@ -238,7 +241,7 @@ class BuyreportController extends Controller {
 
 			// 	'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons'));
 
-		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+	/*	$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
 			'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
 
@@ -248,7 +251,7 @@ class BuyreportController extends Controller {
 			
 			'tr_peps', 'tr_inserted_date', 'MONTH_RATIO', 'RT', 'ACP', 'IT', 'DII', 'PT', 'APP', 'NWP', 'CR', 'QR', 'DTE', 'DTA', 'IC','GPM','OPM', 'NPM',
 
-			'ROI', 'ROE', 'consultantFiles', 'MASinvestors'));
+			'ROI', 'ROE', 'consultantFiles', 'MASinvestors')); */
 
 			//--------------
 
@@ -257,8 +260,8 @@ class BuyreportController extends Controller {
 			//exit;
 
 			//--------------
-
-			if ($pdf) {
+			$pdf_report = true;
+			if ($pdf_report) {
 
 				$req_app = RequestApproval::where('req_rep_id', $req->id)->first();
 
@@ -359,7 +362,7 @@ class BuyreportController extends Controller {
 						
 						$ra_processed = ProcessedReport::getProcessedReportByApprovalId($req_app->id);
 
-						return BuyreportController::generateReportDownload($ra_processed);
+						return BuyreportController::generateReportDownload($ra_processed, true);
 
 						//return $pdf->download($company_data->company_name . '.pdf');
 
@@ -372,6 +375,8 @@ class BuyreportController extends Controller {
 					exit;
 
 				}
+
+			    return redirect('/monitoring/list')->with('message', 'You have successfully subscribe to a report.');	
 
 			}
 
@@ -432,7 +437,7 @@ class BuyreportController extends Controller {
 
 					//automatic download
 
-					return BuyreportController::generateReportDownload($ra_processed);
+					return BuyreportController::generateReportDownload($ra_processed, false);
 
 				}
 
@@ -442,7 +447,7 @@ class BuyreportController extends Controller {
 
 	}
 
-	public static function generateReportDownload($proc) {
+	public static function generateReportDownload($proc, $ok) {
 
 		//need to validate if the link download is expired or not
 
@@ -470,13 +475,13 @@ class BuyreportController extends Controller {
 
 			}
 
-			// if ($today > $dEnd) {
+			if ($today > $dEnd) {
 
-			// 	return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
+				return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
 
-			// 	exit;
+				exit;
 
-			// }
+			}
 
 		}
 
@@ -697,11 +702,16 @@ class BuyreportController extends Controller {
 		$MASinvestors = BuyReport::findMatchedMAS($company_data->company_name);
 
 		//check Panamas, Bahamas, Offshore, Paradise
-		$Panama = BuyReport::searchMatchInPanama($company_data->company_name);
-		$Paradise = BuyReport::searchMatchInParadise($company_data->company_name);
-		$Offshore = BuyReport::searchMatchInOffShore($company_data->company_name);
-		$Bahamas = BuyReport::searchMatchInBahamas($company_data->company_name);
-	
+$Panama = [];
+$Paradise = [];
+$Offshore = [];
+$Bahamas = [];
+		//$Panama = BuyReport::searchMatchInPanama($company_data->company_name);
+		//$Paradise = BuyReport::searchMatchInParadise($company_data->company_name);
+		//$Offshore = BuyReport::searchMatchInOffShore($company_data->company_name);
+		//$Bahamas = BuyReport::searchMatchInBahamas($company_data->company_name);
+		
+		//Social Media
 		$response_twitter = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='Twitter');
 		$response_youtube = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='Youtube');
 		$response_theweb = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='The Web');
@@ -715,22 +725,7 @@ class BuyreportController extends Controller {
 			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter' , 'reportTrackNumber'));
 
 		$originalDate = $company_data->updated_at;
-		$obtainDate = date("F, Y", strtotime($originalDate));	
-
-		$pdf = PDF::setOptions(['dpi' => 150,'fontHeightRatio'=> '1.1' , 'defaultFont' => 'sans-serif']);
-
-
-		// return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
-
-		// 	'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
-
-		// 	'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
-
-		// 	'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber', 
-			
-		// 	'tr_peps', 'tr_inserted_date', 'MONTH_RATIO', 'RT', 'ACP', 'IT', 'DII', 'PT', 'APP', 'NWP', 'CR', 'QR', 'DTE', 'DTA', 'IC','GPM','OPM', 'NPM',
-
-		// 	'ROI', 'ROE', 'consultantFiles', 'MASinvestors', 'obtainDate', 'Panama', 'Paradise', 'Offshore', 'Bahamas','response_youtube','response_theweb'));
+		$obtainDate = date("F, Y", strtotime($originalDate));	  
 
 		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 
@@ -744,8 +739,15 @@ class BuyreportController extends Controller {
 
 			'ROI', 'ROE', 'consultantFiles', 'MASinvestors', 'obtainDate', 'Panama', 'Paradise', 'Offshore', 'Bahamas','response_youtube','response_theweb'));
 
-		return $pdf->download($company_data->company_name . '.pdf');
+		//$pdf->download($company_data->company_name . '.pdf');
+		//sleep(5);
 
+		if($ok == true){
+		return redirect('/monitoring/list')->with('status', 'You have successfully subscribe to the report.');
+		} else {
+		return $pdf->download($company_data->company_name . '.pdf');	
+		}	
+	
 		// return $pdf->download('.pdf');
 
 	}
@@ -753,7 +755,9 @@ class BuyreportController extends Controller {
 	public static function curlER($twitter_token, $twitter_keyword, $sm='Twitter')
 	{
 		$cSession = curl_init(); 
-		curl_setopt($cSession,CURLOPT_URL,'https://reputation.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+'.$sm.'++&search_keyword_selections='.$twitter_keyword);
+		$apiURL = 'https://reputation.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm='.urlencode($sm).'&search_keyword_selections='.urlencode($twitter_keyword);
+		//echo $apiURL .'<br />'; 
+		curl_setopt($cSession,CURLOPT_URL, $apiURL);
 		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
 		curl_setopt($cSession,CURLOPT_HEADER, false); 
 		$result=curl_exec($cSession);
@@ -761,5 +765,342 @@ class BuyreportController extends Controller {
 		curl_close($cSession);
 		return $response_twitter;
 	}
+
+	
+
+	//aml refinitive data
+	public function repAml(Request $request)
+	{	
+		if(isset($request['rpId'])){
+		
+			$user_id = Auth::id();
+			
+			$rpId = $request['rpId'];
+			$res = explode('-', $rpId);
+			$repId = base64_decode($res[0]);
+			$rs = ProcessedReport::find($repId);
+
+			$today = strtotime(date("Y-m-d"));
+
+			if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) {
+				$dStart = strtotime($rs->month_subscription_start);
+				$dEnd = strtotime($rs->month_subscription_end);
+				if ($today < $dStart) {
+					return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
+					exit;
+				}
+				if ($today > $dEnd) {
+
+					return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
+					exit;
+				}
+			}
+
+			if($rs != null){
+			   
+				$session_companyID = CompanyProfile::getCompanyId($user_id);
+
+		    	//echo $session_companyID .' - ' . $rs->requester_company_id . ' - ' .$rs->source_company_id ;
+				if($session_companyID != $rs->requester_company_id){
+				 return redirect('/opportunity/explore')->with('message', 'Company ID as the requester does not matched to your current.');
+				 exit;
+
+				} else {
+				//generate report here
+
+				$company_data = CompanyProfile::find($rs->source_company_id);
+
+				$ReportGenerationTemplate = ReportGenerationTemplate::where('status', 1)->get();
+				$reportTemplates = [];
+
+				$conApproved = ConsultantProjects::where('request_approval_id', $rs->approval_id)->where('project_status', 'DONE')->first();
+				$dateConDone = $conApproved->updated_at;	
+
+				$date=date_create($dateConDone);
+				$dateDone = date_format($date,"F j, Y"); //, g:i a
+
+				foreach ($ReportGenerationTemplate as $key => $value) {
+					$reportTemplates[ $value['variable_name'] ]  = $value['content'];
+				}
+
+				$approval = RequestApproval::find($rs->approval_id)->first(); //approval records
+
+				//----Thomson Reuters data------//
+				$count_tr = TR_reportgeneration::where('request_id', $approval->req_rep_id)->count(); //count the records
+				$tr_peps = array();
+				$tr_inserted_date = date("F j, Y", $today);
+
+				$tr_peps_create_date = '';
+				$tr_inserted_date = '';
+				if($count_tr > 0)
+				{
+					$rs_tr = TR_reportgeneration::where('request_id', $approval->req_rep_id)->get();
+					foreach($rs_tr as $d)
+					{
+						$tr_peps[] = ThomsonReuters::searchAllThree($d->uid);
+						$tr_peps_create_date  = $d->created_at;
+					}
+
+					if($tr_peps_create_date != ''){
+					$timestamp_tr = strtotime($tr_peps_create_date);
+					$tr_inserted_date = date("F j, Y", $timestamp_tr);
+					}
+				}
+
+				$pdf = PDF::loadView('buyreport.aml_PDF', compact('company_data','reportTemplates','dateDone', 'tr_peps', 'tr_inserted_date'));
+				return $pdf->download('AML_'.$company_data->company_name . '.pdf');
+
+				}
+
+			} 
+
+		}
+	}
+
+	//investors alert
+	public function repIa(Request $request)
+	{
+		if(isset($request['rpId'])){
+		
+			$user_id = Auth::id();
+			
+			$rpId = $request['rpId'];
+			$res = explode('-', $rpId);
+			$repId = base64_decode($res[0]);
+			$rs = ProcessedReport::find($repId);
+
+			$today = strtotime(date("Y-m-d"));
+
+			if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) {
+				$dStart = strtotime($rs->month_subscription_start);
+				$dEnd = strtotime($rs->month_subscription_end);
+				if ($today < $dStart) {
+					return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
+					exit;
+				}
+				if ($today > $dEnd) {
+
+					return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
+					exit;
+				}
+			}
+
+			if($rs != null){
+			   
+				$session_companyID = CompanyProfile::getCompanyId($user_id);
+
+		    	//echo $session_companyID .' - ' . $rs->requester_company_id . ' - ' .$rs->source_company_id ;
+				if($session_companyID != $rs->requester_company_id){
+				 return redirect('/opportunity/explore')->with('message', 'Company ID as the requester does not matched to your current.');
+				 exit;
+
+				} else {
+				//generate report here
+
+				$company_data = CompanyProfile::find($rs->source_company_id);
+				$ReportGenerationTemplate = ReportGenerationTemplate::where('status', 1)->get();
+				$reportTemplates = [];
+
+				$conApproved = ConsultantProjects::where('request_approval_id', $rs->approval_id)->where('project_status', 'DONE')->first();
+				$dateConDone = $conApproved->updated_at;	
+
+				$date=date_create($dateConDone);
+				$dateDone = date_format($date,"F j, Y"); //, g:i a
+
+				foreach ($ReportGenerationTemplate as $key => $value) {
+					$reportTemplates[ $value['variable_name'] ]  = $value['content'];
+				}
+
+				$approval = RequestApproval::find($rs->approval_id)->first(); //approval records
+				//Filters Here
+				
+				//MAS investors
+				$MASinvestors = BuyReport::findMatchedMAS($company_data->company_name);
+
+				//check Panamas, Bahamas, Offshore, Paradise
+				$Panama = BuyReport::searchMatchInPanama($company_data->company_name);
+				$Paradise = BuyReport::searchMatchInParadise($company_data->company_name);
+				$Offshore = BuyReport::searchMatchInOffShore($company_data->company_name);
+				$Bahamas = BuyReport::searchMatchInBahamas($company_data->company_name);
+
+				$pdf = PDF::loadView('buyreport.ia_PDF',compact('company_data', 'reportTemplates', 'dateDone', 'MASinvestors', 'Panama', 'Paradise','Offshore', 'Bahamas'));
+				//dd($pdf->output());
+				return $pdf->download('IA_'.$company_data->company_name . '.pdf');
+
+				}
+
+			} 
+
+		}
+
+	}
+
+	//adverse media
+	public function repAm(Request $request)
+	{
+		if(isset($request['rpId'])){
+		
+			$user_id = Auth::id();
+			
+			$rpId = $request['rpId'];
+			$res = explode('-', $rpId);
+			$repId = base64_decode($res[0]);
+			$rs = ProcessedReport::find($repId);
+
+			$today = strtotime(date("Y-m-d"));
+
+			if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) {
+				$dStart = strtotime($rs->month_subscription_start);
+				$dEnd = strtotime($rs->month_subscription_end);
+				if ($today < $dStart) {
+					return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
+					exit;
+				}
+				if ($today > $dEnd) {
+
+					return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
+					exit;
+				}
+			}
+
+			if($rs != null){
+			   
+				$session_companyID = CompanyProfile::getCompanyId($user_id);
+
+				if($session_companyID != $rs->requester_company_id){
+				 return redirect('/opportunity/explore')->with('message', 'Company ID as the requester does not matched to your current.');
+				 exit;
+
+				} else {
+				//generate report here
+
+					$company_data = CompanyProfile::find($rs->source_company_id);
+					$ReportGenerationTemplate = ReportGenerationTemplate::where('status', 1)->get();
+					$reportTemplates = [];
+
+					$conApproved = ConsultantProjects::where('request_approval_id', $rs->approval_id)->where('project_status', 'DONE')->first();
+					$dateConDone = $conApproved->updated_at;	
+
+					$date=date_create($dateConDone);
+					$dateDone = date_format($date,"F j, Y"); //, g:i a
+
+					foreach ($ReportGenerationTemplate as $key => $value) {
+						$reportTemplates[ $value['variable_name'] ]  = $value['content'];
+					}
+					//var_dump($reportTemplates); exit;
+
+					$approval = RequestApproval::find($rs->approval_id)->first(); //approval records
+					$twitter_token = date('YmdHis');
+					$twitter_keyword = $company_data->company_name;
+					
+					//Social Media
+					$response_twitter = BuyReport::curlER($twitter_token, $twitter_keyword, $sm='Twitter');
+					$response_youtube = BuyReport::curlER($twitter_token, $twitter_keyword, $sm='Youtube');
+					$response_theweb = BuyReport::curlER($twitter_token, $twitter_keyword, $sm='The Web');
+
+					$pdf = PDF::loadView('buyreport.adm_PDF',compact('company_data','reportTemplates', 'dateDone', 'response_twitter', 'response_youtube', 'response_theweb'));
+
+					//dd($pdf->output());
+					return $pdf->download('ADM_'.$company_data->company_name . '.pdf');
+
+				}
+
+			} 
+
+		}
+
+	}
+
+	public function downloadAll(Request $request)
+	{
+
+		if(isset($request['rpId']))
+		{
+
+			$user_id = Auth::id();
+			$rpId = $request['rpId'];
+			$res = explode('-', $rpId);
+			$repId = base64_decode($res[0]);
+			$rs = ProcessedReport::find($repId);
+			$today = strtotime(date("Y-m-d"));
+
+				if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) 
+				{
+					$dStart = strtotime($rs->month_subscription_start);
+					$dEnd = strtotime($rs->month_subscription_end);
+					if ($today < $dStart) {
+						return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
+						exit;
+					}
+					if ($today > $dEnd) {
+						return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
+						exit;
+					}
+				}
+
+			    if($rs != null){
+			   
+				$session_companyID = CompanyProfile::getCompanyId($user_id);
+
+					if($session_companyID != $rs->requester_company_id){
+					return redirect('/opportunity/explore')->with('message', 'Company ID as the requester does not matched to your current.');
+					exit;
+
+					} else {
+
+					   //mkdir(public_path('report_downloads/'.$repId));	
+					   if (!file_exists(public_path('report_downloads/'.$repId))) {
+
+						mkdir(public_path('report_downloads/'.$repId), 0777, true);
+					
+							//Things to do, generate report here
+							//1st report ADM
+							BuyReport::getADM($rs, $repId);
+
+							//2nd report IA
+							BuyReport::getIA($rs, $repId);	
+							
+							//3rd report AML
+							BuyReport::getAML($rs, $repId);	
+								
+							//4th report OVERVIEW
+							//BuyReport::getCompanyOverview($rs, $user_id, $repId);	
+
+							//merge all into a 1 zip file
+							$zip = new ZipArchive;
+							//echo 'cant call zip'; exit;
+							$fileName = $repId.'_download_all.zip';
+								
+							if ($zip->open(public_path('report_downloads/'.$fileName), ZipArchive::CREATE) === TRUE)
+							{
+								$files = File::files(public_path('report_downloads/'.$repId));
+					
+								foreach ($files as $key => $value) {
+									$relativeNameInZipFile = basename($value);
+									$zip->addFile($value, $relativeNameInZipFile);
+								}
+								
+								$zip->close();
+							}	
+						
+							return response()->download(public_path('report_downloads/'.$fileName));
+
+
+						} else {
+
+							if (file_exists(public_path('report_downloads/'.$repId.'_download_all.zip'))) {
+							return response()->download(public_path('report_downloads/'.$repId.'_download_all.zip'));
+							}
+							
+						}		
+
+					}
+
+		   		}
+
+		}
+	}
+
+	
 
 }

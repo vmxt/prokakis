@@ -26,7 +26,7 @@
 
         <meta property="og:type"          content="website" />
 
-        <meta property="og:title"         content="Prokakis Ebos-SG App 2109" />
+        <meta property="og:title"         content="Prokakis Ebos-SG App {{ now()->year }}" />
 
         <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
 
@@ -102,7 +102,7 @@
 
         <!-- END THEME LAYOUT STYLES -->
 
-        <link rel="shortcut icon" href="https://app.prokakis.com/favicon.ico" />
+        <link rel="shortcut icon" href="https://app-prokakis.com/favicon.ico" />
 
         <!-- for new banner
 
@@ -117,6 +117,7 @@
     <!-- override the css values above -->
 
      <style>
+             @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
             .page-header .page-header-menu {
 
@@ -298,7 +299,7 @@
 
                                     <a href="{{ route('home') }}" style="margin-top: 25px;">
 
-                                        <img src="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px">
+                                        <img src="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px">
 
                                     </a>
 
@@ -672,12 +673,12 @@
                                     <ul class="nav navbar-nav">
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{ (request()->segment(2) == '/') ? 'active' : '' }}">
                                             @guest
-                                                <a class="navbar-brand" href="https://app.prokakis.com/home">
+                                                <a class="navbar-brand" href="https://app-prokakis.com/home">
                                                     <i class="fa fa-home"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
                                             @else
-                                                <a href="https://app.prokakis.com/home">
+                                                <a href="https://app-prokakis.com/home">
                                                     <i class="fa fa-home"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
@@ -1705,7 +1706,7 @@ function autocomplete(inp, arr) {
 
 $(document).ready(function()
 {
-  $.getJSON('https://app.prokakis.com/getCompanyNames', function(dataA) {
+  $.getJSON('https://app-prokakis.com/getCompanyNames', function(dataA) {
      autocomplete(document.getElementById("seach_entry_key"), dataA);
   });
 

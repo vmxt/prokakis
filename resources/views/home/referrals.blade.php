@@ -92,7 +92,7 @@
                                     <i class="glyphicon glyphicon-page" >Copy</i>
                                   </button>
                                 </div>
-                                <?php $url_result = " https://app.prokakis.com/register-ref/Mjg=" ?>
+                                
                                 <input id="refer_url" type="text" class="form-control" name="refer_url" value="{{ $url_result }}" readonly>
                               </div>
 

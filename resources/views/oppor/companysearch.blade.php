@@ -167,7 +167,7 @@
 
                   <div class='content'>
                     <h1 class='upperText' title="{{ $item->company_name }}"> <?= $item->company_name != "" ? $item->company_name : 'Providing Business Valuation' ?></h1>
-
+                    
                     <div class="hr-sect"><strong class="hr_title">Description</strong></div>
                          <p><?php echo $item->description?$item->description: "N/A" ; ?></p><br>
 
@@ -511,7 +511,7 @@
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->company_name }}', '{{ $company->id }}', '{{ $item->user_id }}', '{{ $item->company_email}}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                 @endif
 
-		&nbsp;&nbsp;&nbsp; <span>
+        &nbsp;&nbsp;&nbsp; <span>
                 <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestOwnership({{ $requestor_id }}, {{ $provider_id }})"  class="btn green btn_options"> <span class="fa fa-comment"></span> &nbsp;Company Ownership </a>
                 <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestRemoval({{ $requestor_id }}, {{ $provider_id }})"  class="btn red btn_options"> <span class="fa fa-comment"></span> &nbsp; Removal in Prokakis</a>
                 </span>
@@ -596,7 +596,7 @@
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
 
-	 function alertRequestOwnership(reqId, provId)
+     function alertRequestOwnership(reqId, provId)
         {
          window.open('{{ url("/req-own-company/") }}'+'/'+reqId+'/'+provId, '_blank');
         }
@@ -609,7 +609,7 @@
 
         function showModalContent(type, id){
             $("#searchCompanyModal"+id).modal();
-        }
+            }
 
         $(document).ready(function () {
 
@@ -636,8 +636,8 @@
                                 $('.followicon_'+comp_id).removeClass('fa-user-minus');
                                 $('.followicon_'+comp_id).addClass('fa-user-plus');
                                 $('.followicon_'+comp_id).attr('title','Follow Company');
-                            }
-                          }
+            }
+        }
                     });
 
             });
@@ -1054,7 +1054,7 @@
             $('#recipient_email').val(companyEmail);
             $('#recipient_id').val(companyId);
             $('#company_user_id').val(companyUserId);
-
+     
             $('#inboxMeModal').modal();
 
         }

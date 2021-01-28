@@ -219,8 +219,8 @@
                                                 {{ App\CompanyProfile::find($data->sender_id)->company_email }}
                                             @else
                                                 <a href=""> <?php
-                                                    $res = App\User::find($data->sender_id);
-                                                    echo $res->email;
+                                                $res = App\User::find($data->sender_id);
+                                                echo $res->email;
                                                     ?> 
                                                 </a>
                                             @endif
@@ -237,7 +237,7 @@
                                             @if($data->is_type == 'chat')
                                                 <a href="{{ url('/opportunity/chatbox') }}" class="btn btn-success">View</a>
                                             @else
-                                                <a href="{{ url('/mailbox/setReply/'.$data->id) }}" class="btn btn-success">View</a>
+                                            <a href="{{ url('/mailbox/setReply/'.$data->id) }}" class="btn btn-success">View</a>
                                             @endif
                                         </td>
 

@@ -608,7 +608,7 @@
                             $company_id_result = App\CompanyProfile::getCompanyId(Auth::id()); 
                             ?>
                             @if(App\SpentTokens::validateLeftBehindToken($company_id_result) != false)
-                                <button data-popup-open="popup-1" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
+                            <button data-popup-open="popup-1" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
                             @else
                                 <button onclick="notifytoPremium()" type="button" class="btn  blue btn-circle btn-sm addBanner">Click to change cover photo, brand name and slogan</button>
                             @endif -->

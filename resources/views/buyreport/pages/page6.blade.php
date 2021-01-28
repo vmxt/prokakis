@@ -52,15 +52,18 @@
         </tbody>
       </table>
     </div>
-
+  </div>
+</div>
     <div class="row p-1">
       <p class="h5">Award(s):</p>
     </div>
-    <div class="row p-0">
+
         @foreach($profileCertifications as $aw)
-              <img class='img-fluid' src="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>" style='width:100%;' border="1" alt="Null" />
-          @endforeach
+            <div class="card p-2">
+                  <img class='img-fluid' src="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>" style='width:100%; padding-top: 100px;' border="1" alt="Null" />
     </div>
+          @endforeach
+
 
 @if( !empty($data['COMP_STRENGTHS']) )
     <div class="row p-1">

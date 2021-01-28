@@ -524,7 +524,7 @@ class MailboxController extends Controller {
   					$template->content
 				  ";
 				 
-				  
+
 				$cc = ($rs->primary_country != null)? Countries::where('country_code', $rs->primary_country)->first() : '';
 				$p_country = (is_object($cc))? $cc->country_name : '';
 				$industry = $rs->industry;
@@ -537,7 +537,7 @@ class MailboxController extends Controller {
 				}else{
 					$message =  str_replace("[action]", " Login " , $message);
 					$message =  str_replace("[actionButton]", '<a class="button" href="https://app-prokakis.com/register">LOGIN</a>', $message);
-				}
+}
 
 				$message =  str_replace("[Industry]", $industry, $message);		  
 				$message =  str_replace("[msgTitle]", $mailSubject, $message);		  

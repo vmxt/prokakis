@@ -4,8 +4,6 @@
 
 @section('content')
 
-   <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
-
     <?php //echo Route::getFacadeRoot()->current()->uri(); ?>
 
     <link href="{{ asset('public/mini-upload/assets/css/style.css') }}" rel="stylesheet">
@@ -18,12 +16,7 @@
 
     <link rel="stylesheet" href="{{asset('public/css/edit-profile.css')}}">
 
-<!-- Remember to include jQuery :) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
 
 
@@ -420,9 +413,9 @@
                                         $validateAccount = App\SpentTokens::validateAccountActivation($company_id_result);
                                     ?>
                        
-                                     
+
                                             @if($validateAccount != false)
-                                                <div class="containerCimg" >
+                                        <div class="containerCimg">
                                             @else
                                               <div class="containerCimg"  onclick="notifytoPremium()" >
 
@@ -981,8 +974,7 @@
 
                                             </div>
 
-
-                                            <div class="form-group">
+					    <div class="form-group">
 
                                                 <label for="incorporation_date">Incorporation Date </label>
 
@@ -1710,10 +1702,10 @@
                                                 }
                                             }
                                             ?>
-					   @if(isset($new_date))
+                       @if(isset($new_date))
                                             <input type="hidden" id="default_financial_year_end" 
                                              value="{{ $new_date }}" >
-					   @endif	
+                       @endif   
 
                                             <label for="financial_year_end">Financial Year End</label>
                                             </div>  
@@ -2137,12 +2129,6 @@
 
                                     <div class="card-header"><b>Financial Entries</b>
                     <div style="color:red">To avoid delays, please don't use comma in your numerical entries. </div>
- <?php 
-                                $csvLink = asset('public/assets/templates/TemplateProkakisFnancialStatus.csv');
-                                ?>
-
-<a style="float:right" target="_blank" href="{{ $csvLink }}">Download CSV Template</a> <br />
-
                    </div>
 
                                     <div class="card-body center table-outer">
@@ -2169,7 +2155,7 @@
 
                                                 //$entry4 = App\FinancialAnalysis::where('entry', 4)->where('user_id', $user_id)->first();
 
-						$entry1 = App\FinancialAnalysis::where('entry', 1)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
+                        $entry1 = App\FinancialAnalysis::where('entry', 1)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
 
                                                 $entry2 = App\FinancialAnalysis::where('entry', 2)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
 
@@ -3610,22 +3596,6 @@
 
                                             </tr>
 
-						 <tr>
-
-                                             <td colspan="5">
-                                                <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
-                                                    <strong>Upload CSV</strong>
-                                                <input type="file" name="uploadCSV" id="uploadCSV" class="btn btn-info" style="float:right">
-                                                 
-                                                </p>
-                                                </div>
-                                             
-                                            </td>   
-                                            </tr>   
-
-
-
-
                                         </table>
 
                                     </div>
@@ -3882,121 +3852,17 @@
     <script src="{{ asset('public/img-cropper/js/cropbox.js') }}"></script>
 
 
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
+
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
 
 
     <script type="text/javascript">
 
-   // Instance the tour
-var tour = new Tour({
-    steps: [
-    {
-        element: ".imageBoxCimg",
-        title: "Profile Picture",
-        content: "Here is your profile avatar!",
-        placement: 'bottom',
-        onNext: function(){
-           
-        }
-    },
-    {
-        element: "#file",
-        title: "Upload Image",
-        content: "You can your upload your profile image by clicking this button",
-        placement: 'bottom',
-        onNext: function(){
-           
-        }
-    },
-    {
-        element: "#btnZoomIn",
-        title: "Zoom In",
-        content: "You can zoom in your image dimension by clicking this button",
-        placement: 'bottom',
-        onNext: function(){
-           
-        }
-    },
-    {
-        element: "#btnZoomOut",
-        title: "Zoom Out",
-        content: "You can zoom out your image dimension by clicking this button",
-        placement: 'bottom',
-        onNext: function(){
-           
-        }
-    },
-    {
-        element: "#btnZoomOut",
-        title: "Crop Image and Upload",
-        content: "If you are done setting your preffered image orientation, you can click this button to crop and upload the selected image",
-        placement: 'bottom',
-        onNext: function(){
-           
-        }
-    }
-
-    
-    
- 
-
-  
-],
-
-  container: "body",
-  smartPlacement: true,
-  keyboard: true,
-  // storage: window.localStorage,
-  storage: false,
-  debug: true,
-  backdrop: true,
-  backdropContainer: 'body',
-  backdropPadding: 0,
-  redirect: true,
-  orphan: false,
-  duration: false,
-  delay: false,
-  basePath: "",
-  placement: 'auto',
-
-  afterGetState: function (key, value) {},
-  afterSetState: function (key, value) {},
-  afterRemoveState: function (key, value) {},
-  onStart: function (tour) {
-
-  },
-  onEnd: function (tour) {
-     $('.menu-dropdown').removeClass('open');
-     updateTour('end');
-  },
-  onShow: function (tour) {},
-  onShown: function (tour) {},
-  onHide: function (tour) {},
-  onHidden: function (tour) {},
-  onNext: function (tour) {},
-  onPrev: function (tour) {},
-  onPause: function (tour, duration) {},
-  onResume: function (tour, duration) {},
-  onRedirectError: function (tour) {}
-
-});
-
-
-// Initialize the tour
-tour.init();
-
-// Start the tour
-if( $('#is_tour').val() == 1 ){
-    tour.start();
-}
-
         function notifytoPremium(){
             swal({
-            title: "This feature is only available for premium members. Would you like to upgrade to a premium account?",
-            text: "You are about to set the view status of this opportunity to be publish with company information!",
+            title: "This feature is only available on premium members. You want to upgrade to premium?",
+            // text: "You are about to set the view status of this opportunity to be publish with company information!",
             icon: "info",
             buttons: [
               'No, cancel it!',
@@ -4004,7 +3870,7 @@ if( $('#is_tour').val() == 1 ){
             ],
           }).then(function(isConfirm) {
               if (isConfirm) {
-                    document.location = "{{ route('reportsBuyTokens') }}"
+                    document.location = "{{ route('reportsBuyCredits') }}"
                 } else {
 
                   swal("Cancelled", "Upgrading your account to premium was cancelled :)", "error");
@@ -4662,9 +4528,8 @@ if( $('#is_tour').val() == 1 ){
                     defaultDate: default_financial_year,
                     required: true
                 });
-                
-		$('#mask_incorporation_date').mask('0000-00-00');	
-                
+                 $('#mask_incorporation_date').mask('0000-00-00');
+
                 // Set all hidden fields to type text for the demo
                 // $('input[type="hidden"]').attr('type', 'text').attr('readonly', 'readonly');
             });
@@ -4678,7 +4543,6 @@ if( $('#is_tour').val() == 1 ){
     {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
 
     <script src="{{ asset('public/drop-date/jquery.date-dropdowns.js') }}"></script>
-	
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 @endsection

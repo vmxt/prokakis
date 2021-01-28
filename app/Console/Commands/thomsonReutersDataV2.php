@@ -84,7 +84,7 @@ class thomsonReutersDataV2 extends Command
 
 
 
-        $xml = simplexml_load_file("public/TS/reutersData.xml") or die("Error: Cannot create object or XML file not there");   
+        $xml = simplexml_load_file("https://app-prokakis.com/public/TS/reautersData.xml") or die("Error: Cannot create object or XML file not there");   
 
 
 

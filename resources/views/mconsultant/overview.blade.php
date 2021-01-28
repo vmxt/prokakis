@@ -346,7 +346,8 @@
 
                                                 <?php
 
-                                                if( count((array) $rs) > 0 ){
+						
+                                                 if( count((array)$rs) > 0 ){
 
 
 
@@ -456,7 +457,7 @@
 
                                                              $upImg =  App\UploadImages::find($ext[1]);
 
-                                                             if(count((array)$upImg) > 0){
+                                                             if($upImg){
 
                                                            ?>
 
@@ -508,7 +509,7 @@
 
                                                         $req = App\RequestReport::find($d->req_rep_id);
 
-                                                        if(count((array)$req) > 0 ){
+                                                        if(  $req->count() > 0 ){
 
                                                         echo $req->company_name;
 
@@ -524,7 +525,7 @@
 
                                                         <?php
 
-                                                          if(count((array)$subsConsultants) > 0){
+                                                          if(sizeof($subsConsultants) > 0){
 
                                                         ?>
 

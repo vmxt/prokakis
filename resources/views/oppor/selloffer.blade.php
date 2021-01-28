@@ -613,39 +613,6 @@ input::-moz-focus-inner {
 
                             </div>
 
-                            <div class="portlet light" id="sect_brief_introduction">
-
-                                <div class="portlet-body">
-
-                                    <div class="form-group">
-
-                                        <label for="oppo_description"><b>Brief Description of the opportunity</b> </label> <br/>
-
-                                        <span> Explain what is the opportunity in details?</span>
-
-                                        <textarea rows="5" cols="20" dataName="oppo_description"  class="form-control input-text-form" maxlength="500" name="oppo_description"
-
-                                                  id="oppo_description"><?php if (isset($data->oppo_description)) {
-
-                                                echo $data->oppo_description;
-
-                                            } ?></textarea>
-
-                                       
-
-
-
-                                            <div class="alert alert-info">
-
-                                                <span>Characters left:</spa><span style="color:red;" id="countIntro">500</span>
-
-                                            </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
 
 
                             <div class="portlet light">
@@ -1746,15 +1713,7 @@ input::-moz-focus-inner {
 
         var maxLength = 500;
 
-        $('#oppo_description').keyup(function() {
 
-          var length = $(this).val().length;
-
-          var length = maxLength-length;
-
-          $(this).parent().find('#countDesc').text(length +"/"+maxLength);
-
-        });
 
         $('#intro_describe_business').keyup(function() {
 
@@ -2045,7 +2004,6 @@ input::-moz-focus-inner {
             cookies.del('sell_opp_title');
             cookies.del('sell_categoryCheck');
             cookies.del('sell_audienceTarget');
-            cookies.del('sell_oppo_description');
             cookies.del('sell_intro_describe_business');
             cookies.del('sell_why_partner_goal');
             cookies.del('sell_timeFrame');
@@ -2103,12 +2061,6 @@ input::-moz-focus-inner {
         $("input[name='audienceTarget']").click(function( ) { 
             if(! $('#oppor_id').val() ){
             cookies.set('sell_audienceTarget',  $(this).attr('id')  );
-            }
-        }); 
-
-        $("#oppo_description").change(function() { 
-            if(! $('#oppor_id').val() ){
-            cookies.set('sell_oppo_description',  $("#oppo_description").val() );
             }
         }); 
 
@@ -2186,9 +2138,6 @@ if (! $('#oppor_id').val()) {
         $('#'+cookies.get("sell_audienceTarget") ).attr("checked", "checked");
    }
 
-   if( cookies.get("sell_oppo_description")!=null )
-        $('#oppo_description').val(  cookies.get("sell_oppo_description") );
-
    if( cookies.get("sell_intro_describe_business")!=null )
         $('#intro_describe_business').val(  cookies.get("sell_intro_describe_business") );
 
@@ -2227,7 +2176,6 @@ if (! $('#oppor_id').val()) {
         cookies.del('sell_opp_title');
         cookies.del('sell_categoryCheck');
         cookies.del('sell_audienceTarget');
-        cookies.del('sell_oppo_description');
         cookies.del('sell_intro_describe_business');
         cookies.del('sell_why_partner_goal');
         cookies.del('sell_timeFrame');

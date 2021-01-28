@@ -59,10 +59,9 @@ class FinancialAnalysis extends Model {
 		'id',
 	];
 
-	public static function saveCreate($data, $companyId, $userId) 
-	{
+	public static function saveCreate($data, $companyId, $userId) {
 
-		if ( isset($data["fa_year1"]) && isset($data["fa_month1"]) && $data["fa_month1"] != '0' && $data["fa_year1"] != '0') {
+		if ($data["fa_month1"] != '0' && $data["fa_year1"] != '0') {
 			$fa1 = FinancialAnalysis::where('entry', 1)->where('user_id', $userId)->where('company_id', $companyId)->first();
 
 			if ($fa1 != null) {
@@ -225,7 +224,7 @@ class FinancialAnalysis extends Model {
 
 		}
 
-		if (isset($data["fa_year2"]) && isset($data["fa_month2"]) && $data["fa_month2"] != "0" && $data["fa_year2"] != "0") {
+		if ($data["fa_month2"] != "0" && $data["fa_year2"] != "0") {
 			$fa2 = FinancialAnalysis::where('entry', 2)->where('user_id', $userId)->where('company_id', $companyId)->first();
 
 			if ( $fa2 != null ) {
@@ -392,7 +391,7 @@ class FinancialAnalysis extends Model {
 
 		}
 
-		if ( isset($data["fa_year3"]) && isset($data["fa_month3"]) && $data["fa_month3"] != "0" && $data["fa_year3"] != "0") {
+		if ($data["fa_month3"] != "0" && $data["fa_year3"] != "0") {
 
 			$fa3 = FinancialAnalysis::where('entry', 3)->where('user_id', $userId)->where('company_id', $companyId)->first();
 			if ($fa3 != null ) {
@@ -559,7 +558,7 @@ class FinancialAnalysis extends Model {
 
 		}
 
-		if ( isset($data["fa_year4"]) && isset($data["fa_month4"]) && $data["fa_month4"] != "0" && $data["fa_year4"] != "0") {
+		if ($data["fa_month4"] != "0" && $data["fa_year4"] != "0") {
 
 			$fa4 = FinancialAnalysis::where('entry', 4)->where('user_id', $userId)->where('company_id', $companyId)->first();
 
@@ -725,68 +724,5 @@ class FinancialAnalysis extends Model {
 		}
 
 	}
-
-
-	public static function saveCreateCSV($filePathCsv, $companyId, $userId) 
-	{
-
-	   $file = fopen($filePathCsv, "r") or die(" $filePathCsv file is not there! \n");
-	   $data = array();
-	   $i = 0;
-       while(! feof($file))
-        {
-			$d = fgetcsv($file);
-
-                if(trim($d[0]) != 'Year')
-                {
-				 	if(isset($d)){
-					$data["fa_month".$i] = $d[0];
-					$data["fa_year".$i] = $d[1];
-					$data["income".$i] = $d[2];
-					$data["purchase".$i] = $d[3];
-					$data["cost_good_sold".$i] = $d[4];
-					$data["gross_profit".$i] = $d[5];
-					$data["directors_fee_renum".$i] = $d[6];
-					$data["total_renum_exdirector".$i] = $d[7];
-					$data["medical_expense".$i] = $d[8];
-					$data["transport_travelling_expenses".$i] = $d[9];
-					$data["entertainment_expense".$i] = $d[10];
-					$data["debt_interest_finance_expenses".$i] = $d[11];
-					$data["net_profit".$i] = $d[12];
-					$data["net_profit_before_interest_tax".$i] = $d[13];
-					$data["inventories_closing_stock".$i] = $d[14];
-					$data["trade_receivable".$i] = $d[15];
-					$data["trade_payable".$i] = $d[16];
-					$data["non_current_assets".$i] = $d[17];
-					$data["current_assets".$i] = $d[18];
-					$data["current_liabilities".$i] = $d[19];
-					$data["non_current_liabilities".$i] = $d[20];
-					$data["share_capita".$i] = $d[21];
-					$data["retained_earning".$i] = $d[22];
-					$data["translation_reserves".$i] = $d[23];
-					$data["total_debt".$i] = $d[24];
-					$data["prepaid_expenses".$i] = $d[25];
-					 }
-
-				}
-				if($i >= 5 ){
-				break;
-				}
-				$i++;
-		}
-
-		if(sizeof($data) > 0){
-			//reuse a method here
-			//var_dump($data);
-			//exit;
-			FinancialAnalysis::saveCreate($data, $companyId, $userId);
-		}
-
-	}
-
-
-
-
-
 
 }

@@ -461,7 +461,7 @@
                                         ?>  </b> <br/>
                                     Credit Left <br/>
                                     <div class="col-sm-12">
-                                        <a id='home-topup' href="{{ route('reportsBuyTokens') }}" class="btn red-mint"
+                                        <a id='home-topup' href="{{ route('reportsBuyCredits') }}" class="btn red-mint"
                                            style="width: 100%;"> Top Up</a>
                                     </div>
                                         @if($c_promo == 0)   

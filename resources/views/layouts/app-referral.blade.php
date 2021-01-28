@@ -12,7 +12,7 @@
         <!-- CSRF Token -->
         <meta property="og:url"           content="https://app.prokakis.com/referrals" />
         <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Prokakis Ebos-SG App 2020" />
+        <meta property="og:title"         content="Prokakis Ebos-SG App {{ now()->year }}" />
         <meta property="og:description"   content="Referal Link: {{ $url_result }}" />
         <meta property="og:image"         content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" />
         <!-- end from the original code -->

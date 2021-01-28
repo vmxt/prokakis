@@ -182,6 +182,10 @@
     line-height: 25px;
 }
 
+h5{
+  font-size: 1em !important;
+}
+
   </style>
 
   <style type="text/css" media="screen">
@@ -192,7 +196,7 @@
     @media screen {
       /* Thanks Outlook 2013! */
       * {
-        font-family: 'Oxygen', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
+        font-family: 'sans-serif', 'Helvetica Neue', 'Arial', 'Oxygen' !important;
       }
     }
   </style>
@@ -279,7 +283,7 @@
 
 <body bgcolor="#f7f7f7">
 <table align="center" cellpadding="0" cellspacing="0" class="container-for-gmail-android" width="100%">
-        <td style="font-family: Arial, Helvetica, sans-serif; padding: 10px; font-size: 16px; line-height: normal; background-color: #87cefa"><a href="https://app.prokakis.com/"><img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="200px"></a></td>
+        <td style="font-family: Arial, Helvetica, sans-serif; padding: 10px; font-size: 16px; line-height: normal; background-color: #87cefa"><a href="https://ebos2.prokakis.com/"><img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="200px"></a></td>
   <tr>
     <td align="center" valign="top" width="100%" style="background-color: #f7f7f7;" class="content-padding">
       <center>
@@ -337,7 +341,7 @@
     </td>
   </tr>
  
-  <td style="font-family: Arial, Helvetica, sans-serif; padding: 10px; font-size: 16px; line-height: normal; background-color: #87cefa"> © 2019 Prokakis. All rights reserved. </td>
+  <td style="font-family: Arial, Helvetica, sans-serif; padding: 10px; font-size: 16px; line-height: normal; background-color: #87cefa"> © {{ now()->year }} Prokakis. All rights reserved. </td>
 </table>
 
 </body>

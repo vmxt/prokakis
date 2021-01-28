@@ -3,8 +3,6 @@
 
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css" rel="stylesheet" >
 {{-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> --}}
@@ -272,19 +270,7 @@ input::-moz-focus-inner {
 .el-hidden{
     display: none;
 }
-        .intro-tour-overlay {
-            display: none;
-            background: #666;
-            opacity: 0.5;
-            z-index: 1000;
-            min-height: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
+
     </style>
 
       
@@ -426,11 +412,11 @@ input::-moz-focus-inner {
 
 
 
-                            <div class="portlet light" style="margin-top: 10px;" id="sect_title_opportunity">
+                            <div class="portlet light" style="margin-top: 10px;">
 
                                 <div class="portlet-body">
 
-                                    <div class="form-group" >
+                                    <div class="form-group">
 
                                         <label for="business_goal"><b>Title for this Opportunity</b> <span style="color: red; font-weight: bolder;"> *</span> </label>
 
@@ -446,7 +432,7 @@ input::-moz-focus-inner {
 
 
 
-                            <div class="portlet light" style="margin-top: 10px;" id="sect_business_goal">
+                            <div class="portlet light" style="margin-top: 10px;">
 
                                 <div class="portlet-body">
 
@@ -530,7 +516,7 @@ input::-moz-focus-inner {
 
 
 
-                            <div class="portlet light" id="sect_target_audience">
+                            <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -601,44 +587,8 @@ input::-moz-focus-inner {
                             </div>
 
 
-                            <div class="portlet light" id="sect_brief_introduction">
 
-                                <div class="portlet-body">
-
-                                    <div class="form-group">
-
-                                        <label for="oppo_description"><b>Brief Description of the opportunity</b> </label> <br/>
-
-                                        <span> Explain what is the opportunity in details?</span>
-
-                                        <textarea rows="5" cols="20" dataName="oppo_description"  class="form-control input-text-form" maxlength="500" name="oppo_description"
-
-                                                  id="oppo_description"><?php if (isset($data->oppo_description)) {
-
-                                                echo $data->oppo_description;
-
-                                            } ?></textarea>
-
-                                       
-
-
-
-                                            <div class="alert alert-info">
-
-                                                <span>Characters left:</spa><span style="color:red;" id="countDesc">500</span>
-
-                                            </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-
-
-                            <div class="portlet light" id="sect_brief_introduction">
+                            <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -676,7 +626,7 @@ input::-moz-focus-inner {
 
 
 
-                            <div class="portlet light" id="sect_company_strength">
+                            <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -714,7 +664,7 @@ input::-moz-focus-inner {
 
 
 
-                            <div class="portlet light" id="sect_timeframe">
+                            <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -802,7 +752,7 @@ input::-moz-focus-inner {
 
 
 
-                            <div class="portlet light" id="sect_value_opportunity">
+                            <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -860,7 +810,7 @@ input::-moz-focus-inner {
 
                           <center> Tell us what kind of partner you are looking for? </center>
 
-                            <div class="portlet light" style="margin-top: 10px;" id="sect_partner_location">
+                            <div class="portlet light" style="margin-top: 10px;">
 
                                 <div class="portlet-body">
 
@@ -874,7 +824,7 @@ input::-moz-focus-inner {
 ?>
                                     <input type="hidden" name="is_anywhere" id="is_anywhere" value="{{  $is_anywhere }}" />
 
-                                    <div class="form-group" id="sect_is_anywhere">
+                                    <div class="form-group">
                                         <label for="ideal_partner_base"><b>(Indicate the location of your ideal partners). If your are looking for a partners all around the world! (Set the toggle to Anywhere).  </label>
                                         <div class="col-sm-12">
                                             <input type="checkbox" 
@@ -894,7 +844,7 @@ input::-moz-focus-inner {
 
                                     </div>
                                 <div class=" particular_partner " >
-                                    <div class="form-group " id='sect_ideal_partner_location'  >
+                                    <div class="form-group "  >
 
                                         <label for="ideal_partner_base"> Type and click to add Countries </label>
 
@@ -947,7 +897,7 @@ input::-moz-focus-inner {
 
 
 
-                            <div class="portlet light" id="sect_ideal_partner_industry">
+                            <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -1329,7 +1279,7 @@ input::-moz-focus-inner {
 
 
 
-                            <div class="portlet light" id="sect_relevant_industry">
+                            <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -1374,7 +1324,7 @@ input::-moz-focus-inner {
                             </div>
 
 
-                            <div class="portlet light" id="sect_card_avatar">
+                            <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -1440,7 +1390,7 @@ input::-moz-focus-inner {
 
                             </div>
 
-                            <div class="portlet2 light2" id="sect_industry_card">
+                            <div class="portlet2 light2">
 
                                 <div class="portlet-body">
                                         <label for="opp_industry"><b>Please select what kind of Industry</b><span style="color: red; font-weight: bolder;"> *</span> </label>
@@ -1514,7 +1464,7 @@ input::-moz-focus-inner {
 
                             </div>
 
-                               <div class="portlet light" id="sect_oppo_status">
+                               <div class="portlet light">
 
                                 <div class="portlet-body">
 
@@ -1655,9 +1605,6 @@ input::-moz-focus-inner {
 
 
 
- <div class='intro-tour-overlay'></div>
-
-    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
@@ -1669,7 +1616,7 @@ input::-moz-focus-inner {
             if(counts == 0){
                 $('#'+id).bootstrapToggle('off')  ;
 
-                swal({
+                    swal({
                     title: "This feature is only available for premium members. Would you like to upgrade to a premium account?",
                     text: "You are about to set the view status of this opportunity to be publish with company information!",
                     icon: "success",
@@ -1744,15 +1691,6 @@ input::-moz-focus-inner {
 
         var maxLength = 500;
 
-        $('#oppo_description').keyup(function() {
-
-          var length = $(this).val().length;
-
-          var length = maxLength-length;
-
-          $(this).parent().find('#countDesc').text(length +"/"+maxLength);
-
-        });
 
 
         $('#intro_describe_business').keyup(function() {
@@ -2144,7 +2082,6 @@ input::-moz-focus-inner {
             cookies.del('build_opp_title');
             cookies.del('build_businessGoal');
             cookies.del('build_audienceTarget');
-            cookies.del('build_oppo_description');
             cookies.del('build_intro_describe_business');
             cookies.del('build_why_partner_goal');
             cookies.del('build_timeFrame');
@@ -2191,12 +2128,6 @@ input::-moz-focus-inner {
         $("input[name='audienceTarget']").click(function( ) { 
             if(! $('#oppor_id').val() ){
             cookies.set('build_audienceTarget',  $(this).attr('datavalue')  );
-            }
-        }); 
-
-        $("#oppo_description").change(function() { 
-            if(! $('#oppor_id').val() ){
-            cookies.set('build_oppo_description',  $("#oppo_description").val() );
             }
         }); 
 
@@ -2270,7 +2201,6 @@ $('#opportunity_build_form').submit(function() {
     cookies.del('build_opp_title');
     cookies.del('build_businessGoal');
     cookies.del('build_audienceTarget');
-    cookies.del('build_oppo_description');
     cookies.del('build_intro_describe_business');
     cookies.del('build_why_partner_goal');
     cookies.del('build_timeFrame');
@@ -2292,9 +2222,6 @@ if(! $('#oppor_id').val() ){
    if(cookies.get("build_audienceTarget") != null){
         $('#audienceTarget'+cookies.get("build_audienceTarget") ).attr("checked", "checked");
    }
-
-   if(cookies.get("build_oppo_description") != null)
-        $('#oppo_description').val(  cookies.get("build_oppo_description") );
 
    if(cookies.get("build_intro_describe_business") != null)
         $('#intro_describe_business').val(  cookies.get("build_intro_describe_business") );
@@ -2399,157 +2326,8 @@ function set_ideal_partner(e){
 }
 
     </script>
-    <script src="{{ asset('public/bootstrap-toggle/bootstrap-toggle.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script src="{{ asset('public/bootstrap-toggle/bootstrap-toggle.js') }}"></script>
 
-
-<script>
-// Instance the tour
-var tour = new Tour({
-  steps: [
-    {
-    element: "#sect_title_opportunity",
-    title: "Title",
-    content: "Set the title of the Opportunity you wnat to create",
-     placement: "bottom"
-  },
-  {
-    element: "#sect_business_goal",
-    title: "Business Goal",
-    content: "Can choose your business goal",
-     placement: "bottom"
-  },
-    {
-    element: "#sect_target_audience",
-    title: "Target Audience",
-    content: "Can choose what type of target options you need",
-    placement: "top"
-  },
-    {
-    element: "#sect_brief_introduction",
-    title: "Introduction",
-    content: "Introduction of youe company" ,
-    placement: "top"
-  },
-    {
-    element: "#sect_company_strength",
-    title: "Strength",
-    content: "Can entered company strength",
-    placement: "top"
-  },
-    {
-    element: "#sect_timeframe",
-    title: "Timeframe",
-    content: "Choose the timeframe",
-    placement: "top"
-  },
-{
-    element: "#sect_value_opportunity",
-    title: "Value",
-    content: "Can choose what is the value the opportnity created.",
-    placement: "top"
-  },
-  {
-    element: "#sect_partner_location",
-    title: "Location",
-    content: "Prefered location of your ideal partners",
-    placement: "top"
-  },
-  {
-    element: "#sect_is_anywhere",
-    title: "Toggle Location",
-    content: "You can specify between anywhere or specified location",
-    placement: "top"
-  },
-    {
-    element: "#sect_ideal_partner_industry",
-    title: "Ideal Partner",
-    content: "You can choosed more than 1 option",
-    placement: "top"
-  },
-    {
-    element: "#sect_relevant_industry",
-    title: "keyowrd",
-    content: "type here to set relevant industry keyword",
-    placement: "top"
-  },
-    {
-    element: "#sect_card_avatar",
-    title: "Card Avatar Toggle",
-    content: "You can specify what avatar will be shown in this opportunity between profile image or industry image",
-    placement: "top"
-  },
-    {
-    element: "#sect_industry_card",
-    title: "List of card avatar",
-    content: "this are the default industry image that you want to be shown in this opportunity",
-    placement: "top"
-  },    {
-    element: "#sect_oppo_status",
-    title: "Status Toggle",
-    content: "set to switch if you want this opportunity to be private or public",
-    placement: "top"
-  }
-   
-],
-
-  container: "body",
-  smartPlacement: false,
-  keyboard: true,
-  // storage: window.localStorage,
-  storage: false,
-  debug: false,
-  backdrop: true,
-  backdropContainer: 'body',
-  backdropPadding: 0,
-  redirect: false,
-  orphan: true,
-  duration: false,
-  delay: false,
-  basePath: "",
-  placement: 'auto',
-    autoscroll: true,
-  afterGetState: function (key, value) {},
-  afterSetState: function (key, value) {},
-  afterRemoveState: function (key, value) {},
-  onStart: function (tour) {},
-  onEnd: function (tour) {
-     $('.intro-tour-overlay').hide();
-      $('html').css('overflow','unset')
-     $('.menu-dropdown').removeClass('open');
-     $(".modal-backdrop").show();
-        $(".modal").css('z-index','10050'); 
-       $(".popover").css('z-index','1102'); 
-     updateTour('end');
-  },
-  onShow: function (tour) {},
-  onShown: function (tour) {},
-  onHide: function (tour) {},
-  onHidden: function (tour) {},
-  onNext: function (tour) {},
-  onPrev: function (tour) {},
-  onPause: function (tour, duration) {},
-  onResume: function (tour, duration) {},
-  onRedirectError: function (tour) {}
-
-});
-
-// Initialize the tour
-tour.init();
-
-// Start the tour
-if( $('#is_tour').val() == 1 ){
-    $('html').css('overflow','visible');
-     $('.intro-tour-overlay').show();
-    tour.start();
-}
-
-        $(document).ready(function () {
-            $(".close").click(function () {
-                $(".jumbotron").remove();
-            });
-        });
-
-    </script>
 
 @endsection

@@ -198,7 +198,7 @@ class ReferralController extends Controller {
 		if($rs != null){
 		  foreach($rs as $d){	
 		  $cp =	CompanyProfile::find($d->source_company_id);
-		  $data[] = array('Request Id'=>$d->id, 'Company Id' => $cp->id, 'Company Name'=>$cp->company_name, 'Industry'=> $cp->industry);
+		  $data[] = array('RequestId'=>$d->id, 'CompanyId' => $cp->id, 'CompanyName'=>$cp->company_name, 'Industry'=> $cp->industry);
 		  }
 
 		}

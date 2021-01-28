@@ -101,6 +101,15 @@ class HomeController extends Controller {
 		InOutUsers::insert_updateDB(array('user_id'=>$user_id, 'status'=>1));
 
 
+
+		//if($userType == 1){
+
+		//echo "Company";
+
+		//}
+
+
+
 		if ($userType == 2) {
 
 			return redirect('homeSubConsul');
@@ -281,7 +290,7 @@ public function index() {
 			$resBuy = OpportunityBuy::where('company_id', $company_id)->where('status', 1)->get()->merge($resSell);
 			array_push($oppArr, $resBuy);	
 		### opportunity
-		}
+	}
 
 //fetch result
 ##modify Business News elements

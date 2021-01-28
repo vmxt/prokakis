@@ -53,16 +53,6 @@ class OpportunityController extends Controller {
 
 	}
 
-	public function details() {
-		if (User::securePage(Auth::id()) != 5) {
-			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
-		}
-		$build = OpportunityBuildingCapability::getListBuildOpportunity();
-		$sell = OpportunitySellOffer::getListSellOpportunity()->merge($build);
-		$buy = OpportunityBuy::getListBuyOpportunity()->merge($sell);
-		$result = $buy;
-		return view('oppor.details', compact('result'));
-	}
 
 	public function requestReport(Request $request) {
 
@@ -577,13 +567,13 @@ class OpportunityController extends Controller {
 	}
 
 	public function exploreCountry(Request $request) {
-		if (urldecode(strlen($request['key'])) > 0) {
+		if (strlen($request['key']) > 0) {
 
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			$selectedCountry = urldecode($request['key']);
+			$selectedCountry = $request['key'];
 
 			$result_filter = false;
 
@@ -815,9 +805,9 @@ class OpportunityController extends Controller {
 			$view_type = $request->input('viewtype_value');
 			$industry = $request->input('opp_industry');
 			if (User::getEBossStaffTrue($user_id) == false) {
-				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-					$view_type == '1';	
-				}
+			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+				$view_type == '1';	
+			}
 			}
 
 			//$opp = OpportunityBuildingCapability::where('company_id', $company_id)->first();
@@ -835,8 +825,6 @@ class OpportunityController extends Controller {
 				$opp->audience_target = $audienceTarget; // $request->input('audience_target');
 
 				$opp->intro_describe_business = $request->input('intro_describe_business');
-
-				$opp->oppo_description = $request->input('oppo_description');
 
 				$opp->why_partner_goal = $request->input('why_partner_goal');
 
@@ -877,8 +865,6 @@ class OpportunityController extends Controller {
 					'audience_target' => $audienceTarget, //$request->input('audience_target'),
 
 					'intro_describe_business' => $request->input('intro_describe_business'),
-
-					'oppo_description' => $request->input('oppo_description'),
 
 					'why_partner_goal' => $request->input('why_partner_goal'),
 
@@ -990,17 +976,17 @@ class OpportunityController extends Controller {
 			$industry = $request->input('opp_industry');
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
+			
+			if (User::getEBossStaffTrue($user_id) == false) {	
 
-			if (User::getEBossStaffTrue($user_id) == false) {
-				
-				if(OpportunityController::validateAccLimits($company_id) == false){
-					return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
-					exit;
-				}
+			if(OpportunityController::validateAccLimits($company_id) == false){
+				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+				exit;
+			}
 
-				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-					$view_type == '1';	
-				}
+			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+				$view_type == '1';	
+			}
 			}
 
 			$opp = OpportunitySellOffer::find($request->input("id"));
@@ -1014,8 +1000,6 @@ class OpportunityController extends Controller {
 				$opp->audience_target = $audienceTarget; //$request->input('audience_target');
 
 				$opp->intro_describe_business = $request->input('intro_describe_business');
-
-				$opp->oppo_description = $request->input('oppo_description');
 
 				$opp->why_partner_goal = $request->input('why_partner_goal');
 
@@ -1054,8 +1038,6 @@ class OpportunityController extends Controller {
 					'audience_target' => $audienceTarget, //$request->input('audience_target'),
 
 					'intro_describe_business' => $request->input('intro_describe_business'),
-
-					'oppo_description' => $request->input('oppo_description'),
 
 					'why_partner_goal' => $request->input('why_partner_goal'),
 
@@ -1164,18 +1146,18 @@ class OpportunityController extends Controller {
 			$industry = $request->input('opp_industry');
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
-
+			
 			if (User::getEBossStaffTrue($user_id) == false) {
 
-				if( OpportunityController::validateAccLimits($company_id) == false){
+			if( OpportunityController::validateAccLimits($company_id) == false){
 
-					return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
-					exit;
-				}
+				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+				exit;
+			}
 
-				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-					$view_type == '1';	
-				}
+			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+				$view_type == '1';	
+			}
 
 			}
 			$opp = OpportunityBuy::find($request->input("id"));
@@ -1189,8 +1171,6 @@ class OpportunityController extends Controller {
 				$opp->audience_target = $audienceTarget; //$request->input('audience_target');
 
 				$opp->intro_describe_business = $request->input('intro_describe_business');
-
-				$opp->oppo_description = $request->input('oppo_description');
 
 				$opp->why_partner_goal = $request->input('why_partner_goal');
 
@@ -1229,8 +1209,6 @@ class OpportunityController extends Controller {
 					'audience_target' => $audienceTarget, //$request->input('audience_target'),
 
 					'intro_describe_business' => $request->input('intro_describe_business'),
-
-					'oppo_description' => $request->input('oppo_description'),
 
 					'why_partner_goal' => $request->input('why_partner_goal'),
 

@@ -291,12 +291,19 @@
         }
     }
     </style>
+
+    <?php 
+    $u = App\User::find(Auth::id());
+    if($u->m_id == null || $u->m_id == 0){
+    ?>
+
         <div class="container">
             <div class="bootstrap row justify-content-center">
 {{--                 <div class="bootstrap col-md-12">
                     <div class="hero-image" >
                     </div>
                 </div> --}}
+
             <div class="col-md-12" id="banner"  style="margin-bottom:80px;">
                 <div class="card text-white fb-profile-block imghov" id="theBanner" style="max-height: 380px; max-width: 1140px; position: relative;">
                     <div class="fb-profile-block-thumb hero-image">
@@ -320,6 +327,9 @@
             </div>
         </div>
 
+    <?php 
+    }
+    ?>    
 
     <div class="container">
         <div class="bootstrap row justify-content-center">
@@ -393,14 +403,14 @@
                                                 {{ $businessNews['content']['business_title'] }}
                                             </div>
 
-                                        </div>
+                                            </div>
                                         <div class="bootstrap card-footer">
                                             <a href="#"  class="bootstrap card-link btn btn-info ">View</a>
                                        
                     {{--                     <a href="#" class="bootstrap card-link"><i class="fa fa-gittip"></i> Like</a>
                                         <a href="#" class="bootstrap card-link"><i class="fa fa-comment"></i> Comment</a>
                                         <a href="#" class="bootstrap card-link"><i class="fa fa-mail-forward"></i> Share</a> --}}
-                                    </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -455,7 +465,7 @@
                                         {{ $topbusinessNews->business_title }}
                                     </div>
 
-                                </div>
+                                    </div>
                                 <div class="bootstrap card-footer">
                                         <a href="#"  class="bootstrap card-link btn btn-info ">View</a>
                                    
@@ -559,7 +569,7 @@
             $embedVideo2 = [];
             $embedVideo = App\Configurations::where('code_name','video_link_advertisement')->first();
             if($embedVideo){
-                $embedVideo2 = explode(',',$embedVideo->json_value );
+            $embedVideo2 = explode(',',$embedVideo->json_value );
                 $embedVideoCount = $embedVideo->count();
             }else{
                 $embedVideoCount = 0;

@@ -366,6 +366,7 @@ class MasterConsultantsController extends Controller {
 			$rs = RequestApproval::where('main_consultant', $consul_id)->where('status', 1)->get();
 
 			$subsConsultants = ConsultantMapping::getSubConsultantsByMaster($consul_id);
+				
 
 			return view('mconsultant.overview', compact('rs', 'subsConsultants'));
 

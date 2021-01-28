@@ -82,7 +82,7 @@ table td{
                                  $timestamp = strtotime($data->UPDATED);
                                  // Creating new date format from that timestamp
                                  $updated_prokakis = date("F j, Y", $timestamp);
-                          }  
+                          }      
       $pecentage = "";
       $r_id = explode(",", $ids);
       foreach($r_id as $t){

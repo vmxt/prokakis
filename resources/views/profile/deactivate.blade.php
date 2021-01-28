@@ -82,7 +82,7 @@
 	background:rgba(0,0,0,1);
 	text-decoration:none;
 }
-
+        
 .card{
             margin: 0 auto;
         }

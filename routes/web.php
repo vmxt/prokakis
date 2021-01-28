@@ -21,6 +21,22 @@ Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsub
 Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken');
 Route::get('/worldData', 'Test2Controller@getWorldData')->name('updateWorldData');
 
+Route::get('/genReportAll/{rpId}', 'BuyreportController@downloadAll')->name('reportAllDownload');
+Route::get('/genReportAml/{rpId}', 'BuyreportController@repAml')->name('reportAML');
+Route::get('/genReportIa/{rpId}', 'BuyreportController@repIa')->name('reportInvestorsAlert');
+Route::get('/genReportAm/{rpId}', 'BuyreportController@repAm')->name('reportAdverMedia');
+
+Route::get('/panamaList', 'AlertedrecordsController@panama')->name('panamaList');
+Route::get('/offshoreList', 'AlertedrecordsController@offshore')->name('offshoreList');
+Route::get('/bahamasList', 'AlertedrecordsController@bahamas')->name('bahamasList');
+Route::get('/paradiseList', 'AlertedrecordsController@paradise')->name('paradiseList');
+
+//subaccounts
+Route::get('/subaccounts', 'SubaccountsController@index')->name('setSubaccounts');
+Route::get('/register-sa/{userId}', 'SubaccountsController@setRegistration')->name('registerSubAccount');
+Route::post('/registerconfig', 'SubaccountsController@ajxRegistration')->name('AjaxRegistration');
+Route::post('/deactivate-sa', 'SubaccountsController@ajxDeactivate')->name('AjaxSADeactivation');
+
 //for social media. public usage
 //Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing'); #old
 Route::get('/company/{brand}/{id}', 'CompanyController@index')->name('companySocialsharing');
@@ -152,6 +168,8 @@ Route::post('/home/companyAdd', 'HomeController@addCompany')->name('homeAddCompa
 Route::post('/home/companySelect', 'HomeController@selectCompany')->name('homeSelectCompany');
 Route::get('/homeSales', 'HomeController@ebosSales')->name('ebosSales');
 Route::get('/homeAP', 'HomeController@ebosAP')->name('ebosAP');
+Route::get('/homeSA', 'HomeController@ebosSA')->name('ebosSA');
+Route::get('/samanage/{company_id}', 'SubaccountsController@manageSelectedCompany')->name('ManageSelectedCompany');
 
 //consultant
 Route::get('/consultants', 'ConsultantsController@index')->name('indexConsultantFAreport');
@@ -203,7 +221,6 @@ Route::get('/opportunity/select', 'OpportunityController@select')->name('opportu
 Route::post('/opportunity/premium', 'OpportunityController@premiumPurchase')->name('PremiumPurchase');
 Route::post('/opportunity/alertFreeAccount', 'OpportunityController@alertFreeAccount')->name('AlertFreeAccount');
 Route::post('/opportunity/OppotunityUpdate', 'OpportunityController@updateOpportunityDetail')->name('updateOpportunityDetail');
-
 
 Route::get('/opportunity/build', 'OpportunityController@buildNew')->name('opportunityNewBuild');
 Route::get('/opportunity/editBuild/{id}', 'OpportunityController@editBuild')->name('opportunityEditBuild');

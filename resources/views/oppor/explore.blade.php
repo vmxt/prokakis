@@ -102,12 +102,12 @@
     $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
     $tokenStock = App\SpentTokens::validateTokenStocks($requestor_id);
     //echo $tokenStock;
-    $opportunity_type ="";
+     $opportunity_type ="";
 ?>
 
         <div class="row">
             <!-- START BUILD OPPORTUNITY -->
-            <div class="hr-sect opp_type"  >Build Opportunity</div>
+            <div class="hr-sect opp_type" >Build Opportunity</div>
                 <div class='blog-posts' id="build-sect">
                 <?php       
                     $i = 1;
@@ -290,7 +290,7 @@
                     <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
                 </div>
         <div class="modal-body">
-
+ 
             <div id='rating_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> Ratings </strong></h4>
@@ -744,8 +744,8 @@
                     <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
                 </div>
         <div class="modal-body">
-
-            <div >
+            
+            <div>
                 <span class="title-text">
                     <h4><strong> Ratings </strong></h4>
                 </span>
@@ -958,7 +958,7 @@
 
                         @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
                             <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                        @else
+                            @else
                             <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
 
                             <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
@@ -2252,7 +2252,7 @@
         }
 
         var chatInterval;
-        function OppInboxMe(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
+        function OppInboxMe(avatarUrl, title, companyOpp,companyViewer,oppId,oppType){
             $('.chatOppTitle').text(title);
             $('#chatAvatar').attr('src',avatarUrl);
             $('#chat-companyOpp').val(companyOpp);
@@ -2281,9 +2281,9 @@
         function OppVcMe(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
 
             //window.open("http://localhost/prokakis/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
-            window.open("https://test.app-prokakis.com/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
-            //window.open("https://app-prokakis.com//vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
-
+            // window.open("https://test.app-prokakis.com/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
+            window.open("https://app-prokakis.com/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
+         
         }
 
         function checkAlertByPremium(companyOpp, companyViewer)
@@ -2343,40 +2343,40 @@
       // chat.getState(); 
        
        // watch textarea for key presses
-        $("#sendie").keydown(function(event) {  
-            var key = event.which;  
-            //all keys including return.  
-            if (key >= 33) {
+            $("#sendie").keydown(function(event) {  
+               var key = event.which;  
+               //all keys including return.  
+               if (key >= 33) {
                 //var maxLength = $(this).attr("maxlength");  
-                var length = this.value.length;  
-                // don't allow new content if length is maxed out
+                   var length = this.value.length;  
+                   // don't allow new content if length is maxed out
                 if (length >= 200) {  
-                    event.preventDefault();  
+                       event.preventDefault();  
+                   }  
                 }  
-            }  
-        });
+            });
 
 
        // watch textarea for release of key press
        $('#sendie').keyup(function(e) { 
-            if (e.keyCode == 13) { 
-                var text = $(this).val();
+          if (e.keyCode == 13) { 
+                  var text = $(this).val();
                 //var maxLength = $(this).attr("maxlength");  
-                var length = text.length; 
-                // send 
+                  var length = text.length; 
+                  // send 
                 if (length > 1) { 
-                    chat.send(text, name);  
-                    $(this).val("");
+                chat.send(text, name);  
+                $(this).val("");
                 } 
                     // $(this).val(text.substring(0, maxLength));
                     //event.preventDefault(); 
             }
         });
-
-
+                
+                  
        // watch textarea for release of key press
        $('#sendMessage').click(function(e) { 
-
+            
             var text = $('#sendie').val();
             //var maxLength = $('#sendie').attr("maxlength");  
             var length = text.length; 
@@ -2384,11 +2384,11 @@
             if (length > 1) { 
                 chat.send(text, name);  
                 $('#sendie').val("");
-            } 
+              } 
                 // $("#sendie").val(text.substring(0, maxLength));
                 //event.preventDefault(); 
-            
-        });
+          
+           });
 
 
 
@@ -2438,7 +2438,7 @@ function getStateOfChat(){
           },
             error: function(){
                 NotifyError();
-            }
+          }
       });
 
   }  
@@ -2493,7 +2493,7 @@ function chatload(){
           },
         error: function(){
             NotifyError();
-        }
+          }
       });
 }
 
@@ -2552,7 +2552,7 @@ function updateChat(){
           },
         error: function(){ 
             NotifyError();
-        }
+          }
       });
 
    }
@@ -2606,7 +2606,7 @@ function sendChat(message, nickname)
 // Instance the tour
 var tour = new Tour({
   steps: [
-    {
+  {
     element: "#keywordSearch",
     title: "Filter by Keyword",
     content: "you can filter your search result by keyword"

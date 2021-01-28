@@ -138,7 +138,7 @@ class ReportsController extends Controller
 
             $input = $request->input("top_up");
 
-            AuditLog::ok(array(Auth::id(), 'reports', 'top up tokens', 'buying a new credit of worth '.$input)); 
+            AuditLog::ok(array(Auth::id(), 'reports', 'top up credits', 'buying a new credit of worth '.$input)); 
 
 
 

@@ -17,7 +17,7 @@ class Subscribers extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id', 'start_date', 'end_date', 'subs_type', 'profileId', 'created_at', 'updated_at', 'status' 
+        'company_id', 'payer_email', 'start_date', 'end_date', 'subs_type', 'profileId', 'created_at', 'updated_at', 'status' 
     ];
 
     /**
@@ -28,4 +28,18 @@ class Subscribers extends Model
     protected $hidden = [
        'id' 
     ];
+
+    public static function getSubscriberStatus($companyId)
+    {
+       $c_subs = Subscribers::where('company_id', $companyId)->where('status', 1)->count();
+       if($c_subs > 0){
+        return true;
+       } else {
+        return false;   
+       }
+
+    }
+
+
+
 }

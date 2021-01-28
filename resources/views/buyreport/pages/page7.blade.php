@@ -34,7 +34,7 @@
           <tr>
             <th>Ratio</th>
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
               @foreach($MONTH_RATIO as $data )
               <th>{{ $data }}</th>
               @endforeach
@@ -46,7 +46,7 @@
           <tr>
             <td>Receivable Turnover:</td>
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
               @foreach($MONTH_RATIO as $data )
               <td>{{ $RT[$data] }}</td>
               @endforeach
@@ -56,7 +56,7 @@
           <tr>
             <td>Average Collection Period:</td>
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
               @foreach($MONTH_RATIO as $data )
               <td>{{ $ACP[$data] }}</td>
               @endforeach
@@ -83,7 +83,7 @@
             <th>Ratio</th>
             
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -95,7 +95,7 @@
           <tr>
             <td>Inventory Turnover:</td>
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $IT[$data] }}</td>
             @endforeach
@@ -105,7 +105,7 @@
           <tr>
             <td>Days in Inventory:</td>
          
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $DII[$data] }}</td>
             @endforeach
@@ -130,7 +130,7 @@
           <tr>
             <th>Ratio</th>
            
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -143,7 +143,7 @@
             <td>Payable Turnover:</td>
             
             
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $PT[$data] }}</td>
             @endforeach
@@ -155,7 +155,7 @@
             <td>Average Payment Period:</td>
            
              
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $APP[$data] }}</td>
             @endforeach
@@ -190,7 +190,7 @@
           <tr>
             <th>Ratio</th>
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
               @foreach($MONTH_RATIO as $data )
               <th>{{ $data }}</th>
               @endforeach
@@ -202,7 +202,7 @@
           <tr>
             <td>Net Working Capital:</td>
         
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $NWP[$data] }}</td>
             @endforeach
@@ -227,7 +227,7 @@
           <tr>
             <th>Ratio</th>
            
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -239,7 +239,7 @@
           <tr>
             <td>Current Ratio:</td>
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $CR[$data] }}</td>
             @endforeach
@@ -264,7 +264,7 @@
           <tr>
             <th>Ratio</th>
             
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -276,7 +276,7 @@
           <tr>
             <td>Quick Ratio:</td>
            
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $QR[$data] }}</td>
             @endforeach
@@ -309,7 +309,7 @@
           <tr>
             <th>Ratio</th>
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -321,7 +321,7 @@
           <tr>
             <td>Debt to Equity:</td>
             
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $DTE[$data] }}</td>
             @endforeach
@@ -346,7 +346,7 @@
           <tr>
             <th>Ratio</th>
            
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -358,7 +358,7 @@
           <tr>
             <td>Debt to Asset:</td>
        
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $DTA[$data] }}</td>
             @endforeach
@@ -384,7 +384,7 @@
           <tr>
             <th>Ratio</th>
           
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -396,7 +396,7 @@
           <tr>
             <td>Interest Coverage:</td>
           
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $IC[$data] }}</td>
             @endforeach
@@ -429,7 +429,7 @@
           <tr>
             <th>Ratio</th>
             
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -441,7 +441,7 @@
           <tr>
             <td>Gross Profit Margin:</td>
         
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $GPM[$data] }}</td>
             @endforeach
@@ -465,7 +465,7 @@
         <thead>
           <tr>
             <th>Ratio</th>
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -477,7 +477,7 @@
           <tr>
             <td>Operating Profit Margin:</td>
            
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $OPM[$data] }}</td>
             @endforeach
@@ -502,7 +502,7 @@
           <tr>
             <th>Ratio</th>
           
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -514,7 +514,7 @@
           <tr>
             <td>Net Profit Margin:</td>
 
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $NPM[$data] }}</td>
             @endforeach
@@ -540,7 +540,7 @@
           <tr>
             <th>Ratio</th>
            
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -553,7 +553,7 @@
             <td>Ratio of Investment:</td>
             
             
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $ROI[$data] }}</td>
             @endforeach
@@ -577,7 +577,7 @@
         <thead>
           <tr>
             <th>Ratio</th>
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <th>{{ $data }}</th>
             @endforeach
@@ -589,7 +589,7 @@
           <tr>
             <td>Return of Equity:</td>
            
-            @if(sizeof($MONTH_RATIO) == 0)
+            @if(sizeof($MONTH_RATIO) > 0)
             @foreach($MONTH_RATIO as $data )
             <td>{{ $ROE[$data] }}</td>
             @endforeach

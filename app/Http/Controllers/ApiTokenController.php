@@ -203,7 +203,7 @@ class ApiTokenController extends Controller
 
                      $ind =  OppIndustry::find($d->industry);
 
-                     $imgSrc = 'https://app.prokakis.com/public/images/industry/'.$ind->image;
+                     $imgSrc = 'https://app-prokakis.com/public/images/industry/'.$ind->image;
 
                      $ret[] = array('business_description'=>$d->intro_describe_business, 
                      'country'=>$d->ideal_partner_base, 
@@ -305,15 +305,47 @@ class ApiTokenController extends Controller
                      }
                     
                      $result = array('result'=>'success');
-
+			
                      foreach($v as $d){
+		     $cc = [];
+		     $c_country = "";		
+		     if(strlen($d->ideal_partner_base) > 0){
+			$cc = explode(",",$d->ideal_partner_base);
+			if(isset($cc[0]))
+			{
+			$c_country = $c_country . $cc[0];  	
+			}
+			if(isset($cc[1])){
+			$c_country = $c_country . ','.$cc[1];
+			}
+			if(isset($cc[2])){
+			$c_country = $c_country . ','.$cc[2];
+			}
+	
+		     }	
+
+            if($d->is_anywhere == 1){
+                $c_country = "Anywhere";
+            }
+
+             $keyword = explode(",", $d->relevant_describing_partner);
+             $hashKey ="";
+             if( $d->relevant_describing_partner ){
+                 foreach ($keyword as $val ) {
+                    if($val!="")
+                     $hashKey .= '#'.str_replace(' ','_',$val)." ";
+                 }
+             }
+		     $ttitle = substr($d->opp_title, 0, 33).'..';	
                      $ind =  OppIndustry::find($d->industry);
-                     $imgSrc = 'https://app.prokakis.com/public/images/industry/'.$ind->image;
+                     $imgSrc = 'https://app-prokakis.com/public/images/industry/'.$ind->image;
                      $ret[] = array('business_description'=>$d->intro_describe_business, 
-                     'country'=>$d->ideal_partner_base, 
+                     'country'=>$c_country, 
+                     'keyword'=>$hashKey ,
+                     'keyword_raw'=>$d->relevant_describing_partner ,
                      'industry_category'=>$ind->text, 
                      'industry_image'=>$imgSrc,
-                     'title'=>$d->opp_title);
+                     'title'=> strtoupper($d->opp_title) );
                      }
 
                      $result['data'] = $ret; 
@@ -336,7 +368,7 @@ class ApiTokenController extends Controller
       $ret = null;
     
       foreach($result as $d){
-        $url = "https://app.prokakis.com/public/images/".UploadImages::getFileNames($d->user_id, $d->company_id, Config::get('constants.options.profile'), 1);
+        $url = "https://app-prokakis.com/public/images/".UploadImages::getFileNames($d->user_id, $d->company_id, Config::get('constants.options.profile'), 1);
         $c = Countries::where('country_code', $d->primary_country)->first();
         $country = ($c != null)? $c->country_name : '';
         $ret[] = array('img'=>$url,

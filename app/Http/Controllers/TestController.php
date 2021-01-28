@@ -13,12 +13,13 @@ use App\UploadImages;
 use App\User;
 use Config;
 use Illuminate\Http\Request;
+use App\AuditLog;
 
 class TestController extends Controller {
 
 	/**
 
-	 * Create a new controller instance.
+	 * Create a new controller instances
 
 	 *
 
@@ -46,7 +47,7 @@ class TestController extends Controller {
 				if ($res < 51) {
 					//send an email
 
-					$data = file_get_contents("http://app.prokakis.com/public/emailtemplate/ProkakisEnhanceProfile.html");
+					$data = file_get_contents("http://app-prokakis.com/public/emailtemplate/ProkakisEnhanceProfile.html");
 
 					$rs_usr = User::find($d->user_id);
 					$email_address = $rs_usr->email;
@@ -63,6 +64,7 @@ class TestController extends Controller {
 					$data = str_replace("[UNSUBSCRIBE LINK]", $url_token, $data);
 
 					$this->alertNotify($data, $email_address, 'Enhance Company Profile, Prokakis');
+				        AuditLog::ok(array(0, 'Company Profile', 'sending email alert via cronjob', $email_address.' Enhance Company Profile, Prokakis'));
 
 				} elseif ($res > 50) {
 
@@ -89,6 +91,7 @@ class TestController extends Controller {
 						$dataOpp = str_replace("[UNSUBSCRIBE LINK]", $url_token, $dataOpp);
 
 						$this->alertNotify($dataOpp, $email_address, 'Add Opportunity, Prokakis');
+						AuditLog::ok(array(0, 'Opportunity', 'sending email alert via cronjob', $email_address.' Add Opportunity, Prokakis'));
 					}
 
 				}
@@ -99,7 +102,7 @@ class TestController extends Controller {
 		echo "Done ..." . "\n";
 
 		/*
-			        $data = file_get_contents("http://app.prokakis.com/public/emailtemplate/ProkakisEnhanceProfile.html");
+			        $data = file_get_contents("http://app-prokakis.com/public/emailtemplate/ProkakisEnhanceProfile.html");
 			        $data = str_replace("[First Name]", "Test Victor", $data);
 			        $data = str_replace("[Company Name]", "Test Company", $data);
 
