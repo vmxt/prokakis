@@ -138,17 +138,17 @@ table td{
 
             @foreach($dataR as $data)
 <?php       
-                          $company_out = (isset($data->COMPANIES))? $data->COMPANIES : '';
+                          $company_out = (isset($data['COMPANIES']))? $data['COMPANIES'] : '';
                           $inserted_prokakis = '';
-                          if ($data->CREATED_AT != NULL) {
+                          if (isset($data['CREATED_AT']) and $data['CREATED_AT'] != NULL) {
                                 // Creating timestamp from given date
-                                $timestamp = strtotime($data->CREATED_AT);
+                                $timestamp = strtotime($data['CREATED_AT']);
                                 // Creating new date format from that timestamp
                                 $inserted_prokakis = date("F j, Y", $timestamp);
                           }
                           $updated_prokakis = '';
-                          if ($data->UPDATED != NULL) {
-                                 $timestamp = strtotime($data->UPDATED);
+                          if ($data['UPDATED'] != NULL) {
+                                 $timestamp = strtotime($data['UPDATED']);
                                  // Creating new date format from that timestamp
                                  $updated_prokakis = date("F j, Y", $timestamp);
                           }  
@@ -156,7 +156,7 @@ table td{
       $r_id = explode(",", $ids);
       foreach($r_id as $t){
         $tt = explode("||", $t);
-        if($data->UID == $tt[0]){
+        if($data['UID'] == $tt[0]){
           $pecentage = $tt[1];
         }
       }
@@ -165,15 +165,15 @@ table td{
 
 
                     <tr>
-                      <td >{{  $data->FIRST_NAME. '  '.$data->LAST_NAME}}</td>
+                      <td >{{  $data['FIRST_NAME']. '  '.$data['LAST_NAME']}}</td>
        
-                      <td>{{ $data->category }}</td>
+                      <td>{{ $data['CATEGORY'] }}</td>
 
-                      <td>{{ $data->COMPANIES }}</td>
+                      <td>{{ $data['COMPANIES'] }}</td>
           
-                      <td>{{ $data->COUNTRIES }}</td>
+                      <td>{{ $data['COUNTRIES'] }}</td>
        
-                      <td>{{ $data->CITIZENSHIP }}</td>
+                      <td>{{ $data['CITIZENSHIP'] }}</td>
 
                       <td>{{ $updated_prokakis }}</td>
          

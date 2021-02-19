@@ -229,7 +229,55 @@ class ProcessedReport extends Model {
 	}
 
 
+	public static function getTheActiveRequestReport(){
 
+		$approvals = array();	
+
+		$d = ProcessedReport::whereDate('month_subscription_start', '<=', date('Y-m-d'))
+
+		->whereDate('month_subscription_end', '>=',  date('Y-m-d'))
+
+		->get();
+
+		foreach($d as $s){
+
+		 $approvals[] = $s->approval_id;
+
+		}	
+
+ 
+
+		$cp = RequestApproval::whereIn('id', $approvals)->get();
+
+ 
+
+			 $active_ids = [];
+
+			 $rr = null;
+
+ 
+
+			 if($cp != null){
+
+				 foreach($cp as $c){
+
+					 $active_ids[] = $c->req_rep_id;
+
+				 }
+
+			 }
+
+	 
+
+			 if(sizeof($active_ids) > 0){
+
+			 $rr = RequestReport::whereIn('id', $active_ids)->get();
+
+			 } 
+
+			return $rr; 
+
+	}
 
 }
 

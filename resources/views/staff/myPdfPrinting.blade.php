@@ -69,17 +69,17 @@ table td{
           </div>
             @foreach($dataR as $data)
 <?php       
-                          $company_out = (isset($data->COMPANIES))? $data->COMPANIES : '';
+                          $company_out = (isset($data['COMPANIES']))? $data['COMPANIES'] : '';
                           $inserted_prokakis = '';
-                          if ($data->CREATED_AT != NULL) {
+                          if ($data['CREATED_AT'] != NULL) {
                                 // Creating timestamp from given date
-                                $timestamp = strtotime($data->CREATED_AT);
+                                $timestamp = strtotime($data['CREATED_AT']);
                                 // Creating new date format from that timestamp
                                 $inserted_prokakis = date("F j, Y", $timestamp);
                           }
                           $updated_prokakis = '';
-                          if ($data->UPDATED != NULL) {
-                                 $timestamp = strtotime($data->UPDATED);
+                          if ($data['UPDATED'] != NULL) {
+                                 $timestamp = strtotime($data['UPDATED']);
                                  // Creating new date format from that timestamp
                                  $updated_prokakis = date("F j, Y", $timestamp);
                           }      
@@ -87,7 +87,7 @@ table td{
       $r_id = explode(",", $ids);
       foreach($r_id as $t){
         $tt = explode("||", $t);
-        if($data->UID == $tt[0]){
+        if($data['UID'] == $tt[0]){
           $pecentage = $tt[1];
         }
       }
@@ -97,7 +97,7 @@ table td{
       <div class="row">
         <div class="jumbotron name-header">
           <h4>
-            {{ $data->FIRST_NAME. '  '.$data->LAST_NAME}}
+            {{ $data['FIRST_NAME']. '  '.$data['LAST_NAME']}}
           </h4>
           <h6><strong>Mach Result Percentage:</strong><em> {{ $pecentage }}%</em></h6>
         </div>
@@ -127,12 +127,12 @@ table td{
 
               <tr>
                 <th width="30%">First Name</th>
-                <td   width="70%">{{ $data->FIRST_NAME }}</td>
+                <td   width="70%">{{ $data['FIRST_NAME'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">Last Name</th>
-                <td   width="70%">{{ $data->LAST_NAME }}</td>
+                <td   width="70%">{{ $data['LAST_NAME'] }}</td>
               </tr>
 
               <tr>
@@ -142,77 +142,77 @@ table td{
 
               <tr>
                 <th width="30%">Aliases</th>
-                <td   width="70%">{{ $data->ALIASES }}</td>
+                <td   width="70%">{{ $data['ALIASES'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">CATEGORY</th>
-                <td   width="70%">{{ $data->CATEGORY }}</td>
+                <td   width="70%">{{ $data['CATEGORY'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">TITLE</th>
-                <td   width="70%">{{ $data->TITLE }}</td>
+                <td   width="70%">{{ $data['TITLE'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">Gender</th>
-                <td   width="70%">{{ $data->E_I }}</td>
+                <td   width="70%">{{ $data['E_I'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">POSITION</th>
-                <td   width="70%">{{ $data->POSITION }}</td>
+                <td   width="70%">{{ $data['POSITION'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">DATE OF BIRTH</th>
-                <td   width="70%">{{ $data->DOB }}</td>
+                <td   width="70%">{{ $data['DOB'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">LOCATIONS</th>
-                <td   width="70%">{{ $data->LOCATIONS }}</td>
+                <td   width="70%">{{ $data['LOCATIONS'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">PASSPORTS</th>
-                <td   width="70%">{{ $data->PASSPORTS }}</td>
+                <td   width="70%">{{ $data['PASSPORTS'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">CITIZENSHIP</th>
-                <td   width="70%">{{ $data->CITIZENSHIP }}</td>
+                <td   width="70%">{{ $data['CITIZENSHIP'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">PLACE OF BIRTH</th>
-                <td   width="70%">{{ $data->PLACE_OF_BIRTH }}</td>
+                <td   width="70%">{{ $data['PLACE_OF_BIRTH'] }}</td>
               </tr>
 
               <tr>
                 <th width="30%">COMPANIES</th>
-                <td   width="70%">{{ $data->COMPANIES }}</td>
+                <td   width="70%">{{ $data['COMPANIES'] }}</td>
               </tr>
 
                <tr>
                 <th width="30%">COUNTRY LOCATIONS</th>
-                <td   width="70%">{{ $data->LOCATIONS }}</td>
+                <td   width="70%">{{ $data['LOCATIONS'] }}</td>
               </tr>             
 
                <tr>
                 <th width="30%">KEY WORDS</th>
-                <td   width="70%">{{ $data->KEYWORDS }}</td>
+                <td   width="70%">{{ $data['KEYWORDS'] }}</td>
               </tr>   
 
                <tr>
                 <th width="30%">FURTHER INFORMATION</th>
-                <td   width="70%">{{ $data->FURTHER_INFORMATION }}</td>
+                <td   width="70%">{{ $data['FURTHER_INFORMATION'] }}</td>
               </tr>  
 
                <tr>
                 <th width="30%">EXTERNAL SOURCES</th>
-                <td   width="70%">{{ $data->EXTERNAL_SOURCES }}</td>
+                <td   width="70%">{{ $data['EXTERNAL_SOURCES'] }}</td>
               </tr>  
 
 

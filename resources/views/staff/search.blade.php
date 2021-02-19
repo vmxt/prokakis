@@ -393,7 +393,7 @@ td{
 
                                             foreach ($country_list as $d) {
 
-                                                $arr = $d->COUNTRIES;
+                                                $arr = $d['COUNTRIES'];
 
                                                 // echo $arr.'<br />';
 
@@ -425,7 +425,7 @@ td{
 
                                             foreach ($citenzenship_list as $d) {
 
-                                                $arr = $d->CITIZENSHIP;
+                                                $arr = $d['CITIZENSHIP'];
 
                                                 // echo $arr.'<br />';
 
@@ -551,7 +551,7 @@ td{
 
                                 <div class="form-group">
 
-                                    <label> Company Name </label>
+                                    <label> Company Name <code>required *</code> </label>
 
                                     <input id="company_name" name="company_name" class="form-control placeholder-no-fix" type="text" placeholder="Write Company Name" autofocus>
 
@@ -781,21 +781,21 @@ td{
 
                                            foreach($rs as $d){
 
-                                             similar_text(strtolower($input['first_name']), strtolower($d->FIRST_NAME), $fname_percent); 
+                                             similar_text(strtolower($input['first_name']), strtolower($d['FIRST_NAME']), $fname_percent); 
 
-                                             similar_text(strtolower($input['last_name']), strtolower($d->LAST_NAME), $lname_percent); 
+                                             similar_text(strtolower($input['last_name']), strtolower($d['LAST_NAME']), $lname_percent); 
 
-                                             similar_text(strtolower($input['gender']), strtolower($d->E_I), $gender_percent); 
+                                             similar_text(strtolower($input['gender']), strtolower($d['E_I']), $gender_percent); 
 
-                                             similar_text(strtolower($input['alias']), strtolower($d->ALIASES), $alias_percent); 
+                                             similar_text(strtolower($input['alias']), strtolower($d['ALIASES']), $alias_percent); 
 
-                                             similar_text(strtolower($input['dob']), strtolower($d->DOB), $dob_percent); 
+                                             similar_text(strtolower($input['dob']), strtolower($d['DOB']), $dob_percent); 
 
-                                             similar_text(strtolower($input['country_location']), strtolower($d->COUNTRIES), $countries_percent); 
+                                             similar_text(strtolower($input['country_location']), strtolower($d['COUNTRIES']), $countries_percent); 
 
-                                             similar_text(strtolower($input['nationality']), strtolower($d->CITIZENSHIP), $citizenship_percent); 
+                                             similar_text(strtolower($input['nationality']), strtolower($d['CITIZENSHIP']), $citizenship_percent); 
 
-                                             similar_text(strtolower($input['passport']), strtolower($d->PASSPORTS), $passport_percent); 
+                                             similar_text(strtolower($input['passport']), strtolower($d['PASSPORTS']), $passport_percent); 
 
                                              $total_percent = $fname_percent + $lname_percent + $gender_percent + $alias_percent + $dob_percent + $countries_percent + $citizenship_percent + $passport_percent;
 
@@ -817,11 +817,11 @@ td{
 
 
 
-                                                    <input type="checkbox" name="checkboxes1[]" value="<?php echo $d->UID; ?>" id="checkbox_<?php echo $d->UID; ?>" class="md-check" resultPecentage="<?=number_format($total_percent,2)?>" >
+                                                    <input type="checkbox" name="checkboxes1[]" value="<?php echo $d['UID']; ?>" id="checkbox_<?php echo $d['UID']; ?>" class="md-check" resultPecentage="<?=number_format($total_percent,2)?>" >
 
 
 
-                                                    <label for="checkbox_<?php echo $d->UID; ?>">
+                                                    <label for="checkbox_<?php echo $d['UID']; ?>">
 
 
 
@@ -849,7 +849,7 @@ td{
 
                                                 <span class="card" style="float:left;">
 
-                                                    <input data-popup-open="popup-2" onclick="openTR(<?php echo $d->UID; ?>);" type="button" class="btn btn-danger" value="view" />
+                                                    <input data-popup-open="popup-2" onclick="openTR(<?php echo $d['UID']; ?>);" type="button" class="btn btn-danger" value="view" />
 
                                                 </span>
 
@@ -857,19 +857,19 @@ td{
 
                                             <td><?=number_format($total_percent,2)?> %</td>
 
-                                            <td><?php echo (isset($d->FIRST_NAME))? $d->FIRST_NAME : ''; ?></td>
+                                            <td><?php echo (isset($d['FIRST_NAME']))? $d['FIRST_NAME'] : ''; ?></td>
 
-                                            <td><?php echo (isset($d->LAST_NAME))? $d->LAST_NAME : ''; ?></td>
+                                            <td><?php echo (isset($d['LAST_NAME']))? $d['LAST_NAME'] : ''; ?></td>
 
                                             <!-- <td width="5%"><?php //echo (isset($d->ALIASES))? $d->ALIASES : ''; ?></td> -->
 
-                                            <td width="5%"><?php echo (isset($d->CATEGORY))? $d->CATEGORY : ''; ?></td> 
+                                            <td width="5%"><?php echo (isset($d['CATEGORY']))? $d['CATEGORY'] : ''; ?></td> 
 
-                                            <td width="5%"><?php echo (isset($d->POSITION))? $d->POSITION : ''; ?></td> 
+                                            <td width="5%"><?php echo (isset($d['POSITION']))? $d['POSITION'] : ''; ?></td> 
 
                                         <!--     <td width="5%"><?php //echo (isset($d->PLACE_OF_BIRTH))? $d->PLACE_OF_BIRTH : ''; ?></td>  -->
 
-                                            <td width="5%"><?php echo (isset($d->COUNTRIES))? $d->COUNTRIES : ''; ?></td>
+                                            <td width="5%"><?php echo (isset($d['COUNTRIES']))? $d['COUNTRIES'] : ''; ?></td>
 
                                             <!-- <td width="5%"><?php //echo (isset($d->LOCATIONS))? $d->LOCATIONS : ''; ?></td>
 
@@ -985,15 +985,15 @@ td{
 
                     <td width="2%">
 
-                        <button class="btn btn-primary" onclick="assignTR('<?php echo $d->id; ?>')"> SELECT </button>
+                        <button class="btn btn-primary" onclick="assignTR('<?php echo $d['id']; ?>')"> SELECT </button>
 
                     </td>
 
-                    <td width="2%"><?php echo $d->id; ?></td>
+                    <td width="2%"><?php echo $d['id']; ?></td>
 
                     <td width="5%"><?php 
 
-                      $prov =  App\CompanyProfile::find($d->source_company_id);    
+                      $prov =  App\CompanyProfile::find($d['source_company_id']);    
 
                       echo $prov->company_name; 
 
@@ -1001,15 +1001,15 @@ td{
 
                     <td width="5%"><?php 
 
-                        $req =  App\CompanyProfile::find($d->company_id);  
+                        $req =  App\CompanyProfile::find($d['company_id']);  
 
                         echo $req->company_name; 
 
                     ?></td>
 
-                    <td width="5%"><?php echo $d->person_incharge; ?></td>
+                    <td width="5%"><?php echo $d['person_incharge']; ?></td>
 
-                    <td width="5%"><?php echo $d->created_at; ?></td> 
+                    <td width="5%"><?php echo $d['created_at']; ?></td> 
 
                 </tr>
 
@@ -1017,7 +1017,7 @@ td{
 
 
 
-                $tr = App\TR_reportgeneration::where('request_id', $d->id)->get();
+                $tr = App\TR_reportgeneration::where('request_id', $d['id'])->get();
 
 
 

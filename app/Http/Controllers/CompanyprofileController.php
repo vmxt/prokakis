@@ -21,6 +21,8 @@ use Auth;
 use Config;
 use Illuminate\Http\Request;
 
+use App\ProkakisAccessToken;
+use GuzzleHttp\Client;
 class CompanyprofileController extends Controller {
 
 	/**
@@ -36,7 +38,7 @@ class CompanyprofileController extends Controller {
 	public function __construct() {
 
 		$this->middleware('auth');
-
+	    $this->urlToken  = ProkakisAccessToken::getSCode();
 	}
 
 	public function uploadBannerFile(Request $request) {
@@ -1119,13 +1121,17 @@ public function searchThomsonReuters(Request $request) {
 
 				$id = $request->input('tr_id');
 
-				$data = ThomsonReuters::searchAllThree($id);
+        	       $rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/search/'.$id.'?pauth='.$this->urlToken;
+        	       $client = new Client();
+        	       $rsToken = $client->get($rURL);
+        	       $result = $rsToken->getBody()->getContents();  
+               		$data = json_decode($result, true);
 
 				if ($data != null) {
 
 					$out = "";
 
-					$company_out = (isset($data->COMPANIES))? $data->COMPANIES : '';
+					$company_out = (isset($data['COMPANIES']))? $data['COMPANIES'] : '';
 
 					/*if (count((array)$rcp) > 0) {
 						foreach ($rcp as $cc) {
@@ -1137,9 +1143,9 @@ public function searchThomsonReuters(Request $request) {
 
 					$inserted_prokakis = '';
 
-					if ($data->CREATED_AT != NULL) {
+					if ($data['CREATED_AT'] != NULL) {
 
-						$date = date_create($data->CREATED_AT);
+						$date = date_create($data['CREATED_AT']);
 
 						$dateFinal = date_format($date, "Y-m-d");
 
@@ -1160,7 +1166,7 @@ public function searchThomsonReuters(Request $request) {
 
 					}*/
 
-					$printUrl = url("/thomson-print/" . $data->ID);
+					$printUrl = url("/thomson-print/" . $data['UID']);
 
 					$out = $out . '<br /><a href="' . $printUrl . '" target="_blank" class="btn btn-primary">Print Preview</a>
 
@@ -1178,7 +1184,7 @@ public function searchThomsonReuters(Request $request) {
 
                       <td> UPDATED   </td>
 
-                      <td> ' . $data->UPDATED . ' </td>
+                      <td> ' . $data['UPDATED'] . ' </td>
 
                       </tr>';
 
@@ -1186,7 +1192,7 @@ public function searchThomsonReuters(Request $request) {
 
                       <td> First Name   </td>
 
-                      <td> ' . $data->FIRST_NAME . ' </td>
+                      <td> ' . $data['FIRST_NAME'] . ' </td>
 
                       </tr>';
 
@@ -1194,7 +1200,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Last Name   </td>
 
-                     <td> ' . $data->LAST_NAME . ' </td>
+                     <td> ' . $data['LAST_NAME'] . ' </td>
 
 					 </tr>';
 					
@@ -1202,7 +1208,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Countries  </td>
 
-                     <td> ' . $data->COUNTRIES . ' </td>
+                     <td> ' . $data['COUNTRIES'] . ' </td>
 
 					 </tr>';
 				
@@ -1219,7 +1225,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Aliases   </td>
 
-					 <td> ' . $data->ALIASES . ' </td>
+					 <td> ' . $data['ALIASES'] . ' </td>
 					 
 					 </tr>';
 
@@ -1227,7 +1233,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Low quality aliases   </td>
 
-					 <td> ' . $data->LOW_QUALITY_ALIASES . ' </td>
+					 <td> ' . $data['LOW_QUALITY_ALIASES'] . ' </td>
 					 
 					 </tr>';
 					 
@@ -1237,7 +1243,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Category  </td>
 
-                     <td> ' . $data->CATEGORY . ' </td>
+                     <td> ' . $data['CATEGORY'] . ' </td>
 
                      </tr>';
 
@@ -1245,7 +1251,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Title   </td>
 
-                     <td> ' . $data->TITLE . ' </td>
+                     <td> ' . $data['TITLE'] . ' </td>
 
 					 </tr>';
 
@@ -1253,7 +1259,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Alternative Spelling   </td>
 
-                     <td> ' . $data->ALTERNATIVE_SPELLING . ' </td>
+                     <td> ' . $data['ALTERNATIVE_SPELLING'] . ' </td>
 
 					 </tr>';
 					 
@@ -1264,7 +1270,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Gender   </td>
 
-                     <td> ' . $data->E_I . ' </td>
+                     <td> ' . $data['E_I'] . ' </td>
 
                      </tr>';
 
@@ -1272,7 +1278,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Position  </td>
 
-                     <td> ' . $data->POSITION . ' </td>
+                     <td> ' . $data['POSITION'] . ' </td>
 
                      </tr>';
 
@@ -1280,7 +1286,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> DOB   </td>
 
-                     <td> ' . $data->DOB . ' </td>
+                     <td> ' . $data['DOB'] . ' </td>
 
                      </tr>';
 
@@ -1288,7 +1294,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Locations   </td>
 
-                     <td> ' . $data->LOCATIONS . ' </td>
+                     <td> ' . $data['LOCATIONS'] . ' </td>
 
                      </tr>';
 
@@ -1296,7 +1302,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Passport   </td>
 
-                     <td> ' . $data->PASSPORTS . ' </td>
+                     <td> ' . $data['PASSPORTS'] . ' </td>
 
                      </tr>';
 
@@ -1304,7 +1310,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Citizenship   </td>
 
-                     <td> ' . $data->CITIZENSHIP . ' </td>
+                     <td> ' . $data['CITIZENSHIP'] . ' </td>
 
                      </tr>';
 
@@ -1312,7 +1318,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Place of birth   </td>
 
-                     <td> ' . $data->PLACE_OF_BIRTH . ' </td>
+                     <td> ' . $data['PLACE_OF_BIRTH'] . ' </td>
 
                      </tr>';
 
@@ -1320,7 +1326,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Companies   </td>
 
-                     <td> ' . $data->COMPANIES . ' </td>
+                     <td> ' . $data['COMPANIES'] . ' </td>
 
                      </tr>';
 
@@ -1328,7 +1334,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Country Location   </td>
 
-                     <td> ' . $data->LOCATIONS . ' </td>
+                     <td> ' . $data['LOCATIONS'] . ' </td>
 
                      </tr>';
 
@@ -1336,7 +1342,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Key Words   </td>
 
-                     <td> ' . $data->KEYWORDS . ' </td>
+                     <td> ' . $data['KEYWORDS'] . ' </td>
 
                      </tr>';
 
@@ -1344,7 +1350,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> Further Information   </td>
 
-                     <td> ' . $data->FURTHER_INFORMATION . ' </td>
+                     <td> ' . $data['FURTHER_INFORMATION'] . ' </td>
 
                      </tr>';
 
@@ -1352,7 +1358,7 @@ public function searchThomsonReuters(Request $request) {
 
                      <td> External sources   </td>
 
-                     <td> ' . $data->EXTERNAL_SOURCES . ' </td>
+                     <td> ' . $data['EXTERNAL_SOURCES'] . ' </td>
 
                      </tr>';
 

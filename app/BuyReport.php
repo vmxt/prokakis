@@ -22,6 +22,9 @@ use App\TR_reportgeneration;
 use App\FA_Results;
 use ZipArchive;
 
+use App\ProkakisAccessToken;
+use GuzzleHttp\Client;
+
 
 class BuyReport extends Model
 
@@ -73,208 +76,115 @@ class BuyReport extends Model
 
   public static function findMatchedMAS($companyName)
     {
-      $numRows = 100000;
-      //$response = Http::get('https://www.mas.gov.sg/api/v1/ialsearch?json.nl=map&wt=json&fq=&q=*:*&sort=date_dt+desc&rows=541&start=0');
-      $ch = curl_init();
-      // Will return the response, if false it print the response
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      // Set the url
-      curl_setopt($ch, CURLOPT_URL,'https://www.mas.gov.sg/api/v1/ialsearch?json.nl=map&wt=json&fq=&q=*:*&sort=date_dt+desc&rows='.$numRows.'&start=0');
-      // Execute
-      $result=curl_exec($ch);
-      // Closing
-      curl_close($ch);
+       $token = new ProkakisAccessToken();       
+       $urlToken  = $token->registeredToken();
+       $searchKey = $companyName;
+       $rURL = 'https://reputation.app-prokakis.com/api/v1/mas-search/'.$searchKey.'/'.$urlToken;
 
-      // Will dump a beauty json :3
-      $res = (json_decode($result, true));
-      $data_ia = array();
-
-        foreach($res['response']['docs'] as $d)
-        {
-            $ob = new Mas();
-            $ob->id = $d['id'];
-            $ob->address_s = $d['address_s'];
-            $ob->website_s = $d['website_s'];
-            $ob->phonenumber_s = $d['phonenumber_s'];
-            $ob->unregulatedpersons_t = $d['unregulatedpersons_t'];
-
-            //var_dump($d['unregulatedpersons_t'][0]); exit;
-
-            $findMe = stripos($d['unregulatedpersons_t'][0], $companyName);
-
-            if ($findMe !== false) {
-                $data_ia[] = $ob; //found matched
-            }
-
-        } //end of for loop
-        
-        if(sizeof($data_ia) > 0){
-            return $data_ia;
-        } else {
-            return 0; 
-        }
-    }
-
-   
+       $client = new Client();
+       $rsToken = $client->get($rURL);
+       $result = $rsToken->getBody()->getContents();  
+       $rs = json_decode($result, true);
     
+       if(isset($rs['Likely_Match'])){
+            if(sizeof($rs['Likely_Match']) > 0){
+                return $rs['Likely_Match'];
+            } else {
+                return 0; 
+            }
+       }
+
+    }
+   
     public static function searchMatchInBahamas($companyName)
     {
+        $urlToken  = ProkakisAccessToken::getSCode();
+        $searchKey = $companyName;
+        $groupsP = 'bahamas';
+        $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup/'.$searchKey.'/'.$groupsP.'/'.$urlToken;
+        $client = new Client();
+        $rsToken = $client->get($rURL);
+        $result = $rsToken->getBody()->getContents();  
+        $rs = json_decode($result, true);
+  
+        if(isset($rs['Likely_Match'])){
 
-        $data_ia = [];
-
-        //$file = fopen("AML/Bahamas/bahamas_leaks.nodes.entity.csv", "r") or die(" $entry file is not there! \n");
-
-	$filename = storage_path('AML/Bahamas/bahamas_leaks.nodes.entity.csv');
-        $file = fopen($filename, "r");
-
-       
-        while(! feof($file))
-        {
-                $data = fgetcsv($file);
-
-                if(trim($data[1]) != 'name')
-                { 
-
-                    $findMe = stripos($data[1], $companyName);
-
-                    if ($findMe !== false) {
-                        $data_ia[] = $data; //found matched
-
-                        //echo $data[1] . '<br />';
-                    }
-        
-                }
-         }
-
-        fclose($file);
-
-         if(sizeof($data_ia) > 0){
-            return $data_ia;
-        } else {
-            return 0; 
+           if(sizeof($rs['Likely_Match']) > 0){
+                return $rs['Likely_Match'];
+            } else {
+                return 0; 
+            }
         }
-       
 
     }
     
     public static function searchMatchInOffShore($companyName)
     {
-        $data_ia = [];
+        $urlToken  = ProkakisAccessToken::getSCode();
+        $searchKey = $companyName;
+        $groupsP = 'offshore';
+        $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup/'.$searchKey.'/'.$groupsP.'/'.$urlToken;
+        $client = new Client();
+        $rsToken = $client->get($rURL);
+        $result = $rsToken->getBody()->getContents();  
+        $rs = json_decode($result, true);
+  
+        if(isset($rs['Likely_Match'])){
 
-        //$file = fopen("AML/Offshore/offshore_leaks.nodes.entity.csv", "r") or die(" $entry file is not there! \n");
-	
-	$filename = storage_path('AML/Offshore/offshore_leaks.nodes.entity.csv');
-        $file = fopen($filename, "r");
-
-        while(! feof($file))
-        {
-                $data = fgetcsv($file);
-
-                if(trim($data[1]) != 'name')
-                { 
-
-                    $findMe = stripos($data[1], $companyName);
-
-                    if ($findMe !== false) {
-                        $data_ia[] = $data; //found matched
-
-                        //echo $data[1] . '<br />';
-                    }
-        
-
-                }
-         }
-
-       fclose($file);
-
-         if(sizeof($data_ia) > 0){
-            return $data_ia;
-        } else {
-            return 0; 
+           if(sizeof($rs['Likely_Match']) > 0){
+                return $rs['Likely_Match'];
+            } else {
+                return 0; 
+            }
         }
        
     }
 
     public static function searchMatchInPanama($companyName)
     {
-        $data_ia = [];
+        $urlToken  = ProkakisAccessToken::getSCode();
+        $searchKey = $companyName;
+        $groupsP = 'panama';
+        $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup/'.$searchKey.'/'.$groupsP.'/'.$urlToken;
+        $client = new Client();
+        $rsToken = $client->get($rURL);
+        $result = $rsToken->getBody()->getContents();  
+        $rs = json_decode($result, true);
+  
+        if(isset($rs['Likely_Match'])){
 
-        //$file = fopen("AML/Panama/panama_papers.nodes.entity.csv", "r") or die(" $entry file is not there! \n");
-
-	$filename = storage_path('AML/Panama/panama_papers.nodes.entity.csv');
-        $file = fopen($filename, "r");
-       
-        while(! feof($file))
-        {
-                $data = fgetcsv($file);
-
-                if(trim($data[1]) != 'name')
-                { 
-
-                    $findMe = stripos($data[1], $companyName);
-
-                    if ($findMe !== false) {
-                        $data_ia[] = $data; //found matched
-
-                        //echo $data[1] . '<br />';
-                    }
-        
-
-                }
-         }
-
-          fclose($file);
-
-         if(sizeof($data_ia) > 0){
-            return $data_ia;
-        } else {
-            return 0; 
+           if(sizeof($rs['Likely_Match']) > 0){
+                return $rs['Likely_Match'];
+            } else {
+                return 0; 
+            }
         }
        
     }
 
     public static function searchMatchInParadise($companyName)
     {
+        $urlToken  = ProkakisAccessToken::getSCode();
+        $searchKey = $companyName;
+        $groupsP = 'paradise';
+        $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup/'.$searchKey.'/'.$groupsP.'/'.$urlToken;
+        $client = new Client();
+        $rsToken = $client->get($rURL);
+        $result = $rsToken->getBody()->getContents();  
+        $rs = json_decode($result, true);
+  
+        if(isset($rs['Likely_Match'])){
 
-        $data_ia = [];
-
-        //$file = fopen("AML/Paradise/paradise_papers.nodes.entity.csv", "r") or die(" $entry file is not there! \n");
-	
-        $filename = storage_path('AML/Paradise/paradise_papers.nodes.entity.csv');
-        $file = fopen($filename, "r");
-
-       
-        while(! feof($file))
-        {
-                $data = fgetcsv($file);
-
-                if(trim($data[1]) != 'name')
-                { 
-
-                    $findMe = stripos($data[1], $companyName);
-
-                    if ($findMe !== false) {
-                        $data_ia[] = $data; //found matched
-
-                        //echo $data[1] . '<br />';
-                    }
-        
-
-                }
-         }
-
-          fclose($file);
-
-         if(sizeof($data_ia) > 0){
-            return $data_ia;
-        } else {
-            return 0; 
+           if(sizeof($rs['Likely_Match']) > 0){
+                return $rs['Likely_Match'];
+            } else {
+                return 0; 
+            }
         }
        
     }
 
-
-  public static function getADM($rs, $repId)
+    public static function getADM($rs, $repId)
     {
         $today = strtotime(date("Y-m-d"));
         $company_data = CompanyProfile::find($rs->source_company_id);
@@ -610,8 +520,6 @@ class BuyReport extends Model
 		return $response_twitter;
 	}
 
-
-    
 
 
 

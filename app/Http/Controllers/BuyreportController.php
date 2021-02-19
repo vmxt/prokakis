@@ -207,7 +207,7 @@ class BuyreportController extends Controller {
 		$MASinvestors = BuyReport::findMatchedMAS($company_data->company_name);
 
 		$cSession = curl_init(); 
-		curl_setopt($cSession,CURLOPT_URL,'https://reputation.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
+		curl_setopt($cSession,CURLOPT_URL,'https://er.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
 		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
 		curl_setopt($cSession,CURLOPT_HEADER, false); 
 		$result=curl_exec($cSession);
@@ -755,7 +755,7 @@ $Bahamas = [];
 	public static function curlER($twitter_token, $twitter_keyword, $sm='Twitter')
 	{
 		$cSession = curl_init(); 
-		$apiURL = 'https://reputation.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm='.urlencode($sm).'&search_keyword_selections='.urlencode($twitter_keyword);
+		$apiURL = 'https://er.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm='.urlencode($sm).'&search_keyword_selections='.urlencode($twitter_keyword);
 		//echo $apiURL .'<br />'; 
 		curl_setopt($cSession,CURLOPT_URL, $apiURL);
 		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);

@@ -18,7 +18,8 @@ use App\RequestApproval;
 use App\ThomsonAuditTrail;
 use PDF;
 
-
+use App\ProkakisAccessToken;
+use GuzzleHttp\Client;
 class ThomsonController extends Controller {
 	/**
 	 * Create a new controller instance.
@@ -27,6 +28,7 @@ class ThomsonController extends Controller {
 	 */
 	public function __construct() {
 		$this->middleware('auth');
+		$this->urlToken  = ProkakisAccessToken::getSCode();
 	}
 
 	/**
@@ -39,8 +41,18 @@ class ThomsonController extends Controller {
 		if(User::getEBossStaffTrue(Auth::id()) == true)
         {	
 	     $rr = ThomsonReuters::getTheActiveRequestReport();
-	     $country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
-	     $citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
+	     $rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/cclist?pauth='.$this->urlToken;
+	       $client = new Client();
+	       $rsToken = $client->get($rURL);
+	       $result = $rsToken->getBody()->getContents();  
+       		$rs = json_decode($result, true);
+
+	     $country_list = $rs['country'];
+	     $citenzenship_list =  $rs['citenzenship_list'];
+	     session([
+	     	'country_list' =>  $rs['country'],
+	     	'citenzenship_list' =>  $rs['citenzenship_list'],
+	 		]);
    		 return view('staff.search', compact('rr','country_list','citenzenship_list'));
 		}
 	}
@@ -57,7 +69,7 @@ class ThomsonController extends Controller {
 			// 	'dob.date' => 'Date of birth is not a valid date.',
 			// 	'dob.date_format' => 'Date of birth should be in this format yyyy-mm-dd',
 			// 	]);	
-
+// dd(session('country_list') );
 
 			$fn = $request->input('first_name');
 			$ln = $request->input('last_name');
@@ -84,55 +96,70 @@ class ThomsonController extends Controller {
 					];
 
 			$search = '';
+			$searchParam = "";
 			if($fn != null){
 			  $search = $search ."<p> FIRST NAME: <b>". $fn.'</b> </p>';		
+			  $searchParam .= "&first_name=".$fn;
 			}
 			if($ln != null){
-				$search = $search ."<p> LAST NAME: <b>". $ln.'</b> </p>';		
+				$search = $search ."<p> LAST NAME: <b>". $ln.'</b> </p>';	
+			  	$searchParam .= "&last_name=".$ln;
 			}
 			if($n != null){
-				$search = $search ."<p> NATIONALITY: <b>". $n.'</b> </p>';		
+				$search = $search ."<p> NATIONALITY: <b>". $n.'</b> </p>';	
+				$searchParam .= "&nationality=".$n;	
 			}
 			if($p != null){
 				$search = $search ."<p> PASSPORT: <b>". $p.'</b> </p>';		
+				$searchParam .= "&passport=".$p;	
 			}
 			if($cl != null){
 				$search = $search ."<p> COUNTRY: <b>". $cl.'</b> </p>';		
+				$searchParam .= "&country_location=".$cl;	
 			}
 			if($cn != null){
-				$search = $search ."<p> COMPANY NAME: <b>". $cn.'</b> </p>';		
+				$search = $search ."<p> COMPANY NAME: <b>". $cn.'</b> </p>';	
+				$searchParam .= "&company_name=".$cn;		
 			}
 			if($g != null){
 				$search = $search ."<p> GENDER CODE: <b>". $g.'</b></p>';		
+				$searchParam .= "&gender=".$g;
 			}
 
 			if($dob != null){
 				$search = $search ."<p> DATE OF BIRTH: <b>". $dob.'</b></p>';		
+				$searchParam .= "&dob=".$dob;
 			}
 
 			if($alias != null){
 				$search = $search ."<p> ALIAS: <b>". $alias.'</b></p>';		
+				$searchParam .= "&alias=".$alias;
 			}
 		
-		
 
-			ThomsonAuditTrail::create([
-				'actions' => "person_search",
-				'requestor_id' => Auth::id(),
-				'info'=>serialize($input)
-			]);
-
-			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, $dob, $alias, 'reuters_databank');
+	     	// $rURL = 'https://er.app-prokakis.com/api/v1/thomson/?pauth='.$this->urlToken;
+	     	$rURL = "https://reputation.app-prokakis.com/public/api/v1/thomson/individual?pauth=".$this->urlToken.$searchParam;
+	       	$client = new Client();
+	       	$rsToken = $client->get($rURL);
+	       	$result = $rsToken->getBody()->getContents();  
+       		$rs = json_decode($result, true);
+			// $rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, $dob, $alias, 'reuters_databank');
 			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
-			$sumRec = $rs->count(); //+ count((array) $rs2) + count((array) $rs3);
-			$rs = $rs->get();
-			$rr = ThomsonReuters::getTheActiveRequestReport();
-	     	$country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
-			$citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
-			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
+			$sumRec = $rs['sumRec']; //+ count((array) $rs2) + count((array) $rs3);
+			$rs = $rs['Likely_Match'];
+			$rr = ProcessedReport::getTheActiveRequestReport();
+			if (session()->has('country_list')) {
+			   $country_list = session('country_list');
+			}
 
+			if (session()->has('citenzenship_list')) {
+			   $citenzenship_list = session('citenzenship_list');
+			}
+
+			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
+			// dd($rs);
 			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr', 'input'));
 			
 
@@ -151,40 +178,62 @@ class ThomsonController extends Controller {
 			$cl = $request->input('country_location');
 			$cn = $request->input('company_name');
 
-			$input = [
-				'country_location' => $cn,
-				'company_name' => $cl
-					];
+
 
 			$search = '';
-		
+			$searchParam = "";
 			if($cl != null){
-				$search = $search ."<p> COUNTRY: <b>". $cl.'</b> </p>';		
+				$search = $search ."<p> COUNTRY: <b>". $cl.'</b> </p>';	
+				$searchParam .= "&country_location=".$cl;	
 			}
 			if($cn != null){
-				$search = $search ."<p> COMPANY NAME: <b>". $cn.'</b> </p>';		
+				$search = $search ."<p> COMPANY NAME: <b>". $cn.'</b> </p>';	
+				$searchParam .= "&company_name=".$cn;	
+
 			}
-			
+			$rURL = "https://reputation.app-prokakis.com/public/api/v1/thomson/company?pauth=".$this->urlToken.$searchParam;
+	       	$client = new Client();
+	       	$rsToken = $client->get($rURL);
+	       	$result = $rsToken->getBody()->getContents();  
+       		$rs = json_decode($result, true);
+
 			$fn = null; $ln = null; $n = null; $p = null; $g = null; $dob = null; $alias = null;
 		
-			$rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, $dob, $alias, 'reuters_databank');
+			// $rs = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, $dob, $alias, 'reuters_databank');
 			//$rs2 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank2');
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
+			$input = [
+				'first_name' => $fn,
+				'last_name' => $ln,
+				'nationality' => $n,
+				'passport' => $p,
+				'country_location' => $cl,
+				'company_name' => $cn,
+				'gender' => $g,
+				'dob' => $dob,
+				'alias' => $alias
+					];
+					
 			ThomsonAuditTrail::create([
 				'action' => "company_search",
 				'requestor_id' => Auth::id(),
 				'info'=>serialize($input)
 			]);
 
-			$sumRec = $rs->count(); //+ count((array) $rs2) + count((array) $rs3);
-			$rs = $rs->get();
-			$rr = ThomsonReuters::getTheActiveRequestReport();
-	     	$country_list = DB::table('reuters_databank')->select('COUNTRIES')->distinct('COUNTRIES')->get();
-			$citenzenship_list = DB::table('reuters_databank')->select('CITIZENSHIP')->distinct('CITIZENSHIP')->get();
-			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
+			$sumRec = $rs['sumRec']; //+ count((array) $rs2) + count((array) $rs3);
+			$rs = $rs['Likely_Match'];
+			$rr = ProcessedReport::getTheActiveRequestReport();
+			if (session()->has('country_list')) {
+			   $country_list = session('country_list');
+			}
 
-			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr'));
+			if (session()->has('citenzenship_list')) {
+			   $citenzenship_list = session('citenzenship_list');
+			}
+			//return view('staff.search', compact('rs', 'rs2', 'rs3', 'sumRec', 'search', 'rr'));
+// dd($rURL);
+			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr', 'input'));
 			
 
 		}
@@ -234,25 +283,13 @@ class ThomsonController extends Controller {
 			$r_id = explode(",", $ids);
 
 		//echo count($r_id); exit;
-
-			$filename = "";
-			$dataR = array();
-			foreach($r_id as $t){
-				$tt = explode("||", $t);
-
-				$rs = ThomsonReuters::searchAllThree($tt[0]);
-				//echo $t . '<br />';
-
-				if($rs != null){
-					$dataR[] = $rs;
-					// $dataR['match_percentage'] = $tt[1];
-
-					//echo $rs->FIRST_NAME . ' <br />';
-				}
-				$filename .= $tt[0]."-";
-			}
-			$fileNameDownload = $filename;
-
+			$rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/search-ids/'.$ids.'?pauth='.$this->urlToken;
+	       $client = new Client();
+	       $rsToken = $client->get($rURL);
+	       $result = $rsToken->getBody()->getContents();  
+       		$rs = json_decode($result, true);
+			$fileNameDownload = "Report". $rs['fileNameDownload'];
+			$dataR = $rs['Likely_Match'];
 			$pdf = PDF::loadView('staff.myPdfPrinting', compact('dataR','ids'));
 			return $pdf->download($fileNameDownload . '.pdf');
 			//return view('staff.myPdfPrinting', compact('dataR','ids'));
@@ -269,25 +306,13 @@ class ThomsonController extends Controller {
 
 		//echo count($r_id); exit;
 
-			$filename = "";
-			$dataR = array();
-			foreach($r_id as $t){
-				$tt = explode("||", $t);
-
-				$rs = ThomsonReuters::searchAllThree($tt[0]);
-				// $rs = [];
-				//echo $t . '<br />';
-
-				if($rs != null){
-					$dataR[] = $rs;
-					// $dataR['match_percentage'] = $tt[1];
-
-					//echo $rs->FIRST_NAME . ' <br />';
-				}
-				$filename .= $tt[0]."-";
-			}
-			$fileNameDownload = "Case Report (".time().") ";
-// $dataR = [];
+		   $rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/search-ids/'.$ids.'?pauth='.$this->urlToken;
+	       $client = new Client();
+	       $rsToken = $client->get($rURL);
+	       $result = $rsToken->getBody()->getContents();  
+       		$rs = json_decode($result, true);
+			$fileNameDownload = "Case Report".$rs['fileNameDownload'];
+			$dataR = $rs['Likely_Match'];
 			$pdf = PDF::loadView('staff.myPdfCasePrinting', compact('dataR','ids'));
 			return $pdf->download($fileNameDownload . '.pdf');
 			// return view('staff.myPdfCasePrinting', compact('dataR','ids'));

@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -372,3 +371,6 @@ $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 $this->post('password/reset', 'Auth\ResetPasswordController@reset');
+
+//API 
+Route::get('refinitive', 'Api\ThomsonApiController@refinitive')->name('refinitive');
