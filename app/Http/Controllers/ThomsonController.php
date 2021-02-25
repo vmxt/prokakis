@@ -148,7 +148,7 @@ class ThomsonController extends Controller {
 			//$rs3 = ThomsonReuters::getMatched_FullParams($fn, $ln, $cn, $n, $p, $cl, $g, 'reuters_databank3');
 			
 			$sumRec = $rs['sumRec']; //+ count((array) $rs2) + count((array) $rs3);
-			$rs = $rs['Likely_Match'];
+			$rs = array_merge($rs['Likely_Match'], $rs['Confirm_Match']);
 			$rr = ProcessedReport::getTheActiveRequestReport();
 			if (session()->has('country_list')) {
 			   $country_list = session('country_list');
@@ -222,7 +222,7 @@ class ThomsonController extends Controller {
 			]);
 
 			$sumRec = $rs['sumRec']; //+ count((array) $rs2) + count((array) $rs3);
-			$rs = $rs['Likely_Match'];
+			$rs = array_merge($rs['Likely_Match'], $rs['Confirm_Match']);
 			$rr = ProcessedReport::getTheActiveRequestReport();
 			if (session()->has('country_list')) {
 			   $country_list = session('country_list');
@@ -312,7 +312,7 @@ class ThomsonController extends Controller {
 	       $result = $rsToken->getBody()->getContents();  
        		$rs = json_decode($result, true);
 			$fileNameDownload = "Case Report".$rs['fileNameDownload'];
-			$dataR = $rs['Likely_Match'];
+			$dataR = array_merge($rs['Likely_Match'], $rs['Confirm_Match']);
 			$pdf = PDF::loadView('staff.myPdfCasePrinting', compact('dataR','ids'));
 			return $pdf->download($fileNameDownload . '.pdf');
 			// return view('staff.myPdfCasePrinting', compact('dataR','ids'));
