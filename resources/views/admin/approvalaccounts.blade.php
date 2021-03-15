@@ -8,25 +8,12 @@
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap.min.css">
 
 
-    <style>
 
-
-
-        .btn-x3 {
-
-            font-size: 15px;
-
-            border-radius: 5px;
-
-            width: 25%;
-
-            background-color: orangered;
-
-        }
-
-    </style>
 
 
 
@@ -100,223 +87,96 @@
 
                         <div class="portlet-body">
 
-                            <div class="table-scrollable">
+                            <!-- <div class="table-scrollable"> -->
 
-                                <table id="system_data" class="table table-bordered table-hover">
-
+                                <table id="system_data" class="table table-striped table-bordered nowrap table-hover" style="width:100%">
                                         <thead>
+                                            <tr>
+                                                <th  class="all">First Name</th>
+                                                <th class="all">Last Name</th>
+                                                <th class="all">Email</th>
+                                                <th class="all">User Type</th>
 
-                                                <tr>
-
-                                                    <th>First Name</th>
-
-                                                    <th>Last Name</th>
-
-                                                    <th>Email</th>
-
-                                                    <th>Company Name</th>
-
-                                                    <th>Company Website</th>
-
-                                                    <th>User Type</th>
-
-
-
-                                                    <th>Registration Status</th>
-
-                                                    <th>Registration Date</th>
-
-                                                    <th>Action</th>
-
-                                                </tr>
-
+                                                <th  class="none">Company Name</th>
+                                                <th  class="none">Company Website</th>
+                                                <th  class="none">Registration Status</th>
+                                                <th  class="none">Registration Date</th>
+                                                <th  class="none">Action</th>
+                                            </tr>
                                         </thead>
-
-                                                <tbody>
-
-
-
-                                                <?php
-
-                                                if( count((array)$rs) > 0 )
-
-                                                {
-
-
-
-                                                 $i = 1;
-
-                                                 foreach($rs as $d)
-
-                                                 {
-
-
-
-
-
-                                                ?>
-
-                                                    <tr class="active">
-
-
-
+                                        <tbody>
+<?php
+                                        if( count((array)$rs) > 0 )
+                                        {
+                                            $i = 1;
+                                            foreach($rs as $d)
+                                            {
+?>
+                                                <tr class="active">
                                                     <td align="center">
-
                                                         <?php echo $d->firstname; ?>
-
                                                     </td>
 
-
-
                                                     <td align="center">
-
                                                         <?php echo $d->lastname; ?>
-
                                                     </td>
 
-
-
                                                     <td align="center">
-
                                                             <?php echo $d->email; ?>
-
                                                     </td>
 
-
-
-
-
                                                     <td align="center">
-
-                                                        <?php
-
-                                                        $company_id_result = App\CompanyProfile::getCompanyId($d->id);
-
-                                                        ?>
-
-                                                        <a href="{{ url('/profile/viewer/'.$company_id_result) }}" target="_blank"><?php echo $d->company_name; ?></a>
-
-                                                    </td>
-
-
-
-                                                    <td align="center">
-
-                                                        <?php echo '<a href="http://'.$d->company_website.'" target="_blank">'.$d->company_website.'</a>'; ?>
-
-                                                    </td>
-
-
-
-
-
-                                                    <td align="center">
-
-
-
-                                                         <?php
-
-                                                            switch ($d->user_type) {
-
-                                                                case 2:
-
-                                                                    echo '<span class="label label-sm label-success">Sub Consultant</span>';
-
-                                                                    break;
-
-
-
-                                                                case 3:
-
-                                                                    echo '<span class="label label-sm label-info">Master Consultant</span>';
-
-                                                                    break;
-
-
-
-                                                                case 4:
-
-                                                                    echo '<span class="label label-sm label-danger">Ebos Staff</span>';
-
-                                                                    break;
-
-
-
-                                                                case 1:
-
-                                                                    echo ' <span class="label label-sm label-warning">Company </span>';
-
-                                                                    break;
-
-                                                            }
-
-
-
-                                                            ?>
-
-
-
-                                                    </td>
-
-
-
-                                                    <td align="center">
-
-                                                        <?php
-
-                                                        switch ($d->status) {
-
-                                                            case 1:
-
-                                                                echo 'Active';
-
-                                                                break;
-
-
-
-                                                            case 0:
-
-                                                                echo '<b>Deactivated</b>';
-
-                                                                break;
-
-
-
+<?php                                                   switch ($d->user_type) {
                                                             case 2:
-
-                                                                echo '<b>Pending</b>';
-
+                                                                echo '<span class="label label-sm label-success">Sub Consultant</span>';
                                                                 break;
-
-
-
                                                             case 3:
-
-                                                                echo '<b>Rejected</b>';
-
+                                                                echo '<span class="label label-sm label-info">Master Consultant</span>';
                                                                 break;
+                                                            case 4:
+                                                                echo '<span class="label label-sm label-danger">Ebos Staff</span>';
+                                                                break;
+                                                            case 1:
+                                                                echo ' <span class="label label-sm label-warning">Company </span>';
+                                                                break;
+                                                            }
+?>
 
-                                                        }
+                                                    </td>
 
+                                                    <td align="center">
+<?php                                               $company_id_result = App\CompanyProfile::getCompanyId($d->id); ?>
+                                                        <a href="{{ url('/profile/viewer/'.$company_id_result) }}" target="_blank"><?php echo $d->company_name; ?></a>
+                                                    </td>
 
-
-                                                        ?>
-
+                                                    <td align="center">
+                                                        <?php echo '<a href="http://'.$d->company_website.'" target="_blank">'.$d->company_website.'</a>'; ?>
                                                     </td>
 
 
 
                                                     <td align="center">
-
-                                                        <?php
-
-                                                        echo date("F j, Y", strtotime($d->created_at));
-
-                                                        ?>
-
+<?php
+                                                        switch ($d->status) {
+                                                            case 1:
+                                                                echo 'Active';
+                                                                break;
+                                                            case 0:
+                                                                echo '<b>Deactivated</b>';
+                                                                break;
+                                                            case 2:
+                                                                echo '<b>Pending</b>';
+                                                                break;
+                                                            case 3:
+                                                                echo '<b>Rejected</b>';
+                                                                break;
+                                                        }
+?>
                                                     </td>
 
-
+                                                    <td align="center">
+<?php                                                   echo date("F j, Y", strtotime($d->created_at)); ?>
+                                                    </td>
 
                                                     <td align="center">
 
@@ -383,14 +243,12 @@
                                                 ?>
 
 
-
-
-
-                                                </tbody>
-
+                                    </tbody>
                                 </table>
 
-                            </div>
+                               
+
+                            <!-- </div> -->
 
                         </div>
 
@@ -420,29 +278,53 @@
 
 
 
-
-
     <script src="{{ asset('public/js-tabs/jquery-1.12.4.js') }}"></script>
 
     <script src="{{ asset('public/js-tabs/jquery-ui.js') }}"></script>
 
 
 
-    <!--<script src="{{ asset('public/js/app.js') }}"></script>-->
+    <script src="{{ asset('public/js/app.js') }}"></script>
 
     <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+    <!-- <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+    <script type="text/javascript" charset="utf8" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap.min.js"></script>
 
 
 
     <script>
 
+$(document).ready(function() {
+    $('#system_data').DataTable( {
+        "ordering": false,
+            "aSorting": [[ 3, "desc" ]],
+          "bJQueryUI": true,
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal( {
+                    header: function ( row ) {
+                        var data = row.data();
+                        return 'Details for '+data[0]+' '+data[1];
+                    }
+                } ),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                    tableClass: 'table'
+                } )
+            }
+        }
+    } );
+} );
 
+        // $(document).ready(function () {
 
-        $(document).ready(function () {
-
-            $('#system_data123').DataTable( {
-                "order": [[ 3, "desc" ]]
-            } );
+            // $('#system_data').DataTable( {
+            //     "order": [[ 3, "desc" ]],
+            //      "dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
+            // } );
 
 
 
@@ -454,13 +336,13 @@
 
 
 
-        });
+        // });
 
 
 
         $(function() {
 
-            $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+            // $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
 
           });
 
