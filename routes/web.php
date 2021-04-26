@@ -343,6 +343,10 @@ Route::get('/reports/buyTokens', 'ReportsController@buyTokens')->name('reportsBu
 Route::get('/reports/buyCredits', 'ReportsController@buyTokens')->name('reportsBuyCredits');
 Route::post('/reports/topUpTokens', 'ReportsController@topUpTokens')->name('reportsTopUpTokens');
 
+//Audti Trail Log
+Route::post('/auditTrail/log', 'AuditTrailerLogController@index')->name('saveAuditTrailLog');
+Route::get('/auditTrailLog/view', 'AuditTrailerLogController@view')->name('viewAuditTrailLog');
+
 //report request
 Route::get('/reports/requestUpdate/{id}', 'RequestReportController@requestCompanyUpdate')->name('requestCompanyUpdate');
 Route::get('/reports/requestDiscontinue/{id}', 'RequestReportController@requestDiscontinue')->name('requestDiscontinue');

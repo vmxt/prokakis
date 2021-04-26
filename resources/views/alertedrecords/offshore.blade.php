@@ -69,7 +69,7 @@
 
 
                                     <h3><b style="color:#4a4a4a;"><?php echo $d['Name']; ?></b></h3>
-                                    <i id="iconx<?php echo $d['id']; ?>" class="icon-arrow-up" style="color:black"></i> <button onclick="showhideMe('<?php echo $d['id']; ?>');" id="but<?php echo $d['id']; ?>"> Show details</button>
+                                    <i id="iconx<?php echo $d['id']; ?>" class="icon-arrow-up" style="color:black"></i> <button onclick="showhideMe('<?php echo $d['id']; ?>', '<?php echo $d['Name']; ?>');" id="but<?php echo $d['id']; ?>"> Show details</button>
                                     <div id="showhide_<?php echo $d['id']; ?>" style="display:none;">
                                     <?php
                                      
@@ -127,7 +127,7 @@ $(document).ready( function () {
 
 });
 
-function showhideMe(idx){
+function showhideMe(idx, namex){
 
 var r = $("#but"+idx).html();
 
@@ -140,6 +140,24 @@ $("#iconx"+idx).prop('class', 'icon-arrow-up');
 $("#but"+idx).html("Hide details");
 $("#showhide_"+idx).show();
 $("#iconx"+idx).prop('class', 'icon-arrow-down');
+
+              formData = new FormData();
+              formData.append("model", 'Offshore Alert List');
+              formData.append("action", 'Viewing');
+              formData.append("details", idx+" | "+namex);
+              $.ajax({
+                  url: "{{ route('saveAuditTrailLog') }}",
+                  type: "POST",
+                  data: formData,
+                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                  processData: false,
+                  contentType: false,
+                  cache: false,
+                  success: function (data) {
+                    console.log(data);
+                  }
+              });
+
 }
 
 

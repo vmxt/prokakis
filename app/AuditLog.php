@@ -46,5 +46,15 @@ class AuditLog extends Model
       }
 
     }
+
+    static function getLogs($id){
+
+            return AuditLog::where('user_id', $id)
+
+                ->orderBy('updated_at', 'desc');
+
+           
+          
+    }
    
 }

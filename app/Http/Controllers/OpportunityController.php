@@ -895,7 +895,7 @@ class OpportunityController extends Controller {
 
 				if ($isOk) {
 
-					AuditLog::ok(array($user_id, 'opportunity', 'store new build', 'created new opportunity under build'));
+					AuditLog::ok(array($user_id, 'opportunity', 'Create', 'created new opportunity under Invest'));
 
 					return redirect('/opportunity')->with('status', 'Building capability has been succesfully saved.');
 
@@ -1274,6 +1274,8 @@ class OpportunityController extends Controller {
 
 						$rs->save();
 
+                		AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Invest Opportunity | '.$itemId));
+
 						return redirect('/opportunity')->with('status', 'Opportunity at building capability has been successfully removed.');
 
 					} else {
@@ -1330,6 +1332,8 @@ class OpportunityController extends Controller {
 
 						$rs->save();
 
+						AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Sell Opportunity | '.$itemId));
+
 						return redirect('/opportunity')->with('status', 'Opportunity at sell/offer has been successfully removed.');
 
 					} else {
@@ -1383,6 +1387,8 @@ class OpportunityController extends Controller {
 						$rs->status = 0;
 
 						$rs->save();
+
+						AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Buy Opportunity | '.$itemId));
 
 						return redirect('/opportunity')->with('status', 'Opportunity at buy has been successfully removed.');
 

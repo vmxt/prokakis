@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use App\SpentTokens;
 use Validator;
 use File;
-
+use App\AuditLog;
 
 class BusinessOpportunityNewsController extends Controller {
 
@@ -166,6 +166,7 @@ class BusinessOpportunityNewsController extends Controller {
 			if($rs != null){
 				$rs->status = 0;
 				$rs->save();
+				AuditLog::ok(array($user_id, 'business opportunity', 'delete', 'Delete Business News'));
 			}
 	
 		}
@@ -220,6 +221,9 @@ class BusinessOpportunityNewsController extends Controller {
 						'feature_image' => $feature_image_name
 
 					]);
+
+					AuditLog::ok(array($user_id, 'business opportunity', 'create', 'Create Business News'));
+
 				} else {
 
 					return 'Exceed to the allowed number of news content as FREE account';
@@ -286,6 +290,8 @@ class BusinessOpportunityNewsController extends Controller {
 				$rs->content_business = $businessnewsArea;
 				$rs->feature_image = $feature_image_name;
 				$rs->save();
+
+				AuditLog::ok(array($user_id, 'business opportunity', 'update', 'update Business News'));
 
 				if($validation->passes())
 		    	{	

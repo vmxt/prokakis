@@ -11,6 +11,7 @@ use Config;
 use App\Buytoken;
 use App\CompanySpentTokens;
 use PDF;
+use App\AuditLog;
 
 class CompanyPaymentController extends Controller
 {
@@ -107,16 +108,20 @@ class CompanyPaymentController extends Controller
           $result = "";
           switch ( $request['reportType'] ) {
             case 'buyToken':
+              $str = 'Purchased History';
               $result = Buytoken::where('company_id', $company_id) //'company id'
                 ->orderBy('id', 'asc')
                 ->get();
               break;
             case 'spentToken':
+              $str = 'Credit Spent';
               $result = CompanySpentTokens::where('company_id', $company_id)
                 ->orderBy('id', 'asc')
                 ->get();
               break;
           }
+
+          AuditLog::ok(array($user_id, 'Payment history', 'Download', 'Download '.$str));
 
           $pdf = PDF::loadView('profile.'.$report_type."PDF", compact('result','companyD', 'userD'));
   

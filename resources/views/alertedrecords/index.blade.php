@@ -79,7 +79,7 @@
 
 
                                     <h3><b style="color:#4a4a4a;"><?php echo $d->unregulatedpersons_t[0]; ?></b></h3>
-                                    <i id="iconx<?php echo $d->id; ?>" class="icon-arrow-up" style="color:black"></i> <button onclick="showhideMe('<?php echo $d->id; ?>');" id="but<?php echo $d->id; ?>"> Show details</button>
+                                    <i id="iconx<?php echo $d->id; ?>" class="icon-arrow-up" style="color:black"></i> <button onclick="showhideMe('<?php echo $d->id; ?>','<?php echo $d->unregulatedpersons_t[0]; ?>');" id="but<?php echo $d->id; ?>"> Show details</button>
                                     <div id="showhide_<?php echo $d->id; ?>" style="display:none;">
                                     <?php
                                       if(trim($d->address_s) != ''){
@@ -143,22 +143,38 @@ $(document).ready( function () {
 
 });
 
-function showhideMe(idx){
+function showhideMe(idx,namex){
 
-var r = $("#but"+idx).html();
+  var r = $("#but"+idx).html();
 
-if(r=='Hide details'){
-$("#but"+idx).html("Show details");
-$("#showhide_"+idx).hide();
-$("#iconx"+idx).prop('class', 'icon-arrow-up');
+  if(r=='Hide details'){
+  $("#but"+idx).html("Show details");
+  $("#showhide_"+idx).hide();
+  $("#iconx"+idx).prop('class', 'icon-arrow-up');
 
-}else{
-$("#but"+idx).html("Hide details");
-$("#showhide_"+idx).show();
-$("#iconx"+idx).prop('class', 'icon-arrow-down');
-}
+  }else{
+  $("#but"+idx).html("Hide details");
+  $("#showhide_"+idx).show();
+  $("#iconx"+idx).prop('class', 'icon-arrow-down');
 
+              formData = new FormData();
+              formData.append("model", 'Investor Alert List');
+              formData.append("action", 'Viewing');
+              formData.append("details", idx+" | "+ namex);
+              $.ajax({
+                  url: "{{ route('saveAuditTrailLog') }}",
+                  type: "POST",
+                  data: formData,
+                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                  processData: false,
+                  contentType: false,
+                  cache: false,
+                  success: function (data) {
+                    console.log(data);
+                  }
+              });
 
+  }
 }
 
 </script>

@@ -1804,6 +1804,24 @@
             if(type == 'buy'){
                 $("#opporBuyModal_"+id).modal();
             }
+
+            formData = new FormData();
+            formData.append("model", type +' Opportunity');
+            formData.append("action", 'Viewing');
+            formData.append("details", "Learn more "+type+" Opportunity | " + id);
+            $.ajax({
+                url: "{{ route('saveAuditTrailLog') }}",
+                type: "POST",
+                data: formData,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                  console.log(data);
+                }
+            });
+
         }
 
         $(document).ready(function () {
@@ -1820,18 +1838,38 @@
                           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                           processData: false,
                           contentType: false,
-  
+                        
                           success: function (data) {
+                            formData = new FormData();
+                            formData.append("model", type +' Opportunity');
+
                             if(data == 'add'){
                                 $('.followicon_'+comp_id).addClass('fa-user-minus');
                                 $('.followicon_'+comp_id).removeClass('fa-user-plus');
                                 $('.followicon_'+comp_id).attr('title','Unfollow Company');
-
+                                formData.append("action", 'Unfollow');
+                                formData.append("details",  'Unfollow Company | '+ comp_id);
                             }else{
                                 $('.followicon_'+comp_id).removeClass('fa-user-minus');
                                 $('.followicon_'+comp_id).addClass('fa-user-plus');
                                 $('.followicon_'+comp_id).attr('title','Follow Company');
+                                formData.append("action", 'follow');
+                                formData.append("details",  'Follow Company | '+ comp_id);
                             }
+
+                            $.ajax({
+                                url: "{{ route('saveAuditTrailLog') }}",
+                                type: "POST",
+                                data: formData,
+                                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                processData: false,
+                                contentType: false,
+                                cache: false,
+                                success: function (data) {
+                                  console.log(data);
+                                }
+                            });
+
                           }
                     });
 

@@ -1325,6 +1325,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                       Company Request Ownership and Removal</a>
                                               </li>
 
+                                              <li aria-haspopup="true" class=" ">
+                                                  <a href="{{url('/auditTrailLog/view')}}" class="nav-link  ">
+                                                      View Audit Trail</a>
+                                              </li>
+
+
                                             </ul>
                                         </li>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
