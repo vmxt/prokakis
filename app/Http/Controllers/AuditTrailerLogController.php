@@ -23,7 +23,7 @@ class AuditTrailerLogController extends Controller {
 	}
 
 	public function view(){
-		$rs = User::whereIn('user_type', array(1, 2, 3, 4))->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->limit(5)->get();
+		$rs = User::whereIn('user_type', array(1, 2, 3, 4))->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->get();
 
       return view('admin.auditlogs', compact('rs')); 
 	}

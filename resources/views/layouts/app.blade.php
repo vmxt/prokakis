@@ -10,23 +10,23 @@
     <head>
         <!-- from the original code -->
         <!-- CSRF Token -->
-        <meta property="og:title" content="Prokakis Ebos-SG App {{ now()->year }}" /> 
+        <meta property="og:title" content="Intellinz Ebos-SG App {{ now()->year }}" /> 
         <meta property="og:url" content="https://app-prokakis.com/" /> 
-        <meta property="og:site_name" content="Prokakis"/> 
+        <meta property="og:site_name" content="Intellinz"/> 
         <meta property="og:image" content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
         <meta property="og:type" content="website" /> 
         <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." /> 
         <!-- end from the original code -->
 
         <meta charset="utf-8" />
-        <title>Prokakis | System Dashboard</title>
+        <title>Intellinz | System Dashboard</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <meta content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" name="description" />
-        <meta content="Ebos-SG App 2020" name="author" />
+        <meta content="Ebos-SG App 2021" name="author" />
 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
@@ -1488,7 +1488,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                         <!-- BEGIN INNER FOOTER -->
                         <div class="page-footer">
-                            <div class="container"> 2020 &copy; Prokakis
+                            <div class="container"> <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Intellinz</p>
                             </div>
                         </div>
                         <div class="scroll-to-top">
