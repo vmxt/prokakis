@@ -30,7 +30,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 use App\Mailbox; 
 
-
+use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 
@@ -171,6 +171,12 @@ class RegisterController extends Controller
         $user_status = 1;  //1 for companies 
 
       } */
+
+        $rules = ['captcha' => 'required|captcha'];
+        $validator = validator()->make(request()->all(), $rules);
+        if ($validator->fails()) {
+            throw ValidationException::withMessages(['tnc' => 'Security Code is incorrect']);
+        } 
 
 
 

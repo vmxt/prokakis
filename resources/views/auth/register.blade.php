@@ -20,7 +20,9 @@
 
     }
 
-
+.div-captcha {
+    text-align: center
+}
 
 </style>
 
@@ -257,6 +259,12 @@
  
 
             </div>
+            <div class="form-group margin-top-20 margin-bottom-20 div-captcha">
+                <label>Enter the security code</label>
+                      <p class="img_captcha"><?= captcha_img() ?></p>
+                      <p><input type="text" name="captcha"></p>
+            </div>
+
 
             <div class="form-actions">
 
