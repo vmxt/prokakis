@@ -4,6 +4,8 @@
 
 @section('content')
 
+   <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
+
     <?php //echo Route::getFacadeRoot()->current()->uri(); ?>
 
     <link href="{{ asset('public/mini-upload/assets/css/style.css') }}" rel="stylesheet">
@@ -16,7 +18,12 @@
 
     <link rel="stylesheet" href="{{asset('public/css/edit-profile.css')}}">
 
+<!-- Remember to include jQuery :) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
 
 
@@ -2129,6 +2136,12 @@
 
                                     <div class="card-header"><b>Financial Entries</b>
                     <div style="color:red">To avoid delays, please don't use comma in your numerical entries. </div>
+ <?php 
+                                $csvLink = asset('public/assets/templates/TemplateProkakisFnancialStatus.csv');
+                                ?>
+
+<a style="float:right" target="_blank" href="{{ $csvLink }}">Download CSV Template</a> <br />
+
                    </div>
 
                                     <div class="card-body center table-outer">
@@ -3596,6 +3609,22 @@
 
                                             </tr>
 
+						 <tr>
+
+                                             <td colspan="5">
+                                                <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
+                                                    <strong>Upload CSV</strong>
+                                                <input type="file" name="uploadCSV" id="uploadCSV" class="btn btn-info" style="float:right">
+                                                 
+                                                </p>
+                                                </div>
+                                             
+                                            </td>   
+                                            </tr>   
+
+
+
+
                                         </table>
 
                                     </div>
@@ -3852,16 +3881,120 @@
     <script src="{{ asset('public/img-cropper/js/cropbox.js') }}"></script>
 
 
-
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
 
 
     <script type="text/javascript">
 
+   // Instance the tour
+var tour = new Tour({
+    steps: [
+    {
+        element: ".imageBoxCimg",
+        title: "Profile Picture",
+        content: "Here is your profile avatar!",
+        placement: 'bottom',
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: "#file",
+        title: "Upload Image",
+        content: "You can your upload your profile image by clicking this button",
+        placement: 'bottom',
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: "#btnZoomIn",
+        title: "Zoom In",
+        content: "You can zoom in your image orientaiton by clicking this button",
+        placement: 'bottom',
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: "#btnZoomOut",
+        title: "Zoom Out",
+        content: "You can zoom out your image orientaiton by clicking this button",
+        placement: 'bottom',
+        onNext: function(){
+           
+        }
+    },
+    {
+        element: "#btnCrop",
+        title: "Crop Image and Upload",
+        content: "If you are done setting your preffered image orientation, you can click this button to crop and upload the selected image",
+        placement: 'bottom',
+        onNext: function(){
+           
+        }
+    }
+
+    
+    
+ 
+
+  
+],
+
+  container: "body",
+  smartPlacement: true,
+  keyboard: true,
+  // storage: window.localStorage,
+  storage: false,
+  debug: true,
+  backdrop: true,
+  backdropContainer: 'body',
+  backdropPadding: 0,
+  redirect: true,
+  orphan: false,
+  duration: false,
+  delay: false,
+  basePath: "",
+  placement: 'auto',
+
+  afterGetState: function (key, value) {},
+  afterSetState: function (key, value) {},
+  afterRemoveState: function (key, value) {},
+  onStart: function (tour) {
+
+  },
+  onEnd: function (tour) {
+     $('.menu-dropdown').removeClass('open');
+     updateTour('end');
+  },
+  onShow: function (tour) {},
+  onShown: function (tour) {},
+  onHide: function (tour) {},
+  onHidden: function (tour) {},
+  onNext: function (tour) {},
+  onPrev: function (tour) {},
+  onPause: function (tour, duration) {},
+  onResume: function (tour, duration) {},
+  onRedirectError: function (tour) {}
+
+});
+
+
+// Initialize the tour
+tour.init();
+
+// Start the tour
+if( $('#is_tour').val() == 1 ){
+    tour.start();
+}
+
         function notifytoPremium(){
             swal({
-            title: "This feature is only available on premium members. You want to upgrade to premium?",
+            title: "This feature is only available for premium members. Would you like to upgrade to a premium account?",
             // text: "You are about to set the view status of this opportunity to be publish with company information!",
             icon: "info",
             buttons: [
@@ -4528,6 +4661,7 @@
                     defaultDate: default_financial_year,
                     required: true
                 });
+
                  $('#mask_incorporation_date').mask('0000-00-00');
 
                 // Set all hidden fields to type text for the demo
@@ -4545,4 +4679,5 @@
     <script src="{{ asset('public/drop-date/jquery.date-dropdowns.js') }}"></script>
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
 @endsection

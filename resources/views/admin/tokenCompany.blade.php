@@ -1,4 +1,4 @@
-@extends('layouts.app-profile-edit')
+@extends('layouts.app')
 
 @section('content')
 
@@ -107,13 +107,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php  foreach($rs as $data){
+                    <?php 
+                    if(isset($rs)){
+                    foreach($rs as $data){
                     $js = json_encode($data->json_value, true);
                     ?>
                     <tr>
                         <td><?php echo $data->id; ?></td>
                         <td id="tdDesc<?php echo $data->id; ?>" class="wrap"><?php echo $data->description; ?></td>
-                        <td id="tdJson<?php echo $data->id; ?>">{{ $data->json_value }} </td>
+                        <td id="tdJson<?php echo $data->id; ?>"><?php echo $data->json_value; ?> </td>
                         <td>
                             <a id="edit_icon"  onclick="ajxProcess('<?php echo $data->id; ?>','<?php echo $data->description; ?>')"
                                data-popup-open="popup-1" class="btn btn-outline btn-circle btn-sm blue">
@@ -122,7 +124,8 @@
 
 
                     </tr>
-                    <?php } ?>
+                    <?php }
+                    } ?>
                     </tbody>
                  
                 </table>

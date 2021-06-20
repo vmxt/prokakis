@@ -275,7 +275,7 @@
                                     <div class="col col-lg-8" style="margin-top: 5px;">
                                         <div class="alert alert-info"
                                              style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
-                                                <strong>Prokakis members are three times more likely
+                                                <strong>Intellinz members are three times more likely
                                                 to engage with you if your company profile is over 30% complete.
                                                 Be sure to include accurate information.</strong>
                                             </p>
@@ -599,7 +599,7 @@ var tour = new Tour({
   {
     element: "#nav-opportunities",
     title: "OPPORTUNITIES",
-    content: "This has a list of links and utilities about opportunities on the Prokakis system",
+    content: "This has a list of links and utilities about opportunities on the Intellinz system",
     onNext: function(){
         $('#nav-opportunities').addClass('open');
     },
@@ -612,7 +612,7 @@ var tour = new Tour({
   {
     element: "#nav-explore",
     title: "EXPLORE OPPORTUNITIES",
-    content: "Here you can view the most recent build, sell and buy opportunities on the Prokakis system",
+    content: "Here you can view the most recent build, sell and buy opportunities on the Intellinz system",
     onNext: function(){
         $('#nav-opportunities').removeClass('open');
         $('#nav-opportunities').removeClass('active');
@@ -674,7 +674,7 @@ var tour = new Tour({
   {
     element: "#nav-login-inbox",
     title: "MY INBOX",
-    content: "Here you can view, compose and send messages to other companies on the Prokakis system",
+    content: "Here you can view, compose and send messages to other companies on the Intellinz system",
     placement: 'left'
   },  
   {
@@ -692,13 +692,13 @@ var tour = new Tour({
   {
     element: "#nav-login-share-friend",
     title: "SHARE TO FRIEND",
-    content: "Here you can email a friend with your referral link so they can join you on the Prokakis system",
+    content: "Here you can email a friend with your referral link so they can join you on the Intellinz system",
     placement: 'left'
   },  
   {
     element: "#nav-login-logout",
     title: "LOGOUT",
-    content: "This will log you out of the prokakis system",
+    content: "This will log you out of the Intellinz system",
     placement: 'left',
     onNext: function(){
         $('#nav-login-dropdown').removeClass('open');
@@ -730,7 +730,7 @@ var tour = new Tour({
   {
     element: "#home-oppor",
     title: "Opportunity Inbox",
-    content: "A notification for incoming message reagrding your opportunity. Clicking this block will redirect you to the prokakis chat page"
+    content: "A notification for incoming message reagrding your opportunity. Clicking this block will redirect you to the Intellinz chat page"
   },
   {
     element: "#home-ongoing",

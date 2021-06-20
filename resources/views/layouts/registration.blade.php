@@ -74,7 +74,7 @@
 
             <meta charset="utf-8" />
 
-            <title>Prokakis Registration Page</title>
+            <title>Intellinz Registration Page</title>
 
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
 

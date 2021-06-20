@@ -68,6 +68,10 @@
 
                             <div>
                                 <a target="_blank" href="<?php echo $url_result; ?>" class="btn btn-primary"> Add User</a>
+                                <br />
+                                <br />
+                                 Your registration link, copy and give it to your personnel: <b><?php echo $url_result; ?></b>
+
                             </div>
 <!--                             <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
 

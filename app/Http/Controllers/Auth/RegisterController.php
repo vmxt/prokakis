@@ -149,14 +149,13 @@ class RegisterController extends Controller
      */
 
     protected function create(array $data)
-
     {
 
       $user_status = "1";
 
-      $referralId = isset($data['referral_id'])? $data['referral_id'] : null;
+      $referralId = (isset($data['referral_id']))? $data['referral_id'] : null;
 
-      $m_id = isset($data['m_id'])? $data['m_id'] : null;
+      $m_id = (isset($data['m_id']))? $data['m_id'] : null;
       
       if($m_id != null){
         $m_id = (int) base64_decode($m_id);
@@ -177,8 +176,6 @@ class RegisterController extends Controller
         if ($validator->fails()) {
             throw ValidationException::withMessages(['tnc' => 'Security Code is incorrect']);
         } 
-
-
 
       $userResult = User::create([
 
@@ -205,6 +202,8 @@ class RegisterController extends Controller
             'status' => $user_status,
 
             'referral_id' => $referralId,
+
+            'm_id' => $m_id,
 
         ]);
 

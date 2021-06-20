@@ -10,6 +10,7 @@ use App\User;
 use App\CompanyProfile;
 use App\SAaccess;
 use Session;
+use App\InOutUsers;
 
 class SubaccountsController extends Controller {
 
@@ -41,6 +42,12 @@ class SubaccountsController extends Controller {
 
     public function setRegistration(Request $request)
     {
+      if(Auth::id()){
+      //    echo 'Still Login'; 
+        InOutUsers::insert_updateDB(array('user_id'=>Auth::id(), 'status'=>0));
+        Auth::logout();
+      }
+      
       $userId_Decoded = base64_decode($request['userId']);
       $rs = explode("/", $userId_Decoded);
       $userIdDecode = base64_encode($rs[0]);

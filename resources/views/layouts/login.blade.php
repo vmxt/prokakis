@@ -22,15 +22,15 @@
 
         <!-- CSRF Token -->
 
-        <meta property="og:url"           content="http://ebos-app.prokakis.com" />
+        <meta property="og:url"           content="http://app-prokakis.com" />
 
         <meta property="og:type"          content="website" />
 
-        <meta property="og:title"         content="Prokakis Ebos-SG App {{ now()->year }}" />
+        <meta property="og:title"         content="Intellinz Ebos-SG App {{ now()->year }}" />
 
         <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
 
-        <meta property="og:image"         content="https://prokakis.com/wp-content/uploads/2018/06/New-ProKakis-1b.jpg" />
+        <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" />
 
         <!-- end from the original code -->
 
@@ -38,7 +38,7 @@
 
         <meta charset="utf-8" />
 
-        <title>Prokakis Login Page</title>
+        <title>Intellinz Login Page</title>
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -212,7 +212,7 @@
 
             </div>
 
-         
+
 
             </div>
 
@@ -346,6 +346,14 @@
 
     </body>
 
+
+                        <!-- BEGIN FOOTER -->
+
+                        <!-- BEGIN INNER FOOTER -->
+<center><p style="font-size:30px; color:white;">Copyright &copy; <script>document.write(new Date().getFullYear())</script> Intellinz</p></center>
+
+                        <!-- END INNER FOOTER -->
+                        <!-- END FOOTER -->
 
 
 </html>

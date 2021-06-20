@@ -24,6 +24,7 @@ use App\BuyReport;
 use App\ConsultantProjects;
 use ZipArchive;
 use Illuminate\Support\Facades\File;
+use App\ProkakisAccessToken;
 
 class BuyreportController extends Controller {
 
@@ -207,7 +208,7 @@ class BuyreportController extends Controller {
 		$MASinvestors = BuyReport::findMatchedMAS($company_data->company_name);
 
 		$cSession = curl_init(); 
-		curl_setopt($cSession,CURLOPT_URL,'https://er.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
+		curl_setopt($cSession,CURLOPT_URL,'https://reputation.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm=+Twitter++&search_keyword_selections='.$twitter_keyword);
 		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
 		curl_setopt($cSession,CURLOPT_HEADER, false); 
 		$result=curl_exec($cSession);
@@ -366,6 +367,8 @@ class BuyreportController extends Controller {
 
 						//return $pdf->download($company_data->company_name . '.pdf');
 
+						
+
 					}
 
 				} else {
@@ -452,27 +455,18 @@ class BuyreportController extends Controller {
 		//need to validate if the link download is expired or not
 
 		if (isset($proc->report_link) && $proc->report_link != NULL) {
-
 			return redirect('/monitoring/list')->with('message', 'Download link has expired.');
-
 			exit;
-
 		}
 
 		$today = strtotime(date("Y-m-d"));
 
 		if (isset($proc->month_subscription_start) && isset($proc->month_subscription_end)) {
-
 			$dStart = strtotime($proc->month_subscription_start);
-
 			$dEnd = strtotime($proc->month_subscription_end);
-
 			if ($today < $dStart) {
-
 				return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
-
 				exit;
-
 			}
 
 			if ($today > $dEnd) {
@@ -494,22 +488,6 @@ class BuyreportController extends Controller {
 		$user_id = $company_profile->user_id;
 
 		$company_id_result = $request_rec->company_id; //source_company_id
-
-		//$company_info_source =  $request_rec->source_company_id;
-
-		/* if( SpentTokens::validateLeftBehindToken($company_id_result) == false ){
-
-			    return redirect('monitoring/list')->with('message', 'Insufficient token value, please top up.');
-
-			    exit;
-
-			  } else {
-
-			    //$consumedTokens = SpentTokens::validateLeftBehindToken($user_company_id);
-
-			    SpentTokens::spendTokenByrequest($approval->req_rep_id, $request_rec->company_id, $user_id, 1);
-
-		*/
 
 		//validation for tokensn and approval process
 
@@ -755,7 +733,7 @@ $Bahamas = [];
 	public static function curlER($twitter_token, $twitter_keyword, $sm='Twitter')
 	{
 		$cSession = curl_init(); 
-		$apiURL = 'https://er.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm='.urlencode($sm).'&search_keyword_selections='.urlencode($twitter_keyword);
+		$apiURL = 'https://reputation.app-prokakis.com/api/v1/mentions-tosearch?_token='.$twitter_token.'&selected_sm='.urlencode($sm).'&search_keyword_selections='.urlencode($twitter_keyword);
 		//echo $apiURL .'<br />'; 
 		curl_setopt($cSession,CURLOPT_URL, $apiURL);
 		curl_setopt($cSession,CURLOPT_RETURNTRANSFER,true);
@@ -857,7 +835,7 @@ $Bahamas = [];
 		}
 	}
 
-	//investors alert
+	//investors alert, panama and groups
 	public function repIa(Request $request)
 	{
 		if(isset($request['rpId'])){
@@ -994,10 +972,12 @@ $Bahamas = [];
 					$twitter_keyword = $company_data->company_name;
 					
 					//Social Media
-					$response_twitter = BuyReport::curlER($twitter_token, $twitter_keyword, $sm='Twitter');
-					$response_youtube = BuyReport::curlER($twitter_token, $twitter_keyword, $sm='Youtube');
-					$response_theweb = BuyReport::curlER($twitter_token, $twitter_keyword, $sm='The Web');
-
+				    $sCode = ProkakisAccessToken::getSCode().'|'.$twitter_token;
+					
+					$response_twitter = BuyReport::curlER_ADM($twitter_keyword, 'Twitter', $sCode);
+					$response_youtube = BuyReport::curlER_ADM($twitter_keyword, 'Youtube', $sCode);
+					$response_theweb = BuyReport::curlER_ADM($twitter_keyword, 'TheWeb', $sCode);
+				
 					$pdf = PDF::loadView('buyreport.adm_PDF',compact('company_data','reportTemplates', 'dateDone', 'response_twitter', 'response_youtube', 'response_theweb'));
 
 					//dd($pdf->output());
@@ -1068,7 +1048,6 @@ $Bahamas = [];
 
 							//merge all into a 1 zip file
 							$zip = new ZipArchive;
-							//echo 'cant call zip'; exit;
 							$fileName = $repId.'_download_all.zip';
 								
 							if ($zip->open(public_path('report_downloads/'.$fileName), ZipArchive::CREATE) === TRUE)
@@ -1100,7 +1079,5 @@ $Bahamas = [];
 
 		}
 	}
-
-	
 
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
+use App\InOutUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -54,4 +57,14 @@ class LoginController extends Controller
         return $fb->name;
     }
 
+
+    //    InOutUsers::insert_updateDB(array('user_id'=>Auth::id(), 'status'=>0));
+    //     Auth::logout();
+    public function logout(Request $request)
+    {
+        InOutUsers::insert_updateDB(array('user_id'=>Auth::id(), 'status'=>0));
+        Auth::logout();
+        return redirect('/');
+
+    }
 }

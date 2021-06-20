@@ -53,6 +53,16 @@ class OpportunityController extends Controller {
 
 	}
 
+	public function details() {
+		if (User::securePage(Auth::id()) != 5) {
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+		$build = OpportunityBuildingCapability::getListBuildOpportunity();
+		$sell = OpportunitySellOffer::getListSellOpportunity()->merge($build);
+		$buy = OpportunityBuy::getListBuyOpportunity()->merge($sell);
+		$result = $buy;
+		return view('oppor.details', compact('result'));
+	}
 
 	public function requestReport(Request $request) {
 
@@ -567,13 +577,13 @@ class OpportunityController extends Controller {
 	}
 
 	public function exploreCountry(Request $request) {
-		if (strlen($request['key']) > 0) {
+		if (urldecode(strlen($request['key'])) > 0) {
 
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			$selectedCountry = $request['key'];
+			$selectedCountry = urldecode($request['key']);
 
 			$result_filter = false;
 
@@ -826,6 +836,8 @@ class OpportunityController extends Controller {
 
 				$opp->intro_describe_business = $request->input('intro_describe_business');
 
+				$opp->oppo_description = $request->input('oppo_description');
+
 				$opp->why_partner_goal = $request->input('why_partner_goal');
 
 				$opp->timeframe_goal = $timeFrame; //$request->input('timeframe_goal');
@@ -865,6 +877,8 @@ class OpportunityController extends Controller {
 					'audience_target' => $audienceTarget, //$request->input('audience_target'),
 
 					'intro_describe_business' => $request->input('intro_describe_business'),
+
+					'oppo_description' => $request->input('oppo_description'),
 
 					'why_partner_goal' => $request->input('why_partner_goal'),
 
@@ -1001,6 +1015,8 @@ class OpportunityController extends Controller {
 
 				$opp->intro_describe_business = $request->input('intro_describe_business');
 
+				$opp->oppo_description = $request->input('oppo_description');
+
 				$opp->why_partner_goal = $request->input('why_partner_goal');
 
 				$opp->timeframe_goal = $timeFrame; //  $request->input('timeframe_goal');
@@ -1038,6 +1054,8 @@ class OpportunityController extends Controller {
 					'audience_target' => $audienceTarget, //$request->input('audience_target'),
 
 					'intro_describe_business' => $request->input('intro_describe_business'),
+
+					'oppo_description' => $request->input('oppo_description'),
 
 					'why_partner_goal' => $request->input('why_partner_goal'),
 
@@ -1172,6 +1190,8 @@ class OpportunityController extends Controller {
 
 				$opp->intro_describe_business = $request->input('intro_describe_business');
 
+				$opp->oppo_description = $request->input('oppo_description');
+
 				$opp->why_partner_goal = $request->input('why_partner_goal');
 
 				$opp->timeframe_goal = $timeFrame; //$request->input('timeframe_goal');
@@ -1209,6 +1229,8 @@ class OpportunityController extends Controller {
 					'audience_target' => $audienceTarget, //$request->input('audience_target'),
 
 					'intro_describe_business' => $request->input('intro_describe_business'),
+
+					'oppo_description' => $request->input('oppo_description'),
 
 					'why_partner_goal' => $request->input('why_partner_goal'),
 

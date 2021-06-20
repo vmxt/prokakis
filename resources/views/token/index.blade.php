@@ -250,7 +250,7 @@
 
                                             <p>
 
-                                               In order to avail the premium features, <strong>Prokakis members</strong> should activate thier account to premium.
+                                               In order to avail the premium features, <strong>Intellinz members</strong> should activate thier account to premium.
 
                                                Please click the button below "Upgrade to Premium Account"
 

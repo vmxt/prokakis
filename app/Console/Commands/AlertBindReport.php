@@ -12,6 +12,8 @@ use App\ThomsonReuters;
 use App\TR_reportgeneration;
 use App\BuyReport;
 use App\ProcessedReport;
+use function GuzzleHttp\json_encode;
+use Illuminate\Http\Request;
 
 class AlertBindReport extends Command
 {
@@ -57,31 +59,59 @@ class AlertBindReport extends Command
         $emailAdd = $b['requester_company_email'];  
 
             //check Panamas, Bahamas, Offshore, Paradise
-            $Panama = BuyReport::searchMatchInPanama($companyNames);
+            //$Panama = BuyReport::searchMatchInPanama($companyNames);
+            $rURL = "https://reputation.app-prokakis.com/api/v1/panamagroup/".$companyNames."/panama/".$this->urlToken;
+	       	$client = new Client();
+	       	$rsToken = $client->get($rURL);
+	       	$result = $rsToken->getBody()->getContents();  
+       		$Panama = json_decode($result, true);
             if($Panama != 0){
               echo 'Panama';  
               AlertBindReport::sendNotification($emailAdd, 'Panama');   
             }
             echo "\n";
-            $Paradise = BuyReport::searchMatchInParadise($companyNames);
+            $rURL = "https://reputation.app-prokakis.com/api/v1/panamagroup/".$companyNames."/paradise/".$this->urlToken;
+            $client = new Client();
+            $rsToken = $client->get($rURL);
+            $result = $rsToken->getBody()->getContents();  
+            $Paradise = json_decode($result, true);
+            // $Paradise = BuyReport::searchMatchInParadise($companyNames);
             if($Paradise != 0){
               echo 'Paradise';  
               AlertBindReport::sendNotification($emailAdd, 'Paradise'); 
             }
             echo "\n";
-            $Offshore = BuyReport::searchMatchInOffShore($companyNames);
+            // $Offshore = BuyReport::searchMatchInOffShore($companyNames);
+            $rURL = "https://reputation.app-prokakis.com/api/v1/panamagroup/".$companyNames."/paradise/".$this->urlToken;
+            $client = new Client();
+            $rsToken = $client->get($rURL);
+            $result = $rsToken->getBody()->getContents();  
+            $Offshore = json_decode($result, true);
             if($Offshore != 0){
               echo 'Offshore';  
               AlertBindReport::sendNotification($emailAdd, 'Offshore');    
             }
             echo "\n";
+            $rURL = "https://reputation.app-prokakis.com/api/v1/panamagroup/".$companyNames."/bahamas/".$this->urlToken;
+            $client = new Client();
+            $rsToken = $client->get($rURL);
+            $result = $rsToken->getBody()->getContents();  
+            $Bahamas = json_decode($result, true);
             $Bahamas = BuyReport::searchMatchInBahamas($companyNames);
             if($Bahamas != 0){
               echo 'Bahamas';  
               AlertBindReport::sendNotification($emailAdd, 'Bahamas');   
             }  
             echo "\n";
-            $tr = ThomsonReuters::getMatched_Companies($companyNames);
+                $searchParam .= "&company_name=".$companyNames;   
+
+            $rURL = "https://reputation.app-prokakis.com/public/api/v1/thomson/company?pauth=".$this->urlToken.$searchParam;
+            $client = new Client();
+            $rsToken = $client->get($rURL);
+            $result = $rsToken->getBody()->getContents();  
+            $tr = json_decode($result, true);
+
+            // $tr = ThomsonReuters::getMatched_Companies($companyNames);
             if($tr !== 0){
                 echo 'Refinitive';
                 TR_reportgeneration::create([

@@ -346,7 +346,6 @@
 
                                                 <?php
 
-						
                                                  if( count((array)$rs) > 0 ){
 
 
@@ -457,7 +456,7 @@
 
                                                              $upImg =  App\UploadImages::find($ext[1]);
 
-                                                             if($upImg){
+                                                             if(count((array)$upImg) > 0){
 
                                                            ?>
 

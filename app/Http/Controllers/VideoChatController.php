@@ -312,11 +312,11 @@ class VideoChatController extends Controller {
 
 
 
-		  Company Name: $req->company_name <br />
+		  Company Name: {{ $req->company_name ?? '' }} <br />
 
-		  Country Code: $req->primary_country <br />
+		  Country Code: {{ $req->primary_country ?? '' }} <br />
 
-		  Industry: $req->industry <br />
+		  Industry: {{  $req->industry ?? '' }}<br />
 
 		  <br />
 

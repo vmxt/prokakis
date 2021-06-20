@@ -24,6 +24,7 @@
     text-align: center
 }
 
+
 </style>
 
 
@@ -44,9 +45,9 @@
 
     <div class="logo"  style="margin-top: 0px; margin-bottom: 0px;">
 
-        <a href="https://prokakis.com">
+        <a href="https://intellinz.com">
 
-            <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="200px"> </a>
+            <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="200px"> </a>
 
     </div>
 
@@ -234,7 +235,7 @@
 
                 <label class="mt-checkbox mt-checkbox-outline">
 
-                    <input type="checkbox" name="tnc" id="tnc">  I have read and agreed to Prokakis
+                    <input type="checkbox" name="tnc" id="tnc">  I have read and agreed to Intellinz
 
                     <a href="javascript:;">Terms of Use </a> &amp;
 

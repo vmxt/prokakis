@@ -58,12 +58,13 @@
       <p class="h5">Award(s):</p>
     </div>
 
+@if(!empty($profileCertifications))
         @foreach($profileCertifications as $aw)
             <div class="card p-2">
                   <img class='img-fluid' src="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>" style='width:100%; padding-top: 100px;' border="1" alt="Null" />
-    </div>
-          @endforeach
-
+            </div>
+         @endforeach
+@endif
 
 @if( !empty($data['COMP_STRENGTHS']) )
     <div class="row p-1">

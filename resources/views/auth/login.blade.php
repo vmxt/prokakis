@@ -263,6 +263,11 @@
     }
 }
 
+@media (max-width: 991px){
+    .page-content {
+        padding-top: 30px !important;
+    }
+}
 </style>
 
 
@@ -277,7 +282,7 @@
 
 
     <div class=" login login2">
-   <a id="logo_link" title="Prokakis" href="https://prokakis.com/"></a>
+   <a id="logo_link" title="Intellinz" href="https://intellinz.com/"></a>
 
 <!-- BEGIN LOGIN -->
 

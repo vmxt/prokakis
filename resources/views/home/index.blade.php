@@ -258,7 +258,7 @@
     }
 
     @media (min-width: 320px) and (max-width: 480px) {
-        .profile-img img {
+        .profile-img imgÂ {
             margin-left: 35px;
         }
         .ctr{
@@ -756,7 +756,7 @@ var tour = new Tour({
   {
     element: "#nav-opportunities",
     title: "OPPORTUNITIES",
-    content: "This has a list of links and utilities about opportunities on the Prokakis system",
+    content: "This has a list of links and utilities about opportunities on the Intellinz system",
     onNext: function(){
         $('#nav-opportunities').addClass('open');
     },
@@ -769,7 +769,7 @@ var tour = new Tour({
   {
     element: "#nav-explore",
     title: "EXPLORE OPPORTUNITIES",
-    content: "Here you can view the most recent build, sell and buy opportunities on the Prokakis system",
+    content: "Here you can view the most recent build, sell and buy opportunities on the Intellinz system",
     onNext: function(){
         $('#nav-opportunities').removeClass('open');
         $('#nav-opportunities').removeClass('active');
@@ -831,7 +831,7 @@ var tour = new Tour({
   {
     element: "#nav-login-inbox",
     title: "MY INBOX",
-    content: "Here you can view, compose and send messages to other companies on the Prokakis system",
+    content: "Here you can view, compose and send messages to other companies on the Intellinz system",
     placement: 'left'
   },  
   {
@@ -849,13 +849,13 @@ var tour = new Tour({
   {
     element: "#nav-login-share-friend",
     title: "SHARE TO FRIEND",
-    content: "Here you can email a friend with your referral link so they can join you on the Prokakis system",
+    content: "Here you can email a friend with your referral link so they can join you on the Intellinz system",
     placement: 'left'
   },  
   {
     element: "#nav-login-logout",
     title: "LOGOUT",
-    content: "This will log you out of the prokakis system",
+    content: "This will log you out of the Intellinz system",
     placement: 'left',
     onNext: function(){
         $('#nav-login-dropdown').removeClass('open');

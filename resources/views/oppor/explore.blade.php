@@ -1838,10 +1838,10 @@
                           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                           processData: false,
                           contentType: false,
-                        
+  
                           success: function (data) {
                             formData = new FormData();
-                            formData.append("model", type +' Opportunity');
+                            //formData.append("model", data +' Opportunity');
 
                             if(data == 'add'){
                                 $('.followicon_'+comp_id).addClass('fa-user-minus');

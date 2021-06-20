@@ -14,6 +14,10 @@ use App\InvestorAlert;
 
 use App\Mas;
 
+use App\ProkakisAccessToken;
+use GuzzleHttp\Client;
+
+
 
 
 //use Illuminate\Support\Facades\Http;
@@ -115,95 +119,104 @@ class AlertedrecordsController extends Controller
     }
 
 
-    public function panama()
+   public function panama()
     {
-      ini_set('memory_limit', '512M');
       $panamaData = [];
-      $x=0;
-      $file = fopen("AML/Panama/panama_papers.nodes.entity.csv", "r") or die(" Panama file is not there! \n");
-      while(! feof($file))
-      {
-        $x++;
-        $data = fgetcsv($file);
-        if($data[0] != 'node_id'){
+      $urlToken  = ProkakisAccessToken::getSCode();
+      $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup-all/panama/'.$urlToken;
+
+      //echo $rURL;
+      //exit;
+       
+      $client = new Client();
+      $rsToken = $client->get($rURL);
+      $result = $rsToken->getBody()->getContents();  
+      $rs = json_decode($result, true);
     
-        $panamaData[] = array('id'=>$data[0], 'Name'=>$data[1], 'Country'=>$data[5], 'IncorporationDate'=>$data[6], 'Jurisdiction'=>$data[3]);
+      foreach($rs['RecordSet'] as $data)
+      {
+   
+        if($data[0] != 'node_id'){
+         $panamaData[] = array('id'=>$data[0], 'Name'=>$data[1], 'Country'=>$data[5], 'IncorporationDate'=>$data[6], 'Jurisdiction'=>$data[3]);
         }
 
-        if($x == 50000){
-          break;
-        }
       }
-      fclose($file);
+ 
       return view('alertedrecords.panama', compact('panamaData'));
 
     }
     
     public function bahamas()
     {
-      ini_set('memory_limit', '512M');
-      $bahamasData = [];
-      $x = 0;
-      $file1 = fopen("AML/Bahamas/bahamas_leaks.nodes.entity.csv", "r") or die(" Bahamas file is not there! \n");
-      while(! feof($file1))
-      {
-        $x++;
-        $data = fgetcsv($file1);
-        if($data[0] != 'node_id'){
-        
-          $bahamasData[] = array('id'=>$data[0], 'Name'=>$data[1], 'IncorporationDate'=>$data[4], 'Jurisdiction'=>$data[2]);
 
+      $urlToken  = ProkakisAccessToken::getSCode();
+      $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup-all/bahamas/'.$urlToken;
+       
+       $client = new Client();
+       $rsToken = $client->get($rURL);
+       $result = $rsToken->getBody()->getContents();  
+       $rs = json_decode($result, true);
+       $bahamasData = [];
+
+      foreach($rs['RecordSet'] as $data)
+      {
+      
+        if($data[0] != 'node_id'){
+          $bahamasData[] = array('id'=>$data[0], 'Name'=>$data[1], 'IncorporationDate'=>$data[4], 'Jurisdiction'=>$data[2]);
         }
-        if($x == 50000){
-          break;
-        }
-        
+    
       }
-      fclose($file1);
+     
       return view('alertedrecords.bahamas', compact('bahamasData'));
 
     }
 
     public function offshore()
     {
-      ini_set('memory_limit', '512M');
       $offshoreData = [];
-      $x=0;
-      $file3 = fopen("AML/Offshore/offshore_leaks.nodes.entity.csv", "r") or die(" Offshore file is not there! \n");
-      while(! feof($file3))
+  
+      $urlToken  = ProkakisAccessToken::getSCode();
+      $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup-all/offshore/'.$urlToken;
+       
+      $client = new Client();
+      $rsToken = $client->get($rURL);
+      $result = $rsToken->getBody()->getContents();  
+      $rs = json_decode($result, true);
+     
+      foreach($rs['RecordSet'] as $data)
       { 
-        $x++;
-        $data = fgetcsv($file3);
+     
+      
         if($data[0] != 'node_id'){
-        $offshoreData[] = array('id'=>$data[0],'Name'=>$data[1], 'Country'=>$data[5], 'IncorporationDate'=>$data[6], 'Jurisdiction'=>$data[3]);
+          $offshoreData[] = array('id'=>$data[0],'Name'=>$data[1], 'Country'=>$data[5], 'IncorporationDate'=>$data[6], 'Jurisdiction'=>$data[3]);
         }
-        if($x == 50000){
-          break;
-        }
+      
       }
-      fclose($file3);
+   
       return view('alertedrecords.offshore', compact('offshoreData'));
     }
 
     public function paradise()
     {
-      ini_set('memory_limit', '512M');
       $paradiseData = [];
-      $x=0;
-      $file2 = fopen("AML/Paradise/paradise_papers.nodes.entity.csv", "r") or die(" Paradise file is not there! \n");
-      while(! feof($file2))
+  
+      $urlToken  = ProkakisAccessToken::getSCode();
+      $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup-all/paradise/'.$urlToken;
+       
+      $client = new Client();
+      $rsToken = $client->get($rURL);
+      $result = $rsToken->getBody()->getContents();  
+      $rs = json_decode($result, true);
+
+      foreach($rs['RecordSet'] as $data)
       {
-        $x++;
-        $data = fgetcsv($file2);
+    
         if($data[0] != 'node_id'){
-        $paradiseData[] = array('id'=>$data[0], 'Name'=>$data[1], 'Country'=>$data[5], 'IncorporationDate'=>$data[6], 'Jurisdiction'=>$data[3]);
-        }
-        if($x == 50000){
-          break;
+         $paradiseData[] = array('id'=>$data[0], 'Name'=>$data[1], 'Country'=>$data[5], 'IncorporationDate'=>$data[6], 'Jurisdiction'=>$data[3]);
         }
       
+      
       }
-      fclose($file2);
       return view('alertedrecords.paradise', compact('paradiseData'));
     }
 
@@ -211,4 +224,3 @@ class AlertedrecordsController extends Controller
 
 
 }
-

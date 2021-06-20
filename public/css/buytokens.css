@@ -1200,6 +1200,17 @@ div.payment .advantages-block p {
     }*/
 }
 
+
+@media  (max-width: 630px){
+    .desc-1 .card-buyNow-bot {
+        position: initial !important;
+    }
+
+    .card-buyNow{
+      position: initial !important;   
+    }
+}
+
 @media  (min-width: 961px){
     .desc-1 .card-buyNow-bot {
         /*display: none;*/
@@ -1341,10 +1352,11 @@ hr.top-line {
 }
 
 .desc-2 .card-buyNow-bot {
-    position: absolute;
+    position: initial;
     bottom: 30px;
     width: 100%;
     margin-left: 0px;
+    text-align: center;
 }
 
 .token-card-text{
@@ -1430,7 +1442,7 @@ hr.top-line {
     text-align: center;
     margin-top: 25px;
     margin-left: 30px;
-    position: absolute;
+    position: initial;
     bottom: 20px;
     left: 58px;
 }

@@ -4,7 +4,8 @@ namespace App;
 
 use App;
 use Illuminate\Database\Eloquent\Model;
-use Mail;
+use Illuminate\Support\Facades\Mail;
+//use Mail;
 
 class Mailbox extends Model {
 
@@ -45,8 +46,8 @@ class Mailbox extends Model {
 		Mail::send(array('html' => 'mailbox.template'), array('text' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
 				//$message->from('support@prokakis.com', 'Prokakis Web Admin');
-				$message->from('prokakis@ebos-sg.com', 'Prokakis Web Admin');
-				//prokakis@ebos-sg.com
+				$message->from('support@app-prokakis.com', 'Prokakis Web Admin');
+				//support@app-prokakis.com
 
 				if ($bcc != '') {
 					$message->to($recipients)->$message->bcc($bcc)->subject($subject);
@@ -62,7 +63,7 @@ class Mailbox extends Model {
 		Mail::send(array('html' => 'mailbox.template'), array('text' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
 				// $message->from('support@prokakis.com', 'Prokakis Web Admin');
-				$message->from('prokakis@ebos-sg.com', 'Prokakis Web Admin');
+				$message->from('support@app-prokakis.com', 'Prokakis Web Admin');
 
 				if ($bcc != '') {
 					$message->to($recipients)->$message->bcc($bcc)->subject($subject);
@@ -75,10 +76,9 @@ class Mailbox extends Model {
 	}
 
 	public static function sendMail_EmailTemplate($emailtext, $recipients, $subject, $bcc) {
-		Mail::send(array('html' => 'mailbox.emailtemplate'), array('text' => $emailtext),
+	 $ok =	Mail::send(array('html' => 'mailbox.emailtemplate'), array('text' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
-				// $message->from('support@prokakis.com', 'Prokakis Web Admin');
-				$message->from('prokakis@ebos-sg.com', 'Prokakis Web Admin');
+				 $message->from('support@app-prokakis.com', 'Prokakis Web Admin');
 
 				if ($bcc != '') {
 					$message->to($recipients)->$message->bcc($bcc)->subject($subject);
@@ -87,6 +87,7 @@ class Mailbox extends Model {
 				}
 			}
 		);
+	return $ok;	
 
 	}
 

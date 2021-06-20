@@ -20,6 +20,7 @@ use App\WhoViewedMe;
 
 use Auth;
 
+use Mail;
 
 
 use Config;
@@ -60,8 +61,8 @@ class Test2Controller extends Controller
 
     public function getWorldData()
     {
-        $rs = new thomsonReutersWorldUpdate;
-        $rs->handle();
+      //  $rs = new thomsonReutersWorldUpdate;
+      //  $rs->handle();
     }
 
     
@@ -108,6 +109,54 @@ class Test2Controller extends Controller
         Mailbox::sendMail_EmailTemplate($message, $email, $messageTitle, ""); 
 
     }
+    
+    public function testMailSending(Request $request){
+      echo 'test mail sending <br />';
+
+      $emailAdd = "daryl3120@gmail.com";
+      //$to = 'darylyrad.cabz@gmail.com';
+      $ok = Mailbox::sendMail_EmailTemplate('Email sending test Vic123456', $emailAdd, 'checkTest', ''); 
+
+    //  $data = array('name'=>"Virat Gandhi");
+   /*
+      $ok = Mail::send(['text'=>'mailbox/samplemail'], $data, function($message) {
+          $message->to('darylyrad.cabz@gmail.com', 'Tutorials Point')->subject
+             ('Laravel Basic Testing Mail');
+          $message->from('support@app-prokakis.com','Virat Gandhi');
+       });
+  */
+
+
+      var_dump($ok);
+      echo "---";
+          if($ok){
+               echo 'sent to '.$emailAdd; 
+          } else {
+              echo 'fail to send '.$emailAdd;
+          }
+          
+    
+      
+      
+    /*$sender = 'support@app-prokakis.com';
+    $recipient = 'vic_snts@yahoo.com';
+    
+    $subject = "php mail test Victor";
+    $message = "php test message, the server side mail system is working properly check check";
+    $headers = 'From:' . $sender;
+    
+    if (mail($recipient, $subject, $message, $headers))
+    {
+        echo "Message sent to $recipient ";
+    }
+    else
+    {
+        echo "Error: Message not accepted";
+    }
+     */     
+      
+      
+    }
 
 
 
@@ -124,6 +173,5 @@ class Test2Controller extends Controller
     
 
 }
-
 
 

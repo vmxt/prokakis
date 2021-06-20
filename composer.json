@@ -6,13 +6,16 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "barryvdh/laravel-dompdf": "^0.8.6",
+        "barryvdh/laravel-dompdf": "^0.8.4",
         "fideloper/proxy": "*",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.3",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5",
-        "nesbot/carbon": "1.29.*"
+        "mews/captcha": "^3.2",
+        "nesbot/carbon": "1.29.*",
+        "phpmailer/phpmailer": "^6.3",
+        "thiagoalessio/tesseract_ocr": "^2.11"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

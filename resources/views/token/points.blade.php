@@ -234,7 +234,7 @@
 
 
 
-                                        <div class="card-header"><b>Prokakis Rewards</b></div>
+                                        <div class="card-header"><b>Intellinz Rewards</b></div>
 
                                         <br>
 
@@ -243,10 +243,10 @@
                                             <table>
                                                 <tr>
                                                   <td valign="top">  
-                                                <b>How Do I Earn ProKakis Reward Points?</b> <br />
+                                                <b>How Do I Earn Intellinz Reward Points?</b> <br />
                                                 - Get 0.1 points for every credit purchased. <br />
                                                 - Introduce and share to a friend or <br /> business associate and get 0.05 points. <br />
-                                                - Earn 0.01 points passively every time your <br /> referrals purchase 1 credit for Prokakis services. <br />
+                                                - Earn 0.01 points passively every time your <br /> referrals purchase 1 credit for Intellinz services. <br />
                                                   </td>
 
                                                   <td valign="top">  

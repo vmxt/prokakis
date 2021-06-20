@@ -19,9 +19,7 @@
       <p class="text-justify">
 
         <small class="text-muted">
-          We have a database records of companies around the world. <br />
-          We matched the company of the report provider. 
-        
+          We matched the company information of the report provider. 
         </small>
 
       </p>
@@ -29,7 +27,9 @@
     </div>
 
     <?php if(!empty($MASinvestors)){  ?>
+      <center><h5 color="green"><i> MAS Investors Alert Likely Match  </i></h5></center>
     <div class=" p-3">
+    
         <?php foreach($MASinvestors as $d){ ?>
             <table class="table table-sm table-bordered" >
               <thead>
@@ -69,7 +69,9 @@
 
 
     <?php if(!empty($Panama)){  ?>
+      <center><h5 color="green"><i> Panama Likely Match  </i></h5></center>
       <div class=" p-3">
+      
           <?php foreach($Panama as $d){ ?>
               <table class="table table-sm table-bordered" >
                 <thead>
@@ -107,7 +109,9 @@
       <?php }  ?>
 
         <?php if(!empty($Paradise)){  ?>
+          <center><h5 color="green"><i> Paradise Likely Match  </i></h5></center>
           <div class=" p-3">
+           
               <?php foreach($Paradise as $d){ ?>
                   <table class="table table-sm table-bordered" >
                     <thead>
@@ -145,7 +149,9 @@
           <?php }  ?>
 
           <?php if(!empty($Offshore)){  ?>
+            <center><h5 color="green"><i> Offshore Likely Match  </i></h5></center>
             <div class=" p-3">
+              
                 <?php foreach($Offshore as $d){ ?>
                     <table class="table table-sm table-bordered" >
                       <thead>
@@ -183,7 +189,9 @@
             <?php }  ?>
 
             <?php if(!empty($Bahamas)){  ?>
+              <center><h5 color="green"><i> Bahamas Likely Match  </i></h5></center>
               <div class=" p-3">
+                
                   <?php foreach($Bahamas as $d){ ?>
                       <table class="table table-sm table-bordered" >
                         <thead>

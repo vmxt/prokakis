@@ -57,7 +57,7 @@ class ThomsonController extends Controller {
 		}
 	}
 
-	public function searchFound(Request $request){
+public function searchFound(Request $request){
 
 		if ($request->isMethod('post')) {
 
@@ -149,6 +149,10 @@ class ThomsonController extends Controller {
 			
 			$sumRec = $rs['sumRec']; //+ count((array) $rs2) + count((array) $rs3);
 			$rs = array_merge($rs['Likely_Match'], $rs['Confirm_Match']);
+			 session([
+	     	    'dataSearch' =>  $rs
+	 		]);
+	 		
 			$rr = ProcessedReport::getTheActiveRequestReport();
 			if (session()->has('country_list')) {
 			   $country_list = session('country_list');
@@ -222,7 +226,7 @@ class ThomsonController extends Controller {
 			]);
 
 			$sumRec = $rs['sumRec']; //+ count((array) $rs2) + count((array) $rs3);
-			$rs = array_merge($rs['Likely_Match'], $rs['Confirm_Match']);
+			$rs = $rs['Likely_Match'];
 			$rr = ProcessedReport::getTheActiveRequestReport();
 			if (session()->has('country_list')) {
 			   $country_list = session('country_list');
@@ -306,13 +310,14 @@ class ThomsonController extends Controller {
 
 		//echo count($r_id); exit;
 
-		   $rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/search-ids/'.$ids.'?pauth='.$this->urlToken;
-	       $client = new Client();
-	       $rsToken = $client->get($rURL);
-	       $result = $rsToken->getBody()->getContents();  
-       		$rs = json_decode($result, true);
-			$fileNameDownload = "Case Report".$rs['fileNameDownload'];
-			$dataR = array_merge($rs['Likely_Match'], $rs['Confirm_Match']);
+// 		   $rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/search-ids/'.$ids.'?pauth='.$this->urlToken;
+// 	       $client = new Client();
+// 	       $rsToken = $client->get($rURL);
+// 	       $result = $rsToken->getBody()->getContents();  
+//       		$rs = json_decode($result, true);
+ 			$fileNameDownload = "Case Report".  " (".time().") ";
+// 			$dataR = array_merge($rs['Likely_Match'], $rs['Confirm_Match']);
+			$dataR = session('dataSearch');
 			$pdf = PDF::loadView('staff.myPdfCasePrinting', compact('dataR','ids'));
 			return $pdf->download($fileNameDownload . '.pdf');
 			// return view('staff.myPdfCasePrinting', compact('dataR','ids'));
@@ -389,16 +394,22 @@ class ThomsonController extends Controller {
 		if (isset($request['id'])) {
 			$user_id = Auth::id();
 			$rs = User::find($user_id);
-			$data = ThomsonReuters::find($request['id']);
-
+			$id = $request['id'];
+            
 			if ($rs->user_type != 4) {
 				return redirect('/home')->with('message', 'Unauthorised opening of page.');
 			}
 
+        	       $rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/search/'.$id.'?pauth='.$this->urlToken;
+        	       $client = new Client();
+        	       $rsToken = $client->get($rURL);
+        	       $result = $rsToken->getBody()->getContents();  
+               	    $data = json_decode($result, true);
+               		
 			if (count((array) $data) > 0) {
 
 				$company_out = "";
-				$rcp = explode(",", $data->COMPANIES);
+				$rcp = explode(",", $data['COMPANIES']);
 				if (count((array) $rcp) > 0) {
 					foreach ($rcp as $cc) {
 						if (!is_numeric($cc)) {
@@ -408,17 +419,17 @@ class ThomsonController extends Controller {
 				}
 
 				$inserted_prokakis = '';
-				if ($data->CREATED_AT != NULL) {
-					$date1 = Carbon::createFromFormat('Y-m-d', $data->CREATED_AT);
-					// $date = date_create($data->CREATED_AT);
+				if ($data['CREATED_AT'] != NULL) {
+					$date1 = Carbon::createFromFormat('Y-m-d', $data['CREATED_AT']);
+					// $date = date_create($data['CREATED_AT']);
 					// $dateFinal = date_format($date, "Y-m-d");
 					$dateFinal = Carbon::parse($date1)->format('Y-m-d');
 					$inserted_prokakis = date("F j, Y", strtotime($dateFinal));
 				}
 
 				$updated_prokakis = '';
-				if ($data->UPDATED != NULL) {
-					$date2 = Carbon::createFromFormat('Y-m-d', $data->CREATED_AT);
+				if ($data['UPDATED'] != NULL) {
+					$date2 = Carbon::createFromFormat('Y-m-d', $data['CREATED_AT']);
 
 					// $date2 = date_create($data->UPDATED);
 					// $dateFinal2 = date_format($date2, "Y-m-d");
