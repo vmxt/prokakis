@@ -177,10 +177,12 @@ public function searchFound(Request $request){
 			$validatedData = $request->validate([
 				'company_name' => 'required',
 				'country_location' => 'required',
+				'uen' => 'required',
 			]);	
 
 			$cl = $request->input('country_location');
 			$cn = $request->input('company_name');
+			$uen = $request->input('uen');
 
 
 
@@ -193,8 +195,13 @@ public function searchFound(Request $request){
 			if($cn != null){
 				$search = $search ."<p> COMPANY NAME: <b>". $cn.'</b> </p>';	
 				$searchParam .= "&company_name=".$cn;	
+			}
+			if($uen != null){
+				$search = $search ."<p> UEN: <b>". $uen.'</b> </p>';	
+				$searchParam .= "&uen=".$uen;	
 
 			}
+
 			$rURL = "https://reputation.app-prokakis.com/public/api/v1/thomson/company?pauth=".$this->urlToken.$searchParam;
 	       	$client = new Client();
 	       	$rsToken = $client->get($rURL);

@@ -583,6 +583,14 @@ td{
 
                                 </div>
 
+                                <div class="form-group">
+
+                                    <label> UEN <code>required *</code> </label>
+
+                                    <input id="uen" name="uen" class="form-control placeholder-no-fix" type="text" placeholder="UEN" autofocus>
+
+                                </div>
+
 
 
                                 <div class="actions">
