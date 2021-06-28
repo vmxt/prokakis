@@ -822,7 +822,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="approx_large"><b>What is the value of this Opportunity</b> <i>(Optional)</i></label>
+                                        <label for="approx_large"><b>What is the asking price of this Opportunity</b> <i>(Optional)</i></label>
 
                                         <select class="form-control input-select-form" id="approx_large" name="approx_large" dataName='approx_large'>
 
@@ -856,6 +856,87 @@ input::-moz-focus-inner {
 
                             </div>
 
+
+                            <div class="portlet light" id="sect_revenue_opportunity">
+
+                                <div class="portlet-body">
+
+                                    <div class="form-group">
+
+                                        <label for="est_revenue"><b>What is the estimated revenue per year? </b> </label>
+
+                                        <select class="form-control input-select-form" id="est_revenue" name="est_revenue" dataName='est_revenue'>
+
+                                            <option value="" id="">Please select one of the following</option>
+
+                                            <?php foreach($approx_large_list as $key => $value){
+
+                                            if (isset($data->est_revenue) && $key == $data->est_revenue) {
+
+                                                $selected = 'selected';
+
+                                            } else {
+
+                                                $selected = '';
+
+                                            }
+
+                                            ?>
+
+                                            <option
+
+                                                <?php echo $selected; ?> value="<?php echo $key ?>"><?php echo $value; ?></option>
+
+                                            <?php }  ?>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="portlet light" id="sect_profit_opportunity">
+
+                                <div class="portlet-body">
+
+                                    <div class="form-group">
+
+                                        <label for="est_profit"><b>What is the estimated profit per year? </b> </label>
+
+                                        <select class="form-control input-select-form" id="est_profit" name="est_profit" dataName='est_profit'>
+
+                                            <option value="" id="">Please select one of the following</option>
+
+                                            <?php foreach($approx_large_list as $key => $value){
+
+                                            if (isset($data->est_profit) && $key == $data->est_profit) {
+
+                                                $selected = 'selected';
+
+                                            } else {
+
+                                                $selected = '';
+
+                                            }
+
+                                            ?>
+
+                                            <option
+
+                                                <?php echo $selected; ?> value="<?php echo $key ?>"><?php echo $value; ?></option>
+
+                                            <?php }  ?>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            
                         </div>
 
                     </div>
