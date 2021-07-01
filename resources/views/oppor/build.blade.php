@@ -808,7 +808,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="approx_large"><b>What is the asking price of this Opportunity? </b> <i>(Optional)</i></label>
+                                        <label for="approx_large"><b>What is the asking price of this Investment? </b> <i>(Optional)</i></label>
 
                                         <select class="form-control input-select-form" id="approx_large" name="approx_large" dataName='approx_large'>
 
@@ -842,7 +842,6 @@ input::-moz-focus-inner {
 
                             </div>
 
-
                             <div class="portlet light" id="sect_revenue_opportunity">
 
                                 <div class="portlet-body">
@@ -851,31 +850,8 @@ input::-moz-focus-inner {
 
                                         <label for="est_revenue"><b>What is the estimated revenue per year? </b> </label>
 
-                                        <select class="form-control input-select-form" id="est_revenue" name="est_revenue" dataName='est_revenue'>
+                                        <input type="text"   class="form-control input-text-form" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?$data->est_revenue:''; ?>" >
 
-                                            <option value="" id="">Please select one of the following</option>
-
-                                            <?php foreach($approx_large_list as $key => $value){
-
-                                            if (isset($data->est_revenue) && $key == $data->est_revenue) {
-
-                                                $selected = 'selected';
-
-                                            } else {
-
-                                                $selected = '';
-
-                                            }
-
-                                            ?>
-
-                                            <option
-
-                                                <?php echo $selected; ?> value="<?php echo $key ?>"><?php echo $value; ?></option>
-
-                                            <?php }  ?>
-
-                                        </select>
 
                                     </div>
 
@@ -891,31 +867,23 @@ input::-moz-focus-inner {
 
                                         <label for="est_profit"><b>What is the estimated profit per year? </b> </label>
 
-                                        <select class="form-control input-select-form" id="est_profit" name="est_profit" dataName='est_profit'>
+                                        <input type="text"  class="form-control input-text-form" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?$data->est_profit:'' ?>" >
 
-                                            <option value="" id="">Please select one of the following</option>
+                                    </div>
 
-                                            <?php foreach($approx_large_list as $key => $value){
+                                </div>
 
-                                            if (isset($data->est_profit) && $key == $data->est_profit) {
+                            </div>
+                            
+                            <div class="portlet light" id="sect_inventory_opportunity">
 
-                                                $selected = 'selected';
+                                <div class="portlet-body">
 
-                                            } else {
+                                    <div class="form-group">
 
-                                                $selected = '';
+                                        <label for="inventory_value"><b>What is the inventory value? </b> </label>
 
-                                            }
-
-                                            ?>
-
-                                            <option
-
-                                                <?php echo $selected; ?> value="<?php echo $key ?>"><?php echo $value; ?></option>
-
-                                            <?php }  ?>
-
-                                        </select>
+                                        <input required="required"  type="text" class="form-control input-text-form" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '' ?>" >
 
                                     </div>
 
@@ -2230,6 +2198,9 @@ input::-moz-focus-inner {
             cookies.del('build_why_partner_goal');
             cookies.del('build_timeFrame');
             cookies.del('build_approx_large');
+            cookies.del('build_est_profit');
+            cookies.del('build_est_revenue');
+            cookies.del('build_inventory_value');
             cookies.del('build_ideal_partner_base');
             cookies.del('build_partnersCheck');
             location.reload(true);
@@ -2305,6 +2276,24 @@ input::-moz-focus-inner {
             }
         }); 
 
+        $("#est_revenue").change(function() { 
+            if(! $('#oppor_id').val() ){
+            cookies.set('build_est_revenue',  $("#est_revenue").val() );
+            }
+        }); 
+
+        $("#est_profit").change(function() { 
+            if(! $('#oppor_id').val() ){
+            cookies.set('build_est_profit',  $("#est_profit").val() );
+            }
+        }); 
+
+        $("#inventory_value").change(function() { 
+            if(! $('#oppor_id').val() ){
+            cookies.set('build_inventory_value',  $("#inventory_value").val() );
+            }
+        });
+
         $("#ideal_partner_base").change(function() { 
             if(! $('#oppor_id').val() ){
             cookies.set('build_ideal_partner_base',  $("#ideal_partner_base").val() );
@@ -2356,6 +2345,9 @@ $('#opportunity_build_form').submit(function() {
     cookies.del('build_why_partner_goal');
     cookies.del('build_timeFrame');
     cookies.del('build_approx_large');
+    cookies.del('build_est_profit');
+    cookies.del('build_est_revenue');
+    cookies.del('build_inventory_value');
     cookies.del('build_ideal_partner_base');
     cookies.del('build_partnersCheck');
 });
@@ -2397,6 +2389,10 @@ if(! $('#oppor_id').val() ){
 
     if(cookies.get("build_est_profit")!=null ){
         $('#est_profit').val(  cookies.get("build_est_profit") );
+    }
+
+    if(cookies.get("build_inventory_value")!=null ){
+        $('#inventory_value').val(  cookies.get("build_inventory_value") );
     }
 
    if(cookies.get("build_ideal_partner_base") != null){

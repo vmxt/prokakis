@@ -845,6 +845,7 @@ class OpportunityController extends Controller {
 				$opp->approx_large = $request->input('approx_large');
 				$opp->est_revenue = $request->input('est_revenue');
 				$opp->est_profit = $request->input('est_profit');
+				$opp->inventory_value = $request->input('inventory_value');
 
 				$opp->ideal_partner_base = $idealPartnerBase;
 
@@ -891,6 +892,8 @@ class OpportunityController extends Controller {
 					'est_revenue' => $request->input('est_revenue'),
 
 					'est_profit' => $request->input('est_profit'),
+
+					'inventory_value' => $request->input('inventory_value'),
 
 					'ideal_partner_base' => $idealPartnerBase,
 
@@ -1030,6 +1033,7 @@ class OpportunityController extends Controller {
 				$opp->approx_large = $request->input('approx_large');
 				$opp->est_profit = $request->input('est_profit');
 				$opp->est_revenue = $request->input('est_revenue');
+				$opp->inventory_value = $request->input('inventory_value');
 
 				$opp->ideal_partner_base = $idealPartnerBase;
 
@@ -1072,6 +1076,7 @@ class OpportunityController extends Controller {
 					'approx_large' => $request->input('approx_large'),
 					'est_profit' => $request->input('est_profit'),
 					'est_revenue' => $request->input('est_revenue'),
+					'inventory_value' => $request->input('inventory_value'),
 
 
 					'ideal_partner_base' => $idealPartnerBase,
@@ -1210,6 +1215,7 @@ class OpportunityController extends Controller {
 				$opp->approx_large = $request->input('approx_large');
 				$opp->est_profit = $request->input('est_profit');
 				$opp->est_revenue = $request->input('est_revenue');
+				$opp->inventory_value = $request->input('inventory_value');
 
 				$opp->ideal_partner_base = $idealPartnerBase;
 
@@ -1252,6 +1258,7 @@ class OpportunityController extends Controller {
 					'approx_large' => $request->input('approx_large'),
 					'est_profit' => $request->input('est_profit'),
 					'est_revenue' => $request->input('est_revenue'),
+					'inventory_value' => $request->input('inventory_value'),
 
 					'ideal_partner_base' => $idealPartnerBase,
 

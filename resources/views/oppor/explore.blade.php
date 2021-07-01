@@ -410,6 +410,18 @@
                 <hr>
             </div>
 
+            <div id='profit_section_{{ $buildCount }}'>
+                <span class="title-text">
+                    <h4><strong> Inventory Value </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ $item->inventory_value }}.
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
             <div id='keyword_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> Industry Keyword </strong></h4>
