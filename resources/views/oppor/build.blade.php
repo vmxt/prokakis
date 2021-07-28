@@ -348,7 +348,7 @@ input::-moz-focus-inner {
 
             <li>
 
-                Build Opportunity
+                Investment Opportunity
 
             </li>
 
@@ -416,7 +416,7 @@ input::-moz-focus-inner {
 
 
 
-                            <center>Describe your business goal</center>
+                            <center>Describe your investment goal</center>
 
                             <input type="hidden" id='oppor_id' name="id" value="<?php if (isset($data->id)) {
 
@@ -808,34 +808,8 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="approx_large"><b>What is the asking price of this Investment? </b> <i>(Optional)</i></label>
-
-                                        <select class="form-control input-select-form" id="approx_large" name="approx_large" dataName='approx_large'>
-
-                                            <option value="" id="">Please select one of the following</option>
-
-                                            <?php foreach($approx_large_list as $key => $value){
-
-                                            if (isset($data->approx_large) && $key == $data->approx_large) {
-
-                                                $selected = 'selected';
-
-                                            } else {
-
-                                                $selected = '';
-
-                                            }
-
-                                            ?>
-
-                                            <option
-
-                                                <?php echo $selected; ?> value="<?php echo $key ?>"><?php echo $value; ?></option>
-
-                                            <?php }  ?>
-
-                                        </select>
-
+                                        <label for="approx_large"><b>What is the asking price of this Investment? (USD) </b> <i>(Optional)</i></label>
+                                        <input type="text"   class="form-control input-text-form" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)?$data->approx_large:''; ?>" >
                                     </div>
 
                                 </div>
@@ -848,7 +822,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="est_revenue"><b>What is the estimated revenue per year? </b> </label>
+                                        <label for="est_revenue"><b>What is the estimated revenue per year? (USD) </b> </label>
 
                                         <input type="text"   class="form-control input-text-form" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?$data->est_revenue:''; ?>" >
 
@@ -865,7 +839,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="est_profit"><b>What is the estimated profit per year? </b> </label>
+                                        <label for="est_profit"><b>What is the estimated profit per year? (USD) </b> </label>
 
                                         <input type="text"  class="form-control input-text-form" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?$data->est_profit:'' ?>" >
 
@@ -874,14 +848,14 @@ input::-moz-focus-inner {
                                 </div>
 
                             </div>
-                            
+
                             <div class="portlet light" id="sect_inventory_opportunity">
 
                                 <div class="portlet-body">
 
                                     <div class="form-group">
 
-                                        <label for="inventory_value"><b>What is the inventory value? </b> </label>
+                                        <label for="inventory_value"><b>What is the inventory value? (USD)</b> </label>
 
                                         <input required="required"  type="text" class="form-control input-text-form" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '' ?>" >
 
