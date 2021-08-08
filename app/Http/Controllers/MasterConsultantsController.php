@@ -367,6 +367,7 @@ class MasterConsultantsController extends Controller {
 
 			$subsConsultants = ConsultantMapping::getSubConsultantsByMaster($consul_id);
 				
+
 			return view('mconsultant.overview', compact('rs', 'subsConsultants'));
 
 		} else {

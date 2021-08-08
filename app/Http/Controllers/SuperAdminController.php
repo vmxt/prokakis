@@ -323,7 +323,7 @@ class SuperAdminController extends Controller
 
           $rs = User::find($user_id);  
 
-           if(count($rs) > 0){
+           if($rs != null){
 
             $rs->status = $user_status;
 

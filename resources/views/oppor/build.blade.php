@@ -808,7 +808,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="approx_large"><b>What is the asking price of this Investment? (USD) </b> <i>(Optional)</i></label>
+                                        <label for="approx_large"><b>What is the asking price of this Investment? </b> <em>(USD)</em></label>
                                         <input type="text"   class="form-control input-text-form" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)?$data->approx_large:''; ?>" >
                                     </div>
 
@@ -822,7 +822,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="est_revenue"><b>What is the estimated revenue per year? (USD) </b> </label>
+                                        <label for="est_revenue"><b>What is the estimated revenue per year? </b> <em>(USD)</em></label>
 
                                         <input type="text"   class="form-control input-text-form" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?$data->est_revenue:''; ?>" >
 
@@ -839,7 +839,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="est_profit"><b>What is the estimated profit per year? (USD) </b> </label>
+                                        <label for="est_profit"><b>What is the estimated profit per year? </b><em>(USD)</em> </label>
 
                                         <input type="text"  class="form-control input-text-form" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?$data->est_profit:'' ?>" >
 
@@ -855,7 +855,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="inventory_value"><b>What is the inventory value? (USD)</b> </label>
+                                        <label for="inventory_value"><b>What is the inventory value? </b><em>(USD)</em> </label>
 
                                         <input required="required"  type="text" class="form-control input-text-form" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '' ?>" >
 

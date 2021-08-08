@@ -223,7 +223,6 @@ class BuyReport extends Model
       
     } 
 
-    //MAS Investors Alert, and Panama/Groups
     public static function getIA($rs, $repId)
     {
         $today = strtotime(date("Y-m-d"));
@@ -522,7 +521,7 @@ class BuyReport extends Model
 		curl_close($cSession);
 		return $response_twitter;
 	}
-
+    
     public static function curlER_ADM($searchKey, $socialMedia, $urlToken){
          
       //$urlToken  = ProkakisAccessToken::getSCode();

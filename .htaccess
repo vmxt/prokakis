@@ -1,12 +1,4 @@
 
-RewriteEngine On
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://app.prokakis.com/$1 [R,L]
-
-RewriteEngine On
-RewriteCond %{HTTP_HOST} prokakis\.ebosreputation\.com [NC]
-RewriteCond %{SERVER_PORT} 80
-RewriteRule ^(.*)$ https://prokakis.ebosreputation.com/$1 [R,L]
 
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
@@ -15,14 +7,7 @@ RewriteRule ^(.*)$ https://prokakis.ebosreputation.com/$1 [R,L]
 
     RewriteEngine On
 
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-    
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^(.*)$ public/$1 [L]
+
 
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d

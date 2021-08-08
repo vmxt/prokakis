@@ -83,9 +83,9 @@ class WeeklyTopOpportunities extends Command
             //  }
                     
             $result = array('result'=>'success');
-            $oppCount = 0;
+            $oppCount = 1;
             foreach($resOpp as $d){
-                if($oppCount <= 10){
+                if($oppCount <= 5){
                     $cc = [];
                     $c_country = "";       
                     if(strlen($d->ideal_partner_base) > 0){
@@ -121,17 +121,26 @@ class WeeklyTopOpportunities extends Command
                      'keyword_raw'=>$d->relevant_describing_partner ,
                      'industry_category'=>$ind->text, 
                      'industry_image'=>$imgSrc,
+                     'est_revenue'=>$d->est_revenue,
+                     'est_profit'=>$d->est_profit,
+                     'inventory_value'=>$d->inventory_vaue,
                      'title'=> strtoupper($d->opp_title) );
-                     
-                     $oppCount++;
+                    
                      }
+                  $oppCount++;
             }
 
-            $users = User::all()->pluck('email');
-                     
-            Mailbox::sendMail_weeklyOpp( $ret, $emailAdd,  "Weekly Top Opportunity", ""); 
-
-
+            // $users = User::all()->pluck('email');
+            // foreach($users as $emailAdd){
+            //     Mailbox::sendMail_weeklyOpp( $ret, $users,  "Weekly Top Opportunity", ""); 
+            // }
+            
+            Mailbox::sendMail_weeklyOpp( $ret, 'darylyrad.cabz@gmail.com',  "Weekly Top Opportunity", ""); 
+            Mailbox::sendMail_weeklyOpp( $ret, 'knlgfx@gmail.com',  "Weekly Top Opportunity", "");
+            Mailbox::sendMail_weeklyOpp( $ret, 'elisha@ebos-sg.com',  "Weekly Top Opportunity", "");
+            Mailbox::sendMail_weeklyOpp( $ret, 'sales@ebos-sg.com',  "Weekly Top Opportunity", "");
+            Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@gmail.com',  "Weekly Top Opportunity", "");
+            Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@mailinator.com',  "Weekly Top Opportunity", "");
         //code here
         //gather all 
       // $as =  ProcessedReport::activeSubscriptionsCompanyName();
@@ -146,26 +155,7 @@ class WeeklyTopOpportunities extends Command
 
 
   
-    public static function sendNotification($emailAdd, $sourceFile)
-    {
-        $message = "
-        Hi Prokakis Member, <br /><br />
 
-
-        We have found a possible match of a company from our ".$sourceFile." list as daily updates.  <br />
-        This result has a link to your active report subscription. <br /><br />
-        
-        Please downlaod the report to check these results. <br />
-        
-        <br /><br />
-        
-        Thank you. <br />
-        
-        Prokakis Web Admin
-        ";
-        //send the email here  
-        Mailbox::sendMail_v2($message, $emailAdd, "Possible match of a company link to you report subscription.", ""); 
-    }
 
 }
 

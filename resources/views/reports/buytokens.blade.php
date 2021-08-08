@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('public/css/buytokens.css') }}">
 
@@ -70,19 +69,6 @@
 
 }
 
-        .intro-tour-overlay {
-            display: none;
-            background: #666;
-            opacity: 0.5;
-            z-index: 1000;
-            min-height: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
     </style>
 
 
@@ -187,7 +173,7 @@
 
                     <div class="container ">
                         <div class="row">
-                            <div class="col-12 token-card-container" id="sect_data_content">
+                            <div class="col-12 token-card-container">
                                 <div class="col-4 token-card">
                                     <div class="token-card-title bg-image-1">
                                         <span class="fa-stack"
@@ -278,7 +264,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*Exclusive invite to Intellinz Networking events</p>
+                                                <p>*Exclusive invite to Prokakis Networking events</p>
                                             </div>
                                         </div>
 
@@ -378,7 +364,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*Exclusive invite to Intellinz Networking events</p>
+                                                <p>*Exclusive invite to Prokakis Networking events</p>
                                             </div>
                                         </div>
 
@@ -515,7 +501,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*exclusive invite to Intellinz Networking events</p>
+                                                <p>*exclusive invite to Prokakis Networking events</p>
                                             </div>
                                         </div>
                                         <div class=" card-buyNow-bot ">
@@ -647,7 +633,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*exclusive invite to Intellinz Networking events</p>
+                                                <p>*exclusive invite to Prokakis Networking events</p>
                                             </div>
                                         </div>
 
@@ -743,11 +729,11 @@
                         <h1>GET BUSINESS INTELLIGENCE REPORT</h1>
                     </div>
                 </div>
-                <div class="pricing-tables" id="sect_int_report">
+                <div class="pricing-tables">
                     <div class="container ">
                         <div class="row">
                             <div class="col-12 token-card-container">
-                                <div class="col-4 token-card" id="business_basic">
+                                <div class="col-4 token-card">
                                     <div class="token-card-heading">
                                         <h2>BASIC</h2>
                                     </div>
@@ -821,7 +807,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 token-card" id='business_pro'>
+                                <div class="col-4 token-card">
                                     <div class="token-card-heading">
                                         <h2>PROFESSIONAL</h2>
                                     </div>
@@ -904,7 +890,7 @@
 
                                     </div>
                                 </div>
-                                <div class=" col-4 token-card" id='business_enterprise'>
+                                <div class=" col-4 token-card">
                                     <div class="token-card-heading">
                                         <h2>ENTERPRISE</h2>
                                     </div>
@@ -996,8 +982,6 @@
 
         </div>
     </div>
- <div class='intro-tour-overlay'></div>
-
     <script src="{{ asset('public/js/app.js') }}"></script>
     <script>
          $(document).ready(function () {
@@ -1019,140 +1003,12 @@
         });
     </script>
 
-    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
+
 
     <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 
     <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
 
-    <script>
-// Instance the tour
-var tour = new Tour({
-  steps: [
-  {
-    element: ".pricing-tables",
-    title: "Buy Credit Page",
-    content: "You can purchase credits in this page",
-    placement: "top"
-  },
-  {
-    element: ".toggle-section",
-    title: "Monthly or Yearly",
-    content: "You can switch between Monthly or Yearly"
-  },
-  {
-    element: "#sect_data_content",
-    title: "Card plan",
-    content: "This are the cards where you can select your preffered plan",
-    placement: "top"
-  },
-    {
-    element: "#top1_form",
-    title: "Buy Now",
-    content: "Clicking this button will redirect you to paypal where you can purchase the credits",
-      placement: "top"
-  },
-    {
-    element: ".card-monthly",
-    title: "Monthly Plan",
-    content: "This is for Monthly Plan",
-      placement: "top",
-    onNext: function(){
-        $('.toggle-yearly').trigger('click');
-    }
-  },
-    {
-    element: ".card-yearly",
-    title: "Yearly Plan",
-    content: "This is for Yearly Plan",
-      placement: "top",
-  },
-    {
-    element: "#sect_int_report",
-    title: "Intelligence Report Credits",
-    content: "You can choose from these cards",
-      placement: "top",
-  },
-    {
-    element: "#business_basic",
-    title: "Basic",
-    content: "Basic with 120 credits / 1 reports",
-      placement: "top",
-  },
-    {
-    element: "#business_basic",
-    title: "Basic",
-    content: "Basic with 120 credits / 1 reports",
-      placement: "top",
-  },
-      {
-    element: "#business_pro",
-    title: "Professional",
-    content: "Professional with 590 credits / 5 reports",
-      placement: "top",
-  },
-{
-    element: "#business_enterprise",
-    title: "EnterPrise",
-    content: "Enterprise",
-      placement: "top",
-  }
-],
 
-  container: "body",
-  smartPlacement: false,
-  keyboard: true,
-  // storage: window.localStorage,
-  storage: false,
-  debug: false,
-  backdrop: true,
-  backdropContainer: 'body',
-  backdropPadding: 0,
-  redirect: false,
-  orphan: false,
-  duration: false,
-  delay: false,
-  basePath: "",
-  placement: 'auto',
-    autoscroll: true,
-  afterGetState: function (key, value) {},
-  afterSetState: function (key, value) {},
-  afterRemoveState: function (key, value) {},
-  onStart: function (tour) {},
-  onEnd: function (tour) {
-     $('.intro-tour-overlay').hide();
-      $('html').css('overflow','unset')
-     $('.menu-dropdown').removeClass('open');
-     updateTour('end');
-  },
-  onShow: function (tour) {},
-  onShown: function (tour) {},
-  onHide: function (tour) {},
-  onHidden: function (tour) {},
-  onNext: function (tour) {},
-  onPrev: function (tour) {},
-  onPause: function (tour, duration) {},
-  onResume: function (tour, duration) {},
-  onRedirectError: function (tour) {}
-
-});
-
-// Initialize the tour
-tour.init();
-
-// Start the tour
-if( $('#is_tour').val() == 1 ){
-    $('html').css('overflow','visible');
-     $('.intro-tour-overlay').show();
-    tour.start();
-}
-
-        $(document).ready(function () {
-            $(".close").click(function () {
-                $(".jumbotron").remove();
-            });
-        });
-
-    </script>
 
 @endsection

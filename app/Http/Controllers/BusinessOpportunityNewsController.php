@@ -325,4 +325,3 @@ class BusinessOpportunityNewsController extends Controller {
 	}
 
 }
-

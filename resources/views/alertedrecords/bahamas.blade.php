@@ -130,17 +130,17 @@ $(document).ready( function () {
 
 function showhideMe(idx, namex){
 
-    var r = $("#but"+idx).html();
+var r = $("#but"+idx).html();
 
-    if(r=='Hide details'){
-    $("#but"+idx).html("Show details");
-    $("#showhide_"+idx).hide();
-    $("#iconx"+idx).prop('class', 'icon-arrow-up');
+if(r=='Hide details'){
+$("#but"+idx).html("Show details");
+$("#showhide_"+idx).hide();
+$("#iconx"+idx).prop('class', 'icon-arrow-up');
 
-    }else{
-    $("#but"+idx).html("Hide details");
-    $("#showhide_"+idx).show();
-    $("#iconx"+idx).prop('class', 'icon-arrow-down');
+}else{
+$("#but"+idx).html("Hide details");
+$("#showhide_"+idx).show();
+$("#iconx"+idx).prop('class', 'icon-arrow-down');
 
               formData = new FormData();
               formData.append("model", 'Bahamas Alert List');

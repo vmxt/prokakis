@@ -222,7 +222,7 @@ class MailboxController extends Controller {
 		$p_country = (is_object($cc))? $cc->country_name : '';
 		$industry = $rss->industry;
 
-		$msg = "Hi Prokakis Administrator, <br /><br />
+		$msg = "Hi Intellinz Administrator, <br /><br />
 
 		I would like to avail of the Enterprise option at a buying credit page. <br /><br />
 
@@ -295,7 +295,7 @@ class MailboxController extends Controller {
 
            <br />
 
-           Please check your Prokakis mailbox,. <br />
+           Please check your Intellinz mailbox,. <br />
 
            There is a reply from your email in subject of '$m->subject'
 
@@ -307,7 +307,7 @@ class MailboxController extends Controller {
 
            ";
 
-			Mailbox::sendMail_v2($content, $email_noti, 'Prokakis mailbox notification of reply', '');
+			Mailbox::sendMail_v2($content, $email_noti, 'Intellinz mailbox notification of reply', '');
 
 
 
@@ -416,12 +416,12 @@ class MailboxController extends Controller {
 		$userId = Auth::id();
 		$url_result = \App\CompanyProfile::generateReferralLinkEncoded($userId);
 
-		$message ="Hi, <br /> I use <b>ProKakis</b> to buy/ sell companies, advertise products & services and connect to other business owners 
-		globally. Wanna get <b>ProKakis</b>, Online Marketplace with KYC Due Diligence for yourself? Your registration fee is $0! Join me now: <a href='".$url_result."'>$url_result</a> or may copy-paste this url <i>$url_result</i> to your browser.
+		$message ="Hi, <br /> I use <b>Intellinz</b> to buy/ sell companies, advertise products & services and connect to other business owners 
+		globally. Wanna get <b>Intellinz</b>, Online Marketplace with KYC Due Diligence for yourself? Your registration fee is $0! Join me now: <a href='".$url_result."'>$url_result</a> or may copy-paste this url <i>$url_result</i> to your browser.
 		<br />
 		<br />
 		Thank you, <br />
-		Prokakis Web Admin
+		Intellinz Web Admin
 		";
 
 		return view('mailbox.createReferal', compact('message'));
@@ -466,9 +466,9 @@ class MailboxController extends Controller {
 			$mailSubject = "";
 			
 			if($p_country != '' || $p_country != null){
-				$mailSubject = "A partner from ".$p_country." is looking for you in Prokakis";
+				$mailSubject = "A partner from ".$p_country." is looking for you in Intellinz";
 			} else {
-				$mailSubject = "A partner is looking for you in Prokakis";
+				$mailSubject = "A partner is looking for you in Intellinz";
 			}
 
 			AuditLog::ok(array($user_id, 'opportunity', 'express interest to a company at explore page', 'company id:'. $company_viewer.' express interest to company id:' . $company_opp));

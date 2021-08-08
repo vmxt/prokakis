@@ -275,21 +275,21 @@ class ApiTokenController extends Controller
                      ->where('intro_describe_business', '!=', null)
                      ->where('ideal_partner_base', '!=', null)
                      ->orderBy('id', 'desc')
-                     ->limit(3)
+                     ->limit(5)
                      ->get();
                      
                      $ob =  OpportunityBuy::where('status', 1)
                      ->where('intro_describe_business', '!=', null)
                      ->where('ideal_partner_base', '!=', null)
                      ->orderBy('id', 'desc')
-                     ->limit(3)
+                     ->limit(5)
                      ->get();
                      
                      $oso = OpportunitySellOffer::where('status', 1)
                      ->where('intro_describe_business', '!=', null)
                      ->where('ideal_partner_base', '!=', null)
                      ->orderBy('id', 'desc')
-                     ->limit(3)
+                     ->limit(5)
                      ->get();
                      
                      $r = rand(1, 3);
@@ -344,6 +344,11 @@ class ApiTokenController extends Controller
                      'keyword'=>$hashKey ,
                      'keyword_raw'=>$d->relevant_describing_partner ,
                      'industry_category'=>$ind->text, 
+                      'est_revenue'=>$d->est_revenue, 
+                       'oppo_id'=>$d->id, 
+                      'est_profit'=>$d->est_profit, 
+                      'inventory_value'=>$d->inventory_value, 
+                      'asking_price'=>$d->approx_large, 
                      'industry_image'=>$imgSrc,
                      'title'=> strtoupper($d->opp_title) );
                      }

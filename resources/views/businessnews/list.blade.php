@@ -5,7 +5,7 @@
 @section('content')
 
 <script src="{{ asset('public/tinymce/js/tinymce/tinymce.min.js') }}"></script> 
-<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
+
 
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -231,12 +231,11 @@
         }
 
 
-        .page-header .page-header-top .top-menu .navbar-nav>li.dropdown>.dropdown-menu{
-            z-index: 5;
-        }
+
 
 
     </style>
+
 
 
     <script src="{{ asset('public/js/app.js') }}"></script>
@@ -309,7 +308,7 @@
 
 
 
-           <center> <a align="right" id="add-news-content"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
+           <center> <a align="right"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
 
               ADD NEWS CONTENT </a> </center>
 
@@ -337,7 +336,7 @@
 
                     
 
-                    <tbody class='systemData-tbody'>
+                    <tbody>
 
                     <?php  
 
@@ -371,7 +370,7 @@
 
                             <a   onclick="ajxDel('<?php echo $data->id; ?>', '<?php echo $data->business_title; ?>')"
 
-                               class="delete_btn edit_icon btn btn-outline btn-circle btn-sm red">
+                               class=" edit_icon btn btn-outline btn-circle btn-sm red">
 
                              <i class="fa fa-eraser"></i> Delete </a>
 
@@ -426,12 +425,11 @@
                     <!-- List group -->
                     <ul class="list-group">
                        <?php 
-                        $bn = App\BusinessOpportunitiesNews::orderBy('updated_at', 'desc')->limit(10)->get();
-                        
+                        $bn = App\BusinessOpportunitiesNews::limit(10)->orderBy('id', 'desc')->get();
                         $i = 1;
                         foreach($bn as $d){
                        ?>
-                        <li class="list-group-item"><a class="bus_news_{{ $d->id }}" href="#bus_news_{{ $d->id }}" rel="modal:open">{{ $d->business_title }}</a>
+                        <li class="list-group-item"><a href="#bus_news_{{ $d->id }}" rel="modal:open">{{ $d->business_title }}</a>
                             <span class="badge badge-info">{{ $i }}</span>
                         </li>
 
@@ -575,7 +573,7 @@
 {{-- <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script> --}}
 
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
-<script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
+
 
 
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -974,97 +972,7 @@ function ajxProcess(cId, nTitle){
 
 
     </script>
-<?php 
-if(isset($_GET['busnews']) and $busnews = $_GET['busnews'] ): ?>
-<script type="text/javascript">
-    var busnews = '<?=$busnews?>';
-    jQuery.noConflict(); 
-    $('#bus_news_'+busnews).modal('show');
 
-</script>
-<?php 
-endif ; ?>
 
-<script>
-    
-    // Instance the tour
-var tour = new Tour({
-  steps: [
-  {
-    element: "#add-news-content",
-    title: "Add News Content",
-    content: "A button where it will redirect you to a apge where you can create your own news."
-  },
-  {
-    element: "#system_data",
-    title: "News Content Data",
-    content: "In this table, it display all your news content ",
-    placement: 'bottom'
-  },
-  {
-    element: ".edit_btn",
-    title: "Edit News",
-    content: "Can modify news information ",
-    placement: 'left'
-  },
-   {
-    element: ".delete_btn",
-    title: "Remove News",
-    content: "Remove the news in the list",
-    placement: 'left'
-  },
-   {
-    element: ".panel-info",
-    title: "Ten most/recent News",
-    content: "Display the most recent created news",
-    placement: 'top'
-  }
-
-  
-],
-
-  container: "body",
-  smartPlacement: true,
-  keyboard: true,
-  // storage: window.localStorage,
-  storage: false,
-  debug: true,
-  backdrop: true,
-  backdropContainer: 'body',
-  backdropPadding: 0,
-  redirect: true,
-  orphan: false,
-  duration: false,
-  delay: false,
-  basePath: "",
-  placement: 'auto',
-
-  afterGetState: function (key, value) {},
-  afterSetState: function (key, value) {},
-  afterRemoveState: function (key, value) {},
-  onStart: function (tour) {},
-  onEnd: function (tour) {
-     $('.menu-dropdown').removeClass('open');
-     updateTour('end');
-  },
-  onShow: function (tour) {},
-  onShown: function (tour) {},
-  onHide: function (tour) {},
-  onHidden: function (tour) {},
-  onNext: function (tour) {},
-  onPrev: function (tour) {},
-  onPause: function (tour, duration) {},
-  onResume: function (tour, duration) {},
-  onRedirectError: function (tour) {}
-
-});
-
-// Initialize the tour
-tour.init();
-// Start the tour
-if( $('#is_tour').val() == 1 ){
-    tour.start();
-}
-</script>
 
 @endsection

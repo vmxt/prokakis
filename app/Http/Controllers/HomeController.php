@@ -101,6 +101,15 @@ class HomeController extends Controller {
 		InOutUsers::insert_updateDB(array('user_id'=>$user_id, 'status'=>1));
 
 
+
+		//if($userType == 1){
+
+		//echo "Company";
+
+		//}
+
+
+
 		if ($userType == 2) {
 
 			return redirect('homeSubConsul');

@@ -18,7 +18,7 @@
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="center">
       
-      <img align="center" border="0" src="images/image-1.png" alt="Image" title="Image" style="outline: none;/* text-decoration: none; */-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;/* height: 150px; */float: none;/* width: 100%; *//* background-size: cover; *//* max-width: 500px; *//* width: 300px; *//* height: 337px; *//* object-fit: cover; *//* object-fit: fill; */padding-left: 20px;padding-right: 20px;width: 90%;height: 250px;object-fit: cover;" width="300">
+      <img align="center" border="0" src="{{$list['industry_image']}}" alt="Image" title="Image" style="outline: none;/* text-decoration: none; */-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;/* height: 150px; */float: none;/* width: 100%; *//* background-size: cover; *//* max-width: 500px; *//* width: 300px; *//* height: 337px; *//* object-fit: cover; *//* object-fit: fill; */padding-left: 20px;padding-right: 20px;width: 90%;height: 250px;object-fit: cover;" width="300">
       
     </td>
   </tr>
@@ -70,7 +70,7 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:5px 23px 15px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 200%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 200%; text-align: left;"><span style="font-size: 16px; line-height: 32px; color: #000000;"><strong><span style="line-height: 32px; font-size: 16px;">DEVELOP A PRODUCT OR SERVICES WITH ANOTHER COMPANY</span></strong></span></p>
+    <p style="font-size: 14px; line-height: 200%; text-align: left;"><span style="font-size: 16px; line-height: 32px; color: #000000;"><strong><span style="line-height: 32px; font-size: 16px;">{{$list['title']}}</span></strong></span></p>
   </div>
 
       </td>
@@ -84,7 +84,7 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:5px 23px 23px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 150%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 150%; text-align: left;"><span style="font-size: 16px; line-height: 24px; color: #000000;"><span style="line-height: 24px; font-size: 16px;">The business was created with the mentorship of a sucessful corporate business management team.</span></span></p>
+    <p style="font-size: 14px; line-height: 150%; text-align: left;"><span style="font-size: 16px; line-height: 24px; color: #000000;"><span style="line-height: 24px; font-size: 16px;">{{$list['business_description']}}</span></span></p>
   </div>
 
       </td>
@@ -162,7 +162,7 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ 5,951.40</strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ {{$list['est_revenue']}}</strong></span></p>
   </div>
 
       </td>
@@ -220,7 +220,7 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ 3,627.53</strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ {{$list['est_profit']}}</strong></span></p>
   </div>
 
       </td>
@@ -278,7 +278,7 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ 10,000</strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ {{$list['inventory_value']}}</strong></span></p>
   </div>
 
       </td>
@@ -411,7 +411,7 @@
         
 <div align="center">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;font-family:arial,helvetica,sans-serif;"><tr><td style="font-family:arial,helvetica,sans-serif;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:34px; v-text-anchor:middle; width:449px;" arcsize="29.5%" stroke="f" fillcolor="#54ae0c"><w:anchorlock/><center style="color:#FFFFFF;font-family:arial,helvetica,sans-serif;"><![endif]-->
-    <a href="" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #54ae0c; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; width:80%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
+    <a href="https://app-prokakis.com/" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #54ae0c; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; width:80%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
       <span style="display:block;padding:10px 20px;line-height:110%;">View Listing</span>
     </a>
   <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->

@@ -367,8 +367,6 @@ class BuyreportController extends Controller {
 
 						//return $pdf->download($company_data->company_name . '.pdf');
 
-						
-
 					}
 
 				} else {
@@ -455,18 +453,27 @@ class BuyreportController extends Controller {
 		//need to validate if the link download is expired or not
 
 		if (isset($proc->report_link) && $proc->report_link != NULL) {
+
 			return redirect('/monitoring/list')->with('message', 'Download link has expired.');
+
 			exit;
+
 		}
 
 		$today = strtotime(date("Y-m-d"));
 
 		if (isset($proc->month_subscription_start) && isset($proc->month_subscription_end)) {
+
 			$dStart = strtotime($proc->month_subscription_start);
+
 			$dEnd = strtotime($proc->month_subscription_end);
+
 			if ($today < $dStart) {
+
 				return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
+
 				exit;
+
 			}
 
 			if ($today > $dEnd) {
@@ -488,6 +495,22 @@ class BuyreportController extends Controller {
 		$user_id = $company_profile->user_id;
 
 		$company_id_result = $request_rec->company_id; //source_company_id
+
+		//$company_info_source =  $request_rec->source_company_id;
+
+		/* if( SpentTokens::validateLeftBehindToken($company_id_result) == false ){
+
+			    return redirect('monitoring/list')->with('message', 'Insufficient token value, please top up.');
+
+			    exit;
+
+			  } else {
+
+			    //$consumedTokens = SpentTokens::validateLeftBehindToken($user_company_id);
+
+			    SpentTokens::spendTokenByrequest($approval->req_rep_id, $request_rec->company_id, $user_id, 1);
+
+		*/
 
 		//validation for tokensn and approval process
 
@@ -835,7 +858,7 @@ $Bahamas = [];
 		}
 	}
 
-	//investors alert, panama and groups
+	//investors alert
 	public function repIa(Request $request)
 	{
 		if(isset($request['rpId'])){
@@ -1048,7 +1071,8 @@ $Bahamas = [];
 
 							//merge all into a 1 zip file
 							$zip = new ZipArchive;
-							$fileName = $repId.'_download_all.zip';
+							//echo 'cant call zip'; exit;
+							$fileName = $repId.'dl.zip';
 								
 							if ($zip->open(public_path('report_downloads/'.$fileName), ZipArchive::CREATE) === TRUE)
 							{
@@ -1079,5 +1103,7 @@ $Bahamas = [];
 
 		}
 	}
+
+	
 
 }

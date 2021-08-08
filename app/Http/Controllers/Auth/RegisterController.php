@@ -150,6 +150,7 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
+      //var_dump($data); exit;    
 
       $user_status = "1";
 
@@ -170,12 +171,14 @@ class RegisterController extends Controller
         $user_status = 1;  //1 for companies 
 
       } */
-
+      
         $rules = ['captcha' => 'required|captcha'];
         $validator = validator()->make(request()->all(), $rules);
         if ($validator->fails()) {
             throw ValidationException::withMessages(['tnc' => 'Security Code is incorrect']);
         } 
+
+
 
       $userResult = User::create([
 
@@ -202,7 +205,7 @@ class RegisterController extends Controller
             'status' => $user_status,
 
             'referral_id' => $referralId,
-
+            
             'm_id' => $m_id,
 
         ]);

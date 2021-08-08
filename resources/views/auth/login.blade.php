@@ -55,7 +55,7 @@
         position: relative;
         width: 100%;
         padding: 60px;
-        border:5px solid #021a40;
+        border:5px solid #34893e;
 
         -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
         -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
@@ -263,11 +263,6 @@
     }
 }
 
-@media (max-width: 991px){
-    .page-content {
-        padding-top: 30px !important;
-    }
-}
 </style>
 
 
@@ -294,7 +289,7 @@
 
         {{ csrf_field() }}
 
-        <h3 class="form-title" style="color:#1a4275;" >Sign In</h3>
+        <h3 class="form-title" style="color:#34893e;" >Sign In</h3>
 
         <div class="alert alert-danger display-hide">
 
@@ -344,7 +339,7 @@
 
         <div class="form-actions">
 
-            <button type="submit" class="btn green uppercase" style="background-color:#1a4275; color:white;" >Login</button>
+            <button type="submit" class="btn green uppercase" style="background-color:#34893e; color:white;" >Login</button>
 
            
 
@@ -362,7 +357,7 @@
 
             <div class="form-group">
 
-                    <a href="{{ url('password/reset') }}" id="forget-password" class="forget-password"> Forgot Password?</a> 
+                    <a href="{{ url('password/reset') }}" id="forget-password" class="forget-password" style="color:#34893e;"> Forgot Password?</a> 
 
             </div> 
 
@@ -380,7 +375,7 @@
 
             <p>
 
-                <a href="{{ url('register') }}" id="register-btn" class="uppercase ">Create an account</a>
+                <a href="{{ url('register') }}" id="register-btn" class="uppercase" >Create an account</a>
 
             </p>
 

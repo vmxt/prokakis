@@ -73,7 +73,7 @@
 
             {{ csrf_field() }}
 
-            <h3 style="color:#1a4275;"> Create Account</h3>
+            <h3 style="color:#34893e;"> Create Account</h3>
 
             <input type="hidden" name="user_type" value="1">
 
@@ -269,9 +269,9 @@
 
             <div class="form-actions">
 
-                <a href="{{ url('login') }}" id="register-back-btn" class="btn" style="background-color:#1a4275; color:white;" >Back</a>
+                <a href="{{ url('login') }}" id="register-back-btn" class="btn" style="background-color:#34893e; color:white;" >Back</a>
 
-                <button type="submit" id="registerbtn" class="btn uppercase pull-right" style="background-color:#1a4275; color:white;"> Create </button>
+                <button type="submit" id="registerbtn" class="btn uppercase pull-right" style="background-color:#34893e; color:white;"> Create </button>
 
             </div>
 

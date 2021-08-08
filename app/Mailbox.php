@@ -58,9 +58,9 @@ class Mailbox extends Model {
 		);
 
 	}
-
-		public static function sendMail_weeklyOpp($emailtext, $recipients, $subject, $bcc) {
-		Mail::send(array('html' => 'mailbox.weeklyTopOpportunity'), array('text' => $emailtext),
+	
+	public static function sendMail_weeklyOpp($emailtext, $recipients, $subject, $bcc) {
+		Mail::send(array('html' => 'mailbox.weeklyTopOpportunity'), array('ret' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
 				//$message->from('support@prokakis.com', 'Prokakis Web Admin');
 				$message->from('support@app-prokakis.com', 'Prokakis Web Admin');
@@ -75,7 +75,6 @@ class Mailbox extends Model {
 		);
 
 	}
-
 
 	public static function sendMail($emailtext, $recipients, $subject, $bcc) {
 		Mail::send(array('html' => 'mailbox.template'), array('text' => $emailtext),

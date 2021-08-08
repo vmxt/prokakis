@@ -75,6 +75,7 @@
             <?php
             $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
             $token = App\SpentTokens::validateLeftBehindToken($company_id_result);
+            echo $token."==";
                 if($token != false){
                     echo '<div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> You have <b> '.$token.' </b>token left. </div>';
                 } else{

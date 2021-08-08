@@ -815,9 +815,9 @@ class OpportunityController extends Controller {
 			$view_type = $request->input('viewtype_value');
 			$industry = $request->input('opp_industry');
 			if (User::getEBossStaffTrue($user_id) == false) {
-			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-				$view_type == '1';	
-			}
+				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+					$view_type == '1';	
+				}
 			}
 
 			//$opp = OpportunityBuildingCapability::where('company_id', $company_id)->first();
@@ -845,7 +845,6 @@ class OpportunityController extends Controller {
 				$opp->approx_large = $request->input('approx_large');
 				$opp->est_revenue = $request->input('est_revenue');
 				$opp->est_profit = $request->input('est_profit');
-				$opp->inventory_value = $request->input('inventory_value');
 
 				$opp->ideal_partner_base = $idealPartnerBase;
 
@@ -892,8 +891,6 @@ class OpportunityController extends Controller {
 					'est_revenue' => $request->input('est_revenue'),
 
 					'est_profit' => $request->input('est_profit'),
-
-					'inventory_value' => $request->input('inventory_value'),
 
 					'ideal_partner_base' => $idealPartnerBase,
 
@@ -999,17 +996,17 @@ class OpportunityController extends Controller {
 			$industry = $request->input('opp_industry');
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
-			
-			if (User::getEBossStaffTrue($user_id) == false) {	
 
-			if(OpportunityController::validateAccLimits($company_id) == false){
-				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
-				exit;
-			}
+			if (User::getEBossStaffTrue($user_id) == false) {
+				
+				if(OpportunityController::validateAccLimits($company_id) == false){
+					return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+					exit;
+				}
 
-			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-				$view_type == '1';	
-			}
+				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+					$view_type == '1';	
+				}
 			}
 
 			$opp = OpportunitySellOffer::find($request->input("id"));
@@ -1033,7 +1030,6 @@ class OpportunityController extends Controller {
 				$opp->approx_large = $request->input('approx_large');
 				$opp->est_profit = $request->input('est_profit');
 				$opp->est_revenue = $request->input('est_revenue');
-				$opp->inventory_value = $request->input('inventory_value');
 
 				$opp->ideal_partner_base = $idealPartnerBase;
 
@@ -1076,7 +1072,6 @@ class OpportunityController extends Controller {
 					'approx_large' => $request->input('approx_large'),
 					'est_profit' => $request->input('est_profit'),
 					'est_revenue' => $request->input('est_revenue'),
-					'inventory_value' => $request->input('inventory_value'),
 
 
 					'ideal_partner_base' => $idealPartnerBase,
@@ -1180,18 +1175,18 @@ class OpportunityController extends Controller {
 			$industry = $request->input('opp_industry');
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
-			
+
 			if (User::getEBossStaffTrue($user_id) == false) {
 
-			if( OpportunityController::validateAccLimits($company_id) == false){
+				if( OpportunityController::validateAccLimits($company_id) == false){
 
-				return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
-				exit;
-			}
+					return redirect('/opportunity')->with('message', 'You have exceeded to the allowed number of submitted opportunities.');
+					exit;
+				}
 
-			if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
-				$view_type == '1';	
-			}
+				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
+					$view_type == '1';	
+				}
 
 			}
 			$opp = OpportunityBuy::find($request->input("id"));
@@ -1215,7 +1210,6 @@ class OpportunityController extends Controller {
 				$opp->approx_large = $request->input('approx_large');
 				$opp->est_profit = $request->input('est_profit');
 				$opp->est_revenue = $request->input('est_revenue');
-				$opp->inventory_value = $request->input('inventory_value');
 
 				$opp->ideal_partner_base = $idealPartnerBase;
 
@@ -1258,7 +1252,6 @@ class OpportunityController extends Controller {
 					'approx_large' => $request->input('approx_large'),
 					'est_profit' => $request->input('est_profit'),
 					'est_revenue' => $request->input('est_revenue'),
-					'inventory_value' => $request->input('inventory_value'),
 
 					'ideal_partner_base' => $idealPartnerBase,
 

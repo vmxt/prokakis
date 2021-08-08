@@ -446,28 +446,28 @@
                                             <img class="bootstrap rounded-circle" width="45" src="{{ $avatarUrl }}" onerror="this.src='{{ asset('public/images/industry')."/guest.png" }}';">
                                             </div>
                                             <div class="bootstrap ml-2">
-                                                <!-- {{-- <div class="bootstrap h5 m-0">{{ $businessNews->business_title }}</div> --}} -->
+                                                {{-- <div class="bootstrap h5 m-0">{{ $businessNews->business_title }}</div> --}}
                                                 <div class="bootstrap h7 text-muted">{{ $dt->diffForHumans() }}</div>
                                             </div>
-<!--                                       {{--       <div class="viewBtn disp-lg">
+                                      {{--       <div class="viewBtn disp-lg">
                                                 <a href="#"  class="btn btn-info">View</a>
-                                            </div> --}} -->
+                                            </div> --}}
                                         </div>
 
                                     </div>
                                 </div>
                                 <div class="bootstrap card-body card-flex">
-                                    <!-- {{-- <div class="bootstrap text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ $dt->diffForHumans() }}</div> --}} -->
-                              <!--    {{--    <a class="bootstrap card-link" href="#">
+                                    {{-- <div class="bootstrap text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ $dt->diffForHumans() }}</div> --}}
+                                 {{--    <a class="bootstrap card-link" href="#">
                                         <h5 class="bootstrap card-title">{{ $businessNews->business_title }}</h5>
-                                    </a> --}} -->
+                                    </a> --}}
                                     <div class="bootstrap card-text">
                                         {{ $topbusinessNews->business_title }}
                                     </div>
 
                                     </div>
                                 <div class="bootstrap card-footer">
-                                        <a href="{{ url('businessnews/list?busnews=').$topbusinessNews->id }}"  class="bootstrap card-link btn btn-info ">View</a>
+                                        <a href="#"  class="bootstrap card-link btn btn-info ">View</a>
                                    
                 
                                 </div>
