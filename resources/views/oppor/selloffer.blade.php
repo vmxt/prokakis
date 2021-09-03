@@ -805,7 +805,42 @@ input::-moz-focus-inner {
                             </div>
 
 
+                            <div class="portlet light" id="sect_value_currency">
 
+                                <div class="portlet-body">
+
+                                    <div class="form-group">
+
+                                        <label for="currency"><b>What is the currency of this Opportunity? </b> </label>
+
+                                        <?php 
+                                            $currencyList = App\CurrencyMonetary::where('status','0')->get();
+                                            $curText = '(USD)';
+                                             if (isset($data->currency) and $data->currency != 0 ){
+                                                $currencyDetail = App\CurrencyMonetary::where('id',$data->currency)->first();
+
+                                                 $curText = "($currencyDetail->c_code)";
+                                             }
+                                        ?>            
+                                        <select  onchange="currencyCodeUpdate(this)" class="form-control input-text-form" id="currency" name="currency" dataName='currency'>
+                                            @foreach($currencyList as $list)
+                                            <option  code='{{  $list->c_code }}' 
+                                                <?php   
+                                                    if (isset($data->currency) and $data->currency==$list->id): 
+                                                        echo 'selected';
+                                                    elseif ($list->id == 3):
+                                                        echo 'selected';
+                                                    endif; ?>
+
+                                                <?=(isset($data->currency) and $data->currency==$list->id)?'selected':''?> value='{{ $list->id }}'>{{  $list->c_code }} ( {{ $list->c_text }} )</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
 
                             <div class="portlet light">
@@ -2074,6 +2109,7 @@ input::-moz-focus-inner {
             cookies.del('sell_intro_describe_business');
             cookies.del('sell_why_partner_goal');
             cookies.del('sell_timeFrame');
+            cookies.del('sell_currency');
             cookies.del('sell_approx_large');
             cookies.del('sell_ideal_partner_base');
             cookies.del('sell_partnersCheck');
@@ -2155,6 +2191,12 @@ input::-moz-focus-inner {
             }
         }); 
 
+        $("#currency").change(function() { 
+            if(! $('#oppor_id').val() ){
+            cookies.set('sell_currency',  $("#currency").val() );
+            }
+        }); 
+
         $("#approx_large").change(function() { 
             if(! $('#oppor_id').val() ){
             cookies.set('sell_approx_large',  $("#approx_large").val() );
@@ -2225,6 +2267,9 @@ if (! $('#oppor_id').val()) {
         $('#'+cookies.get("sell_timeFrame") ).attr("checked", "checked");
    }
 
+    if( cookies.get("sell_currency")!=null )
+     $('#currency').val(  cookies.get("sell_currency") );
+
    if( cookies.get("sell_approx_large")!=null )
      $('#approx_large').val(  cookies.get("sell_approx_large") );
     
@@ -2256,6 +2301,7 @@ if (! $('#oppor_id').val()) {
         cookies.del('sell_intro_describe_business');
         cookies.del('sell_why_partner_goal');
         cookies.del('sell_timeFrame');
+        cookies.del('sell_currency');
         cookies.del('sell_approx_large');
         cookies.del('sell_ideal_partner_base');
         cookies.del('sell_partnersCheck');

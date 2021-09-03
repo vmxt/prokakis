@@ -343,6 +343,9 @@ Route::get('/reports/buyTokens', 'ReportsController@buyTokens')->name('reportsBu
 Route::get('/reports/buyCredits', 'ReportsController@buyTokens')->name('reportsBuyCredits');
 Route::post('/reports/topUpTokens', 'ReportsController@topUpTokens')->name('reportsTopUpTokens');
 
+//Currency monetary
+Route::post('/currency/accountUpdate', 'CurrencyController@updateAccount')->name('updateCurrency');
+
 //Audti Trail Log
 Route::post('/auditTrail/log', 'AuditTrailerLogController@index')->name('saveAuditTrailLog');
 Route::get('/auditTrailLog/view', 'AuditTrailerLogController@view')->name('viewAuditTrailLog');

@@ -24,6 +24,9 @@
     text-align: center
 }
 
+.img_captcha img{
+    width: 100% !important;
+}
 
 </style>
 

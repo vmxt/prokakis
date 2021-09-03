@@ -354,6 +354,31 @@ color: white;
     margin: 0;
     padding: 0;
 }
+
+
+
+/*#currency-selector, .currency-selector {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0 auto;
+  width: 50%;
+  height: 100%;
+  padding-left: .5rem;
+  border: 0;
+  background: transparent;
+  
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
+  
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='640'><path d='M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z'></path></svg>") 90%/12px 6px no-repeat;
+  
+  font-family: inherit;
+  color: inherit;
+}*/
+
+
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -377,6 +402,7 @@ s0.parentNode.insertBefore(s1,s0);
     $scope = "";
     ?>
     </head>
+
     <body class="page-container-bg-solid">
         <div class="page-wrapper">
             <div class="page-wrapper-row">
@@ -587,10 +613,25 @@ s0.parentNode.insertBefore(s1,s0);
                                                       <i class="fa fa-trophy"></i> Rewards </a>
                                               </li>
 
- 						<li>
+ 						                         <li>
 
                                                   <a href="{{ route('setPasswordData') }}" >
                                                       <i class="icon-key"></i> Change Password </a>
+                                                </li>
+
+                                                <li>
+                                                    <?php 
+                                                    if($currentCurrency = App\CurrencyAccounts::where('user_id',$user_id)->first()){
+                                                        $currentCurrency = $currentCurrency->getCurrency->c_code;
+                                                    }else{
+                                                        //default USD = 3
+                                                        $currentCurrency = App\CurrencyMonetary::find(3)->c_code;
+                                                        // if(!$currentCurrency){
+                                                    }
+                                                 // }
+                                                    ?>
+                                                  <a data-toggle="modal" data-target="#myModal-currency"  >
+                                                      <i class="fa fa-dollar"></i> Currency ( {{ $currentCurrency }} )</a>
                                                 </li>
 
                                                 <li class="divider"> </li>
@@ -1943,7 +1984,80 @@ $(document).ready(function()
 
 });
 
+
+function updateCurrency(){
+    let sel = $('#currency-selector').val();
+  
+        formData = new FormData();
+        formData.append("currency_id", sel);
+        formData.append("user_id", {{ Auth::id() }} );
+        $.ajax({
+            url: "{{ route('updateCurrency') }}",
+            type: "POST",
+            data: formData,
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+                $('#myModal-currency-close').click();
+                swal({
+                  title: 'Success!',
+                  icon:  'success'
+                }).then(function() {
+                    location.reload()
+                  });
+            }
+        });
+
+}
 </script>
+
+    <!-- Modal -->
+    <div id="myModal-currency" class="modal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Update Currency</h4>
+          </div>
+          <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body center">
+                            <div class="portlet light" >
+
+                                <div class="portlet-body">
+
+                                    <div class="form-group">
+
+                                        <label for="currency"><b>Please select your default currency? </b> <em>(USD)</em></label>
+
+                                            <?php 
+                                                        $currencyList = App\CurrencyMonetary::where('status','0')->get();
+                                            ?>            
+                                                        <select  class="currency-selector" id="currency-selector">
+                                                            @foreach($currencyList as $list)
+                                                            <option value='{{ $list->id }}' >{{  $list->c_code }} ( {{ $list->c_text }} )</option>
+                                                            @endforeach
+                                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+          </div>
+          <div class="modal-footer">
+                   <a onClick="updateCurrency()" target="_blank" class="btn blue btn_options"> <span class="fa fa-floppy-o"></span> &nbsp; Update</a>
+                    <button id="myModal-currency-close" type="button" class="btn btn-default" data-dismiss="modal">close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
     </body>
 
 </html>

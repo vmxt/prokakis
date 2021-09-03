@@ -432,7 +432,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="business_goal"><b>Title for this Opportunity</b> <span style="color: red; font-weight: bolder;"> *</span> </label>
+                                        <label for="business_goal"><b>Title for this Investment</b> <span style="color: red; font-weight: bolder;"> *</span> </label>
 
                                         <input required="required" type="text" class="form-control input-text-form" dataName="opp_title" name="opp_title" id="opp_title" value="<?php if(isset($data->opp_title)){ echo $data->opp_title; }else{echo "";} ?>" />
 
@@ -452,7 +452,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="business_goal"><b>What is your business goal?</b></label>
+                                        <label for="business_goal"><b>What is your investment goal?</b></label>
 
 
 
@@ -607,9 +607,9 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="oppo_description"><b>Brief Description of the opportunity</b> </label> <br/>
+                                        <label for="oppo_description"><b>Brief Description of the investment</b> </label> <br/>
 
-                                        <span> Explain what is the opportunity in details?</span>
+                                        <span> Explain what is the investment in details?</span>
 
                                         <textarea rows="5" cols="20" dataName="oppo_description"  class="form-control input-text-form" maxlength="500" name="oppo_description"
 
@@ -798,8 +798,42 @@ input::-moz-focus-inner {
 
                             </div>
 
+                            <div class="portlet light" id="sect_value_currency">
 
+                                <div class="portlet-body">
 
+                                    <div class="form-group">
+
+                                        <label for="currency"><b>What is the currency of this Investment? </b> </label>
+
+                                        <?php 
+                                            $currencyList = App\CurrencyMonetary::where('status','0')->get();
+                                            $curText = '(USD)';
+                                             if (isset($data->currency) and $data->currency != 0 ){
+                                                $currencyDetail = App\CurrencyMonetary::where('id',$data->currency)->first();
+
+                                                 $curText = "($currencyDetail->c_code)";
+                                             }
+                                        ?>            
+                                        <select  onchange="currencyCodeUpdate(this)" class="form-control input-text-form" id="currency" name="currency" dataName='currency'>
+                                            @foreach($currencyList as $list)
+                                            <option  code='{{  $list->c_code }}' 
+                                                <?php   
+                                                    if (isset($data->currency) and $data->currency==$list->id): 
+                                                        echo 'selected';
+                                                    elseif ($list->id == 3):
+                                                        echo 'selected';
+                                                    endif; ?>
+
+                                                <?=(isset($data->currency) and $data->currency==$list->id)?'selected':''?> value='{{ $list->id }}'>{{  $list->c_code }} ( {{ $list->c_text }} )</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
 
 
                             <div class="portlet light" id="sect_value_opportunity">
@@ -808,7 +842,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="approx_large"><b>What is the asking price of this Investment? </b> <em>(USD)</em></label>
+                                        <label for="approx_large"><b>What is the asking price of this Investment? </b> <em class="setCur">{{ $curText }}</em></label>
                                         <input type="text"   class="form-control input-text-form" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)?$data->approx_large:''; ?>" >
                                     </div>
 
@@ -822,7 +856,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="est_revenue"><b>What is the estimated revenue per year? </b> <em>(USD)</em></label>
+                                        <label for="est_revenue"><b>What is the estimated revenue per year? </b> <em class="setCur">{{ $curText }}</em></label>
 
                                         <input type="text"   class="form-control input-text-form" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?$data->est_revenue:''; ?>" >
 
@@ -839,7 +873,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="est_profit"><b>What is the estimated profit per year? </b><em>(USD)</em> </label>
+                                        <label for="est_profit"><b>What is the estimated profit per year? </b><em class="setCur">{{ $curText }}</em> </label>
 
                                         <input type="text"  class="form-control input-text-form" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?$data->est_profit:'' ?>" >
 
@@ -855,7 +889,7 @@ input::-moz-focus-inner {
 
                                     <div class="form-group">
 
-                                        <label for="inventory_value"><b>What is the inventory value? </b><em>(USD)</em> </label>
+                                        <label for="inventory_value"><b>What is the inventory value? </b><em class="setCur">{{ $curText }}</em> </label>
 
                                         <input required="required"  type="text" class="form-control input-text-form" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '' ?>" >
 
@@ -2171,6 +2205,7 @@ input::-moz-focus-inner {
             cookies.del('build_intro_describe_business');
             cookies.del('build_why_partner_goal');
             cookies.del('build_timeFrame');
+            cookies.del('build_currency');
             cookies.del('build_approx_large');
             cookies.del('build_est_profit');
             cookies.del('build_est_revenue');
@@ -2241,6 +2276,12 @@ input::-moz-focus-inner {
         $("input[name='timeFrame']").click(function( ) { 
             if(! $('#oppor_id').val() ){
             cookies.set('build_timeFrame',  $(this).attr('datavalue')  );
+            }
+        }); 
+
+        $("#currency").change(function() { 
+            if(! $('#oppor_id').val() ){
+            cookies.set('build_currency',  $("#currency").val() );
             }
         }); 
 
@@ -2318,6 +2359,7 @@ $('#opportunity_build_form').submit(function() {
     cookies.del('build_intro_describe_business');
     cookies.del('build_why_partner_goal');
     cookies.del('build_timeFrame');
+    cookies.del('build_currency');
     cookies.del('build_approx_large');
     cookies.del('build_est_profit');
     cookies.del('build_est_revenue');
@@ -2353,6 +2395,9 @@ if(! $('#oppor_id').val() ){
         $('#'+cookies.get("build_timeFrame") ).attr("checked", "checked");
    }
 
+    if(cookies.get("build_currency")!=null ){
+        $('#currency').val(  cookies.get("build_currency") );
+    }
     if(cookies.get("build_approx_large")!=null ){
         $('#approx_large').val(  cookies.get("build_approx_large") );
     }
@@ -2608,6 +2653,12 @@ if( $('#is_tour').val() == 1 ){
                 $(".jumbotron").remove();
             });
         });
+
+function currencyCodeUpdate(val)
+{
+    var code = $('option:selected', val).attr('code');
+    $('.setCur').text('('+code+')');
+}
 
     </script>
 

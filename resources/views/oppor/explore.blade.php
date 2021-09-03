@@ -392,7 +392,7 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ $item->est_revenue }}.
+                        {{ App\CurrencyMonetary::currencyConvertion($item->est_revenue, $item->currency) }}
                     </h4>
                 </span>
                 <hr>
@@ -403,8 +403,8 @@
                     <h4><strong> Estimated Profit Per Year </strong></h4>
                 </span>
                 <span class="content-text">
-                    <h4> 
-                        {{ $item->est_profit }}.
+                    <h4>                         
+                        {{ App\CurrencyMonetary::currencyConvertion($item->est_profit, $item->currency) }}
                     </h4>
                 </span>
                 <hr>
@@ -416,7 +416,7 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ $item->inventory_value }}.
+                        {{ App\CurrencyMonetary::currencyConvertion($item->inventory_value, $item->currency) }}
                     </h4>
                 </span>
                 <hr>
