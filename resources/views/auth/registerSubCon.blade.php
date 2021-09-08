@@ -71,7 +71,7 @@
 
             <div class="form-group margin-top-20 margin-bottom-20">
                 <label class="mt-checkbox mt-checkbox-outline">
-                    <input type="checkbox" name="tnc" id="tnc">  I have read and agreed to Prokakis
+                    <input type="checkbox" name="tnc" id="tnc">  I have read and agreed to Intellinz
                     <a href="javascript:;">Terms of Use </a> &amp;
                     <a href="javascript:;">Privacy Policy </a>
                     <span></span>

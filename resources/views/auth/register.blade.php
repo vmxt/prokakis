@@ -76,7 +76,7 @@
 
             {{ csrf_field() }}
 
-            <h3 style="color:#34893e;"> Create Account</h3>
+            <h1 style="color:#34893e; font-weight: bold; font-size:30px;"><center>Create Account</center></h1>
 
             <input type="hidden" name="user_type" value="1">
 

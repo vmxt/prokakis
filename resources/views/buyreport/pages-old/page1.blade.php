@@ -23,7 +23,7 @@
         </div> --}}
         <div class="row p-3">
             <div class="col-md-12 text-right">
-                <p  class="h5">PRESENTED BY: PROKAKIS</p>
+                <p  class="h5">PRESENTED BY: Intellinz</p>
                 <small class="h6">GENERATED ON: <?php echo date('Y-m-d'); ?></small>
             </div>
         </div>

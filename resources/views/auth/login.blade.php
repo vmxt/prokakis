@@ -48,7 +48,7 @@
     }
 
     .login2{
-        background-image: url("{{ asset('public/banner/mobile-login-hero.png') }}");
+        background-image: url("{{ asset('public/banner/mobile-login-hero.webp') }}");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -211,7 +211,7 @@
 
 @media (min-width: 768px){
     .login2{
-        background-image: url("{{ asset('public/banner/login-hero.png') }}");
+        background-image: url("{{ asset('public/banner/login-hero.webp') }}");
         width: 736px !important;
         height: 420px;
         top: 60px;
@@ -289,7 +289,7 @@
 
         {{ csrf_field() }}
 
-        <h3 class="form-title" style="color:#34893e;" >Sign In</h3>
+        <h1 class="form-title" style="color:#34893e; font-size:14px; margin-top:-10px; margin-bottom:5px;" >Sign In</h1>
 
         <div class="alert alert-danger display-hide">
 
@@ -416,39 +416,39 @@
 
 <!-- BEGIN CORE PLUGINS -->
 
-<script src="../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 
-<script src="../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
-<script src="../assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
 
-<script src="../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
 
-<script src="../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 
-<script src="../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 
-<script src="../assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
 
-<script src="../assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
 
-<script src="../assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
 
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 
-<script src="../assets/global/scripts/app.min.js" type="text/javascript"></script>
+<script async src="public/assets/global/scripts/app.min.js" type="text/javascript"></script>
 
 <!-- END THEME GLOBAL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 
-<script src="../assets/pages/scripts/login.min.js" type="text/javascript"></script>
+<script async src="public/assets/pages/scripts/login.min.js" type="text/javascript"></script>
 
 <!-- END PAGE LEVEL SCRIPTS -->
 

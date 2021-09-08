@@ -8,7 +8,7 @@
             <div class="card">
 
                 <div align="center" class="card-header"> 
-                    <img src="public/images/smallLogo2.png" class="css-class" alt="Prokakis Logo"> <br /> <br /> <h3>CREATE ACCOUNT</h3> 
+                    <img src="public/images/smallLogo2.png" class="css-class" alt="Intellinz Logo"> <br /> <br /> <h3>CREATE ACCOUNT</h3> 
                 </div>
 
                 <div class="card-body">
@@ -125,7 +125,7 @@
                                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                             <label class="form-check-label" for="remember">
-                                                I have read and agreed to Prokakis <a href=""> Terms of Use </a> and <a href="">Privacy Policy</a>
+                                                I have read and agreed to Intellinz <a href=""> Terms of Use </a> and <a href="">Privacy Policy</a>
                                             </label>
                                         </div>
                                     </div>

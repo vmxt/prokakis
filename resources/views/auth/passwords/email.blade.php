@@ -1,15 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
             <br />
-           <center> <a href="https://prokakis.com/"><img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="300px" > </a></center>
+           <center> <a href="https://intellinz.com/" target="_blank"><img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="300px" > </a></center>
             
 
-                <div class="panel-heading">Reset Password</div>
+                <div class="panel-heading"><h1 style="font-size:14px; font-weight:400; text-align:left;">Reset My Password</h1></div>
 
                 <div class="panel-body">
                     @if (session('status'))

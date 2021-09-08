@@ -336,6 +336,11 @@ class ApiTokenController extends Controller
                      $hashKey .= '#'.str_replace(' ','_',$val)." ";
                  }
              }
+             $revenue =  str_replace(',', '', $d->est_revenue);
+             $profit =  str_replace(',', '', $d->est_profit);
+             $inventory =  str_replace(',', '', $d->inventory_value);
+             $asking_price = str_replace(',', '', $d->approx_large);
+
 		     $ttitle = substr($d->opp_title, 0, 33).'..';	
                      $ind =  OppIndustry::find($d->industry);
                      $imgSrc = 'https://app-prokakis.com/public/images/industry/'.$ind->image;
@@ -344,11 +349,11 @@ class ApiTokenController extends Controller
                      'keyword'=>$hashKey ,
                      'keyword_raw'=>$d->relevant_describing_partner ,
                      'industry_category'=>$ind->text, 
-                      'est_revenue'=>$d->est_revenue, 
+                      'est_revenue'=>number_format((int)$revenue, 2, '.', ','), 
                        'oppo_id'=>$d->id, 
-                      'est_profit'=>$d->est_profit, 
-                      'inventory_value'=>$d->inventory_value, 
-                      'asking_price'=>$d->approx_large, 
+                      'est_profit'=>number_format((int)$profit, 2, '.', ','), 
+                      'inventory_value'=>number_format((int)$inventory, 2, '.', ','), 
+                      'asking_price'=>number_format((int)$asking_price, 2, '.', ','), 
                      'industry_image'=>$imgSrc,
                      'title'=> strtoupper($d->opp_title) );
                      }

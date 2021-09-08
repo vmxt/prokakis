@@ -1,5 +1,5 @@
         <div id="watermark">
-            <em>PROKAKIS</em>
+            <em>Intellinz</em>
         </div>
 <div class="card">
     <div class="card-body ">
@@ -10,7 +10,7 @@
 
         <div class="row p-0">
             <div class="col-md-12 text-center">
-                This report prepared by Prokakis for Inquiry on:
+                This report prepared by Intellinz for Inquiry on:
             </div>
         </div>
 
@@ -54,7 +54,7 @@
         <div class="row p-0">
              <div class="col-md-12" style="text-align: center; line-height: 0">
                 <span>All Rights Reserved &#169; <?php echo date("Y");?> </span><br>
-                <span>PROKAKIS PTE LTD</span>
+                <span>Intellinz PTE LTD</span>
             </div>
         </div>
 
@@ -64,7 +64,7 @@
 
         <div class="row p-1">
             <div class="col-md-12 text-right">
-                PRESENTED BY: PROKAKIS
+                PRESENTED BY: Intellinz
                 <br>
                 GENERATED ON: <?php echo date('Y-m-d'); ?>
             </div>
