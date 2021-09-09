@@ -523,7 +523,7 @@
                                 </div>
                             </div>
                             <br/>
-                            <p><i class="fa fa-exclamation-circle"> Complete your profile information to make most out of Prokakis.</i></p>
+                            <p><i class="fa fa-exclamation-circle"> Complete your profile information to make most out of Intellinz.</i></p>
                             <ul>
                                 <?php if(isset($completenessMessages)){
                                 foreach($completenessMessages as $d){
@@ -610,7 +610,7 @@
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">
                                         <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
-                                                <strong>Prokakis members</strong> are three times more likely
+                                                <strong>Intellinz members</strong> are three times more likely
                                                 to engage with you if your company profile is over 30% complete.
                                                 Be sure to include accurate information.
                                             </p>

@@ -133,8 +133,8 @@
                             <input type="checkbox" id="agreement" name="agreement"> 
                             &nbsp;&nbsp; I hereby declare ownership of the following company <strong>{{ $provCompanyName }}</strong> and wish to transfer all data and information of the company to my account.
                             I declare that the information provided for the ownership of the account is accurate and correct to the best of my knowledge. 
-                            By submitting the information below, I agree to abide by the terms & conditions of ProKakis privacy policy and; 
-                            I consent to allow the ProKakis to contact me and request for any additional information required for verification. <br />
+                            By submitting the information below, I agree to abide by the terms & conditions of Intellinz privacy policy and; 
+                            I consent to allow the Intellinz to contact me and request for any additional information required for verification. <br />
                         </p>
                     </div>
 

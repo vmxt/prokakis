@@ -12,13 +12,13 @@
         <!-- CSRF Token -->
         <meta property="og:url"           content="https://app.prokakis.com/referrals" />
         <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Prokakis Ebos-SG App {{ now()->year }}" />
+        <meta property="og:title"         content="Intellinz Ebos-SG App {{ now()->year }}" />
         <meta property="og:description"   content="Referal Link: {{ $url_result }}" />
         <meta property="og:image"         content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" />
         <!-- end from the original code -->
 
         <meta charset="utf-8" />
-        <title>Prokakis | System Dashboard</title>
+        <title>Intellinz | System Dashboard</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
 
@@ -192,7 +192,7 @@ s0.parentNode.insertBefore(s1,s0);
                                 <!-- BEGIN LOGO -->
                                 <div class="page-logo">
                                     <a href="https://app.prokakis.com/home" style="margin-top: 25px;">
-                                        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="200px">
+                                        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="200px">
                                     </a>
                                 </div>
                                 <!-- END LOGO -->
@@ -854,7 +854,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                         <!-- BEGIN INNER FOOTER -->
                         <div class="page-footer">
-                            <div class="container"> 2020 &copy; Prokakis
+                            <div class="container"> 2020 &copy; Intellinz
                             </div>
                         </div>
                         <div class="scroll-to-top">

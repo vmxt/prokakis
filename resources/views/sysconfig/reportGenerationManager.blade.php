@@ -93,7 +93,7 @@
 
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
         <li>
-            <a href="{{ url('/home') }}">Prokakis</a>
+            <a href="{{ url('/home') }}">Intellinz</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>

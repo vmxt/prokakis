@@ -37,7 +37,7 @@
   <br />
   <br />
   <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
-  <p class="chat-intro-text"> Welcome to ProKakis Video Chat! 
+  <p class="chat-intro-text"> Welcome to Intellinz Video Chat! 
     <br>
         Congrats for finding your potential business match. 
         Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.

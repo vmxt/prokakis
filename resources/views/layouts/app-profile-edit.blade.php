@@ -26,7 +26,7 @@
 
         <meta property="og:type"          content="website" />
 
-        <meta property="og:title"         content="Prokakis Ebos-SG App {{ now()->year }}" />
+        <meta property="og:title"         content="Intellinz Ebos-SG App {{ now()->year }}" />
 
         <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
 
@@ -38,7 +38,7 @@
 
         <meta charset="utf-8" />
 
-        <title>Prokakis App | Dashboard</title>
+        <title>Intellinz App | Dashboard</title>
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -299,7 +299,7 @@
 
                                     <a href="{{ route('home') }}" style="margin-top: 25px;">
 
-                                        <img src="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px">
+                                        <img src="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Intellinz" id="logo" width="200px">
 
                                     </a>
 
@@ -1218,7 +1218,7 @@
 
                         <div class="page-footer">
 
-                            <div class="container"> 2018 &copy; Prokakis
+                            <div class="container"> 2018 &copy; Intellinz
 
                             </div>
 

@@ -95,7 +95,7 @@
 
                     <i class="icon-settings font-green"></i>
 
-                    <span class="caption-subject font-blue sbold uppercase">Request to remove in Prokakis the company: <strong> {{ $provCompanyName }} </strong></span>
+                    <span class="caption-subject font-blue sbold uppercase">Request to remove in Intellinz the company: <strong> {{ $provCompanyName }} </strong></span>
 
                 </div>
 
@@ -118,7 +118,7 @@
                     <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
                         <p>   <input type="checkbox" id="agreement" name="agreement"> 
                             &nbsp;&nbsp;
-                            I hereby declare ownership of the following company <COMPANY NAME> and wish to remove and delete all data and information of the company in ProKakis. I declare that the information provided for the ownership of the account is accurate and correct to the best of my knowledge. By submitting the information below, I agree to abide by the terms & conditions of ProKakis privacy policy and; I consent to allow the ProKakis to contact me and request for any additional information required for verification.
+                            I hereby declare ownership of the following company <COMPANY NAME> and wish to remove and delete all data and information of the company in Intellinz. I declare that the information provided for the ownership of the account is accurate and correct to the best of my knowledge. By submitting the information below, I agree to abide by the terms & conditions of Intellinz privacy policy and; I consent to allow the Intellinz to contact me and request for any additional information required for verification.
                          </p>
                        </div>
 

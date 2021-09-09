@@ -63,7 +63,7 @@ table td{
           <div class="row">
             <div class="jumbotron match-result">
               <h3 class="text-center text-white">
-                Prokakis Match Result
+                Intellinz Match Result
               </h3>
             </div>
           </div>
@@ -91,7 +91,7 @@ table td{
             </thead> --}}
             <tbody>
               <tr>
-                <th width="30%">INSERTED TO PROKAKIS</th>
+                <th width="30%">INSERTED TO INTELLINZ</th>
                 <td   width="70%">{{ $inserted_prokakis }}</td>
               </tr>
 

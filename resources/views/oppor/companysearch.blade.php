@@ -513,7 +513,7 @@
 
         &nbsp;&nbsp;&nbsp; <span>
                 <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestOwnership({{ $requestor_id }}, {{ $provider_id }})"  class="btn green btn_options"> <span class="fa fa-comment"></span> &nbsp;Company Ownership </a>
-                <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestRemoval({{ $requestor_id }}, {{ $provider_id }})"  class="btn red btn_options"> <span class="fa fa-comment"></span> &nbsp; Removal in Prokakis</a>
+                <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestRemoval({{ $requestor_id }}, {{ $provider_id }})"  class="btn red btn_options"> <span class="fa fa-comment"></span> &nbsp; Removal in Intellinz</a>
                 </span>
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)

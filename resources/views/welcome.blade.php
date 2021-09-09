@@ -12,9 +12,9 @@
 
         <!-- from the original code -->
         <!-- CSRF Token -->
-        <meta property="og:title" content="Prokakis Ebos-SG App 2020" /> 
+        <meta property="og:title" content="Intellinz Ebos-SG App 2020" /> 
         <meta property="og:url" content="https://app-prokakis.com/" /> 
-        <meta property="og:site_name" content="Prokakis"/> 
+        <meta property="og:site_name" content="Intellinz"/> 
         <meta property="og:image" content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
         <meta property="og:type" content="website" /> 
         <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." />
@@ -26,7 +26,7 @@
 
 
 
-        <title>Prokakis Welcome Page</title>
+        <title>Intellinz Welcome Page</title>
 
 
 
@@ -288,7 +288,7 @@
 
                     @auth
 
-                        <a href="{{ url('/home') }}"> >> PROKAKIS APP Dashboard</a>
+                        <a href="{{ url('/home') }}"> >> Intellinz App Dashboard</a>
 
                     @else
 
@@ -316,7 +316,7 @@
                         </div>
                     </div>
                     <div>
-                      <img src="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Prokakis" id="logo" width="200px"> 
+                      <img src="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Intellinz" id="logo" width="200px"> 
 
                         <div class="content_text2">
                             Ebos-SG 
@@ -327,7 +327,7 @@
                   </div >
                 </div>
                 <div class="back_url">
-                   <a href="https://prokakis.com/" style="text-decoration: none;"><b> >> Back to main website</b></a>
+                   <a href="https://Intellinz.com/" style="text-decoration: none;"><b> >> Back to main website</b></a>
                 </div>
             </div>
 

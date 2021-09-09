@@ -31,7 +31,7 @@
     <!-- Styles -->
    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet"> 
    
-   <title> Prokakis - <?php if(Session::get('brandName') != null){ echo Session::get('brandName'); } ?> </title>
+   <title> Intellinz - <?php if(Session::get('brandName') != null){ echo Session::get('brandName'); } ?> </title>
     @yield('styles')
    
 </head>

@@ -56,13 +56,13 @@
 
         <!-- CSRF Token -->
 
-        <meta property="og:title" content="Prokakis Ebos-SG App {{ now()->year }}" /> 
+        <meta property="og:title" content="Intellinz Ebos-SG App {{ now()->year }}" /> 
 
-        <meta property="og:url" content="https://app.prokakis.com/" /> 
+        <meta property="og:url" content="https://app-prokakis.com/" /> 
 
-        <meta property="og:site_name" content="Prokakis"/> 
+        <meta property="og:site_name" content="Intellinz"/> 
 
-        <meta property="og:image" content="https://app.prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
+        <meta property="og:image" content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
 
         <meta property="og:type" content="website" /> 
 
@@ -74,7 +74,7 @@
 
             <meta charset="utf-8" />
 
-            <title>Prokakis Registration Page</title>
+            <title>Intellinz Registration Page</title>
 
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -172,9 +172,9 @@
 
         <div class="logo"  style="margin-top: 0px; margin-bottom: 0px;">
 
-        <a href="https://prokakis.com/">
+        <a href="https://Intellinz.com/">
 
-            <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="300px" > 
+            <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="300px" > 
 
         </a>
 

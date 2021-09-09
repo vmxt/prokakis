@@ -12,13 +12,13 @@
         <!-- CSRF Token -->
         <meta property="og:url"           content="http://ebos-app.prokakis.com" />
         <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Prokakis Ebos-SG App 2109" />
+        <meta property="og:title"         content="Intellinz Ebos-SG App 2109" />
         <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
         <meta property="og:image"         content="https://prokakis.com/wp-content/uploads/2018/06/New-ProKakis-1b.jpg" />
         <!-- end from the original code -->
 
         <meta charset="utf-8" />
-        <title>Prokakis Theme #3 | System Dashboard</title>
+        <title>Intellinz Theme #3 | System Dashboard</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         
@@ -147,8 +147,8 @@
                             <div class="container">
                                 <!-- BEGIN LOGO -->
                                 <div class="page-logo">
-                                    <a href="https://prokakis.com/" target="_blank" style="margin-top: 25px;">
-                                        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="200px">
+                                    <a href="https://Intellinz.com/" target="_blank" style="margin-top: 25px;">
+                                        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="200px">
                                     </a>
                                 </div>
                                 <!-- END LOGO -->
@@ -343,12 +343,12 @@
                                     <ul class="nav navbar-nav">
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{ (request()->segment(2) == '/') ? 'active' : '' }}">
                                             @guest
-                                                <a class="navbar-brand" href="https://prokakis.com/" target="_blank">
+                                                <a class="navbar-brand" href="https://Intellinz.com/" target="_blank">
                                                     <i class="fa fa-home"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
                                             @else
-                                                <a href="https://prokakis.com/" target="_blank">
+                                                <a href="https://Intellinz.com/" target="_blank">
                                                     <i class="fa fa-home"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
@@ -779,7 +779,7 @@
 
                         <!-- BEGIN INNER FOOTER -->
                         <div class="page-footer">
-                            <div class="container"> 2018 &copy; Prokakis
+                            <div class="container"> 2018 &copy; Intellinz
                             </div>
                         </div>
                         <div class="scroll-to-top">

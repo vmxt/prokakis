@@ -219,12 +219,12 @@
 
                             @guest
                                 <a class="navbar-brand" href="{{ url('/') }}">
-                                    {{ config('app.name', 'Prokakis') }}
+                                    {{ config('app.name', 'Intellinz') }}
                                     <span class="arrow"></span>
                                 </a>
                             @else
                                 <a href="{{ url('/') }}">
-                                    {{ config('app.name', 'Prokakis') }}
+                                    {{ config('app.name', 'Intellinz') }}
                                     <span class="arrow"></span>
                                 </a>
                                 <ul class="dropdown-menu pull-left">

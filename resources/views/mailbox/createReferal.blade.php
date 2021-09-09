@@ -134,7 +134,7 @@
                                         <input type="text" class="form-control" placeholder="" name="receiver_mail" id="receiver" style="padding: 0px;">
                                     </div>
                                     <div class="form-group form-md-line-input">
-                                        <input type="text" class="form-control" placeholder="" value="Prokakis, share to a friend" name="subject_mail" id="subject_mail" style="padding: 0px;">
+                                        <input type="text" class="form-control" placeholder="" value="Intellinz, share to a friend" name="subject_mail" id="subject_mail" style="padding: 0px;">
                                         <label for="subject_mail">Subject:</label>
                                     </div>
 

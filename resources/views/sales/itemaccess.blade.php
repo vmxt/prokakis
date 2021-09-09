@@ -157,16 +157,14 @@
 
                            <div class="row">
 
-                         Select a company to manage:<br />
+                       <h3>  Select the following actions for <b><?php echo strtoupper($company->company_name); ?></b>:</h3>
 
                             <?php if(isset($rs)) {
                                 
                                 foreach($rs as $r){
-                                   // echo $r->company_id . '<br />';
-                                    $rc =  App\CompanyProfile::where('id', $r->company_id)->first();
-
+                                    $rc =  App\SAConfiguration::where('id', $r->sa_config_id)->first();
                                     if($rc != null){
-                                        echo '<h4> ::> <a href="'.url('/samanage/'.$rc->id).'"><b>'.$rc->company_name . '</b></a></h4><br />';
+                                        echo '::> <b>'.$rc->module_controller . '</b> - <a href="'.url($rc->url).'"><b>'.strtoupper($rc->action).'</b></a> <br />';
                                     }
                                 }
 

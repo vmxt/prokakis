@@ -69,7 +69,7 @@ table td{
           <div class="row">
             <div class="jumbotron match-result">
               <h3 class="text-center text-white">
-                Prokakis Case Report
+                Intellinz Case Report
               </h3>
             </div>
           </div>

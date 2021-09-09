@@ -403,7 +403,7 @@
                     <h4><strong> Estimated Profit Per Year </strong></h4>
                 </span>
                 <span class="content-text">
-                    <h4>                         
+                    <h4> 
                         {{ App\CurrencyMonetary::currencyConvertion($item->est_profit, $item->currency) }}
                     </h4>
                 </span>
@@ -2336,7 +2336,7 @@
 
             $('#chat-area').empty();
             $("#chat-area").append(`
-                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                <p class="chat-intro-text"> Welcome to Intellinz chat! 
                     <br>
                         Congrats for finding your potential business match. 
                         Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
@@ -2547,7 +2547,7 @@ function chatload(){
             if(data.text != false){
                 $('#chat-area').empty();
                 $("#chat-area").append(`
-                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                <p class="chat-intro-text"> Welcome to Intellinz chat! 
                     <br>
                         Congrats for finding your potential business match. 
                         Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
@@ -2604,7 +2604,7 @@ function updateChat(){
             if(data.text != false){
                 $('#chat-area').empty();
                 $("#chat-area").append(`
-                <p class="chat-intro-text"> Welcome to ProKakis chat! 
+                <p class="chat-intro-text"> Welcome to Intellinz chat! 
                     <br>
                         Congrats for finding your potential business match. 
                         Get started by introducing yourself & your company to the opportunity provider. Please be as respectful as possible when connecting with your potential partner.
@@ -2797,7 +2797,7 @@ var tour = new Tour({
     {
     element: "#connectme_btn_0",
     title: "Connect Me",
-    content: "This is prokakis chat where you and the partners can exchange text realtime",
+    content: "This is Intellinz chat where you and the partners can exchange text realtime",
     placement: "top"
   },
       {

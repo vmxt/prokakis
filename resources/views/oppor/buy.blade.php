@@ -824,7 +824,7 @@ input::-moz-focus-inner {
                                         <?php 
                                             $currencyList = App\CurrencyMonetary::where('status','0')->get();
                                             $curText = '(USD)';
-                                             if (isset($data->currency) and $data->currency != 0 ){
+                                             if (isset($data->currency) and $data->currency != 0){
                                                 $currencyDetail = App\CurrencyMonetary::where('id',$data->currency)->first();
 
                                                  $curText = "($currencyDetail->c_code)";
@@ -1670,7 +1670,7 @@ input::-moz-focus-inner {
 
                                     when finding a strategic partner. This option will be published in the Explore Page with your company name and profile 
 
-                                    to the users and extend your digital presence. By building digital presence in ProKakis, you are building a branding as a legitimate 
+                                    to the users and extend your digital presence. By building digital presence in Intellinz, you are building a branding as a legitimate 
 
                                     company that is open for Business Connection.
 

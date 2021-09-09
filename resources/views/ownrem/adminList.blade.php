@@ -254,8 +254,8 @@
             if(ReqType == "remove")
             {  
                 swal({
-                    title: "Are you sure to approve this request number #"+ ReqNo +", Company removal from Prokakis system? ", 
-                    text: "You are about to deactivate a company in Prokakis",
+                    title: "Are you sure to approve this request number #"+ ReqNo +", Company removal from Intellinz system? ", 
+                    text: "You are about to deactivate a company in Intellinz",
                     icon: "warning",
                     buttons: [
                     'No, cancel it!',
@@ -292,7 +292,7 @@
 
                     });
                     } else {
-                    swal("Cancelled", "Request to remove a company from Prokakis system user was cancelled :)", "error");
+                    swal("Cancelled", "Request to remove a company from Intellinz system user was cancelled :)", "error");
                     }
                 });
             } 

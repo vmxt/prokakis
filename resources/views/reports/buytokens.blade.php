@@ -264,7 +264,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*Exclusive invite to Prokakis Networking events</p>
+                                                <p>*Exclusive invite to Intellinz Networking events</p>
                                             </div>
                                         </div>
 
@@ -364,7 +364,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*Exclusive invite to Prokakis Networking events</p>
+                                                <p>*Exclusive invite to Intellinz Networking events</p>
                                             </div>
                                         </div>
 
@@ -501,7 +501,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*exclusive invite to Prokakis Networking events</p>
+                                                <p>*exclusive invite to Intellinz Networking events</p>
                                             </div>
                                         </div>
                                         <div class=" card-buyNow-bot ">
@@ -633,7 +633,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*exclusive invite to Prokakis Networking events</p>
+                                                <p>*exclusive invite to Intellinz Networking events</p>
                                             </div>
                                         </div>
 

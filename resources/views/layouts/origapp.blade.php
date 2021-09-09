@@ -3376,12 +3376,12 @@ if(route('indexConsultantFAreport') == Request::url()) {
                     <!-- Branding Image -->
                     @guest
                     <a class="navbar-brand" href="{{ url('/') }}" style="color:white;">
-                        {{ config('app.name', 'Prokakis') }}
+                        {{ config('app.name', 'Intellinz') }}
                     </a>
                     @else
 
                     <a class="navbar-brand" href="{{ url('/') }}" style="color:white">
-                        {{ config('app.name', 'Prokakis') }}
+                        {{ config('app.name', 'Intellinz') }}
                     </a>
 
 

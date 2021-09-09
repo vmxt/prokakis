@@ -17,7 +17,7 @@
 
 
     <head>
-
+        <link rel="canonical" href="https://app-prokakis.com/login" />
         <!-- from the original code -->
 
         <!-- CSRF Token -->
@@ -28,17 +28,24 @@
 
         <meta property="og:title"         content="Intellinz Ebos-SG App {{ now()->year }}" />
 
-        <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
+        <meta property="og:description"   content="Login to Intellinz, Your Complete App to Help Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, With On-Going Business Intelligence Assessment, Find Safe and Secure Business Opportunities, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates." />
 
         <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" />
 
         <!-- end from the original code -->
+        
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@EbosAccounts">
+        <meta name="twitter:creator" content="@EbosAccounts">
+        <meta name="twitter:title" content="Intellinz Ebos-SG App {{ now()->year }}">
+        <meta name="twitter:description" content="INTELLINZ - Login to Intellinz, Your Complete App to Help Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, With On-Going Business Intelligence Assessment, Find Safe and Secure Business Opportunities, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates.">
+        <meta name="twitter:image" content="https://app-prokakis.com/public/images/intellinz_green_crop_twit.png">
 
 
 
         <meta charset="utf-8" />
 
-        <title>Intellinz Login Page</title>
+        <title>Intellinz Login Page | A KYC Business Due Diligence App.</title>
 
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -48,15 +55,23 @@
 
 
 
-        <meta content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" name="description" />
+        <meta content="Login to Intellinz, Your Complete App to Help Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, With On-Going Business Intelligence Assessment, Find Safe and Secure Business Opportunities, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates." name="description" />
 
-        <meta content="Ebos-SG App 2019" name="author" />
+        <meta content="Ebos-SG App {{ now()->year }}" name="author" />
 
-
+        <script type='application/ld+json'>{
+        "@context":"https://schema.org","@type":"WebSite",
+        "@id":"https://app-prokakis.com/#website",
+        "url":"https://app-prokakis.com/",
+        "name":"Intellinz App",
+        "potentialAction":{
+            "@type":"SearchAction",
+            "target":"https://app-prokakis.com/?s={search_term_string}",
+            "query-input":"required name=search_term_string"}}</script>
 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
 
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" as="style" type="text/css" />
 
         <link href="{{ asset('public/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
 
@@ -110,7 +125,7 @@
 
         <!-- END HEAD -->
 
-
+</head>
 
     <!-- override the css values above -->
 
@@ -282,13 +297,9 @@
 
         <script src="{{asset('public/assets/global/plugins/morris/morris.min.js')}}" type="text/javascript"></script>
 
-        <script src="{{asset('public/assets/global/plugins/morris/raphael-min.js')}}" type="text/javascript"></script>
-
         <script src="{{asset('public/assets/global/plugins/counterup/jquery.waypoints.min.js')}}" type="text/javascript"></script>
 
         <script src="{{asset('public/assets/global/plugins/counterup/jquery.counterup.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/fullcalendar/fullcalendar.min.js')}}" type="text/javascript"></script>
 
         <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.min.js')}}" type="text/javascript"></script>
 

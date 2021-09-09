@@ -184,7 +184,7 @@
 
 
                            <div class="form-group form-md-line-input form-md-floating-label">
-                               <label for="account_email">Custom Profile Link on Prokakis</label>
+                               <label for="account_email">Custom Profile Link on Intellinz</label>
                                <input type="text" class="form-control" id="profile_link" name="profile_link" value="{{ url('/company/') }}/<?php if(isset($brand_slogan[0])){ echo $brand_slogan[0]; } ?> ">
                                <span class="help-block">Some help goes here...</span>
                            </div>

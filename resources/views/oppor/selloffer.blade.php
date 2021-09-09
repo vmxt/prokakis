@@ -1660,7 +1660,7 @@ input::-moz-focus-inner {
 
                                     when finding a strategic partner. This option will be published in the Explore Page with your company name and profile 
 
-                                    to the users and extend your digital presence. By building digital presence in ProKakis, you are building a branding as a legitimate 
+                                    to the users and extend your digital presence. By building digital presence in Intellinz, you are building a branding as a legitimate 
 
                                     company that is open for Business Connection.
 

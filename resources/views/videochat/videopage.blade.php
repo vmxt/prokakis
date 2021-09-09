@@ -76,7 +76,7 @@
 
   <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
 
-  <p class="chat-intro-text"> Welcome to ProKakis Video Chat! 
+  <p class="chat-intro-text"> Welcome to Intellinz Video Chat! 
 
     <br>
 

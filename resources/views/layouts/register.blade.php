@@ -8,24 +8,44 @@
     <!-- BEGIN HEAD -->
 
     <head>
+        <link rel="canonical" href="https://app-prokakis.com/register" />
         <!-- from the original code -->
         <!-- CSRF Token -->
-        <meta property="og:url"           content="http://ebos-app.prokakis.com" />
+        <meta property="og:url"           content="https://app-prokakis.com" />
         <meta property="og:type"          content="website" />
-        <meta property="og:title"         content="Prokakis Ebos-SG App {{ now()->year }}" />
-        <meta property="og:description"   content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" />
-        <meta property="og:image"         content="https://prokakis.com/wp-content/uploads/2018/06/New-ProKakis-1b.jpg" />
+        <meta property="og:title"         content="Intellinz Ebos-SG App {{ now()->year }}" />
+        <meta property="og:description"   content="Register with Intellinz, a Complete App to Help Uncover Your Hidden Business Opportunities, That Will Protect yourself from Fraudulent Partners, Find Safe and Secure Business Opportunities, With On-Going Business Intelligence Assessment, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates." />
+        <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" />
         <!-- end from the original code -->
-
+        
+        <!-- START Twitter card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@EbosAccounts">
+        <meta name="twitter:creator" content="@EbosAccounts">
+        <meta name="twitter:title" content="Intellinz Ebos-SG App {{ now()->year }}">
+        <meta name="twitter:description" content="INTELLINZ - Register with Intellinz, a Complete App to Help Uncover Your Hidden Business Opportunities, That Will Protect yourself from Fraudulent Partners, Find Safe and Secure Business Opportunities, With On-Going Business Intelligence Assessment, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates.">
+        <meta name="twitter:image" content="https://app-prokakis.com/public/images/intellinz_green_crop_twit.png">
+        <!-- END Twitter Card -->
+        
         <meta charset="utf-8" />
-        <title>Prokakis Registration Page</title>
+        <title>Intellinz Registration Page | A KYC Business Due Diligence App.</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <meta content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" name="description" />
-        <meta content="Ebos-SG App 2019" name="author" />
-
+        <meta content="Register with Intellinz, a Complete App to Help Uncover Your Hidden Business Opportunities, That Will Protect yourself from Fraudulent Partners, Find Safe and Secure Business Opportunities, With On-Going Business Intelligence Assessment, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates." name="description" />
+        <meta content="Intellinz App" name="author" />
+        
+        <script type='application/ld+json'>{
+        "@context":"https://schema.org","@type":"WebSite",
+        "@id":"https://app-prokakis.com/#website",
+        "url":"https://app-prokakis.com/",
+        "name":"Intellinz App",
+        "potentialAction":{
+            "@type":"SearchAction",
+            "target":"https://app-prokakis.com/?s={search_term_string}",
+            "query-input":"required name=search_term_string"}}</script>
+            
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -54,7 +74,7 @@
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
             -->
         <!-- END HEAD -->
-
+        </head>
     <!-- override the css values above -->
      <style>
             .page-header .page-header-menu {

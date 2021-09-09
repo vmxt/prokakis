@@ -15,21 +15,40 @@
         <meta property="og:site_name" content="Intellinz"/> 
         <meta property="og:image" content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
         <meta property="og:type" content="website" /> 
-        <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." /> 
+        <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYC Due Diligence, On-Going Business Intelligence Assessment, Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates, Safe and Secure Business Opportunities." /> 
         <!-- end from the original code -->
+        
+        <!-- START Twitter card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@EbosAccounts">
+        <meta name="twitter:creator" content="@EbosAccounts">
+        <meta name="twitter:title" content="Intellinz Ebos-SG App {{ now()->year }}">
+        <meta name="twitter:description" content="INTELLINZ - 1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYC Due Diligence, On-Going Business Intelligence Assessment, Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates, Safe and Secure Business Opportunities.">
+        <meta name="twitter:image" content="https://app-prokakis.com/public/images/intellinz_green_crop_twit.png">
+        <!-- END Twitter Card -->
 
         <meta charset="utf-8" />
-        <title>Intellinz | System Dashboard</title>
+        <title>Intellinz | A KYC Due Diligence App | System Dashboard.</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1" name="viewport" />
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <meta content="Uncover Your Hidden Business Opportunities, Protect yourself from Fraudulent Partners,Safe and Secure Business Opportunities, On-Going Business Intelligence Assessment, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates" name="description" />
+        <meta content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYC Due Diligence, On-Going Business Intelligence Assessment, Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates, Safe and Secure Business Opportunities." name="description" />
         <meta content="Ebos-SG App 2021" name="author" />
+        
+        <script type='application/ld+json'>{
+        "@context":"https://schema.org","@type":"WebSite",
+        "@id":"https://app-prokakis.com/#website",
+        "url":"https://app-prokakis.com/",
+        "name":"Intellinz App",
+        "potentialAction":{
+            "@type":"SearchAction",
+            "target":"https://app-prokakis.com/?s={search_term_string}",
+            "query-input":"required name=search_term_string"}}</script>
 
         <!-- BEGIN GLOBAL MANDATORY STYLES -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&display=swap&subset=all" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('public/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
@@ -354,34 +373,10 @@ color: white;
     margin: 0;
     padding: 0;
 }
-
-
-
-/*#currency-selector, .currency-selector {
-  position: absolute;
-  left: 0;
-  top: 0;
-  margin: 0 auto;
-  width: 50%;
-  height: 100%;
-  padding-left: .5rem;
-  border: 0;
-  background: transparent;
-  
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
-  
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1024' height='640'><path d='M1017 68L541 626q-11 12-26 12t-26-12L13 68Q-3 49 6 24.5T39 0h952q24 0 33 24.5t-7 43.5z'></path></svg>") 90%/12px 6px no-repeat;
-  
-  font-family: inherit;
-  color: inherit;
-}*/
-
-
      </style>
 
 <!--Start of Tawk.to Script-->
+<!--
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
@@ -393,6 +388,7 @@ s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
+-->
 <!--End of Tawk.to Script-->
 
     <?php
@@ -417,7 +413,7 @@ s0.parentNode.insertBefore(s1,s0);
                                 <!-- BEGIN LOGO -->
                                 <div class="page-logo">
                                     <a href="{{ route('login') }}" style="margin-top: 25px;">
-                                        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Prokakis" id="logo" width="200px">
+                                        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="200px">
                                     </a>
                                 </div>
                                 <!-- END LOGO -->
@@ -613,7 +609,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                       <i class="fa fa-trophy"></i> Rewards </a>
                                               </li>
 
- 						                         <li>
+ 						<li>
 
                                                   <a href="{{ route('setPasswordData') }}" >
                                                       <i class="icon-key"></i> Change Password </a>
