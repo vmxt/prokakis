@@ -334,7 +334,7 @@
 }
 .container-grid .blog-posts .post .image {
   float: left;
-  width: 40%;
+  width: 25% !important;
   height: 250px;
   background-size: cover;
   background-position: center center;
@@ -882,4 +882,10 @@ img#chatAvatar {
 
 .fa-user-minus{
   color: #428BCA;
+}
+
+.video-chat-icon{
+  bottom: -40px;
+    position: absolute;
+    left: 35%;
 }

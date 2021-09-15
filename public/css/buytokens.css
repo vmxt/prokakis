@@ -11,7 +11,8 @@ div.flaticon {
 
     -webkit-font-smoothing: antialiased;
     background-color: #fff;
-    color: #5f7d95;
+/*    color: #5f7d95; */
+    color: #82a075;
     font-size: 1em;
     line-height: 1.5;
 }
@@ -308,13 +309,16 @@ div.payment .box.plans:hover {
 }
 
 div.flaticon .btn-subscribe {
-    background-color: #214776;
+/*    background-color: #214776; */
+    background-color: #38a745;
     border-radius: 10px;
 }
 
 div.flaticon .btn-subscribe:hover {
-    background-color: #96B8DD;
-    color: #214776 !important;
+/*    background-color: #96B8DD; */
+    background-color: #b7eaa2;
+/*    color: #214776 !important; */
+    color: #7ed957 !important;
 }
 
 .img_icon{
@@ -357,17 +361,21 @@ div.flaticon .btn-subscribe:hover {
 
 .bg-image-1 .btn-subscribe, .token-card-container-btn .card-buyNow-bot .btn-subscribe{
     color: #fff!important;
-    background-color: #214776;
+    background-color: #214776; 
 }
 
 .bg-image-2 .btn-subscribe{
-    color: #24B3FA !important;
+/*    color: #24B3FA !important; */
+    color: #38a745 !important;
+/*    background-color: #FFFFFF !important; */
     background-color: #FFFFFF !important;
+
 }
 
 .desc-2 .card-buyNow-bot .btn-subscribe {
     color: #FFFFFF !important;
-    background-color: #24B3FA !important;
+/*    background-color: #24B3FA !important; */
+    background-color: #38a745 !important;
 }
 
 .btn-subscribe, .modal .btn, button, input[type=submit] {
@@ -516,13 +524,15 @@ div.payment .advantages-block p {
 }
 
 .report-title h1{
-    color: #24B3FA;
+/*    color: #24B3FA; */
+    color: #7ed957;
     font-size: 4em;
     font-weight: 600;
 }
 
 .title-top h1{
-    color: #3165A0;
+/*    color: #3165A0; */
+    color: #38a745;
     font-weight: 600;
 }
 
@@ -537,7 +547,8 @@ div.payment .advantages-block p {
 
 
 .token-card-heading h2 {
-    color: #24B3FA;
+/*    color: #24B3FA; */
+    color: #7ed957;
     text-align: center;
     padding: 20px;
     font-size: 40px;
@@ -619,6 +630,26 @@ div.payment .advantages-block p {
 
 }
 
+@media  (min-width:630px) and (max-width:961px) {
+    .card-buyNow-bot {
+        /*position: initial !important;*/
+        left: 25px !important;
+
+            left: 30% !important;
+        margin-left: 0px !important;
+    }
+/*    .desc-1 .card-buyNow-bot {
+        left: 30% !important;
+        margin-left: 0px !important;
+    }*/
+    .desc-1 {
+        padding-bottom: 80px;
+    }
+    .card-buyNow {
+        left: 110px !important;
+    }
+}
+
 @media (max-width: 1225px){
     .bg-image-2{
         height: 400px !important;
@@ -651,19 +682,21 @@ div.payment .advantages-block p {
     }
 }
 
+
+
 @media (max-width: 1025px){
-    .card-buyNow {
+ /*   .card-buyNow {
         left: 45px !important;
-    }
+    }*/
 
-    .desc-1 .card-buyNow-bot {
+ /*   .desc-1 .card-buyNow-bot {
         left: 25px !important;
-    }
+    }*/
 
-    .desc-2 .card-buyNow-bot{
+/*    .desc-2 .card-buyNow-bot{
         left: 55px !important;
     }
-
+*/
     .token-card-heading h2 {
         font-size: 30px;
     }
@@ -1212,9 +1245,7 @@ div.payment .advantages-block p {
 }
 
 @media  (min-width: 961px){
-    .desc-1 .card-buyNow-bot {
-        /*display: none;*/
-    }
+
 }
 
 @media screen and (min-width:992px) {
@@ -1247,7 +1278,8 @@ div.payment .advantages-block p {
 }
 
 .toggle-active {
-    background-color: #214776 !important;
+/*    background-color: #214776 !important; */
+    background-color: #38a745 !important;
     color: #FFFFFB !important;
     /*height: 100%;*/
     /*margin-right: 0;*/
@@ -1262,7 +1294,8 @@ div.payment .advantages-block p {
 
 .toggle-yearly, .toggle-monthly {
     background-color: #FFFFFB;
-    color: #214776;
+/*    color: #214776; */
+    color: #38a745;
     height: 100%;
     cursor: pointer;
     margin-right: 0;
@@ -1270,7 +1303,8 @@ div.payment .advantages-block p {
 
 .toggle-section div:not(.toggle-active):hover {
     background-color: #96B8DD !important;
-    color: #214776 !important;
+/*    color: #214776 !important; */
+    color: #38a745;
 
 }
 
@@ -1278,7 +1312,8 @@ div.payment .advantages-block p {
 
 
 .toggle-section div {
-    border: 5px solid #214776;
+/*    border: 5px solid #214776; */
+    border: 5px solid #38a745;
     text-align: center;
     padding: 5px;
     font-size: 15px;
@@ -1352,12 +1387,13 @@ hr.top-line {
 }
 
 .desc-2 .card-buyNow-bot {
-    position: initial;
+    position: absolute;
     bottom: 30px;
-    width: 100%;
+    /*width: 100%;*/
     margin-left: 0px;
     text-align: center;
 }
+
 
 .token-card-text{
     display: flex;
@@ -1377,12 +1413,14 @@ hr.top-line {
 }
 
 .bg-image-1 .info-icon{
-    color: #FE904C;
+/*     color: #FE904C; */
+    color: #38a745;
     background: white;
 }
 
 .bg-image-2 .info-icon{
-    color: #214776;
+/*    color: #214776; */
+    color: #7ed957;
     background: white;
 }
 
@@ -1442,7 +1480,7 @@ hr.top-line {
     text-align: center;
     margin-top: 25px;
     margin-left: 30px;
-    position: initial;
+    position: absolute;
     bottom: 20px;
     left: 58px;
 }
@@ -1483,4 +1521,3 @@ hr.top-line {
 .token-card-container-desc{
     /*border: 1px blue solid;*/
 }
-

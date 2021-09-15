@@ -585,7 +585,7 @@ img {
 #chat-area { 
     height: 400px; 
     /*overflow: auto; */
-    border-width:5px;  
+        border-width:5px;  
     border-style:groove;
     padding: 20px; 
     /*background: #E5DDD5; */
