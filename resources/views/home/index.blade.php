@@ -794,11 +794,6 @@ var tour = new Tour({
     content: "Here you can update, download and monitor your reports"
   },
   {
-    element: "#nav-buy-credit",
-    title: "BUY CREDITS",
-    content: "Here you can see the token packages and purchase more credits"
-  },
-  {
     element: "#nav-report-requester",
     title: "REPORT REQUESTER",
     content: "Here you can view the company information of someone who is requesting a report from you",
@@ -821,6 +816,12 @@ var tour = new Tour({
     title: "ACCOUNT AND CREDIT",
     content: "Here you can view your credit balance and account status",
     placement: 'left'
+  },
+  {
+    element: "#nav-buy-credit",
+    title: "BUY CREDITS",
+    content: "Here you can see the token packages and purchase more credits",
+     placement: 'left'
   },
   {
     element: "#nav-login-company",
@@ -897,12 +898,12 @@ var tour = new Tour({
     content: "This are the top 5 opportunities of the companies you followed",
        placement: 'top'
   },
-  {
-    element: "#video-ads",
-    title: "Video Advertisement",
-    content: "Helpful videos to help you on your",
-       placement: 'top'
-  },
+  // {
+  //   element: "#video-ads",
+  //   title: "Video Advertisement",
+  //   content: "Helpful videos to help you on your",
+  //      placement: 'top'
+  // },
 
 ],
 
