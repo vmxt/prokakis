@@ -24,7 +24,7 @@
                   <td colspan="2">{{ strtoupper($data['COMP_REGISTRATION_NUMBER']) }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Bussiness Type</th>
+                  <th scope="row">Business Type</th>
                   <td colspan="2">{{ strtoupper($data['COMP_BUSSINESS_TYPE']) }}</td>
                 </tr>
                 <tr>

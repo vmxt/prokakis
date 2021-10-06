@@ -29,7 +29,7 @@
             <div class="gray-box">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <u class="h4">AML - World check risk intellegence by Refinitive</u>
+                        <u class="h4">AML - World check risk intelligence by Refinitive</u>
                     </div>
                 </div>
                <!-- <ul style="list-style-type: none; margin-top:20px; font-weight: bolder;">
@@ -37,7 +37,7 @@
                     <li  style="font-size: 14px; line-height: 2 !important">Key Management</li>
                     <li style="font-size: 14px; line-height: 2 !important">Company Information</li>
                     <li  style="font-size: 14px; line-height: 2 !important">Financial Analysis</li>
-                    <li  style="font-size: 14px; line-height: 2 !important">AML - World check risk intellegence by Refinitive </li>
+                    <li  style="font-size: 14px; line-height: 2 !important">AML - World check risk intelligence by Refinitive </li>
                     <li  style="font-size: 14px; line-height: 2 !important">Investors Alert</li>
                     <li style="font-size: 14px; line-height: 2 !important">Adverse Media </li>
                     <li style="font-size: 14px; line-height: 2 !important">Appendix </li>

@@ -37,7 +37,7 @@
                     <li  style="font-size: 14px; line-height: 2 !important">Key Management</li>
                     <li style="font-size: 14px; line-height: 2 !important">Company Information</li>
                     <li  style="font-size: 14px; line-height: 2 !important">Financial Analysis</li>
-                    <li  style="font-size: 14px; line-height: 2 !important">AML - World check risk intellegence by Refinitive </li>
+                    <li  style="font-size: 14px; line-height: 2 !important">AML - World check risk intelligence by Refinitive </li>
                     <li  style="font-size: 14px; line-height: 2 !important">Investors Alert</li>
                     <li style="font-size: 14px; line-height: 2 !important">Adverse Media </li>
                     <li style="font-size: 14px; line-height: 2 !important">Appendix </li>
