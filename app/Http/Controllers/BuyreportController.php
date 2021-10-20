@@ -716,17 +716,22 @@ $Bahamas = [];
 		$response_twitter = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='Twitter');
 		$response_youtube = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='Youtube');
 		$response_theweb = BuyreportController::curlER($twitter_token, $twitter_keyword, $sm='The Web');
-		
-		 // return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
-
-			//       'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
-
-			//       'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
-
-			//       'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter' , 'reportTrackNumber'));
-
 		$originalDate = $company_data->updated_at;
-		$obtainDate = date("F, Y", strtotime($originalDate));	  
+		$obtainDate = date("F, Y", strtotime($originalDate));
+			
+	// return view('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+
+	// 		'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+
+	// 		'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+
+	// 		'profileCertifications', 'completenessProfile', 'profileCoverPhoto', 'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons', 'reportTemplates', 'response_twitter','reportTrackNumber', 
+			
+	// 		'tr_peps', 'tr_inserted_date', 'MONTH_RATIO', 'RT', 'ACP', 'IT', 'DII', 'PT', 'APP', 'NWP', 'CR', 'QR', 'DTE', 'DTA', 'IC','GPM','OPM', 'NPM',
+
+	// 		'ROI', 'ROE', 'consultantFiles', 'MASinvestors', 'obtainDate', 'Panama', 'Paradise', 'Offshore', 'Bahamas','response_youtube','response_theweb'));
+
+  
 
 		$pdf = PDF::loadView('buyreport.myPDF', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
 

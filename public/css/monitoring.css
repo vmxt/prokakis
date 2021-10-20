@@ -15,8 +15,8 @@ hr.page2-hr{
     bottom: 0px;
 }
 
-.text-header{
-    color: white;
+.text-muted{
+    line-height: normal !important;
 }
 
 /*.footer{

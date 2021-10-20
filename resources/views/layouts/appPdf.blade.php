@@ -17,7 +17,7 @@
           @include('buyreport.footer.disclaimer', ['footer_content'=>$footer_content ] )
           @include('buyreport.header.trackNumber' )
           
-<body>
+<body style="background-color: white;">
     <style>
     .btn-x4 {
     font-size: 15px;
@@ -27,7 +27,7 @@
     }
 </style>
 
-    <div id="app">
+    <div id="app" >
        
 
             @yield('content')

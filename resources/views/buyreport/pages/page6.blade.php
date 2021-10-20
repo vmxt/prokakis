@@ -1,9 +1,12 @@
 
 <div class="card">
-  <div class="card-body p-0">
+  <div class="card-body p-1">
+    <div class="row p-1">
+        &#160;
+    </div>
     <div class="row p-0">
       <div class="bg-orange">
-        <p class="h2 text-header">  {!! !empty($reportTemplates['HEADER_TXT_PG6']) ? strtoupper($reportTemplates['HEADER_TXT_PG6']) : 'Variable [HEADER_TXT_PG6] does not exist' !!}</p>
+        <p class="h4 text-header">  {!! !empty($reportTemplates['HEADER_TXT_PG6']) ? strtoupper($reportTemplates['HEADER_TXT_PG6']) : 'COMPANY INFORMATION' !!}</p>
       </div>
     </div>
     <div>
@@ -54,11 +57,12 @@
     </div>
   </div>
 </div>
+
+
+@if(!empty($profileCertifications))
     <div class="row p-1">
       <p class="h5">Award(s):</p>
     </div>
-
-@if(!empty($profileCertifications))
         @foreach($profileCertifications as $aw)
             <div class="card p-2">
                   <img class='img-fluid' src="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>" style='width:100%; padding-top: 100px;' border="1" alt="Null" />

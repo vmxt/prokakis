@@ -1,8 +1,11 @@
 <div class="card">
-  <div class="card-body p-0">
+  <div class="card-body p-1">
+    <div class="row p-1">
+        &#160;
+    </div>
     <div class="row p-0 ">
       <div class="bg-orange">
-        <p class="h2 text-header">{!! !empty($reportTemplates['HEADER_TXT_PG7']) ? strtoupper($reportTemplates['HEADER_TXT_PG7']) : 'Variable [HEADER_TXT_PG7] does not exist' !!} </p>
+        <p class="h4 text-header">{!! !empty($reportTemplates['HEADER_TXT_PG7']) ? strtoupper($reportTemplates['HEADER_TXT_PG7']) : 'Variable [HEADER_TXT_PG7] does not exist' !!} </p>
       </div>
     </div>
     <div>
@@ -66,9 +69,12 @@
           </tr>
         </tbody>
       </table>
-      <p>Consultants’ Analysis : Financial Statement Information obtained from June 2017</p>
     </div>
     <div class="p-1">
+        <div class="p-1">
+          &#160;
+        </div>
+      <p>Consultants’ Analysis : Financial Statement Information obtained from June 2017</p>
       <small class="h6 text-muted">5.1.2 {{ strtoupper($reportTemplates['TITLE3_TXT_PG7']) }}</small>
       <p class="text-justify">
         <small class="text-muted">
@@ -175,6 +181,9 @@
         {!! ucfirst($reportTemplates['SUBTITLE5_TXT_PG7']) !!}
         </small>
       </p>
+    </div>
+    <div class="row p-1">
+        &#160;
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.2.1 {{ strtoupper($reportTemplates['TITLE6_TXT_PG7']) }}</small>
@@ -286,6 +295,9 @@
         </tbody>
       </table>
   
+    </div>
+    <div class="row p-2">
+        &#160;
     </div>
     <div class="p-1">
       <small class="h6 text-muted">5.3 {{ strtoupper($reportTemplates['TITLE9_TXT_PG7']) }}</small>

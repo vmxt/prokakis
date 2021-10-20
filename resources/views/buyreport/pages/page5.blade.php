@@ -1,8 +1,11 @@
 <div class="card">
-    <div class="card-body p-0">
+    <div class="card-body p-1">
+        <div class="row p-1">
+            &#160;
+        </div>
         <div class="row p-0">
             <div class="bg-orange">
-                <p class="h2 text-header">{!! !empty($reportTemplates['HEADER_TXT_PG5']) ? strtoupper($reportTemplates['HEADER_TXT_PG5']) : 'Variable [HEADER_TXT_PG5] does not exist' !!} </p>
+                <p class="h4 text-header">{!! !empty($reportTemplates['HEADER_TXT_PG5']) ? strtoupper($reportTemplates['HEADER_TXT_PG5']) : 'KEY MANAGEMENT' !!} </p>
             </div>
         </div>
         <div>
