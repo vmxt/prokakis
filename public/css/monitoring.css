@@ -49,6 +49,7 @@ table tr {
     margin: 0cm 0cm;
     margin-bottom: 2cm;
     line-height: 1.6 !important;
+     margin-top: 50px;
 }
 
 body {
@@ -56,6 +57,7 @@ body {
     margin-left: 1.5cm;
     margin-right: 1.5cm;
     margin-bottom: 3cm;
+    padding: 1em;
 }
 
 footer {
@@ -75,15 +77,17 @@ footer p{
 }
 
 header {
-    position: fixed;
+    position: fixed ;
     top: .5cm;
     left: 0cm;
     right: 0cm;
     height: 2cm;
-     bottom: 0cm;
+     bottom: 10cm;
     margin-right: 10%;
     margin-left: 10%;
+    margin-bottom: 10%;
      text-align: right;
+     /*padding-bottom: 120px;*/
     /** Extra personal styles **/
 
 }

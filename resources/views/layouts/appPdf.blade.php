@@ -14,8 +14,6 @@
    <link href="{{ asset('public/css/app.css') }}" rel="stylesheet"> 
     <link href="{{ asset('public/css/monitoring.css') }}" rel="stylesheet">
 </head>
-          @include('buyreport.footer.disclaimer', ['footer_content'=>$footer_content ] )
-          @include('buyreport.header.trackNumber' )
           
 <body style="background-color: white;">
     <style>
@@ -25,7 +23,11 @@
     width: 15%;
     background-color: orangered;
     }
+
 </style>
+        @include('buyreport.header.trackNumber' )
+
+          @include('buyreport.footer.disclaimer', ['footer_content'=>$footer_content ] )
 
     <div id="app" >
        

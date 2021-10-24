@@ -46,8 +46,8 @@
 </div>
 <div class="row p-0">
      <div class="col-md-12" style="text-align: center; line-height: 0">
-        <span>All Rights Reserved &#169; <?php echo date("Y");?> </span><br>
-        <span>INTELLINZ PTE LTD</span>
+     <!--    <span>All Rights Reserved &#169; <?php //echo date("Y");?> </span><br>
+        <span>INTELLINZ PTE LTD</span> -->
     </div>
 </div>
 
