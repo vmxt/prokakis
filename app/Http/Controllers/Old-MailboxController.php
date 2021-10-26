@@ -352,12 +352,12 @@ class MailboxController extends Controller {
 		$userId = Auth::id();
 		$url_result = \App\CompanyProfile::generateReferralLinkEncoded($userId);
 
-		$message ="Hi, <br /> I use <b>ProKakis</b> to buy/ sell companies, advertise products & services and connect to other business owners 
-		globally. Wanna get <b>ProKakis</b>, Online Marketplace with KYB Due Diligence for yourself? Your registration fee is $0! Join me now: <a href='".$url_result."'>$url_result</a> or may copy-paste this url <i>$url_result</i> to your browser.
+		$message ="Hi, <br /> I use <b>Intellinz</b> to buy/ sell companies, advertise products & services and connect to other business owners 
+		globally. Wanna get <b>Intellinz</b>, Online Marketplace with KYB Due Diligence for yourself? Your registration fee is $0! Join me now: <a href='".$url_result."'>$url_result</a> or may copy-paste this url <i>$url_result</i> to your browser.
 		<br />
 		<br />
 		Thank you, <br />
-		Prokakis Web Admin
+		Intellinz Web Admin
 		";
 
 		return view('mailbox.createReferal', compact('message'));

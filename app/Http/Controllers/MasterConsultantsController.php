@@ -318,7 +318,7 @@ class MasterConsultantsController extends Controller {
 
                     <br />
 
-                    Please do login to your Prokakis account.
+                    Please do login to your Intellinz account.
 
                     <br />
 
@@ -330,13 +330,13 @@ class MasterConsultantsController extends Controller {
 
                     Best Regards, <br />
 
-                    Prokakis Web Admin
+                    Intellinz Web Admin
 
                     ";
 
 					//send the email here
 
-					Mailbox::sendMail($message, $usr->email, "Prokakis Project Assignment.", "");
+					Mailbox::sendMail($message, $usr->email, "Intellinz Project Assignment.", "");
 
 					return redirect('/mconsultants/projectOverview')->with('status', 'Project been succesfully assigned.');
 

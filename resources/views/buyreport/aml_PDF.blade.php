@@ -31,13 +31,8 @@ $data["COMP_STRENGTHS"] = "N.A.";*/
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <div class="page-break">
         @include('buyreport.pages.aml.page1')
-      </div>
-     
-      <div class="page-break">
         @include('buyreport.pages.aml.page8')
-      </div>
    
     </div>
   </div>

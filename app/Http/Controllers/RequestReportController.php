@@ -164,7 +164,7 @@ class RequestReportController extends Controller {
 
                 Best Regards, <br />
 
-                Prokakis Web Admin
+                Intellinz Web Admin
 
                 ";
 
@@ -380,7 +380,7 @@ class RequestReportController extends Controller {
 
         <br />
 
-        To provide more details and check request status, please login to prokakis: http://ebos-app.prokakis.com/
+        To provide more details and check request status, please login to Intellinz: http://ebos-app.Intellinz.com/
 
         <br />
 
@@ -388,7 +388,7 @@ class RequestReportController extends Controller {
 
         Best Regards, <br />
 
-        Prokakis Web Admin
+        Intellinz Web Admin
 
         ";
 

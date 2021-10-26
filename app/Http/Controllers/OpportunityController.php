@@ -247,7 +247,7 @@ class OpportunityController extends Controller {
 
                   Best Regards, <br />
 
-                  Prokakis Web Admin
+                  Intellinz Web Admin
 
                   ";
 
@@ -267,7 +267,7 @@ class OpportunityController extends Controller {
 
                   <br />
 
-                  To update details, please login to prokakis: http://prokakis.com/
+                  To update details, please login to intellinz: http://intellinz.com/
 
                   <br />
 
@@ -275,7 +275,7 @@ class OpportunityController extends Controller {
 
                   Best Regards, <br />
 
-                  Prokakis Web Admin
+                  Intellinz Web Admin
 
                   ";
 
@@ -454,7 +454,7 @@ class OpportunityController extends Controller {
 
                   Best Regards, <br />
 
-                  Prokakis Web Admin
+                  Intellinz Web Admin
 
                   ";
 
@@ -474,7 +474,7 @@ class OpportunityController extends Controller {
 
                   <br />
 
-                  To update details, please login to prokakis: http://prokakis.com/
+                  To update details, please login to intellinz: http://intellinz.com/
 
                   <br />
 
@@ -482,7 +482,7 @@ class OpportunityController extends Controller {
 
                   Best Regards, <br />
 
-                  Prokakis Web Admin
+                  Intellinz Web Admin
 
                   ";
 
@@ -1581,19 +1581,19 @@ class OpportunityController extends Controller {
                   <br />
                   <br />
 
-				  We would like to inform you that there was an expression of interest from a Prokakis premium account company, 
+				  We would like to inform you that there was an expression of interest from a Intellinz premium account company, 
 				  to one of your opportunity post.
 				  				  
                   <br />
-				  In order to interact with the premium account company we encourage you to buy or top up a token in your Prokakis account.
+				  In order to interact with the premium account company we encourage you to buy or top up a token in your Intellinz account.
 				  
 				  <br />
-				  To respond please login to : https://prokakis.com/
+				  To respond please login to : https://intellinz.com/
                   <br />
 
                   Best Regards, <br />
 
-                  Prokakis Web Admin
+                  Intellinz Web Admin
                   ";
 
 						//send the email here

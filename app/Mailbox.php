@@ -45,9 +45,7 @@ class Mailbox extends Model {
 	public static function sendMail_v2($emailtext, $recipients, $subject, $bcc) {
 		Mail::send(array('html' => 'mailbox.template'), array('text' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
-				//$message->from('support@prokakis.com', 'Prokakis Web Admin');
-				$message->from('support@app-prokakis.com', 'Prokakis Web Admin');
-				//support@app-prokakis.com
+				$message->from('support@intellinz.com', 'Intellinz Web Admin');
 
 				if ($bcc != '') {
 					$message->to($recipients)->$message->bcc($bcc)->subject($subject);
@@ -62,9 +60,7 @@ class Mailbox extends Model {
 	public static function sendMail_weeklyOpp($emailtext, $recipients, $subject, $bcc) {
 		Mail::send(array('html' => 'mailbox.weeklyTopOpportunity'), array('ret' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
-				//$message->from('support@prokakis.com', 'Prokakis Web Admin');
-				$message->from('support@app-prokakis.com', 'Prokakis Web Admin');
-				//support@app-prokakis.com
+				$message->from('support@intellinz.com', 'Intellinz Web Admin');
 
 				if ($bcc != '') {
 					$message->to($recipients)->$message->bcc($bcc)->subject($subject);
@@ -79,8 +75,8 @@ class Mailbox extends Model {
 	public static function sendMail($emailtext, $recipients, $subject, $bcc) {
 		Mail::send(array('html' => 'mailbox.template'), array('text' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
-				// $message->from('support@prokakis.com', 'Prokakis Web Admin');
-				$message->from('support@app-prokakis.com', 'Prokakis Web Admin');
+				
+				$message->from('support@intellinz.com', 'Intellinz Web Admin');
 
 				if ($bcc != '') {
 					$message->to($recipients)->$message->bcc($bcc)->subject($subject);
@@ -95,7 +91,7 @@ class Mailbox extends Model {
 	public static function sendMail_EmailTemplate($emailtext, $recipients, $subject, $bcc) {
 	 $ok =	Mail::send(array('html' => 'mailbox.emailtemplate'), array('text' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
-				 $message->from('support@app-prokakis.com', 'Prokakis Web Admin');
+				 $message->from('support@intellinz.com', 'Intellinz Web Admin');
 
 				if ($bcc != '') {
 					$message->to($recipients)->$message->bcc($bcc)->subject($subject);

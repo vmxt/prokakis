@@ -79,14 +79,11 @@ $data["COMP_STRENGTHS"] = "N.A.";
       <div class="page-break">
 
         @include('buyreport.pages.page6')
+        @include('buyreport.pages.page7') 
+
 
       </div>
 
-      <div class="page-break">
-
-         @include('buyreport.pages.page7') 
-
-      </div>
 
 
     </div>

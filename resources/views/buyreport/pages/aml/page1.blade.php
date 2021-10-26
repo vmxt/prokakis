@@ -1,6 +1,3 @@
-        <div id="watermark">
-            <em>Intellinz</em>
-        </div>
 <div class="card">
     <div class="card-body ">
     
@@ -55,8 +52,6 @@
         </div>
         <div class="row p-0">
              <div class="col-md-12" style="text-align: center; line-height: 0">
-                <span>All Rights Reserved &#169; <?php echo date("Y");?> </span><br>
-                <span>Intellinz PTE LTD</span>
             </div>
         </div>
 
@@ -71,10 +66,9 @@
                 GENERATED ON: <?php echo date('Y-m-d'); ?>
             </div>
         </div>
-        {{--         <div class="row p-5 page-break">
+         <div class="row p-5 ">
             <div class="col-md-12">
-                @include('buyreport.disclaimer')
             </div>
-        </div> --}}
+        </div> 
     </div>
 </div>

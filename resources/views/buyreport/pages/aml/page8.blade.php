@@ -66,7 +66,7 @@ FATF regulation as at {{ $tr_inserted_date }}.</p>
 
 
   @foreach( $tr_peps as $data )
-  <div class="row p-5">
+  <div class="row p-1">
   <table class="table table-sm table-bordered">
     <thead>
       <tr>

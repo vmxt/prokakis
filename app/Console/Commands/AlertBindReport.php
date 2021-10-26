@@ -146,7 +146,7 @@ class AlertBindReport extends Command
     public static function sendNotification($emailAdd, $sourceFile)
     {
         $message = "
-        Hi Prokakis Member, <br /><br />
+        Hi Intellinz Member, <br /><br />
 
 
         We have found a possible match of a company from our ".$sourceFile." list as daily updates.  <br />
@@ -158,7 +158,7 @@ class AlertBindReport extends Command
         
         Thank you. <br />
         
-        Prokakis Web Admin
+        Intellinz Web Admin
         ";
         //send the email here  
         Mailbox::sendMail_v2($message, $emailAdd, "Possible match of a company link to you report subscription.", ""); 

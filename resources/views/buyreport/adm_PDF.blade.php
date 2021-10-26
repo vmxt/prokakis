@@ -23,15 +23,8 @@ $data["COMP_STRENGTHS"] = "N.A.";
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-
-      <div class="page-break">
         @include('buyreport.pages.adm.page1')
-      </div>
-
-      <div class="page-break">
         @include('buyreport.pages.adm.page10')
-      </div>
-   
     </div>
   </div>
 </div>

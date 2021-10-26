@@ -346,7 +346,7 @@ class alertProvider extends Command
 
         <br />
 
-        To update details, please login to prokakis: http://app-prokakis.com/
+        To update details, please login to intellinz: http://app-intellinz.com/
 
         <br />
 
@@ -354,7 +354,7 @@ class alertProvider extends Command
 
         Best Regards, <br />
 
-        Prokakis Web Admin
+        Intellinz Web Admin
 
         ";
 
