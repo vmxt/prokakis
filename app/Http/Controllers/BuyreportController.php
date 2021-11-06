@@ -602,9 +602,7 @@ class BuyreportController extends Controller {
 
 		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 		$keyPersons = KeyManagement::where('company_id', $proc->source_company_id)->where('user_id', $user_id)->where('status', 1)->get();
-
 		$consultantFiles = ProcessedReport::getFileUploadsForReportGeneration($proc->approval_id);
-
 		//--Financial Analysis---
 		$fa_count = FA_Results::where('company_id', $proc->source_company_id)->count();
 		//echo $fa_count . ' ' . $proc->source_company_id;

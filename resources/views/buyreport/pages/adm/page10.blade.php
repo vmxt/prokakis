@@ -117,7 +117,7 @@
                 </div>
               </div>
       
-              <?php if($x==50){ break; } ?>
+              <?php if($x==4){ break; } ?>
         
           @endforeach
 
@@ -165,7 +165,7 @@
       
             </div>
     
-            <?php if($x==50){ break; } ?>
+            <?php if($x==4){ break; } ?>
     
         @endforeach
 

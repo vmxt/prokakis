@@ -85,6 +85,26 @@ $data["COMP_STRENGTHS"] = "N.A.";
       </div>
 
 
+          @if(isset($consultantFiles))
+      <div class="page-break">
+          <div class="row p-0">
+            @if(sizeof($consultantFiles) > 0)
+            @foreach($consultantFiles as $cf)
+                @if(strpos($cf, '.txt') !== false)
+                <?php 
+                    $output = file_get_contents(asset('public/consultantproject/'). '/'.$cf);
+                    echo $output;
+                ?>
+                @else
+                    <img class='img-fluid' src="{{ asset('public/consultantproject/') }}/<?php echo $cf; ?>" style='width:100%;' border="1" alt="Not Available" />
+                @endif
+                  
+            @endforeach
+            @endif
+          </div>
+      </div>
+          @endif
+
 
     </div>
 

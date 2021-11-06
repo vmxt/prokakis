@@ -474,7 +474,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li>
                                                     <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
                                                         <?php
-
+                                                        if($noti->count() > 0){
                                                              foreach($noti as $n){
                                                                $noti_profilePic = App\CompanyProfile::getProfileImage($n->sender_id);
                                                                $noti_user = App\User::find($n->sender_id);
@@ -493,6 +493,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                         </li>
                                                        <?php
                                                                }
+                                                        }
                                                          ?>
 
                                                     </ul>
@@ -970,6 +971,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                             <h5 class="menu_title"> Build Opportunity </h5>
                                                             <?php 
                                                               $build_count = 0;
+                                                              if($build_list):
                                                               foreach ($build_list as $item):
                                                                 if($build_count < 3):
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
@@ -1002,12 +1004,14 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 endif;
                                                                 endif;
                                                               endforeach;
+                                                          endif;
                                                             ?>
 
 
                                                             <h5 class="menu_title"> Sell Opportunity </h5>
                                                             <?php 
                                                               $sell_count = 0;
+                                                              if($sell_list):
                                                               foreach ($sell_list as $item):
                                                                 if($sell_count < 3):
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
@@ -1038,10 +1042,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 endif;
                                                                 endif;
                                                               endforeach;
+                                                            endif;
                                                             ?>
                                                             <h5 class="menu_title"> Buy Opportunity </h5>
                                                             <?php 
                                                               $buy_count = 0;
+                                                              if($buy_list ):
                                                               foreach ($buy_list as $item):
                                                                 if($buy_count < 3):
                                                                   $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
@@ -1072,6 +1078,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 endif;
                                                                 endif;
                                                               endforeach;
+                                                              endif;
                                                             ?>
                                                           </div>
                                                       </div>
@@ -1118,6 +1125,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                               <h5 class="menu_title"> Top Advisors </h5>
                                                             <?php
                                                             $report_count = 0;
+                                                            if($getRequestReportByUser):
                                                             foreach( $getRequestReportByUser as $val ):
                                                               if($report_count < 10):
                                                                 $viewer = base64_encode('viewer' . $val->company_id);
@@ -1153,6 +1161,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                             <?php 
                                                               endif;
                                                             endforeach;
+                                                            endif;
                                                             ?>
 
 
@@ -1549,14 +1558,16 @@ s0.parentNode.insertBefore(s1,s0);
              $numAccount = 3;
              $userId = Auth::id();
              $usr = App\User::find($userId);
-             foreach($rsC as $k => $v){
-              if(isset($usr->email)){
-                if($v == $usr->email){
-                  $numAccount = $k;
-                  break;
+            if($rsC){
+                 foreach($rsC as $k => $v){
+                  if(isset($usr->email)){
+                    if($v == $usr->email){
+                      $numAccount = $k;
+                      break;
+                    }
+                  }
                 }
-              }
-             }
+            }
              $rs_company = App\CompanyProfile::where('user_id',  $userId)->where('status', 1)->get();
 
             if(sizeof($rs_company) < $numAccount){            ?>
