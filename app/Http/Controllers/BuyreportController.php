@@ -25,7 +25,8 @@ use App\ConsultantProjects;
 use ZipArchive;
 use Illuminate\Support\Facades\File;
 use App\ProkakisAccessToken;
-
+use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
+use Storage;
 class BuyreportController extends Controller {
 
 	public function storeBuy(Request $request) {
@@ -749,11 +750,29 @@ $Bahamas = [];
 		if($ok == true){
 		return redirect('/monitoring/list')->with('status', 'You have successfully subscribe to the report.');
 		} else {
-		return $pdf->download($company_data->company_name . '.pdf');	
-		}	
-	
-		// return $pdf->download('.pdf');
+			 if(isset($consultantFiles)){
+			 	 if(sizeof($consultantFiles) > 0){
+			 	 		$storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
+						$consulPath =  public_path('pdf/company_overview/').$company_data->company_name.'.pdf';
+						$pdf->save($consulPath);	
 
+				 	 	foreach($consultantFiles as $cf){
+				 	 		if(strpos($cf, '.pdf') !== false){
+								$oMerger = PDFMerger::init();
+								$appendixFile = public_path('consultantproject/').$cf;
+								$oMerger->addPDF($consulPath, 'all');
+								$oMerger->addPDF($appendixFile, 'all');
+								$oMerger->merge();
+								$oMerger->setFileName($company_data->company_name . '.pdf');
+								$oMerger->download();
+				 	 		}
+				 	 	}
+			 	 }
+			 }else{
+			 	return $pdf->download($company_data->company_name . '.pdf');	
+			 }
+		}	
+		// return $pdf->download('.pdf');
 	}
 
 	public static function curlER($twitter_token, $twitter_keyword, $sm='Twitter')

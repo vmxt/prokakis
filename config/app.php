@@ -328,6 +328,7 @@ return [
 
         Illuminate\View\ViewServiceProvider::class,
 
+        Webklex\PDFMerger\Providers\PDFMergerServiceProvider::class,
       
 
         /*
@@ -468,7 +469,9 @@ return [
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         
-        'Captcha' => Mews\Captcha\Facades\Captcha::class
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+
+        'PDFMerger' => Webklex\PDFMerger\Facades\PDFMergerFacade::class
     ],
 
 
