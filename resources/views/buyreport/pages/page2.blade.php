@@ -15,9 +15,7 @@
                 <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Key Management</li>
                 <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Company Information</li>
                 <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Financial Analysis</li>
-                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">AML Data (World check risk intelligence by
-                    Refinitive (Thomson Reuters)
-                    )</li>
+                <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">AML Data (World check risk intelligence)</li>
                 <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Investors Alert</li>
                 <li class="h3 color-orange" style="font-size: 18px; line-height: 100% !important">Adverse Media (EBOS Reputation Analysis)</li>
             </ul>

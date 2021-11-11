@@ -27,7 +27,13 @@ use Illuminate\Support\Facades\File;
 use App\ProkakisAccessToken;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 use Storage;
+use GuzzleHttp\Client;
 class BuyreportController extends Controller {
+
+	public function __construct() {
+		$this->urlToken  = ProkakisAccessToken::getSCode();
+	}
+
 
 	public function storeBuy(Request $request) {
 
@@ -855,12 +861,21 @@ $Bahamas = [];
 
 				$tr_peps_create_date = '';
 				$tr_inserted_date = '';
+				
+				// dd($approval->req_rep_id);die;
 				if($count_tr > 0)
 				{
 					$rs_tr = TR_reportgeneration::where('request_id', $approval->req_rep_id)->get();
 					foreach($rs_tr as $d)
 					{
-						$tr_peps[] = ThomsonReuters::searchAllThree($d->uid);
+						// $tr_peps[] = ThomsonReuters::searchAllThree($d->uid);
+						$rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/search/'.$d->uid.'?pauth='.$this->urlToken;
+
+	        	       	$client = new Client();
+	        	       	$rsToken = $client->get($rURL);
+	        	       	$result = $rsToken->getBody()->getContents();  
+	               	    $tr_peps[] = json_decode($result, true);
+
 						$tr_peps_create_date  = $d->created_at;
 					}
 
