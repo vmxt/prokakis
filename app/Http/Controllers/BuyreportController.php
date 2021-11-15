@@ -28,6 +28,8 @@ use App\ProkakisAccessToken;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 use Storage;
 use GuzzleHttp\Client;
+
+
 class BuyreportController extends Controller {
 
 	public function __construct() {
@@ -861,22 +863,55 @@ $Bahamas = [];
 
 				$tr_peps_create_date = '';
 				$tr_inserted_date = '';
-				
-				// dd($approval->req_rep_id);die;
-				if($count_tr > 0)
-				{
-					$rs_tr = TR_reportgeneration::where('request_id', $approval->req_rep_id)->get();
+				$keyArrPersons = [];
+				$keyPersons = KeyManagement::where('company_id', $rs->source_company_id)->where('user_id', $user_id)->where('status', 1)->count();
+				if($keyPersons > 0)
+				{	$i = 0;
+					$rs_tr = KeyManagement::where('company_id', $rs->source_company_id)->where('user_id', $user_id)->where('status', 1)->get();
 					foreach($rs_tr as $d)
 					{
-						// $tr_peps[] = ThomsonReuters::searchAllThree($d->uid);
+						$searchParam = "";
+						if($d->first_name != null){
+						  $searchParam .= "&first_name=".$d->first_name;
+						}
+						if($d->last_name != null){
+						  	$searchParam .= "&last_name=".$d->last_name;
+						}
+						if($d->nationality != null){
+							$searchParam .= "&nationality=".$d->nationality;	
+						}
+						if($d->idn_passport != null){
+							$searchParam .= "&passport=".$d->idn_passport;	
+						}
+						if(strtolower($d->gender) == 'male'){
+							$searchParam .= "&gender=M";	
+						}elseif(strtolower($d->gender) == 'female'){
+							$searchParam .= "&gender=F";	
+						}
+						/*
 						$rURL = 'https://reputation.app-prokakis.com/api/v1/thomson/search/'.$d->uid.'?pauth='.$this->urlToken;
-
 	        	       	$client = new Client();
 	        	       	$rsToken = $client->get($rURL);
 	        	       	$result = $rsToken->getBody()->getContents();  
 	               	    $tr_peps[] = json_decode($result, true);
+						$tr_peps_create_date  = $d->created_at;
+						*/
+						$keyArrPersons[$i] = [
+							'fname'=> $d->first_name != null ? $d->first_name : "N/A",
+							'lname'=> $d->last_name != null ? $d->last_name : "N/A",
+							'nationality'=> $d->nationality != null ? $d->nationality : "N/A",
+							'passport'=> $d->passport != null ? $d->passport : "N/A",
+							'gender'=> $d->gender != null ? $d->gender : "N/A"
+						];
+
+				     	$rURL = "https://reputation.app-prokakis.com/public/api/v1/thomson/individual?pauth=".$this->urlToken.$searchParam;
+				       	$client = new Client();
+				       	$rsToken = $client->get($rURL);
+				       	$result = $rsToken->getBody()->getContents();  
+			       		$tr_peps[] = json_decode($result, true);
 
 						$tr_peps_create_date  = $d->created_at;
+						$i++;
 					}
 
 					if($tr_peps_create_date != ''){
@@ -884,8 +919,9 @@ $Bahamas = [];
 					$tr_inserted_date = date("F j, Y", $timestamp_tr);
 					}
 				}
-
-				$pdf = PDF::loadView('buyreport.aml_PDF', compact('company_data','reportTemplates','dateDone', 'tr_peps', 'tr_inserted_date'));
+				// dd($keyArrPersons);
+				// return view('buyreport.aml_PDF', compact('company_data','reportTemplates','dateDone', 'tr_peps', 'tr_inserted_date', 'keyArrPersons'));
+				$pdf = PDF::loadView('buyreport.aml_PDF', compact('company_data','reportTemplates','dateDone', 'tr_peps', 'tr_inserted_date', 'keyArrPersons'));
 				return $pdf->download('AML_'.$company_data->company_name . '.pdf');
 
 				}
@@ -955,6 +991,7 @@ $Bahamas = [];
 				//MAS investors
 				$MASinvestors = BuyReport::findMatchedMAS($company_data->company_name);
 
+				dd($company_data->company_name);
 				//check Panamas, Bahamas, Offshore, Paradise
 				$Panama = BuyReport::searchMatchInPanama($company_data->company_name);
 				$Paradise = BuyReport::searchMatchInParadise($company_data->company_name);

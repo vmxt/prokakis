@@ -29,7 +29,6 @@
     <?php if(!empty($MASinvestors)){  ?>
       <center><h5 color="green"><i> MAS Investors Alert Likely Match  </i></h5></center>
     <div class=" p-3">
-    
         <?php foreach($MASinvestors as $d){ ?>
             <table class="table table-sm table-bordered" >
               <thead>
@@ -41,19 +40,19 @@
               <tbody>
                 <tr>
                   <td> <b>Company Name</b> </td>
-                  <td><?php echo $d->unregulatedpersons_t[0]; ?></td>
+                  <td><?php echo $d['unregulatedpersons_t'][0]; ?></td>
                 </tr>
                 <tr>
                   <td><b> Website </b></td>
-                  <td><?php echo $d->website_s; ?></td>
+                  <td><?php echo $d['website_s']; ?></td>
                 </tr>
                 <tr>
                   <td> <b>Phone </b></td>
-                  <td><?php echo $d->phonenumber_s; ?></td>
+                  <td><?php echo $d['phonenumber_s']; ?></td>
                 </tr>
                 <tr>
                   <td> <b>Address </b></td>
-                  <td><?php echo $d->address_s; ?></td>
+                  <td><?php echo $d['address_s']; ?></td>
                 </tr>
               
               </tbody>
