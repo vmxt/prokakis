@@ -80,12 +80,10 @@ class BuyReport extends Model
        $urlToken  = $token->registeredToken();
        $searchKey = $companyName;
        $rURL = 'https://reputation.app-prokakis.com/api/v1/mas-search/'.$searchKey.'/'.$urlToken;
-       echo $rURL;
        $client = new Client();
        $rsToken = $client->get($rURL);
        $result = $rsToken->getBody()->getContents();  
        $rs = json_decode($result, true);
-        dd($rs);
        if(isset($rs['Likely_Match'])){
             if(sizeof($rs['Likely_Match']) > 0){
                 return $rs['Likely_Match'];

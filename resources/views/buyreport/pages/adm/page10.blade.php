@@ -32,11 +32,11 @@
 
             <td>Twitter:</td>
 
-            <td>{{ $response_twitter['Likely_Match']['neg'] }}</td>
+            <td>{{ $twitter_negative }}</td>
 
-            <td>{{ $response_twitter['Likely_Match']['neu'] }}</td>
+            <td>{{ $twitter_neutral }}</td>
 
-            <td>{{ $response_twitter['Likely_Match']['pos'] }}</td>
+            <td>{{ $twitter_positive }}</td>
           </tr>
 
           
@@ -44,11 +44,11 @@
 
               <td>Google Search:</td>
   
-              <td>{{ $response_theweb['Likely_Match']['neg'] }}</td>
+              <td>{{ $web_negative }}</td>
 
-              <td>{{ $response_theweb['Likely_Match']['neu']}}</td>
+              <td>{{ $web_neutral }}</td>
   
-              <td>{{ $response_theweb['Likely_Match']['pos'] }}</td>
+              <td>{{ $web_positive }}</td>
   
             </tr>
 
@@ -56,11 +56,11 @@
 
               <td>Youtube:</td>
   
-              <td>{{ $response_youtube['Likely_Match']['neg'] }}</td>
+              <td>{{ $youtube_negative }}</td>
 
-              <td>{{ $response_youtube['Likely_Match']['neu'] }}</td>
+              <td>{{ $youtube_neutral }}</td>
   
-              <td>{{ $response_youtube['Likely_Match']['pos'] }}</td>
+              <td>{{ $youtube_positive }}</td>
   
             </tr>
 
@@ -82,10 +82,10 @@
 
     <div id="social_card">
       <h3> Twitter Likely Match </h3> <br />
-      @if(!empty($response_twitter['Likely_Match']['rs_twit']))
+      @if(!empty($response['res_search']['tw_data']))
        <?php $x = 0; ?>
     
-          @foreach($response_twitter['Likely_Match']['rs_twit'] as $social_val)
+          @foreach($response['res_search']['tw_data'] as $social_val)
           <?php $x++; ?>
               <div class=" card">
                 <div class="card-body">
@@ -129,11 +129,10 @@
 
     <div id="social_card">
       <h3> Youtube Likely Match </h3> <br />
-    
-      @if(!empty($response_youtube['Likely_Match']['rs_youtube']))
+      @if(!empty($response['res_search']['yt_data']))
        <?php $x = 0; ?>
        
-       @foreach( $response_youtube['Likely_Match']['rs_youtube'] as $social_val )
+       @foreach( $response['res_search']['yt_data'] as $social_val )
           <?php $x++; ?>
             <div class=" card">
               
@@ -177,10 +176,10 @@
     <div id="social_card">
       <h3> Google Search Likely Match </h3> <br />
     
-      @if(!empty($response_theweb['Likely_Match']['rs_google']))
+      @if(!empty($response['res_search']['g_data']))
        <?php $x = 0; ?>
        
-       @foreach( $response_theweb['Likely_Match']['rs_google'] as $social_val )
+       @foreach( $response['res_search']['g_data'] as $social_val )
           <?php $x++; ?>
             <div class=" card">
               
@@ -212,7 +211,7 @@
       
             </div>
     
-            <?php if($x==50){ break; } ?>
+            <?php if($x==4){ break; } ?>
     
         @endforeach
 

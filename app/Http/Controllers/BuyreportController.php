@@ -28,8 +28,6 @@ use App\ProkakisAccessToken;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 use Storage;
 use GuzzleHttp\Client;
-
-
 class BuyreportController extends Controller {
 
 	public function __construct() {
@@ -758,7 +756,7 @@ $Bahamas = [];
 		if($ok == true){
 		return redirect('/monitoring/list')->with('status', 'You have successfully subscribe to the report.');
 		} else {
-			 if(isset($consultantFiles)){
+			 if(isset($consultantFiles) and sizeof($consultantFiles) > 0 ){
 			 	 if(sizeof($consultantFiles) > 0){
 			 	 		$storagePath  = Storage::disk('local')->getDriver()->getAdapter()->getPathPrefix();
 						$consulPath =  public_path('pdf/company_overview/').$company_data->company_name.'.pdf';
@@ -991,7 +989,6 @@ $Bahamas = [];
 				//MAS investors
 				$MASinvestors = BuyReport::findMatchedMAS($company_data->company_name);
 
-				dd($company_data->company_name);
 				//check Panamas, Bahamas, Offshore, Paradise
 				$Panama = BuyReport::searchMatchInPanama($company_data->company_name);
 				$Paradise = BuyReport::searchMatchInParadise($company_data->company_name);
@@ -1024,19 +1021,19 @@ $Bahamas = [];
 
 			$today = strtotime(date("Y-m-d"));
 
-			// if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) {
-			// 	$dStart = strtotime($rs->month_subscription_start);
-			// 	$dEnd = strtotime($rs->month_subscription_end);
-			// 	if ($today < $dStart) {
-			// 		return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
-			// 		exit;
-			// 	}
-			// 	if ($today > $dEnd) {
+			if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) {
+				$dStart = strtotime($rs->month_subscription_start);
+				$dEnd = strtotime($rs->month_subscription_end);
+				if ($today < $dStart) {
+					return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
+					exit;
+				}
+				if ($today > $dEnd) {
 
-			// 		return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
-			// 		exit;
-			// 	}
-			// }
+					return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
+					exit;
+				}
+			}
 
 			if($rs != null){
 			   
@@ -1072,7 +1069,7 @@ $Bahamas = [];
 				    $sCode = ProkakisAccessToken::getSCode().'|'.$twitter_token;
 					
 					$response = BuyReport::curlER_ADM($twitter_keyword, 'Twitter', $sCode);
-
+				
 					$twitter_negative = 0;
 					$twitter_neutral = 0;
 					$twitter_positive = 0;
@@ -1085,7 +1082,6 @@ $Bahamas = [];
 					$web_neutral = 0;
 					$web_positive = 0;
 
-					echo "<pre>";
 					foreach($response as $key => $platform){
 						if(isset($platform['yt_data'])){
 							foreach($platform['yt_data'] as $yt){
