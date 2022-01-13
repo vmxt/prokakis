@@ -1024,19 +1024,19 @@ $Bahamas = [];
 
 			$today = strtotime(date("Y-m-d"));
 
-			if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) {
-				$dStart = strtotime($rs->month_subscription_start);
-				$dEnd = strtotime($rs->month_subscription_end);
-				if ($today < $dStart) {
-					return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
-					exit;
-				}
-				if ($today > $dEnd) {
+			// if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) {
+			// 	$dStart = strtotime($rs->month_subscription_start);
+			// 	$dEnd = strtotime($rs->month_subscription_end);
+			// 	if ($today < $dStart) {
+			// 		return redirect('/monitoring/list')->with('message', 'Download link subscription has not started.');
+			// 		exit;
+			// 	}
+			// 	if ($today > $dEnd) {
 
-					return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
-					exit;
-				}
-			}
+			// 		return redirect('/monitoring/list')->with('message', 'Download link subscription has ended.');
+			// 		exit;
+			// 	}
+			// }
 
 			if($rs != null){
 			   
@@ -1071,11 +1071,54 @@ $Bahamas = [];
 					//Social Media
 				    $sCode = ProkakisAccessToken::getSCode().'|'.$twitter_token;
 					
-					$response_twitter = BuyReport::curlER_ADM($twitter_keyword, 'Twitter', $sCode);
-					$response_youtube = BuyReport::curlER_ADM($twitter_keyword, 'Youtube', $sCode);
-					$response_theweb = BuyReport::curlER_ADM($twitter_keyword, 'TheWeb', $sCode);
+					$response = BuyReport::curlER_ADM($twitter_keyword, 'Twitter', $sCode);
+
+					$twitter_negative = 0;
+					$twitter_neutral = 0;
+					$twitter_positive = 0;
+
+					$youtube_negative = 0;
+					$youtube_neutral = 0;
+					$youtube_positive = 0;
+
+					$web_negative = 0;
+					$web_neutral = 0;
+					$web_positive = 0;
+
+					echo "<pre>";
+					foreach($response as $key => $platform){
+						if(isset($platform['yt_data'])){
+							foreach($platform['yt_data'] as $yt){
+								$youtube_negative += $yt['senti_neg'];	
+								$youtube_neutral += $yt['senti_neu'];	
+								$youtube_positive += $yt['senti_pos'];	
+							}
+
+						}
+
+						if(isset($platform['g_data'])){
+							foreach($platform['g_data'] as $yt){
+								$web_negative += $yt['senti_neg'];	
+								$web_neutral += $yt['senti_neu'];	
+								$web_positive += $yt['senti_pos'];	
+							}
+
+						}
+
+						if(isset($platform['tw_data'])){
+							foreach($platform['tw_data'] as $yt){
+								$web_negative += $yt['senti_neg'];	
+								$web_neutral += $yt['senti_neu'];	
+								$web_positive += $yt['senti_pos'];	
+							}
+						}
+					}
+
+					// $response_youtube = BuyReport::curlER_ADM($twitter_keyword, 'Youtube', $sCode);
+					// $response_theweb = BuyReport::curlER_ADM($twitter_keyword, 'TheWeb', $sCode);
 				
-					$pdf = PDF::loadView('buyreport.adm_PDF',compact('company_data','reportTemplates', 'dateDone', 'response_twitter', 'response_youtube', 'response_theweb'));
+					// $pdf = PDF::loadView('buyreport.adm_PDF',compact('company_data','reportTemplates', 'dateDone', 'response_twitter', 'response_youtube', 'response_theweb'));
+					 $pdf = PDF::loadView('buyreport.adm_PDF',compact('company_data','reportTemplates', 'response', "twitter_negative", "twitter_neutral", "twitter_positive", "youtube_negative", "youtube_neutral", "youtube_positive", "web_negative", "web_neutral", "web_positive"));
 
 					//dd($pdf->output());
 					return $pdf->download('ADM_'.$company_data->company_name . '.pdf');

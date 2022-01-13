@@ -658,17 +658,23 @@ class OpportunityController extends Controller {
 		$user_id = Auth::id();
 		$company_id = CompanyProfile::getCompanyId($user_id);
 
-    		$build = OpportunityBuildingCapability::where('company_id', '!=', $company_id)
-				->where('status', 1)
-		   	->get();
+    // 		$build = OpportunityBuildingCapability::where('company_id', '!=', $company_id)
+				// ->where('status', 1)
+		  //  	->get();
 
-				$sell = OpportunitySellOffer::where('company_id', '!=', $company_id)
-				->where('status', 1)
-				->get();
+				// $sell = OpportunitySellOffer::where('company_id', '!=', $company_id)
+				// ->where('status', 1)
+				// ->get();
 
-				$buy = OpportunityBuy::where('company_id', '!=', $company_id)
-				->where('status', 1)
-				->get();
+				// $buy = OpportunityBuy::where('company_id', '!=', $company_id)
+				// ->where('status', 1)
+				// ->get();
+
+   		$build = OpportunityBuildingCapability::where('status', 1)->get();
+
+				$sell = OpportunitySellOffer::where('status', 1)->get();
+
+				$buy = OpportunityBuy::where('status', 1)->get();
 
 		$requestReport = new RequestReport;
 		$result_filter = false;
@@ -686,7 +692,7 @@ class OpportunityController extends Controller {
 					break;
 			}
 		}
-		return view("oppor.explore", compact('build', 'sell', 'buy', 'requestReport', 'result_filter','opp_type'));
+		return view("oppor.explore", compact('build', 'sell', 'buy', 'requestReport', 'result_filter','opp_type' ,'company_id'));
 	}
 
 

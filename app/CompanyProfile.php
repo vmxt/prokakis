@@ -134,9 +134,8 @@ class CompanyProfile extends Model {
 
 	public static function getDeactivateInfo($companyId) {
 
-		$rs = CompanyProfile::find($companyId);
 
-		if ( $rs->count() > 0) {
+		if ( $rs = CompanyProfile::find($companyId) ) {
 
 			$usr = User::find($rs->user_id);
 
@@ -245,7 +244,7 @@ class CompanyProfile extends Model {
 		} else {
 
 			$result = CompanyProfile::where('user_id', $uid)
-
+				->where('status',1)
 				->orderBy('id', 'desc')
 
 				->take(1)

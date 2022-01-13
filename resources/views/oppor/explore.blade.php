@@ -106,14 +106,13 @@
 ?>
 
         <div class="row">
-            <!-- START BUILD OPPORTUNITY -->
-            <div class="hr-sect opp_type" >Build Opportunity</div>
-                <div class='blog-posts' id="build-sect">
+    <!-- START SELL OPPORTUNITY -->
+            <div class="hr-sect opp_type" >Sell Opportunity</div>
+                <div class='blog-posts' id='sell-sect'>
                 <?php       
                     $i = 1;
-                    $buildCount = 0;
-                    foreach ($build as $item): 
-                            $opportunity_type = 'build';
+                    foreach ($sell as $item): 
+                        $item->company_id = $item->company_id != "" ? $item->company_id: $company_id;
                             $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                             $company = App\CompanyProfile::find($item->company_id);
                             $provider_id = $company->id;
@@ -164,10 +163,10 @@
         
         <!-- new code start -->
         @if($i == 1)
-            <div class='row cf list-row-build '>
+            <div class='row cf list-row-sell '>
         @endif
         @if($i <= 2)
-              <div class='post build-list'>
+              <div class='post sell-list'>
                 <?php 
                     $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
                     if( $followComp > 0) {
@@ -177,6 +176,476 @@
                         $iconName = 'fa-user-plus';
                         $iconTitle = "Follow this company";
                     }
+                     if($item->company_id == $company_id){
+                         $iconName = '';
+                     }
+                ?>
+                    <div class='follow-cont' dataVal="{{ $company->id }}">
+                        <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
+                    </div>
+                <a href='#'>
+                    <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
+
+                @if($accStatus == 'premium')
+                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
+                @endif
+                    </div>
+                  <div class='content'>
+                    <h1 class='upperText' title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
+                     <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
+                        <ul class="info_list">
+                            @if($item->business_goal)
+                            <li> {{ $item->business_goal }}</li>
+                            @endif
+                            @if($item->audience_target)
+                            <li> {{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
+                            <li>
+                            <?php 
+                                $string = explode(",",$item->ideal_partner_base);
+                                $xx=0;
+                                foreach( $string as $val ):
+                                    if(trim($val) != ''):
+                                        echo $val;
+                                        $xx++;
+                                        if($xx != count($string)){
+                                            echo ", ";
+                                        }
+                                    endif;
+                                endforeach; ?>
+                            </li>
+                            @endif
+                        </ul>
+                    <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
+                    <div style="display: flex;">
+                        <div>
+                            @if($ratingScore < 25)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                            @endif
+                        </div>
+
+                        <div class="rating_score">
+                            <h3> {{ $ratingScore }}% </h3>
+                        </div>
+                    </div>
+                    @if($item->company_id != $company_id)
+                    <div class="learn_more" style="float: right" >
+                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                    </div>
+                    @endif;
+                    <div class="bottom-space" >
+                        &nbsp;
+                    </div>
+                  </div>
+                </a>
+              </div>
+        @endif
+        @if($i == 2)
+            </div>
+        @endif
+        <!-- new code end -->
+<?php      
+        if($i == 2){
+            $i = 0;
+        }
+         $i++; ?>
+
+         {{-- Start modal click for Sell --}}
+    <div 
+        class="modal fade modal_oppoBox" 
+        id="opporSellModal_{{ $item->id }}" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="opporDetailsContentModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
+                </div>
+        <div class="modal-body">
+            
+            <div>
+                <span class="title-text">
+                    <h4><strong> Ratings </strong></h4>
+                </span>
+                <div class="content-text" style="display: flex;">
+                <?php
+                                    if ($ratingScore < 25) {
+                                        ?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+
+                                            <?php }?>
+                                       
+                    <h2  class="rating_score" > {{ $ratingScore }} % </h2>
+                </div>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> This Company is seeking </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                        <ul class="info_list lg-link">
+                            @if($item->business_goal)
+                            <li>{{ $item->business_goal }}</li>
+                            @endif
+                            @if($item->audience_target)
+                            <li>{{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
+                            <li>
+                <?php 
+                    $string = explode(",",$item->ideal_partner_base);
+                    $xx=0;
+                    foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val;
+                            $xx++;
+                            if($xx != count($string)){
+                                echo ", ";
+                            }
+                        endif;
+                    endforeach; ?>
+                            </li>
+                            @endif
+                        </ul>
+                    </h4>    
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Expectation </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity.
+                        
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Industry Keyword </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                      $string = explode(",",$item->ideal_partner_business);
+                      $xx=0;
+                      foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val." ";
+                            $xx++;
+                            if($xx != count($string)){
+                                echo ",";
+                            }
+                        endif;
+                      endforeach; ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Brief Description of the Company  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->intro_describe_business }} </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Why partner with this company?  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->why_partner_goal }} </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Relevant industry or products  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                $rr = explode(",",$item->relevant_describing_partner);
+                if(count((array) $rr) > 0):
+                  foreach($rr as $h):
+                    if(trim($h) != ''){
+                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                    }
+                  endforeach;
+                endif;
+                ?>
+                    </h4>
+                </span>
+                <hr class="hr-sect">
+            </div> 
+
+            <div>
+              @if(  $tokenStock >= 12)
+                <a onclick="processReq('sell', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @else
+                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @endif
+
+                <?php 
+                $viewer = base64_encode('viewer' . $company->id);
+                $token = base64_encode(date('YmdHis'));
+                ?>
+
+                {{-- Requestor = Non-premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                            <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?>    
+                            
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                    <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?>  
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif  --}}
+
+                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                            @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                            <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?> 
+
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
+                @endif
+
+                @if(App\User::getEBossStaffTrue(Auth::id()) == true)
+                  <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                   class="btn btn-danger btn_options"
+                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
+                @endif
+                <hr class="hr-sect">
+
+            </div> 
+
+      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- END MODAL -->
+<?php 
+    endif;
+    endforeach;  ?>
+    </div>
+    <!-- END SELL OPPORTUNITY -->
+
+    <!-- START BUY OPPORTUNITY -->
+            <div class="hr-sect opp_type" >Buy Opportunity</div>
+                <div class='blog-posts' id='buy-sect'>
+                <?php       
+                    $i = 1;
+                    foreach ($buy as $item): 
+                        $item->company_id = $item->company_id != "" ? $item->company_id: $company_id;
+                            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+                            $company = App\CompanyProfile::find($item->company_id);
+                            $provider_id = $company->id;
+                            
+                    if ( $company->count() > 0 && $d_status == true):
+                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                            ->orderBy('id', 'desc')
+                            ->first();
+                        $avat = '';
+                        if (!isset($avatar->file_name)) 
+                            $avat = 'robot.jpg';
+                        else 
+                            $avat = $avatar->file_name;
+                        
+                        $usr = App\User::find($company->user_id);
+                        $accStatus = 'free';
+                        if ($usr->user_type == 1) 
+                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
+                                $accStatus = 'premium';   
+
+                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+
+                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+                        $industryImage = App\OppIndustry::find($item->industry);
+                        if($industryImage){
+                            $avatarName = $industryImage->image;
+                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                        }else{
+                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                        }
+
+                        if($item->view_type == 2){
+                            if($item->avatar_status == 1){
+                                if($industryImage){
+                                    $avatarName = $industryImage->image;
+                                    $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                }
+                            }else{
+                                $avatarUrl = asset('public/images')."/".$avat;
+                            }
+                        }
+                    ?>
+        
+        <!-- new code start -->
+        @if($i == 1)
+            <div class='row cf list-row-buy '>
+        @endif
+        @if($i <= 2)
+              <div class='post buy-list'>
+
+                <?php 
+                    $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
+                    if( $followComp > 0) {
+                        $iconName = 'fa-user-minus';
+                        $iconTitle = "Unfollow this company";
+                    }else{
+                        $iconName = 'fa-user-plus';
+                        $iconTitle = "Follow this company";
+                    }
+                    if($item->company_id == $company_id){
+                         $iconName = '';
+                     }
                 ?>
                     <div class='follow-cont' dataVal="{{ $company->id }}">
                         <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
@@ -256,9 +725,477 @@
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
                     </div>
+                     @if($item->company_id != $company_id)
+                    <div class="learn_more" style="float: right" >
+                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                    </div>
+                    @endif
+                    <div class="bottom-space" >
+                        &nbsp;
+                    </div>
+                  </div>
+                </a>
+              </div>
+        @endif
+        @if($i == 2)
+            </div>
+        @endif
+        <!-- new code end -->
+<?php      
+        if($i == 2){
+            $i = 0;
+        }
+         $i++; ?>
+
+         {{-- Start modal click for buy --}}
+    <div 
+        class="modal fade modal_oppoBox" 
+        id="opporBuyModal_{{ $item->id }}" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="opporDetailsContentModalLabel" 
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
+                </div>
+        <div class="modal-body">
+
+            
+            <div >
+                <span class="title-text">
+                    <h4><strong> Ratings </strong></h4>
+                </span>
+                <div class="content-text" style="display: flex;">
+                <?php
+                                    if ($ratingScore < 25) {
+                                        ?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+
+                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+
+                                            <?php }?>
+                                       
+                    <h2  class="rating_score" > {{ $ratingScore }} % </h2>
+                </div>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> This Company is seeking </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                        <ul class="info_list lg-link">
+                            @if($item->business_goal)
+                            <li>{{ $item->business_goal }}</li>
+                            @endif
+                            @if($item->audience_target)
+                            <li>{{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
+                            <li>
+                <?php 
+                    $string = explode(",",$item->ideal_partner_base);
+                    $xx=0;
+                    foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val;
+                            $xx++;
+                            if($xx != count($string)){
+                                echo ", ";
+                            }
+                        endif;
+                    endforeach; ?>
+                            </li>
+                            @endif
+                        </ul>
+                    </h4>    
+                </span>
+                <hr class="hr-sect">
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Expectation </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity.
+                        
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Industry Keyword </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                      $string = explode(",",$item->ideal_partner_business);
+                      $xx=0;
+                      foreach( $string as $val ):
+                        if(trim($val) != ''):
+                            echo $val." ";
+                            $xx++;
+                            if($xx != count($string)){
+                                echo ",";
+                            }
+                        endif;
+                      endforeach; ?>
+                    </h4>
+                </span>
+                <hr>
+            </div>
+            <div>
+                <span class="title-text">
+                    <h4><strong> Brief Description of the Company  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->intro_describe_business }} </h4>
+                </span>
+                <hr>
+            </div>
+            
+            <div>
+                <span class="title-text">
+                    <h4><strong> Why partner with this company?  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->why_partner_goal }} </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Relevant industry or products  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4>
+                <?php 
+                $rr = explode(",",$item->relevant_describing_partner);
+                if(count((array) $rr) > 0):
+                  foreach($rr as $h):
+                    if(trim($h) != ''){
+                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                    }
+                  endforeach;
+                endif;
+                ?>
+                    </h4>
+                </span>
+                <hr class="hr-sect">
+            </div> 
+
+            <div>
+              @if(  $tokenStock >= 12)
+                <a onclick="processReq('buy', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @else
+                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+              @endif
+                <?php 
+                $viewer = base64_encode('viewer' . $company->id);
+                $token = base64_encode(date('YmdHis'));
+                ?>
+                 {{-- Requestor = Non-premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'buy', $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                            
+                            <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?>     
+
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium
+               @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif  --}}
+
+                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                            
+                            <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
+                                <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                                <?php } else { ?>
+                                <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?> 
+
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
+                @endif
+
+                @if(App\User::getEBossStaffTrue(Auth::id()) == true)
+                  <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
+                   class="btn btn-danger btn_options"
+                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
+                @endif
+                <hr class="hr-sect">
+            </div> 
+
+      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- END MODAL -->
+<?php 
+    endif;
+    endforeach;  ?>
+    </div>
+    </div>
+    <!-- END BUY OPPORTUNITY -->
+
+    <!-- START BUILD OPPORTUNITY -->
+            <div class="hr-sect opp_type" >Partnership Opportunity</div>
+                <div class='blog-posts' id="build-sect">
+                <?php       
+                    $i = 1;
+                    $buildCount = 0;
+                    foreach ($build as $item): 
+                        $item->company_id = $item->company_id != "" ? $item->company_id: $company_id;
+                            $opportunity_type = 'build';
+                            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
+                            $company = App\CompanyProfile::find($item->company_id);
+                            $provider_id = $company->id;
+                    if ( $company->count() > 0 && $d_status == true):
+                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
+                            ->orderBy('id', 'desc')
+                            ->first();
+                        $avat = '';
+                        if (!isset($avatar->file_name)) 
+                            $avat = 'robot.jpg';
+                        else 
+                            $avat = $avatar->file_name;
+                        
+                        $usr = App\User::find($company->user_id);
+                        $accStatus = 'free';
+                        if ($usr->user_type == 1) 
+                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
+                                $accStatus = 'premium';   
+
+                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
+                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
+                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
+                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
+                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
+
+                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
+                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+                        $industryImage = App\OppIndustry::find($item->industry);
+                        if($industryImage){
+                            $avatarName = $industryImage->image;
+                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                        }else{
+                            $avatarUrl = asset('public/images/industry')."/guest.png";
+                        }
+
+                        if($item->view_type == 2){
+                            if($item->avatar_status == 1){
+                                if($industryImage){
+                                    $avatarName = $industryImage->image;
+                                    $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                }
+                            }else{
+                                $avatarUrl = asset('public/images')."/".$avat;
+                            }
+                        }
+                    ?>
+        
+        <!-- new code start -->
+        @if($i == 1)
+            <div class='row cf list-row-build '>
+        @endif
+        @if($i <= 2)
+              <div class='post build-list'>
+                <?php 
+                    $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
+                    if( $followComp > 0) {
+                        $iconName = 'fa-user-minus';
+                        $iconTitle = "Unfollow this company";
+                    }else{
+                        $iconName = 'fa-user-plus';
+                        $iconTitle = "Follow this company";
+                    }
+                     if($item->company_id == $company_id){
+                         $iconName = '';
+                     }
+                ?>
+                    <div class='follow-cont' dataVal="{{ $company->id }}">
+                        <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
+                    </div>
+
+                <a href='#'>
+                    <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
+
+                @if($accStatus == 'premium')
+                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
+                @endif
+                    </div>
+                  <div class='content'>
+                    <h1 class='upperText' title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
+                     <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
+                        <ul class="info_list">
+                            @if($item->business_goal)
+                            <li> {{ $item->business_goal }}</li>
+                            @endif
+                            @if($item->audience_target)
+                            <li> {{ $item->audience_target }}</li>
+                            @endif
+                            @if($item->ideal_partner_base)
+                            <li>
+                            <?php 
+                                $string = explode(",",$item->ideal_partner_base);
+                                $xx=0;
+                                foreach( $string as $val ):
+                                    if(trim($val) != ''):
+                                        echo $val;
+                                        $xx++;
+                                        if($xx != count($string)){
+                                            echo ", ";
+                                        }
+                                    endif;
+                                endforeach; ?>
+                            </li>
+                            @endif
+                        </ul>
+                    <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
+                    <div style="display: flex;">
+                        <div>
+                            @if($ratingScore < 25)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p1.png') }}">
+                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                                <img width="30" height="32"
+                                     src="{{  asset('public/stars/p2.png') }}">
+                            @endif
+                        </div>
+
+                        <div class="rating_score">
+                            <h3> {{ $ratingScore }}% </h3>
+                        </div>
+                    </div>
+                     @if($item->company_id != $company_id)
                     <div class="learn_more" style="float: right" >
                            <button onclick="showModalContent('build','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
                     </div>
+                    @endif
                     <div class="bottom-space" >
                         &nbsp;
                     </div>
@@ -455,6 +1392,17 @@
                 <hr>
             </div>
 
+             <div>
+                <span class="title-text">
+                    <h4><strong> Brief Description of the Company  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->intro_describe_business }} </h4>
+                </span>
+                <hr>
+            </div>
+            
+
             <div id='whypartner_section_{{ $buildCount }}'>
                 <span class="title-text">
                     <h4><strong> Why partner with this company?  </strong></h4>
@@ -599,905 +1547,6 @@
     </div>
       <!-- END BUILD OPPORTUNITY -->
 
-    <!-- START SELL OPPORTUNITY -->
-            <div class="hr-sect opp_type" >Sell Opportunity</div>
-                <div class='blog-posts' id='sell-sect'>
-                <?php       
-                    $i = 1;
-                    foreach ($sell as $item): 
-                            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
-                            $company = App\CompanyProfile::find($item->company_id);
-                            $provider_id = $company->id;
-                    if ( $company->count() > 0 && $d_status == true):
-                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-                            ->orderBy('id', 'desc')
-                            ->first();
-                        $avat = '';
-                        if (!isset($avatar->file_name)) 
-                            $avat = 'robot.jpg';
-                        else 
-                            $avat = $avatar->file_name;
-                        
-                        $usr = App\User::find($company->user_id);
-                        $accStatus = 'free';
-                        if ($usr->user_type == 1) 
-                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
-                                $accStatus = 'premium';   
-
-                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
-
-                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-
-                        $industryImage = App\OppIndustry::find($item->industry);
-                        if($industryImage){
-                            $avatarName = $industryImage->image;
-                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
-                        }else{
-                            $avatarUrl = asset('public/images/industry')."/guest.png";
-                        }
-
-                        if($item->view_type == 2){
-                            if($item->avatar_status == 1){
-                                if($industryImage){
-                                    $avatarName = $industryImage->image;
-                                    $avatarUrl = asset('public/images/industry')."/".$avatarName;
-                                }
-                            }else{
-                                $avatarUrl = asset('public/images')."/".$avat;
-                            }
-                        }
-                    ?>
-        
-        <!-- new code start -->
-        @if($i == 1)
-            <div class='row cf list-row-sell '>
-        @endif
-        @if($i <= 2)
-              <div class='post sell-list'>
-                <?php 
-                    $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
-                    if( $followComp > 0) {
-                        $iconName = 'fa-user-minus';
-                        $iconTitle = "Unfollow this company";
-                    }else{
-                        $iconName = 'fa-user-plus';
-                        $iconTitle = "Follow this company";
-                    }
-                ?>
-                    <div class='follow-cont' dataVal="{{ $company->id }}">
-                        <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
-                    </div>
-                <a href='#'>
-                    <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
-
-                @if($accStatus == 'premium')
-                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
-                @endif
-                    </div>
-                  <div class='content'>
-                    <h1 class='upperText' title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
-                     <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
-                        <ul class="info_list">
-                            @if($item->business_goal)
-                            <li> {{ $item->business_goal }}</li>
-                            @endif
-                            @if($item->audience_target)
-                            <li> {{ $item->audience_target }}</li>
-                            @endif
-                            @if($item->ideal_partner_base)
-                            <li>
-                            <?php 
-                                $string = explode(",",$item->ideal_partner_base);
-                                $xx=0;
-                                foreach( $string as $val ):
-                                    if(trim($val) != ''):
-                                        echo $val;
-                                        $xx++;
-                                        if($xx != count($string)){
-                                            echo ", ";
-                                        }
-                                    endif;
-                                endforeach; ?>
-                            </li>
-                            @endif
-                        </ul>
-                    <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
-                        <p class='meta'> {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity. </p>
-                    <div style="display: flex;">
-                        <div>
-                            @if($ratingScore < 25)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                            @endif
-                        </div>
-
-                        <div class="rating_score">
-                            <h3> {{ $ratingScore }}% </h3>
-                        </div>
-                    </div>
-                    <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
-                    </div>
-                    <div class="bottom-space" >
-                        &nbsp;
-                    </div>
-                  </div>
-                </a>
-              </div>
-        @endif
-        @if($i == 2)
-            </div>
-        @endif
-        <!-- new code end -->
-<?php      
-        if($i == 2){
-            $i = 0;
-        }
-         $i++; ?>
-
-         {{-- Start modal click for Sell --}}
-    <div 
-        class="modal fade modal_oppoBox" 
-        id="opporSellModal_{{ $item->id }}" 
-        tabindex="-1" role="dialog" 
-        aria-labelledby="opporDetailsContentModalLabel" 
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
-                </div>
-        <div class="modal-body">
-            
-            <div>
-                <span class="title-text">
-                    <h4><strong> Ratings </strong></h4>
-                </span>
-                <div class="content-text" style="display: flex;">
-                <?php
-                                    if ($ratingScore < 25) {
-                                        ?>
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-
-                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-
-                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-
-                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-
-                                            <?php }?>
-                                       
-                    <h2  class="rating_score" > {{ $ratingScore }} % </h2>
-                </div>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> This Company is seeking </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4>
-                        <ul class="info_list lg-link">
-                            @if($item->business_goal)
-                            <li>{{ $item->business_goal }}</li>
-                            @endif
-                            @if($item->audience_target)
-                            <li>{{ $item->audience_target }}</li>
-                            @endif
-                            @if($item->ideal_partner_base)
-                            <li>
-                <?php 
-                    $string = explode(",",$item->ideal_partner_base);
-                    $xx=0;
-                    foreach( $string as $val ):
-                        if(trim($val) != ''):
-                            echo $val;
-                            $xx++;
-                            if($xx != count($string)){
-                                echo ", ";
-                            }
-                        endif;
-                    endforeach; ?>
-                            </li>
-                            @endif
-                        </ul>
-                    </h4>    
-                </span>
-                <hr class="hr-sect">
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Expectation </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4> 
-                        {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity.
-                        
-                    </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Industry Keyword </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4>
-                <?php 
-                      $string = explode(",",$item->ideal_partner_business);
-                      $xx=0;
-                      foreach( $string as $val ):
-                        if(trim($val) != ''):
-                            echo $val." ";
-                            $xx++;
-                            if($xx != count($string)){
-                                echo ",";
-                            }
-                        endif;
-                      endforeach; ?>
-                    </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Why partner with this company?  </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4> {{ $item->why_partner_goal }} </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Relevant industry or products  </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4>
-                <?php 
-                $rr = explode(",",$item->relevant_describing_partner);
-                if(count((array) $rr) > 0):
-                  foreach($rr as $h):
-                    if(trim($h) != ''){
-                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
-                    }
-                  endforeach;
-                endif;
-                ?>
-                    </h4>
-                </span>
-                <hr class="hr-sect">
-            </div> 
-
-            <div>
-              @if(  $tokenStock >= 12)
-                <a onclick="processReq('sell', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
-
-                <?php 
-                $viewer = base64_encode('viewer' . $company->id);
-                $token = base64_encode(date('YmdHis'));
-                ?>
-
-                {{-- Requestor = Non-premium | Provider = Premium --}}
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-
-                    @if($tokenStock >= 3)
-
-                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
-                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                        @else
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-
-                            <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                            <?php } else { ?>
-                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
-                            <?php } ?>    
-                            
-                        @endif
-
-                    @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                    @endif
-
-                @endif
-
-                {{-- Requestor = Premium | Provider = Premium --}}
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-
-                    <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                            <?php } else { ?>
-                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
-                    <?php } ?>  
-
-                @endif
-
-                {{-- Requestor = Premium | Provider = Non-Premium
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
-                @endif  --}}
-
-                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-
-                    @if($tokenStock >= 3)
-
-                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
-                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'sell');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                            @else
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-
-                            <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                            <?php } else { ?>
-                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
-                            <?php } ?> 
-
-                        @endif
-
-                    @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                    @endif
-
-                @endif
-
-                {{-- Requestor = Premium | Provider = Non-Premium --}}
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                    
-                    <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                        <?php } else { ?>
-                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'sell', $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
-                    <?php } ?> 
-
-                @endif
-
-                @if(App\User::getEBossStaffTrue(Auth::id()) == true)
-                  <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
-                   class="btn btn-danger btn_options"
-                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
-                @endif
-                <hr class="hr-sect">
-
-            </div> 
-
-      </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-  </div>
-</div>
-<!-- END MODAL -->
-<?php 
-    endif;
-    endforeach;  ?>
-    </div>
-    <!-- END SELL OPPORTUNITY -->
-
-    <!-- START BUY OPPORTUNITY -->
-            <div class="hr-sect opp_type" >Buy Opportunity</div>
-                <div class='blog-posts' id='buy-sect'>
-                <?php       
-                    $i = 1;
-                    foreach ($buy as $item): 
-                            $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
-                            $company = App\CompanyProfile::find($item->company_id);
-                            $provider_id = $company->id;
-                            
-                    if ( $company->count() > 0 && $d_status == true):
-                        $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
-                            ->orderBy('id', 'desc')
-                            ->first();
-                        $avat = '';
-                        if (!isset($avatar->file_name)) 
-                            $avat = 'robot.jpg';
-                        else 
-                            $avat = $avatar->file_name;
-                        
-                        $usr = App\User::find($company->user_id);
-                        $accStatus = 'free';
-                        if ($usr->user_type == 1) 
-                            if( App\SpentTokens::validateAccountActivation($item->company_id) != false )
-                                $accStatus = 'premium';   
-
-                        $profileAvatar = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.profile'), 1);
-                        $profileAwards = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.awards'), 5);
-                        $profilePurchaseInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.purchase_invoices'), 5);
-                        $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
-                        $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
-
-                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-
-                        $industryImage = App\OppIndustry::find($item->industry);
-                        if($industryImage){
-                            $avatarName = $industryImage->image;
-                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
-                        }else{
-                            $avatarUrl = asset('public/images/industry')."/guest.png";
-                        }
-
-                        if($item->view_type == 2){
-                            if($item->avatar_status == 1){
-                                if($industryImage){
-                                    $avatarName = $industryImage->image;
-                                    $avatarUrl = asset('public/images/industry')."/".$avatarName;
-                                }
-                            }else{
-                                $avatarUrl = asset('public/images')."/".$avat;
-                            }
-                        }
-                    ?>
-        
-        <!-- new code start -->
-        @if($i == 1)
-            <div class='row cf list-row-buy '>
-        @endif
-        @if($i <= 2)
-              <div class='post buy-list'>
-
-                <?php 
-                    $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
-                    if( $followComp > 0) {
-                        $iconName = 'fa-user-minus';
-                        $iconTitle = "Unfollow this company";
-                    }else{
-                        $iconName = 'fa-user-plus';
-                        $iconTitle = "Follow this company";
-                    }
-                ?>
-                    <div class='follow-cont' dataVal="{{ $company->id }}">
-                        <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
-                    </div>
-
-                <a href='#'>
-                    <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
-
-                @if($accStatus == 'premium')
-                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
-                @endif
-                    </div>
-                  <div class='content'>
-                    <h1 class='upperText' title="{{ $item->opp_title }}"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h1>
-                     <div class="hr-sect"><strong class="hr_title">This company is seeking</strong></div>
-                        <ul class="info_list">
-                            @if($item->business_goal)
-                            <li> {{ $item->business_goal }}</li>
-                            @endif
-                            @if($item->audience_target)
-                            <li> {{ $item->audience_target }}</li>
-                            @endif
-                            @if($item->ideal_partner_base)
-                            <li>
-                            <?php 
-                                $string = explode(",",$item->ideal_partner_base);
-                                $xx=0;
-                                foreach( $string as $val ):
-                                    if(trim($val) != ''):
-                                        echo $val;
-                                        $xx++;
-                                        if($xx != count($string)){
-                                            echo ", ";
-                                        }
-                                    endif;
-                                endforeach; ?>
-                            </li>
-                            @endif
-                        </ul>
-                    <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
-                        <p class='meta'> {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity. </p>
-                    <div style="display: flex;">
-                        <div>
-                            @if($ratingScore < 25)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                            @endif
-                        </div>
-
-                        <div class="rating_score">
-                            <h3> {{ $ratingScore }}% </h3>
-                        </div>
-                    </div>
-                    <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
-                    </div>
-                    <div class="bottom-space" >
-                        &nbsp;
-                    </div>
-                  </div>
-                </a>
-              </div>
-        @endif
-        @if($i == 2)
-            </div>
-        @endif
-        <!-- new code end -->
-<?php      
-        if($i == 2){
-            $i = 0;
-        }
-         $i++; ?>
-
-         {{-- Start modal click for buy --}}
-    <div 
-        class="modal fade modal_oppoBox" 
-        id="opporBuyModal_{{ $item->id }}" 
-        tabindex="-1" role="dialog" 
-        aria-labelledby="opporDetailsContentModalLabel" 
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title upperText" id="opporDetailsContentModalLabel"> <?= $item->opp_title != "" ? $item->opp_title : 'Providing Business Valuation' ?></h4>
-                </div>
-        <div class="modal-body">
-
-            
-            <div >
-                <span class="title-text">
-                    <h4><strong> Ratings </strong></h4>
-                </span>
-                <div class="content-text" style="display: flex;">
-                <?php
-                                    if ($ratingScore < 25) {
-                                        ?>
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-
-                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-
-                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-
-                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-
-                                            <?php }?>
-                                       
-                    <h2  class="rating_score" > {{ $ratingScore }} % </h2>
-                </div>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> This Company is seeking </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4>
-                        <ul class="info_list lg-link">
-                            @if($item->business_goal)
-                            <li>{{ $item->business_goal }}</li>
-                            @endif
-                            @if($item->audience_target)
-                            <li>{{ $item->audience_target }}</li>
-                            @endif
-                            @if($item->ideal_partner_base)
-                            <li>
-                <?php 
-                    $string = explode(",",$item->ideal_partner_base);
-                    $xx=0;
-                    foreach( $string as $val ):
-                        if(trim($val) != ''):
-                            echo $val;
-                            $xx++;
-                            if($xx != count($string)){
-                                echo ", ";
-                            }
-                        endif;
-                    endforeach; ?>
-                            </li>
-                            @endif
-                        </ul>
-                    </h4>    
-                </span>
-                <hr class="hr-sect">
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Expectation </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4> 
-                        {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity.
-                        
-                    </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Industry Keyword </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4>
-                <?php 
-                      $string = explode(",",$item->ideal_partner_business);
-                      $xx=0;
-                      foreach( $string as $val ):
-                        if(trim($val) != ''):
-                            echo $val." ";
-                            $xx++;
-                            if($xx != count($string)){
-                                echo ",";
-                            }
-                        endif;
-                      endforeach; ?>
-                    </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Why partner with this company?  </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4> {{ $item->why_partner_goal }} </h4>
-                </span>
-                <hr>
-            </div>
-
-            <div>
-                <span class="title-text">
-                    <h4><strong> Relevant industry or products  </strong></h4>
-                </span>
-                <span class="content-text">
-                    <h4>
-                <?php 
-                $rr = explode(",",$item->relevant_describing_partner);
-                if(count((array) $rr) > 0):
-                  foreach($rr as $h):
-                    if(trim($h) != ''){
-                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
-                    }
-                  endforeach;
-                endif;
-                ?>
-                    </h4>
-                </span>
-                <hr class="hr-sect">
-            </div> 
-
-            <div>
-              @if(  $tokenStock >= 12)
-                <a onclick="processReq('buy', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
-                <?php 
-                $viewer = base64_encode('viewer' . $company->id);
-                $token = base64_encode(date('YmdHis'));
-                ?>
-                 {{-- Requestor = Non-premium | Provider = Premium --}}
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-
-                    @if($tokenStock >= 3)
-
-                        @if(App\ChatHistory::getChatPayStatus($item->id, 'buy', $requestor_id, $provider_id) == false)
-                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                        @else
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                            
-                            <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                            <?php } else { ?>
-                            <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                            <?php } ?>     
-
-                        @endif
-
-                    @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                    @endif
-
-                @endif
-
-                {{-- Requestor = Premium | Provider = Premium --}}
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                    
-                    <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                        <?php } else { ?>
-                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                    <?php } ?> 
-
-                @endif
-
-                {{-- Requestor = Premium | Provider = Non-Premium
-               @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
-                @endif  --}}
-
-                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-
-                    @if($tokenStock >= 3)
-
-                        @if(App\ChatHistory::getChatPayStatus($item->id, 'sell', $requestor_id, $provider_id) == false)
-                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , 'buy');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                        @else
-                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                            
-                            <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
-                                <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                                <?php } else { ?>
-                                <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                            <?php } ?> 
-
-                        @endif
-
-                    @else
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                    @endif
-
-                @endif
-
-                {{-- Requestor = Premium | Provider = Non-Premium --}}
-                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
-
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
-                    
-                    <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
-                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                        <?php } else { ?>
-                        <a href="<?php echo App\VideoChat::getVcURL($item->id, 'buy', $requestor_id); ?>" target="_blank"  Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
-                    <?php } ?> 
-
-                @endif
-
-                @if(App\User::getEBossStaffTrue(Auth::id()) == true)
-                  <a href="{{ url('/opportunity/deleteBuild/'.$item->id) }}"
-                   class="btn btn-danger btn_options"
-                   onclick="return confirm('Are you sure to delete an opportunity item?')">Delete</a>
-                @endif
-                <hr class="hr-sect">
-            </div> 
-
-      </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-  </div>
-</div>
-<!-- END MODAL -->
-<?php 
-    endif;
-    endforeach;  ?>
-    </div>
-    </div>
-    <!-- END BUY OPPORTUNITY -->
 </div></div>
 </div><!-- end row -->
       </div>
@@ -1666,6 +1715,17 @@
             </span>
             <hr>
         </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Brief Description of the Company  </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> {{ $item->intro_describe_business }} </h4>
+                </span>
+                <hr>
+            </div>
+            
 
         <div>
             <span class="title-text">

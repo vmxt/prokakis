@@ -1172,7 +1172,14 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
 
                                         </li>
-
+                                        @if(request()->segment(2) == 'explore')
+                                        <li aria-haspopup="true" id='create-opportunities' class="menu-dropdown mega-menu-dropdown">
+                                            <a href="{{ url('/opportunity/select') }}">
+                                                <i class="fa fa-plus" style="color: white"></i> Create an Opportunity
+                                                <span class="arrow"></span>
+                                            </a>
+                                        </li>
+                                        @endif
                                         <?php } elseif($userType == 2) { ?>
 
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
