@@ -270,7 +270,7 @@ class RegisterController extends Controller
         $message =  file_get_contents("http://app-prokakis.com/public/emailtemplate/welcome_final.html");
         $message = str_replace("[First Name]", $data['firstname'], $message);
         //send the email here  
-        Mailbox::sendMail_EmailTemplate($message, $data['email'], "Welcome to Prokakis", "");   
+        Mailbox::sendMail_EmailTemplate($message, $data['email'], "Welcome to Intellinz", "");   
         
 
         return $userResult;

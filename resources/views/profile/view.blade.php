@@ -656,7 +656,6 @@
                             </div>
 
                             <br/>
-                           <!-- <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p> -->
                             <ul class='error-list'>
                                 <?php if(isset($completenessMessages)){
                                 foreach($completenessMessages as $d){
