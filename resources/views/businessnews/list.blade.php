@@ -16,10 +16,6 @@
 
 
 
-<!-- jQuery Modal -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
 
 
 <script>
@@ -231,7 +227,36 @@
         }
 
 
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal-load {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
 
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .modal-load {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal-load {
+    display: block;
+}
 
 
     </style>
@@ -420,6 +445,7 @@
                     <!-- Default panel contents -->
                     <div class="panel-heading">
                         <h3 class="panel-title">Ten most/recent news</h3>
+                        <input type="text" id="business-news-id" value="{{ isset($_GET['busnews']) ? $_GET['busnews'] : 0  }}">
                     </div>
                  
                     <!-- List group -->
@@ -429,17 +455,11 @@
                         $i = 1;
                         foreach($bn as $d){
                        ?>
-                        <li class="list-group-item"><a href="#bus_news_{{ $d->id }}" rel="modal:open">{{ $d->business_title }}</a>
+                        <li class="list-group-item"><a href="#" id="a_bus_news_{{ $d->id }}"  data-toggle="modal" data-target="#bus_news_{{ $d->id }}" >{{ $d->business_title }}</a>
                             <span class="badge badge-info">{{ $i }}</span>
                         </li>
 
-                        <div id="bus_news_{{ $d->id }}" class="modal modalq">
-                            <h4>{{ $d->business_title }}</h4>
-                            <p>
-                              {!! $d->content_business !!}
-                            </p>  
-                            <a href="#" rel="modal:close">Close</a>
-                          </div>
+
                           
                         <?php
                         $i++; 
@@ -568,9 +588,7 @@
 
 
 
-{{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
 
-{{-- <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script> --}}
 
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
@@ -592,7 +610,6 @@ $.extend( $.fn.dataTable.defaults, {
 
 
 $(document).ready( function () {
-
     $('#system_data').DataTable({
 
         responsive: true,
@@ -973,6 +990,46 @@ function ajxProcess(cId, nTitle){
 
     </script>
 
+<script type="text/javascript">
+    let newsid = $('#business-news-id').val()
+    if(newsid  != 0){
+         $("body").addClass("loading");
+     setTimeout(myGreeting, 3000);
+    }
+    function myGreeting() {
+          $('#a_bus_news_'+newsid).click();
+          $("body").removeClass("loading");
+    }
 
+// $( "#a_bus_news_"+newsid ).click(function() {
+//   alert( "Handler for .click() called." );
+// console.log('bus_news_'+newsid);
 
+// });
+</script>
+
+@foreach($bn as $d)
+<!-- Modal -->
+<div class="modal" id="bus_news_{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="BusinenessNewsTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="BusinenessNewsTitle">{{ $d->business_title }}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> {!! $d->content_business !!} </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-load"><!-- Place at bottom of page --></div>
+@endforeach
 @endsection
