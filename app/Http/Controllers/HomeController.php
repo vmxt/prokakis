@@ -344,7 +344,9 @@ public function index() {
 		$oppResultdata = $this->paginate($OppData);
 ##modify opportunity elements
 
-		return view('home.index', compact('oppResultdata','businessNewsData', 'topBusinessNewsOpportunity','followingCount','followerCount','profileCoverPhoto','profileAvatar'));
+		$topBusinessNEws = BusinessOpportunitiesNews::limit(10)->orderBy('id', 'desc')->get();
+
+		return view('home.index', compact('topBusinessNEws','oppResultdata','businessNewsData', 'topBusinessNewsOpportunity','followingCount','followerCount','profileCoverPhoto','profileAvatar'));
 
 	}
 

@@ -462,7 +462,7 @@
 
                                     </div>
                                 <div class="bootstrap card-footer">
-                                         <a href="{{ url('businessnews/list?busnews=').$topbusinessNews->id }}"  class="bootstrap card-link btn btn-info ">View</a>
+                                         <a href="#" data-toggle="modal" data-target="#bus_news_{{ $topbusinessNews->id }}"  class="bootstrap card-link btn btn-info ">View</a>
                                    
                 
                                 </div>
@@ -674,6 +674,30 @@
         <!--- \\\\\\\BUSINESS NEWS-->
 
     </div>
+
+@foreach($topBusinessNEws as $d)
+<!-- Modal -->
+<div class="modal" id="bus_news_{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="BusinenessNewsTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="BusinenessNewsTitle">{{ $d->business_title }}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> {!! $d->content_business !!} </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-load"><!-- Place at bottom of page --></div>
+@endforeach
 
  <div class='intro-tour-overlay'></div>
     <script src="{{ asset('public/jq1110/jquery.min.js') }}"></script>
@@ -957,33 +981,5 @@ if( $('#is_tour').val() == 1 ){
         });
 
     </script>
-{{-- 
-    <script>
-        $('.counter').each(function () {
-            var $this = $(this),
-                countTo = $this.attr('data-count');
 
-            $({countNum: $this.text()}).animate({
-                    countNum: countTo
-                },
-
-                {
-
-                    duration: 8000,
-                    easing: 'linear',
-                    step: function () {
-                        $this.text(Math.floor(this.countNum));
-                    },
-                    complete: function () {
-                        $this.text(this.countNum);
-                        //alert('finished');
-                    }
-
-                });
-
-
-        });
-
-
-    </script> --}}
 @endsection

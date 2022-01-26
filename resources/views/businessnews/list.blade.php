@@ -445,7 +445,7 @@ body.loading .modal-load {
                     <!-- Default panel contents -->
                     <div class="panel-heading">
                         <h3 class="panel-title">Ten most/recent news</h3>
-                        <input type="text" id="business-news-id" value="{{ isset($_GET['busnews']) ? $_GET['busnews'] : 0  }}">
+                        <input type="hidden" id="business-news-id" value="{{ isset($_GET['busnews']) ? $_GET['busnews'] : 0  }}">
                     </div>
                  
                     <!-- List group -->
@@ -1024,7 +1024,6 @@ function ajxProcess(cId, nTitle){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
