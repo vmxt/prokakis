@@ -290,6 +290,37 @@
             display: none;
         }
     }
+
+    /* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal-load {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading .modal-load {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal-load {
+    display: block;
+}
     </style>
 
     <?php 
@@ -362,6 +393,7 @@
             <div class="bootstrap col-md-9 content-card">
                 <div  id='followBusinessNews'>
 <!--- \\\\\\\BUSINESS NEWS-->
+
                     @if($businessNewsData->count() > 0)
                         <div class="hr-sect opp_type"  >Business News</div>
                     @endif
@@ -395,21 +427,13 @@
                                             </div>
                                         </div>
                                         <div class="bootstrap card-body card-flex">
-                                            {{-- <div class="bootstrap text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ $dt->diffForHumans() }}</div> --}}
-                                         {{--    <a class="bootstrap card-link" href="#">
-                                                <h5 class="bootstrap card-title">{{ $businessNews->business_title }}</h5>
-                                            </a> --}}
                                             <div class="bootstrap card-text">
                                                 {{ $businessNews['content']['business_title'] }}
                                             </div>
 
                                             </div>
                                         <div class="bootstrap card-footer">
-                                            <a href="#"  class="bootstrap card-link btn btn-info ">View</a>
-                                       
-                    {{--                     <a href="#" class="bootstrap card-link"><i class="fa fa-gittip"></i> Like</a>
-                                        <a href="#" class="bootstrap card-link"><i class="fa fa-comment"></i> Comment</a>
-                                        <a href="#" class="bootstrap card-link"><i class="fa fa-mail-forward"></i> Share</a> --}}
+                                            <a href="#" data-toggle="modal" data-target="#follow_bus_news_{{ $businessNews['content']['id'] }}"  class="bootstrap card-link btn btn-info ">View</a>
                                         </div>
                                     </div>
                                 </div>
@@ -676,7 +700,7 @@
     </div>
 
 @foreach($topBusinessNEws as $d)
-<!-- Modal -->
+<!-- Modal top business news -->
 <div class="modal" id="bus_news_{{ $d->id }}" tabindex="-1" role="dialog" aria-labelledby="BusinenessNewsTitle" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
@@ -695,9 +719,31 @@
     </div>
   </div>
 </div>
-
-<div class="modal-load"><!-- Place at bottom of page --></div>
 @endforeach
+
+
+@foreach($businessNewsData as $businessNews)
+<div class="modal" id="follow_bus_news_{{ $businessNews['content']['id'] }}" tabindex="-1" role="dialog" aria-labelledby="FollowBusinenessNewsTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="FollowBusinenessNewsTitle">{{ $businessNews['content']['business_title'] }}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> {!! $businessNews['content']['content_business'] !!} </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
+<div class="modal-load"><!-- Place at bottom of page --></div>
+
 
  <div class='intro-tour-overlay'></div>
     <script src="{{ asset('public/jq1110/jquery.min.js') }}"></script>
