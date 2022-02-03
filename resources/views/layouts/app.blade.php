@@ -55,12 +55,10 @@
         <link href="{{ asset('public/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-<!--         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
         <link href="{{ asset('public/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/morris/morris.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css" />
@@ -82,7 +80,7 @@
             -->
         <!-- END HEAD -->
         <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     <!-- override the css values above -->
      <style>
 
@@ -554,16 +552,16 @@ s0.parentNode.insertBefore(s1,s0);
                                               echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?> <?php echo $accStatus; ?></span>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-default">
-					    <?php   
+                        <?php   
                                             $user_id = Auth::id();
                                             $u = App\User::find($user_id);
-					    if($u->m_id == null || $u->m_id == 0){ 	
+                        if($u->m_id == null || $u->m_id == 0){  
                                             ?>
 
-						                                    <li id='nav-login-account-credit'>
+                                                            <li id='nav-login-account-credit'>
                                                     <a href="{{ route('getTokenActivated') }}">
                                                         <i class="icon-wrench"></i> Manage Account </a>
-                                                </li>	
+                                                </li>   
 
                                                 <li aria-haspopup="true" id="nav-buy-credit">
                                                     <a href="{{ url('/reports/buyCredits') }}" class="nav-link  "><i class="fa fa-dollar"></i> Buy Credits</a>
@@ -612,7 +610,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                       <i class="fa fa-trophy"></i> Rewards </a>
                                               </li>
 
- 						<li>
+                        <li>
 
                                                   <a href="{{ route('setPasswordData') }}" >
                                                       <i class="icon-key"></i> Change Password </a>
@@ -658,11 +656,11 @@ s0.parentNode.insertBefore(s1,s0);
                                                   @endif
                                                 </li>
 
-						<li>
+                        <li>
                                                   <a href="{{ route('setSubaccounts') }}" >
                                                       <i class="icon-user"></i> User Control </a>
                                                 </li>
-						<?php } ?>
+                        <?php } ?>
 
                                                 <li id='nav-login-logout'>
                                                     <a href="{{ url('logout') }}">
@@ -1358,7 +1356,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             </a>
                                             <ul class="dropdown-menu pull-left">
 
-						<li aria-haspopup="true" class=" ">
+                        <li aria-haspopup="true" class=" ">
                                                 <a href="{{url('/transferCompany')}}" class="nav-link  ">
                                                     Company Transfer and Token</a>
                                                </li>
@@ -1374,8 +1372,8 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <a href="{{url('/sysconfig/reportTemplate')}}" class="nav-link  ">
                                                         Configure Report Templates</a>
                                                 </li>
-						
- 						<li aria-haspopup="true" class=" ">
+                        
+                        <li aria-haspopup="true" class=" ">
                                                   <a href="{{url('/req-list')}}" class="nav-link  ">
                                                       Company Request Ownership and Removal</a>
                                               </li>
@@ -1421,10 +1419,6 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
                                                     Pending Opportunities</a>
                                                </li>
-                                 <!--                <li aria-haspopup="true" class=" ">
-                                                    <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
-                                                    Approved Opportunities</a>
-                                               </li> -->
                                             </ul>
                                         </li>
 
