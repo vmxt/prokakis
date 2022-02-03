@@ -213,8 +213,16 @@ Route::get('/businessnews/retcontent/{id}', 'BusinessOpportunityNewsController@r
 Route::get('/businessnews/retNewsDetails/{id}', 'BusinessOpportunityNewsController@retNewsDetails')->name('retNewsDetails');
 Route::post('/businessnews/update', 'BusinessOpportunityNewsController@updateNews')->name('updateNews');
 
+//Staff Approval for Opportunities
+Route::get('/opportunity/approval/{status}', 'OpportunityController@approval')->name('opportunityApproval');
+Route::get('/opportunity/editApprovalBuild/{id}', 'OpportunityController@editApprovalBuild')->name('opportunityEditApprovalBuild');
+Route::get('/opportunity/editApprovalSellOffer/{id}', 'OpportunityController@editApprovalSellOffer')->name('opportunityEditApprovalSellOffer');
+Route::get('/opportunity/editApprovalBuy/{id}', 'OpportunityController@editApprovalBuy')->name('opportunityEditApprovalBuy');
+Route::post('/opportunity/approved', 'OpportunityController@approved')->name('opportunityApproved');
+
 //opportunities
 Route::get('/opportunity', 'OpportunityController@index')->name('opportunityIndex');
+
 Route::get('/opportunity/chatbox', 'OpportunityController@chatbox')->name('opportunityChat');
 Route::get('/opportunity/select', 'OpportunityController@select')->name('opportunitySelect');
 Route::post('/opportunity/premium', 'OpportunityController@premiumPurchase')->name('PremiumPurchase');

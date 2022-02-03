@@ -53,6 +53,8 @@ class OpportunityController extends Controller {
 
 	}
 
+
+
 	public function details() {
 		if (User::securePage(Auth::id()) != 5) {
 			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
@@ -670,11 +672,11 @@ class OpportunityController extends Controller {
 				// ->where('status', 1)
 				// ->get();
 
-   		$build = OpportunityBuildingCapability::where('status', 1)->get();
+   		$build = OpportunityBuildingCapability::where('status', 1)->where('is_verify',1)->get();
 
-				$sell = OpportunitySellOffer::where('status', 1)->get();
+				$sell = OpportunitySellOffer::where('status', 1)->where('is_verify',1)->get();
 
-				$buy = OpportunityBuy::where('status', 1)->get();
+				$buy = OpportunityBuy::where('status', 1)->where('is_verify',1)->get();
 
 		$requestReport = new RequestReport;
 		$result_filter = false;
@@ -1678,5 +1680,142 @@ public static function validateAccLimits($company_id){
 		}
 	}
 
+#for approval pending opprtunities
+	public function approval() {
+		$user_id = Auth::id();
+		if (User::securePage($user_id) != 5) {
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
 
-}
+		$build = OpportunityBuildingCapability::where('is_verify', 0)->where('status', 1)->get();
+		$sell = OpportunitySellOffer::where('is_verify', 0)->where('status', 1)->get();
+		$buy = OpportunityBuy::where('is_verify', 0)->where('status', 1)->get();
+		$industry = Configurations::getJsonValue('industry_type');
+		$businessType = Configurations::getJsonValue('business_opportunity_type');
+		return view("oppor.approval", compact('build', 'sell', 'buy', 'industry', 'businessType'));
+
+	}
+
+	public function approved(Request $request) {
+		$user_id = Auth::id();
+		if (User::securePage($user_id) != 5) {
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+		if ($request->isMethod('post')) {
+			$opporId = $request->input('opporId');
+			$opporType = $request->input('opporType');
+
+			if($opporType == 'build')
+				$result = OpportunityBuildingCapability::find($opporId);
+			if($opporType == 'sell')
+				$result = OpportunitySellOffer::find($opporId);
+			if($opporType == 'buy')
+				$result = OpportunityBuy::find($opporId);
+
+				$result->is_verify = 1;
+				$result->save();
+
+		}
+		// if (isset($request['id']) || isset($request['type']) ) {
+		// 	$oppor_id = $request['id'];
+		// 	$oppor_type = $request['type'];
+		// }else{
+		// 	return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		// }
+
+		// $build = OpportunityBuildingCapability::where('is_verify', 1)->where('status', 1)->get();
+		// $sell = OpportunitySellOffer::where('is_verify', 1)->where('status', 1)->get();
+		// $buy = OpportunityBuy::where('is_verify', 1)->where('status', 1)->get();
+		// $industry = Configurations::getJsonValue('industry_type');
+		// $businessType = Configurations::getJsonValue('business_opportunity_type');
+		// return view("oppor.approval", compact('build', 'sell', 'buy', 'industry', 'businessType'));
+
+	}
+
+
+	public function editApprovalBuild(Request $request) {
+		$user_id = Auth::id();
+		if (User::securePage($user_id) != 5) {
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+		if (isset($request['id'])) {
+
+			$data = OpportunityBuildingCapability::find($request['id']);
+
+			if ($data != NULL) {
+
+				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::all(); 
+
+				$approx_large_list = Configurations::getJsonValue('approx_large');
+
+				//$company_id = CompanyProfile::getCompanyId(Auth::id());
+
+				return view("oppor.approvalbuild", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+
+			}
+
+		}else{
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+
+	}
+
+	public function editApprovalSellOffer(Request $request) {
+		$user_id = Auth::id();
+		if (User::securePage($user_id) != 5) {
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+		if (isset($request['id'])) {
+
+			$data = OpportunitySellOffer::find($request['id']);
+
+			if ($data != NULL) {
+
+				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::all(); 
+
+				$approx_large_list = Configurations::getJsonValue('approx_large');
+
+				//$company_id = CompanyProfile::getCompanyId(Auth::id());
+
+				return view("oppor.approvalselloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+
+			}
+
+		}else{
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+
+	}
+
+	public function editApprovalBuy(Request $request) {
+		$user_id = Auth::id();
+		if (User::securePage($user_id) != 5) {
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+		if (isset($request['id'])) {
+
+			$data = OpportunityBuy::find($request['id']);
+
+			if ($data != NULL) {
+
+				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::all(); 
+
+				$approx_large_list = Configurations::getJsonValue('approx_large');
+
+				//$company_id = CompanyProfile::getCompanyId(Auth::id());
+
+				return view("oppor.approvalbuy", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+
+			}
+
+		}else{
+			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		}
+
+	}
+
+
+}#end class
