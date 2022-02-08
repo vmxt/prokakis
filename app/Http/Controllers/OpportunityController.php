@@ -1681,18 +1681,24 @@ public static function validateAccLimits($company_id){
 	}
 
 #for approval pending opprtunities
-	public function approval() {
+	public function approval(Request $request, $status = 'pending') {
 		$user_id = Auth::id();
 		if (User::securePage($user_id) != 5) {
 			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
 		}
 
-		$build = OpportunityBuildingCapability::where('is_verify', 0)->where('status', 1)->get();
-		$sell = OpportunitySellOffer::where('is_verify', 0)->where('status', 1)->get();
-		$buy = OpportunityBuy::where('is_verify', 0)->where('status', 1)->get();
+		if(isset($request['status']) and $request['status'] == 'approved'){
+			$isverify = 1;
+		}else{
+			$isverify = 0;
+		}
+
+		$build = OpportunityBuildingCapability::where('is_verify', $isverify)->where('status', 1)->get();
+		$sell = OpportunitySellOffer::where('is_verify', $isverify)->where('status', 1)->get();
+		$buy = OpportunityBuy::where('is_verify', $isverify)->where('status', 1)->get();
 		$industry = Configurations::getJsonValue('industry_type');
 		$businessType = Configurations::getJsonValue('business_opportunity_type');
-		return view("oppor.approval", compact('build', 'sell', 'buy', 'industry', 'businessType'));
+		return view("oppor.approval", compact('build', 'sell', 'buy', 'industry', 'businessType', 'status'));
 
 	}
 

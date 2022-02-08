@@ -88,7 +88,7 @@
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-bulb font-blue"></i>
-                                <span class="caption-subject font-blue sbold uppercase">List of pending opportunities</span>
+                                <span class="caption-subject font-blue sbold uppercase">List of {{ $status }} opportunities</span>
                             </div>
 
                         </div>

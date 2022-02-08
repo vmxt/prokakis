@@ -1418,7 +1418,11 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
                                                     Pending Opportunities</a>
-                                               </li>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
+                                                    Approved Opportunities</a>
+                                                </li>
                                             </ul>
                                         </li>
 
