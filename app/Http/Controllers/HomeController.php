@@ -740,7 +740,11 @@ public function index() {
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
+    function accounts(){
+    	$result = User::all();
+		return view('home.accounts', compact('result'));
 
+    }
 
 }
 

@@ -19,7 +19,7 @@ class ThomsonAuditTrail extends Model
      * @var array
      */
     protected $fillable = [
-          'data_uid',  'requestor_id', 'actions', 'info', 'creted_at', 'updated_at'
+          'data_uid',  'requestor_id', 'actions', 'info', 'created_at', 'updated_at', 'id'
     ];
 
     /**

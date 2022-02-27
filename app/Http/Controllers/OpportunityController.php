@@ -56,9 +56,9 @@ class OpportunityController extends Controller {
 
 
 	public function details() {
-		if (User::securePage(Auth::id()) != 5) {
-			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
-		}
+		// if (User::securePage(Auth::id()) != 5) {
+		// 	return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		// }
 		$build = OpportunityBuildingCapability::getListBuildOpportunity();
 		$sell = OpportunitySellOffer::getListSellOpportunity()->merge($build);
 		$buy = OpportunityBuy::getListBuyOpportunity()->merge($sell);
@@ -1683,9 +1683,9 @@ public static function validateAccLimits($company_id){
 #for approval pending opprtunities
 	public function approval(Request $request, $status = 'pending') {
 		$user_id = Auth::id();
-		if (User::securePage($user_id) != 5) {
-			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
-		}
+		// if (User::securePage($user_id) != 5) {
+		// 	return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		// }
 
 		if(isset($request['status']) and $request['status'] == 'approved'){
 			$isverify = 1;
@@ -1704,9 +1704,9 @@ public static function validateAccLimits($company_id){
 
 	public function approved(Request $request) {
 		$user_id = Auth::id();
-		if (User::securePage($user_id) != 5) {
-			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
-		}
+		// if (User::securePage($user_id) != 5) {
+		// 	return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		// }
 		if ($request->isMethod('post')) {
 			$opporId = $request->input('opporId');
 			$opporType = $request->input('opporType');
@@ -1718,7 +1718,12 @@ public static function validateAccLimits($company_id){
 			if($opporType == 'buy')
 				$result = OpportunityBuy::find($opporId);
 
+			if($request->input('is_verify') == 1){
 				$result->is_verify = 1;
+			}else{
+				$result->is_verify = 0;
+			}
+
 				$result->save();
 
 		}
@@ -1741,9 +1746,9 @@ public static function validateAccLimits($company_id){
 
 	public function editApprovalBuild(Request $request) {
 		$user_id = Auth::id();
-		if (User::securePage($user_id) != 5) {
-			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
-		}
+		// if (User::securePage($user_id) != 5) {
+		// 	return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		// }
 		if (isset($request['id'])) {
 
 			$data = OpportunityBuildingCapability::find($request['id']);
@@ -1769,9 +1774,9 @@ public static function validateAccLimits($company_id){
 
 	public function editApprovalSellOffer(Request $request) {
 		$user_id = Auth::id();
-		if (User::securePage($user_id) != 5) {
-			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
-		}
+		// if (User::securePage($user_id) != 5) {
+		// 	return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		// }
 		if (isset($request['id'])) {
 
 			$data = OpportunitySellOffer::find($request['id']);
@@ -1797,9 +1802,9 @@ public static function validateAccLimits($company_id){
 
 	public function editApprovalBuy(Request $request) {
 		$user_id = Auth::id();
-		if (User::securePage($user_id) != 5) {
-			return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
-		}
+		// if (User::securePage($user_id) != 5) {
+		// 	return redirect('home')->with('message', 'You are restricted to open this "Settings" page, only for the administrator.');
+		// }
 		if (isset($request['id'])) {
 
 			$data = OpportunityBuy::find($request['id']);

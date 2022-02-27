@@ -19,6 +19,7 @@ Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D
 Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsubscribeMe');
 Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken');
 Route::get('/worldData', 'Test2Controller@getWorldData')->name('updateWorldData');
+Route::get('/testmail', 'Test2Controller@testMailSending')->name('testMail');
 
 Route::get('/genReportAll/{rpId}', 'BuyreportController@downloadAll')->name('reportAllDownload');
 Route::get('/genReportAml/{rpId}', 'BuyreportController@repAml')->name('reportAML');
@@ -144,6 +145,7 @@ Route::get('/redeem-accpay-preview/{requestId}', 'GamificationController@apPrint
 
 //staff
 Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');
+Route::get('/thomson/history', 'ThomsonController@history')->name('thomsonHistory');
 Route::post('/thomson', 'ThomsonController@searchFound')->name('thomsonSearchFound');
 Route::post('/thomsonCompanySearch', 'ThomsonController@searchFoundCompany')->name('searchFoundCompany');
 
@@ -156,12 +158,15 @@ Route::post('/tr-deleting', 'ThomsonController@trDelete')->name('trDeleting');
 Route::get('/thomson-pdfprint/{ids}', 'ThomsonController@pdfPrintDownload')->name('downloadPdf');
 Route::get('/thomson-pdfcaseprint/{ids}', 'ThomsonController@pdfcasePrintDownload')->name('downloadPdf');
 
+Route::get('/refinitive/history/{ids}', 'ThomsonController@refinitiveHistory')->name('refinitiveHistory');
+
 //dashboard
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('/homeSubConsul', 'HomeController@subConsultant')->name('homeSubConsultant');
 Route::get('/homeMasterConsul', 'HomeController@masterConsultant')->name('homeMasterConsultant');
 Route::get('/homeStaff', 'HomeController@ebosStaff')->name('ebosStaff');
+Route::get('/accounts', 'HomeController@accounts')->name('accounts');#get all accounts
 Route::get('/homeAdmin', 'HomeController@adminDashboard')->name('adminDashboard');
 Route::post('/home/companyAdd', 'HomeController@addCompany')->name('homeAddCompany');
 Route::post('/home/companySelect', 'HomeController@selectCompany')->name('homeSelectCompany');

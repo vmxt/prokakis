@@ -1189,12 +1189,12 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <span class="arrow"></span>
                                                 </a>
 
-                                               <!-- <ul class="dropdown-menu pull-left">
+                                                 <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                                <a href="{{ url('/businessnews') }}" class="nav-link  ">
-                                                                    <i class="icon-bulb"></i> Opportunities and News</a>
-                                                            </li>
-                                                </ul> -->
+                                                        <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="icon-pin"></i> View All Accounts </a>
+                                                    </li>
+                                                </ul>
+
                                             </li>
 
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
@@ -1245,6 +1245,26 @@ s0.parentNode.insertBefore(s1,s0);
 
                                             </li>
 
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="{{ url('/opportunity/explore') }}">
+                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                              <li aria-haspopup="true" class=" ">
+                                                <a href="{{url('/opportunity/details')}}" class="nav-link  ">
+                                                    Opportunity Details</a>
+                                               </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
+                                                    Pending Opportunities</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
+                                                    Approved Opportunities</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        
 
                                         <?php }elseif($userType == 3){ ?>
 
@@ -1254,13 +1274,11 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <i class="icon-grid"></i> Dashboard
                                                         <span class="arrow"></span>
                                                     </a>
-                                                 <!--   <ul class="dropdown-menu pull-left">
-
-                                                            <li aria-haspopup="true" class=" ">
-                                                                    <a href="{{ url('/businessnews') }}" class="nav-link  ">
-                                                                    <i class="icon-bulb"></i> Opportunities and News</a>
-                                                            </li>
-                                                    </ul> -->
+                                                    <ul class="dropdown-menu pull-left">
+                                                        <li aria-haspopup="true" class=" ">
+                                                            <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="icon-pin"></i> View All Accounts </a>
+                                                        </li>
+                                                    </ul>
                                                 </li>
 
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
@@ -1281,13 +1299,24 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 </li>
 
-                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
-
-                                                        <a href="{{ url('/opportunity') }}" >
-                                                            <i class="icon-folder" style="color: white"></i> Job Orders
-                                                            <span class="arrow"></span>
+                                                <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                                        <a href="{{ url('/opportunity/explore') }}">
+                                                            <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
                                                         </a>
-
+                                                        <ul class="dropdown-menu pull-left">
+                                                          <li aria-haspopup="true" class=" ">
+                                                            <a href="{{url('/opportunity/details')}}" class="nav-link  ">
+                                                                Opportunity Details</a>
+                                                           </li>
+                                                            <li aria-haspopup="true" class=" ">
+                                                                <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
+                                                                Pending Opportunities</a>
+                                                            </li>
+                                                            <li aria-haspopup="true" class=" ">
+                                                                <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
+                                                                Approved Opportunities</a>
+                                                            </li>
+                                                        </ul>
                                                     </li>
 
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
@@ -1328,7 +1357,12 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                         <li aria-haspopup="true" class=" ">
                                                                 <a href="{{ url('/thomson') }}" class="nav-link  ">
-                                                                <i class="icon-bulb" style="color: white"></i> Thomson Reuters </a>
+                                                                <i class="icon-bulb" style="color: white"></i> Refinitive Reuters </a>
+                                                        </li>
+
+                                                        <li aria-haspopup="true" class=" ">
+                                                                <a href="{{ url('/thomson/history') }}" class="nav-link  ">
+                                                                <i class="icon-bulb" style="color: white"></i> Refinitive History </a>
                                                         </li>
 
                                                         <li aria-haspopup="true" class="">
@@ -1339,6 +1373,25 @@ s0.parentNode.insertBefore(s1,s0);
                                                 </ul>
                                             </li>
 
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="{{ url('/opportunity/explore') }}">
+                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                              <li aria-haspopup="true" class=" ">
+                                                <a href="{{url('/opportunity/details')}}" class="nav-link  ">
+                                                    Opportunity Details</a>
+                                               </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
+                                                    Pending Opportunities</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
+                                                    Approved Opportunities</a>
+                                                </li>
+                                            </ul>
+                                        </li>
 
 
                                        <?php } elseif($userType == 5){  ?>

@@ -1661,8 +1661,19 @@ input::-moz-focus-inner {
                                        
                                 <input id="saveButtonBuilding" type="submit" class="btn btn-info" value="Update"/>
 
-                                <a style="margin-right:20px;" onclick="approvedOpportunity()" class="btn btn-success">Approved</a>
+<?php 
+if($data->is_verify){
+    $actionBtnLbl = 'Pending';
+    $change_verify = 0;
+    $btnState = 'warning';
+}else{
+    $actionBtnLbl = 'Approved';
+    $change_verify = 1;
+    $btnState = 'success';
+}
+?>
 
+                                <a style="margin-right:20px;" onclick="approvedOpportunity('{{ $change_verify }}')" class="btn btn-{{ $btnState }}">{{ $actionBtnLbl }}</a>
 
                             </div>
 
@@ -1820,12 +1831,18 @@ input::-moz-focus-inner {
             }
         }
 
-        function approvedOpportunity(){
+        function approvedOpportunity(is_verify = 0){
             var oppor_id = $('#oppor_id').val();
             formData = new FormData();
             formData.append("opporId", oppor_id);
-            formData.append("opporType", 'buy');
-       
+            formData.append("opporType", 'build');
+            formData.append("is_verify", is_verify);
+            
+            if(is_verify == 1){
+                var status = 'Approve';
+            }else{
+                var status = 'Disapprove';
+            }
             $.ajax({
                 url: "{{ route('opportunityApproved') }}",
                 type: "POST",
@@ -1836,8 +1853,8 @@ input::-moz-focus-inner {
                 cache: false,
                 success: function (data) {
                     swal({
-                        title: 'Approved Opportunity',
-                        text: 'Successfully Approved This Opportunity!',
+                        title: status+' Opportunity',
+                        text: 'Successfully '+ status +' This Opportunity!',
                         icon: 'success'
                       }).then(function() {
                             window.location.href = "{{ url('/opportunity/approval/pending') }}";

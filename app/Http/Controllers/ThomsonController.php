@@ -57,20 +57,35 @@ class ThomsonController extends Controller {
 		}
 	}
 
-public function searchFound(Request $request){
+	public function history()
+	{
+		if(User::getEBossStaffTrue(Auth::id()) == true)
+        {	
+	     $trail = ThomsonAuditTrail::orderBy('created_at','DESC')->get();
+   		 return view('staff.audittrail', compact('trail'));
+		}
+	}
 
-		if ($request->isMethod('post')) {
+	public function refinitiveHistory(Request $request){
+		if(!isset($request['ids'])){
+			abort(403, 'Unauthorized action.');
+		}
+		$ids = $request['ids'];
+		$result = ThomsonAuditTrail::find($ids);
+		$info = unserialize($result->info);
+		$request->merge(['first_name'=> isset($info['first_name'])?$info['first_name']:null ]);
+		$request->merge(['last_name'=> isset($info['last_name'])?$info['last_name']:null ]);
+		$request->merge(['nationality'=> isset($info['nationality'])?$info['nationality']:null ]);
+		$request->merge(['passport'=> isset($info['passport'])?$info['passport']:null ]);
+		$request->merge(['country_location'=> isset($info['country_location'])?$info['country_location']:null ]);
+		$request->merge(['company_name'=> isset($info['company_name'])?$info['company_name']:null ]);
+		$request->merge(['gender'=> isset($info['gender'])?$info['gender']:null ]);
+		$request->merge(['dob'=> isset($info['dob'])?$info['dob']:null ]);
+		$request->merge(['alias'=> isset($info['alias'])?$info['alias']:null ]);
+		return $this->RequestThomsonSearch($request);
+	}
 
-			// $validatedData = $request->validate([
-			// 	'gender' => 'required',
-			// 	'country_location' => 'required',
-			// 	'dob' => 'date|date_format:Y-m-d|nullable',
-			// 	],[
-			// 	'dob.date' => 'Date of birth is not a valid date.',
-			// 	'dob.date_format' => 'Date of birth should be in this format yyyy-mm-dd',
-			// 	]);	
-// dd(session('country_list') );
-
+public function RequestThomsonSearch($request){
 			$fn = $request->input('first_name');
 			$ln = $request->input('last_name');
 			$n = $request->input('nationality');
@@ -166,7 +181,12 @@ public function searchFound(Request $request){
 			// dd($rs);
 			return view('staff.search', compact('rs', 'country_list', 'citenzenship_list', 'sumRec', 'search', 'rr', 'input'));
 			
+}
 
+public function searchFound(Request $request){
+
+		if ($request->isMethod('post')) {
+			$this->RequestThomsonSearch($request);
 		}
 	}
 
