@@ -186,7 +186,7 @@ public function RequestThomsonSearch($request){
 public function searchFound(Request $request){
 
 		if ($request->isMethod('post')) {
-			$this->RequestThomsonSearch($request);
+			return $this->RequestThomsonSearch($request);
 		}
 	}
 

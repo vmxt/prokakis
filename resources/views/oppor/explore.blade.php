@@ -106,17 +106,18 @@
 ?>
 
         <div class="row">
+            
+
     <!-- START SELL OPPORTUNITY -->
             <div class="hr-sect opp_type" >Sell Opportunity</div>
                 <div class='blog-posts' id='sell-sect'>
                 <?php       
                     $i = 1;
                     foreach ($sell as $item): 
-                        $item->company_id = $item->company_id != "" ? $item->company_id: $company_id;
                             $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                             $company = App\CompanyProfile::find($item->company_id);
-                            $provider_id = $company->id;
-                    if ( $company->count() > 0 && $d_status == true):
+                    if ( isset($company->id) && $d_status == true):
+                        $provider_id = $company->id;
                         $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
                             ->orderBy('id', 'desc')
                             ->first();
@@ -176,9 +177,6 @@
                         $iconName = 'fa-user-plus';
                         $iconTitle = "Follow this company";
                     }
-                     if($item->company_id == $company_id){
-                         $iconName = '';
-                     }
                 ?>
                     <div class='follow-cont' dataVal="{{ $company->id }}">
                         <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
@@ -257,11 +255,9 @@
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
                     </div>
-                    @if($item->company_id != $company_id)
                     <div class="learn_more" style="float: right" >
                            <button onclick="showModalContent('sell','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
                     </div>
-                    @endif;
                     <div class="bottom-space" >
                         &nbsp;
                     </div>
@@ -577,12 +573,12 @@
                 <?php       
                     $i = 1;
                     foreach ($buy as $item): 
-                        $item->company_id = $item->company_id != "" ? $item->company_id: $company_id;
                             $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                             $company = App\CompanyProfile::find($item->company_id);
-                            $provider_id = $company->id;
+                           
                             
-                    if ( $company->count() > 0 && $d_status == true):
+                    if ( isset($company->id) && $d_status == true):
+                         $provider_id = $company->id;
                         $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
                             ->orderBy('id', 'desc')
                             ->first();
@@ -643,9 +639,6 @@
                         $iconName = 'fa-user-plus';
                         $iconTitle = "Follow this company";
                     }
-                    if($item->company_id == $company_id){
-                         $iconName = '';
-                     }
                 ?>
                     <div class='follow-cont' dataVal="{{ $company->id }}">
                         <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
@@ -725,11 +718,9 @@
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
                     </div>
-                     @if($item->company_id != $company_id)
                     <div class="learn_more" style="float: right" >
                            <button onclick="showModalContent('buy','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
                     </div>
-                    @endif
                     <div class="bottom-space" >
                         &nbsp;
                     </div>
@@ -1044,12 +1035,12 @@
                     $i = 1;
                     $buildCount = 0;
                     foreach ($build as $item): 
-                        $item->company_id = $item->company_id != "" ? $item->company_id: $company_id;
                             $opportunity_type = 'build';
                             $d_status = App\CompanyProfile::getDeactivateInfo($item->company_id);
                             $company = App\CompanyProfile::find($item->company_id);
-                            $provider_id = $company->id;
-                    if ( $company->count() > 0 && $d_status == true):
+                           
+                    if ( isset($company->id) && $d_status == true):
+                         $provider_id = $company->id;
                         $avatar = \App\UploadImages::where('company_id', $item->company_id)->where('file_category', 'PROFILE_AVATAR')
                             ->orderBy('id', 'desc')
                             ->first();
@@ -1109,9 +1100,6 @@
                         $iconName = 'fa-user-plus';
                         $iconTitle = "Follow this company";
                     }
-                     if($item->company_id == $company_id){
-                         $iconName = '';
-                     }
                 ?>
                     <div class='follow-cont' dataVal="{{ $company->id }}">
                         <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
@@ -1191,11 +1179,9 @@
                             <h3> {{ $ratingScore }}% </h3>
                         </div>
                     </div>
-                     @if($item->company_id != $company_id)
                     <div class="learn_more" style="float: right" >
                            <button onclick="showModalContent('build','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
                     </div>
-                    @endif
                     <div class="bottom-space" >
                         &nbsp;
                     </div>
@@ -1571,7 +1557,7 @@
         <?php 
         $d_status = App\CompanyProfile::getDeactivateInfo($result_filter->company_id);
         $company = App\CompanyProfile::find($result_filter->company_id);
-        if ( $company->count() > 0 && $d_status == true) {
+        if ( isset($company->id) && $d_status == true) {
             $avatar = \App\UploadImages::where('company_id', $result_filter->company_id)->where('file_category', 'PROFILE_AVATAR')
             ->orderBy('id', 'desc')
             ->first();
@@ -2618,7 +2604,7 @@ function chatload(){
                     if(data.text[i].action != 1){
                       $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='https://app-prokakis.com/public/images/me.png'  /></div>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
@@ -2675,7 +2661,7 @@ function updateChat(){
                     if(data.text[i].action != 1){
                       $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='https://app-prokakis.com/public/images/me.png'  /></div>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>"+data.text[i].sender+data.text[i].action+ "</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='http://placehold.it/50/FA6F57/fff&text=ME'  /></div>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;

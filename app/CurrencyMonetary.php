@@ -38,8 +38,14 @@ class CurrencyMonetary extends Model
 
         $acc = CurrencyAccounts::where('user_id',Auth::id())->first();
         $curr_from = CurrencyMonetary::where('id',$currencyNow)->first();
-        $curr_to = CurrencyMonetary::where('id',$acc->currency_id)->first();
-        $rate = (double)$amount * (double)$curr_to->c_rate;
+        $rate = (double)$amount;
+        $ccode = "";
+        if(isset($acc->currency_id)){
+            $curr_to = CurrencyMonetary::where('id',$acc->currency_id)->first();
+            $rate = (double)$amount * (double)$curr_to->c_rate;
+            $ccode = $curr_to->c_cod;
+        }
+
         if(strpos($curr_from['c_name'],'100')){
             $res = $curr_from['c_rate'] * .01;
         }else{
@@ -50,6 +56,6 @@ class CurrencyMonetary extends Model
         }else{
             $out = $rate ;
         }
-        return number_format((float)$out, 2, '.', ',')." ".$curr_to->c_code;
+        return number_format((float)$out, 2, '.', ',')." ".$ccode;
     }
 }
