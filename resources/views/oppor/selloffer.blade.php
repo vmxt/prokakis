@@ -851,7 +851,7 @@ input::-moz-focus-inner {
 
                                         <label for="approx_large"><b>What is the asking price of this Opportunity</b> <em>(USD)</em></label>
                                         
-                                        <input type="text"   class="form-control input-text-form" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)?$data->approx_large:''; ?>" >
+                                        <input type="text"   class="form-control input-text-form numberinput" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)?number_format((int)$data->approx_large):''; ?>" >
 
                                     </div>
 
@@ -867,7 +867,7 @@ input::-moz-focus-inner {
 
                                         <label for="est_revenue"><b>What is the estimated revenue per year? </b><em>(USD)</em> </label>
 
-                                        <input type="text"   class="form-control input-text-form" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?$data->est_revenue:''; ?>" >
+                                        <input type="text"   class="form-control input-text-form numberinput" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?number_format((int)$data->est_revenue):''; ?>" >
 
 
                                     </div>
@@ -884,7 +884,7 @@ input::-moz-focus-inner {
 
                                         <label for="est_profit"><b>What is the estimated profit per year? </b><em>(USD)</em> </label>
 
-                                        <input type="text"  class="form-control input-text-form" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?$data->est_profit:'' ?>" >
+                                        <input type="text"  class="form-control input-text-form numberinput" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?number_format((int)$data->est_profit):'' ?>" >
 
                                     </div>
 
@@ -900,7 +900,7 @@ input::-moz-focus-inner {
 
                                         <label for="inventory_value"><b>What is the inventory value? </b><em>(USD)</em> </label>
 
-                                        <input required="required"  type="text" class="form-control input-text-form" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '' ?>" >
+                                        <input required="required"  type="text" class="form-control input-text-form numberinput" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? number_format((int)$data->inventory_value) : '' ?>" >
 
                                     </div>
 
@@ -2380,6 +2380,18 @@ function set_ideal_partner(e){
     }
 }
 
+      $(".numberinput").change(function() { 
+            var value = $(this).val();
+            var format = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $(this).val(format);
+        }); 
+
+        $('.numberinput').keypress(function (e) {    
+            var charCode = (e.which) ? e.which : event.keyCode    
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))    
+                return false;                        
+        }); 
+        
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
     <script src="{{ asset('public/bootstrap-toggle/bootstrap-toggle.js') }}"></script>

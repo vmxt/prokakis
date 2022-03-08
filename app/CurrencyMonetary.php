@@ -43,7 +43,7 @@ class CurrencyMonetary extends Model
         if(isset($acc->currency_id)){
             $curr_to = CurrencyMonetary::where('id',$acc->currency_id)->first();
             $rate = (double)$amount * (double)$curr_to->c_rate;
-            $ccode = $curr_to->c_cod;
+            $ccode = $curr_to->c_code;
         }
 
         if(strpos($curr_from['c_name'],'100')){

@@ -137,20 +137,22 @@ class CompanyProfile extends Model {
 
 		if ( $rs = CompanyProfile::find($companyId) ) {
 
-			$usr = User::find($rs->user_id);
+			if(isset($rs->user_id)){
+				
 
-			if ( $usr->count() > 0) {
+				if (  $usr = User::find($rs->user_id) ) {
 
-				if ((int) $usr->status == 0) {
+					if ((int) $usr->status == 0) {
 
-					return false;
+						return false;
 
-				} else {
+					} else {
 
-					return true;
+						return true;
+
+					}
 
 				}
-
 			}
 
 		}

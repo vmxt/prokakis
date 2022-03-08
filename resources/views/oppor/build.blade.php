@@ -843,7 +843,7 @@ input::-moz-focus-inner {
                                     <div class="form-group">
 
                                         <label for="approx_large"><b>What is the asking price of this Investment? </b> <em class="setCur">{{ $curText }}</em></label>
-                                        <input type="text"   class="form-control input-text-form" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)?$data->approx_large:''; ?>" >
+                                        <input type="text"   class="form-control input-text-form numberinput" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)?number_format($data->approx_large):''; ?>" >
                                     </div>
 
                                 </div>
@@ -858,7 +858,7 @@ input::-moz-focus-inner {
 
                                         <label for="est_revenue"><b>What is the estimated revenue per year? </b> <em class="setCur">{{ $curText }}</em></label>
 
-                                        <input type="text"   class="form-control input-text-form" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?$data->est_revenue:''; ?>" >
+                                        <input type="text"   class="form-control input-text-form numberinput" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?number_format($data->est_revenue):''; ?>" >
 
 
                                     </div>
@@ -875,7 +875,7 @@ input::-moz-focus-inner {
 
                                         <label for="est_profit"><b>What is the estimated profit per year? </b><em class="setCur">{{ $curText }}</em> </label>
 
-                                        <input type="text"  class="form-control input-text-form" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?$data->est_profit:'' ?>" >
+                                        <input type="text"  class="form-control input-text-form numberinput" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?number_format($data->est_profit):'' ?>" >
 
                                     </div>
 
@@ -891,7 +891,7 @@ input::-moz-focus-inner {
 
                                         <label for="inventory_value"><b>What is the inventory value? </b><em class="setCur">{{ $curText }}</em> </label>
 
-                                        <input required="required"  type="text" class="form-control input-text-form" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '' ?>" >
+                                        <input required="required"  type="text" class="form-control input-text-form numberinput" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? number_format($data->inventory_value) : '' ?>" >
 
                                     </div>
 
@@ -2653,6 +2653,19 @@ if( $('#is_tour').val() == 1 ){
                 $(".jumbotron").remove();
             });
         });
+
+
+      $(".numberinput").change(function() { 
+            var value = $(this).val();
+            var format = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            $(this).val(format);
+        }); 
+
+        $('.numberinput').keypress(function (e) {    
+            var charCode = (e.which) ? e.which : event.keyCode    
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))    
+                return false;                        
+        }); 
 
 function currencyCodeUpdate(val)
 {
