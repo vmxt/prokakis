@@ -137,10 +137,10 @@ class WeeklyTopOpportunities extends Command
             
             Mailbox::sendMail_weeklyOpp( $ret, 'darylyrad.cabz@gmail.com',  "Weekly Top Opportunity", ""); 
             Mailbox::sendMail_weeklyOpp( $ret, 'knlgfx@gmail.com',  "Weekly Top Opportunity", "");
-            Mailbox::sendMail_weeklyOpp( $ret, 'elisha@ebos-sg.com',  "Weekly Top Opportunity", "");
-            Mailbox::sendMail_weeklyOpp( $ret, 'sales@ebos-sg.com',  "Weekly Top Opportunity", "");
-            Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@gmail.com',  "Weekly Top Opportunity", "");
-            Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@mailinator.com',  "Weekly Top Opportunity", "");
+            // Mailbox::sendMail_weeklyOpp( $ret, 'elisha@ebos-sg.com',  "Weekly Top Opportunity", "");
+            // Mailbox::sendMail_weeklyOpp( $ret, 'sales@ebos-sg.com',  "Weekly Top Opportunity", "");
+            // Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@gmail.com',  "Weekly Top Opportunity", "");
+            // Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@mailinator.com',  "Weekly Top Opportunity", "");
         //code here
         //gather all 
       // $as =  ProcessedReport::activeSubscriptionsCompanyName();

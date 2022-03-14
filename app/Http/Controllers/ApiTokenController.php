@@ -203,7 +203,7 @@ class ApiTokenController extends Controller
 
                      $ind =  OppIndustry::find($d->industry);
 
-                     $imgSrc = 'https://app-prokakis.com/public/images/industry/'.$ind->image;
+                     $imgSrc = 'https://app.intellinz.com/public/images/industry/'.$ind->image;
 
                      $ret[] = array('business_description'=>$d->intro_describe_business, 
                      'country'=>$d->ideal_partner_base, 
@@ -343,7 +343,7 @@ class ApiTokenController extends Controller
 
 		     $ttitle = substr($d->opp_title, 0, 33).'..';	
                      $ind =  OppIndustry::find($d->industry);
-                     $imgSrc = 'https://app-prokakis.com/public/images/industry/'.$ind->image;
+                     $imgSrc = 'https://app.intellinz.com/public/images/industry/'.$ind->image;
                      $ret[] = array('business_description'=>$d->intro_describe_business, 
                      'country'=>$c_country, 
                      'keyword'=>$hashKey ,
@@ -378,7 +378,7 @@ class ApiTokenController extends Controller
       $ret = null;
     
       foreach($result as $d){
-        $url = "https://app-prokakis.com/public/images/".UploadImages::getFileNames($d->user_id, $d->company_id, Config::get('constants.options.profile'), 1);
+        $url = "https://app.intellinz.com/public/images/".UploadImages::getFileNames($d->user_id, $d->company_id, Config::get('constants.options.profile'), 1);
         $c = Countries::where('country_code', $d->primary_country)->first();
         $country = ($c != null)? $c->country_name : '';
         $ret[] = array('img'=>$url,

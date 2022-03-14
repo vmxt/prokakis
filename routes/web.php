@@ -225,6 +225,12 @@ Route::get('/opportunity/editApprovalSellOffer/{id}', 'OpportunityController@edi
 Route::get('/opportunity/editApprovalBuy/{id}', 'OpportunityController@editApprovalBuy')->name('opportunityEditApprovalBuy');
 Route::post('/opportunity/approved', 'OpportunityController@approved')->name('opportunityApproved');
 
+//business news
+Route::get('/businessnews/approval/{status}', 'BusinessOpportunityNewsController@approval')->name('businessNewsApproval');
+Route::get('/businessnews/editApprovalNews/{id}', 'BusinessOpportunityNewsController@editApprovalNews')->name('BusinessNewsEditApproval');
+Route::post('/businessnews/approved', 'BusinessOpportunityNewsController@approved')->name('businessNewsApproved');
+
+
 //opportunities
 Route::get('/opportunity', 'OpportunityController@index')->name('opportunityIndex');
 

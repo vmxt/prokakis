@@ -1265,6 +1265,21 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
                                         </li>
                                         
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="#">
+                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/pending')}}" class="nav-link  ">
+                                                    Pending Business News</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/approved')}}" class="nav-link  ">
+                                                    Approved Business News</a>
+                                                </li>
+                                            </ul>
+                                        </li>
 
                                         <?php }elseif($userType == 3){ ?>
 
@@ -1318,6 +1333,22 @@ s0.parentNode.insertBefore(s1,s0);
                                                             </li>
                                                         </ul>
                                                     </li>
+
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="#">
+                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/pending')}}" class="nav-link  ">
+                                                    Pending Business News</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/approved')}}" class="nav-link  ">
+                                                    Approved Business News</a>
+                                                </li>
+                                            </ul>
+                                        </li>
 
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
@@ -1394,6 +1425,21 @@ s0.parentNode.insertBefore(s1,s0);
                                         </li>
 
 
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="#">
+                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/pending')}}" class="nav-link  ">
+                                                    Pending Business News</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/approved')}}" class="nav-link  ">
+                                                    Approved Business News</a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                        <?php } elseif($userType == 5){  ?>
 
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">

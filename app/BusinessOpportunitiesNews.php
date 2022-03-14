@@ -16,7 +16,7 @@ class BusinessOpportunitiesNews extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'company_id', 'content_business', 'business_title', 'created_at', 'updated_at', 'status' , 'feature_image'
+        'user_id', 'company_id', 'content_business', 'business_title', 'created_at', 'updated_at', 'status' , 'feature_image', 'is_verify'
     ];
 
     /**

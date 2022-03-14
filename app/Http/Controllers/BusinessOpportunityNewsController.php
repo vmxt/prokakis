@@ -321,7 +321,34 @@ class BusinessOpportunityNewsController extends Controller {
 
 			return view('businessnews.list', compact('rs'));
 
-
 	}
 
-}
+#for approval pending business news
+	public function approval(Request $request, $status = 'pending') {
+		$user_id = Auth::id();
+
+		if(isset($request['status']) and $request['status'] == 'approved'){
+			$isverify = 1;
+		}else{
+			$isverify = 0;
+		}
+
+		$news = BusinessOpportunitiesNews::where('is_verify', $isverify)->where('status', 1)->get();
+		return view("businessnews.approval", compact('news', 'status'));
+
+	}
+	public function approved(Request $request) {
+		$user_id = Auth::id();
+		if ($request->isMethod('post')) {
+			$newsid = $request->input('news_id');
+			$newsContent = $request->input('news_content');
+			$newsTitle = $request->input('news_title');
+			$result = BusinessOpportunitiesNews::find($newsid);
+			$result->is_verify = 1;
+			$result->business_title = $newsTitle;
+			$result->content_business = $newsContent;
+			$result->save();
+		}
+	}
+
+}#nd class

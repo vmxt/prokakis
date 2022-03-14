@@ -216,8 +216,10 @@
                             @endif
                         </ul>
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
-                        <p class='meta'> {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity. </p>
+                        <p class='meta'> {{ $item->timeframe_goal }} </p>
+                   
+
+
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -378,12 +380,24 @@
                 <span class="content-text">
                     <h4> 
                         {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity.
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Asking Price </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
                         
                     </h4>
                 </span>
                 <hr>
             </div>
+
 
             <div>
                 <span class="title-text">
@@ -679,8 +693,8 @@
                             @endif
                         </ul>
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
-                        <p class='meta'> {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity. </p>
+                        <p class='meta'> {{ $item->timeframe_goal }} </p>
+
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -841,9 +855,19 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity.
-                        
+                        {{ $item->timeframe_goal }} opportunity.
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div>
+                <span class="title-text">
+                    <h4><strong> Asking Price </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ $item->approx_large }}
                     </h4>
                 </span>
                 <hr>
@@ -1142,6 +1166,7 @@
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
                         <p class='meta'> {{ $item->timeframe_goal }}
                         {{ $item->approx_large }} opportunity. </p>
+
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -1301,9 +1326,19 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ $item->timeframe_goal }}
-                        {{ $item->approx_large }} opportunity.
-                        
+                        {{ $item->timeframe_goal }}                        
+                    </h4>
+                </span>
+                <hr>
+            </div>
+
+            <div id='asking_price_section_{{ $buildCount }}'>
+                <span class="title-text">
+                    <h4><strong> Asking Price </strong></h4>
+                </span>
+                <span class="content-text">
+                    <h4> 
+                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
                     </h4>
                 </span>
                 <hr>
@@ -1327,7 +1362,7 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->est_profit, $item->currency) }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->est_profit, $item->currency) }}  {{ $item->currency }}
                     </h4>
                 </span>
                 <hr>
@@ -1671,8 +1706,19 @@
             <span class="content-text">
                 <h4> 
                     {{ $result_filter->timeframe_goal }}
-                    {{ $result_filter->approx_large }} opportunity.
                     
+                </h4>
+            </span>
+            <hr>
+        </div>
+
+        <div>
+            <span class="title-text">
+                <h4><strong> Asking Price </strong></h4>
+            </span>
+            <span class="content-text">
+                <h4> 
+                    {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
                 </h4>
             </span>
             <hr>

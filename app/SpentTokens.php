@@ -75,7 +75,7 @@ class SpentTokens extends Model {
 		return true;
 
 	   } else { //consider the promotion period, upgrading to premium by 1 credit
-
+	   	
 			$c_promo = PromotionToken::where('company_id', $companyId)->where('remarks', 'UPGRADE-TO-PREMIUM')->count();
 			if($c_promo > 0 ){
 

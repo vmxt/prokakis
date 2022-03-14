@@ -57,6 +57,18 @@ class User extends Authenticatable {
 
 	}
 
+	public static function getFullnameUser($id) {
+
+		$usr = User::find($id);
+
+		if (count((array) $usr) > 0) {
+
+			return $usr->firstname. " ". $usr->lastname;
+
+		}
+
+	}
+
 	public static function validateAccountNavigations($id) {
 
 		$usr = User::find($id);
