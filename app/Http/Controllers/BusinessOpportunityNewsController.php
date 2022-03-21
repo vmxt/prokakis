@@ -329,11 +329,13 @@ class BusinessOpportunityNewsController extends Controller {
 
 		if(isset($request['status']) and $request['status'] == 'approved'){
 			$isverify = 1;
+		}elseif(isset($request['status']) and $request['status'] == 'rejected'){
+			$isverify = 2;
 		}else{
 			$isverify = 0;
 		}
 
-		$news = BusinessOpportunitiesNews::where('is_verify', $isverify)->where('status', 1)->get();
+		$news = BusinessOpportunitiesNews::where('is_verify', $isverify)->get();
 		return view("businessnews.approval", compact('news', 'status'));
 
 	}

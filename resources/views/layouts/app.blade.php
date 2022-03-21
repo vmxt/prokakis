@@ -1270,13 +1270,17 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
-                                               <!--  <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/businessnews/approval/pending')}}" class="nav-link  ">
                                                     Pending Business News</a>
-                                                </li> -->
+                                                </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/businessnews/approval/approved')}}" class="nav-link  ">
                                                     Approved Business News</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/rejected')}}" class="nav-link  ">
+                                                    Rejected Business News</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -1339,13 +1343,17 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
-                                             <!--    <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/businessnews/approval/pending')}}" class="nav-link  ">
                                                     Pending Business News</a>
-                                                </li> -->
+                                                </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/businessnews/approval/approved')}}" class="nav-link  ">
                                                     Approved Business News</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/rejected')}}" class="nav-link  ">
+                                                    Rejected Business News</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -1430,13 +1438,17 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
-                                             <!--    <li aria-haspopup="true" class=" ">
+                                                <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/businessnews/approval/pending')}}" class="nav-link  ">
                                                     Pending Business News</a>
-                                                </li> -->
+                                                </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/businessnews/approval/approved')}}" class="nav-link  ">
                                                     Approved Business News</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/rejected')}}" class="nav-link  ">
+                                                    Rejected Business News</a>
                                                 </li>
                                             </ul>
                                         </li>
