@@ -1795,7 +1795,7 @@ if($data->is_verify){
             var oppor_id = $('#oppor_id').val();
             formData = new FormData();
             formData.append("opporId", oppor_id);
-            formData.append("opporType", 'build');
+            formData.append("opporType", 'sell');
             formData.append("is_verify", is_verify);
             
             if(is_verify == 1){

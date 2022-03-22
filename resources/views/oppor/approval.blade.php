@@ -106,13 +106,13 @@
                                     </div>
                                 @endif
 
-                                <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
+                                <table id="system_data" class="display hover row-border stripe compact responsive" style="width:100%">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Title</th>
+                                        <th width="1%">#</th>
+                                        <th width="20%">Title</th>
+                                        <th>User</th>
                                         <th>Seeking</th>
-                                        <th>Expectations</th>
                                         <th>Category</th>
                                         <th>Action</th>
                                     </tr>
@@ -126,6 +126,7 @@
                                     <tr>
                                         <td><?php echo $counter; ?></td>
                                         <td><p> <?php echo $b->opp_title; ?></p></td>
+                                        <td><p> <?php echo App\CompanyProfile::find($b->company_id)->userdetail()->first()->email  ?></p></td>
                                         <td>
                                             <ul>
                                                 @if($b->business_goal)
@@ -139,7 +140,6 @@
                                                 @endif
                                             </ul>
                                         </td>
-                                        <td> <?php echo $b->timeframe_goal; ?> <br/></td>
                                        
 
                                         <td> Building Capability <br/>
@@ -172,6 +172,7 @@
                                     <tr>
                                         <td><?php echo $counter; ?></td>
                                         <td> <?php echo $s->opp_title; ?></td>
+                                        <td><p> <?php echo App\CompanyProfile::find($s->company_id)->userdetail()->first()->email  ?></p></td>
                                         <td>
                                             <ul>
                                                 @if($s->what_sell_offer)
@@ -185,7 +186,6 @@
                                                 @endif
                                             </ul>
                                         </td>
-                                        <td> <?php echo $s->timeframe_goal; ?> <br/></td>
                                       
 
                                         <td>Sell/Offer <br/>
@@ -216,6 +216,7 @@
                                     <tr>
                                         <td><?php echo $counter; ?></td>
                                         <td> <?php echo $bb->opp_title; ?></td>
+                                        <td><p> <?php echo App\CompanyProfile::find($bb->company_id)->userdetail()->first()->email  ?></p></td>
                                         <td>
                                             <ul>
                                                 @if($bb->what_sell_offer)
@@ -229,7 +230,6 @@
                                                 @endif
                                             </ul>
                                         </td>
-                                        <td> <?php echo $bb->timeframe_goal; ?> <br/></td>
                                         
 
                                         <td>Buy <br/>

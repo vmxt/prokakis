@@ -69,6 +69,24 @@ class User extends Authenticatable {
 
 	}
 
+	public static function getUserEmail($id) {
+
+		$usr = User::find($id);
+
+		if (count((array) $usr) > 0) {
+
+			return $usr->email;
+
+		}
+
+	}
+
+	public function companies()
+    {
+        return $this->hasMany('CompanyProfile');
+    }
+
+
 	public static function validateAccountNavigations($id) {
 
 		$usr = User::find($id);

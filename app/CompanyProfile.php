@@ -537,4 +537,24 @@ class CompanyProfile extends Model {
 
 	}
 
-}
+	public function buildOpportunities()
+    {
+        return $this->hasMany('OpportunityBuildingCapability');
+    }
+
+	public function buyOpportunities()
+    {
+        return $this->hasMany('OpportunityBuy');
+    }
+
+	public function sellOpportunities()
+    {
+        return $this->hasMany('OpportunitySellOffer');
+    }
+
+	public function userdetail()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+}#end class
