@@ -127,41 +127,58 @@
 
   <script src="{{ asset('public/vc/script.js') }}"></script>
 
+<script type="text/javascript">
+  var url  = window.location.href;
+      formData = new FormData();
 
+    formData.append("vc_url", url);
+              $.ajax({
+                url: "{{ route('getVideoChatDetails') }}",
+                type: "POST",
+                data: formData,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (data) {
+                  console.log(data);
+                }
+            });
+</script>
 
   <script>
 
   $(document).ready(function() {
 
-    var url  = window.location.href;
+    // var url  = window.location.href;
 
-    console.log("current url:  " + url);
+    // console.log("current url:  " + url);
 
 
 
-    formData = new FormData();
+    // formData = new FormData();
 
-    formData.append("vc_url", url);
+    // formData.append("vc_url", url);
 
   
 
-        $.ajax({
+    //     $.ajax({
 
-            url: "{{ route('getVideoChatDetails') }}",
+    //         url: "{{ route('getVideoChatDetails') }}",
 
-            type: "POST",
+    //         type: "POST",
 
-            data: formData,
+    //         data: formData,
 
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+    //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 
-            processData: false,
+    //         processData: false,
 
-            contentType: false,
+    //         contentType: false,
 
 
 
-        });
+    //     });
 
 
 

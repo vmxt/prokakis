@@ -202,7 +202,18 @@ class Rewards
     public function getTotalCredits()
     {
       $totalPoints = $this->setTotalCredits();
-      return ($totalPoints * Config::get('constants.options.credit_point')); //0.1
+      $points = 0;
+      if($totalPoints < 3){
+        $points = $totalPoints * 0.12;
+      }elseif($totalPoints < 6 && $totalPoints > 3){
+        $points = $totalPoints * 0.12;
+      }elseif($totalPoints < 120 && $totalPoints > 6){
+        $points = $totalPoints * 0.72;
+      }elseif($totalPoints >= 120 ){
+        $points = $totalPoints * 14.4;
+      }
+      return $points;
+      // return ($totalPoints * Config::get('constants.options.credit_point')); //0.1
     }
 
     public function getTotalPointsScore()
