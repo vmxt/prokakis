@@ -833,7 +833,7 @@
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a href="" >
-                                                    <i class="icon-notebook" style="color: white"></i>  Project
+                                                    <i class="icon-notebook" style="color: white"></i>  Reports
                                                     <span class="arrow"></span>
                                                 </a>
 
@@ -850,6 +850,26 @@
 
                                                 </ul>
 
+                                            </li>
+
+                                            <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                                <a href="{{ url('/opportunity/explore') }}">
+                                                    <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                </a>
+                                                <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/details')}}" class="nav-link  ">
+                                                        Opportunity Details</a>
+                                                </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                        <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
+                                                        Pending Opportunities</a>
+                                                    </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                        <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
+                                                        Approved Opportunities</a>
+                                                    </li>
+                                                </ul>
                                             </li>
 
 
