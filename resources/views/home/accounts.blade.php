@@ -52,7 +52,7 @@
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-bulb font-blue"></i>
-                                <span class="caption-subject font-blue sbold uppercase">Refinitive History</span>
+                                <span class="caption-subject font-blue sbold uppercase">Registered Users</span>
                             </div>
 
                         </div>
@@ -80,6 +80,7 @@
                                         <th>Company Website</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
+                                        <th>Reason they found</th>
                                     </tr>
                                     </thead>
                                     
@@ -98,7 +99,7 @@
                                         <td><a href="{{  $res->company_website }}">{{ $res->company_website }}<a/></td>
                                         <td>{{ $res->status == '1' ? 'active':'inactive' }}</td>
                                         <td>{{ isset($res->created_at)?date('m d,Y H:i:s',strtotime($res->created_at) ):'-' }}</td>
-
+                                        <td>{{ $res->reason_heard }}</td>
                                     </tr>
                                     <?php
                                     $counter++;

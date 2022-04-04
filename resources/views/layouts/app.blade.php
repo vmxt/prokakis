@@ -1226,7 +1226,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a href="" >
-                                                    <i class="icon-notebook" style="color: white"></i>  Project
+                                                    <i class="icon-notebook" style="color: white"></i>  Reports
                                                     <span class="arrow"></span>
                                                 </a>
 

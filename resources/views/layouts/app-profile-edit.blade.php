@@ -483,18 +483,14 @@
 
                                         <!-- BEGIN USER LOGIN DROPDOWN -->
 
-                                        <li class="dropdown dropdown-user dropdown-dark">
+                                        <li id='nav-login-dropdown' class="dropdown dropdown-user dropdown-dark">
 
                                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 
                                                 <?php 
-
                                                 if($userType == 1){ 
-
                                                     $profilePic = App\CompanyProfile::getProfileImage(Auth::id()); 
-
                                                     if($profilePic != null){
-
                                                     ?>
 
                                                     <img class="img-circle" alt="" src="{{ asset('public/images/') }}/<?php echo $profilePic; ?>">
@@ -504,13 +500,9 @@
                                                     <img  class="img-circle" alt="" src="{{ asset('public/images/robot.jpg') }}">
 
                                                     <?php } 
-
                                                 } elseif($userType == 2){
-
                                                     $profilePicSC = App\CompanyProfile::getProfileImageSC(Auth::id()); 
-
                                                     if($profilePicSC != null){
-
                                                     ?>
 
                                                     <img  class="img-circle alt=" src="{{ asset('public/images/') }}/<?php echo $profilePicSC; ?>">
@@ -520,13 +512,9 @@
                                                     <img  class="img-circle alt=" src="{{ asset('public/images/robot.jpg') }}">
 
                                                     <?php }   
-
                                                 } elseif($userType == 3){
-
                                                     $profilePicMC = App\CompanyProfile::getProfileImageMC(Auth::id()); 
-
                                                     if($profilePicMC != null){
-
                                                     ?>
 
                                                     <img  class="img-circle" alt="" src="{{ asset('public/images/') }}/<?php echo $profilePicMC; ?>">
@@ -536,9 +524,7 @@
                                                     <img  class="img-circle" alt="" src="{{ asset('public/images/robot.jpg') }}">
 
                                                     <?php } 
-
                                                 }
-
                                                 ?>
 
 
@@ -548,81 +534,122 @@
                                             </a>
 
                                             <ul class="dropdown-menu dropdown-menu-default">
+                        <?php   
+                                            $user_id = Auth::id();
+                                            $u = App\User::find($user_id);
+                        if($u->m_id == null || $u->m_id == 0){  
+                                            ?>
+                                        </li>
 
-                                                <li>
+                                                            <li id='nav-login-account-credit'>
+                                                    <a href="{{ route('getTokenActivated') }}">
+                                                        <i class="icon-wrench"></i> Manage Account </a>
+                                                </li>   
 
+                                                <li aria-haspopup="true" id="nav-buy-credit">
+                                                    <a href="{{ url('/reports/buyCredits') }}" class="nav-link  "><i class="fa fa-dollar"></i> Buy Credits</a>
+                                                </li>
 
+                                                <li id='nav-login-company'>
 
                                                     <a href="{{ route('viewingProfile') }}">
-
                                                         <i class="icon-user"></i> My Company </a>
-
                                                 </li>
 
 
-
-
-
-                                                <li>
-
+                                                <li id="nav-login-inbox">
                                                     <a href="{{ route('mailCompose') }}">
-
                                                         <i class="icon-envelope-open"></i> My Inbox
-
-                                                        <?php 
-
+                                                        <?php
                                                         $inboxCount = App\Mailbox::getNumberEmailWithNoti($user_id);
-
-                                                        if($inboxCount > 0){ 
-
+                                                        if($inboxCount > 0){
                                                         ?>
-
                                                         <span class="badge badge-danger"> <?php echo $inboxCount; ?> </span>
-
                                                         <?php } ?>
-
                                                     </a>
-
                                                 </li>
 
-
-
-                                                <li>
-
-
+                                                <li id='nav-login-switch-company'>
 
                                                     <a href="{{ route('viewingProfile') }}"  data-popup-open="popup-company" >
-
                                                         <i class="icon-list"></i> Switch a Company </a>
-
                                                 </li>
 
-                                                
-
-                                                <li>
+                                                <li id='nav-login-referral'>
 
                                                     <a href="{{ route('referralsList') }}" >
-
                                                         <i class="icon-rocket"></i> Referrals </a>
-
                                                 </li>
 
-                                                      
+                                                <li id='nav-login-share-friend'>
 
-                                            
+                                                    <a href="{{ route('createReferals') }}" >
+                                                        <i class="icon-heart"></i> Share to Friend </a>
+                                                </li>
 
-                                                <li class="divider"> </li>
+                                                <li id='nav-login-rewards'>
+
+                                                  <a href="{{ route('CompanyCreditPoints') }}" >
+                                                      <i class="fa fa-trophy"></i> Rewards </a>
+                                              </li>
+
+                        <li>
+
+                                                  <a href="{{ route('setPasswordData') }}" >
+                                                      <i class="icon-key"></i> Change Password </a>
+                                                </li>
 
                                                 <li>
-
-                                                    <a href="{{ url('logout') }}">
-
-                                                        <i class="icon-building-o"></i> Log Out </a>
-
+                                                    <?php 
+                                                    if($currentCurrency = App\CurrencyAccounts::where('user_id',$user_id)->first()){
+                                                        $currentCurrency = $currentCurrency->getCurrency->c_code;
+                                                    }else{
+                                                        //default USD = 3
+                                                        $currentCurrency = App\CurrencyMonetary::find(3)->c_code;
+                                                        // if(!$currentCurrency){
+                                                    }
+                                                 // }
+                                                    ?>
+                                                  <a data-toggle="modal" data-target="#myModal-currency"  >
+                                                      <i class="fa fa-dollar"></i> Currency ( {{ $currentCurrency }} )</a>
                                                 </li>
 
-                                            </ul>
+                                                <li class="divider"> </li>
+                                                <li id='nav-login-tour'>
+                                                  <?php 
+                                                        $scope = "-";
+                                                        $tour = App\TourDetail::where('user_id',  $user_id)->first();
+                                                        if(request()->segment(1) == 'home' ){
+                                                            $scope = 'home';
+                                                        }else{
+                                                            $scope = request()->segment(1)."/".request()->segment(2);
+                                                        }
+                     
+                                                  ?>
+                                                  @if( isset($tour->scope) AND strpos($tour->scope , $scope) !== false )
+                                                    <input type="hidden" id="is_tour" value="0">
+                                                    <a onclick='updateTour()' href="#">
+                                                        <i  class="fa fa-toggle-on"></i> Tour (OFF)
+                                                    </a>
+                                                  @else
+                                                   <input type="hidden" id="is_tour" value="1">
+                                                   <a onclick='updateTour()' href="#">
+                                                        <i  class="fa fa-toggle-off"></i> Tour (ON)
+                                                    </a>
+                                                  @endif
+                                                </li>
 
+                        <li>
+                                                  <a href="{{ route('setSubaccounts') }}" >
+                                                      <i class="icon-user"></i> User Control </a>
+                                                </li>
+                        <?php } ?>
+
+                                                <li id='nav-login-logout'>
+                                                    <a href="{{ url('logout') }}">
+                                                        <i class="icon-building-o"></i> Log Out </a>
+                                                </li>
+                                            </ul>
                                         </li>
 
                                         <!-- END USER LOGIN DROPDOWN -->
@@ -833,7 +860,7 @@
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a href="" >
-                                                    <i class="icon-notebook" style="color: white"></i>  Project
+                                                    <i class="icon-notebook" style="color: white"></i>  Reports
                                                     <span class="arrow"></span>
                                                 </a>
 
@@ -850,6 +877,26 @@
 
                                                 </ul>
 
+                                            </li>
+
+                                            <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                                <a href="{{ url('/opportunity/explore') }}">
+                                                    <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                </a>
+                                                <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/details')}}" class="nav-link  ">
+                                                        Opportunity Details</a>
+                                                </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                        <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
+                                                        Pending Opportunities</a>
+                                                    </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                        <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
+                                                        Approved Opportunities</a>
+                                                    </li>
+                                                </ul>
                                             </li>
 
 
