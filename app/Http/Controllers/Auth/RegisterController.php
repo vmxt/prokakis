@@ -130,6 +130,8 @@ class RegisterController extends Controller
 
             'tnc' => 'required',
 
+            'reason_heard' => 'required|string|max:255',
+
         ], ['tnc.required'=>'Terms and Conditions is required']);
 
     }
@@ -207,6 +209,8 @@ class RegisterController extends Controller
             'referral_id' => $referralId,
             
             'm_id' => $m_id,
+
+            'reason_heard' => $data['reason_heard'],
 
         ]);
 

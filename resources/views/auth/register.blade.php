@@ -233,6 +233,21 @@
             </div>
 
 
+            <p class="hint">HOW DID YOU HEARD ABOUT INTELLINZ?</p>
+
+            <div class="form-group">
+
+                <select id="reason_heard"  class="form-control" type="text" name="reason_heard" required>
+                    <option selected>Choose One..</option>
+                    <option value="Search Engine">Search Engine (Google, Yahoo, etc.)</option>
+                    <option value="Social Media">Social Media (Facebook, Instagram etc.)</option>
+                    <option value="Newsletter">Newsletter/Email Marketing</option>
+                    <option value="Friends">Friends , Co-workers or Family</option>
+                    <option value="Event Sites">Event Sites (Meetup, Eventbrite etc.)</option>
+                    <option value="Other">Other...</option>
+                </select>
+
+            </div>            
 
             <div class="form-group margin-top-20 margin-bottom-20">
 
