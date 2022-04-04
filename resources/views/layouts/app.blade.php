@@ -505,8 +505,8 @@ s0.parentNode.insertBefore(s1,s0);
 
 
                                         <!-- END INBOX DROPDOWN -->
-                                    <!-- BEGIN USER LOGIN DROPDOWN -->
-                                    <li id='nav-login-dropdown' class="dropdown dropdown-user dropdown-dark">
+                                        <!-- BEGIN USER LOGIN DROPDOWN -->
+                                        <li id='nav-login-dropdown' class="dropdown dropdown-user dropdown-dark">
                                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                 <?php
                                                 if($userType == 1){
