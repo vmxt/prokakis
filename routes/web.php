@@ -15,7 +15,8 @@ Route::get('/', function () {
      return redirect('/login');
 });
 
-Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D5C3D8', 'TestController@index')->name('testMail');
+Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D5C3D8', 'TestController@index')->name('testMail'); 
+Route::get('/unsubscribe/{user_id}', 'UnsubscribeController@unsubscribe')->name('unsubscribe');
 Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsubscribeMe');
 Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken');
 Route::get('/worldData', 'Test2Controller@getWorldData')->name('updateWorldData');
