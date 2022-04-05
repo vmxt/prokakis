@@ -123,8 +123,13 @@ class VideoChatController extends Controller {
 		//}
 
 
+// echo $request['oppId'].'==oppid<br>';
+// echo $request['oppType'].'==oppType<br>';
+// echo $request['companyViewer'].'==host_user_id<br>';
+// echo $request['companyOpp'].'==remote_user_id<br>';
+// echo Auth::id(); 
 
-	//var_dump($vc); exit;
+// 	var_dump($vc); exit;
 
 
 
@@ -190,29 +195,38 @@ class VideoChatController extends Controller {
 
 		   $rs = explode("/", $urlvc);
 
-		   
-
+		 
 		   $rVC = explode("#",$urlvc);
 
 	 	   $channel = $rVC[1]; 
 
 
 
-		   $oppId = (isset($rs[5]))? $rs[5] : '';
+		  // $oppId = (isset($rs[5]))? $rs[5] : '';
 
-		   $oppType = (isset($rs[6]))? $rs[6] : '';
+		  // $oppType = (isset($rs[6]))? $rs[6] : '';
 
-		   $companyId = (isset($rs[7]))? $rs[7] : '';
+		  // $companyId = (isset($rs[7]))? $rs[7] : '';
 
-		   $viewer = (isset($rs[8]))? $rs[8] : '';
+		  // $viewer = (isset($rs[8]))? $rs[8] : '';
+
+		  // $viewerC = explode("#", $viewer);
+
+//to test
+		   $oppId = (isset($rs[4]))? $rs[4] : '';
+
+		   $oppType = (isset($rs[5]))? $rs[5] : '';
+
+		   $companyId = (isset($rs[6]))? $rs[6] : '';
+
+		   $viewer = (isset($rs[7]))? $rs[7] : '';
 
 		   $viewerC = explode("#", $viewer);
 
 
-
 		 // $rs =  VideoChat::where('opp_id', $oppId)->where('opp_type', $oppType)->where('status', 1)->first();
 
-		
+// 		dd($rs);
 
 		  $rs = VideoChat::where('opp_id',  $oppId)
 
