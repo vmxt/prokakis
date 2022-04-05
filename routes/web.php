@@ -230,6 +230,10 @@ Route::get('/businessnews/approval/{status}', 'BusinessOpportunityNewsController
 Route::get('/businessnews/editApprovalNews/{id}', 'BusinessOpportunityNewsController@editApprovalNews')->name('BusinessNewsEditApproval');
 Route::post('/businessnews/approved', 'BusinessOpportunityNewsController@approved')->name('businessNewsApproved');
 
+//rewards
+// Route::get('/rewards/approval/{status}', 'GamificationController@approval')->name('rewardApproval');
+Route::get('/rewards/approval/pending', 'GamificationController@approval')->name('rewardApprovalPending');
+Route::post('/rewards/approved', 'GamificationController@approved')->name('rewardApproved');
 
 //opportunities
 Route::get('/opportunity', 'OpportunityController@index')->name('opportunityIndex');

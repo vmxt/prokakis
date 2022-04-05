@@ -20,6 +20,8 @@ use App\Buytoken;
 use Illuminate\Support\Facades\DB;
 use App\Rewards;
 use Session;
+use App\AdvisorLevels;
+
 
 
 class TokenConfirmController extends Controller {
@@ -79,6 +81,7 @@ class TokenConfirmController extends Controller {
         $currentAdvisorLevel = $rw->getAdvisorLevel();
         $rw->removeDuplicatesIds();
 
+        $countAd = AdvisorLevels::where('company_id', $company_id_result)->where('user_id', $user_id)->where('status', 0)->count();
         //echo $rw->user_credit_ids_str .'<br />';
         //echo $rw->user_referral_ids_str.'<br />';
         //echo $rw->referral_pur_ids_str.'<br />';
@@ -97,7 +100,7 @@ class TokenConfirmController extends Controller {
         return view('token.points', compact('profileAvatar', 'brand_slogan', 'c_promo', 
         'totalNumberOfReferralsPurchasedPoints', 'totalCreditPurchased', 'totalNumberOfReferrals', 
         'totalNumberOfReferralsReportsPoints', 'totalScore', 'company_id_result',
-        'nextScoreLevel', 'advisorTips', 'amountToRedemp' ,'currentAdvisorLevel'));
+        'nextScoreLevel', 'advisorTips', 'amountToRedemp' ,'currentAdvisorLevel', 'countAd'));
 
     }
 

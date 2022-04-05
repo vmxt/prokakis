@@ -61,18 +61,16 @@ class Rewards
       $company_refs = CompanyProfile::where('user_id', $this->user_id)->get();
           if(!empty($company_refs)){
             foreach($company_refs as $c){
-                      
-                      $ref = Buytoken::where('company_id', $c->id)->where('amount', '!=', NULL)
+                      $ref = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
                       ->select(DB::raw('SUM(num_tokens) as TotalCredit'))
                       ->whereNotIn('id', $this->user_credit_ids_x)
                       ->first();
 
                       $sum = ($sum + $ref->TotalCredit); 
             }
-
             foreach($company_refs as $c){
 
-                $bIds = Buytoken::where('company_id', $c->id)->where('amount', '!=', NULL)
+                $bIds = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
                 ->whereNotIn('id', $this->user_credit_ids_x)
                 ->get();
                 if($bIds != null){
@@ -129,7 +127,7 @@ class Rewards
               if(!empty($company_refs))
               {
                   foreach($company_refs as $c){
-                      $ref = Buytoken::where('company_id', $c->id)->where('amount', '!=', NULL)
+                      $ref = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
                       ->select(DB::raw('SUM(num_tokens) as TotalCredit'))
                       ->whereNotIn('id', $this->referral_pur_ids_x)
                       ->first();
@@ -137,7 +135,7 @@ class Rewards
                   }
 
                   foreach($company_refs as $c){
-                      $bIds = Buytoken::where('company_id', $c->id)->where('amount', '!=', NULL)
+                      $bIds = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
                       ->whereNotIn('id', $this->referral_pur_ids_x)
                       ->get();
                       if($bIds != null){
@@ -205,9 +203,9 @@ class Rewards
       $points = 0;
       if($totalPoints < 3){
         $points = $totalPoints * 0.12;
-      }elseif($totalPoints < 6 && $totalPoints > 3){
+      }elseif($totalPoints < 6 && $totalPoints >= 3){
         $points = $totalPoints * 0.12;
-      }elseif($totalPoints < 120 && $totalPoints > 6){
+      }elseif($totalPoints < 120 && $totalPoints >= 6){
         $points = $totalPoints * 0.72;
       }elseif($totalPoints >= 120 ){
         $points = $totalPoints * 14.4;

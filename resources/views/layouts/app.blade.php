@@ -1194,7 +1194,6 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="icon-pin"></i> View All Accounts </a>
                                                     </li>
                                                 </ul>
-
                                             </li>
 
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
@@ -1265,6 +1264,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
                                         </li>
                                         
+
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
                                                 <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
@@ -1337,6 +1337,22 @@ s0.parentNode.insertBefore(s1,s0);
                                                             </li>
                                                         </ul>
                                                     </li>
+
+                                       <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="#">
+                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Rewards</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/rewards/approval/pending')}}" class="nav-link  ">
+                                                    Pending Rewards</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/rewards/approval/approved')}}" class="nav-link  ">
+                                                    Approved Rewards</a>
+                                                </li>
+                                            </ul>
+                                        </li>
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">

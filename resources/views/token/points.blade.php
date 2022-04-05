@@ -244,7 +244,7 @@
                                                 <tr>
                                                   <td valign="top">  
                                                 <b>How Do I Earn Intellinz Reward Points?</b> <br />
-                                                - Get 0.1 points for every credit purchased. <br />
+                                                - Get 0.12 points for every credit purchased. <br />
                                                 - Introduce and share to a friend or <br /> business associate and get 0.05 points. <br />
                                                 - Earn 0.01 points passively every time your <br /> referrals purchase 1 credit for Intellinz services. <br />
                                                   </td>
@@ -380,24 +380,31 @@
                                                     @endif
 
                                                     <div class="card" style="overflow: hidden;">
+                                                        @if($countAd > 0)
+                                                            <div class="card-header"> 
 
-                                                        <div class="card-header"> 
-                                                            @if( $currentAdvisorLevel >= 1 )
                                                                 <center>
-                                                                <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
-                                                                {{ csrf_field() }}  
-                                                                <input type="hidden" name="amount_to_redeem" value="{{ $amountToRedemp }}">
-                                                                <input type="hidden" name="advisor_level" value="{{ $amountToRedemp }}">
-                                                                <input type="button" id="submit_button" name="submit_button" class="btn red-mint btn-full" value="REDEEM USD ${{ $amountToRedemp }} NOW">
-                                                                </form>    
+                                                                <button class="btn red-mint btn-full" type="button" disabled>PENDING</button> 
                                                                 </center>
-                                                            @else  
-                                                            <center>
-                                                            <button class="btn red-mint btn-full" type="button" disabled>REDEEM USD $100 NOW</button> 
-                                                            </center>
-                                                            @endif 
-                                                        </div>
-
+                                                            </div>
+                                                        @else
+                                                            <div class="card-header"> 
+                                                                @if( $currentAdvisorLevel >= 1 )
+                                                                    <center>
+                                                                    <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
+                                                                    {{ csrf_field() }}  
+                                                                    <input type="hidden" name="amount_to_redeem" value="{{ $amountToRedemp }}">
+                                                                    <input type="hidden" name="advisor_level" value="{{ $amountToRedemp }}">
+                                                                    <input type="button" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD ${{ $amountToRedemp }} NOW">
+                                                                    </form>    
+                                                                    </center>
+                                                                @else  
+                                                                <center>
+                                                                <button class="btn red-mint btn-full" type="button" disabled>REDEEM USD $100 NOW</button> 
+                                                                </center>
+                                                                @endif 
+                                                            </div>
+                                                        @endif
                                                         <div class="card-body center" style="text-align: center;">
                                                            {{ $advisorTips }}
                                                         </div>
@@ -467,6 +474,8 @@
 
             if (isConfirm) {
                 $("#redeemForm").submit();  
+                $("#redeemBtn").text('Pending');  
+
             } else {
 
               swal("Cancelled", "Redeeming pprocess was cancelled :)", "error");

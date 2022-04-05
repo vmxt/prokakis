@@ -14,6 +14,7 @@ use App\Mailbox;
 use App\Buytoken;
 use App\RequestReport;
 
+use Illuminate\Support\Facades\Redirect;
 class GamificationController extends Controller {
 
    /**
@@ -51,7 +52,7 @@ class GamificationController extends Controller {
 				$referral_pur_ids = Session::get('referral_pur_ids');
 				$referral_rep_ids = Session::get('referral_rep_ids');
 
-			   $countAd = AdvisorLevels::where('company_id', $company_id_result)->where('user_id', $user_id)->where('status', 1)->count();
+			   $countAd = AdvisorLevels::where('company_id', $company_id_result)->where('user_id', $user_id)->where('status', 0)->count();
 
 				if($countAd == 0){
 					AdvisorLevels::create([
@@ -64,36 +65,35 @@ class GamificationController extends Controller {
 						'user_credit_ids'	=> trim($user_credit_ids), 
 						'referral_pur_ids'  => trim($referral_pur_ids), 
 						'referral_rep_ids'	=> trim($referral_rep_ids),
-						'status'		 => 1, 
+						'status'		 => 0, 
 						'created_at'	 => date('Y-m-d'),
 					]);
 						
-					//sending of email notification
-					$usr = User::where('user_type', '5')->get();
+					// //sending of email notification
+					// $usr = User::where('user_type', '5')->get();
 				
-					$subject = "Prokakis rewards redemption request";	
-					foreach($usr as $d){
-						$receiver = $d->email;
+					// $subject = "Prokakis rewards redemption request";	
+					// foreach($usr as $d){
+					// 	$receiver = $d->email;
 
-						$content = "
-						Hi Admin,
-						<br /><br />
+					// 	$content = "
+					// 	Hi Admin,
+					// 	<br /><br />
 
-						We have recieved a redemption request of Prokakis rewards, from <br />
-						Company Name: $company->company_name <br />
-						Earned Points: $ep <br />
-						Advisor Level: $al <br />
-						Amount: $ra <br /><br />
+					// 	We have recieved a redemption request of Prokakis rewards, from <br />
+					// 	Company Name: $company->company_name <br />
+					// 	Earned Points: $ep <br />
+					// 	Advisor Level: $al <br />
+					// 	Amount: $ra <br /><br />
 						
-						Thank you, <br />
-						Prokakis Mailer
-						";
-						Mailbox::sendMail_v2($content, $receiver, $subject, '');
-					}
+					// 	Thank you, <br />
+					// 	Prokakis Mailer
+					// 	";
+					// 	Mailbox::sendMail_v2($content, $receiver, $subject, '');
+					return Redirect::to('/rewards')->with(['type' => 'success','message' => 'You have successfully submitted your redemption request.']);
 
-					return redirect('/rewards')->with('status', 'You have successfully submitted your redemption request. ');	
 				} else {
-					return redirect('/rewards')->with('message', 'You already have a pending redemption request.');
+					return redirect::to('/rewards')->with(['type' => 'success', 'message' => 'You already have a pending redemption request.']);
 				}
 				
 			
@@ -420,5 +420,60 @@ class GamificationController extends Controller {
 
 	}
 
+	#for approval pending business news
+	public function approval(Request $request, $status = 'pending') {
+		$user_id = Auth::id();
+
+		if(isset($request['status']) and $request['status'] == 'approved'){
+			$isverify = 1;
+		}elseif(isset($request['status']) and $request['status'] == 'rejected'){
+			$isverify = 2;
+		}else{
+			$isverify = 0;
+		}
+
+		$news = AdvisorLevels::where('status', $isverify)->get();
+		return view("rewards.approval", compact('news', 'status'));
+
+	}
     
+    public function approved(Request $request) {
+		if ($request->isMethod('post')) {
+			$ids = $request->input('reward_id');
+			$result = AdvisorLevels::find($ids);
+			$result->status = 1;
+			$result->save();
+		}
+		$this->redeemApprovedRewards($result->user_id);
+	}
+
+	public function redeemApprovedRewards($id)
+	{ 
+			$company_id_result = CompanyProfile::getCompanyId($id);
+			$company = CompanyProfile::find($company_id_result);
+
+								//sending of email notification
+					$usr = User::where('user_id', $id)->get();
+				
+					$subject = "Prokakis rewards redemption request";	
+					foreach($usr as $d){
+						$receiver = $d->email;
+
+						$content = "
+						Hi Admin,
+						<br /><br />
+
+						We have recieved a redemption request of Prokakis rewards, from <br />
+						Company Name: $company->company_name <br />
+						Earned Points: $ep <br />
+						Advisor Level: $al <br />
+						Amount: $ra <br /><br />
+						
+						Thank you, <br />
+						Prokakis Mailer
+						";
+						Mailbox::sendMail_v2($content, $receiver, $subject, '');
+					}
+	}
+
 }
