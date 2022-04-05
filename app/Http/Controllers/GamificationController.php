@@ -420,23 +420,19 @@ class GamificationController extends Controller {
 
 	}
 
-	#for approval pending business news
-	public function approval(Request $request, $status = 'pending') {
-		$user_id = Auth::id();
-
-		if(isset($request['status']) and $request['status'] == 'approved'){
-			$isverify = 1;
-		}elseif(isset($request['status']) and $request['status'] == 'rejected'){
-			$isverify = 2;
-		}else{
-			$isverify = 0;
-		}
-
+	#for approvalPending pending 
+	public function approvalPending(Request $request, $status = 'pending') {
+		$isverify = 0;
 		$news = AdvisorLevels::where('status', $isverify)->get();
 		return view("rewards.approval", compact('news', 'status'));
-
 	}
     
+	#for approvalApproved pending
+	public function approvalApproved(Request $request, $status = 'approved') {
+		$news = AdvisorLevels::where('status', 1)->get();
+		return view("rewards.approval", compact('news', 'status'));
+	}
+
     public function approved(Request $request) {
 		if ($request->isMethod('post')) {
 			$ids = $request->input('reward_id');

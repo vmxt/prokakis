@@ -672,11 +672,11 @@ class OpportunityController extends Controller {
 				// ->where('status', 1)
 				// ->get();
 
-   		$build = OpportunityBuildingCapability::where('status', 1)->where('is_verify',1)->get();
+   		$build = OpportunityBuildingCapability::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
 
-				$sell = OpportunitySellOffer::where('status', 1)->where('is_verify',1)->get();
+				$sell = OpportunitySellOffer::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
 
-				$buy = OpportunityBuy::where('status', 1)->where('is_verify',1)->get();
+				$buy = OpportunityBuy::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
 
 		$requestReport = new RequestReport;
 		$result_filter = false;

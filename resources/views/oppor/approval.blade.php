@@ -126,7 +126,7 @@
                                     <tr>
                                         <td><?php echo $counter; ?></td>
                                         <td><p> <?php echo $b->opp_title; ?></p></td>
-                                        <td><p> <?php echo App\CompanyProfile::find($b->company_id)->userdetail()->first()->email  ?></p></td>
+                                        <td><p> @if($b->company_id != "") {{ App\CompanyProfile::find($b->company_id)->userdetail()->first()->email }} @endif </p></td>
                                         <td>
                                             <ul>
                                                 @if($b->business_goal)
@@ -172,7 +172,8 @@
                                     <tr>
                                         <td><?php echo $counter; ?></td>
                                         <td> <?php echo $s->opp_title; ?></td>
-                                        <td><p> <?php echo App\CompanyProfile::find($s->company_id)->userdetail()->first()->email  ?></p></td>
+                                        <td><p> @if($s->company_id != "") {{ App\CompanyProfile::find($s->company_id)->userdetail()->first()->email }} @endif </p></td>
+                                   
                                         <td>
                                             <ul>
                                                 @if($s->what_sell_offer)
@@ -216,7 +217,7 @@
                                     <tr>
                                         <td><?php echo $counter; ?></td>
                                         <td> <?php echo $bb->opp_title; ?></td>
-                                        <td><p> <?php echo App\CompanyProfile::find($bb->company_id)->userdetail()->first()->email  ?></p></td>
+                                        <td><p> @if($bb->company_id != "") {{ App\CompanyProfile::find($bb->company_id)->userdetail()->first()->email }} @endif </p></td>
                                         <td>
                                             <ul>
                                                 @if($bb->what_sell_offer)
