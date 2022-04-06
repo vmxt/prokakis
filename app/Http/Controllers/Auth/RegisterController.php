@@ -270,11 +270,12 @@ class RegisterController extends Controller
 
         ]);
 
-   	//trigger an email for the welcome
-        $message =  file_get_contents("http://app-prokakis.com/public/emailtemplate/welcome_final.html");
+    //trigger an email for the welcome
+        $message =  file_get_contents("http://app-prokakis.com/public/emailtemplate/welcome_final_edited.html");
         $message = str_replace("[_firstname_]", $data['firstname'], $message);
+        $message = str_replace("[UNSUBSCRIBE LINK]", "http://app-prokakis.com/unsubscribe/" . $userResult->id, $message);
         //send the email here  
- 
+
         
         Mailbox::sendMail_EmailTemplate($message, $data['email'], "Welcome to Intellinz", "");   
 

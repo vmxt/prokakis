@@ -28,6 +28,27 @@ class UnsubscribeController extends Controller
       // $this->middleware('auth');
 
     }
+
+    public function unsubscribe($user_id)
+    { 
+        $company = CompanyProfile::find($user_id);
+
+        $notify_type = 'welcome_mail';
+        $notify_date = date('Y-m-d');
+        $token = $company->id . '-ebos-' . $user_id . '-ebos-' . base64_encode($notify_type) . '-ebos-' . base64_encode($notify_date);
+
+        Unsubscribe::create([ 
+            'company_id' => $company->id,
+            'user_id' => $user_id,  
+            'notify_type' => $notify_type,
+            'token' => $token,
+            'created_at' => $notify_date, 
+        ]);
+        
+        echo "You have successfully unsubscribe from the alert notification.";
+        sleep(5);
+        return redirect('home'); 
+    }
     
 
     public function index(Request $request)
