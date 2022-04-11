@@ -1231,13 +1231,13 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a  href="{{ url('/consultants/pending-projects') }}" class="nav-link  "> <i class="icon-pin"></i> Pending Projects </a>
+                                                        <a  href="{{ url('/consultants/pending-projects') }}" class="nav-link  "> <i class="icon-pin"></i> Pending Reports </a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/ongoing-projects') }}" class="nav-link  ">  <i class="icon-target"></i> On-Going Projects</a>
+                                                        <a href="{{ url('/consultants/ongoing-projects') }}" class="nav-link  ">  <i class="icon-target"></i> On-Going Reports</a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/archived-projects') }}" class="nav-link  "> <i class="icon-briefcase"></i> Archived Projects</a>
+                                                        <a href="{{ url('/consultants/archived-projects') }}" class="nav-link  "> <i class="icon-briefcase"></i> Archived Reports</a>
                                                     </li>
 
                                                 </ul>
