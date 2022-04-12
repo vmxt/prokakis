@@ -176,6 +176,9 @@ Route::get('/homeAP', 'HomeController@ebosAP')->name('ebosAP');
 Route::get('/homeSA', 'HomeController@ebosSA')->name('ebosSA');
 Route::get('/samanage/{company_id}', 'SubaccountsController@manageSelectedCompany')->name('ManageSelectedCompany');
 
+// USER CORE HISTORY
+Route::get('/coreAccountsHistory', 'HomeController@coreAccountsHistory')->name('coreAccountsHistory');
+
 //consultant
 Route::get('/consultants', 'ConsultantsController@index')->name('indexConsultantFAreport');
 Route::get('/consultants/viewprofile', 'ConsultantsController@viewProfile')->name('viewProfileSC');
@@ -390,7 +393,8 @@ Route::post('/buyReport/storeBuy', 'BuyreportController@storeBuy')->name('storeB
 Route::get('/buyReport/download/{companyId}/{reqId}', 'BuyreportController@downloadReport')->name('downloadReport'); //generate pdf report
 
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
-$this->post('login', 'Auth\LoginController@login');
+$this->post('authlogin', 'Auth\LoginController@login')->name('authlogin');
+$this->post('login', 'Auth\AuthController@authenticate')->name('loginauth');
 //$this->post('logout', 'Auth\LoginController@logout')->name('logout');
 $this->get('logout', 'Auth\LoginController@logout')->name('logout');
 

@@ -56,6 +56,7 @@ use Illuminate\Support\Facades\DB;
 use App\InOutUsers;
 
 use App\SAaccess;
+use App\CoreLoginHistory;
 
 
 class HomeController extends Controller {
@@ -744,6 +745,11 @@ public function index() {
     	$result = User::all();
 		return view('home.accounts', compact('result'));
 
+    }
+
+    function coreAccountsHistory(){
+    	$result = CoreLoginHistory::all();
+    	return view('dashboard.userhistory', compact('result'));
     }
 
 }
