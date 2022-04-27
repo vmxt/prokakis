@@ -1377,22 +1377,22 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                     <a  href="{{ url('/') }}" >
-                                                        <i class="icon-notebook" style="color: white"></i>  Project
+                                                        <i class="icon-notebook" style="color: white"></i>  Reports
                                                         <span class="arrow"></span>
                                                     </a>
 
                                                     <ul class="dropdown-menu pull-left">
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a  href="{{ route('projectOverviewMC') }}" class="nav-link  "> <i class="icon-magnifier"></i> Overview Projects </a>
+                                                                <a  href="{{ route('projectOverviewMC') }}" class="nav-link  "> <i class="icon-magnifier"></i> Overview Reports </a>
                                                             </li>
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a  href="{{ url('/mconsultants/projectPending') }}" class="nav-link  "> <i class="icon-pin"></i> Pending Projects </a>
+                                                                <a  href="{{ url('/mconsultants/projectPending') }}" class="nav-link  "> <i class="icon-pin"></i> Pending Reports </a>
                                                             </li>
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a href="{{ url('/mconsultants/projectOngoing') }}" class="nav-link  ">  <i class="icon-target"></i> On-Going Projects</a>
+                                                                <a href="{{ url('/mconsultants/projectOngoing') }}" class="nav-link  ">  <i class="icon-target"></i> On-Going Reports</a>
                                                             </li>
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a href="{{ url('/mconsultants/projectCompleted') }}" class="nav-link  "> <i class="icon-briefcase"></i> Completed Projects</a>
+                                                                <a href="{{ url('/mconsultants/projectCompleted') }}" class="nav-link  "> <i class="icon-briefcase"></i> Completed Reports</a>
                                                             </li>
                                                     </ul>
 
