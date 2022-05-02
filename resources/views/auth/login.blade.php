@@ -337,6 +337,12 @@
 
         </div>
 
+@if (session('status'))
+    <div class="alert alert-danger">
+        {{ session('status') }}
+    </div>
+@endif
+
         <div class="form-actions">
 
             <button type="submit" class="btn green uppercase" style="background-color:#34893e; color:white;" >Login</button>

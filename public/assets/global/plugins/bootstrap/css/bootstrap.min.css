@@ -6956,12 +6956,14 @@ button.close {
 
 .modal-title {
     margin: 0;
-    line-height: 1.42857
+    line-height: 1.42857;
+    overflow: hidden;
 }
 
 .modal-body {
     position: relative;
-    padding: 15px
+    padding: 15px;
+    overflow: auto;
 }
 
 .modal-footer {

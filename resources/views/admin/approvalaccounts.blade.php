@@ -96,6 +96,7 @@
                                                 <th class="all">Last Name</th>
                                                 <th class="all">Email</th>
                                                 <th class="all">User Type</th>
+                                                <th class="all">Reason</th>
 
                                                 <th  class="none">Company Name</th>
                                                 <th  class="none">Company Website</th>
@@ -142,6 +143,10 @@
                                                             }
 ?>
 
+                                                    </td>
+
+                                                    <td align="center">
+                                                        <?php echo $d->reason_heard; ?>
                                                     </td>
 
                                                     <td align="center">
