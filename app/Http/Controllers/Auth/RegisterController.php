@@ -130,8 +130,6 @@ class RegisterController extends Controller
 
             'tnc' => 'required',
 
-            'reason_heard' => 'required|string|max:255',
-
         ], ['tnc.required'=>'Terms and Conditions is required']);
 
     }
@@ -210,13 +208,11 @@ class RegisterController extends Controller
             
             'm_id' => $m_id,
 
-            'reason_heard' => $data['reason_heard'],
-
         ]);
 
 
 
-       $company_result =  CompanyProfile::create([
+      $company_result =  CompanyProfile::create([
 
             'user_id' => $userResult->id,
 
@@ -242,44 +238,49 @@ class RegisterController extends Controller
 
         CompanyBilling::create([
 
-           'user_id'=>$userResult->id,
+          'user_id'=>$userResult->id,
 
-           'company_id'=>$company_result->id, 
+          'company_id'=>$company_result->id, 
 
-           'added_by'=>$userResult->id,
+          'added_by'=>$userResult->id,
 
         ]);
 
         CompanyContacts::create([
 
-           'user_id'=>$userResult->id,
+          'user_id'=>$userResult->id,
 
-           'company_id'=>$company_result->id, 
+          'company_id'=>$company_result->id, 
 
-           'added_by'=>$userResult->id, 
+          'added_by'=>$userResult->id, 
 
         ]);
 
         CompanySocialAccounts::create([
 
-           'user_id'=>$userResult->id,
+          'user_id'=>$userResult->id,
 
-           'company_id'=>$company_result->id, 
+          'company_id'=>$company_result->id, 
 
-           'added_by'=>$userResult->id, 
+          'added_by'=>$userResult->id, 
 
         ]);
-
-    //trigger an email for the welcome
-        $message =  file_get_contents("http://app-prokakis.com/public/emailtemplate/welcome_final_edited.html");
-        $message = str_replace("[_firstname_]", $data['firstname'], $message);
-        $message = str_replace("[UNSUBSCRIBE LINK]", "http://app-prokakis.com/unsubscribe/" . $userResult->id, $message);
+        
+        $appurl = env('APP_URL');
+        
+//http://app-prokakis.com/public/emailtemplate/welcome_final_edited.html
+   	//trigger an email for the welcome
+   	
+        $message =  file_get_contents($appurl . "public/emailtemplate/welcome_final_edited.html");
+        $message = str_replace("[_firstname_]", $data['firstname'], $message); 
+        $message = str_replace("[appurl]", $appurl, $message);
+        $message = str_replace("[_unsubscribelink_]", $appurl . "unsubscribe/" . $userResult->id, $message);
         //send the email here  
-
+ 
+        
         
         Mailbox::sendMail_EmailTemplate($message, $data['email'], "Welcome to Intellinz", "");   
 
-        
         return $userResult;
 
         

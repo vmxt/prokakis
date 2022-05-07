@@ -90,7 +90,7 @@ class Test2Controller extends Controller
 
         //exit;
         
-        $data = str_replace("[UNSUBSCRIBE LINK]", $url_token, $data);
+        $data = str_replace("[_unsubscribelink_]", $url_token, $data);
 
         $this->alertNotify($data, 'vicsaints3rd@gmail.com', 'Enhance Company Profile, Prokakis');  
 
