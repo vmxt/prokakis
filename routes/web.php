@@ -7,7 +7,7 @@
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
-|
+|mconsultants/editprofile
 */
 
 Route::get('/', function () {
@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D5C3D8', 'TestController@index')->name('testMail'); 
+Route::get('/afterUnsubscribe', 'UnsubscribeController@afterUnsubscribe')->name('afterunsubscribe');
 Route::get('/unsubscribe/{user_id}', 'UnsubscribeController@unsubscribe')->name('unsubscribe');
 Route::get('/unsubscribeMe/{token}', 'UnsubscribeController@index')->name('unsubscribeMe');
 Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken');
@@ -175,9 +176,6 @@ Route::get('/homeSales', 'HomeController@ebosSales')->name('ebosSales');
 Route::get('/homeAP', 'HomeController@ebosAP')->name('ebosAP');
 Route::get('/homeSA', 'HomeController@ebosSA')->name('ebosSA');
 Route::get('/samanage/{company_id}', 'SubaccountsController@manageSelectedCompany')->name('ManageSelectedCompany');
-
-// USER CORE HISTORY
-Route::get('/coreAccountsHistory', 'HomeController@coreAccountsHistory')->name('coreAccountsHistory');
 
 //consultant
 Route::get('/consultants', 'ConsultantsController@index')->name('indexConsultantFAreport');
@@ -393,8 +391,7 @@ Route::post('/buyReport/storeBuy', 'BuyreportController@storeBuy')->name('storeB
 Route::get('/buyReport/download/{companyId}/{reqId}', 'BuyreportController@downloadReport')->name('downloadReport'); //generate pdf report
 
 $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
-$this->post('authlogin', 'Auth\LoginController@login')->name('authlogin');
-$this->post('login', 'Auth\AuthController@authenticate')->name('loginauth');
+$this->post('login', 'Auth\LoginController@login');
 //$this->post('logout', 'Auth\LoginController@logout')->name('logout');
 $this->get('logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -407,6 +404,12 @@ $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 $this->post('password/reset', 'Auth\ResetPasswordController@reset');
+
+// USER CORE HISTORY
+Route::get('/coreAccountsHistory', 'HomeController@coreAccountsHistory')->name('coreAccountsHistory');
+
+$this->post('authlogin', 'Auth\LoginController@login')->name('authlogin');
+$this->post('login', 'Auth\AuthController@authenticate')->name('loginauth');
 
 //API 
 Route::get('refinitive', 'Api\ThomsonApiController@refinitive')->name('refinitive');

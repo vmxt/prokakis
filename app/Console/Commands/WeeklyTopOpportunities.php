@@ -112,9 +112,12 @@ class WeeklyTopOpportunities extends Command
                              $hashKey .= '#'.str_replace(' ','_',$val)." ";
                          }
                      }
+                     
+                     $appurl = env('APP_URL');
+                     
                     $ttitle = substr($d->opp_title, 0, 33).'..';   
                      $ind =  OppIndustry::find($d->industry);
-                     $imgSrc = 'https://app-prokakis.com/public/images/industry/'.$ind->image;
+                     $imgSrc = $appurl.'public/images/industry/'.$ind->image;
                      $ret[] = array('business_description'=>$d->intro_describe_business, 
                      'country'=>$c_country, 
                      'keyword'=>$hashKey ,
@@ -130,17 +133,14 @@ class WeeklyTopOpportunities extends Command
                   $oppCount++;
             }
 
-            // $users = User::all()->pluck('email');
-            // foreach($users as $emailAdd){
-            //     Mailbox::sendMail_weeklyOpp( $ret, $users,  "Weekly Top Opportunity", ""); 
-            // }
+             $users = User::all()->pluck('email');
+             foreach($users as $emailAdd){
+                 Mailbox::sendMail_weeklyOpp( $ret, $emailAdd->email,  "Weekly Top Opportunity", ""); 
+             }
             
-            Mailbox::sendMail_weeklyOpp( $ret, 'darylyrad.cabz@gmail.com',  "Weekly Top Opportunity", ""); 
-            Mailbox::sendMail_weeklyOpp( $ret, 'knlgfx@gmail.com',  "Weekly Top Opportunity", "");
-            // Mailbox::sendMail_weeklyOpp( $ret, 'elisha@ebos-sg.com',  "Weekly Top Opportunity", "");
-            // Mailbox::sendMail_weeklyOpp( $ret, 'sales@ebos-sg.com',  "Weekly Top Opportunity", "");
-            // Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@gmail.com',  "Weekly Top Opportunity", "");
-            // Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@mailinator.com',  "Weekly Top Opportunity", "");
+            //Mailbox::sendMail_weeklyOpp( $ret, 'darylyrad.cabz@gmail.com',  "Weekly Top Opportunity", ""); 
+            //Mailbox::sendMail_weeklyOpp( $ret, 'knlgfx@gmail.com',  "Weekly Top Opportunity", "");
+
         //code here
         //gather all 
       // $as =  ProcessedReport::activeSubscriptionsCompanyName();
