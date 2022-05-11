@@ -46,14 +46,18 @@ class TestController extends Controller {
 
 				if ($res < 51) {
 					//send an email
+					
+					$appurl = env('APP_URL');
 
-					$data = file_get_contents("http://app-prokakis.com/public/emailtemplate/ProkakisEnhanceProfile.html");
+					$data = file_get_contents($appurl . "public/emailtemplate/ProkakisEnhanceProfile.html");
 
 					$rs_usr = User::find($d->user_id);
 					$email_address = $rs_usr->email;
 					$company_name = (trim($d->registered_company_name) != '' || $d->registered_company_name != NULL) ? $d->registered_company_name : $d->company_name;
 					$data = str_replace("[First Name]", $rs_usr->firstname, $data);
 					$data = str_replace("[Company Name]", $company_name, $data);
+					
+					$data = str_replace("[appurl]", $appurl, $data);
 
 					$en_company_id = base64_encode($d->id);
 					$en_user_id = base64_encode($d->user_id);
@@ -61,10 +65,10 @@ class TestController extends Controller {
 					$en_notify_date = base64_encode(date('Y-m-d'));
 					$token = $en_company_id . '-ebos-' . $en_user_id . '-ebos-' . $en_notify_type . '-ebos-' . $en_notify_date;
 					$url_token = url('/unsubscribeMe/' . $token);
-					$data = str_replace("[UNSUBSCRIBE LINK]", $url_token, $data);
+					$data = str_replace("[_unsubscribelink_]", $url_token, $data);
 
-					$this->alertNotify($data, $email_address, 'Enhance Company Profile, Prokakis');
-				        AuditLog::ok(array(0, 'Company Profile', 'sending email alert via cronjob', $email_address.' Enhance Company Profile, Prokakis'));
+					$this->alertNotify($data, $email_address, 'Increase Company Profile Scoring, Intellinz');
+				        AuditLog::ok(array(0, 'Company Profile', 'sending email alert via cronjob', $email_address.' Enhance Company Profile, Intellinz'));
 
 				} elseif ($res > 50) {
 
@@ -73,12 +77,15 @@ class TestController extends Controller {
 					$rsSellOffer = OpportunitySellOffer::where('company_id', $d->id)->get();
 
 					if (count((array) $rsBuild) == 0 && count((array) $rsBuy) == 0 && count((array) $rsSellOffer) == 0) {
+					    
+					    $appurl = env('APP_URL');
 
 						$rs_usr = User::find($d->user_id);
 						$email_address = $rs_usr->email;
 						$company_name = (trim($d->registered_company_name) != '' || $d->registered_company_name != NULL) ? $d->registered_company_name : $d->company_name;
 
-						$dataOpp = file_get_contents("http://app.prokakis.com/public/emailtemplate/ProkakisAddOpportunity.html");
+						$dataOpp = file_get_contents($appurl."public/emailtemplate/ProkakisAddOpportunity.html");
+						$dataOpp = str_replace("[appurl]", $appurl, $dataOpp);
 						$dataOpp = str_replace("[First Name]", $rs_usr->firstname, $dataOpp);
 						$dataOpp = str_replace("[Company Name]", $company_name, $dataOpp);
 
@@ -88,10 +95,10 @@ class TestController extends Controller {
 						$en_notify_date = base64_encode(date('Y-m-d'));
 						$token = $en_company_id . '-ebos-' . $en_user_id . '-ebos-' . $en_notify_type . '-ebos-' . $en_notify_date;
 						$url_token = url('/unsubscribeMe/' . $token);
-						$dataOpp = str_replace("[UNSUBSCRIBE LINK]", $url_token, $dataOpp);
+						$dataOpp = str_replace("[_unsubscribelink_]", $url_token, $dataOpp);
 
-						$this->alertNotify($dataOpp, $email_address, 'Add Opportunity, Prokakis');
-						AuditLog::ok(array(0, 'Opportunity', 'sending email alert via cronjob', $email_address.' Add Opportunity, Prokakis'));
+						$this->alertNotify($dataOpp, $email_address, 'Add Opportunity, Intellinz');
+						AuditLog::ok(array(0, 'Opportunity', 'sending email alert via cronjob', $email_address.' Add Opportunity, Intellinz'));
 					}
 
 				}

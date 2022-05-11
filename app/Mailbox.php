@@ -89,6 +89,7 @@ class Mailbox extends Model {
 	}
 
 	public static function sendMail_EmailTemplate($emailtext, $recipients, $subject, $bcc) {
+	    
 	 $ok =	Mail::send(array('html' => 'mailbox.emailtemplate'), array('text' => $emailtext),
 			function ($message) use ($recipients, $subject, $bcc) {
 				 $message->from('support@intellinz.com', 'Intellinz Web Admin');
@@ -101,6 +102,36 @@ class Mailbox extends Model {
 			}
 		);
 	return $ok;	
+
+	}
+	
+	
+	public static function sendMail_EmailTemplate22($emailtext, $recipients, $subject, $bcc) {
+	    
+	 $ok =	Mail::send(array('html' => 'mailbox.emailtemplate'), array('text' => $emailtext),
+			function ($message) use ($recipients, $subject, $bcc) {
+				 $message->from('support@intellinz.com', 'Intellinz Web Admin');
+
+				if ($bcc != '') {
+					$message->to($recipients)->$message->bcc($bcc)->subject($subject);
+				} else {
+					$message->to($recipients)->subject($subject);
+				}
+			}
+		);
+		
+	$ret_message = "";
+	
+	$fail = Mail::failures();
+    if(count($fail) > 0){
+       $ret_message .= 'Could not send message to '.$fail[0];
+    }
+
+    if(empty($ok)){
+        $ret_message .= "Email could not be sent.";
+    }
+
+	return $ret_message;	
 
 	}
 
