@@ -51,6 +51,7 @@ Auth::routes();
 //paypal listener
 Route::get('/ipn', 'IpnController@getIpnDataGet')->name('GetIpnDataGet');
 Route::post('/ipn', 'IpnController@getIpnDataPost')->name('GetIpnDataPost');
+//Route::get('/paypal/ipn', 'IpnController@fetchIpnResponse')->name('fetchIpnResponse');
 
 //request company ownership and company removal
 Route::get('/req-own-company/{reqId}/{provId}', 'CompanyOwningRemovalController@reqCompanyOwn')->name('reqCompanyOwn');

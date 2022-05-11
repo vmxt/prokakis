@@ -23,10 +23,9 @@ class BuytokenController extends Controller
        // $payerID = $_GET["PayerID"];
 
         $result = BuytokenController::executeGetExpressCheckoutDetails($token); //receipt
-        //var_dump($result); exit;
+        // var_dump($result); exit;
       
-            if($result['ACK'] == 'Success') {
-
+            if(strtolower($result['ACK']) == 'success') {
 
                     $tokenID=$result['TOKEN'];
                     $payerID=$result['PAYERID'];
@@ -37,8 +36,8 @@ class BuytokenController extends Controller
 
                        if(Session::get('TopUp') == 1){
                        
-                        BuytokenController::executeDoExpressCheckoutPayment($tokenID, $payerID, Session::get('TokenAmount'), "One time pay");
-      
+                        $aa = BuytokenController::executeDoExpressCheckoutPayment($tokenID, $payerID, Session::get('TokenAmount'), "One time pay");
+ 
                         Buytoken::create([
                             'company_id'=>$company_id, 
                             'num_tokens'=>Session::get('TokenCount'), 
@@ -53,18 +52,18 @@ class BuytokenController extends Controller
 
                        } else if(Session::get('TopUp') == 2) {
 
-                       $doEx = BuytokenController::executeDoExpressCheckoutPayment($tokenID, $payerID, 36.0, "Prokakis Monthly Subscription");
-       
+                       $doEx = BuytokenController::executeDoExpressCheckoutPayment($tokenID, $payerID, 36.0, "Intellinz Monthly Subscription");
+      
                         //recurring
                         $tokenID=$result['TOKEN'];
                         $recurrStartDate = date('Y-m-d', strtotime(' + 1 months')); 
 
-                        if($doEx['ACK'] == 'Success') 
+                        if(strtolower($doEx['ACK']) == 'success') 
                         {
 
                           $okRecur = BuytokenController::executeCreateRecurringProfile($tokenID, $payerID, 
-                          'Prokakis Monthly Subscription',$recurrStartDate, 36.0, 'Month', $result['EMAIL'], $result);
-
+                          'Intellinz Monthly Subscription',$recurrStartDate, 36.0, 'Month', $result['EMAIL'], $result);
+                        
                           if($okRecur['ACK'] == 'Success') 
                           { 
 
@@ -97,12 +96,14 @@ class BuytokenController extends Controller
                               return redirect('/reports/buyTokens')->with('message', 'You have successfuly paid the first month, but there is an error encountered upon creating your monthly recurring payment');
   
                           }      
+                        }else{
+                            return redirect('/reports/buyTokens')->with('message', 'There is an error processing your payment');
                         } 
                         
                        
                       }  else if(Session::get('TopUp') == 3) {
 
-                       $okDo = BuytokenController::executeDoExpressCheckoutPayment($tokenID, $payerID, 396.0, "Prokakis Yearly Subscription");
+                       $okDo = BuytokenController::executeDoExpressCheckoutPayment($tokenID, $payerID, 396.0, "Intellinz Yearly Subscription");
        
                          //recurring
                          $tokenID=$result['TOKEN'];
@@ -113,7 +114,7 @@ class BuytokenController extends Controller
                          {
  
                          $okRecur = BuytokenController::executeCreateRecurringProfile($tokenID, $payerID, 
-                           'Prokakis Yearly Subscription',$recurrStartDate, 396.0, 'Year', $result['EMAIL'], $result);
+                           'Intellinz Yearly Subscription',$recurrStartDate, 396.0, 'Year', $result['EMAIL'], $result);
                            
                            if($okRecur['ACK'] == 'Success') {
                              
@@ -235,7 +236,7 @@ class BuytokenController extends Controller
                     'METHOD' => 'DoExpressCheckoutPayment', 
                     'VERSION' => 124.0, 
                     'TOKEN' => $token, 
-                    'PAYMENTACTION' => 'Authorization',
+                    'PAYMENTACTION' => 'Sale',
                     'PAYERID' => $payerID, 
                     'AMT' => $amount,  
                     'CURRENCYCODE' => 'USD', 
@@ -254,9 +255,9 @@ class BuytokenController extends Controller
         $request_params = array
         (
 
-        'USER' => Config::get('constants.options.SANDBOX_PAYPAL_API_USERNAME'), 
-        'PWD' => Config::get('constants.options.SANDBOX_PAYPAL_API_PASSWORD'), 
-        'SIGNATURE' => Config::get('constants.options.SANDBOX_PAYPAL_API_SIGNATURE'), 
+        'USER' => Config::get('constants.options.PAYPAL_API_USERNAME'), 
+        'PWD' => Config::get('constants.options.PAYPAL_API_PASSWORD'), 
+        'SIGNATURE' => Config::get('constants.options.PAYPAL_API_SIGNATURE'), 
         'METHOD' => 'CreateRecurringPaymentsProfile', 
         'VERSION' => 124.0, 
         'TOKEN' => $token,
@@ -267,6 +268,7 @@ class BuytokenController extends Controller
         'BILLINGPERIOD'=>$billingPeriod,
         'BILLINGFREQUENCY'=>1,
         'AMT'=>$amount,
+        'INITIALAMOUNT'=> $amount,
         'CURRENCYCODE'=>'USD',
         'COUNTRYCODE' => 'SG',
         'MAXFAILEDPAYMENTS'=>3,
