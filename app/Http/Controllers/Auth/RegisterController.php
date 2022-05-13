@@ -20,6 +20,8 @@ use App\CompanyPayment;
 
 use App\CompanySocialAccounts;
 
+use App\CurrencyAccounts;
+
 
 
 use App\Http\Controllers\Controller;
@@ -266,11 +268,23 @@ class RegisterController extends Controller
 
         ]);
         
+        CurrencyAccounts::create([
+
+          'user_id'=>$userResult->id,
+
+          'currency_id'=>"3", 
+
+          'updated_at'=>date("Y"), 
+          
+          'created_at'=>date("Y"), 
+
+        ]);
+        
         $appurl = env('APP_URL');
         
 //http://app-prokakis.com/public/emailtemplate/welcome_final_edited.html
-   	//trigger an email for the welcome
-   	
+    //trigger an email for the welcome
+    
         $message =  file_get_contents($appurl . "public/emailtemplate/welcome_final_edited.html");
         $message = str_replace("[_firstname_]", $data['firstname'], $message); 
         $message = str_replace("[appurl]", $appurl, $message);
