@@ -268,6 +268,7 @@ class RegisterController extends Controller
 
         ]);
         
+        // below are the added codes for default user's currency
         CurrencyAccounts::create([
 
           'user_id'=>$userResult->id,
