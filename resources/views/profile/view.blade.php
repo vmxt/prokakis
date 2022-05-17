@@ -530,7 +530,7 @@
         }
 
         @media (min-width: 320px) and (max-width: 480px) {
-            .profile-img img {
+            .profile-img imgï¿½{
                 margin-left: 35px;
             }
             .ctr{
@@ -661,7 +661,7 @@
                                 foreach($completenessMessages as $d){
                                 ?>
                                 <strong>
-                                <li style=" list-style-type: none; color: #1A4275"><?php if ($d != NULL) {
+                                <li style=" list-style-type: none; color: #000000"><?php if ($d != NULL) {
                                         echo '<i class="fa fa-exclamation"></i>' .$d;
                                     } ?> </li></strong>
                                 <?php

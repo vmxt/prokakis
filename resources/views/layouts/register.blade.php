@@ -15,7 +15,7 @@
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content="Intellinz Ebos-SG App {{ now()->year }}" />
         <meta property="og:description"   content="Register with Intellinz, a Complete App to Help Uncover Your Hidden Business Opportunities, That Will Protect yourself from Fraudulent Partners, Find Safe and Secure Business Opportunities, With On-Going Business Intelligence Assessment, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates." />
-        <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/intellinz_green.png" />
+        <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" />
         <!-- end from the original code -->
         
         <!-- START Twitter card -->
@@ -78,7 +78,7 @@
     <!-- override the css values above -->
      <style>
             .page-header .page-header-menu {
-                background: #1a4275;
+                background: #000000;
             }
             i {color: white}
 
