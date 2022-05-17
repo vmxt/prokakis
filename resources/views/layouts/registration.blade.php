@@ -62,7 +62,7 @@
 
         <meta property="og:site_name" content="Intellinz"/> 
 
-        <meta property="og:image" content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
+        <meta property="og:image" content="https://app-prokakis.com/public/img-resources/intellinz_green.png" /> 
 
         <meta property="og:type" content="website" /> 
 
@@ -174,7 +174,7 @@
 
         <a href="https://Intellinz.com/">
 
-            <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="300px" > 
+            <img src="{{asset('public/img-resources/intellinz_green.png')}}" alt="Intellinz" id="logo" width="300px" > 
 
         </a>
 

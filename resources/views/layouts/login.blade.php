@@ -30,7 +30,7 @@
 
         <meta property="og:description"   content="Login to Intellinz, Your Complete App to Help Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, With On-Going Business Intelligence Assessment, Find Safe and Secure Business Opportunities, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates." />
 
-        <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" />
+        <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/intellinz_green.png" />
 
         <!-- end from the original code -->
         

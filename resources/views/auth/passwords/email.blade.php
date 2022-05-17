@@ -8,7 +8,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
             <br />
-           <center> <a href="https://intellinz.com/" target="_blank"><img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="300px" > </a></center>
+           <center> <a href="https://intellinz.com/" target="_blank"><img src="{{asset('public/img-resources/intellinz_green.png')}}" alt="Intellinz" id="logo" width="300px" > </a></center>
             
 
                 <div class="panel-heading"><h1 style="font-size:14px; font-weight:400; text-align:left;">Reset My Password</h1></div>
