@@ -2,7 +2,10 @@
 
 namespace App;
 
+use App;
+use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class CurrencyAccounts extends Model
 {
@@ -14,8 +17,10 @@ class CurrencyAccounts extends Model
      *
      * @var array
      */
+
+    //added new columns in variable $fillable
     protected $fillable = [
-        'user_id', 'currency_id'
+        'user_id', 'currency_id', 'updated_at', 'created_at'
     ];
 
     /**
