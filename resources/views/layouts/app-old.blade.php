@@ -59,7 +59,7 @@
     <!-- override the css values above -->
      <style>
             .page-header .page-header-menu {
-                background: #1a4275;
+                background: #000000;
             }
             i {color: white}
 

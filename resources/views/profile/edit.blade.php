@@ -489,7 +489,7 @@
                                             foreach($completenessMessages as $d){
                                             ?>
 
-                                            <strong><li style=" list-style-type: none; color: #1A4275"><?php if ($d != NULL) {
+                                            <strong><li style=" list-style-type: none; color: #000000"><?php if ($d != NULL) {
                                                     echo '<i class="fa fa-exclamation"></i>' .$d;
                                                 } ?> </li></strong>
                                             <?php

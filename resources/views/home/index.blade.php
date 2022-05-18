@@ -215,7 +215,7 @@
     }
 
     .hr-sect strong{
-        color: #1a4275;
+        color: #000000;
     }
 
     .card-flex{
