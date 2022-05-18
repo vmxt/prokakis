@@ -13,7 +13,7 @@
         <meta property="og:title" content="Intellinz Ebos-SG App {{ now()->year }}" /> 
         <meta property="og:url" content="https://app-prokakis.com/" /> 
         <meta property="og:site_name" content="Intellinz"/> 
-        <meta property="og:image" content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
+        <meta property="og:image" content="https://app-prokakis.com/public/img-resources/intellinz_green.png" /> 
         <meta property="og:type" content="website" /> 
         <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYC Due Diligence, On-Going Business Intelligence Assessment, Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates, Safe and Secure Business Opportunities." /> 
         <!-- end from the original code -->
@@ -413,7 +413,7 @@ s0.parentNode.insertBefore(s1,s0);
                                 <!-- BEGIN LOGO -->
                                 <div class="page-logo">
                                     <a href="{{ route('login') }}" style="margin-top: 25px;">
-                                        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="200px">
+                                        <img src="{{asset('public/img-resources/intellinz_green.png')}}" alt="Intellinz" id="logo" width="200px">
                                     </a>
                                 </div>
                                 <!-- END LOGO -->

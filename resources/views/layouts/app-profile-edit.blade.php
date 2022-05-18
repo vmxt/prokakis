@@ -299,7 +299,7 @@
 
                                     <a href="{{ route('home') }}" style="margin-top: 25px;">
 
-                                        <img src="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" alt="Intellinz" id="logo" width="200px">
+                                        <img src="https://app-prokakis.com/public/img-resources/intellinz_green.png" alt="Intellinz" id="logo" width="200px">
 
                                     </a>
 

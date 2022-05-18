@@ -50,7 +50,7 @@
 
         <a href="https://intellinz.com">
 
-            <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="200px"> </a>
+            <img src="{{asset('public/img-resources/intellinz_green.png')}}" alt="Intellinz" id="logo" width="200px"> </a>
 
     </div>
 

@@ -37,11 +37,11 @@
                          <p class="h4">TOKEN SPENT HISTORY INFORMATION</p>
                     </div>
                     <div class="row ">
-                         <img class='header-image' src="{{ asset('public/img-resources/ProKakisNewLogo.png') }}" width="35%">
+                         <img class='header-image' src="{{ asset('public/img-resources/intellinz_green.png') }}" width="35%">
                     </div>
                     <div class="row invoice ">
 {{--                         <div class="col-md-9  ">
-                            <img class='header-image' src="{{ asset('public/img-resources/ProKakisNewLogo.png') }}" width="35%">
+                            <img class='header-image' src="{{ asset('public/img-resources/intellinz_green.png') }}" width="35%">
                         </div> --}}
 
                         <div class="col-md-9  text-left ">

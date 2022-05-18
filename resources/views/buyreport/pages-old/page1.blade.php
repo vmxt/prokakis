@@ -8,7 +8,7 @@
         </div>
         <div class="row p-5">
             <div class="col-md-12 text-center">
-                <img src="{{ asset('public/img-resources/ProKakisNewLogo.png') }}" width="90%">
+                <img src="{{ asset('public/img-resources/intellinz_green.png') }}" width="90%">
             </div>
         </div>
         

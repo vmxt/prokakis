@@ -15,7 +15,7 @@
                     </div>
                     <div class="row p-5">
                         <div class="col-md-6">
-                            <img src="{{ asset('public/img-resources/ProKakisNewLogo.png') }}" width="50%">
+                            <img src="{{ asset('public/img-resources/intellinz_green.png') }}" width="50%">
                         </div>
                     </div>
 

@@ -283,7 +283,7 @@ h5{
 
 <body bgcolor="#f7f7f7">
 <table align="center" cellpadding="0" cellspacing="0" class="container-for-gmail-android" width="100%">
-        <td style="font-family: Arial, Helvetica, sans-serif; padding: 10px; font-size: 16px; line-height: normal; background-color: #87cefa"><a href="https://ebos2.prokakis.com/"><img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="200px"></a></td>
+        <td style="font-family: Arial, Helvetica, sans-serif; padding: 10px; font-size: 16px; line-height: normal; background-color: #87cefa"><a href="https://ebos2.prokakis.com/"><img src="{{asset('public/img-resources/intellinz_green.png')}}" alt="Intellinz" id="logo" width="200px"></a></td>
   <tr>
     <td align="center" valign="top" width="100%" style="background-color: #f7f7f7;" class="content-padding">
       <center>
