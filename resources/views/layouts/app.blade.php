@@ -284,7 +284,7 @@ h1,
 }
 
 .menu_title{
-  color: #f90;
+  color: #7cda24;
   font-weight: bolder;
 }
 
@@ -366,7 +366,7 @@ color: white;
 }
 
 .div_right{
-  border-left:  solid 1px #f90;
+  border-left:  solid 1px #7cda24;
 }
 
 * {
