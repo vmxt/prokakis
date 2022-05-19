@@ -101,6 +101,8 @@
 <?php 
     $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
     $tokenStock = App\SpentTokens::validateTokenStocks($requestor_id);
+    $if_premium = App\SpentTokens::check_if_premium($requestor_id);
+    
     //echo $tokenStock;
      $opportunity_type ="";
 ?>
@@ -216,10 +218,8 @@
                             @endif
                         </ul>
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
-                        <p class='meta'> {{ $item->timeframe_goal }} </p>
-                   
-
-
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -391,13 +391,12 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
                         
                     </h4>
                 </span>
                 <hr>
             </div>
-
 
             <div>
                 <span class="title-text">
@@ -464,11 +463,15 @@
             </div> 
 
             <div>
-              @if(  $tokenStock >= 12)
-                <a onclick="processReq('sell', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
+            @if(  !$if_premium )
+                <a onclick="notPremiumMessage();" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+            @else
+                @if(  $tokenStock >= 120)
+                    <a onclick="processReq('sell', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @else
+                    <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @endif
+            @endif
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -693,8 +696,8 @@
                             @endif
                         </ul>
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
-                        <p class='meta'> {{ $item->timeframe_goal }} </p>
-
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -860,7 +863,7 @@
                 </span>
                 <hr>
             </div>
-
+                        
             <div>
                 <span class="title-text">
                     <h4><strong> Asking Price </strong></h4>
@@ -937,11 +940,15 @@
             </div> 
 
             <div>
-              @if(  $tokenStock >= 12)
-                <a onclick="processReq('buy', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
+              @if(  !$if_premium )
+                <a onclick="notPremiumMessage();" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+            @else
+                @if(  $tokenStock >= 120)
+                    <a onclick="processReq('buy', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @else
+                    <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @endif
+            @endif
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
@@ -1166,7 +1173,6 @@
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
                         <p class='meta'> {{ $item->timeframe_goal }}
                         {{ $item->approx_large }} opportunity. </p>
-
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -1326,19 +1332,19 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ $item->timeframe_goal }}                        
+                        {{ $item->timeframe_goal }}
                     </h4>
                 </span>
                 <hr>
             </div>
-
+                        
             <div id='asking_price_section_{{ $buildCount }}'>
                 <span class="title-text">
-                    <h4><strong> Asking Price </strong></h4>
+                    <h4><strong> Asking Price  </strong></h4>
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
                     </h4>
                 </span>
                 <hr>
@@ -1362,7 +1368,7 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->est_profit, $item->currency) }}  {{ $item->currency }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->est_profit, $item->currency) }}
                     </h4>
                 </span>
                 <hr>
@@ -1456,11 +1462,17 @@
             </div> 
 
             <div>
-              @if($tokenStock >= 12)
+              
+              
+            @if(  !$if_premium )
+                <a onclick="notPremiumMessage();" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+            @else
+                @if($tokenStock >= 120)
                 <a id='dilligence_btn_{{ $buildCount }}' onclick="processReq('build', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a id='dilligence_btn_{{ $buildCount }}' onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
+                  @else
+                    <a id='dilligence_btn_{{ $buildCount }}' onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                  @endif
+            @endif
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -1706,6 +1718,7 @@
             <span class="content-text">
                 <h4> 
                     {{ $result_filter->timeframe_goal }}
+                    {{ $result_filter->approx_large }} opportunity.
                     
                 </h4>
             </span>
@@ -1718,7 +1731,7 @@
             </span>
             <span class="content-text">
                 <h4> 
-                    {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
+                    {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
                 </h4>
             </span>
             <hr>
@@ -2065,6 +2078,18 @@
             }
         };
         $("#keywordCountry").easyAutocomplete(optionsCountry);
+        
+        function notPremiumMessage(){
+        $('.modal_oppoBox').modal('hide');
+        
+          swal({
+              title: 'Cannot Process Request!',
+              text:  'This requires premium account to request a report.',
+              icon:  'warning'
+            }).then(function() {
+                //swal.close();
+            });
+        }
 
         function stockTokenInfo(stockToken){
           $('.modal_oppoBox').modal('hide');
@@ -2072,10 +2097,16 @@
             stockToken = stockToken;
           else
             stockToken = 0;
+            
+        
+        var with_s = "";
+        if(stockToken > 1){
+            with_s = "s";
+        }
 
           swal({
-              title: 'Unsufficient token. You only have '+stockToken+' token in your account',
-              text:  'This action requires at least 12 token. We will redirect you to Buy token|Credit page and find options suitable on what you need',
+              title: 'Insufficient credits. You only have '+stockToken+' credit'+with_s+' in your account',
+              text:  'This action requires at least 120 credits. We will redirect you to "Buy Credit" page and find solutions suitable for what you need.',
               icon:  'warning'
             }).then(function() {
                 window.location.href = "{{ route('reportsBuyTokens') }}";
@@ -2085,7 +2116,7 @@
         function checkPremium(companyID, ptype, oppId, linker){
             swal({
                 title: "Are you sure to open this profile, published Anonymously? ", 
-                text: "You are about to open a profile using your premuim account which will cost you 1 token.",
+                text: "You are about to open a profile using your premuim account which will cost you 1 credit.",
                 icon: "warning",
                 buttons: [
                   'No, cancel it!',
@@ -2098,7 +2129,7 @@
                 if (isConfirm) {
                   swal({
                     title: 'Premium Account',
-                    text:  'Done on setting 1 token to spent with premium account.',
+                    text:  'Done on setting 1 credit to spent with premium account.',
                     icon:  'success'
                   }).then(function() {
 
@@ -2139,7 +2170,7 @@
             $('.modal_oppoBox').modal('hide');
               swal({
                   title:"This requires premium account to open this profile.", 
-                  text: "Are you sure to proceed?  Because we will send an email notification to this company and redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                  text: "Are you sure to proceed?  Because we will send an email notification to this company and redirect you to Dashboard page and find the upgrade button at Credit section.",
                   icon: "warning",
                   buttons: [
                     'No, cancel it!',
@@ -2166,8 +2197,8 @@
   
                           success: function (data) {
                               swal({
-                                title: 'Email notification will be sent to this profile. You need to re-fill token to become a Premium Account',
-                                text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                                title: 'Email notification will be sent to this profile. You need to re-fill credit to become a Premium Account',
+                                text:  'Check Credit section and look for the Upgrade To Premium Account button.',
                                 icon:  'success'
                               }).then(function() {
                                      //document.location = '{{ url("reports/buyTokens") }}';
@@ -2238,7 +2269,7 @@
           $('.modal_oppoBox').modal('hide');
             swal({
                 title:"This requires premium account to open this profile.", 
-                text: "Are you sure to proceed?  Because we will send an email notification to this profile and redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                text: "Are you sure to proceed?  Because we will send an email notification to this profile and redirect you to Dashboard page and find the upgrade button at Credit section.",
                 icon: "warning",
                 buttons: [
                   'No, cancel it!',
@@ -2265,8 +2296,8 @@
 
                         success: function (data) {
                             swal({
-                              title: 'Email notification will be sent to this profile. You need to re-fill token to become a Premium Account',
-                              text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                              title: 'Email notification will be sent to this profile. You need to re-fill credit to become a Premium Account',
+                              text:  'Check Credit section and look for the Upgrade To Premium Account button.',
                               icon:  'success'
                             }).then(function() {
                                    //document.location = '{{ url("reports/buyTokens") }}';
@@ -2457,7 +2488,7 @@
           $('.modal_oppoBox').modal('hide');
             swal({
                 title: "This profile is a free account.", 
-                text:  "Are you sure to proceed? Because we will send an email notification to this profile. To encourage them buy token and become a premium account.",
+                text:  "Are you sure to proceed? Because we will send an email notification to this profile. To encourage them buy credit and become a premium account.",
                 icon:  "warning",
                 buttons: [
                   'No, cancel it!',
