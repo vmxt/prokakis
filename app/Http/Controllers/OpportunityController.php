@@ -129,18 +129,35 @@ class OpportunityController extends Controller {
 			$requestor_profile = CompanyProfile::find($requestor_companyId);
 
 			//validate if token is still availabale
+			
+			$left_behind_credit = SpentTokens::check_remaining_credit($requestor_companyId);
 
-			if (SpentTokens::validateLeftBehindToken($requestor_companyId) == false) {
+			if ($left_behind_credit == "out_credit") {
 
-				return redirect('opportunity/explore')->with('message', 'Insufficient token value, please re-fill.');
+				return redirect('opportunity/explore')->with('message', 'Insufficient credit value, please re-fill. ');
 
 				exit;
 
-			} else {
+			}
+			else if ($left_behind_credit == "not_premium") {
 
-				$getTotalTokensLeft = SpentTokens::validateLeftBehindToken($requestor_companyId);
-				if ($getTotalTokensLeft < 12) {
-					return redirect('opportunity/explore')->with('message', 'Insufficient token value this process requires 12 token, please re-fill.');
+				return redirect('opportunity/explore')->with('message', 'This requires premium account to request a report. ');
+
+				exit;
+
+			}
+			else if ($left_behind_credit == false) {
+
+				return redirect('opportunity/explore')->with('message', 'Valication Error.');
+
+				exit;
+
+			}
+			else {
+
+				$getTotalTokensLeft = $left_behind_credit;
+				if ($getTotalTokensLeft < 120) {
+					return redirect('opportunity/explore')->with('message', 'Insufficient token value this process requires 120 credits, please re-fill.');
 					exit;
 				}
 
@@ -211,7 +228,7 @@ class OpportunityController extends Controller {
 
 					if (count((array) $cons) > 0) {
 
-						SpentTokens::spendTokenByrequest($isok->id, $requestor_companyId, $requestor_profile->user_id, 12); //deduct 12 token
+						SpentTokens::spendTokenByrequest($isok->id, $requestor_companyId, $requestor_profile->user_id, 120); //deduct 120 token
 
 						$usr = User::find($cons->consultant_main);
 
@@ -341,7 +358,7 @@ class OpportunityController extends Controller {
 
 			if (SpentTokens::validateLeftBehindToken($requestor_companyId) == false) {
 
-				return redirect('/search-company')->with('message', 'Insufficient token value, please re-fill.');
+				return redirect('/search-company')->with('message', 'Insufficient token value, please re-fill. 1');
 
 				exit;
 
@@ -676,7 +693,7 @@ class OpportunityController extends Controller {
 
 				$sell = OpportunitySellOffer::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
 
-				$buy = OpportunityBuy::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
+			$buy = OpportunityBuy::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
 
 		$requestReport = new RequestReport;
 		$result_filter = false;

@@ -447,7 +447,8 @@
                                 </div>
                                 <div class="card-body center" style="text-align: center;">
                                     <b class="font-prokakis-blue" style="font-size: 20px;"> <?php
-
+                                        $with_s = "";
+                                        
                                         $user_id = Auth::id();
                                         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
                                         $valid_token = 0;
@@ -457,12 +458,17 @@
                                             $consumedTokens = App\SpentTokens::validateTokenStocks($company_id_result);
                                             $valid_token = $consumedTokens;
                                             echo $consumedTokens;
+                                            
+                                            
+                                            if($consumedTokens > 0){
+                                                $with_s = "s";
+                                            }
                                         }
                                         ?>  </b> <br/>
-                                    Credit Left <br/>
+                                    Credit<?php echo $with_s; ?> Left <br/>
                                     <div class="col-sm-12">
                                         <a id='home-topup' href="{{ route('reportsBuyCredits') }}" class="btn red-mint"
-                                           style="width: 100%;"> Top Up</a>
+                                           style="width: 100%;">Top Up</a>
                                     </div>
                                         @if($c_promo == 0)   
                                         <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>    
