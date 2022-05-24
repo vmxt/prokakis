@@ -36,6 +36,7 @@ class CurrencyController extends Controller {
 		$acc = CurrencyAccounts::where('user_id',$user_id)->first(); 
 		if($acc){
 			$acc->currency_id = $currency_id;
+			$acc->updated_at = date("Y-m-d H:i:s"); 
 			$acc->save();
 		}else{
 			 CurrencyAccounts::create([
