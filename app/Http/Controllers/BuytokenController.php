@@ -23,17 +23,17 @@ class BuytokenController extends Controller
        // $payerID = $_GET["PayerID"];
 
         $result = BuytokenController::executeGetExpressCheckoutDetails($token); //receipt
-        // var_dump($result); exit;
-      
+     //var_dump($result); exit;
+ 
             if(strtolower($result['ACK']) == 'success') {
 
                     $tokenID=$result['TOKEN'];
                     $payerID=$result['PAYERID'];
                     $buyerEmail=$result['EMAIL'];
 
-      
                     $company_id = CompanyProfile::getCompanyId(Session::get('TokenBuyerId'));
-
+//  $datas = $request->session()->all();
+     // dd( Session::get('TopUp') );
                        if(Session::get('TopUp') == 1){
                        
                         $aa = BuytokenController::executeDoExpressCheckoutPayment($tokenID, $payerID, Session::get('TokenAmount'), "One time pay");
@@ -47,7 +47,7 @@ class BuytokenController extends Controller
                             'paypal_token'=>$tokenID,
                         ]);
                         
-                        return redirect('/reports/buyTokens')->with('status', 'You have successfuly purchased '.Session::get('TokenCount').' tokens.');
+                        return redirect('/reports/buyCredits')->with('status', 'You have successfuly purchased '.Session::get('TokenCount').' tokens.');
 
 
                        } else if(Session::get('TopUp') == 2) {
@@ -57,13 +57,13 @@ class BuytokenController extends Controller
                         //recurring
                         $tokenID=$result['TOKEN'];
                         $recurrStartDate = date('Y-m-d', strtotime(' + 1 months')); 
-
+                        $recurrStartDate = date('Y-m-d', strtotime($recurrStartDate.' + 14 days')); 
                         if(strtolower($doEx['ACK']) == 'success') 
                         {
 
                           $okRecur = BuytokenController::executeCreateRecurringProfile($tokenID, $payerID, 
                           'Intellinz Monthly Subscription',$recurrStartDate, 36.0, 'Month', $result['EMAIL'], $result);
-                        
+                        //dd($okRecur);
                           if($okRecur['ACK'] == 'Success') 
                           { 
 
@@ -79,25 +79,27 @@ class BuytokenController extends Controller
                             ]);
 
 
-                            return redirect('/reports/buyTokens')->with('status', 'You have successfuly enrolled the monthly subscription');
+                            return redirect('/reports/buyCredits')->with('status', 'You have successfuly enrolled the monthly subscription');
                        
                           } else {
-
-                              Subscribers::create([
-                                'company_id'  =>  $company_id, 
-                                'payer_email' =>  $buyerEmail,
-                                'start_date'  =>  date('Y-m-d'), 
-                                'end_date'  =>  $recurrStartDate, 
-                                'subs_type'   => 'monthly', 
-                               // 'profileId'=> $okRecur['PROFILEID'], 
-                                'created_at'  => date('Y-m-d'), 
-                                'status'      => 1,
-                              ]);
-                              return redirect('/reports/buyTokens')->with('message', 'You have successfuly paid the first month, but there is an error encountered upon creating your monthly recurring payment');
-  
+                                if(is_null(Session::get('TopUp')) ){
+                                     return redirect('reportsBuyCredits')->with('message', 'Payment Failed, Please try again');
+                                }else{
+                                    Subscribers::create([
+                                        'company_id'  =>  $company_id, 
+                                        'payer_email' =>  $buyerEmail,
+                                        'start_date'  =>  date('Y-m-d'), 
+                                        'end_date'  =>  $recurrStartDate, 
+                                        'subs_type'   => 'monthly', 
+                                       // 'profileId'=> $okRecur['PROFILEID'], 
+                                        'created_at'  => date('Y-m-d'), 
+                                        'status'      => 1,
+                                      ]);
+                                     return redirect('/reports/buyCredits')->with('message', 'You have successfuly paid the first month, but there is an error encountered upon creating your monthly recurring payment');
+                                }
                           }      
                         }else{
-                            return redirect('/reports/buyTokens')->with('message', 'There is an error processing your payment');
+                            return redirect('/reports/buyCredits')->with('message', 'There is an error processing your payment');
                         } 
                         
                        
@@ -129,7 +131,7 @@ class BuytokenController extends Controller
                                 'status'      => 1,
                               ]);
     
-                           return redirect('/reports/buyTokens')->with('status', 'You have successfuly enrolled the yearly subscription');
+                           return redirect('/reports/buyCredits')->with('status', 'You have successfuly enrolled the yearly subscription');
 
                            }else {
 
@@ -144,7 +146,7 @@ class BuytokenController extends Controller
                               'status'      => 1,
                             ]);
 
-                            return redirect('/reports/buyTokens')->with('message', 'You have successfuly paid the first year, but there is an error encountered upon creating your yearly recurring payment');
+                            return redirect('/reports/buyCredits')->with('message', 'You have successfuly paid the first year, but there is an error encountered upon creating your yearly recurring payment');
                             
                           }
 
@@ -164,7 +166,7 @@ class BuytokenController extends Controller
                             'paypal_token'=>$tokenID,
                         ]);
                         
-                        return redirect('/reports/buyTokens')->with('status', 'You have successfuly purchased '.Session::get('TokenCount').' credits.');
+                        return redirect('/reports/buyCredits')->with('status', 'You have successfuly purchased '.Session::get('TokenCount').' credits.');
 
                       } else if(Session::get('TopUp') == 5) {
 
@@ -179,7 +181,7 @@ class BuytokenController extends Controller
                             'paypal_token'=>$tokenID,
                         ]);
                         
-                        return redirect('/reports/buyTokens')->with('status', 'You have successfuly purchased '.Session::get('TokenCount').' credits.');
+                        return redirect('/reports/buyCredits')->with('status', 'You have successfuly purchased '.Session::get('TokenCount').' credits.');
 
 
                       }
@@ -195,7 +197,7 @@ class BuytokenController extends Controller
 
       Log::info('Cancelled Buying of Tokens:'.Session::get('TokenBuyerId').' '. Session::get('TokenAmount')); 
 
-      return redirect('/reports/buyTokens')->with('message', 'You have cancelled the top up process.');
+      return redirect('/reports/buyCredits')->with('message', 'You have cancelled the top up process.');
 
     }
 
@@ -268,17 +270,17 @@ class BuytokenController extends Controller
         'BILLINGPERIOD'=>$billingPeriod,
         'BILLINGFREQUENCY'=>1,
         'AMT'=>$amount,
-        'INITIALAMOUNT'=> $amount,
+        'INITAMT'=> $amount,
         'CURRENCYCODE'=>'USD',
         'COUNTRYCODE' => 'SG',
         'MAXFAILEDPAYMENTS'=>3,
-        'AUTOBILLAMT'=>'AddToNextBilling',
+        'AUTOBILLOUTAMT'=>'AddToNextBilling',
         'SUBSCRIBERNAME' => $rs['FIRSTNAME'].' '.$rs['LASTNAME'],
         'FIRSTNAME'=>$rs['FIRSTNAME'],
         'LASTNAME'=>$rs['LASTNAME'],
         'STREET'=>$rs['SHIPTOSTREET'],
         'CITY'=>$rs['SHIPTOCITY'],
-        'COUNTRYCODE'=>$rs['SHIPTOCITY'],
+        'COUNTRYCODE'=>$rs['SHIPTOCITY']
         );
 
         return BuytokenController::executeCurl($request_params);
