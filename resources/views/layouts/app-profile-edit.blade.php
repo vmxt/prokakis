@@ -700,13 +700,13 @@
                                     <ul class="nav navbar-nav">
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown {{ (request()->segment(2) == '/') ? 'active' : '' }}">
                                             @guest
-                                                <a class="navbar-brand" href="https://app-prokakis.com/home">
-                                                    <i class="fa fa-home"></i>  Home
+                                                <a class="navbar-brand" href="https://app.intellinz.com/home">
+                                                    <i class="fa fa-home" style="color: #7cda24;"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
                                             @else
-                                                <a href="https://app-prokakis.com/home">
-                                                    <i class="fa fa-home"></i>  Home
+                                                <a href="https://app.intellinz.com/home">
+                                                    <i class="fa fa-home" style="color: #7cda24;"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
 
@@ -716,18 +716,18 @@
                                         (request()->segment(1) == 'businessnews') ? 'active' : '' || (request()->segment(1) == 'alertedRecords') ? 'active' : ''}} ">
 
                                                 <a  href="{{ url('/home') }}" >
-                                                    <i class=" fa fa-dashboard" style="color: white"></i>System Dashboard
+                                                    <i class=" fa fa-dashboard" style="color: #7cda24;"></i>System Dashboard
                                                     <span class="arrow"></span>
                                                 </a>
                                                 <ul class="dropdown-menu pull-left">
                                                         <li aria-haspopup="true" class=" ">
                                                                <a href="{{ url('/businessnews/list') }}" class="nav-link  ">
-                                                               <i class="icon-bulb" style="color: white"></i> Business News</a>
+                                                               <i class="icon-bulb" style="color: #7cda24;"></i> Business News</a>
                                                         </li>
 
                                                         <li aria-haspopup="true" class=" ">
                                                                <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
-                                                               <i class="icon-magnifier" style="color: white"></i> Investor Alert List</a>
+                                                               <i class="icon-magnifier" style="color: #7cda24;"></i> Investor Alert List</a>
                                                         </li>
                                                 </ul>
 
@@ -741,7 +741,7 @@
                                         (request()->segment(2) == 'deactivatePage') ? 'active' : '' }}">
 
                                             <a  href="#">
-                                                <i class="fa fa-user" style="color: white"></i> Company <span class="arrow"></span>
+                                                <i class="fa fa-user" style="color: #7cda24;"></i> Company <span class="arrow"></span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -771,16 +771,16 @@
                                         (request()->segment(2) == 'explore') ? 'active' : ''}}">
 
                                             <a href="#">
-                                                <i class=" fa fa-lightbulb-o" style="color: white"></i> Opportunities
+                                                <i class=" fa fa-lightbulb-o" style="color: #7cda24;"></i> Opportunities
                                                 <span class="arrow"></span>
                                             </a>
 
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a  href="{{ url('/opportunity') }}" class="nav-link  "><i class="icon-bulb" style="color: white"></i> My Opportunities </a>
+                                                    <a  href="{{ url('/opportunity') }}" class="nav-link  "><i class="icon-bulb" style="color: #7cda24;"></i> My Opportunities </a>
                                                 </li>
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/opportunity/explore') }}" class="nav-link  "><i class="icon-magnifier" style="color: white;"></i> Explore</a>
+                                                    <a href="{{ url('/opportunity/explore') }}" class="nav-link  "><i class="icon-magnifier" style="color: #7cda24;"></i> Explore</a>
                                                 </li>
                                             </ul>
 
@@ -791,23 +791,23 @@
                                         (request()->segment(2) == 'requesters') ? 'active' : ''}}">
 
                                             <a href="#">
-                                                <i class="fa fa-file-text-o" style="color: white"></i> Report
+                                                <i class="fa fa-file-text-o" style="color: #7cda24;"></i> Report
                                                 <span class="arrow"></span>
                                             </a>
 
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: white;"></i> Report Status </a>
+                                                    <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: #7cda24;"></i> Report Status </a>
                                                 </li>
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color:white"></i> Ongoing Monitoring </a>
+                                                    <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color: #7cda24;"></i> Ongoing Monitoring </a>
                                                 </li>
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: white;"></i> Buy Tokens</a>
+                                                    <a href="{{ url('/reports/buyTokens') }}" class="nav-link  "><i class="fa fa-dollar" style="color: #7cda24;"></i> Buy Tokens</a>
                                                 </li>
 
                                                 <li aria-haspopup="true" class=" ">
-                                                    <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: white;"></i> Report Requesters </a>
+                                                    <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: #7cda24;"></i> Report Requesters </a>
                                                 </li>
 
 
@@ -819,7 +819,7 @@
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a  href="{{ url('/homeSubConsul') }}" >
-                                                    <i class="icon-grid"></i> System Dashboard
+                                                    <i class="icon-grid" style="color: #7cda24;"></i> Dashboard
                                                     <span class="arrow"></span>
                                                 </a>
 
@@ -834,15 +834,15 @@
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a href="{{ url('/consultants/viewprofile') }}" >
-                                                    <i class="icon-user"></i> Profile <span class="arrow"></span>
+                                                    <i class="icon-user" style="color: #7cda24;"></i> Profile <span class="arrow"></span>
                                                 </a>
 
                                                 <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a  href="{{ url('/consultants/viewprofile') }}" class="nav-link  "> <i class="icon-camcorder"></i> View Profile </a>
+                                                        <a  href="{{ url('/consultants/viewprofile') }}" class="nav-link  "> <i class="icon-camcorder" style="color: #7cda24;"></i> View Profile </a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/editprofile') }}" class="nav-link  "> <i class="icon-note"></i> Edit Profile </a>
+                                                        <a href="{{ url('/consultants/editprofile') }}" class="nav-link  "> <i class="icon-note" style="color: #7cda24;"></i> Edit Profile </a>
                                                     </li>
 
                                                   <!--  <li aria-haspopup="true" class=" ">
@@ -850,7 +850,7 @@
                                                     </li> -->
 
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/commission') }}" class="nav-link  "> <i class=" icon-layers"></i> Commission History </a>
+                                                        <a href="{{ url('/consultants/commission') }}" class="nav-link  "> <i class=" icon-layers" style="color: #7cda24;"></i> Commission History </a>
                                                     </li>
 
                                                 </ul>
@@ -860,28 +860,138 @@
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a href="" >
-                                                    <i class="icon-notebook" style="color: white"></i>  Reports
+                                                    <i class="icon-notebook" style="color: #7cda24;"></i>  Reports
                                                     <span class="arrow"></span>
                                                 </a>
 
                                                 <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a  href="{{ url('/consultants/pending-projects') }}" class="nav-link  "> <i class="icon-pin"></i> Pending Reports </a>
+                                                        <a  href="{{ url('/consultants/pending-projects') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24;"></i> Pending Reports </a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/ongoing-projects') }}" class="nav-link  ">  <i class="icon-target"></i> On-Going Reports</a>
+                                                        <a href="{{ url('/consultants/ongoing-projects') }}" class="nav-link  ">  <i class="icon-target" style="color: #7cda24;"></i> On-Going Reports</a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/archived-projects') }}" class="nav-link  "> <i class="icon-briefcase"></i> Archived Reports</a>
+                                                        <a href="{{ url('/consultants/archived-projects') }}" class="nav-link  "> <i class="icon-briefcase" style="color: #7cda24;"></i> Archived Reports</a>
                                                     </li>
 
                                                 </ul>
 
                                             </li>
+                                            
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="{{ url('/opportunity/explore') }}">
+                                                <i class="icon-layers" style="color: #7cda24;"></i> <span class="font-white">Opportunities</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                              <li aria-haspopup="true" class=" ">
+                                                <a href="{{url('/opportunity/details')}}" class="nav-link  ">
+                                                    Opportunity Details</a>
+                                               </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
+                                                    Pending Opportunities</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
+                                                    Approved Opportunities</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        
 
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="#">
+                                                <i class="icon-layers" style="color: #7cda24;"></i> <span class="font-white">Business News</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/pending')}}" class="nav-link  ">
+                                                    Pending Business News</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/approved')}}" class="nav-link  ">
+                                                    Approved Business News</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/businessnews/approval/rejected')}}" class="nav-link  ">
+                                                    Rejected Business News</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+
+                                        <?php }elseif($userType == 3){ ?>
+
+                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+
+                                                    <a href="{{ url('/home') }}" >
+                                                        <i class="icon-grid" style="color: #7cda24;"></i> Dashboard
+                                                        <span class="arrow"></span>
+                                                    </a>
+                                                 <!--   <ul class="dropdown-menu pull-left">
+
+                                                            <li aria-haspopup="true" class=" ">
+                                                                    <a href="{{ url('/businessnews') }}" class="nav-link  ">
+                                                                    <i class="icon-bulb"></i> Opportunities and News</a>
+                                                            </li>
+                                                    </ul> -->
+                                                </li>
+
+                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+
+                                                    <a href="{{ url('/opportunity') }}" >
+                                                        <i class="icon-user" style="color: #7cda24;"></i> Profile
+                                                        <span class="arrow"></span>
+                                                    </a>
+
+                                                    <ul class="dropdown-menu pull-left">
+                                                            <li aria-haspopup="true" class=" ">
+                                                                    <a  href="{{ route('viewProfileMC') }}" class="nav-link  "> <i class="icon-camcorder" style="color: #7cda24;"></i> View Profile </a>
+                                                                </li>
+                                                                <li aria-haspopup="true" class=" ">
+                                                                    <a href="{{ route('editProfileMC') }}" class="nav-link  "> <i class="icon-note" style="color: #7cda24;"></i> Edit Profile </a>
+                                                                </li>
+                                                    </ul>
+
+                                                </li>
+
+                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+
+                                                        <a href="{{ url('/opportunity') }}" >
+                                                            <i class="icon-folder" style="color: #7cda24;"></i> Job Orders
+                                                            <span class="arrow"></span>
+                                                        </a>
+
+                                                    </li>
+
+                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+
+                                                    <a  href="{{ url('/') }}" >
+                                                        <i class="icon-notebook" style="color: #7cda24;"></i>  Reports
+                                                        <span class="arrow"></span>
+                                                    </a>
+
+                                                    <ul class="dropdown-menu pull-left">
+                                                            <li aria-haspopup="true" class=" ">
+                                                                <a  href="{{ route('projectOverviewMC') }}" class="nav-link  "> <i class="icon-magnifier" style="color: #7cda24;"></i> Overview Projects </a>
+                                                            </li>
+                                                            <li aria-haspopup="true" class=" ">
+                                                                <a  href="{{ url('/mconsultants/projectPending') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24;"></i> Pending Projects </a>
+                                                            </li>
+                                                            <li aria-haspopup="true" class=" ">
+                                                                <a href="{{ url('/mconsultants/projectOngoing') }}" class="nav-link  ">  <i class="icon-target" style="color: #7cda24;"></i> On-Going Projects</a>
+                                                            </li>
+                                                            <li aria-haspopup="true" class=" ">
+                                                                <a href="{{ url('/mconsultants/projectCompleted') }}" class="nav-link  "> <i class="icon-briefcase" style="color: #7cda24;"></i> Completed Projects</a>
+                                                            </li>
+                                                    </ul>
+
+                                                </li>
+                                                
                                             <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                                 <a href="{{ url('/opportunity/explore') }}">
-                                                    <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                    <i class="icon-layers" style="color: #7cda24;"></i> <span class="font-white">Opportunities</span>
                                                 </a>
                                                 <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -900,75 +1010,6 @@
                                             </li>
 
 
-                                        <?php }elseif($userType == 3){ ?>
-
-                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
-
-                                                    <a href="{{ url('/home') }}" >
-                                                        <i class="icon-grid"></i> Dashboard
-                                                        <span class="arrow"></span>
-                                                    </a>
-                                                 <!--   <ul class="dropdown-menu pull-left">
-
-                                                            <li aria-haspopup="true" class=" ">
-                                                                    <a href="{{ url('/businessnews') }}" class="nav-link  ">
-                                                                    <i class="icon-bulb"></i> Opportunities and News</a>
-                                                            </li>
-                                                    </ul> -->
-                                                </li>
-
-                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
-
-                                                    <a href="{{ url('/opportunity') }}" >
-                                                        <i class="icon-user"></i> Profile
-                                                        <span class="arrow"></span>
-                                                    </a>
-
-                                                    <ul class="dropdown-menu pull-left">
-                                                            <li aria-haspopup="true" class=" ">
-                                                                    <a  href="{{ route('viewProfileMC') }}" class="nav-link  "> <i class="icon-camcorder"></i> View Profile </a>
-                                                                </li>
-                                                                <li aria-haspopup="true" class=" ">
-                                                                    <a href="{{ route('editProfileMC') }}" class="nav-link  "> <i class="icon-note"></i> Edit Profile </a>
-                                                                </li>
-                                                    </ul>
-
-                                                </li>
-
-                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
-
-                                                        <a href="{{ url('/opportunity') }}" >
-                                                            <i class="icon-folder" style="color: white"></i> Job Orders
-                                                            <span class="arrow"></span>
-                                                        </a>
-
-                                                    </li>
-
-                                                <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
-
-                                                    <a  href="{{ url('/') }}" >
-                                                        <i class="icon-notebook" style="color: white"></i>  Project
-                                                        <span class="arrow"></span>
-                                                    </a>
-
-                                                    <ul class="dropdown-menu pull-left">
-                                                            <li aria-haspopup="true" class=" ">
-                                                                <a  href="{{ route('projectOverviewMC') }}" class="nav-link  "> <i class="icon-magnifier"></i> Overview Projects </a>
-                                                            </li>
-                                                            <li aria-haspopup="true" class=" ">
-                                                                <a  href="{{ url('/mconsultants/projectPending') }}" class="nav-link  "> <i class="icon-pin"></i> Pending Projects </a>
-                                                            </li>
-                                                            <li aria-haspopup="true" class=" ">
-                                                                <a href="{{ url('/mconsultants/projectOngoing') }}" class="nav-link  ">  <i class="icon-target"></i> On-Going Projects</a>
-                                                            </li>
-                                                            <li aria-haspopup="true" class=" ">
-                                                                <a href="{{ url('/mconsultants/projectCompleted') }}" class="nav-link  "> <i class="icon-briefcase"></i> Completed Projects</a>
-                                                            </li>
-                                                    </ul>
-
-                                                </li>
-
-
 
                                        <?php } elseif($userType == 4){ ?>
 
@@ -982,14 +1023,34 @@
 
                                                         <li aria-haspopup="true" class=" ">
                                                                 <a href="{{ url('/thomson') }}" class="nav-link  ">
-                                                                <i class="icon-bulb" style="color: white"></i> Thomson Reuters </a>
+                                                                <i class="icon-bulb" style="color: #7cda24;"></i> Thomson Reuters </a>
                                                         </li>
 
                                                         <li aria-haspopup="true" class="">
                                                             <a href="{{ url('/opportunity/explore') }}">
-                                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                                <i class="icon-layers" style="color: #7cda24;"></i> <span class="font-white">Opportunities</span>
                                                             </a>
                                                         </li>
+                                                </ul>
+                                            </li>
+                                            
+                                            <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                                <a href="{{ url('/opportunity/explore') }}">
+                                                    <i class="icon-layers" style="color: #7cda24;"></i> <span class="font-white">Opportunities</span>
+                                                </a>
+                                                <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/details')}}" class="nav-link  ">
+                                                        Opportunity Details</a>
+                                                </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                        <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
+                                                        Pending Opportunities</a>
+                                                    </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                        <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
+                                                        Approved Opportunities</a>
+                                                    </li>
                                                 </ul>
                                             </li>
 
@@ -1033,19 +1094,19 @@
 
                                         <li aria-haspopup="true" class="">
                                             <a href="{{ url('/accountsCompanies') }}">
-                                                <i class="icon-bar-chart" style="color:white;"></i> <span class="font-white">Companies</span>
+                                                <i class="icon-bar-chart" style="color: #7cda24;"></i> <span class="font-white">Companies</span>
                                             </a>
                                         </li>
 
                                         <li aria-haspopup="true" class="">
                                                 <a href="{{ url('/manage-registration-links') }}">
-                                                    <i class="icon-share" style="color:white;"></i> <span class="font-white">Registration Links</span>
+                                                    <i class="icon-share" style="color: #7cda24;"></i> <span class="font-white">Registration Links</span>
                                                 </a>
                                         </li>
 
                                         <li aria-haspopup="true" class="">
                                             <a href="{{ url('/opportunity/explore') }}">
-                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                <i class="icon-layers" style="color: #7cda24;"></i> <span class="font-white">Opportunities</span>
                                             </a>
                                         </li>
 
