@@ -4,15 +4,19 @@
 
 @section('content')
 
+<link href="{{ asset('public/multiselectJS/select2.css') }}" rel="stylesheet">
+
 <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
 <script src="{{ asset('public/jq-autocomplete/jquery-1.11.2.min.js') }}"></script>
+<script src="{{ asset('public/multiselectJS/select2.js') }}"></script>
 <script src="{{ asset('public/jq-autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet"
       type="text/css"/>
 
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
 
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 
@@ -39,6 +43,24 @@
             bottom: 0;
             left: 0;
         }
+        
+    .mb-2{
+        margin-bottom: 10px
+    }
+    
+    .card-title{
+        font-weight:bold;
+        font-size:15px;
+    }
+    
+    .filter_label{
+        font-size:14px;
+        margin-bottom:5px;
+    }
+    
+    .text-white{
+        color:white !important;
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
@@ -63,30 +85,105 @@
               </li>
             <?php } ?>
         </ul>
+        <div class="row">
         <div class="col-md-12" >
-            <div class="form-group">
-                <div class="row">
-                    <div class="col col-sm-6">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" id="keywordSearch"
-                                   placeholder="Filter by keywords"
-                                   value="<?php if (isset($selectedKeyword)) { echo $selectedKeyword; }?>">
-                            <span class="input-group-btn"><button class="btn green" type="button"
-                                                                  id="filterKeywords">FILTER</button></span>
+            <div class="card" style="border:1px solid silver;background:white">
+                <div class="card-body" style="padding:10px">
+                    <h4 class="card-title mb-2"><i class="icon-magnifier">&nbsp;</i>FILTER OPPORTUNITIES BY:</h4>
+                    <div class="row">
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_cat_cb">Opportunity Type:</label>
+                                <select class="form-control" id="filter_cat_cb">
+                                    <?php 
+                                        $val = "";
+                                        if(isset($filter_category)) {
+                                            $val = $filter_category; 
+                                        }
+                                    ?>
+                                    <option <?php if($val == "0"){echo "selected";} ?> value="0">ALL TYPE</option>
+                                    <option <?php if($val == "BUILD"){echo "selected";} ?> value="BUILD">PARTNERSHIP/INVEST</option>
+                                    <option <?php if($val == "SELL"){echo "selected";} ?> value="SELL">SELL</option>
+                                    <option <?php if($val == "BUY"){echo "selected";} ?> value="BUY">BUY</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="col-md-4 mb-2">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_target_audience_cb">Target Audience:</label>
+                                <select class="form-control" id="filter_target_audience_cb">
+                                    
+                                    <?php 
+                                        $val = "";
+                                        if(isset($filter_target_audience)) {
+                                            $val = $filter_target_audience; 
+                                        }
+                                    ?>
+                                    <option <?php if($val == "0"){echo "selected";} ?> value="0">ALL AUDIENCE</option>
+                                    <option <?php if($val == "Consumers(B2C)"){echo "selected";} ?> value="Consumers(B2C)">Consumers(B2C)</option>
+                                    
+                                    <option <?php if($val == "Business(B2B)"){echo "selected";} ?> value="Business(B2B)">Business(B2B)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_country_cb">Ideal Partner Countries:</label>
+                                <select id="filter_country_cb"  multiple="multiple" class="form-control">
+                                    <?php
+                                        foreach($country_list as $c){ ?>
+                                            <option value="<?php echo $c->country_name  ?>"><?php echo $c->country_name; ?></option>
+                                        <?php }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="col col-sm-6">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" id="keywordCountry"
-                                   placeholder="Filter by country"
-                                   value="<?php if (isset($selectedCountry)) { echo $selectedCountry; }?>">
-                            <span class="input-group-btn"><button class="btn green" type="button"
-                                                                  id="filterCountry">FILTER</button></span>
+                    <div class="row">
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="keywordSearch">Title or Keywords:</label>
+                                <input type="text" class="form-control" id="keywordSearch"
+                                   placeholder="Enter title or keywords here...."
+                                   value="<?php if (isset($keyword)) { echo $keyword; }?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_ideal_partners_cb">Ideal Partners:</label>
+                                <select id="filter_ideal_partners_cb"  multiple="multiple" class="form-control">
+                                    
+                                    <option value="Consultant">Consultant</option>
+                                    <option value="Constructor">Constructor</option>
+                                    <option value="Distributor">Distributor</option>
+                                    <option value="Holding_Company_Investments">Holding Company/Investments</option>
+                                    <option value="Import_Export">Import / Export</option>
+                                    <option value="Manufacturer">Manufacturer</option>
+                                    <option value="Non_Profit">Non-Profit</option>
+                                    <option value="Retailer">Retailer</option>
+                                    <option value="Service_Provider">Service Provider</option>
+                                    <option value="Warehouse_and_Logisitcs">Warehouse and Logisitcs</option>
+                                    <option value="Wholesaler">Wholesaler</option>
+                                    <option value="Institution">Institution</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_country_cb">Click the SEARCH Button to begin searching based on your selected filter parameters.</label>
+                                <button style="" id="filter_search_btn" class="btn btn-dark bg-dark text-white"><i class="icon-magnifier">&nbsp;</i>SEARCH BY FILTER</button>
+                                <button style="" id="filter_load_all_btn" class="btn btn-dark bg-dark text-white"><i class="icon-magnifier">&nbsp;</i>VIEW ALL</button>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-
+            </div>
+</div>
             @if (session('message'))
                 <div class="alert alert-danger">
                     {{ session('message') }}
@@ -109,7 +206,7 @@
 
         <div class="row">
             
-
+        <?php if($sell != ""){ ?>
     <!-- START SELL OPPORTUNITY -->
             <div class="hr-sect opp_type" >Sell Opportunity</div>
                 <div class='blog-posts' id='sell-sect'>
@@ -258,7 +355,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -583,7 +680,10 @@
     endforeach;  ?>
     </div>
     <!-- END SELL OPPORTUNITY -->
+    
+    <?php } ?>
 
+<?php if($buy != ""){ ?>
     <!-- START BUY OPPORTUNITY -->
             <div class="hr-sect opp_type" >Buy Opportunity</div>
                 <div class='blog-posts' id='buy-sect'>
@@ -736,7 +836,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -1058,6 +1158,11 @@
     </div>
     </div>
     <!-- END BUY OPPORTUNITY -->
+    
+    <?php } ?>
+    
+    
+    <?php if($build != ""){ ?>
 
     <!-- START BUILD OPPORTUNITY -->
             <div class="hr-sect opp_type" >Partnership Opportunity</div>
@@ -1211,7 +1316,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('build','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('build','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -1579,6 +1684,9 @@
     endforeach;  ?>
     </div>
       <!-- END BUILD OPPORTUNITY -->
+      
+      
+     <?php } ?>
 
 </div></div>
 </div><!-- end row -->
@@ -1966,6 +2074,38 @@
         }
 
         $(document).ready(function () {
+            
+            $('#filter_country_cb').select2({
+                placeholder: "All Countries",
+                allowClear: true
+            });
+            
+            $('#filter_ideal_partners_cb').select2({
+                placeholder: "Any Business type",
+                allowClear: true
+            });
+            
+            <?php 
+                    if($if_from_home != ""){ ?>
+                    
+                    $(".learn_more_btn").click();
+                        
+                    <?php }
+                ?>
+            
+            //$('#filter_ideal_partners_cb option:eq(0)').prop('selected',true).change();
+            
+            if("<?php if (isset($filter_country)) { echo $filter_country; }else{ echo "null";} ?>" != "null"){
+                var selectedValues = "<?php echo (isset($filter_country)) ? $filter_country : ""; ?>"; 
+                selectedValues = selectedValues.split(',');
+                $("#filter_country_cb").val(selectedValues).trigger("change");
+            }
+            
+            if("<?php if (isset($filter_ideal_partners)) { echo $filter_ideal_partners; }else{ echo "null";} ?>" != "null"){
+                var selectedValues = "<?php echo (isset($filter_ideal_partners)) ? $filter_ideal_partners : ""; ?>"; 
+                selectedValues = selectedValues.split(',');
+                $("#filter_ideal_partners_cb").val(selectedValues).trigger("change");
+            }
 
             $(".follow-cont").click(function (e) {
                     formData = new FormData();
@@ -2013,6 +2153,7 @@
 
                           }
                     });
+                
 
             });
 
@@ -2031,6 +2172,43 @@
                 var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                 if (keyS != "") {
                     window.location.href = baseUrl + "/exploreKey/" + encodeURIComponent(keyS);
+                } else {
+                    window.location.href = baseUrl + "/explore";
+                }
+            });
+            
+            $("#filter_load_all_btn").click(function(){
+                //var getUrl = window.location;
+                //var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                //window.location.href = baseUrl + "/explore";
+                
+                var base_url = "<?php echo env("APP_URL"); ?>";
+                window.location.href = base_url + "opportunity/explore";
+            });
+            
+            $('#keywordSearch').keyup(function(e){
+             if(e.keyCode == 13)
+             {
+                     $("#filter_search_btn").click();
+             }
+           });
+            
+            $("#filter_search_btn").click(function(){
+                var filter_target_audience = $("#filter_target_audience_cb option:selected").val();
+                var filter_category = $("#filter_cat_cb option:selected").val();
+                var filter_country = $("#filter_country_cb").val();
+                
+                var keywordSearch = $("#keywordSearch").val();
+                
+                var filter_ideal_partners = $("#filter_ideal_partners_cb").val();
+                
+                var keyS = filter_target_audience + "<filter>" + filter_category + "<filter>" + filter_country + "<filter>" + keywordSearch + "<filter>" + filter_ideal_partners;
+                
+                
+                var getUrl = window.location;
+                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                if (keyS != "") {
+                    window.location.href = baseUrl + "/exploreAll/" + encodeURIComponent(btoa(keyS));
                 } else {
                     window.location.href = baseUrl + "/explore";
                 }
