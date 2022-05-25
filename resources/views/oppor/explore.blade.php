@@ -4,15 +4,19 @@
 
 @section('content')
 
+<link href="{{ asset('public/multiselectJS/select2.css') }}" rel="stylesheet">
+
 <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
 <script src="{{ asset('public/jq-autocomplete/jquery-1.11.2.min.js') }}"></script>
+<script src="{{ asset('public/multiselectJS/select2.js') }}"></script>
 <script src="{{ asset('public/jq-autocomplete/jquery.easy-autocomplete.min.js') }}"></script>
 <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.min.css') }}" rel="stylesheet" type="text/css"/>
 <link href="{{ asset('public/jq-autocomplete/easy-autocomplete.themes.min.css') }}" rel="stylesheet"
       type="text/css"/>
 
-<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
 
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 
@@ -39,6 +43,41 @@
             bottom: 0;
             left: 0;
         }
+        
+    .mb-2{
+        margin-bottom: 10px
+    }
+    
+    .card-title{
+        font-weight:bold;
+        font-size:15px;
+    }
+    
+    .filter_label{
+        font-size:14px;
+        margin-bottom:5px;
+    }
+    
+    .text-white{
+        color:white !important;
+    }
+
+    
+    .marginzero{
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+    
+    .cardborder-radius{
+        border-radius: 20px !important;
+        border: 1px solid #a5a5a5; ;
+    }
+    
+     .cardborder-radius:hover{
+        box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
+    }
+    
+   
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
@@ -63,30 +102,106 @@
               </li>
             <?php } ?>
         </ul>
+        <div class="row">
         <div class="col-md-12" >
-            <div class="form-group">
-                <div class="row">
-                    <div class="col col-sm-6">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" id="keywordSearch"
-                                   placeholder="Filter by keywords"
-                                   value="<?php if (isset($selectedKeyword)) { echo $selectedKeyword; }?>">
-                            <span class="input-group-btn"><button class="btn green" type="button"
-                                                                  id="filterKeywords">FILTER</button></span>
+
+            <div class="card cardborder-radius" style="border:1px solid silver;background:white">
+                <div class="card-body" style="padding:20px">
+                    <h4 class="card-title mb-2"><i class="icon-magnifier">&nbsp;</i>FILTER OPPORTUNITIES BY:</h4>
+                    <div class="row">
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_cat_cb">Opportunity Type:</label>
+                                <select class="form-control" id="filter_cat_cb">
+                                    <?php 
+                                        $val = "";
+                                        if(isset($filter_category)) {
+                                            $val = $filter_category; 
+                                        }
+                                    ?>
+                                    <option <?php if($val == "0"){echo "selected";} ?> value="0">ALL TYPE</option>
+                                    <option <?php if($val == "BUILD"){echo "selected";} ?> value="BUILD">PARTNERSHIP/INVEST</option>
+                                    <option <?php if($val == "SELL"){echo "selected";} ?> value="SELL">SELL</option>
+                                    <option <?php if($val == "BUY"){echo "selected";} ?> value="BUY">BUY</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="col-md-4 mb-2">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_target_audience_cb">Target Audience:</label>
+                                <select class="form-control" id="filter_target_audience_cb">
+                                    
+                                    <?php 
+                                        $val = "";
+                                        if(isset($filter_target_audience)) {
+                                            $val = $filter_target_audience; 
+                                        }
+                                    ?>
+                                    <option <?php if($val == "0"){echo "selected";} ?> value="0">ALL AUDIENCE</option>
+                                    <option <?php if($val == "Consumers(B2C)"){echo "selected";} ?> value="Consumers(B2C)">Consumers(B2C)</option>
+                                    
+                                    <option <?php if($val == "Business(B2B)"){echo "selected";} ?> value="Business(B2B)">Business(B2B)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_country_cb">Ideal Partner Countries:</label>
+                                <select id="filter_country_cb"  multiple="multiple" class="form-control">
+                                    <?php
+                                        foreach($country_list as $c){ ?>
+                                            <option value="<?php echo $c->country_name  ?>"><?php echo $c->country_name; ?></option>
+                                        <?php }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        
                     </div>
-                    <div class="col col-sm-6">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" id="keywordCountry"
-                                   placeholder="Filter by country"
-                                   value="<?php if (isset($selectedCountry)) { echo $selectedCountry; }?>">
-                            <span class="input-group-btn"><button class="btn green" type="button"
-                                                                  id="filterCountry">FILTER</button></span>
+                    <div class="row">
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="keywordSearch">Title or Keywords:</label>
+                                <input type="text" class="form-control" id="keywordSearch"
+                                   placeholder="Enter title or keywords here...."
+                                   value="<?php if (isset($keyword)) { echo $keyword; }?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_ideal_partners_cb">Ideal Partners:</label>
+                                <select id="filter_ideal_partners_cb"  multiple="multiple" class="form-control">
+                                    
+                                    <option value="Consultant">Consultant</option>
+                                    <option value="Constructor">Constructor</option>
+                                    <option value="Distributor">Distributor</option>
+                                    <option value="Holding_Company_Investments">Holding Company/Investments</option>
+                                    <option value="Import_Export">Import / Export</option>
+                                    <option value="Manufacturer">Manufacturer</option>
+                                    <option value="Non_Profit">Non-Profit</option>
+                                    <option value="Retailer">Retailer</option>
+                                    <option value="Service_Provider">Service Provider</option>
+                                    <option value="Warehouse_and_Logisitcs">Warehouse and Logisitcs</option>
+                                    <option value="Wholesaler">Wholesaler</option>
+                                    <option value="Institution">Institution</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-2 ">
+                            <div class="form-group">
+                                <label class="filter_label" for="filter_country_cb">Click the SEARCH Button to begin searching based on your selected filter parameters.</label>
+                                <button style="" id="filter_search_btn" class="btn btn-dark bg-dark text-white"><i class="icon-magnifier">&nbsp;</i>SEARCH BY FILTER</button>
+                                <button style="" id="filter_load_all_btn" class="btn btn-dark bg-dark text-white"><i class="icon-magnifier">&nbsp;</i>VIEW ALL</button>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-
+            </div>
+</div>
             @if (session('message'))
                 <div class="alert alert-danger">
                     {{ session('message') }}
@@ -101,13 +216,15 @@
 <?php 
     $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
     $tokenStock = App\SpentTokens::validateTokenStocks($requestor_id);
+    $if_premium = App\SpentTokens::check_if_premium($requestor_id);
+    
     //echo $tokenStock;
      $opportunity_type ="";
 ?>
 
-        <div class="row">
+        <div class="row marginzero">
             
-
+        <?php if($sell != ""){ ?>
     <!-- START SELL OPPORTUNITY -->
             <div class="hr-sect opp_type" >Sell Opportunity</div>
                 <div class='blog-posts' id='sell-sect'>
@@ -167,7 +284,7 @@
             <div class='row cf list-row-sell '>
         @endif
         @if($i <= 2)
-              <div class='post sell-list'>
+              <div class='post sell-list cardborder-radius'>
                 <?php 
                     $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
                     if( $followComp > 0) {
@@ -216,10 +333,8 @@
                             @endif
                         </ul>
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
-                        <p class='meta'> {{ $item->timeframe_goal }} </p>
-                   
-
-
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -258,7 +373,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -294,7 +409,7 @@
             
             <div>
                 <span class="title-text">
-                    <h4><strong> Ratings </strong></h4>
+                    <h4><strong> Company Strength </strong></h4>
                 </span>
                 <div class="content-text" style="display: flex;">
                 <?php
@@ -391,13 +506,12 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
                         
                     </h4>
                 </span>
                 <hr>
             </div>
-
 
             <div>
                 <span class="title-text">
@@ -464,11 +578,15 @@
             </div> 
 
             <div>
-              @if(  $tokenStock >= 12)
-                <a onclick="processReq('sell', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
+            @if(  !$if_premium )
+                <a onclick="notPremiumMessage();" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+            @else
+                @if(  $tokenStock >= 120)
+                    <a onclick="processReq('sell', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @else
+                    <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @endif
+            @endif
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -580,7 +698,10 @@
     endforeach;  ?>
     </div>
     <!-- END SELL OPPORTUNITY -->
+    
+    <?php } ?>
 
+<?php if($buy != ""){ ?>
     <!-- START BUY OPPORTUNITY -->
             <div class="hr-sect opp_type" >Buy Opportunity</div>
                 <div class='blog-posts' id='buy-sect'>
@@ -642,7 +763,7 @@
             <div class='row cf list-row-buy '>
         @endif
         @if($i <= 2)
-              <div class='post buy-list'>
+              <div class='post buy-list cardborder-radius'>
 
                 <?php 
                     $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
@@ -693,8 +814,8 @@
                             @endif
                         </ul>
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
-                        <p class='meta'> {{ $item->timeframe_goal }} </p>
-
+                        <p class='meta'> {{ $item->timeframe_goal }}
+                        {{ $item->approx_large }} opportunity. </p>
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -733,7 +854,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -860,7 +981,7 @@
                 </span>
                 <hr>
             </div>
-
+                        
             <div>
                 <span class="title-text">
                     <h4><strong> Asking Price </strong></h4>
@@ -937,11 +1058,15 @@
             </div> 
 
             <div>
-              @if(  $tokenStock >= 12)
-                <a onclick="processReq('buy', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
+              @if(  !$if_premium )
+                <a onclick="notPremiumMessage();" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+            @else
+                @if(  $tokenStock >= 120)
+                    <a onclick="processReq('buy', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @else
+                    <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @endif
+            @endif
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
                 $token = base64_encode(date('YmdHis'));
@@ -1051,6 +1176,11 @@
     </div>
     </div>
     <!-- END BUY OPPORTUNITY -->
+    
+    <?php } ?>
+    
+    
+    <?php if($build != ""){ ?>
 
     <!-- START BUILD OPPORTUNITY -->
             <div class="hr-sect opp_type" >Partnership Opportunity</div>
@@ -1114,7 +1244,7 @@
             <div class='row cf list-row-build '>
         @endif
         @if($i <= 2)
-              <div class='post build-list'>
+              <div class='post build-list cardborder-radius'>
                 <?php 
                     $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
                     if( $followComp > 0) {
@@ -1166,7 +1296,6 @@
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
                         <p class='meta'> {{ $item->timeframe_goal }}
                         {{ $item->approx_large }} opportunity. </p>
-
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
@@ -1205,7 +1334,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('build','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('build','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -1326,19 +1455,19 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ $item->timeframe_goal }}                        
+                        {{ $item->timeframe_goal }}
                     </h4>
                 </span>
                 <hr>
             </div>
-
+                        
             <div id='asking_price_section_{{ $buildCount }}'>
                 <span class="title-text">
-                    <h4><strong> Asking Price </strong></h4>
+                    <h4><strong> Asking Price  </strong></h4>
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
                     </h4>
                 </span>
                 <hr>
@@ -1362,7 +1491,7 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->est_profit, $item->currency) }}  {{ $item->currency }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->est_profit, $item->currency) }}
                     </h4>
                 </span>
                 <hr>
@@ -1456,11 +1585,17 @@
             </div> 
 
             <div>
-              @if($tokenStock >= 12)
+              
+              
+            @if(  !$if_premium )
+                <a onclick="notPremiumMessage();" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+            @else
+                @if($tokenStock >= 120)
                 <a id='dilligence_btn_{{ $buildCount }}' onclick="processReq('build', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a id='dilligence_btn_{{ $buildCount }}' onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
+                  @else
+                    <a id='dilligence_btn_{{ $buildCount }}' onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                  @endif
+            @endif
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -1567,6 +1702,9 @@
     endforeach;  ?>
     </div>
       <!-- END BUILD OPPORTUNITY -->
+      
+      
+     <?php } ?>
 
 </div></div>
 </div><!-- end row -->
@@ -1577,7 +1715,7 @@
 @if($result_filter)
 <!-- Modal -->
 <div 
-    class="modal fade" 
+    class="modal fade modal_oppoBox" 
     id="opporDetailsContentModal" 
     tabindex="-1" role="dialog" 
     aria-labelledby="opporDetailsContentModalLabel" 
@@ -1706,6 +1844,7 @@
             <span class="content-text">
                 <h4> 
                     {{ $result_filter->timeframe_goal }}
+                    {{ $result_filter->approx_large }} opportunity.
                     
                 </h4>
             </span>
@@ -1718,7 +1857,7 @@
             </span>
             <span class="content-text">
                 <h4> 
-                    {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
+                    {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
                 </h4>
             </span>
             <hr>
@@ -1789,6 +1928,111 @@
             </span>
             <hr>
         </div>
+        
+        <div>
+            <?php $opportunity_type = (isset($_GET["type"])) ? $_GET["type"] : ""; ?>
+
+            @if(  !$if_premium )
+                <a onclick="notPremiumMessage();" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+            @else
+                @if(  $tokenStock >= 120)
+                    <a onclick="processReq('{{ $opportunity_type }}', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @else
+                    <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @endif
+            @endif
+
+                <?php 
+                $viewer = base64_encode('viewer' . $company->id);
+                $token = base64_encode(date('YmdHis'));
+                ?>
+
+                {{-- Requestor = Non-premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, $opportunity_type, $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , '{{ $opportunity_type }}');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                            <?php if(App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?>    
+                            
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                    <?php if(App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?>  
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif  --}}
+
+                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, $opportunity_type, $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , '{{ $opportunity_type }}');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                            @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                            <?php if(App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?> 
+
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
+                @endif
+
+                <hr class="hr-sect">
+
+            </div> 
 
 <?php   
         }#end if company count
@@ -1953,6 +2197,38 @@
         }
 
         $(document).ready(function () {
+            
+            $('#filter_country_cb').select2({
+                placeholder: "All Countries",
+                allowClear: true
+            });
+            
+            $('#filter_ideal_partners_cb').select2({
+                placeholder: "Any Business type",
+                allowClear: true
+            });
+            
+            <?php 
+                    if($if_from_home != ""){ ?>
+                    
+                    $(".learn_more_btn").click();
+                        
+                    <?php }
+                ?>
+            
+            //$('#filter_ideal_partners_cb option:eq(0)').prop('selected',true).change();
+            
+            if("<?php if (isset($filter_country)) { echo $filter_country; }else{ echo "null";} ?>" != "null"){
+                var selectedValues = "<?php echo (isset($filter_country)) ? $filter_country : ""; ?>"; 
+                selectedValues = selectedValues.split(',');
+                $("#filter_country_cb").val(selectedValues).trigger("change");
+            }
+            
+            if("<?php if (isset($filter_ideal_partners)) { echo $filter_ideal_partners; }else{ echo "null";} ?>" != "null"){
+                var selectedValues = "<?php echo (isset($filter_ideal_partners)) ? $filter_ideal_partners : ""; ?>"; 
+                selectedValues = selectedValues.split(',');
+                $("#filter_ideal_partners_cb").val(selectedValues).trigger("change");
+            }
 
             $(".follow-cont").click(function (e) {
                     formData = new FormData();
@@ -2000,6 +2276,7 @@
 
                           }
                     });
+                
 
             });
 
@@ -2018,6 +2295,43 @@
                 var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                 if (keyS != "") {
                     window.location.href = baseUrl + "/exploreKey/" + encodeURIComponent(keyS);
+                } else {
+                    window.location.href = baseUrl + "/explore";
+                }
+            });
+            
+            $("#filter_load_all_btn").click(function(){
+                //var getUrl = window.location;
+                //var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                //window.location.href = baseUrl + "/explore";
+                
+                var base_url = "<?php echo env("APP_URL"); ?>";
+                window.location.href = base_url + "opportunity/explore";
+            });
+            
+            $('#keywordSearch').keyup(function(e){
+             if(e.keyCode == 13)
+             {
+                     $("#filter_search_btn").click();
+             }
+           });
+            
+            $("#filter_search_btn").click(function(){
+                var filter_target_audience = $("#filter_target_audience_cb option:selected").val();
+                var filter_category = $("#filter_cat_cb option:selected").val();
+                var filter_country = $("#filter_country_cb").val();
+                
+                var keywordSearch = $("#keywordSearch").val();
+                
+                var filter_ideal_partners = $("#filter_ideal_partners_cb").val();
+                
+                var keyS = filter_target_audience + "<filter>" + filter_category + "<filter>" + filter_country + "<filter>" + keywordSearch + "<filter>" + filter_ideal_partners;
+                
+                
+                var getUrl = window.location;
+                var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                if (keyS != "") {
+                    window.location.href = baseUrl + "/exploreAll/" + encodeURIComponent(btoa(keyS));
                 } else {
                     window.location.href = baseUrl + "/explore";
                 }
@@ -2065,6 +2379,18 @@
             }
         };
         $("#keywordCountry").easyAutocomplete(optionsCountry);
+        
+        function notPremiumMessage(){
+        $('.modal_oppoBox').modal('hide');
+        
+          swal({
+              title: 'Cannot Process Request!',
+              text:  'This requires premium account to request a report.',
+              icon:  'warning'
+            }).then(function() {
+                //swal.close();
+            });
+        }
 
         function stockTokenInfo(stockToken){
           $('.modal_oppoBox').modal('hide');
@@ -2072,10 +2398,16 @@
             stockToken = stockToken;
           else
             stockToken = 0;
+            
+        
+        var with_s = "";
+        if(stockToken > 1){
+            with_s = "s";
+        }
 
           swal({
-              title: 'Unsufficient token. You only have '+stockToken+' token in your account',
-              text:  'This action requires at least 12 token. We will redirect you to Buy token|Credit page and find options suitable on what you need',
+              title: 'Insufficient credits. You only have '+stockToken+' credit'+with_s+' in your account',
+              text:  'This action requires at least 120 credits. We will redirect you to "Buy Credit" page and find solutions suitable for what you need.',
               icon:  'warning'
             }).then(function() {
                 window.location.href = "{{ route('reportsBuyTokens') }}";
@@ -2085,7 +2417,7 @@
         function checkPremium(companyID, ptype, oppId, linker){
             swal({
                 title: "Are you sure to open this profile, published Anonymously? ", 
-                text: "You are about to open a profile using your premuim account which will cost you 1 token.",
+                text: "You are about to open a profile using your premuim account which will cost you 1 credit.",
                 icon: "warning",
                 buttons: [
                   'No, cancel it!',
@@ -2098,7 +2430,7 @@
                 if (isConfirm) {
                   swal({
                     title: 'Premium Account',
-                    text:  'Done on setting 1 token to spent with premium account.',
+                    text:  'Done on setting 1 credit to spent with premium account.',
                     icon:  'success'
                   }).then(function() {
 
@@ -2139,7 +2471,7 @@
             $('.modal_oppoBox').modal('hide');
               swal({
                   title:"This requires premium account to open this profile.", 
-                  text: "Are you sure to proceed?  Because we will send an email notification to this company and redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                  text: "Are you sure to proceed?  Because we will send an email notification to this company and redirect you to Dashboard page and find the upgrade button at Credit section.",
                   icon: "warning",
                   buttons: [
                     'No, cancel it!',
@@ -2166,8 +2498,8 @@
   
                           success: function (data) {
                               swal({
-                                title: 'Email notification will be sent to this profile. You need to re-fill token to become a Premium Account',
-                                text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                                title: 'Email notification will be sent to this profile. You need to re-fill credit to become a Premium Account',
+                                text:  'Check Credit section and look for the Upgrade To Premium Account button.',
                                 icon:  'success'
                               }).then(function() {
                                      //document.location = '{{ url("reports/buyTokens") }}';
@@ -2238,7 +2570,7 @@
           $('.modal_oppoBox').modal('hide');
             swal({
                 title:"This requires premium account to open this profile.", 
-                text: "Are you sure to proceed?  Because we will send an email notification to this profile and redirect you to Dashboard page and find the upgrade button at Token Credit section.",
+                text: "Are you sure to proceed?  Because we will send an email notification to this profile and redirect you to Dashboard page and find the upgrade button at Credit section.",
                 icon: "warning",
                 buttons: [
                   'No, cancel it!',
@@ -2265,8 +2597,8 @@
 
                         success: function (data) {
                             swal({
-                              title: 'Email notification will be sent to this profile. You need to re-fill token to become a Premium Account',
-                              text:  'Check Token Credit section and look for the Upgrade To Premium Account button.',
+                              title: 'Email notification will be sent to this profile. You need to re-fill credit to become a Premium Account',
+                              text:  'Check Credit section and look for the Upgrade To Premium Account button.',
                               icon:  'success'
                             }).then(function() {
                                    //document.location = '{{ url("reports/buyTokens") }}';
@@ -2457,7 +2789,7 @@
           $('.modal_oppoBox').modal('hide');
             swal({
                 title: "This profile is a free account.", 
-                text:  "Are you sure to proceed? Because we will send an email notification to this profile. To encourage them buy token and become a premium account.",
+                text:  "Are you sure to proceed? Because we will send an email notification to this profile. To encourage them buy credit and become a premium account.",
                 icon:  "warning",
                 buttons: [
                   'No, cancel it!',

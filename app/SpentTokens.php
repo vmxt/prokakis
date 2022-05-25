@@ -40,16 +40,47 @@ class SpentTokens extends Model {
 			
 				$result = (int)($inTokens - $outTokens);
 				if ($result > 0) {
-
-					if(SpentTokens::validateAccountActivation($companyId) == true){
+                    $validation = SpentTokens::validateAccountActivation($companyId);
+					if( $validation == true){
 						return $result;
-					} else {
-						return false;
-					}	
+					}
+					else{
+					    return false;
+					}
 
 				} else {
 					return false;
 				}
+	}
+	
+	public static function check_remaining_credit($companyId) {
+			
+	    $inTokens = Buytoken::where('company_id', $companyId)->sum('num_tokens');
+		$outTokens = SpentTokens::where('company_id', $companyId)->sum('num_tokens');
+			
+		$result = (int)($inTokens - $outTokens);
+		if ($result > 0) {
+                    
+            $if_premium = SpentTokens::check_if_premium($companyId);
+    			        
+    		if( $if_premium == true){
+    		    return $result;
+    		}else{
+    		    return "not_premium";
+    		}
+
+		} else {
+			return "out_credit";
+		}
+	}
+	
+	public static function check_if_premium($companyId){
+	    $if_premium = SpentTokens::validateAccountActivation($companyId);
+	    if( $if_premium){
+    	    return true;
+    	}else{
+    	    return false;
+    	}
 	}
 
 	public static function validateTokenStocks($companyId) {
@@ -70,12 +101,13 @@ class SpentTokens extends Model {
 	public static function validateAccountActivation($companyId){
 
        $c_subs = Subscribers::where('company_id', $companyId)->where('status', 1)->count(); //priority this checking
+  
        if($c_subs > 0){
 		
 		return true;
 
 	   } else { //consider the promotion period, upgrading to premium by 1 credit
-	   	
+
 			$c_promo = PromotionToken::where('company_id', $companyId)->where('remarks', 'UPGRADE-TO-PREMIUM')->count();
 			if($c_promo > 0 ){
 
@@ -83,7 +115,7 @@ class SpentTokens extends Model {
 				->where('company_id', $companyId)
 				->whereRaw('NOW() < DATE_ADD(created_at, INTERVAL 6 MONTH)')
 				->first();
-
+ 
 				if($da != null){
 					return true;
 				} else {

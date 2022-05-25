@@ -514,6 +514,12 @@ body.loading .modal-load {
 
            </div>
 
+            <div class="alert alert-danger">
+              <strong>Warning!</strong> Business news article should not contain direct advertisements of companies or users. 
+                        To offer Something you can use this 
+                        <a class="btn btn-primary" href="{{ env('APP_URL') }}opportunity/select"> opportunity page. </a>
+            </div>
+            
             <div class="form-group">
 
                 <p>
@@ -561,6 +567,12 @@ body.loading .modal-load {
                 </p>
 
            </div>
+
+            <div class="alert alert-danger">
+              <strong>Warning!</strong> Business news article should not contain direct advertisements of companies or users. 
+                        To offer Something you can use this 
+                        <a class="btn btn-primary" href="{{ env('APP_URL') }}opportunity/select"> opportunity page. </a>
+            </div>
 
             <div class="form-group">
 

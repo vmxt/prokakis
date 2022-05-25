@@ -38,24 +38,51 @@ class CurrencyMonetary extends Model
 
         $acc = CurrencyAccounts::where('user_id',Auth::id())->first();
         $curr_from = CurrencyMonetary::where('id',$currencyNow)->first();
-        $rate = (double)$amount;
+        
         $ccode = "";
+        
+        $final_amount = 0;
+        
+        $newamt = str_replace(",","",$amount);
+        
         if(isset($acc->currency_id)){
             $curr_to = CurrencyMonetary::where('id',$acc->currency_id)->first();
-            $rate = (double)$amount * (double)$curr_to->c_rate;
+            
+            if( $curr_to->c_code != "USD" ){
+                $sgd_curr = CurrencyMonetary::where('id',22)->first();
+                $per_sgd = $sgd_curr->c_rate / 100;
+                $new_amount = (double)$per_sgd * (double)$newamt;
+                
+                if($curr_to->c_code == "SGD"){
+                    
+                    $final_amount = $new_amount;
+                    
+                }
+                else{
+                    if(strpos($curr_to->c_name,'100')){
+                        $per_1 = (double)$curr_to->c_rate / 100;
+                        
+                        $dev = (double)$new_amount / (double)$curr_to->c_rate;
+                        $final_amount = $dev * 100;
+                        
+                        if((double)$new_amount >= 1 && (double)$curr_to->c_rate >= 1){
+                            $rem = (double)$new_amount % (double)$curr_to->c_rate;
+                            if($rem > 0){
+                                $final_amount += ($per_1 * $rem);
+                            }
+                        }
+                    }
+                    else{
+                        $final_amount = (double)$newamt  * (double)$curr_to->c_rate;
+                    }
+                }
+            }
+            else{
+                $final_amount = (double)$newamt;
+            }
             $ccode = $curr_to->c_code;
         }
 
-        if(strpos($curr_from['c_name'],'100')){
-            $res = $curr_from['c_rate'] * .01;
-        }else{
-            $res = $curr_from['c_rate'];
-        }
-        if($res){
-            $out = $rate / $res;
-        }else{
-            $out = $rate ;
-        }
-        return number_format((float)$out, 2, '.', ',')." ".$ccode;
+        return number_format((float)$final_amount, 2, '.', ',')." ".$ccode;
     }
 }

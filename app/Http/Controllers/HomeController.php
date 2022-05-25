@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mailbox; 
 
 use App\BusinessOpportunitiesNews;
 
@@ -346,6 +347,35 @@ public function index() {
 ##modify opportunity elements
 
 		$topBusinessNEws = BusinessOpportunitiesNews::limit(10)->orderBy('id', 'desc')->get();
+		
+		
+		//this is for mail test only, comment if not use
+		/*$appurl = env('APP_URL');
+        
+        $data = file_get_contents($appurl . "public/emailtemplate/ProkakisAddOpportunity.html");
+
+					$email_address = "knlgfx@gmail.com";
+					$company_name = "Mail test Company";
+					$data = str_replace("[First Name]", "Mail Test First name", $data);
+					$data = str_replace("[Company Name]", $company_name, $data);
+					
+					$data = str_replace("[appurl]", $appurl, $data);
+
+					$en_company_id = base64_encode(10844);
+					$en_user_id = base64_encode(831);
+					$en_notify_type = base64_encode('addopportunity');
+					$en_notify_date = base64_encode(date('Y-m-d'));
+					$token = $en_company_id . '-ebos-' . $en_user_id . '-ebos-' . $en_notify_type . '-ebos-' . $en_notify_date;
+					$url_token = url('/unsubscribeMe/' . $token);
+					$data = str_replace("[_unsubscribelink_]", $url_token, $data);
+
+					//$this->alertNotify($data, $email_address, 'Increase Company Profile Scoring, Intellinz');*/
+ 
+        
+        //https://app-prokakis.com/
+       // $ret = Mailbox::sendMail_EmailTemplate22($data, $email_address, "Add Opportunity, Intellinz", "");
+         //   echo '<script> console.log("'.$ret.' jj"); </script>';
+
 
 		return view('home.index', compact('topBusinessNEws','oppResultdata','businessNewsData', 'topBusinessNewsOpportunity','followingCount','followerCount','profileCoverPhoto','profileAvatar'));
 

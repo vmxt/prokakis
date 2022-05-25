@@ -377,11 +377,13 @@ color: white;
 
 .mail_icon_not{
       animation: beat .55s infinite alternate;
+
 	  transform-origin: center;
   }
   
   @keyframes beat{
 	to { transform: scale(1.4); }
+
 }
 
 .text-company{

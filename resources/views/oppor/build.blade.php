@@ -6,29 +6,16 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css" rel="stylesheet" >
-{{-- <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> --}}
 
 <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-toggle/bootstrap-toggle.css') }}">
 
 <script src="{{ asset('public/js/jaaulde-cookies.js') }}"></script>
 
+<link rel="stylesheet" type="text/css" href="{{ asset('public/assets/apps/css/croppie.css') }}" />
+
   <style>
   .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
 
-        html, body {
-
-            width: 100%;
-
-            height: 100%;
-
-            margin: 0px;
-
-            padding: 0px;
-
-            /*overflow-x: hidden;*/
-
-        }
 
 
 
@@ -132,20 +119,6 @@
 
 
 
-/* Page Header */
-.page-header {
-    background: #f9f9f9;
-    margin: -30px -40px 40px;
-    padding: 20px 40px;
-    border-top: 4px solid #ccc;
-    color: #999;
-    text-transform: uppercase;
-    }
-    .page-header h3 {
-        line-height: 0.88rem;
-        color: #000;
-        }
-
 
 
 /* Boxes
@@ -184,16 +157,16 @@ ul.thumbnails {
     width: 100%;
     }
     .carousel-control{
-        background: #666 !important;
+        background: none !important;
         border: 0px;
         border-radius: 0px;
         display: inline-block;
-        font-size: 34px;
+        font-size: 36px;
         font-weight: 200;
         line-height: 18px;
         opacity: 0.5;
         padding: 4px 10px;
-        margin: 30px -20px 0;
+        margin: 30px -30px 0;
         height: 30px;
         width: 30px;
         }
@@ -238,26 +211,26 @@ input::-moz-focus-inner {
 }
 
 .portlet2.light2 {
-    padding: 12px 50px 15px;
+    padding: 12px 20px 15px;
     background-color: #fff;
 }
 
 .industry_select:hover{
-      background-color: #bce8f1;
-      color: white;
-      box-shadow: 0 8px 16px 0 #1b9dec;
+      border:1px solid #7cda24 !important;
+      box-shadow: 5px 5px 1.5px #7cda24;
+      color: #7cda24 !important;
 }
 
 .industry_select:active{
-      background-color: #bce8f1;
-      color: white;
-      box-shadow: 0 8px 16px 0 #1b9dec;
+      border:1px solid #7cda24 !important;
+      box-shadow: 5px 5px 1.5px #7cda24;
+      color: #7cda24 !important;
 }
 
 .industry_active{
-      background-color: #bce8f1;
-      color: white;
-      box-shadow: 0 8px 16px 0 #1b9dec
+      border:1px solid #7cda24 !important;
+      box-shadow: 5px 5px 1.5px #7cda24;
+      color: #7cda24 !important;
 }
 
 .tag-required{
@@ -285,15 +258,47 @@ input::-moz-focus-inner {
             bottom: 0;
             left: 0;
         }
+        
+.text-company{
+ color:#7cda24 !important;   
+}
+
+.text-white{
+    color:white !important;
+}
+
+
+.text-company{
+ color:#7cda24 !important;   
+}
+
+.portlet{
+    border:1px solid silver;
+}
+
+.thumbnail img{
+    height:200px !important;
+    width:250px !important;
+}
+
+.carousel_txt{
+    font-weight:bold !important;
+    font-size:13px !important;
+    text-align:center !important;
+}
+
+.page-wrapper-row{
+    
+}
     </style>
 
       
 
-    <link href="{{ asset('public/selectJS/examples/css/normalize.css') }}" rel="stylesheet">
+    <link href="{{ asset('public/selectJS/examples/css/normalize.css') }}" rel="stylesheet" />
 
     <link href="{{ asset('public/selectJS/examples/css/stylesheet.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('public/selectJS/dist/css/selectize.default.css') }}" rel="stylesheet">
+    <link type="text/css" href="{{ asset('public/selectJS/dist/css/selectize.default.css') }}" rel="stylesheet">
 
     <link href="{{ asset('public/multiselectJS/select2.css') }}" rel="stylesheet">
 
@@ -306,6 +311,8 @@ input::-moz-focus-inner {
     <script src="{{ asset('public/selectJS/examples/js/index.js') }}"></script> 
 
     <script src="{{ asset('public/multiselectJS/select2.js') }}"></script> 
+    
+    <script src="{{ asset('public/assets/apps/scripts/croppie.js') }}"></script>
 
    
     <?php 
@@ -318,7 +325,38 @@ input::-moz-focus-inner {
         }
     ?>
 
-    <div class="container">
+    <div class="container  ">
+        
+        <div id="uploadimageModal" class="modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Crop Image and Upload</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <div id="image_demo" style="width:100%;"></div>
+              </div>
+              
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <center>
+                  <button class="btn btn-info crop_image">Crop & Upload Image</button>
+                </center>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
 
@@ -404,13 +442,13 @@ input::-moz-focus-inner {
 
 
 
-                <form id="opportunity_build_form" method="POST" action="{{ route('opportunityStoreNewBuild') }}">
+                <form id="opportunity_build_form" method="POST" enctype="multipart/form-data" action="{{ route('opportunityStoreNewBuild') }}">
 
                     {{ csrf_field() }}
 
-                    <div class="card">
+                    <div class="card" style="background:white">
 
-                        <div class="card-header"><center>  <b>ADD A GOAL</b></center></div>
+                        <div class="card-header"><center>  <h3><b class="card-title text-company">ADD A GOAL</b></h3></center></div>
 
                         <div class="card-body center">
 
@@ -425,7 +463,7 @@ input::-moz-focus-inner {
                             } ?>">
 
 
-
+                            <div class="portlet2 light2">
                             <div class="portlet light" style="margin-top: 10px;" id="sect_title_opportunity">
 
                                 <div class="portlet-body">
@@ -443,9 +481,191 @@ input::-moz-focus-inner {
                                 </div>
 
                             </div>
+                            </div>
+                
+                            <div class="portlet2 light2">
+                            <div class="portlet light" id="sect_card_avatar">
+
+                                <div class="portlet-body">
+
+                                    <div class="form-group">
+
+                                        <div class="input-group">
+
+                                            <div class="row">
+                                                <?php 
+                                                    if(isset($data->id)){
+                                                        $dataId = $data->id;
+                                                    }else{
+                                                        $dataId = 1;
+                                                    }
+
+                                                    if(isset( $data->avatar_status )){
+                                                        $dataAvatar = $data->avatar_status;
+                                                    }else{
+                                                        $dataAvatar = 1;
+                                                    }
+                                                ?>
+                                                <div class="col-sm-12">
+                                                    <input type="hidden" name="avatar_status" id="avatar_status" value="{{  $dataAvatar }}" />
+                                                    <input type="checkbox" 
+                                                        @if($is_premium)
+                                                          onchange="oppImageAvatar(this, '{{ $dataId }}' )"
+                                                        @else
+                                                          onchange="NotifyToUpgrade('opp_image_avatar' )"
+                                                        @endif
+
+                                                        @if($dataAvatar == 2)
+                                                            checked
+                                                        @endif
+                                                          id="opp_image_avatar"
+                                                          data-toggle="toggle" 
+                                                          data-on="Profile Image" 
+                                                          data-off="Industry Image" 
+                                                          data-width="200" 
+                                                          data-onstyle="success" 
+                                                          data-offstyle="info" 
+                                                          data-style="slow">
+                                                </div>
+
+                                            </div>
 
 
+                                        </div>
 
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body" id="sect_industry_card">
+                                        <label for="opp_industry"><b>Please choose a default image that best describes your business from below:</b><span style="color: red; font-weight: bolder;"> *</span> </label>
+                                        <div class='row'>
+                                            <div class='col-sm-12'>
+                                                <div id="myCarousel" style="margin-left:20px;margin-right:20px" class="row row row-eq-height carousel slide" data-interval="false">
+                                                    <div class="carousel-inner">
+                                                    @if( isset($data->industry) )    
+                                                        <input type="hidden" id="opp_industry" name="opp_industry" value="{{ $data->industry }}">
+                                                    @else
+                                                        <input type="hidden" id="opp_industry" name="opp_industry" value="0">
+                                                    @endif
+                                                    <?php 
+                                                        $groupSize = 4;
+                                                        $initCarousel = '';
+                                                        $setActive = 0;
+                                                        if( isset( $data->industry) ){
+                                                            $setActive = floor( $data->industry / $groupSize );
+                                                        }
+                                                        $numItems = $industry_list->count();
+                                                        $i = 0;
+                                                        $ii = 0;
+                                                        
+                                                        $if_first = 0;
+                                                        
+                                                        $if_main_not_active = 0;
+                                                     ?>
+                                                        @foreach($industry_list as $ind)
+                                                            <?php 
+                                                                    if(count($if_has_custom) > 0 && $if_first == "0"){ 
+                                                                        $initCarousel = 'active';
+                                                                        $if_main_not_active= 1;
+                                                                    } 
+                                                                ?>
+                                                                
+                                                            <?php
+                                                            if($setActive == $ii && $if_main_not_active == 0){
+                                                                $initCarousel = 'active';
+                                                            } ?>
+                                                            
+                                                            
+                                                            @if($i == '0')
+                                                            
+                                                            <div class="item {{ $initCarousel }}">
+                                                                <ul class="thumbnails">
+                                                                
+                                                                <?php 
+                                                                
+                                                                if(count($if_has_custom) > 0 && $if_first == "0"){ 
+                                                                        $initCarousel = '';
+                                                                    } 
+                                                                    
+                                                                ?>
+                                                                    
+                                                            @endif
+                                                            
+                                                            <?php $industry_active = ''; ?>
+                                                            @if(isset($data->industry))
+                                                                @if($data->industry == $ind->id)
+                                                                <?php $industry_active = 'industry_active'; ?>
+                                                                @endif
+                                                            @endif   
+                                                            
+                                                            @if($if_first == '0')
+                                                                <?php $if_first++; ?>
+                                                                
+                                                                
+                                                                <li class="col-sm-3">    
+                                                                <div class="thumbnail <?php if($if_main_not_active == 1){ echo "industry_active"; } ?> industry_select0"  onclick="customClick()">
+                                                                    <a>
+                                                                        <?php if($if_main_not_active == 1){
+                                                                            $custom_image_name = "";
+                                                                            foreach($if_has_custom as $custom_row){
+                                                                                $custom_image_name = $custom_row->image;
+                                                                            }
+                                                                        
+                                                                        ?>
+                                                                            
+                                                                            <img class="img-fluid" id="custom_image" src="<?php echo asset('public/images/industry/'.$custom_image_name); ?>" alt=""><h4 class="carousel_txt">UPLOAD CUSTOM IMAGE</h4>
+                                                                        <?php }else{ ?>
+                                                                            <img class="img-fluid" id="custom_image" src="{{ asset('public/img-resources/addcustom.png') }}" alt=""><h4 class="carousel_txt">UPLOAD CUSTOM IMAGE</h4>
+                                                                        <?php } ?>
+                                                                    </a>
+                                                                    
+                                                                </div>
+                                                                <input style="display:none" type="file" accept="image/png, image/jpg, image/jpeg" name="custom_image_upload" id="custom_image_upload" />
+                                                                <input type="hidden" name="custom_image_value" id="custom_image_value" />
+                                                                </li>
+                                                                    
+                                                            @endif
+                                                            
+                                                            
+                                                            <?php if($ind->type == "choices"){ ?>
+                                                            <li class="col-sm-3">      
+                                                               
+                                                                <div class="thumbnail {{ $industry_active }} industry_select{{ $ind->id }} " onclick="assignIndustry('{{ $ind->id }}')">
+                                                                    <a><img src="{{  asset('public/images/industry/') }}/{{ $ind->image }}" alt=""><h4 class="carousel_txt">{{ $ind->text }}</h4></a>
+                                                                </div>
+                                                            </li>
+                                                            <?php } ?>
+                                            <?php 
+                                                            $i++;
+                                                            
+                                                            $initCarousel = '';
+                                            ?>
+                                                            
+                                                            @if( (($i == 4 || $numItems === $i) ) || $if_first == 1 && $i == 3 )
+                                                                </ul>
+                                                            </div>
+                                                            <?php 
+                                                            $i = 0; 
+                                                            $if_first=3;
+                                                            $ii++;?>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+
+                                                </div>
+                                                    <!-- Control box -->
+                                                    <div class="control-box">                            
+                                                      <a data-slide="prev" href="#myCarousel" class="carousel-control left btn"><i class="fa fa-arrow-left text-company"></i></a>
+                                                      <a style="margin-right:-10px !important" data-slide="next" href="#myCarousel" class="carousel-control right btn "><i class="fa fa-arrow-right text-company"></i></a>
+                                                    </div><!-- /.control-box --> 
+                                            </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            </div>
+
+                            
                             <div class="portlet light" style="margin-top: 10px;" id="sect_business_goal">
 
                                 <div class="portlet-body">
@@ -798,6 +1018,7 @@ input::-moz-focus-inner {
 
                             </div>
 
+                            <div class="portlet2 light2">
                             <div class="portlet light" id="sect_value_currency">
 
                                 <div class="portlet-body">
@@ -807,7 +1028,7 @@ input::-moz-focus-inner {
                                         <label for="currency"><b>What is the currency of this Investment? </b> </label>
 
                                         <?php 
-                                            $currencyList = App\CurrencyMonetary::where('status','0')->get();
+                                            $currencyList = App\CurrencyMonetary::where('status','0')->orderBy('c_code', 'ASC')->get();
                                             $curText = '(USD)';
                                              if (isset($data->currency) and $data->currency != 0 ){
                                                 $currencyDetail = App\CurrencyMonetary::where('id',$data->currency)->first();
@@ -834,8 +1055,9 @@ input::-moz-focus-inner {
                                 </div>
 
                             </div>
+                            </div>
 
-
+                            <div class="portlet2 light2">
                             <div class="portlet light" id="sect_value_opportunity">
 
                                 <div class="portlet-body">
@@ -849,7 +1071,10 @@ input::-moz-focus-inner {
                                 </div>
 
                             </div>
-
+                            </div>
+                            
+                            
+                            <div class="portlet2 light2">
                             <div class="portlet light" id="sect_revenue_opportunity">
 
                                 <div class="portlet-body">
@@ -867,6 +1092,8 @@ input::-moz-focus-inner {
 
                             </div>
 
+                            </div>
+                            <div class="portlet2 light2">
                             <div class="portlet light" id="sect_profit_opportunity">
 
                                 <div class="portlet-body">
@@ -882,7 +1109,9 @@ input::-moz-focus-inner {
                                 </div>
 
                             </div>
+                            </div>
 
+                            <div class="portlet2 light2">
                             <div class="portlet light" id="sect_inventory_opportunity">
 
                                 <div class="portlet-body">
@@ -897,6 +1126,7 @@ input::-moz-focus-inner {
 
                                 </div>
 
+                            </div>
                             </div>
 
                         </div>
@@ -1431,145 +1661,6 @@ input::-moz-focus-inner {
                             </div>
 
 
-                            <div class="portlet light" id="sect_card_avatar">
-
-                                <div class="portlet-body">
-
-                                    <div class="form-group">
-
-                                        <label for="ideal_partner_base"><b>Please choose what do you want to display as the opportunity card avatar.</b></label> <br/>
-
-                                        <div class="input-group">
-
-                                            <div class="row">
-                                                <?php 
-                                                    if(isset($data->id)){
-                                                        $dataId = $data->id;
-                                                    }else{
-                                                        $dataId = 1;
-                                                    }
-
-                                                    if(isset( $data->avatar_status )){
-                                                        $dataAvatar = $data->avatar_status;
-                                                    }else{
-                                                        $dataAvatar = 1;
-                                                    }
-                                                ?>
-                                                <div class="col-sm-12">
-                                                    <input type="hidden" name="avatar_status" id="avatar_status" value="{{  $dataAvatar }}" />
-                                                    <input type="checkbox" 
-                                                        @if($is_premium)
-                                                          onchange="oppImageAvatar(this, '{{ $dataId }}' )"
-                                                        @else
-                                                          onchange="NotifyToUpgrade('opp_image_avatar' )"
-                                                        @endif
-
-                                                        @if($dataAvatar == 2)
-                                                            checked
-                                                        @endif
-                                                          id="opp_image_avatar"
-                                                          data-toggle="toggle" 
-                                                          data-on="Profile Image" 
-                                                          data-off="Industry Image" 
-                                                          data-width="200" 
-                                                          data-onstyle="success" 
-                                                          data-offstyle="info" 
-                                                          data-style="slow">
-                                                </div>
-
-                                            </div>
-
-
-
-
-
-                                            <!--<div class="input-group-append">
-
-                                                <span class="input-group-text">Enter Keywords</span>
-
-                                            </div> -->
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="portlet2 light2" id="sect_industry_card">
-
-                                <div class="portlet-body">
-                                        <label for="opp_industry"><b>Please select what kind of Industry</b><span style="color: red; font-weight: bolder;"> *</span> </label>
-                                        <div class='row'>
-                                            <div class='col-sm-12'>
-                                                <div id="myCarousel" class="row carousel slide" data-interval="false">
-                                                    <div class="carousel-inner">
-                                                    @if( isset($data->industry) )    
-                                                        <input type="hidden" id="opp_industry" name="opp_industry" value="{{ $data->industry }}">
-                                                    @else
-                                                        <input type="hidden" id="opp_industry" name="opp_industry" value="0">
-                                                    @endif
-                                                    <?php 
-                                                        $groupSize = 4;
-                                                        $initCarousel = '';
-                                                        $setActive = 0;
-                                                        if( isset( $data->industry) ){
-                                                            $setActive = floor( $data->industry / $groupSize );
-                                                        }
-                                                        $numItems = $industry_list->count();
-                                                        $i = 0;
-                                                        $ii = 0;
-                                                     ?>
-                                                        @foreach($industry_list as $ind)
-                                                            <?php
-                                                            if($setActive == $ii){
-                                                                $initCarousel = 'active';
-                                                            } ?>
-                                                            @if($i == '0')
-                                                            <div class="item {{ $initCarousel }}">
-                                                                <ul class="thumbnails">
-                                                            @endif
-
-                                                            <li class="col-sm-3">      
-                                                            <?php $industry_active = ''; ?>
-                                                            @if(isset($data->industry))
-                                                                @if($data->industry == $ind->id)
-                                                                <?php $industry_active = 'industry_active'; ?>
-                                                                @endif
-                                                            @endif      
-                                                                <div class="thumbnail {{ $industry_active }} industry_select{{ $ind->id }} " onclick="assignIndustry('{{ $ind->id }}')">
-                                                                    <a><img src="{{  asset('public/images/industry/') }}/{{ $ind->image }}" alt=""><h4>{{ $ind->text }}</h4></a>
-                                                                </div>
-                                                            </li>
-
-                                            <?php 
-                                                            $i++;
-                                                         
-                                                            $initCarousel = '';
-                                            ?>
-                                                            @if($i == 4 || $numItems === $i )
-                                                                </ul>
-                                                            </div>
-                                                            <?php 
-                                                            $i = 0; 
-                                                            $ii++;?>
-                                                            @endif
-                                                        @endforeach
-                                                    </div>
-
-                                                </div>
-                                                    <!-- Control box -->
-                                                    <div class="control-box">                            
-                                                      <a data-slide="prev" href="#myCarousel" class="carousel-control left">&#60;</a>
-                                                      <a data-slide="next" href="#myCarousel" class="carousel-control right">&#62;</a>
-                                                    </div><!-- /.control-box --> 
-                                            </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
 
                                <div class="portlet light" id="sect_oppo_status">
 
@@ -1720,15 +1811,18 @@ input::-moz-focus-inner {
 
 
 <script>
+
+
         var stack = 0;
         function NotifyToUpgrade(id){
             counts = stack++;
             if(counts == 0){
                 $('#'+id).bootstrapToggle('off')  ;
+                
 
                     swal({
                     title: "This feature is only available for premium members. Would you like to upgrade to a premium account?",
-                    text: "You are about to set the view status of this opportunity to be publish with company information!",
+                    text: "If you would like to use a custom image, please upgrade to a premium account or you can select any of the provided default images we have available.",
                     icon: "success",
                     buttons: [
                       'No, cancel it!',
@@ -1757,10 +1851,21 @@ input::-moz-focus-inner {
 
             if( $('#oppor_id').val() ){
                 var oppor_id = $('#oppor_id').val();
-                inputFormUpdate(id, oppor_id , 'industry');
+                //inputFormUpdate(id, oppor_id , 'industry');
             }
+            
         }
-
+        
+        function customClick(){
+            @if($is_premium)
+                document.getElementById("custom_image_upload").click();
+            @else
+                NotifyToUpgrade("custom_image_upload");
+            @endif
+            
+        }
+        
+        
         $('#relevant_describing_partner').selectize({
 
             plugins: ['remove_button'],
@@ -1972,6 +2077,13 @@ input::-moz-focus-inner {
             }
 
         });
+        
+        if(referStatus == 2){
+            $("#sect_industry_card").hide();
+        }
+        else{
+            $("#sect_industry_card").show();
+        }
 
     }
 
@@ -2348,10 +2460,10 @@ input::-moz-focus-inner {
     });
 
 $('#opportunity_build_form').submit(function() {
-    if( $('#opp_industry').val() == 0 ){
+    /*if( $('#opp_industry').val() == 0 ){
         $('#myCarousel').addClass('tag-required');
         return false
-    }
+    }*/
     cookies.del('build_opp_title');
     cookies.del('build_businessGoal');
     cookies.del('build_audienceTarget');
@@ -2652,6 +2764,61 @@ if( $('#is_tour').val() == 1 ){
             $(".close").click(function () {
                 $(".jumbotron").remove();
             });
+            
+            $image_crop = $('#image_demo').croppie({
+                    enableExif: true,
+                    viewport: {
+                      width:250,
+                      height:200,
+                  type:'square' //circle
+                },
+                boundary:{
+                  width:300,
+                  height:300
+                }
+              });
+              
+              @if($is_premium)
+                /*$('#custom_image_upload').change(function(){
+                    const file = this.files[0];
+                    if (file){
+                      let reader = new FileReader();
+                      reader.onload = function(event){
+                        $('#custom_image').attr('src', event.target.result);
+                        assignIndustry('0');
+                      }
+                      reader.readAsDataURL(file);
+                    }
+                  });
+                */
+              
+              $('#custom_image_upload').on('change', function(){
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                  $image_crop.croppie('bind', {
+                    url: event.target.result
+                  }).then(function(){
+                    console.log('jQuery bind complete');
+                  });
+                }
+                reader.readAsDataURL(this.files[0]);
+                $('#uploadimageModal').modal('show');
+              });
+              
+              $('.crop_image').click(function(event){
+                $image_crop.croppie('result', {
+                  type: 'canvas',
+                  size: 'viewport'
+                }).then(function(response){
+                    $('#custom_image').attr('src', response);
+                    $("#custom_image_value").val(response);
+                    assignIndustry('0');
+                    $('#uploadimageModal').modal('hide');
+                })
+                });    
+
+            @endif
+
         });
 
 

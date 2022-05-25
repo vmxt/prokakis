@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class CurrencyAccounts extends Model
+
+class PaypalIpn extends Model
 {
      
-     protected $table = 'currency_accounts';
+     protected $table = 'paypal_ipn';
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +19,7 @@ class CurrencyAccounts extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'currency_id', 'updated_at', 'created_at'
+        'item_name', 'payment_status', 'mc_gross', 'mc_currency', 'txn_id', 'payer_email', 'txt_type', 'created_at', 'updated_at', 'logs'
     ];
 
     /**
@@ -27,11 +28,8 @@ class CurrencyAccounts extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 
+        'id',  
     ];
-    
-    public function getCurrency(){
-        return $this->hasOne(CurrencyMonetary::class,'id', 'currency_id');
-    }
 
+   
 }
