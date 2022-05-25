@@ -17,8 +17,6 @@ class CurrencyAccounts extends Model
      *
      * @var array
      */
-
-    //added new columns in variable $fillable
     protected $fillable = [
         'user_id', 'currency_id', 'updated_at', 'created_at'
     ];
@@ -29,7 +27,7 @@ class CurrencyAccounts extends Model
      * @var array
      */
     protected $hidden = [
-        'pid', 
+        'id', 
     ];
     
     public function getCurrency(){

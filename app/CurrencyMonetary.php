@@ -48,8 +48,6 @@ class CurrencyMonetary extends Model
         if(isset($acc->currency_id)){
             $curr_to = CurrencyMonetary::where('id',$acc->currency_id)->first();
             
-            
-            
             if( $curr_to->c_code != "USD" ){
                 $sgd_curr = CurrencyMonetary::where('id',22)->first();
                 $per_sgd = $sgd_curr->c_rate / 100;
@@ -67,9 +65,11 @@ class CurrencyMonetary extends Model
                         $dev = (double)$new_amount / (double)$curr_to->c_rate;
                         $final_amount = $dev * 100;
                         
-                        $rem = (double)$new_amount % (double)$curr_to->c_rate;
-                        if($rem > 0){
-                            $final_amount += ($per_1 * $rem);
+                        if((double)$new_amount >= 1 && (double)$curr_to->c_rate >= 1){
+                            $rem = (double)$new_amount % (double)$curr_to->c_rate;
+                            if($rem > 0){
+                                $final_amount += ($per_1 * $rem);
+                            }
                         }
                     }
                     else{
@@ -83,30 +83,6 @@ class CurrencyMonetary extends Model
             $ccode = $curr_to->c_code;
         }
 
-        /*if(strpos($curr_from['c_name'],'100')){
-            $res = $curr_from['c_rate'] * .01;
-        }else{
-            $res = $curr_from['c_rate'];
-        }
-        if($res){
-            $out = $rate / $res;
-        }else{
-            $out = $rate ;
-        }*/
-        
-        //$tt= 100;
-        //return number_format($out, 2 , '.', ',')." ".$ccode;
-        //return number_format($final,2);
-        //return $rate1 = $rate / 100;
-        /*$rem = $rate % 100;
-        
-        $new = ($rate1 * 137.49);
-        $new2 = 100 / $rem;
-        
-        $final = $new + $new2;*/
-        
-        //$tt= 100;
         return number_format((float)$final_amount, 2, '.', ',')." ".$ccode;
-        //return $curr_from['c_rate'];
     }
 }
