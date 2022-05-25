@@ -24,6 +24,8 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script> --}}
+        
+
 
     <style>
         .niceDisplay {
@@ -144,6 +146,7 @@
           /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
           box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1) !important;
           cursor: default !important;
+          border-radius: 20px !important;
         }
    /*     .widget-thumb-icon:hover {
             cursor: pointer;
@@ -185,7 +188,7 @@
         <?php if(isset($profileCoverPhoto)){ ?>
             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/') }}/<?php echo $profileCoverPhoto; ?>");
         <?php }else{ ?>
-             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/explore_oppo.png') }}");
+             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/explore_opportunity.jpeg') }}");
         <?php } ?>
 
         height: 300px;
@@ -321,7 +324,25 @@ body.loading .modal-load {
 body.loading .modal-load {
     display: block;
 }
+
+.text-company{
+    color:#7cda24 !important;
+}
+
+.cardborder-radius{
+    border-radius: 20px !important;
+}
+
+.avatar-radius{
+    vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
     </style>
+    
+    
+    
 
     <?php 
     $u = App\User::find(Auth::id());
@@ -336,17 +357,17 @@ body.loading .modal-load {
                 </div> --}}
 
             <div class="col-md-12" id="banner"  style="margin-bottom:80px;">
-                <div class="card text-white fb-profile-block imghov" id="theBanner" style="max-height: 380px; max-width: 1140px; position: relative;">
-                    <div class="fb-profile-block-thumb hero-image">
+                <div class="card text-white fb-profile-block imghov" id="theBanner" style="max-height: 380px; max-width: 1140px; position: relative; border: 0px">
+                    <div class="fb-profile-block-thumb hero-image cardborder-radius">
                     </div>
 
                     <div class="card-img">
-                        <div class="profile-img">
+                        <div class="profile-img cardborder-radius" >
                             <?php if($profileAvatar != null){  ?>
-                            <a href="#"><img src="{{ asset('public/images/') }}/<?php echo $profileAvatar; ?>"
+                            <a style='background: none' href="#"><img style='border-radius: 20px; border: 1px solid #785b5b' class='' src="{{ asset('public/images/') }}/<?php echo $profileAvatar; ?>"
                                              alt="Card image"> </a>
                             <?php } else { ?>
-                            <a href="#"><img src="{{ asset('public/images/robot.jpg') }}" alt="Card image">
+                            <a style='background: none' href="#"><img style='border-radius: 20px; border: 1px solid #785b5b' src="{{ asset('public/images/robot.jpg') }}" alt="Card image">
                                 <?php } ?> </a>
                         </div>
 
@@ -389,19 +410,172 @@ body.loading .modal-load {
 
                 </div>
             </div>
+            
+            
  
-            <div class="bootstrap col-md-9 content-card">
+            <div class="bootstrap col-md-10 content-card">
+                <div id="top_opps_div">
+                    <div class="hr-sect opp_type"  >Top 5 Opportunities</div>
+                <?php 
+                    $obc = App\OpportunityBuildingCapability::where('status', 1)
+                     ->where('intro_describe_business', '!=', null)
+                     ->where('ideal_partner_base', '!=', null)
+                     
+                     ->inRandomOrder()->take(4)
+                     ->orderBy('id', 'desc')
+                     ->get();
+                     //->limit(10)
+                     //->get();
+                     
+                     $ob =  App\OpportunityBuy::where('status', 1)
+                     ->where('intro_describe_business', '!=', null)
+                     ->where('ideal_partner_base', '!=', null)
+                     
+                     ->inRandomOrder()->take(4)
+                     ->orderBy('id', 'desc')
+                     ->get();
+                     //->limit(10)
+                     //->get();
+                     
+                     $oso = App\OpportunitySellOffer::where('status', 1)
+                     ->where('intro_describe_business', '!=', null)
+                     ->where('ideal_partner_base', '!=', null)
+                     
+                     ->inRandomOrder()->take(4)
+                     ->orderBy('id', 'desc')
+                     ->get();
+                     //->limit(10)
+                     //->get();
+        
+                    $resOpp = $obc->merge($ob)->merge($oso);
+        
+                            
+                    $result = array('result'=>'success');
+                    $oppCount = 1;
+                    foreach($resOpp as $d){
+                        if($oppCount <= 5){
+                            $cc = [];
+                            $c_country = "";       
+                            if(strlen($d->ideal_partner_base) > 0){
+                                $cc = explode(",",$d->ideal_partner_base);
+                                if(isset($cc[0])){
+                                    $c_country = $c_country . $cc[0];   
+                                }
+                                if(isset($cc[1])){
+                                $c_country = $c_country . ','.$cc[1];
+                                }
+                                if(isset($cc[2])){
+                                $c_country = $c_country . ','.$cc[2];
+                                }
+                            }  
+        
+                            if($d->is_anywhere == 1){
+                                $c_country = "Anywhere";
+                            }
+                            $keyword = explode(",", $d->relevant_describing_partner);
+                            $hashKey ="";
+                             if( $d->relevant_describing_partner ){
+                                 foreach ($keyword as $val ) {
+                                    if($val!="")
+                                     $hashKey .= '#'.str_replace(' ','_',$val)." ";
+                                 }
+                             }
+                             
+                             $appurl = env('APP_URL');
+                             
+                            $ttitle = substr($d->opp_title, 0, 33).'..';   
+                             $ind =  App\OppIndustry::find($d->industry);
+                             $imgSrc = $appurl.'public/images/industry/'.$ind->image;
+                             /*$ret[] = array('business_description'=>$d->intro_describe_business, 
+                             'country'=>$c_country, 
+                             'keyword'=>$hashKey ,
+                             'keyword_raw'=>$d->relevant_describing_partner ,
+                             'industry_category'=>$ind->text, 
+                             'industry_image'=>$imgSrc,
+                             'est_revenue'=>$d->est_revenue,
+                             'est_profit'=>$d->est_profit,
+                             'inventory_value'=>$d->inventory_vaue,
+                             'title'=> strtoupper($d->opp_title) );*/
+                             ?>
+                             
+                             <div class="bootstrap page-content-inner">
+                                <div class="bootstrap mt-content-body">
+                                    <div class="bootstrap portlet light h-effect">
+                                        <div class="bootstrap card gedf-card cardborder-radius">
+                                            
+                                            <div class="bootstrap card-body card-flex ">
+                                                <div class="row w-100 ">
+                                                    <div class="col-md-4 p-2" style="background-image: url( <?php echo $imgSrc; ?> );
+                                                        background-size: 95% 95%;
+                                                        background-repeat: no-repeat;
+                                                        background-origin: content-box;
+                                                        background-position: center center;height:200px;width:100%;">
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <h3 class="upperText mt-2 "  title="{{ $d->opp_title }}"><b>{{ strtoupper($d->opp_title) }}</b></h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row col-md-12 opp-cards">
+  
+                                                            <div class="col-md-4">
+                                                                <ul class="info_list mt-2" style="list-style-type: none;">
+                                                                    <li><h4 ><b class="text-company">This Company Is Seeking</b></h4></li>
+                                                                    <li><b>{{ $d->audience_target }}</b></li>
+                                                                    <li><b>{{ $c_country }}</b></li>
+                                                                </ul>
+                                                                
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <ul class="info_list mt-2" style="list-style-type: none;">
+                                                                    <li >Est. Revenue /year</li>
+                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->est_revenue, 3) }}</b></li>
+                                                                    <li>Est. Profit /year</li>
+                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->est_profit,3) }}</b></li>
+                                                                    <li>Inventory value</li>
+                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->inventory_value,3) }}</b></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <ul class="info_list mt-2" style="list-style-type: none;">
+                                                                    <li><h4 ><b class="text-company">Asking Price</b></h4></li>
+                                                                    <li class="mb-2"><b style="text-decoration:noe">{{ App\CurrencyMonetary::currencyConvertion($d->approx_large,3) }}</b></li>
+                                                                    <li class="mb-2">
+                                                                        <div class="learn_more" style="margin-top: 15px;">
+                                                                           <button name="{{ $d->opp_title }}" type="button" class="learn_more_btn btn btn-dark  btn-lg ">LEARN MORE</button>
+                                                                        </div>    
+                                                                    </li>
+                                                                </ul>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                             <?php }
+                          $oppCount++;
+                    }
+                ?>
+            </div>
+            
                 <div  id='followBusinessNews'>
 <!--- \\\\\\\BUSINESS NEWS-->
 
                     @if($businessNewsData->count() > 0)
-                        <div class="hr-sect opp_type"  >Business News</div>
+                        <div class="hr-sect opp_type"  >Business News  </div>
                     @endif
                     @foreach($businessNewsData as $businessNews)
                         <div class="bootstrap page-content-inner">
                             <div class="bootstrap mt-content-body">
                                 <div class="bootstrap portlet light h-effect">
-                                    <div class="bootstrap card gedf-card">
+                                    <div class="bootstrap card gedf-card cardborder-radius">
                                         <div class="bootstrap card-header">
                                             <div class="bootstrap d-flex justify-content-between align-items-center">
                                                 <div class="bootstrap d-flex justify-content-between align-items-center">
@@ -452,7 +626,7 @@ body.loading .modal-load {
                 <div class="bootstrap page-content-inner">
                     <div class="bootstrap mt-content-body">
                         <div class="bootstrap portlet light h-effect">
-                            <div class="bootstrap card gedf-card">
+                            <div class="bootstrap card gedf-card cardborder-radius">
                                 <div class="bootstrap card-header">
                                     <div class="bootstrap d-flex justify-content-between align-items-center">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
@@ -508,7 +682,7 @@ body.loading .modal-load {
                     <div class="bootstrap mt-content-body">
                         <div class="bootstrap portlet light h-effect">
                                  <!--- \\\\\\\Post-->
-                                <div class="bootstrap card gedf-card">
+                                <div class="bootstrap card gedf-card cardborder-radius">
                                     <div class="bootstrap card-header">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
                                             <div class="bootstrap d-flex justify-content-between align-items-center">
@@ -603,7 +777,7 @@ body.loading .modal-load {
                     <div class="bootstrap mt-content-body">
                         <div class="bootstrap portlet light h-effect">
                                  <!--- \\\\\\\Post-->
-                                <div class="bootstrap card gedf-card">
+                                <div class="bootstrap card gedf-card cardborder-radius">
                                     <div class="bootstrap card-header">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
 
@@ -1021,8 +1195,27 @@ if( $('#is_tour').val() == 1 ){
 }
 
         $(document).ready(function () {
+            
             $(".close").click(function () {
                 $(".jumbotron").remove();
+            });
+            
+            $(".learn_more_btn").click(function(){
+                var filter_target_audience = 0;
+                var filter_category = 0;
+                var filter_country = "null";
+                
+                var keywordSearch = $(this).attr("name");
+                
+                var filter_ideal_partners = "null";
+                
+                    var keyS = filter_target_audience + "<filter>" + filter_category + "<filter>" + filter_country + "<filter>" + keywordSearch + "<filter>" + filter_ideal_partners + "<filter>fromhome" ;
+                
+                
+                //var getUrl = window.location;
+                //var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                //window.location.href = ;
+                window.open("<?php echo env('APP_URL'); ?>" + "opportunity/exploreAll/" + encodeURIComponent(btoa(keyS)), '_blank');
             });
         });
 

@@ -3,7 +3,15 @@
 
 
 @section('content')
+<?php 
+if(session('donebuytokenload') != 'done'){
+    session(['donebuytokenload' => 'done']);
+    redirect()->to('reportsBuyCredits'); 
+}else{
+    sleep(4);
+} 
 
+?>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('public/css/buytokens.css') }}">
 

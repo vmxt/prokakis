@@ -61,6 +61,23 @@
     .text-white{
         color:white !important;
     }
+
+    
+    .marginzero{
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+    
+    .cardborder-radius{
+        border-radius: 20px !important;
+        border: 1px solid #a5a5a5; ;
+    }
+    
+     .cardborder-radius:hover{
+        box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
+    }
+    
+   
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
@@ -87,8 +104,9 @@
         </ul>
         <div class="row">
         <div class="col-md-12" >
-            <div class="card" style="border:1px solid silver;background:white">
-                <div class="card-body" style="padding:10px">
+
+            <div class="card cardborder-radius" style="border:1px solid silver;background:white">
+                <div class="card-body" style="padding:20px">
                     <h4 class="card-title mb-2"><i class="icon-magnifier">&nbsp;</i>FILTER OPPORTUNITIES BY:</h4>
                     <div class="row">
                         <div class="col-md-4 mb-2 ">
@@ -204,7 +222,7 @@
      $opportunity_type ="";
 ?>
 
-        <div class="row">
+        <div class="row marginzero">
             
         <?php if($sell != ""){ ?>
     <!-- START SELL OPPORTUNITY -->
@@ -266,7 +284,7 @@
             <div class='row cf list-row-sell '>
         @endif
         @if($i <= 2)
-              <div class='post sell-list'>
+              <div class='post sell-list cardborder-radius'>
                 <?php 
                     $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
                     if( $followComp > 0) {
@@ -391,7 +409,7 @@
             
             <div>
                 <span class="title-text">
-                    <h4><strong> Ratings </strong></h4>
+                    <h4><strong> Company Strength </strong></h4>
                 </span>
                 <div class="content-text" style="display: flex;">
                 <?php
@@ -745,7 +763,7 @@
             <div class='row cf list-row-buy '>
         @endif
         @if($i <= 2)
-              <div class='post buy-list'>
+              <div class='post buy-list cardborder-radius'>
 
                 <?php 
                     $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
@@ -1226,7 +1244,7 @@
             <div class='row cf list-row-build '>
         @endif
         @if($i <= 2)
-              <div class='post build-list'>
+              <div class='post build-list cardborder-radius'>
                 <?php 
                     $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
                     if( $followComp > 0) {
@@ -1697,7 +1715,7 @@
 @if($result_filter)
 <!-- Modal -->
 <div 
-    class="modal fade" 
+    class="modal fade modal_oppoBox" 
     id="opporDetailsContentModal" 
     tabindex="-1" role="dialog" 
     aria-labelledby="opporDetailsContentModalLabel" 
@@ -1910,6 +1928,111 @@
             </span>
             <hr>
         </div>
+        
+        <div>
+            <?php $opportunity_type = (isset($_GET["type"])) ? $_GET["type"] : ""; ?>
+
+            @if(  !$if_premium )
+                <a onclick="notPremiumMessage();" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+            @else
+                @if(  $tokenStock >= 120)
+                    <a onclick="processReq('{{ $opportunity_type }}', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @else
+                    <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
+                @endif
+            @endif
+
+                <?php 
+                $viewer = base64_encode('viewer' . $company->id);
+                $token = base64_encode(date('YmdHis'));
+                ?>
+
+                {{-- Requestor = Non-premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, $opportunity_type, $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , '{{ $opportunity_type }}');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                        @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                            <?php if(App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?>    
+                            
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                    <?php if(App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?>  
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                @endif  --}}
+
+                {{-- Requestor = Non-premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) == false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="nonPremiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    @if($tokenStock >= 3)
+
+                        @if(App\ChatHistory::getChatPayStatus($item->id, $opportunity_type, $requestor_id, $provider_id) == false)
+                            <a href="#" Opptype="{{ $opportunity_type }}" onclick="DeductThreeInboxMe('{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $item->id }}', '{{ $company->id }}', '{{ $requestor_id }}' , '{{ $opportunity_type }}');" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                            @else
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+
+                            <?php if(App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id) == null){ ?>
+                            <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                            <?php } else { ?>
+                            <a href="<?php echo App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                            <?php } ?> 
+
+                        @endif
+
+                    @else
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="BlockInboxMe();" class="btn default btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    @endif
+
+                @endif
+
+                {{-- Requestor = Premium | Provider = Non-Premium --}}
+                @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    
+                    <?php if(App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id) == null){ ?>
+                        <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
+                        <?php } else { ?>
+                        <a href="<?php echo App\VideoChat::getVcURL($item->id, $opportunity_type, $requestor_id); ?>" target="_blank" Opptype="{{ $opportunity_type }}" class="btn blue btn_options"> <span class="fa fa-video-camera"></span> &nbsp; Video Chat Me</a>
+                    <?php } ?> 
+
+                @endif
+
+                <hr class="hr-sect">
+
+            </div> 
 
 <?php   
         }#end if company count
