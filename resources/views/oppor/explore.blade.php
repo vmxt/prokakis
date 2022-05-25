@@ -61,6 +61,7 @@
     .text-white{
         color:white !important;
     }
+
     
     .marginzero{
         margin-right: 0px;
@@ -103,6 +104,7 @@
         </ul>
         <div class="row">
         <div class="col-md-12" >
+
             <div class="card cardborder-radius" style="border:1px solid silver;background:white">
                 <div class="card-body" style="padding:20px">
                     <h4 class="card-title mb-2"><i class="icon-magnifier">&nbsp;</i>FILTER OPPORTUNITIES BY:</h4>
