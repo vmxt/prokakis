@@ -146,6 +146,7 @@
           /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
           box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1) !important;
           cursor: default !important;
+          border-radius: 20px !important;
         }
    /*     .widget-thumb-icon:hover {
             cursor: pointer;
@@ -187,7 +188,7 @@
         <?php if(isset($profileCoverPhoto)){ ?>
             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/') }}/<?php echo $profileCoverPhoto; ?>");
         <?php }else{ ?>
-             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/explore_oppo.png') }}");
+             background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/explore_opportunity.jpeg') }}");
         <?php } ?>
 
         height: 300px;
@@ -327,6 +328,18 @@ body.loading .modal-load {
 .text-company{
     color:#7cda24 !important;
 }
+
+
+.cardborder-radius{
+    border-radius: 20px !important;
+}
+
+.avatar-radius{
+    vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
     </style>
     
     
@@ -345,17 +358,17 @@ body.loading .modal-load {
                 </div> --}}
 
             <div class="col-md-12" id="banner"  style="margin-bottom:80px;">
-                <div class="card text-white fb-profile-block imghov" id="theBanner" style="max-height: 380px; max-width: 1140px; position: relative;">
-                    <div class="fb-profile-block-thumb hero-image">
+                <div class="card text-white fb-profile-block imghov" id="theBanner" style="max-height: 380px; max-width: 1140px; position: relative; border: 0px">
+                    <div class="fb-profile-block-thumb hero-image cardborder-radius">
                     </div>
 
                     <div class="card-img">
-                        <div class="profile-img">
+                        <div class="profile-img cardborder-radius" >
                             <?php if($profileAvatar != null){  ?>
-                            <a href="#"><img src="{{ asset('public/images/') }}/<?php echo $profileAvatar; ?>"
+                            <a style='background: none' href="#"><img style='border-radius: 20px; border: 1px solid #785b5b' class='' src="{{ asset('public/images/') }}/<?php echo $profileAvatar; ?>"
                                              alt="Card image"> </a>
                             <?php } else { ?>
-                            <a href="#"><img src="{{ asset('public/images/robot.jpg') }}" alt="Card image">
+                            <a style='background: none' href="#"><img style='border-radius: 20px; border: 1px solid #785b5b' src="{{ asset('public/images/robot.jpg') }}" alt="Card image">
                                 <?php } ?> </a>
                         </div>
 
@@ -489,9 +502,9 @@ body.loading .modal-load {
                              <div class="bootstrap page-content-inner">
                                 <div class="bootstrap mt-content-body">
                                     <div class="bootstrap portlet light h-effect">
-                                        <div class="bootstrap card gedf-card">
-                                            
-                                            <div class="bootstrap card-body card-flex">
+
+                                        <div class="bootstrap card gedf-card cardborder-radius">      
+                                            <div class="bootstrap card-body card-flex ">
                                                 <div class="row w-100 ">
                                                     <div class="col-md-4 p-2" style="background-image: url( <?php echo $imgSrc; ?> );
                                                         background-size: 95% 95%;
@@ -505,25 +518,18 @@ body.loading .modal-load {
                                                                 <h3 class="upperText mt-2 "  title="{{ $d->opp_title }}"><b>{{ strtoupper($d->opp_title) }}</b></h3>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
+
+                                                        <div class="row col-md-12 opp-cards">
+  
                                                             <div class="col-md-4">
-                                                                <div class="content">
-                                                                    
-                                                                     <div class="" style="
-                                                                     text-shadow: 
-                                                                     -1px -1px 0 #000, 
-                                                                     1px -1px 0 #000, 
-                                                                     -1px 1px 0 #000,
-                                                                     1px 1px 0 #000"><h5  class="text-company">
-                                                                         <b>This company is seeking</b></h5></div>
-                                                                        <ul class="info_list" style="list-style-type: none;">
-                                                                            <li><b>{{ $d->audience_target }}</b></li>
-                                                                            <li><b>{{ $c_country }}</b></li>
-                                                                        </ul>
-                                                                  </div>
+                                                                <ul class="info_list mt-2" style="list-style-type: none;">
+                                                                    <li><h4 ><b class="text-company">This Company Is Seeking</b></h4></li>
+                                                                    <li><b>{{ $d->audience_target }}</b></li>
+                                                                    <li><b>{{ $c_country }}</b></li>
+                                                                </ul>
+                                                                
                                                             </div>
                                                             <div class="col-md-4">
-                                                                
                                                                 <ul class="info_list mt-2" style="list-style-type: none;">
                                                                     <li >Est. Revenue /year</li>
                                                                     <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->est_revenue, 3) }}</b></li>
@@ -532,18 +538,14 @@ body.loading .modal-load {
                                                                     <li>Inventory value</li>
                                                                     <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->inventory_value,3) }}</b></li>
                                                                 </ul>
-                                                                
+
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <ul class="info_list mt-2" style="list-style-type: none;">
-                                                                    <li><h4 style="text-shadow: 
-                                                                     -1px -1px 0 #000, 
-                                                                     1px -1px 0 #000, 
-                                                                     -1px 1px 0 #000,
-                                                                     1px 1px 0 #000"><b class="text-company">Asking price</b></h4></li>
+                                                                    <li><h4 ><b class="text-company">Asking Price</b></h4></li>
                                                                     <li class="mb-2"><b style="text-decoration:noe">{{ App\CurrencyMonetary::currencyConvertion($d->approx_large,3) }}</b></li>
                                                                     <li class="mb-2">
-                                                                        <div class="learn_more" style="">
+                                                                        <div class="learn_more" style="margin-top: 15px;">
                                                                            <button name="{{ $d->opp_title }}" type="button" class="learn_more_btn btn btn-dark  btn-lg ">LEARN MORE</button>
                                                                         </div>    
                                                                     </li>
@@ -576,7 +578,7 @@ body.loading .modal-load {
                         <div class="bootstrap page-content-inner">
                             <div class="bootstrap mt-content-body">
                                 <div class="bootstrap portlet light h-effect">
-                                    <div class="bootstrap card gedf-card">
+                                    <div class="bootstrap card gedf-card cardborder-radius">
                                         <div class="bootstrap card-header">
                                             <div class="bootstrap d-flex justify-content-between align-items-center">
                                                 <div class="bootstrap d-flex justify-content-between align-items-center">
@@ -627,7 +629,7 @@ body.loading .modal-load {
                 <div class="bootstrap page-content-inner">
                     <div class="bootstrap mt-content-body">
                         <div class="bootstrap portlet light h-effect">
-                            <div class="bootstrap card gedf-card">
+                            <div class="bootstrap card gedf-card cardborder-radius">
                                 <div class="bootstrap card-header">
                                     <div class="bootstrap d-flex justify-content-between align-items-center">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
@@ -683,7 +685,7 @@ body.loading .modal-load {
                     <div class="bootstrap mt-content-body">
                         <div class="bootstrap portlet light h-effect">
                                  <!--- \\\\\\\Post-->
-                                <div class="bootstrap card gedf-card">
+                                <div class="bootstrap card gedf-card cardborder-radius">
                                     <div class="bootstrap card-header">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
                                             <div class="bootstrap d-flex justify-content-between align-items-center">
@@ -778,7 +780,7 @@ body.loading .modal-load {
                     <div class="bootstrap mt-content-body">
                         <div class="bootstrap portlet light h-effect">
                                  <!--- \\\\\\\Post-->
-                                <div class="bootstrap card gedf-card">
+                                <div class="bootstrap card gedf-card cardborder-radius">
                                     <div class="bootstrap card-header">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
 

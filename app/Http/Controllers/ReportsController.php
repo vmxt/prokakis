@@ -152,13 +152,14 @@ class ReportsController extends Controller
 
                     Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[1]);
                     Session::put('TopUp', 1);
-                    
+                    session(['TopUpNum' => 1]);
                     $rs = ReportsController::executeSetExpressCheckout($formatPay[1]);
 
                         if($rs['ACK'] == 'Success') {
 
                             Session::put('PaypalToken', $rs['TOKEN']);
-
+                            sleep(2);
+                            if(!is_null( Session::get('TopUp')  ) && Session::get('TopUp') != 'null' )
                             return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
 
                         }    
@@ -174,13 +175,15 @@ class ReportsController extends Controller
                     Session::put('TokenCount', 12);
                     Log::info('User Id:' . Auth::id() .' Buy Credit Amount:'.$formatPay[2]);
                     Session::put('TopUp', 2);
-
-                    $rs = ReportsController::executeRecurringSetExpressCheckout("Prokakis Monthly Subscription", 36.0);
+                    session(['TopUpNum' =>2]);
+                    $rs = ReportsController::executeRecurringSetExpressCheckout("Intellinz Monthly Subscription", 36.0);
 
                         if($rs['ACK'] == 'Success') {
 
                           Session::put('PaypalToken', $rs['TOKEN']);
-                          return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
+                          sleep(2);
+                          if(!is_null( Session::get('TopUp')) && Session::get('TopUp') != 'null'  )
+                          return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN'].'&tp='.Session::get('TopUp') );
                        
                         } 
 
@@ -194,12 +197,14 @@ class ReportsController extends Controller
                     Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[3]);
 
                     Session::put('TopUp', 3);
-                    
-                    $rs = ReportsController::executeRecurringSetExpressCheckout("Prokakis Yearly Subscription", 396.0);
+                    session(['TopUpNum' => 3]);
+                    $rs = ReportsController::executeRecurringSetExpressCheckout("Intellinz Yearly Subscription", 396.0);
 
                         if($rs['ACK'] == 'Success') {
 
                             Session::put('PaypalToken', $rs['TOKEN']);
+                            sleep(2);
+                            if(!is_null( Session::get('TopUp')  ) )
                             return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
                             
                         } 
@@ -214,13 +219,14 @@ class ReportsController extends Controller
                     
                     Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[4]);
                     Session::put('TopUp', 4);
-                    
+                    session(['TopUpNum' => 4]);
                     $rs = ReportsController::executeSetExpressCheckout($formatPay[4]);
 
                         if($rs['ACK'] == 'Success') {
 
                             Session::put('PaypalToken', $rs['TOKEN']);
-
+                            sleep(2);
+                            if(!is_null( Session::get('TopUp')  ) )
                             return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
 
                         }   
@@ -235,13 +241,14 @@ class ReportsController extends Controller
                     
                     Log::info('User Id:' . Auth::id() .' Buy Token Amount:'.$formatPay[5]);
                     Session::put('TopUp', 5);
-                    
+                    session(['TopUpNum' => 5]);
                     $rs = ReportsController::executeSetExpressCheckout($formatPay[5]);
 
                         if($rs['ACK'] == 'Success') {
 
                             Session::put('PaypalToken', $rs['TOKEN']);
-
+                            sleep(2);
+                            if(!is_null(Session::get('TopUp')  ) )
                             return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
 
                         } 
@@ -251,12 +258,11 @@ class ReportsController extends Controller
                 break;
 
                 case 6:
-                    //https://test.app.prokakis.com/mailbox/createCompose
                     return redirect('/mailbox/buyingOption');
                 break;
                
                 default:
-
+                    sleep(2);
                     return redirect('/reports/buyTokens')->with('message', 'Invalid Top Up value.');
 
                 break;    
@@ -355,4 +361,3 @@ class ReportsController extends Controller
     
 
 }
-
