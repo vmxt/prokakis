@@ -329,6 +329,7 @@ body.loading .modal-load {
     color:#7cda24 !important;
 }
 
+
 .cardborder-radius{
     border-radius: 20px !important;
 }
@@ -501,8 +502,8 @@ body.loading .modal-load {
                              <div class="bootstrap page-content-inner">
                                 <div class="bootstrap mt-content-body">
                                     <div class="bootstrap portlet light h-effect">
-                                        <div class="bootstrap card gedf-card cardborder-radius">
-                                            
+
+                                        <div class="bootstrap card gedf-card cardborder-radius">      
                                             <div class="bootstrap card-body card-flex ">
                                                 <div class="row w-100 ">
                                                     <div class="col-md-4 p-2" style="background-image: url( <?php echo $imgSrc; ?> );
@@ -517,6 +518,7 @@ body.loading .modal-load {
                                                                 <h3 class="upperText mt-2 "  title="{{ $d->opp_title }}"><b>{{ strtoupper($d->opp_title) }}</b></h3>
                                                             </div>
                                                         </div>
+
                                                         <div class="row col-md-12 opp-cards">
   
                                                             <div class="col-md-4">
@@ -536,6 +538,7 @@ body.loading .modal-load {
                                                                     <li>Inventory value</li>
                                                                     <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->inventory_value,3) }}</b></li>
                                                                 </ul>
+
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <ul class="info_list mt-2" style="list-style-type: none;">
