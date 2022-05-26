@@ -152,10 +152,10 @@
 
                         <?php if(App\InOutUsers::checkOnlineByCompany($company->id) == 1){ ?>
                         <a target="_blank" href="{{ url('/vc-companysearch') }}/{{ $company->id }}">  
-                        <img class='video-chat-icon' title="Company is Online" alt="Video Chat Company is online" src="{{ asset('public/vc_image/vc_online.png') }}">   
+                        <!--<img class='video-chat-icon' title="Company is Online" alt="Video Chat Company is online" src="{{ asset('public/vc_image/vc_online.png') }}">   -->
                         </a> 
                         <?php } else { ?>   
-                        <img class='video-chat-icon' title="Company is Offline" alt="Video Chat Company" src="{{ asset('public/vc_image/vc_offline.png') }}">   
+                        <!--<img class='video-chat-icon' title="Company is Offline" alt="Video Chat Company" src="{{ asset('public/vc_image/vc_offline.png') }}">    -->
                         <?php }  ?> 
 
                 @if($accStatus == 'premium')
