@@ -54,6 +54,42 @@ class OpportunityController extends Controller {
 	}
 
 
+    public function approvedOpportunity(Request $request) {
+
+		if (isset($request['id'])) {
+
+			$exploded = explode(":",$request['id']);
+
+			$itemId = $exploded[0];
+			$type_opp = $exploded[1];
+
+			$user_id = Auth::id();
+
+			$company_id = CompanyProfile::getCompanyId($user_id);
+
+            if($type_opp == "build"){
+                $rs = OpportunityBuildingCapability::find($itemId);
+            }
+            else if($type_opp == "sell"){
+                $rs = OpportunitySellOffer::find($itemId);
+            }
+            else if($type_opp == "buy"){
+                $rs = OpportunityBuy::find($itemId);
+            }
+			
+			if (count((array)$rs) > 0) {
+
+    			$rs->is_verify = 1;
+    
+    			$rs->save();
+    
+    			return redirect("/opportunity/approval/pending")->with('status', 'Opportunity has been successfully approved.');
+
+			}
+
+		}
+
+	}
 
 	public function details() {
 		// if (User::securePage(Auth::id()) != 5) {
@@ -680,7 +716,7 @@ class OpportunityController extends Controller {
             if($filter_category_val == "" || $filter_category_val == "BUILD"){
                 $build = OpportunityBuildingCapability::where('company_id', '!=', "0")
     			->where('audience_target', 'like', '%' . $filter_target_audience_val . '%')
-    			->where('status', 1)
+    			->where('status', 1)->where('is_verify', 1)
     			
     			->where(function ($query) use ( $keyword) {
     			    $query->where('opp_title', 'like', '%' . $keyword . '%');
@@ -721,7 +757,7 @@ class OpportunityController extends Controller {
             if($filter_category_val == "" || $filter_category_val == "SELL"){
     			$sell = OpportunitySellOffer::where('company_id', '!=', "0")
     			->where('audience_target', 'like', '%' . $filter_target_audience_val . '%')
-    			->where('status', 1)
+    			->where('status', 1)->where('is_verify', 1)
     			
     			->where(function ($query) use ( $keyword) {
     			    $query->where('opp_title', 'like', '%' . $keyword . '%');
@@ -762,7 +798,9 @@ class OpportunityController extends Controller {
 			if($filter_category_val == "" || $filter_category_val == "BUY"){
     			$buy = OpportunityBuy::where('company_id', '!=', "0")
     			->where('audience_target', 'like', '%' . $filter_target_audience_val . '%')
-    			->where('status', 1)->where(function ($query) use ( $keyword) {
+    			->where('status', 1)->where('is_verify', 1)
+    			
+    			->where(function ($query) use ( $keyword) {
     			    $query->where('opp_title', 'like', '%' . $keyword . '%');
     			    $query->orWhere('relevant_describing_partner', 'like', '%' . $keyword . '%');
     			})
@@ -873,11 +911,11 @@ class OpportunityController extends Controller {
 				// ->where('status', 1)
 				// ->get();
 
-   		$build = OpportunityBuildingCapability::where('status', 1)->orderBy('id','DESC')->get();
+   		$build = OpportunityBuildingCapability::where('status', 1)->where('is_verify', 1)->orderBy('id','DESC')->get();
 
-				$sell = OpportunitySellOffer::where('status', 1)->orderBy('id','DESC')->get();
+				$sell = OpportunitySellOffer::where('status', 1)->where('is_verify', 1)->orderBy('id','DESC')->get();
 
-			$buy = OpportunityBuy::where('status', 1)->orderBy('id','DESC')->get();
+			$buy = OpportunityBuy::where('status', 1)->where('is_verify', 1)->orderBy('id','DESC')->get();
 
 		$requestReport = new RequestReport;
 		$result_filter = false;
@@ -1088,9 +1126,11 @@ class OpportunityController extends Controller {
     					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
     					
     					$opp_industry_custom = OppIndustry::find($opp->industry);
-    					$opp_industry_custom->active = 0;
-    					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
-    					$opp_industry_custom->save();
+    					if ($opp_industry_custom != null) {
+        					$opp_industry_custom->active = 0;
+        					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
+        					$opp_industry_custom->save();
+    					}
     					
     					$industry = $insert_custom_industry->id;
     
@@ -1270,17 +1310,21 @@ class OpportunityController extends Controller {
 			$data = OpportunitySellOffer::find($request['id']);
 
 			if ($data != NULL) {
-
-				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
-				$approx_large_list = Configurations::getJsonValue('approx_large');
-
-				//$company_id = CompanyProfile::getCompanyId(Auth::id());
+			    
+			    $country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::where('type', '=', "choices")
 				
-				$if_has_custom = OppIndustry::where(function ($query) {
+				->orWhere(function ($query) use ( $data) {
     			    $query->where('type', '=', "custom");
-    			    $query->where('id', '=', "0");
-    	})->get(); 
+    			    $query->where('id', '=', $data->industry); 
+    			})->get(); 
+    			
+    			$if_has_custom = OppIndustry::where(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry);
+    			})->get(); 
+
+				$approx_large_list = Configurations::getJsonValue('approx_large');
 
 				return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
 
@@ -1374,9 +1418,11 @@ class OpportunityController extends Controller {
     					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
     					
     					$opp_industry_custom = OppIndustry::find($opp->industry);
-    					$opp_industry_custom->active = 0;
-    					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
-    					$opp_industry_custom->save();
+    					if ($opp_industry_custom != null) {
+        					$opp_industry_custom->active = 0;
+        					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
+        					$opp_industry_custom->save();
+    					}
     					
     					$industry = $insert_custom_industry->id;
     
@@ -1546,15 +1592,22 @@ class OpportunityController extends Controller {
 			$data = OpportunityBuy::find($request['id']);
 
 			if ($data != NULL) {
-
-				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::where('type', '=', "choices")->get();
-				$approx_large_list = Configurations::getJsonValue('approx_large');
+			    
+			    $country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::where('type', '=', "choices")
 				
-				$if_has_custom = OppIndustry::where(function ($query) {
+				->orWhere(function ($query) use ( $data) {
     			    $query->where('type', '=', "custom");
-    			    $query->where('id', '=', "0");
-    	})->get(); 
+    			    $query->where('id', '=', $data->industry); 
+    			})->get(); 
+    			
+    			$if_has_custom = OppIndustry::where(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry);
+    			})->get(); 
+    			
+    			$approx_large_list = Configurations::getJsonValue('approx_large');
+			    
 
 				return view("oppor.buy", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
 
@@ -1649,9 +1702,11 @@ class OpportunityController extends Controller {
     					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
     					
     					$opp_industry_custom = OppIndustry::find($opp->industry);
-    					$opp_industry_custom->active = 0;
-    					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
-    					$opp_industry_custom->save();
+    					if ($opp_industry_custom != null) {
+        					$opp_industry_custom->active = 0;
+        					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
+        					$opp_industry_custom->save();
+    					}
     					
     					$industry = $insert_custom_industry->id;
     
@@ -1800,14 +1855,22 @@ class OpportunityController extends Controller {
 	public function deleteBuild(Request $request) {
 
 		if (isset($request['id'])) {
+		    
+		    $exploded = explode(":",$request['id']);
 
-			$itemId = $request['id'];
+			$itemId = $exploded[0];
+			$whre_stat = $exploded[1];
+			$redirect_url = "/opportunity/approval/pending";
+			
+			if($whre_stat == "approved"){
+			    $redirect_url = "/opportunity/approval/approved";
+			}
 
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			if (User::getEBossStaffTrue($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false) {
 
 				$rs = OpportunityBuildingCapability::find($itemId);
 
@@ -1823,11 +1886,11 @@ class OpportunityController extends Controller {
 
                 		AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Invest Opportunity | '.$itemId));
 
-						return redirect('/opportunity')->with('status', 'Opportunity at building capability has been successfully removed.');
+						return redirect($redirect_url)->with('status', 'Opportunity at building capability has been successfully removed.');
 
 					} else {
 
-						return redirect('/opportunity')->with('message', 'Opportunity at building capability only the owner can remove.');
+						return redirect($redirect_url)->with('message', 'Opportunity at building capability only the owner or admin can remove.');
 
 					}
 
@@ -1845,7 +1908,7 @@ class OpportunityController extends Controller {
 
 					$rs->save();
 
-					return redirect('/opportunity/explore')->with('status', 'Opportunity at building capability has been successfully removed.');
+					return redirect($redirect_url)->with('status', 'Opportunity at building capability has been successfully removed.');
 
 				}
 
@@ -1859,13 +1922,21 @@ class OpportunityController extends Controller {
 
 		if (isset($request['id'])) {
 
-			$itemId = $request['id'];
+			$exploded = explode(":",$request['id']);
+
+			$itemId = $exploded[0];
+			$whre_stat = $exploded[1];
+			$redirect_url = "/opportunity/approval/pending";
+			
+			if($whre_stat == "approved"){
+			    $redirect_url = "/opportunity/approval/approved";
+			}
 
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			if (User::getEBossStaffTrue($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false) {
 
 				$rs = OpportunitySellOffer::find($itemId);
 
@@ -1881,11 +1952,11 @@ class OpportunityController extends Controller {
 
 						AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Sell Opportunity | '.$itemId));
 
-						return redirect('/opportunity')->with('status', 'Opportunity at sell/offer has been successfully removed.');
+						return redirect($redirect_url)->with('status', 'Opportunity at sell/offer has been successfully removed.');
 
 					} else {
 
-						return redirect('/opportunity')->with('message', 'Opportunity at sell/offer only the owner can remove.');
+						return redirect($redirect_url)->with('message', 'Opportunity at sell/offer only the owner or admin can remove.');
 
 					}
 
@@ -1903,7 +1974,7 @@ class OpportunityController extends Controller {
 
 					$rs->save();
 
-					return redirect('/opportunity/explore')->with('status', 'Opportunity at sell/offer has been successfully removed.');
+					return redirect($redirect_url)->with('status', 'Opportunity at sell/offer has been successfully removed.');
 
 				}
 
@@ -1917,13 +1988,21 @@ class OpportunityController extends Controller {
 
 		if (isset($request['id'])) {
 
-			$itemId = $request['id'];
+			$exploded = explode(":",$request['id']);
+
+			$itemId = $exploded[0];
+			$whre_stat = $exploded[1];
+			$redirect_url = "/opportunity/approval/pending";
+			
+			if($whre_stat == "approved"){
+			    $redirect_url = "/opportunity/approval/approved";
+			}
 
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			if (User::getEBossStaffTrue($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false) {
 
 				$rs = OpportunityBuy::find($itemId);
 
@@ -1937,11 +2016,11 @@ class OpportunityController extends Controller {
 
 						AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Buy Opportunity | '.$itemId));
 
-						return redirect('/opportunity')->with('status', 'Opportunity at buy has been successfully removed.');
+						return redirect($redirect_url)->with('status', 'Opportunity at buy has been successfully removed.');
 
 					} else {
 
-						return redirect('/opportunity')->with('message', 'Opportunity at buy only the owner can remove.');
+						return redirect($redirect_url)->with('message', 'Opportunity at buy only the owner or admin can remove.');
 
 					}
 
@@ -1959,7 +2038,7 @@ class OpportunityController extends Controller {
 
 					$rs->save();
 
-					return redirect('/opportunity/explore')->with('status', 'Opportunity at sell/offer has been successfully removed.');
+					return redirect($redirect_url)->with('status', 'Opportunity at sell/offer has been successfully removed.');
 
 				}
 

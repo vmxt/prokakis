@@ -32,7 +32,119 @@
     }
 }
 
+.table-fill {
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+ 
+th {
+  color: #7cda24 !important;
+  background:black !important;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-weight: 100;
+  padding:24px;
+  text-align:center !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+  text-transform:uppercase;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+  
+tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:black !important;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+ 
+tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+ 
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+ 
+tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+ 
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+ 
+td {
+  padding:10px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  border-right: 1px solid #C1C3D1;
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-left {
+  text-align: left;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+th.text-right {
+  text-align: right;
+}
+
+td.text-left {
+  text-align: left;
+}
+
+td.text-center {
+  text-align: center;
+}
+
+td.text-right {
+  text-align: right;
+}
+
+td:first-child, th:first-child {
+  display:none;
+}
+
     </style>
+    
+    <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
     <div class="container">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -93,7 +205,7 @@
 
                         </div>
                         <div class="portlet-body">
-                            <div id="container" class="table-scrollable">
+                            <div id="container" class="table-scrollable" style="padding:10px">
 
                                     @if (session('status'))
                                     <div class="alert alert-success">
@@ -128,7 +240,7 @@
                                         <td><p> <?php echo $b->opp_title; ?></p></td>
                                         <td><p> @if($b->company_id != "") {{ App\CompanyProfile::find($b->company_id)->userdetail()->first()->email }} @endif </p></td>
                                         <td>
-                                            <ul>
+                                            <ul style="list-style-type: none;">
                                                 @if($b->business_goal)
                                                 <li> {{ $b->business_goal }} </li>
                                                 @endif
@@ -145,13 +257,24 @@
                                         <td> Building Capability <br/>
 
                                                                         </td>
-                                                                        <td class="btn">
+                                                                        <td class="btn-group">
+                                                                            
+                                                                            <?php 
+                                                    if($status == "pending"){ ?>
+                                                       <a href="{{ url('/opportunity/approvedOpportunity/'.$s->id .':build') }}"
+                                                         class="btn btn-info" style="color: white"
+                                                         
+                                                         onclick="return confirm('Are you sure you want to approve this opportunity item?')"
+                                                         
+                                                         >Approve</a> 
+                                                <?php }
+                                                ?>
 
                                                                                 <a href="{{ url('/opportunity/editApprovalBuild/'.$b->id) }}"
                                                                                      class="btn btn-primary"
                                                                                     style="color: white">Edit</a>
 
-                                            <a href="{{ url('/opportunity/deleteBuild/'.$b->id) }}"
+                                            <a href="{{ url('/opportunity/deleteBuild/'.$b->id.':'.$status) }}"
                                                                             class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                                             style="color: white">Delete</a>
 
@@ -192,12 +315,23 @@
                                         <td>Sell/Offer <br/>
 
                                             </td>
-                                            <td class="btn">
+                                            <td class="btn-group">
+                                                
+                                                <?php 
+                                                    if($status == "pending"){ ?>
+                                                       <a href="{{ url('/opportunity/approvedOpportunity/'.$s->id .':sell') }}"
+                                                         class="btn btn-info" style="color: white"
+                                                         
+                                                         onclick="return confirm('Are you sure you want to approve this opportunity item?')"
+                                                         
+                                                         >Approve</a> 
+                                                <?php }
+                                                ?>
 
                                                     <a href="{{ url('/opportunity/editApprovalSellOffer/'.$s->id) }}"
                                                          class="btn btn-primary" style="color: white">Edit</a>
 
-                                            <a href="{{ url('/opportunity/deleteSell/'.$s->id) }}"
+                                            <a href="{{ url('/opportunity/deleteSell/'.$s->id.':'.$status) }}"
                                                      class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                     style="color: white">Delete</a>
 
@@ -236,11 +370,23 @@
                                         <td>Buy <br/>
 
                                                         </td>
-                                                        <td class="btn">
+                                                        <td class="btn-group">
+                                                            
+                                                            <?php 
+                                                    if($status == "pending"){ ?>
+                                                       <a  href="{{ url('/opportunity/approvedOpportunity/'.$s->id .':buy') }}"
+                                                         class="btn btn-info" style="color: white"
+                                                         
+                                                         onclick="return confirm('Are you sure you want to approve this opportunity item?')"
+                                                         
+                                                         >Approve</a> 
+                                                <?php }
+                                                ?>
+                                                            
                                             <a href="{{ url('/opportunity/editApprovalBuy/'.$bb->id) }}" 
                                                                     class="btn btn-primary" style="color: white">Edit</a>
 
-                                            <a href="{{ url('/opportunity/deleteBuy/'.$bb->id) }}"
+                                            <a href="{{ url('/opportunity/deleteBuy/'.$bb->id.':'.$status) }}"
                                                              class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                             style="color: white">Delete</a>
 
