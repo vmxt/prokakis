@@ -13,7 +13,7 @@
         <meta property="og:title" content="Intellinz Ebos-SG App {{ now()->year }}" /> 
         <meta property="og:url" content="https://app-prokakis.com/" /> 
         <meta property="og:site_name" content="Intellinz"/> 
-        <meta property="og:image" content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" /> 
+        <meta property="og:image" content="https://app-prokakis.com/public/img-resources/intellinz_green.png" /> 
         <meta property="og:type" content="website" /> 
         <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYC Due Diligence, On-Going Business Intelligence Assessment, Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, Form New Partnerships for Growth, Minimise Infiltration of Criminal Syndicates, Safe and Secure Business Opportunities." /> 
         <!-- end from the original code -->
@@ -366,13 +366,34 @@ color: white;
 }
 
 .div_right{
-  border-left:  solid 1px #7cda24;
+  border-left: solid 1px #7cda24;
 }
 
 * {
     margin: 0;
     padding: 0;
 }
+
+
+.mail_icon_not{
+      animation: beat .55s infinite alternate;
+
+	  transform-origin: center;
+  }
+  
+  @keyframes beat{
+	to { transform: scale(1.4); }
+
+}
+
+.text-company{
+ color:#7cda24 !important;   
+}
+
+.text-white{
+    color:white !important;
+}
+
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -413,7 +434,7 @@ s0.parentNode.insertBefore(s1,s0);
                                 <!-- BEGIN LOGO -->
                                 <div class="page-logo">
                                     <a href="{{ route('login') }}" style="margin-top: 25px;">
-                                        <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="200px">
+                                        <img src="{{asset('public/img-resources/intellinz_green.png')}}" alt="Intellinz" id="logo" width="200px">
                                     </a>
                                 </div>
                                 <!-- END LOGO -->
@@ -455,20 +476,19 @@ s0.parentNode.insertBefore(s1,s0);
                                         <!-- BEGIN INBOX DROPDOWN -->
                                         <?php
                                         $noti = App\Mailbox::getEmailUnderNoti($user_id);
-                                        if( count($noti) > 0 )
-                                        {
+                                        
                                         ?>
                                         <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
-                                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                                <span class="circle"><?php echo App\Mailbox::getNumberEmailWithNoti($user_id);  ?> </span>
-                                                <span class="corner"></span>
+                                            <a href="javascript:;" class="dropdown-toggle text-company" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                                <i style="font-size:25px !important" class="icon-envelope text-company"></i>
+                                                <span class="badge badge-danger counter counter-lg mail_icon_not"><?php echo App\Mailbox::getNumberEmailWithNoti($user_id);  ?></span>
                                             </a>
 
                                             <ul class="dropdown-menu">
                                                 <li class="external">
                                                     <h3>You have
-                                                     <strong> <?php echo App\Mailbox::getNumberEmailWithNoti($user_id); ?> New</strong> Messages</h3>
-                                                    <a href="{{ route('mailCompose')}}">view all</a>
+                                                     <strong class="text-white"> <?php echo (App\Mailbox::getNumberEmailWithNoti($user_id) != null) ? App\Mailbox::getNumberEmailWithNoti($user_id) : "0"; ?> New</strong> Messages</h3>
+                                                    <a class="text-company" href="{{ route('mailCompose')}}">VIEW ALL</a>
                                                 </li>
 
                                                 <li>
@@ -476,19 +496,24 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <?php
                                                         if($noti->count() > 0){
                                                              foreach($noti as $n){
+                                                                 $noti_user = App\User::find($n->sender_id);
                                                                $noti_profilePic = App\CompanyProfile::getProfileImage($n->sender_id);
-                                                               $noti_user = App\User::find($n->sender_id);
                                                         ?>
                                                         <li>
                                                             <a href="{{ url('/mailbox/setReply/'.$n->id) }}">
                                                                 <span class="photo">
-
+                                                             <?php       if($noti_profilePic != null){
+                                                                    ?>
                                                                     <img src="{{ asset('public/images/') }}/<?php echo $noti_profilePic; ?>" class="img-circle" alt=""> </span>
+                                                                    <?php } else { ?>
+                                                                    <img src="{{ asset('public/images/robot.jpg') }}" class="img-circle" alt=""> </span>
+                                                                    <?php }?>
+                                                                    
 
-                                                                <span class="subject">
-                                                                    <span class="from"><?php echo $noti_user->firstname . '  ' .$noti_user->lastname; ?> </span>
+                                                                <span  class="subject">
+                                                                    <span  class="from text-company"><?php echo $noti_user->firstname . '  ' .$noti_user->lastname; ?> </span>
                                                                 </span>
-                                                                <span class="message"><?php echo $n->subject; ?> </span>
+                                                                <span  class="message text-white"><?php echo $n->subject; ?> </span>
                                                             </a>
                                                         </li>
                                                        <?php
@@ -501,7 +526,6 @@ s0.parentNode.insertBefore(s1,s0);
                                                 </li>
                                             </ul>
                                         </li>
-                                        <?php  } ?>
 
 
                                         <!-- END INBOX DROPDOWN -->
@@ -564,13 +588,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                 </li>   
 
                                                 <li aria-haspopup="true" id="nav-buy-credit">
-                                                    <a href="{{ url('/reports/buyCredits') }}" class="nav-link  "><i class="fa fa-dollar"></i> Buy Credits</a>
+                                                    <a href="{{ url('/reports/buyCredits') }}" class="nav-link  "><i class="fa fa-dollar" style="color: #7cda24"></i> Buy Credits</a>
                                                 </li>
 
                                                 <li id='nav-login-company'>
 
                                                     <a href="{{ route('viewingProfile') }}">
-                                                        <i class="icon-user"></i> My Company </a>
+                                                        <i class="icon-user" style="color: #7cda24"></i> My Company </a>
                                                 </li>
 
 
@@ -658,13 +682,13 @@ s0.parentNode.insertBefore(s1,s0);
 
                         <li>
                                                   <a href="{{ route('setSubaccounts') }}" >
-                                                      <i class="icon-user"></i> User Control </a>
+                                                      <i class="icon-user" style="color: #7cda24"></i> User Control </a>
                                                 </li>
                         <?php } ?>
 
                                                 <li id='nav-login-logout'>
                                                     <a href="{{ url('logout') }}">
-                                                        <i class="icon-building-o"></i> Log Out </a>
+                                                        <i class="icon-building-o" style="color: #7cda24"></i> Log Out </a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -703,12 +727,12 @@ s0.parentNode.insertBefore(s1,s0);
                                         <li aria-haspopup="true" id="nav-home-page" class="menu-dropdown classic-menu-dropdown {{(request()->segment(1) == 'home') ? 'active' : '' }}">
                                             @guest
                                                 <a class="navbar-brand" href="{{ route('login') }}">
-                                                    <i class="fa fa-home"></i>  Home
+                                                    <i class="fa fa-home" style="color: #7cda24"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
                                             @else
                                                 <a href="{{ route('login') }}">
-                                                    <i class="fa fa-home"></i>  Home
+                                                    <i class="fa fa-home" style="color: #7cda24"></i>  Home
                                                     <span class="arrow"></span>
                                                 </a>
 
@@ -761,7 +785,6 @@ s0.parentNode.insertBefore(s1,s0);
 
 
                                                 </ul>
-                                                                <hr width="1" size="400">
                                                             </div>
 
                                                             <div class="col-md-9 div_right"  >
@@ -871,7 +894,6 @@ s0.parentNode.insertBefore(s1,s0);
                                                                     <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Company</a>
                                                                 </li>
                                                               </ul>
-                                                              <hr width="1" size="400">
                                                           </div>
                                                           <div class="col-md-9 div_right"  >
                                                             <h4 class="menu_title"> Popular Categories </h4>
@@ -924,17 +946,17 @@ s0.parentNode.insertBefore(s1,s0);
                                             $company_id = App\CompanyProfile::getCompanyId($user_id);
 
                                                 $build_list = App\OpportunityBuildingCapability::where('company_id', '!=', $company_id)
-                                                ->where('status', 1)
+                                                ->where('status', 1)->where('is_verify', 1)
                                                 ->orderBy('updated_at','desc')
                                                 ->get();
 
                                                 $sell_list = App\OpportunitySellOffer::where('company_id', '!=', $company_id)
-                                                ->where('status', 1)
+                                                ->where('status', 1)->where('is_verify', 1)
                                                 ->orderBy('updated_at','desc')
                                                 ->get();
 
                                                 $buy_list = App\OpportunityBuy::where('company_id', '!=', $company_id)
-                                                ->where('status', 1)
+                                                ->where('status', 1)->where('is_verify', 1)
                                                 ->orderBy('updated_at','desc')
                                                 ->get();
 
@@ -964,7 +986,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                       </a>
                                                                   </li>
                                                               </ul>
-                                                              <hr width="1" size="400">
+
                                                           </div>
 
                                                           <div class="col-md-9 div_right"  >
@@ -1115,10 +1137,9 @@ s0.parentNode.insertBefore(s1,s0);
                                                 </li> -->
 
                                                 <li aria-haspopup="true" id="nav-report-requester">
-                                                    <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: white;"></i> Report Requesters </a>
+                                                    <a href="{{ url('/reports/requesters') }}" class="nav-link  "><i class="fa fa-user" style="color: #7cda24;"></i> Report Requesters </a>
                                                 </li>
                                                                 </ul>
-                                                                <hr width="1" size="400">
                                                             </div>
 
                                                             <div class="col-md-8 div_right"  >
@@ -1148,7 +1169,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                       <a href="#" onclick="encourageToPremiumMenu();" > 
                                                                         <img class="mega_small_image list-image" src="{{ asset('public/banner/28_1583997690_smallPlant.jpeg') }}" alt="Top Up" />
                                                                     </a>
-                                                                  @endif;
+                                                                  @endif
                                                                 @else
                                                                   @if(App\SpentTokens::validateLeftBehindToken($val->company_id) == false 
                                                                   && App\SpentTokens::validateLeftBehindToken($company_id_result) != false)
@@ -1175,7 +1196,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         @if(request()->segment(2) == 'explore')
                                         <li aria-haspopup="true" id='create-opportunities' class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/select') }}">
-                                                <i class="fa fa-plus" style="color: white"></i> Create an Opportunity
+                                                <i class="fa fa-plus" style="color: #7cda24"></i> Create an Opportunity
                                                 <span class="arrow"></span>
                                             </a>
                                         </li>
@@ -1185,13 +1206,13 @@ s0.parentNode.insertBefore(s1,s0);
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a  href="{{ url('/homeSubConsul') }}" >
-                                                    <i class="icon-grid"></i> Dashboard
+                                                    <i class="icon-grid" style="color: #7cda24"></i><span class="font-white"> Dashboard</span>
                                                     <span class="arrow"></span>
                                                 </a>
 
                                                  <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="icon-pin"></i> View All Accounts </a>
+                                                        <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24"></i> View All Accounts </a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -1199,15 +1220,15 @@ s0.parentNode.insertBefore(s1,s0);
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a href="{{ url('/consultants/viewprofile') }}" >
-                                                    <i class="icon-user"></i> Profile <span class="arrow"></span>
+                                                    <i class="icon-user" style="color: #7cda24"></i> <span class="font-white"> Profile</span> <span class="arrow"></span>
                                                 </a>
 
                                                 <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a  href="{{ url('/consultants/viewprofile') }}" class="nav-link  "> <i class="icon-camcorder"></i> View Profile </a>
+                                                        <a  href="{{ url('/consultants/viewprofile') }}" class="nav-link  "> <i class="icon-camcorder" style="color: #7cda24"></i> View Profile </a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/editprofile') }}" class="nav-link  "> <i class="icon-note"></i> Edit Profile </a>
+                                                        <a href="{{ url('/consultants/editprofile') }}" class="nav-link  "> <i class="icon-note" style="color: #7cda24"></i> Edit Profile </a>
                                                     </li>
 
                                                   <!--  <li aria-haspopup="true" class=" ">
@@ -1215,7 +1236,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                     </li> -->
 
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/commission') }}" class="nav-link  "> <i class=" icon-layers"></i> Commission History </a>
+                                                        <a href="{{ url('/consultants/commission') }}" class="nav-link  "> <i class=" icon-layers" style="color: #7cda24"></i> Commission History </a>
                                                     </li>
 
                                                 </ul>
@@ -1225,19 +1246,19 @@ s0.parentNode.insertBefore(s1,s0);
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a href="" >
-                                                    <i class="icon-notebook" style="color: white"></i>  Reports
+                                                    <i class="icon-notebook" style="color: #7cda24"></i>  <span class="font-white"> Reports</span>
                                                     <span class="arrow"></span>
                                                 </a>
 
                                                 <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a  href="{{ url('/consultants/pending-projects') }}" class="nav-link  "> <i class="icon-pin"></i> Pending Reports </a>
+                                                        <a  href="{{ url('/consultants/pending-projects') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24"></i> Pending Reports </a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/ongoing-projects') }}" class="nav-link  ">  <i class="icon-target"></i> On-Going Reports</a>
+                                                        <a href="{{ url('/consultants/ongoing-projects') }}" class="nav-link  ">  <i class="icon-target" style="color: #7cda24"></i> On-Going Reports</a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/archived-projects') }}" class="nav-link  "> <i class="icon-briefcase"></i> Archived Reports</a>
+                                                        <a href="{{ url('/consultants/archived-projects') }}" class="nav-link  "> <i class="icon-briefcase" style="color: #7cda24"></i> Archived Reports</a>
                                                     </li>
 
                                                 </ul>
@@ -1246,7 +1267,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/explore') }}">
-                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Opportunities</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                               <li aria-haspopup="true" class=" ">
@@ -1267,7 +1288,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
+                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1290,7 +1311,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                     <a href="{{ url('/home') }}" >
-                                                        <i class="icon-grid"></i> Dashboard
+                                                        <i class="icon-grid" style="color: #7cda24"></i> Dashboard
                                                         <span class="arrow"></span>
                                                     </a>
                                                     <ul class="dropdown-menu pull-left">
@@ -1303,16 +1324,16 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                     <a href="{{ url('/opportunity') }}" >
-                                                        <i class="icon-user"></i> Profile
+                                                        <i class="icon-user" style="color: #7cda24"></i> Profile
                                                         <span class="arrow"></span>
                                                     </a>
 
                                                     <ul class="dropdown-menu pull-left">
                                                             <li aria-haspopup="true" class=" ">
-                                                                    <a  href="{{ route('viewProfileMC') }}" class="nav-link  "> <i class="icon-camcorder"></i> View Profile </a>
+                                                                    <a  href="{{ route('viewProfileMC') }}" class="nav-link  "> <i class="icon-camcorder" style="color: #7cda24"></i> View Profile </a>
                                                                 </li>
                                                                 <li aria-haspopup="true" class=" ">
-                                                                    <a href="{{ route('editProfileMC') }}" class="nav-link  "> <i class="icon-note"></i> Edit Profile </a>
+                                                                    <a href="{{ route('editProfileMC') }}" class="nav-link  "> <i class="icon-note" style="color: #7cda24"></i> Edit Profile </a>
                                                                 </li>
                                                     </ul>
 
@@ -1320,7 +1341,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                                         <a href="{{ url('/opportunity/explore') }}">
-                                                            <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                            <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Opportunities</span>
                                                         </a>
                                                         <ul class="dropdown-menu pull-left">
                                                           <li aria-haspopup="true" class=" ">
@@ -1340,7 +1361,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Rewards</span>
+                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Rewards</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1356,7 +1377,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1377,22 +1398,22 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                     <a  href="{{ url('/') }}" >
-                                                        <i class="icon-notebook" style="color: white"></i>  Reports
+                                                        <i class="icon-notebook" style="color: #7cda24"></i>  Reports
                                                         <span class="arrow"></span>
                                                     </a>
 
                                                     <ul class="dropdown-menu pull-left">
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a  href="{{ route('projectOverviewMC') }}" class="nav-link  "> <i class="icon-magnifier"></i> Overview Reports </a>
+                                                                <a  href="{{ route('projectOverviewMC') }}" class="nav-link  "> <i class="icon-magnifier" style="color: #7cda24"></i> Overview Reports </a>
                                                             </li>
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a  href="{{ url('/mconsultants/projectPending') }}" class="nav-link  "> <i class="icon-pin"></i> Pending Reports </a>
+                                                                <a  href="{{ url('/mconsultants/projectPending') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24"></i> Pending Reports </a>
                                                             </li>
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a href="{{ url('/mconsultants/projectOngoing') }}" class="nav-link  ">  <i class="icon-target"></i> On-Going Reports</a>
+                                                                <a href="{{ url('/mconsultants/projectOngoing') }}" class="nav-link  ">  <i class="icon-target" style="color: #7cda24"></i> On-Going Reports</a>
                                                             </li>
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a href="{{ url('/mconsultants/projectCompleted') }}" class="nav-link  "> <i class="icon-briefcase"></i> Completed Reports</a>
+                                                                <a href="{{ url('/mconsultants/projectCompleted') }}" class="nav-link  "> <i class="icon-briefcase" style="color: #7cda24"></i> Completed Reports</a>
                                                             </li>
                                                     </ul>
 
@@ -1404,25 +1425,25 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
-                                                <a href="{{ url('/home') }}" >
-                                                    Dashboard
-                                                    <span class="arrow"></span>
-                                                </a>
+                                                    <a href="{{ url('/home') }}" >
+                                                        <i class="icon-grid" style="color: #7cda24"></i> <span class="font-white">Dashboard</span>
+                                                        <span class="arrow"></span>
+                                                    </a>
                                                 <ul class="dropdown-menu pull-left">
 
                                                         <li aria-haspopup="true" class=" ">
                                                                 <a href="{{ url('/thomson') }}" class="nav-link  ">
-                                                                <i class="icon-bulb" style="color: white"></i> Refinitive Reuters </a>
+                                                                <i class="icon-bulb" style="color: #7cda24"></i> Refinitive </a>
                                                         </li>
 
                                                         <li aria-haspopup="true" class=" ">
                                                                 <a href="{{ url('/thomson/history') }}" class="nav-link  ">
-                                                                <i class="icon-bulb" style="color: white"></i> Refinitive History </a>
+                                                                <i class="icon-bulb" style="color: #7cda24"></i> Refinitive History </a>
                                                         </li>
 
                                                         <li aria-haspopup="true" class="">
                                                             <a href="{{ url('/opportunity/explore') }}">
-                                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Opportunities</span>
                                                             </a>
                                                         </li>
                                                 </ul>
@@ -1430,7 +1451,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Business News</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1451,7 +1472,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
                                             <a href="{{ url('#') }}">
-                                                <svg color="white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="tachometer-alt" class="svg-inline--fa fa-tachometer-alt fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M288 32C128.94 32 0 160.94 0 320c0 52.8 14.25 102.26 39.06 144.8 5.61 9.62 16.3 15.2 27.44 15.2h443c11.14 0 21.83-5.58 27.44-15.2C561.75 422.26 576 372.8 576 320c0-159.06-128.94-288-288-288zm0 64c14.71 0 26.58 10.13 30.32 23.65-1.11 2.26-2.64 4.23-3.45 6.67l-9.22 27.67c-5.13 3.49-10.97 6.01-17.64 6.01-17.67 0-32-14.33-32-32S270.33 96 288 96zM96 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm48-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm246.77-72.41l-61.33 184C343.13 347.33 352 364.54 352 384c0 11.72-3.38 22.55-8.88 32H232.88c-5.5-9.45-8.88-20.28-8.88-32 0-33.94 26.5-61.43 59.9-63.59l61.34-184.01c4.17-12.56 17.73-19.45 30.36-15.17 12.57 4.19 19.35 17.79 15.17 30.36zm14.66 57.2l15.52-46.55c3.47-1.29 7.13-2.23 11.05-2.23 17.67 0 32 14.33 32 32s-14.33 32-32 32c-11.38-.01-20.89-6.28-26.57-15.22zM480 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg>
+                                                <svg color="white" style="color: #7cda24;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="tachometer-alt" class="svg-inline--fa fa-tachometer-alt fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M288 32C128.94 32 0 160.94 0 320c0 52.8 14.25 102.26 39.06 144.8 5.61 9.62 16.3 15.2 27.44 15.2h443c11.14 0 21.83-5.58 27.44-15.2C561.75 422.26 576 372.8 576 320c0-159.06-128.94-288-288-288zm0 64c14.71 0 26.58 10.13 30.32 23.65-1.11 2.26-2.64 4.23-3.45 6.67l-9.22 27.67c-5.13 3.49-10.97 6.01-17.64 6.01-17.67 0-32-14.33-32-32S270.33 96 288 96zM96 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm48-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm246.77-72.41l-61.33 184C343.13 347.33 352 364.54 352 384c0 11.72-3.38 22.55-8.88 32H232.88c-5.5-9.45-8.88-20.28-8.88-32 0-33.94 26.5-61.43 59.9-63.59l61.34-184.01c4.17-12.56 17.73-19.45 30.36-15.17 12.57 4.19 19.35 17.79 15.17 30.36zm14.66 57.2l15.52-46.55c3.47-1.29 7.13-2.23 11.05-2.23 17.67 0 32 14.33 32 32s-14.33 32-32 32c-11.38-.01-20.89-6.28-26.57-15.22zM480 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg>
                                                 <span class="font-white">Dashboard</span> <span class="arrow"></span>
                                                    
                                             </a>
@@ -1464,7 +1485,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         </li>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('#') }}">
-                                                <svg color="white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cogs" class="svg-inline--fa fa-cogs fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M512.1 191l-8.2 14.3c-3 5.3-9.4 7.5-15.1 5.4-11.8-4.4-22.6-10.7-32.1-18.6-4.6-3.8-5.8-10.5-2.8-15.7l8.2-14.3c-6.9-8-12.3-17.3-15.9-27.4h-16.5c-6 0-11.2-4.3-12.2-10.3-2-12-2.1-24.6 0-37.1 1-6 6.2-10.4 12.2-10.4h16.5c3.6-10.1 9-19.4 15.9-27.4l-8.2-14.3c-3-5.2-1.9-11.9 2.8-15.7 9.5-7.9 20.4-14.2 32.1-18.6 5.7-2.1 12.1.1 15.1 5.4l8.2 14.3c10.5-1.9 21.2-1.9 31.7 0L552 6.3c3-5.3 9.4-7.5 15.1-5.4 11.8 4.4 22.6 10.7 32.1 18.6 4.6 3.8 5.8 10.5 2.8 15.7l-8.2 14.3c6.9 8 12.3 17.3 15.9 27.4h16.5c6 0 11.2 4.3 12.2 10.3 2 12 2.1 24.6 0 37.1-1 6-6.2 10.4-12.2 10.4h-16.5c-3.6 10.1-9 19.4-15.9 27.4l8.2 14.3c3 5.2 1.9 11.9-2.8 15.7-9.5 7.9-20.4 14.2-32.1 18.6-5.7 2.1-12.1-.1-15.1-5.4l-8.2-14.3c-10.4 1.9-21.2 1.9-31.7 0zm-10.5-58.8c38.5 29.6 82.4-14.3 52.8-52.8-38.5-29.7-82.4 14.3-52.8 52.8zM386.3 286.1l33.7 16.8c10.1 5.8 14.5 18.1 10.5 29.1-8.9 24.2-26.4 46.4-42.6 65.8-7.4 8.9-20.2 11.1-30.3 5.3l-29.1-16.8c-16 13.7-34.6 24.6-54.9 31.7v33.6c0 11.6-8.3 21.6-19.7 23.6-24.6 4.2-50.4 4.4-75.9 0-11.5-2-20-11.9-20-23.6V418c-20.3-7.2-38.9-18-54.9-31.7L74 403c-10 5.8-22.9 3.6-30.3-5.3-16.2-19.4-33.3-41.6-42.2-65.7-4-10.9.4-23.2 10.5-29.1l33.3-16.8c-3.9-20.9-3.9-42.4 0-63.4L12 205.8c-10.1-5.8-14.6-18.1-10.5-29 8.9-24.2 26-46.4 42.2-65.8 7.4-8.9 20.2-11.1 30.3-5.3l29.1 16.8c16-13.7 34.6-24.6 54.9-31.7V57.1c0-11.5 8.2-21.5 19.6-23.5 24.6-4.2 50.5-4.4 76-.1 11.5 2 20 11.9 20 23.6v33.6c20.3 7.2 38.9 18 54.9 31.7l29.1-16.8c10-5.8 22.9-3.6 30.3 5.3 16.2 19.4 33.2 41.6 42.1 65.8 4 10.9.1 23.2-10 29.1l-33.7 16.8c3.9 21 3.9 42.5 0 63.5zm-117.6 21.1c59.2-77-28.7-164.9-105.7-105.7-59.2 77 28.7 164.9 105.7 105.7zm243.4 182.7l-8.2 14.3c-3 5.3-9.4 7.5-15.1 5.4-11.8-4.4-22.6-10.7-32.1-18.6-4.6-3.8-5.8-10.5-2.8-15.7l8.2-14.3c-6.9-8-12.3-17.3-15.9-27.4h-16.5c-6 0-11.2-4.3-12.2-10.3-2-12-2.1-24.6 0-37.1 1-6 6.2-10.4 12.2-10.4h16.5c3.6-10.1 9-19.4 15.9-27.4l-8.2-14.3c-3-5.2-1.9-11.9 2.8-15.7 9.5-7.9 20.4-14.2 32.1-18.6 5.7-2.1 12.1.1 15.1 5.4l8.2 14.3c10.5-1.9 21.2-1.9 31.7 0l8.2-14.3c3-5.3 9.4-7.5 15.1-5.4 11.8 4.4 22.6 10.7 32.1 18.6 4.6 3.8 5.8 10.5 2.8 15.7l-8.2 14.3c6.9 8 12.3 17.3 15.9 27.4h16.5c6 0 11.2 4.3 12.2 10.3 2 12 2.1 24.6 0 37.1-1 6-6.2 10.4-12.2 10.4h-16.5c-3.6 10.1-9 19.4-15.9 27.4l8.2 14.3c3 5.2 1.9 11.9-2.8 15.7-9.5 7.9-20.4 14.2-32.1 18.6-5.7 2.1-12.1-.1-15.1-5.4l-8.2-14.3c-10.4 1.9-21.2 1.9-31.7 0zM501.6 431c38.5 29.6 82.4-14.3 52.8-52.8-38.5-29.6-82.4 14.3-52.8 52.8z"></path></svg>
+                                                <svg color="white" aria-hidden="true" style="color: #7cda24;" focusable="false" data-prefix="fas" data-icon="cogs" class="svg-inline--fa fa-cogs fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M512.1 191l-8.2 14.3c-3 5.3-9.4 7.5-15.1 5.4-11.8-4.4-22.6-10.7-32.1-18.6-4.6-3.8-5.8-10.5-2.8-15.7l8.2-14.3c-6.9-8-12.3-17.3-15.9-27.4h-16.5c-6 0-11.2-4.3-12.2-10.3-2-12-2.1-24.6 0-37.1 1-6 6.2-10.4 12.2-10.4h16.5c3.6-10.1 9-19.4 15.9-27.4l-8.2-14.3c-3-5.2-1.9-11.9 2.8-15.7 9.5-7.9 20.4-14.2 32.1-18.6 5.7-2.1 12.1.1 15.1 5.4l8.2 14.3c10.5-1.9 21.2-1.9 31.7 0L552 6.3c3-5.3 9.4-7.5 15.1-5.4 11.8 4.4 22.6 10.7 32.1 18.6 4.6 3.8 5.8 10.5 2.8 15.7l-8.2 14.3c6.9 8 12.3 17.3 15.9 27.4h16.5c6 0 11.2 4.3 12.2 10.3 2 12 2.1 24.6 0 37.1-1 6-6.2 10.4-12.2 10.4h-16.5c-3.6 10.1-9 19.4-15.9 27.4l8.2 14.3c3 5.2 1.9 11.9-2.8 15.7-9.5 7.9-20.4 14.2-32.1 18.6-5.7 2.1-12.1-.1-15.1-5.4l-8.2-14.3c-10.4 1.9-21.2 1.9-31.7 0zm-10.5-58.8c38.5 29.6 82.4-14.3 52.8-52.8-38.5-29.7-82.4 14.3-52.8 52.8zM386.3 286.1l33.7 16.8c10.1 5.8 14.5 18.1 10.5 29.1-8.9 24.2-26.4 46.4-42.6 65.8-7.4 8.9-20.2 11.1-30.3 5.3l-29.1-16.8c-16 13.7-34.6 24.6-54.9 31.7v33.6c0 11.6-8.3 21.6-19.7 23.6-24.6 4.2-50.4 4.4-75.9 0-11.5-2-20-11.9-20-23.6V418c-20.3-7.2-38.9-18-54.9-31.7L74 403c-10 5.8-22.9 3.6-30.3-5.3-16.2-19.4-33.3-41.6-42.2-65.7-4-10.9.4-23.2 10.5-29.1l33.3-16.8c-3.9-20.9-3.9-42.4 0-63.4L12 205.8c-10.1-5.8-14.6-18.1-10.5-29 8.9-24.2 26-46.4 42.2-65.8 7.4-8.9 20.2-11.1 30.3-5.3l29.1 16.8c16-13.7 34.6-24.6 54.9-31.7V57.1c0-11.5 8.2-21.5 19.6-23.5 24.6-4.2 50.5-4.4 76-.1 11.5 2 20 11.9 20 23.6v33.6c20.3 7.2 38.9 18 54.9 31.7l29.1-16.8c10-5.8 22.9-3.6 30.3 5.3 16.2 19.4 33.2 41.6 42.1 65.8 4 10.9.1 23.2-10 29.1l-33.7 16.8c3.9 21 3.9 42.5 0 63.5zm-117.6 21.1c59.2-77-28.7-164.9-105.7-105.7-59.2 77 28.7 164.9 105.7 105.7zm243.4 182.7l-8.2 14.3c-3 5.3-9.4 7.5-15.1 5.4-11.8-4.4-22.6-10.7-32.1-18.6-4.6-3.8-5.8-10.5-2.8-15.7l8.2-14.3c-6.9-8-12.3-17.3-15.9-27.4h-16.5c-6 0-11.2-4.3-12.2-10.3-2-12-2.1-24.6 0-37.1 1-6 6.2-10.4 12.2-10.4h16.5c3.6-10.1 9-19.4 15.9-27.4l-8.2-14.3c-3-5.2-1.9-11.9 2.8-15.7 9.5-7.9 20.4-14.2 32.1-18.6 5.7-2.1 12.1.1 15.1 5.4l8.2 14.3c10.5-1.9 21.2-1.9 31.7 0l8.2-14.3c3-5.3 9.4-7.5 15.1-5.4 11.8 4.4 22.6 10.7 32.1 18.6 4.6 3.8 5.8 10.5 2.8 15.7l-8.2 14.3c6.9 8 12.3 17.3 15.9 27.4h16.5c6 0 11.2 4.3 12.2 10.3 2 12 2.1 24.6 0 37.1-1 6-6.2 10.4-12.2 10.4h-16.5c-3.6 10.1-9 19.4-15.9 27.4l8.2 14.3c3 5.2 1.9 11.9-2.8 15.7-9.5 7.9-20.4 14.2-32.1 18.6-5.7 2.1-12.1-.1-15.1-5.4l-8.2-14.3c-10.4 1.9-21.2 1.9-31.7 0zM501.6 431c38.5 29.6 82.4-14.3 52.8-52.8-38.5-29.6-82.4 14.3-52.8 52.8z"></path></svg>
                                                 <span class="font-white">Settings</span> <span class="arrow"></span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
@@ -1501,7 +1522,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         </li>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ route('approvalPageAdmin') }}">
-                                                <svg color="white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="users" class="svg-inline--fa fa-users fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M96 224c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm448 0c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm32 32h-64c-17.6 0-33.5 7.1-45.1 18.6 40.3 22.1 68.9 62 75.1 109.4h66c17.7 0 32-14.3 32-32v-32c0-35.3-28.7-64-64-64zm-256 0c61.9 0 112-50.1 112-112S381.9 32 320 32 208 82.1 208 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C179.6 288 128 339.6 128 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zm-223.7-13.4C161.5 263.1 145.6 256 128 256H64c-35.3 0-64 28.7-64 64v32c0 17.7 14.3 32 32 32h65.9c6.3-47.4 34.9-87.3 75.2-109.4z"></path></svg>
+                                                <svg color="white" style="color: #7cda24;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="users" class="svg-inline--fa fa-users fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M96 224c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm448 0c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm32 32h-64c-17.6 0-33.5 7.1-45.1 18.6 40.3 22.1 68.9 62 75.1 109.4h66c17.7 0 32-14.3 32-32v-32c0-35.3-28.7-64-64-64zm-256 0c61.9 0 112-50.1 112-112S381.9 32 320 32 208 82.1 208 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C179.6 288 128 339.6 128 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zm-223.7-13.4C161.5 263.1 145.6 256 128 256H64c-35.3 0-64 28.7-64 64v32c0 17.7 14.3 32 32 32h65.9c6.3-47.4 34.9-87.3 75.2-109.4z"></path></svg>
                                                 <span class="font-white">Accounts</span> <span class="arrow"></span>
                                             </a>
 
@@ -1509,19 +1530,19 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="">
                                             <a href="{{ url('/accountsCompanies') }}">
-                                                <i class="icon-bar-chart" style="color:white;"></i> <span class="font-white">Companies</span>
+                                                <i class="icon-bar-chart" style="color: #7cda24"></i> <span class="font-white">Companies</span>
                                             </a>
                                         </li>
 
                                         <li aria-haspopup="true" class="">
                                                 <a href="{{ url('/manage-registration-links') }}">
-                                                    <i class="icon-share" style="color:white;"></i> <span class="font-white">Registration Links</span>
+                                                    <i class="icon-share" style="color: #7cda24"></i> <span class="font-white">Registration Links</span>
                                                 </a>
                                         </li>
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/explore') }}">
-                                                <i class="icon-layers" style="color:white;"></i> <span class="font-white">Opportunities</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Opportunities</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                               <li aria-haspopup="true" class=" ">
@@ -1538,6 +1559,8 @@ s0.parentNode.insertBefore(s1,s0);
                                                 </li>
                                             </ul>
                                         </li>
+                                        
+                                        
 
 
                                        <?php } elseif($userType == 8) { ?>
@@ -1545,7 +1568,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                           <a  href="{{ url('/homeSA') }}" >
-                                              <i class="icon-grid"></i> System Dashboard
+                                              <i class="icon-grid" style="color: #7cda24"></i> System Dashboard
                                               <span class="arrow"></span>
                                           </a>
 
@@ -1656,13 +1679,13 @@ s0.parentNode.insertBefore(s1,s0);
                 </div>
             </div>
             @if(auth()->check())
-                <div class="page-wrapper-row">
-                    <div class="page-wrapper-bottom">
+                <div class="">
+                    <div class="">
                         <!-- BEGIN FOOTER -->
 
                         <!-- BEGIN INNER FOOTER -->
                         <div class="page-footer">
-                            <div class="container"> <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Intellinz</p>
+                            <div class="container"> <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Intellinz zz</p>
                             </div>
                         </div>
                         <div class="scroll-to-top">
@@ -2166,14 +2189,15 @@ function updateCurrency(){
 
                                     <div class="form-group">
 
-                                        <label for="currency"><b>Please select your default currency? </b> <em>(USD)</em></label>
+                                        <label for="currency"><b>Please select your default currency? </b></label>
 
                                             <?php 
                                                         $currencyList = App\CurrencyMonetary::where('status','0')->get();
+                                                        $currentCurrency = App\CurrencyAccounts::where('user_id',$user_id)->first()
                                             ?>            
                                                         <select  class="currency-selector" id="currency-selector">
                                                             @foreach($currencyList as $list)
-                                                            <option value='{{ $list->id }}' >{{  $list->c_code }} ( {{ $list->c_text }} )</option>
+                                                            <option <?php if($currentCurrency->currency_id == $list->id){echo "selected";} ?> value='{{ $list->id }}' >{{  $list->c_code }} ( {{ $list->c_text }} )</option>
                                                             @endforeach
                                                         </select>
 

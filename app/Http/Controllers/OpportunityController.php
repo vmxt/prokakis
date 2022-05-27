@@ -54,6 +54,42 @@ class OpportunityController extends Controller {
 	}
 
 
+    public function approvedOpportunity(Request $request) {
+
+		if (isset($request['id'])) {
+
+			$exploded = explode(":",$request['id']);
+
+			$itemId = $exploded[0];
+			$type_opp = $exploded[1];
+
+			$user_id = Auth::id();
+
+			$company_id = CompanyProfile::getCompanyId($user_id);
+
+            if($type_opp == "build"){
+                $rs = OpportunityBuildingCapability::find($itemId);
+            }
+            else if($type_opp == "sell"){
+                $rs = OpportunitySellOffer::find($itemId);
+            }
+            else if($type_opp == "buy"){
+                $rs = OpportunityBuy::find($itemId);
+            }
+			
+			if (count((array)$rs) > 0) {
+
+    			$rs->is_verify = 1;
+    
+    			$rs->save();
+    
+    			return redirect("/opportunity/approval/pending")->with('status', 'Opportunity has been successfully approved.');
+
+			}
+
+		}
+
+	}
 
 	public function details() {
 		// if (User::securePage(Auth::id()) != 5) {
@@ -629,6 +665,177 @@ class OpportunityController extends Controller {
 		}
 
 	}
+	
+	public function exploreAll(Request $request){
+	    if (strlen($request['key']) > 0) {
+
+			$user_id = Auth::id();
+
+			$company_id = CompanyProfile::getCompanyId($user_id);
+			$country_list = Countries::all(); 
+
+			$selectedKeyword = base64_decode($request['key']);
+
+			$result_filter = false;
+			
+			$filter_target_audience = explode("<filter>", $selectedKeyword)[0];
+			$filter_target_audience_val = "";
+			if($filter_target_audience != "0"){
+			    $filter_target_audience_val=$filter_target_audience;
+			}
+			
+            $filter_category = explode("<filter>", $selectedKeyword)[1];
+            $filter_category_val = "";
+			if($filter_category != "0"){
+			    $filter_category_val = $filter_category;
+			}
+			
+            $filter_country = explode("<filter>", $selectedKeyword)[2];;
+            $keyword = explode("<filter>", $selectedKeyword)[3];;
+            
+            $filter_ideal_partners = explode("<filter>", $selectedKeyword)[4];;
+            
+            $if_from_home = "";
+            if(isset(explode("<filter>", $selectedKeyword)[5])){
+                $if_from_home = "yes";
+            }
+            
+            $country_explode = "";
+            if($filter_country != "null"){
+                $country_explode = explode(",",$filter_country);
+            }
+            
+            $ideal_partners_explode = "";
+            if($filter_ideal_partners != "null"){
+                $ideal_partners_explode = explode(",",$filter_ideal_partners);
+            }
+            
+            //build
+            
+            $build = "";
+            if($filter_category_val == "" || $filter_category_val == "BUILD"){
+                $build = OpportunityBuildingCapability::where('company_id', '!=', "0")
+    			->where('audience_target', 'like', '%' . $filter_target_audience_val . '%')
+    			->where('status', 1)->where('is_verify', 1)
+    			
+    			->where(function ($query) use ( $keyword) {
+    			    $query->where('opp_title', 'like', '%' . $keyword . '%');
+    			    $query->orWhere('relevant_describing_partner', 'like', '%' . $keyword . '%');
+    			})
+    			
+    			->where(function ($query) use ( $filter_country,$country_explode) {
+        			if($filter_country != "null"){	
+            			for($x= 0; $x <= count($country_explode) - 1; $x++){
+            			    if($x == 0){
+            			        $query->where('ideal_partner_base', 'like', '%' . $country_explode[$x] . '%');
+            			    }
+            			    else{
+            			        $query->orWhere('ideal_partner_base', 'like', '%' . $country_explode[$x] . '%');
+            			    }
+            			}
+        			}
+    			})
+    			->where(function ($query) use ( $filter_ideal_partners, $ideal_partners_explode) {
+        			if($filter_ideal_partners  != "null"){	
+            			for($x= 0; $x <= count($ideal_partners_explode) - 1; $x++){
+            			    if($x == 0){
+            			        $query->where('ideal_partner_business', 'like', '%' . $ideal_partners_explode[$x] . '%');
+            			    }
+            			    else{
+            			        $query->orWhere('ideal_partner_business', 'like', '%' . $ideal_partners_explode[$x] . '%');
+            			    }
+            			}
+        			}
+    			});
+    			
+    			$build = $build->orderBy('id','DESC')->get();
+            }
+            
+            //sell
+            $sell = "";
+            
+            if($filter_category_val == "" || $filter_category_val == "SELL"){
+    			$sell = OpportunitySellOffer::where('company_id', '!=', "0")
+    			->where('audience_target', 'like', '%' . $filter_target_audience_val . '%')
+    			->where('status', 1)->where('is_verify', 1)
+    			
+    			->where(function ($query) use ( $keyword) {
+    			    $query->where('opp_title', 'like', '%' . $keyword . '%');
+    			    $query->orWhere('relevant_describing_partner', 'like', '%' . $keyword . '%');
+    			})
+    			
+    			->where(function ($query) use ( $filter_country,$country_explode) {
+        			if($filter_country != "null"){	
+            			for($x= 0; $x <= count($country_explode) - 1; $x++){
+            			    if($x == 0){
+            			        $query->where('ideal_partner_base', 'like', '%' . $country_explode[$x] . '%');
+            			    }
+            			    else{
+            			        $query->orWhere('ideal_partner_base', 'like', '%' . $country_explode[$x] . '%');
+            			    }
+            			}
+        			}
+    			})
+    			->where(function ($query) use ( $filter_ideal_partners, $ideal_partners_explode) {
+        			if($filter_ideal_partners  != "null"){	
+            			for($x= 0; $x <= count($ideal_partners_explode) - 1; $x++){
+            			    if($x == 0){
+            			        $query->where('ideal_partner_business', 'like', '%' . $ideal_partners_explode[$x] . '%');
+            			    }
+            			    else{
+            			        $query->orWhere('ideal_partner_business', 'like', '%' . $ideal_partners_explode[$x] . '%');
+            			    }
+            			}
+        			}
+    			});
+    			
+    			$sell = $sell->orderBy('id','DESC')->get();
+            }
+            
+			//buy	
+			$buy = "";
+			
+			if($filter_category_val == "" || $filter_category_val == "BUY"){
+    			$buy = OpportunityBuy::where('company_id', '!=', "0")
+    			->where('audience_target', 'like', '%' . $filter_target_audience_val . '%')
+    			->where('status', 1)->where('is_verify', 1)
+    			
+    			->where(function ($query) use ( $keyword) {
+    			    $query->where('opp_title', 'like', '%' . $keyword . '%');
+    			    $query->orWhere('relevant_describing_partner', 'like', '%' . $keyword . '%');
+    			})
+    			
+    			->where(function ($query) use ( $filter_country,$country_explode) {
+        			if($filter_country != "null"){	
+            			for($x= 0; $x <= count($country_explode) - 1; $x++){
+            			    if($x == 0){
+            			        $query->where('ideal_partner_base', 'like', '%' . $country_explode[$x] . '%');
+            			    }
+            			    else{
+            			        $query->orWhere('ideal_partner_base', 'like', '%' . $country_explode[$x] . '%');
+            			    }
+            			}
+        			}
+    			})
+    			->where(function ($query) use ( $filter_ideal_partners, $ideal_partners_explode) {
+        			if($filter_ideal_partners  != "null"){	
+            			for($x= 0; $x <= count($ideal_partners_explode) - 1; $x++){
+            			    if($x == 0){
+            			        $query->where('ideal_partner_business', 'like', '%' . $ideal_partners_explode[$x] . '%');
+            			    }
+            			    else{
+            			        $query->orWhere('ideal_partner_business', 'like', '%' . $ideal_partners_explode[$x] . '%');
+            			    }
+            			}
+        			}
+    			});
+    			
+                $buy = $buy->orderBy('id','DESC')->get();
+			}
+			
+			return view("oppor.explore", compact('country_list','build', 'sell', 'buy', 'selectedKeyword', 'result_filter', 'filter_target_audience', 'filter_category','filter_ideal_partners', 'filter_country', 'keyword', 'if_from_home'));
+        }
+	}
 
 	public function exploreKey(Request $request) {
 
@@ -637,6 +844,7 @@ class OpportunityController extends Controller {
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
+			$country_list = Countries::all(); 
 
 			$selectedKeyword = $request['key'];
 
@@ -645,6 +853,10 @@ class OpportunityController extends Controller {
 			$build = OpportunityBuildingCapability::where('company_id', '!=', $company_id)
 
 				->where('ideal_partner_business', 'like', '%' . $selectedKeyword . '%')
+				
+				->orWhere('opp_title', 'like', '%' . $selectedKeyword . '%')
+				->orWhere('relevant_describing_partner', 'like', '%' . $selectedKeyword . '%')
+				->orWhere('oppo_description', 'like', '%' . $selectedKeyword . '%')
 
 				->where('status', 1)
 
@@ -653,6 +865,10 @@ class OpportunityController extends Controller {
 			$sell = OpportunitySellOffer::where('company_id', '!=', $company_id)
 
 				->where('ideal_partner_business', 'like', '%' . $selectedKeyword . '%')
+				
+				->orWhere('opp_title', 'like', '%' . $selectedKeyword . '%')
+				->orWhere('relevant_describing_partner', 'like', '%' . $selectedKeyword . '%')
+				->orWhere('oppo_description', 'like', '%' . $selectedKeyword . '%')
 
 				->where('status', 1)
 
@@ -661,12 +877,16 @@ class OpportunityController extends Controller {
 			$buy = OpportunityBuy::where('company_id', '!=', $company_id)
 
 				->where('ideal_partner_business', 'like', '%' . $selectedKeyword . '%')
+				
+				->orWhere('opp_title', 'like', '%' . $selectedKeyword . '%')
+				->orWhere('relevant_describing_partner', 'like', '%' . $selectedKeyword . '%')
+				->orWhere('oppo_description', 'like', '%' . $selectedKeyword . '%')
 
 				->where('status', 1)
 
 				->get();
 
-			return view("oppor.explore", compact('build', 'sell', 'buy', 'selectedKeyword', 'result_filter'));
+			return view("oppor.explore", compact('country_list','build', 'sell', 'buy', 'selectedKeyword', 'result_filter'));
 
 		}
 
@@ -676,6 +896,8 @@ class OpportunityController extends Controller {
 
 		$user_id = Auth::id();
 		$company_id = CompanyProfile::getCompanyId($user_id);
+		
+		$country_list = Countries::all();
 
     // 		$build = OpportunityBuildingCapability::where('company_id', '!=', $company_id)
 				// ->where('status', 1)
@@ -689,11 +911,11 @@ class OpportunityController extends Controller {
 				// ->where('status', 1)
 				// ->get();
 
-   		$build = OpportunityBuildingCapability::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
+   		$build = OpportunityBuildingCapability::where('status', 1)->where('is_verify', 1)->orderBy('id','DESC')->get();
 
-				$sell = OpportunitySellOffer::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
+				$sell = OpportunitySellOffer::where('status', 1)->where('is_verify', 1)->orderBy('id','DESC')->get();
 
-			$buy = OpportunityBuy::where('status', 1)->where('is_verify',1)->orderBy('id','DESC')->get();
+			$buy = OpportunityBuy::where('status', 1)->where('is_verify', 1)->orderBy('id','DESC')->get();
 
 		$requestReport = new RequestReport;
 		$result_filter = false;
@@ -711,7 +933,8 @@ class OpportunityController extends Controller {
 					break;
 			}
 		}
-		return view("oppor.explore", compact('build', 'sell', 'buy', 'requestReport', 'result_filter','opp_type' ,'company_id'));
+		$if_from_home = "";
+		return view("oppor.explore", compact('country_list', 'build', 'sell', 'buy', 'requestReport', 'result_filter','opp_type' ,'company_id', 'if_from_home'));
 	}
 
 
@@ -762,12 +985,17 @@ class OpportunityController extends Controller {
 	public function buildNew() {
 
 		$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-		$industry_list = OppIndustry::all(); 
+		$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
 		$approx_large_list = Configurations::getJsonValue('approx_large');
+		
+		$if_has_custom = OppIndustry::where(function ($query) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', "0");
+    	})->get(); 
 
 		$data = [];
 
-		return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+		return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
 
 	}
 
@@ -779,16 +1007,26 @@ class OpportunityController extends Controller {
 
 			$data = OpportunityBuildingCapability::find($request['id']);
 
-			if ($data != NULL) {
+			if ($data != NULL) {//( type = 'custom' and id = ".$data->industry." )
 
 				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::all(); 
+				$industry_list = OppIndustry::where('type', '=', "choices")
+				
+				->orWhere(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry); 
+    			})->get(); 
+    			
+    			$if_has_custom = OppIndustry::where(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry);
+    			})->get(); 
 
 				$approx_large_list = Configurations::getJsonValue('approx_large');
 
 				//$company_id = CompanyProfile::getCompanyId(Auth::id());
 
-				return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+				return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
 
 			}
 
@@ -826,6 +1064,7 @@ class OpportunityController extends Controller {
 			if($request->input('timeFrame') !== null){
 				$timeFrame = $request->input('timeFrame');
 			}
+			
 
 			$user_id = Auth::id();
 			$company_id = CompanyProfile::getCompanyId($user_id);
@@ -839,6 +1078,8 @@ class OpportunityController extends Controller {
 
 			$view_type = $request->input('viewtype_value');
 			$industry = $request->input('opp_industry');
+			
+			
 			if (User::getEBossStaffTrue($user_id) == false) {
 				if( SpentTokens::validateLeftBehindToken($company_id) == false && $view_type == '0' ){
 					$view_type == '1';	
@@ -852,6 +1093,52 @@ class OpportunityController extends Controller {
 			//echo $request->input('timeframe_goal'); exit;
 
 			if ($opp != null) {
+			    
+			    if($industry == "0"){
+			        
+			        if ($request->hasfile('custom_image_upload')) {
+
+    					$folderPath = public_path() . '/images/industry/';
+
+                        $image_parts = explode(";base64,", $request->input("custom_image_value"));
+                        $image_type_aux = explode("image/", $image_parts[0]);
+                        $image_type = $image_type_aux[1];
+                        $image_base64 = base64_decode($image_parts[1]);
+                        
+                        $name = "custom_".$user_id . '_' . time();
+                        
+                        $file = $folderPath . $name . '.'.$image_type;
+                
+                        file_put_contents($file, $image_base64);
+    
+    					$insert_custom_industry = OppIndustry::create([
+    
+    						'text' => "Custom Industry " . $user_id . " " . time(),
+    
+    						'image' => $name.'.'.$image_type,
+    
+    						'type' => "custom",
+    
+    						'opp_type' => "build",
+    
+    					]);
+    
+    					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
+    					
+    					$opp_industry_custom = OppIndustry::find($opp->industry);
+    					if ($opp_industry_custom != null) {
+        					$opp_industry_custom->active = 0;
+        					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
+        					$opp_industry_custom->save();
+    					}
+    					
+    					$industry = $insert_custom_industry->id;
+    
+    				}
+    				else{
+    				    $industry = "0";
+    				}
+			    }
 
 				$opp->opp_title = $request->input('opp_title');
 
@@ -894,6 +1181,44 @@ class OpportunityController extends Controller {
 				}
 
 			} else {
+			    
+			    if($industry == "0"){
+			        if ($request->hasfile('custom_image_upload')) {
+
+    					$folderPath = public_path() . '/images/industry/';
+
+                        $image_parts = explode(";base64,", $request->input("custom_image_value"));
+                        $image_type_aux = explode("image/", $image_parts[0]);
+                        $image_type = $image_type_aux[1];
+                        $image_base64 = base64_decode($image_parts[1]);
+                        
+                        $name = "custom_".$user_id . '_' . time();
+                        
+                        $file = $folderPath . $name . '.'.$image_type;
+                
+                        file_put_contents($file, $image_base64);
+    
+    					$insert_custom_industry = OppIndustry::create([
+    
+    						'text' => "Custom Industry " . $user_id . " " . time(),
+    
+    						'image' => $name.'.'.$image_type,
+    
+    						'type' => "custom",
+    
+    						'opp_type' => "build",
+    
+    					]);
+    
+    					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
+    					
+    					$industry = $insert_custom_industry->id;
+    
+    				}
+    				else{
+    				    $industry = "0";
+    				}
+			    }
 
 				$isOk = OpportunityBuildingCapability::create([
 
@@ -962,13 +1287,19 @@ class OpportunityController extends Controller {
 
 	public function sellNew() {
 
+		
 		$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-		$industry_list = OppIndustry::all(); 
+		$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
 		$approx_large_list = Configurations::getJsonValue('approx_large');
+		
+		$if_has_custom = OppIndustry::where(function ($query) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', "0");
+    	})->get(); 
 
 		$data = [];
 
-		return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+		return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
 
 	}
 
@@ -979,14 +1310,23 @@ class OpportunityController extends Controller {
 			$data = OpportunitySellOffer::find($request['id']);
 
 			if ($data != NULL) {
+			    
+			    $country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::where('type', '=', "choices")
+				
+				->orWhere(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry); 
+    			})->get(); 
+    			
+    			$if_has_custom = OppIndustry::where(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry);
+    			})->get(); 
 
-				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::all(); 
 				$approx_large_list = Configurations::getJsonValue('approx_large');
 
-				//$company_id = CompanyProfile::getCompanyId(Auth::id());
-
-				return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+				return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
 
 			}
 
@@ -1046,6 +1386,53 @@ class OpportunityController extends Controller {
 
 			if ($opp != null) {
 
+                if($industry == "0"){
+			        
+			        if ($request->hasfile('custom_image_upload')) {
+
+    					$folderPath = public_path() . '/images/industry/';
+
+                        $image_parts = explode(";base64,", $request->input("custom_image_value"));
+                        $image_type_aux = explode("image/", $image_parts[0]);
+                        $image_type = $image_type_aux[1];
+                        $image_base64 = base64_decode($image_parts[1]);
+                        
+                        $name = "custom_".$user_id . '_' . time();
+                        
+                        $file = $folderPath . $name . '.'.$image_type;
+                
+                        file_put_contents($file, $image_base64);
+    
+    					$insert_custom_industry = OppIndustry::create([
+    
+    						'text' => "Custom Industry " . $user_id . " " . time(),
+    
+    						'image' => $name.'.'.$image_type,
+    
+    						'type' => "custom",
+    
+    						'opp_type' => "selloffer",
+    
+    					]);
+    
+    					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
+    					
+    					$opp_industry_custom = OppIndustry::find($opp->industry);
+    					if ($opp_industry_custom != null) {
+        					$opp_industry_custom->active = 0;
+        					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
+        					$opp_industry_custom->save();
+    					}
+    					
+    					$industry = $insert_custom_industry->id;
+    
+    				}
+    				else{
+    				    $industry = "0";
+    				}
+			    }
+
+
 				$opp->opp_title = $opTitle; //$request->input('opp_title');
 
 				$opp->what_sell_offer = $whatSellOffer; //rtrim($request->input('what_sell_offer'), ',');
@@ -1085,6 +1472,43 @@ class OpportunityController extends Controller {
 
 			} else {
 				
+				if($industry == "0"){
+			        if ($request->hasfile('custom_image_upload')) {
+
+    					$folderPath = public_path() . '/images/industry/';
+
+                        $image_parts = explode(";base64,", $request->input("custom_image_value"));
+                        $image_type_aux = explode("image/", $image_parts[0]);
+                        $image_type = $image_type_aux[1];
+                        $image_base64 = base64_decode($image_parts[1]);
+                        
+                        $name = "custom_".$user_id . '_' . time();
+                        
+                        $file = $folderPath . $name . '.'.$image_type;
+                
+                        file_put_contents($file, $image_base64);
+    
+    					$insert_custom_industry = OppIndustry::create([
+    
+    						'text' => "Custom Industry " . $user_id . " " . time(),
+    
+    						'image' => $name.'.'.$image_type,
+    
+    						'type' => "custom",
+    
+    						'opp_type' => "selloffer",
+    
+    					]);
+    
+    					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
+    					
+    					$industry = $insert_custom_industry->id;
+    
+    				}
+    				else{
+    				    $industry = "0";
+    				}
+			    }
 
 				$isOk = OpportunitySellOffer::create([
 
@@ -1147,13 +1571,17 @@ class OpportunityController extends Controller {
 	public function buyNew() {
 
 		$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-		$industry_list = OppIndustry::all(); 
-
+		$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
 		$approx_large_list = Configurations::getJsonValue('approx_large');
+		
+		$if_has_custom = OppIndustry::where(function ($query) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', "0");
+    	})->get(); 
 
 		$data = [];
 
-		return view("oppor.buy", compact('country_list', 'approx_large_list', 'data','industry_list'));
+		return view("oppor.buy", compact('country_list', 'approx_large_list', 'data','industry_list', 'if_has_custom'));
 
 	}
 
@@ -1164,12 +1592,24 @@ class OpportunityController extends Controller {
 			$data = OpportunityBuy::find($request['id']);
 
 			if ($data != NULL) {
+			    
+			    $country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::where('type', '=', "choices")
+				
+				->orWhere(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry); 
+    			})->get(); 
+    			
+    			$if_has_custom = OppIndustry::where(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry);
+    			})->get(); 
+    			
+    			$approx_large_list = Configurations::getJsonValue('approx_large');
+			    
 
-				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::all();
-				$approx_large_list = Configurations::getJsonValue('approx_large');
-
-				return view("oppor.buy", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+				return view("oppor.buy", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
 
 			}
 
@@ -1229,6 +1669,52 @@ class OpportunityController extends Controller {
 			$opp = OpportunityBuy::find($request->input("id"));
 
 			if ($opp != null) {
+			    
+			    if($industry == "0"){
+			        
+			        if ($request->hasfile('custom_image_upload')) {
+
+    					$folderPath = public_path() . '/images/industry/';
+
+                        $image_parts = explode(";base64,", $request->input("custom_image_value"));
+                        $image_type_aux = explode("image/", $image_parts[0]);
+                        $image_type = $image_type_aux[1];
+                        $image_base64 = base64_decode($image_parts[1]);
+                        
+                        $name = "custom_".$user_id . '_' . time();
+                        
+                        $file = $folderPath . $name . '.'.$image_type;
+                
+                        file_put_contents($file, $image_base64);
+    
+    					$insert_custom_industry = OppIndustry::create([
+    
+    						'text' => "Custom Industry " . $user_id . " " . time(),
+    
+    						'image' => $name.'.'.$image_type,
+    
+    						'type' => "custom",
+    
+    						'opp_type' => "buy",
+    
+    					]);
+    
+    					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
+    					
+    					$opp_industry_custom = OppIndustry::find($opp->industry);
+    					if ($opp_industry_custom != null) {
+        					$opp_industry_custom->active = 0;
+        					$opp_industry_custom->updated_at = date("Y-m-d H:i:s");
+        					$opp_industry_custom->save();
+    					}
+    					
+    					$industry = $insert_custom_industry->id;
+    
+    				}
+    				else{
+    				    $industry = "0";
+    				}
+			    }
 
 				$opp->opp_title = $request->input('opp_title');
 
@@ -1269,6 +1755,44 @@ class OpportunityController extends Controller {
 				}
 
 			} else {
+			    
+			    if($industry == "0"){
+			        if ($request->hasfile('custom_image_upload')) {
+
+    					$folderPath = public_path() . '/images/industry/';
+
+                        $image_parts = explode(";base64,", $request->input("custom_image_value"));
+                        $image_type_aux = explode("image/", $image_parts[0]);
+                        $image_type = $image_type_aux[1];
+                        $image_base64 = base64_decode($image_parts[1]);
+                        
+                        $name = "custom_".$user_id . '_' . time();
+                        
+                        $file = $folderPath . $name . '.'.$image_type;
+                
+                        file_put_contents($file, $image_base64);
+    
+    					$insert_custom_industry = OppIndustry::create([
+    
+    						'text' => "Custom Industry " . $user_id . " " . time(),
+    
+    						'image' => $name.'.'.$image_type,
+    
+    						'type' => "custom",
+    
+    						'opp_type' => "buy",
+    
+    					]);
+    
+    					//AuditLog::ok(array($user_id, 'custom industry image', 'upload custom industry image', 'image name:' . $name));
+    					
+    					$industry = $insert_custom_industry->id;
+    
+    				}
+    				else{
+    				    $industry = "0";
+    				}
+			    }
 
 				$isOk = OpportunityBuy::create([
 
@@ -1331,14 +1855,22 @@ class OpportunityController extends Controller {
 	public function deleteBuild(Request $request) {
 
 		if (isset($request['id'])) {
+		    
+		    $exploded = explode(":",$request['id']);
 
-			$itemId = $request['id'];
+			$itemId = $exploded[0];
+			$whre_stat = $exploded[1];
+			$redirect_url = "/opportunity/approval/pending";
+			
+			if($whre_stat == "approved"){
+			    $redirect_url = "/opportunity/approval/approved";
+			}
 
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			if (User::getEBossStaffTrue($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false) {
 
 				$rs = OpportunityBuildingCapability::find($itemId);
 
@@ -1354,11 +1886,11 @@ class OpportunityController extends Controller {
 
                 		AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Invest Opportunity | '.$itemId));
 
-						return redirect('/opportunity')->with('status', 'Opportunity at building capability has been successfully removed.');
+						return redirect($redirect_url)->with('status', 'Opportunity at building capability has been successfully removed.');
 
 					} else {
 
-						return redirect('/opportunity')->with('message', 'Opportunity at building capability only the owner can remove.');
+						return redirect($redirect_url)->with('message', 'Opportunity at building capability only the owner or admin can remove.');
 
 					}
 
@@ -1376,7 +1908,7 @@ class OpportunityController extends Controller {
 
 					$rs->save();
 
-					return redirect('/opportunity/explore')->with('status', 'Opportunity at building capability has been successfully removed.');
+					return redirect($redirect_url)->with('status', 'Opportunity at building capability has been successfully removed.');
 
 				}
 
@@ -1390,13 +1922,21 @@ class OpportunityController extends Controller {
 
 		if (isset($request['id'])) {
 
-			$itemId = $request['id'];
+			$exploded = explode(":",$request['id']);
+
+			$itemId = $exploded[0];
+			$whre_stat = $exploded[1];
+			$redirect_url = "/opportunity/approval/pending";
+			
+			if($whre_stat == "approved"){
+			    $redirect_url = "/opportunity/approval/approved";
+			}
 
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			if (User::getEBossStaffTrue($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false) {
 
 				$rs = OpportunitySellOffer::find($itemId);
 
@@ -1412,11 +1952,11 @@ class OpportunityController extends Controller {
 
 						AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Sell Opportunity | '.$itemId));
 
-						return redirect('/opportunity')->with('status', 'Opportunity at sell/offer has been successfully removed.');
+						return redirect($redirect_url)->with('status', 'Opportunity at sell/offer has been successfully removed.');
 
 					} else {
 
-						return redirect('/opportunity')->with('message', 'Opportunity at sell/offer only the owner can remove.');
+						return redirect($redirect_url)->with('message', 'Opportunity at sell/offer only the owner or admin can remove.');
 
 					}
 
@@ -1434,7 +1974,7 @@ class OpportunityController extends Controller {
 
 					$rs->save();
 
-					return redirect('/opportunity/explore')->with('status', 'Opportunity at sell/offer has been successfully removed.');
+					return redirect($redirect_url)->with('status', 'Opportunity at sell/offer has been successfully removed.');
 
 				}
 
@@ -1448,13 +1988,21 @@ class OpportunityController extends Controller {
 
 		if (isset($request['id'])) {
 
-			$itemId = $request['id'];
+			$exploded = explode(":",$request['id']);
+
+			$itemId = $exploded[0];
+			$whre_stat = $exploded[1];
+			$redirect_url = "/opportunity/approval/pending";
+			
+			if($whre_stat == "approved"){
+			    $redirect_url = "/opportunity/approval/approved";
+			}
 
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			if (User::getEBossStaffTrue($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false) {
 
 				$rs = OpportunityBuy::find($itemId);
 
@@ -1468,11 +2016,11 @@ class OpportunityController extends Controller {
 
 						AuditLog::ok(array($user_id, 'opportunity', 'delete', 'Delete Buy Opportunity | '.$itemId));
 
-						return redirect('/opportunity')->with('status', 'Opportunity at buy has been successfully removed.');
+						return redirect($redirect_url)->with('status', 'Opportunity at buy has been successfully removed.');
 
 					} else {
 
-						return redirect('/opportunity')->with('message', 'Opportunity at buy only the owner can remove.');
+						return redirect($redirect_url)->with('message', 'Opportunity at buy only the owner or admin can remove.');
 
 					}
 
@@ -1490,7 +2038,7 @@ class OpportunityController extends Controller {
 
 					$rs->save();
 
-					return redirect('/opportunity/explore')->with('status', 'Opportunity at sell/offer has been successfully removed.');
+					return redirect($redirect_url)->with('status', 'Opportunity at sell/offer has been successfully removed.');
 
 				}
 
@@ -1773,7 +2321,7 @@ public static function validateAccLimits($company_id){
 			if ($data != NULL) {
 
 				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::all(); 
+				$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
 
 				$approx_large_list = Configurations::getJsonValue('approx_large');
 
@@ -1801,7 +2349,7 @@ public static function validateAccLimits($company_id){
 			if ($data != NULL) {
 
 				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::all(); 
+				$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
 
 				$approx_large_list = Configurations::getJsonValue('approx_large');
 
@@ -1829,7 +2377,7 @@ public static function validateAccLimits($company_id){
 			if ($data != NULL) {
 
 				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::all(); 
+				$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
 
 				$approx_large_list = Configurations::getJsonValue('approx_large');
 

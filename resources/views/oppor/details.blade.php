@@ -18,16 +18,6 @@
             background: rgba(0, 0, 0, 0.75);
         }
 
-        table {
-            table-layout:fixed;
-        }
-        table td {
-            word-wrap: break-word;
-            max-width: 400px;
-        }
-        #system_data td {
-            white-space:inherit;
-        }
 
         /* Inner */
         .popup-inner {
@@ -71,10 +61,130 @@
             background: rgba(0, 0, 0, 1);
             text-decoration: none;
         }
+        
+    
+
+
+/*** Table Styles **/
+
+.table-fill {
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  padding:5px;
+  width: 100%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  animation: float 5s infinite;
+}
+ 
+th {
+  color: #7cda24 !important;
+  background:black !important;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-weight: 100;
+  padding:24px;
+  text-align:center !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+  text-transform:uppercase;
+}
+
+th:first-child {
+  border-top-left-radius:3px;
+}
+ 
+th:last-child {
+  border-top-right-radius:3px;
+  border-right:none;
+}
+  
+tr {
+  border-top: 1px solid #C1C3D1;
+  border-bottom-: 1px solid #C1C3D1;
+  color:black !important;
+  font-size:16px;
+  font-weight:normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+ 
+tr:hover td {
+  background:#4E5066;
+  color:#FFFFFF;
+  border-top: 1px solid #22262e;
+}
+ 
+tr:first-child {
+  border-top:none;
+}
+
+tr:last-child {
+  border-bottom:none;
+}
+ 
+tr:nth-child(odd) td {
+  background:#EBEBEB;
+}
+ 
+tr:nth-child(odd):hover td {
+  background:#4E5066;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius:3px;
+}
+ 
+tr:last-child td:last-child {
+  border-bottom-right-radius:3px;
+}
+ 
+td {
+  padding:10px;
+  text-align:left;
+  vertical-align:middle;
+  font-weight:300;
+  font-size:18px;
+  border-right: 1px solid #C1C3D1;
+}
+
+td:last-child {
+  border-right: 0px;
+}
+
+th.text-left {
+  text-align: left;
+}
+
+th.text-center {
+  text-align: center;
+}
+
+th.text-right {
+  text-align: right;
+}
+
+td.text-left {
+  text-align: left;
+}
+
+td.text-center {
+  text-align: center;
+}
+
+td.text-right {
+  text-align: right;
+}
+
+td:first-child, th:first-child {
+  display:none;
+}
+
 
     </style>
 
     <script src="{{ asset('public/js/app.js') }}"></script>
+    
+    <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css'>
 
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
         <li>
@@ -95,35 +205,55 @@
                     <span class="caption-subject font-blue sbold uppercase">Opportunity Details</span>
                 </div>
             </div>
-            <div id="container" class="table-scrollable">
-                <table id="system_data" class="table table-hover table-light">
-                    <thead>
-                    <tr>
-                        <th width="5%">Id</th>
-                        <th width="30%">Opportunity Title</th>
-                        <th width="5%">Type</th>
-                        <th width="15%">Company Email</th>
-                        <th width="15%">User Name</th>
-                        <th width="15%">User Email</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($result as $data)
-                        <tr>
-                            <td > {{ $data->opp_id }} </td>
-                            <td class="wrap"> {{ $data->opp_title }} </td>
-                            <td> {{ $data->opp_type }} </td>
-                            <td> {{ $data->company_email }} </td>
-                            <td> {{ $data->last_name.", ".$data->first_name }} </td>
-                            <td> {{ $data->user_email }} </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                 
-                </table>
-
+            <div class="card">
+                <div class="card-body">
+                    <div id="container" class="table-scrollable" style="padding:15px">
+                         @if (session('status'))
+                                   <div class="alert alert-success">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+                                @if (session('message'))
+                                    <div class="alert alert-danger">
+                                        {{ session('message') }}
+                                    </div>
+                                @endif
+                                
+                        <table id="system_data" class=" table ">
+                            <thead>
+                            <tr>
+                                <th >Id</th>
+                                <th >Opportunity Title</th>
+                                <th >Type</th>
+                                <th >Company Email</th>
+                                <th >User Name</th>
+                                <th >User Email</th>
+                                <th ></th>
+        
+                            </tr>
+                            </thead>
+                            <tbody class="table-hover">
+                                @foreach($result as $data)
+                                <tr>
+                                    <td class="wrap"> {{ $data->opp_id }} </td>
+                                    <td class="wrap"> {{ $data->opp_title }} </td>
+                                    <td> {{ $data->opp_type }} </td>
+                                    <td> {{ $data->company_email }} </td>
+                                    <td> {{ $data->last_name.", ".$data->first_name }} </td>
+                                    <td> {{ $data->user_email }} </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                         
+                        </table>
+        
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 
