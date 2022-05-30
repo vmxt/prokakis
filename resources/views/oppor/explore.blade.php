@@ -61,7 +61,6 @@
     .text-white{
         color:white !important;
     }
-
     
     .marginzero{
         margin-right: 0px;
@@ -77,6 +76,14 @@
         box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
     }
     
+    .meta{
+        font-size: 13px !important;
+        font-weight:bold !important;;
+    }
+   
+   .tag_txt{
+       color: blue;
+   }
    
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
@@ -104,7 +111,6 @@
         </ul>
         <div class="row">
         <div class="col-md-12" >
-
             <div class="card cardborder-radius" style="border:1px solid silver;background:white">
                 <div class="card-body" style="padding:20px">
                     <h4 class="card-title mb-2"><i class="icon-magnifier">&nbsp;</i>FILTER OPPORTUNITIES BY:</h4>
@@ -567,7 +573,7 @@
                 if(count((array) $rr) > 0):
                   foreach($rr as $h):
                     if(trim($h) != ''){
-                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                        echo "<b class='tag_txt'>#".$h."</b> ";
                     }
                   endforeach;
                 endif;
@@ -1047,7 +1053,7 @@
                 if(count((array) $rr) > 0):
                   foreach($rr as $h):
                     if(trim($h) != ''){
-                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                        echo "<b class='tag_txt'>#".$h."</b> ";
                     }
                   endforeach;
                 endif;
@@ -1574,7 +1580,7 @@
                 if(count((array) $rr) > 0):
                   foreach($rr as $h):
                     if(trim($h) != ''){
-                        echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                        echo "<b class='tag_txt'>#".$h."</b> ";
                     }
                   endforeach;
                 endif;
@@ -1919,7 +1925,7 @@
             if(count((array) $rr) > 0):
               foreach($rr as $h):
                 if(trim($h) != ''){
-                    echo "<a href='".url("/opportunity/hashtag/".$h)."'>#".$h."</a> ";
+                    echo "<b class='tag_txt'>#".$h."</b> ";
                 }
               endforeach;
             endif;
