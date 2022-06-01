@@ -112,6 +112,7 @@ th {
 
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
+
 <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
 <div class="container">
@@ -133,7 +134,9 @@ th {
                     <h4 class="card-title mb-2"><i style="color: #7cda24" class="icon-magnifier">&nbsp;</i>SELECT HIGH RISK PROILE:</h4>
                     <div class="row">
                         <div class="col-md-10 mb-2 ">
+
                             <div id="type_section" class="form-group">
+
                                     <select class="form-control" id="type_cb">
                                     <option <?php if($type == "panama"){echo "selected";} ?>  value="panama">PANAMA</option>
                                     <option <?php if($type == "bahamas"){echo "selected";} ?>  value="bahamas">BAHAMAS</option>
@@ -143,7 +146,9 @@ th {
                             </div>
                         </div>
                         <div class="col-md-2 mb-2 ">
+
                             <div id="select_section" class="form-group">
+r
                                 <button style="" id="filter_search_btn" class="btn btn-dark bg-dark text-white"><i style="color: #7cda24" class="icon-magnifier">&nbsp;</i>SELECT</button>
                             </div>
                             
@@ -151,6 +156,7 @@ th {
                     </div>
                 </div>
             </div>
+
             <div id="table_section" class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
                 <div class="card-body" style="padding:20px">
               <div id="container table-responsive">
@@ -309,6 +315,7 @@ $(document).ready( function () {
                              $('.intro-tour-overlay').show();
                             tour.start();
                         }
+
                 },
 
           "aSorting": [[ 10, "desc" ]],
