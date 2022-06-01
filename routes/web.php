@@ -33,6 +33,8 @@ Route::get('/offshoreList', 'AlertedrecordsController@offshore')->name('offshore
 Route::get('/bahamasList', 'AlertedrecordsController@bahamas')->name('bahamasList');
 Route::get('/paradiseList', 'AlertedrecordsController@paradise')->name('paradiseList');
 
+Route::get('/highRisk/{type}', 'AlertedrecordsController@highRisk')->name('highRiskProfile');
+
 //subaccounts
 Route::get('/subaccounts', 'SubaccountsController@index')->name('setSubaccounts');
 Route::get('/register-sa/{userId}', 'SubaccountsController@setRegistration')->name('registerSubAccount');
