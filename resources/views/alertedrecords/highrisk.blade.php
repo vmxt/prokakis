@@ -112,6 +112,9 @@ th {
 
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
+
+<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
+
 <div class="container">
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
         <li>
@@ -131,7 +134,9 @@ th {
                     <h4 class="card-title mb-2"><i style="color: #7cda24" class="icon-magnifier">&nbsp;</i>SELECT HIGH RISK PROILE:</h4>
                     <div class="row">
                         <div class="col-md-10 mb-2 ">
-                            <div class="form-group">
+
+                            <div id="type_section" class="form-group">
+
                                     <select class="form-control" id="type_cb">
                                     <option <?php if($type == "panama"){echo "selected";} ?>  value="panama">PANAMA</option>
                                     <option <?php if($type == "bahamas"){echo "selected";} ?>  value="bahamas">BAHAMAS</option>
@@ -141,7 +146,9 @@ th {
                             </div>
                         </div>
                         <div class="col-md-2 mb-2 ">
-                            <div class="form-group">
+
+                            <div id="select_section" class="form-group">
+r
                                 <button style="" id="filter_search_btn" class="btn btn-dark bg-dark text-white"><i style="color: #7cda24" class="icon-magnifier">&nbsp;</i>SELECT</button>
                             </div>
                             
@@ -149,7 +156,8 @@ th {
                     </div>
                 </div>
             </div>
-            <div class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
+
+            <div id="table_section" class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
                 <div class="card-body" style="padding:20px">
               <div id="container table-responsive">
 
@@ -198,30 +206,116 @@ th {
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
+
 <script>
 $(document).ready( function () {
     //$('#system_data').DataTable();
+    
+    var tour;
+        
+         tour = new Tour({
+          steps: [
+          {
+            element: "#type_section",
+            title: "TYPE OF HIGH RISK",
+            content: "This is where you choose on what type of high risk you want to view",
+            placement: "top"
+          },
+          {
+            element: "#select_section",
+            title: "SELECT BUTTON",
+            content: "Click this to load the high risk list based on chooses type",
+            placement: "top"
+          },
+          
+          {
+            element: "#table_section",
+            title: "LIST OF HIGH RISK PROFILE",
+            content: "This is where you can view the list of high risk profile",
+            placement: "top"
+          },
+          {
+            element: "#panama_data_filter label",
+            title: "SEARCH RELEVANCE",
+            content: "This is where you can filter the list of investors using keywords",
+            placement: "top"
+          }
+        ],
+        
+          container: "body",
+          smartPlacement: false,
+          keyboard: true,
+          storage: window.localStorage,
+          //storage: false,
+          debug: false,
+          backdrop: true,
+          backdropContainer: 'body',
+          backdropPadding: 0,
+          redirect: false,
+          orphan: true,
+          duration: false,
+          delay: false,
+          basePath: "",
+          //placement: 'auto',
+           // autoscroll: true,
+          afterGetState: function (key, value) {},
+          afterSetState: function (key, value) {},
+          afterRemoveState: function (key, value) {},
+          onStart: function (tour) {},
+          onEnd: function (tour) {
+             $('.intro-tour-overlay').hide();
+              $('html').css('overflow','unset')
+             $('.menu-dropdown').removeClass('open');
+             updateTour('end');
+          },
+          onShow: function (tour) {},
+          onShown: function (tour) {},
+          onHide: function (tour) {},
+          onHidden: function (tour) {},
+          onNext: function (tour) {},
+          onPrev: function (tour) {},
+          onPause: function (tour, duration) {},
+          onResume: function (tour, duration) {},
+          onRedirectError: function (tour) {}
+        
+        });
+        
+        // Clear bootstrap tour session data
+        localStorage.removeItem('tour_current_step');
+        localStorage.removeItem('tour_end');
+        
+        // Initialize the tour
+        tour.init();
+    
+            $('#panama_data').DataTable({
+                "data" : <?php echo json_encode($panamaData); ?>,
+                "columns" : [
+                    { "data" : "id" },
+                    { "data" : "Name" },
+                    { "data" : "Country" },
+                    { "data" : "IncorporationDate" },
+                    { "data" : "Jurisdiction" }
+                ],
+                "createdRow": function ( row, data, index ) {
+                    $('td', row).eq(0).hide();
+                    $('td', row).eq(0).addClass("fit");
+                      $('td', row).eq(3).addClass("fit");
+                      $('td', row).eq(3).css("text-align","center");
+                      $('td', row).eq(4).css("text-align","right");
+                      $('td', row).eq(2).css("text-align","left");
+                    },
+                    "drawCallback": function( settings ) {
+                        $(".table_loader").fadeOut();
+                        $(".table_loader").remove();
+                        
+                         // Start the tour
+                        if( $('#is_tour').val() == 1 ){
+                            $('html').css('overflow','visible');
+                             $('.intro-tour-overlay').show();
+                            tour.start();
+                        }
 
-        $('#panama_data').DataTable({
-            "data" : <?php echo json_encode($panamaData); ?>,
-            "columns" : [
-                { "data" : "id" },
-                { "data" : "Name" },
-                { "data" : "Country" },
-                { "data" : "IncorporationDate" },
-                { "data" : "Jurisdiction" }
-            ],
-            "createdRow": function ( row, data, index ) {
-                $('td', row).eq(0).hide();
-                $('td', row).eq(0).addClass("fit");
-                  $('td', row).eq(3).addClass("fit");
-                  $('td', row).eq(3).css("text-align","center");
-                  $('td', row).eq(4).css("text-align","right");
-                  $('td', row).eq(2).css("text-align","left");
-                },
-                "drawCallback": function( settings ) {
-                    $(".table_loader").fadeOut();
-                    $(".table_loader").remove();
                 },
 
           "aSorting": [[ 10, "desc" ]],

@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
+
     <style>
 
 
@@ -84,7 +86,7 @@
 
             <div class="col-md-12">
 
-                    <div class="portlet light ">
+                    <div id="list_div" class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-bulb font-blue"></i>
@@ -92,17 +94,17 @@
                             </div>
 
                             <div class="actions">
-                                        <a href="{{ url('/opportunity/select') }}" class="btn blue"
+                                        <a href="{{ url('/opportunity/select') }}" class="add_opp_btn btn blue"
                                            style="color:white">Add An Opportunity</a>
 
-                                        <a href="{{ url('/opportunity/chatbox') }}" class="btn blue"
+                                        <a href="{{ url('/opportunity/chatbox') }}" class="message_btn btn blue"
                                            style="color:white">View Messages</a>
 
                             </div>
 
                         </div>
                         <div class="portlet-body">
-                            <div id="container" class="table-scrollable">
+                            <div id="container" class="table_div table-scrollable">
 
                                     @if (session('status'))
                                     <div class="alert alert-success">
@@ -280,6 +282,8 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     {{-- <script src="{{ asset('public/js/app.js') }}"></script> --}}
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
+    
+    <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
 
     <script>
         $(document).ready(function () {
@@ -315,6 +319,98 @@
                     window.location.href = baseUrl + "/opportunity";
                 }
             });
+            
+            var tour = new Tour({
+              steps: [
+              {
+                element: "#list_div",
+                title: "LIST OF YOUR OPPORTUNITIES",
+                content: "This is the list of your opportunities added",
+                placement: "top"
+              },
+              {
+                element: ".add_opp_btn",
+                title: "ADD OPPORTUNITY BUTTON",
+                content: "This is the button to add new opportunity",
+                placement: "top"
+              },
+              {
+                element: ".message_btn",
+                title: "MESSAGE BUTTON",
+                content: "This is the button that will redirect you to the message box page",
+                placement: "top"
+              },
+              {
+                element: ".table_div",
+                title: "OPPORTUNITY TABLE",
+                content: "This is the table containing the list of your opportunities",
+                placement: "top"
+              },
+              {
+                element: "a.btn-primary:first",
+                title: "EDIT BUTTON",
+                content: "This is the button that will redirect you to the opportunity edit page",
+                placement: "top"
+              },
+              {
+                element: "a.btn-danger:first",
+                title: "DELETE BUTTON",
+                content: "This is the button that will delete the opportunity",
+                placement: "top"
+              },
+            ],
+            
+              container: "body",
+              smartPlacement: false,
+              keyboard: true,
+              storage: window.localStorage,
+              //storage: false,
+              debug: false,
+              backdrop: true,
+              backdropContainer: 'body',
+              backdropPadding: 0,
+              redirect: false,
+              orphan: true,
+              duration: false,
+              delay: false,
+              basePath: "",
+              //placement: 'auto',
+               // autoscroll: true,
+              afterGetState: function (key, value) {},
+              afterSetState: function (key, value) {},
+              afterRemoveState: function (key, value) {},
+              onStart: function (tour) {},
+              onEnd: function (tour) {
+                 $('.intro-tour-overlay').hide();
+                  $('html').css('overflow','unset')
+                 $('.menu-dropdown').removeClass('open');
+                 updateTour('end');
+              },
+              onShow: function (tour) {},
+              onShown: function (tour) {},
+              onHide: function (tour) {},
+              onHidden: function (tour) {},
+              onNext: function (tour) {},
+              onPrev: function (tour) {},
+              onPause: function (tour, duration) {},
+              onResume: function (tour, duration) {},
+              onRedirectError: function (tour) {}
+            
+            });
+            
+            // Clear bootstrap tour session data
+            localStorage.removeItem('tour_current_step');
+            localStorage.removeItem('tour_end');
+            
+            // Initialize the tour
+            tour.init();
+            
+            // Start the tour
+            if( $('#is_tour').val() == 1 ){
+                $('html').css('overflow','visible');
+                 $('.intro-tour-overlay').show();
+                tour.start();
+            }
 
         });
 

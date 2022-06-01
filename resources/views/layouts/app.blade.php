@@ -561,7 +561,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <!-- END INBOX DROPDOWN -->
                                         <!-- BEGIN USER LOGIN DROPDOWN -->
-                                        <li id='nav-login-dropdown' class="dropdown dropdown-user dropdown-dark">
+                                        <li id='nav-login-dropdown' style="z-index:1000011010101" class="dropdown dropdown-user dropdown-dark">
                                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                 <?php
                                                 if($userType == 1){
@@ -665,13 +665,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                       <i class="fa fa-trophy"></i> Rewards </a>
                                               </li>
 
-                        <li>
+                                                <li id="nav-change-pass">
 
                                                   <a href="{{ route('setPasswordData') }}" >
                                                       <i class="icon-key"></i> Change Password </a>
                                                 </li>
 
-                                                <li>
+                                                <li id="nav-currency">
                                                     <?php 
                                                     if($currentCurrency = App\CurrencyAccounts::where('user_id',$user_id)->first()){
                                                         $currentCurrency = $currentCurrency->getCurrency->c_code;
@@ -711,7 +711,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                   @endif
                                                 </li>
 
-                        <li>
+                                                <li id="nav-user-control">
                                                   <a href="{{ route('setSubaccounts') }}" >
                                                       <i class="icon-user" style="color: #7cda24"></i> User Control </a>
                                                 </li>
@@ -795,7 +795,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                         </li>
                                                         
-                                                        <li aria-haspopup="true" id="nav-investor-alert-list">
+                                                        <li aria-haspopup="true" id="nav-high-risk-list">
                                                                <a href="<?php echo env("APP_URL"); ?>/highRisk/panama" class="nav-link  ">
                                                                <i class="icon-magnifier" style="color: #7cda24"></i> High Risk Profile</a>
                                                         </li>

@@ -116,6 +116,7 @@ th {
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
 <link rel='stylesheet prefetch' href='https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css' />
+<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
 <div class="container">
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -135,8 +136,8 @@ th {
                 <div class="card-body" style="padding:20px">
                     <h4 class="card-title mb-2"><i style="color: #7cda24" class="fa fa-sort">&nbsp;</i>SORT INVESTOR ALERT LIST BY:</h4>
                     <div class="row">
-                        <div class="col-md-12 mb-2 ">
-                            <div class="form-group">
+                        <div  class="col-md-12 mb-2 ">
+                            <div id="sort_section" class="form-group">
                                     <select class="form-control" id="type_cb">
                                     <option value="desc">LATEST TO OLDEST</option>
                                     <option value="asc">OLDEST TO LATEST</option>
@@ -154,8 +155,8 @@ th {
                     
                     <h4 class="card-title mb-2"><i style="color: #7cda24" class="icon-magnifier">&nbsp;</i>SEARCH INVESTOR ALERT LIST BY DATE:</h4>
                     <div class="row">
-                        <div class="col-md-10 mb-2 ">
-                            <div class="form-group">
+                        <div  class="col-md-10 mb-2 ">
+                            <div id="date_section" class="form-group">
                                     <select class="form-control" id="date_type_cb">
                                     <option value="all">ALL DATE</option>
                                     <option value="this_year">THIS YEAR</option>
@@ -174,7 +175,7 @@ th {
                             <input style="margin-top:4px" type="text" placeholder="Click to select date.." id="to_date_txt" class=" form-control" />
                         </div>
                         <div class="col-md-2 mb-2 ">
-                            <div class="form-group">
+                            <div  id="go_section" class="form-group">
                                 <button style="" id="filter_search_btn" class="btn btn-dark bg-dark text-white"><i style="color: #7cda24" class="icon-magnifier">&nbsp;</i>GO</button>
                             </div>
                             
@@ -182,7 +183,7 @@ th {
                     </div>
                 </div>
             </div>
-            <div class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
+            <div id="list_section" class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
                 <div class="card-body" style="padding:20px">
               <div id="container table-responsive">
                 <b></b>
@@ -237,6 +238,8 @@ th {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 <script src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
 
+<script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
+
 <script>
 $(document).ready( function () {
     //$('#system_data').DataTable();
@@ -252,7 +255,7 @@ $(document).ready( function () {
             
             data += '<h3 style="margin-top:7px;font-size:16px"><b style="color:black;">'+unregulatedpersons_t.toUpperCase()+'</b></h3>';
             
-            data += '<i id="iconx'+id+'" class="icon-arrow-up" style="color:black"></i> <button class="btn btn-dark bg-dark text-white btn-sm det_btn" name="'+ id +'<split>'+unregulatedpersons_t+'" id="but'+id+'"><i class="text-company fa fa-list-alt"></i> Show details</button>';
+            data += '<i id="iconx'+id+'" class="icon-arrow-up" style="color:black"></i> <div class="det_buttons"><button class="btn btn-dark bg-dark text-white btn-sm det_btn" name="'+ id +'<split>'+unregulatedpersons_t+'" id="but'+id+'"><i class="text-company fa fa-list-alt"></i> Show details</button></div>';
             data += '<div id="showhide_'+id+'" style="display:none;margin-left:15px">';
             
             if(address_s != ""){
@@ -374,6 +377,93 @@ $(document).ready( function () {
                 datatable.order([5, type]).draw();
             }
         });
+        
+        var tour;
+        
+         tour = new Tour({
+      steps: [
+      {
+        element: "#sort_section",
+        title: "SORT INVESTOR LIST",
+        content: "This is where you choose on how you sort the investor list",
+        placement: "top"
+      },
+      {
+        element: "#date_section",
+        title: "SELECT INVESTOR LIST BY DATE",
+        content: "This is where you can choose on how you will load investor list by date configuration",
+        placement: "top"
+      },
+      {
+        element: "#go_section",
+        title: "GO BUTTON",
+        content: "Click this to load investor list based on how you choose the parameters in SELECT INVESTOR BY DATE",
+        placement: "top"
+      },
+      {
+        element: "#list_section",
+        title: "LIST OF INVESTORS",
+        content: "This is where you can view the list of investors",
+        placement: "top"
+      },
+      {
+        element: "#panama_data_filter label",
+        title: "SEARCH RELEVANCE",
+        content: "This is where you can filter the list of investors using keywords",
+        placement: "top"
+      },
+      {
+        element: "div.det_buttons :first",
+        title: "DETAILS BUTTON",
+        content: "Click this to view details of the investor",
+        placement: "top"
+      }
+    ],
+    
+      container: "body",
+      smartPlacement: false,
+      keyboard: true,
+      storage: window.localStorage,
+      //storage: false,
+      debug: false,
+      backdrop: true,
+      backdropContainer: 'body',
+      backdropPadding: 0,
+      redirect: false,
+      orphan: true,
+      duration: false,
+      delay: false,
+      basePath: "",
+      //placement: 'auto',
+       // autoscroll: true,
+      afterGetState: function (key, value) {},
+      afterSetState: function (key, value) {},
+      afterRemoveState: function (key, value) {},
+      onStart: function (tour) {},
+      onEnd: function (tour) {
+         $('.intro-tour-overlay').hide();
+          $('html').css('overflow','unset')
+         $('.menu-dropdown').removeClass('open');
+         updateTour('end');
+      },
+      onShow: function (tour) {},
+      onShown: function (tour) {},
+      onHide: function (tour) {},
+      onHidden: function (tour) {},
+      onNext: function (tour) {},
+      onPrev: function (tour) {},
+      onPause: function (tour, duration) {},
+      onResume: function (tour, duration) {},
+      onRedirectError: function (tour) {}
+    
+    });
+    
+    // Clear bootstrap tour session data
+    localStorage.removeItem('tour_current_step');
+    localStorage.removeItem('tour_end');
+    
+    // Initialize the tour
+    tour.init();
 
         datatable = $('#panama_data').DataTable({
             "data" : <?php echo json_encode($data_ia); ?>,
@@ -403,6 +493,13 @@ $(document).ready( function () {
                 
                 $(".table_loader").fadeOut();
                 $(".table_loader").remove();
+                
+                 // Start the tour
+                if( $('#is_tour').val() == 1 ){
+                    $('html').css('overflow','visible');
+                     $('.intro-tour-overlay').show();
+                    tour.start();
+                }
             },
 
           "aSorting": [[ 10, "desc" ]],
@@ -413,6 +510,7 @@ $(document).ready( function () {
                   "sSearch": "SEARCH RELEVANCE: "
               }
           });
+          
           
 });
 

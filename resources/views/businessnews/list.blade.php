@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 
-
+<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
 
 <script>
@@ -291,7 +291,7 @@ body.loading .modal-load {
 
     <div class="row justify-content-center">
 
-        <div class="portlet light">
+        <div id="manage_news_section" class="portlet light">
 
             <div class="portlet-title">
 
@@ -333,7 +333,7 @@ body.loading .modal-load {
 
 
 
-           <center> <a align="right"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
+           <center> <a align="right" id="add_news_content_btn"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
 
               ADD NEWS CONTENT </a> </center>
 
@@ -439,7 +439,7 @@ body.loading .modal-load {
  <div class="row justify-content-center">
         <div class="portlet light">
           
-            <div id="container" class="table-scrollable">
+            <div id="container"  class="news_div table-scrollable">
 
                 <div class="panel panel-info">
                     <!-- Default panel contents -->
@@ -612,6 +612,8 @@ body.loading .modal-load {
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+<script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
+
 <script>
 
 $.extend( $.fn.dataTable.defaults, {
@@ -658,7 +660,79 @@ $(document).ready( function () {
 
 
 
+var tour = new Tour({
+  steps: [
+  {
+    element: "#manage_news_section",
+    title: "MANAGE NEWS",
+    content: "This is the list of the news you added",
+    placement: "top"
+  },
+  {
+    element: "#add_news_content_btn",
+    title: "ADD NEWS",
+    content: "This is the button to add news content",
+    placement: "top"
+  },
+  {
+    element: ".news_div",
+    title: "LIST OF RECENT NEWS",
+    content: "This is the list of recent news",
+    placement: "top"
+  },
+],
 
+  container: "body",
+  smartPlacement: false,
+  keyboard: true,
+  storage: window.localStorage,
+  //storage: false,
+  debug: false,
+  backdrop: true,
+  backdropContainer: 'body',
+  backdropPadding: 0,
+  redirect: false,
+  orphan: true,
+  duration: false,
+  delay: false,
+  basePath: "",
+  //placement: 'auto',
+   // autoscroll: true,
+  afterGetState: function (key, value) {},
+  afterSetState: function (key, value) {},
+  afterRemoveState: function (key, value) {},
+  onStart: function (tour) {},
+  onEnd: function (tour) {
+     $('.intro-tour-overlay').hide();
+      $('html').css('overflow','unset')
+     $('.menu-dropdown').removeClass('open');
+     updateTour('end');
+  },
+  onShow: function (tour) {},
+  onShown: function (tour) {},
+  onHide: function (tour) {},
+  onHidden: function (tour) {},
+  onNext: function (tour) {},
+  onPrev: function (tour) {},
+  onPause: function (tour, duration) {},
+  onResume: function (tour, duration) {},
+  onRedirectError: function (tour) {}
+
+});
+
+// Clear bootstrap tour session data
+localStorage.removeItem('tour_current_step');
+localStorage.removeItem('tour_end');
+
+// Initialize the tour
+tour.init();
+
+// Start the tour
+if( $('#is_tour').val() == 1 ){
+    $('html').css('overflow','visible');
+     $('.intro-tour-overlay').show();
+    tour.start();
+}
 
 } );
 

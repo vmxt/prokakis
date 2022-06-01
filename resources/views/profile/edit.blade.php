@@ -337,7 +337,7 @@
 
     <link rel="stylesheet" href="{{ asset('public/js-tabs/jquery-ui.css') }}" rel="stylesheet">
 
-
+<link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
     <div class="container">
 
@@ -484,6 +484,7 @@
                                         </div>
 
                                         <br/>
+                                       
                                         <ul>
                                             <?php if(isset($completenessMessages)){
                                             foreach($completenessMessages as $d){
@@ -530,31 +531,31 @@
 
                         <ul class="nav nav-tabs">
 
-                            <li class="active">
+                            <li id="com_overview_section" class="active">
 
                                 <a href="#portlet_tab1" data-toggle="tab"> Company Overview </a>
 
                             </li>
 
-                            <li>
+                            <li id="com_key_section" >
 
                                 <a href="#portlet_tab2" data-toggle="tab"> Key Management </a>
 
                             </li>
 
-                            <li>
+                            <li id="com_info_section" >
 
                                 <a href="#portlet_tab3" data-toggle="tab"> Company Information </a>
 
                             </li>
 
-                            <li>
+                            <li id="com_strength_section">
 
                                 <a href="#portlet_tab4" data-toggle="tab"> Strength </a>
 
                             </li>
 
-                            <li>
+                            <li id="com_financial_section">
 
                                 <a href="#portlet_tab5" data-toggle="tab"> Financial Status </a>
 
@@ -973,7 +974,7 @@
 
                                             </div>
 
-					    <div class="form-group">
+                        <div class="form-group">
 
                                                 <label for="incorporation_date">Incorporation Date </label>
 
@@ -3872,6 +3873,7 @@
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
+<script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
 
 
     <script type="text/javascript">
@@ -4535,6 +4537,107 @@
           $(this).parent().find('#count').text(length +"/"+maxLength);
         });
 
+
+    $(document).ready(function(){
+        var tour = new Tour({
+          steps: [
+          {
+            element: ".containerCimg",
+            title: "PROFILE PICTURE",
+            content: "Change your profile picture here if you are premium",
+            placement: "top"
+          },
+          {
+            element: "#com_overview_section",
+            title: "COMPANY OVERVIEW TAB",
+            content: "Overview information about your company",
+            placement: "top"
+          },
+          {
+            element: "#com_key_section",
+            title: "KEY MANAGEMENT",
+            content: "Manage your personal keys here",
+            placement: "top"
+          },
+          {
+            element: "#com_info_section",
+            title: "COMPANY INFORMATION",
+            content: "Manage your company\'s information here",
+            placement: "top"
+          },
+          {
+            element: "#com_strength_section",
+            title: "COMPANY STRENGTH",
+            content: "Uploaded documents, invoices and etc. is in here",
+            placement: "top"
+          },
+          {
+            element: "#com_financial_section",
+            title: "FINANCIAL STATUS",
+            content: "Manage your financial status here",
+            placement: "top"
+          },
+          {
+            element: "#saveButtonCompanyProfile",
+            title: "SAVE BUTTON",
+            content: "Click this to save any updates you\'ve done",
+            placement: "top"
+          },
+        ],
+        
+          container: "body",
+          smartPlacement: false,
+          keyboard: true,
+          storage: window.localStorage,
+          //storage: false,
+          debug: false,
+          backdrop: true,
+          backdropContainer: 'body',
+          backdropPadding: 0,
+          redirect: false,
+          orphan: true,
+          duration: false,
+          delay: false,
+          basePath: "",
+          //placement: 'auto',
+           // autoscroll: true,
+          afterGetState: function (key, value) {},
+          afterSetState: function (key, value) {},
+          afterRemoveState: function (key, value) {},
+          onStart: function (tour) {},
+          onEnd: function (tour) {
+             $('.intro-tour-overlay').hide();
+              $('html').css('overflow','unset')
+             $('.menu-dropdown').removeClass('open');
+             updateTour('end');
+          },
+          onShow: function (tour) {},
+          onShown: function (tour) {},
+          onHide: function (tour) {},
+          onHidden: function (tour) {},
+          onNext: function (tour) {},
+          onPrev: function (tour) {},
+          onPause: function (tour, duration) {},
+          onResume: function (tour, duration) {},
+          onRedirectError: function (tour) {}
+        
+        });
+        
+        // Clear bootstrap tour session data
+        localStorage.removeItem('tour_current_step');
+        localStorage.removeItem('tour_end');
+        
+        // Initialize the tour
+        tour.init();
+        
+        // Start the tour
+        if( $('#is_tour').val() == 1 ){
+            $('html').css('overflow','visible');
+             $('.intro-tour-overlay').show();
+            tour.start();
+        }
+        
+    });
 
     </script>
 

@@ -329,7 +329,6 @@ body.loading .modal-load {
     color:#7cda24 !important;
 }
 
-
 .cardborder-radius{
     border-radius: 20px !important;
 }
@@ -502,8 +501,8 @@ body.loading .modal-load {
                              <div class="bootstrap page-content-inner">
                                 <div class="bootstrap mt-content-body">
                                     <div class="bootstrap portlet light h-effect">
-
-                                        <div class="bootstrap card gedf-card cardborder-radius">      
+                                        <div class="bootstrap card gedf-card cardborder-radius">
+                                            
                                             <div class="bootstrap card-body card-flex ">
                                                 <div class="row w-100 ">
                                                     <div class="col-md-4 p-2" style="background-image: url( <?php echo $imgSrc; ?> );
@@ -518,7 +517,6 @@ body.loading .modal-load {
                                                                 <h3 class="upperText mt-2 "  title="{{ $d->opp_title }}"><b>{{ strtoupper($d->opp_title) }}</b></h3>
                                                             </div>
                                                         </div>
-
                                                         <div class="row col-md-12 opp-cards">
   
                                                             <div class="col-md-4">
@@ -538,7 +536,6 @@ body.loading .modal-load {
                                                                     <li>Inventory value</li>
                                                                     <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->inventory_value,3) }}</b></li>
                                                                 </ul>
-
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <ul class="info_list mt-2" style="list-style-type: none;">
@@ -927,6 +924,13 @@ body.loading .modal-load {
     <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
  <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
+    
+    function scroll_html(){
+        var val = parseInt($(".popover").scrollTop() );
+        
+        $("body").scrollTop( val + 1 );
+    }
+    
 // Instance the tour
 var tour = new Tour({
   steps: [
@@ -952,6 +956,14 @@ var tour = new Tour({
     element: "#nav-investor-alert-list",
     title: "INVESTOR ALERT LIST",
     content: "Here you can view a list of investors",
+    onNext: function(){
+        $('#nav-high-risk-list').removeClass('active');
+    }
+  },
+  {
+    element: "#nav-high-risk-list",
+    title: "HIGH RISK PROFILE",
+    content: "Here you can view a list of high risk profile",
     onNext: function(){
         $('#nav-system-dashboard').removeClass('open');
         $('#nav-system-dashboard').removeClass('active');
@@ -1040,76 +1052,176 @@ var tour = new Tour({
     title: "REPORT REQUESTER",
     content: "Here you can view the company information of someone who is requesting a report from you",
     onNext: function(){
+        $("#nav-login-dropdown").click();
+        
         $('#nav-report').removeClass('open');
         $('#nav-report').removeClass('active');
+        
+        //$("#nav-login-dropdown").addClass('open');
+        
     },
   },
   {
+    element: "#header_inbox_bar",
+    title: "INBOX",
+    content: "Here you can view, compose and send messages to other companies on the Intellinz system",
+    placement: 'left',
+  },
+  {
     element: "#nav-login-dropdown",
+    name:"nav-login-dropdown",
     title: "USER MENU",
     content: "Click here to show the links for your account",
     placement: 'left',
     onNext: function(){
-        $('#nav-login-dropdown').addClass('open');
+        $("#nav-login-dropdown").addClass('open');
     },
   },
   {
     element: "#nav-login-account-credit",
+    name:"nav-login-account-credit",
     title: "ACCOUNT AND CREDIT",
     content: "Here you can view your credit balance and account status",
-    placement: 'left'
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
   },
   {
     element: "#nav-buy-credit",
+    name:"nav-buy-credit",
     title: "BUY CREDITS",
     content: "Here you can see the token packages and purchase more credits",
-     placement: 'left'
+     placement: 'left',
+     onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
   },
   {
     element: "#nav-login-company",
+    name:"nav-login-company",
     title: "MY COMPANY",
     content: "Here you can view the profile of your company",
-    placement: 'left'
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
   }, 
   {
     element: "#nav-login-inbox",
+    name:"nav-login-inbox",
     title: "MY INBOX",
     content: "Here you can view, compose and send messages to other companies on the Intellinz system",
-    placement: 'left'
-  },  
-  {
-    element: "#nav-login-switch-company",
-    title: "SWITCH A COMPANY",
-    content: "Here you can switch to one of your other registered companies",
-    placement: 'left'
-  },   
-  {
-    element: "#nav-login-referrals",
-    title: "REFERRALS",
-    content: "Here you can view the affiliate program and the status of your referrals",
-    placement: 'left'
-  },  
-  {
-    element: "#nav-login-share-friend",
-    title: "SHARE TO FRIEND",
-    content: "Here you can email a friend with your referral link so they can join you on the Intellinz system",
-    placement: 'left'
-  },  
-  {
-    element: "#nav-login-logout",
-    title: "LOGOUT",
-    content: "This will log you out of the Intellinz system",
     placement: 'left',
-    onNext: function(){
-        $('#nav-login-dropdown').removeClass('open');
-        return false;
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
     },
   },  
   {
-    element: "#home-enhance-profile",
-    title: "Enhance Profile",
-    content: "It will redirect you to a page where you can edit your company information"
-
+    element: "#nav-login-switch-company",
+    name:"nav-login-switch-company",
+    title: "SWITCH A COMPANY",
+    content: "Here you can switch to one of your other registered companies",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+  },   
+  {
+    element: "#nav-login-referral",
+    name:"nav-login-referrals",
+    title: "REFERRALS",
+    content: "Here you can view the affiliate program and the status of your referrals",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+  },  
+  {
+    element: "#nav-login-share-friend",
+    name:"nav-login-share-friend",
+    title: "SHARE TO FRIEND",
+    content: "Here you can email a friend with your referral link so they can join you on the Intellinz system",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+  },  
+  {
+    element: "#nav-login-rewards",
+    name:"nav-login-rewards",
+    title: "REWARDS",
+    content: "Here you can view your rewards accumulated",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+  },  
+  {
+    element: "#nav-change-pass",
+    name:"nav-change-pass",
+    title: "CHANGE PASSWORD",
+    content: "Here you can change your password",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+  },  
+  {
+    element: "#nav-currency",
+    name:"nav-currency",
+    title: "CURRENCY",
+    content: "Here you can change your default currency",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+  },  
+  {
+    element: "#nav-login-tour",
+    name:"nav-login-tour",
+    title: "LOGIN TOUR",
+    content: "Here you can switch the tour on and off",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+  },  
+  {
+    element: "#nav-user-control",
+    name:"nav-user-control",
+    title: "USER CONTROL",
+    content: "Here you can view and control your sub-accounts",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+  },  
+  {
+    element: "#nav-login-logout",
+    name:"nav-login-logout",
+    title: "LOGOUT",
+    content: "This will log you out of the Intellinz system",
+    placement: 'left',
+    onShown: function(){
+        $("#nav-login-dropdown").addClass('open');
+        scroll_html();
+    },
+    onNext: function(){
+        $('#nav-login-dropdown').removeClass('open');
+    },
   },  
    {
     element: ".hero-image",
@@ -1122,7 +1234,13 @@ var tour = new Tour({
     title: "Profile Image",
     content: "You can change your profile Image at \"Edit Company\" under Company navigation"
   },
-    {
+  {
+    element: "#top_opps_div",
+    title: "Top 5 Opportunities",
+    content: "This are the top 5 opportunites in your home page",
+    placement: 'top'
+  },
+{
     element: "#followBusinessNews",
     title: "Followed Business News",
     content: "This are the top 5 business news of the company you followed",
@@ -1133,12 +1251,6 @@ var tour = new Tour({
     title: "Top Business News",
     content: "Display the most recent top 5 business news",
     placement: 'top'
-  },
-  {
-    element: "#followedOpportunities",
-    title: "Opportunity",
-    content: "This are the top 5 opportunities of the companies you followed",
-       placement: 'top'
   },
   // {
   //   element: "#video-ads",
@@ -1152,19 +1264,19 @@ var tour = new Tour({
   container: "body",
   smartPlacement: false,
   keyboard: true,
-  // storage: window.localStorage,
-  storage: false,
+  storage: window.localStorage,
+  //storage: false,
   debug: false,
   backdrop: true,
   backdropContainer: 'body',
   backdropPadding: 0,
   redirect: false,
-  orphan: false,
+  orphan: true,
   duration: false,
   delay: false,
   basePath: "",
-  placement: 'auto',
-    autoscroll: true,
+  //placement: 'auto',
+   // autoscroll: true,
   afterGetState: function (key, value) {},
   afterSetState: function (key, value) {},
   afterRemoveState: function (key, value) {},
@@ -1186,6 +1298,10 @@ var tour = new Tour({
   onRedirectError: function (tour) {}
 
 });
+
+// Clear bootstrap tour session data
+localStorage.removeItem('tour_current_step');
+localStorage.removeItem('tour_end');
 
 // Initialize the tour
 tour.init();
