@@ -119,6 +119,39 @@ class AlertedrecordsController extends Controller
     }
 
 
+    public function highRisk(Request $request)
+    {
+      $panamaData = [];
+      $urlToken  = ProkakisAccessToken::getSCode();
+      
+      $type = $request["type"];
+      
+      $rURL = 'https://reputation.app-prokakis.com/api/v1/panamagroup-all/'.$type.'/'.$urlToken;
+
+      //echo $rURL;
+      //exit;
+       
+      $client = new Client();
+      $rsToken = $client->get($rURL);
+      $result = $rsToken->getBody()->getContents();  
+      $rs = json_decode($result, true);
+    
+      $count = 0;
+      foreach($rs['RecordSet'] as $data)
+      {
+        $count++;
+        if($data[0] != 'node_id'){
+        //if($count <= 15 ){
+         $panamaData[] = array('id'=>$data[0], 'Name'=>$data[1], 'Country'=>$data[5], 'IncorporationDate'=>$data[6], 'Jurisdiction'=>$data[3]);
+        //}
+        }
+
+      }
+ 
+      return view('alertedrecords.highrisk', compact('panamaData', 'rURL', 'type'));
+
+    }
+
    public function panama()
     {
       $panamaData = [];

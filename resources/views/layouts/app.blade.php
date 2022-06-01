@@ -792,6 +792,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <li aria-haspopup="true" id="nav-investor-alert-list">
                                                                <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
                                                                <i class="icon-magnifier" style="color: #7cda24"></i> Investor Alert List</a>
+
                                                         </li>
                                                         
                                                         <li aria-haspopup="true" id="nav-investor-alert-list">
