@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
 
-
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 <script>
 
 
@@ -258,14 +258,35 @@ body.loading .modal-load {
     display: block;
 }
 
+.cardborder-radius{
+        border-radius: 20px !important;
+        border: 1px solid #a5a5a5; ;
+    }
+    
+     .cardborder-radius:hover{
+        box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
+    }
+    
+      .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
 
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
+.btn.btn-outline.blue{
+    border-color:black !important;
+}
     </style>
 
 
 
     <script src="{{ asset('public/js/app.js') }}"></script>
 
-
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
 
@@ -297,9 +318,9 @@ body.loading .modal-load {
 
                 <div class="caption">
 
-                    <i class="icon-settings font-blue"></i>
+                    <i class="icon-settings "></i>
 
-                    <span class="caption-subject font-blue sbold uppercase">MANAGE BUSINESS NEWS</span>
+                    <span class="caption-subject  sbold uppercase">MANAGE BUSINESS NEWS</span>
 
 
 
@@ -333,15 +354,16 @@ body.loading .modal-load {
 
 
 
-           <center> <a align="right" id="add_news_content_btn"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
+           <button align="right" id="add_news_content_btn" style="margin-bottom:10px" data-popup-open="popup-2" class="edit_icon btn btn-outline btn-sm blue mb-2">
 
-              ADD NEWS CONTENT </a> </center>
+             <i class="fa fa-plus"></i> ADD NEWS CONTENT </button>
 
 
+            <div class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
+                <div class="card-body" style="padding:20px">
+            <div id="container" style="border:none !important" class="table-scrollable">
 
-            <div id="container" class="table-scrollable">
-
-                <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
+                <table id="system_data" class="table  pure-table pure-table-horizontal pure-table-striped" style="width:100%">
 
                     <thead>
 
@@ -425,14 +447,11 @@ body.loading .modal-load {
 
             </div>
 
-            <center> <a align="right"  data-popup-open="popup-2" class="edit_icon btn btn-outline btn-circle btn-sm blue">
-
-                ADD NEWS CONTENT </a> </center>
 
 
-
+</div>
         </div>
-
+</div>
     </div>
 
 
@@ -441,10 +460,10 @@ body.loading .modal-load {
           
             <div id="container"  class="news_div table-scrollable">
 
-                <div class="panel panel-info">
+                <div class="panel bg-dark">
                     <!-- Default panel contents -->
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Ten most/recent news</h3>
+                    <div class="panel-heading bg-dark text-white">
+                        <h3 class="panel-title">TOP 10 MOST/RECENT NEWS</h3>
                         <input type="hidden" id="business-news-id" value="{{ isset($_GET['busnews']) ? $_GET['busnews'] : 0  }}">
                     </div>
                  

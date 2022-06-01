@@ -257,7 +257,7 @@
         }
 
         li.active {
-            background-color: #428BCA !important;
+            background-color: black !important;
         }
 
         li.active a {
@@ -327,6 +327,19 @@
       z-index: 3;
       border: 3px solid #FFFFFF!important;
     }
+}
+
+#upload a, #upload1 a, #upload2 a, #upload3 a{
+    background:black !important;
+}
+
+.link_btn a{
+    background:none !important;
+}
+
+.progress-bar{
+    background-color:black !important;
+    color:#7cda24 !important;
 }
 
 </style>
@@ -438,9 +451,9 @@
                                             <div class="actionCimg actionImg">
                                                 @if($validateAccount != false)
                                                 <p> You can adjust the orientation/size of the image by clicking the <strong>"+"</strong> or <strong>"-"</strong> </p>
-                                                    <input class="btn btn-primary " type="button" id="btnCrop" value=" Upload " title="UPLOAD" >
-                                                    <input class="btn fa-plus btn-info" type="button" id="btnZoomIn" value="+" title="ZOOM IN" >
-                                                    <input class="btn fa-plus btn-info" type="button" id="btnZoomOut" value="-" title="ZOOM OUT" >
+                                                    <button class="btn btn-primary " type="button" id="btnCrop"  title="UPLOAD" ><i class="fa fa-upload"></i> UPLOAD</button>
+                                                    <input class="btn btn-primary fa-plus btn-info text-white" style="color:#7cda24 !important" type="button" id="btnZoomIn" value="+" title="ZOOM IN" >
+                                                    <input class="btn btn-primary fa-plus btn-info text-white" style="color:#7cda24 !important" type="button" id="btnZoomOut" value="-" title="ZOOM OUT" >
                                                     {{-- <i class="fa fa-minus" aria-hidden="true"></i> --}}
                                                     {{-- <i class="fa fa-plus" aria-hidden="true"></i> --}}
                                                 @else
@@ -590,15 +603,15 @@
 
                                     <div id="tabs-1">
 
-                                        <div class="card-header"><b>Company Overview</b></div>
+                                        <div class="card-header" style="margin-bottom:10px"><b>Company Overview</b></div>
 
                                         <div class="card-body center">
 
-                                            <div class="alert alert-info" role="alert">
+                                            <div  class="alert bg-dark text-white" role="alert">
 
 
 
-                                                PRO TIP: Companies with filled in general company information have a
+                                                <b class="text-company">PRO TIP:</b> Companies with filled in general company information have a
 
                                                 greater chance to matched with relevant business for their business
 
@@ -784,8 +797,8 @@
 
                                                     } ?></textarea>
 
-                                                <div class="alert alert-info">
-                                                  <span>Characters left:</spa><span style="color:red;" id="count">500</span>
+                                                <div class="alert bg-dark text-white">
+                                                  <span>Characters left:&nbsp;</spa><span style="color:red;" id="count">500</span>
                                                 </div>
                                             </div>
 
@@ -1786,7 +1799,7 @@
                                                     if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                     ?>
 
-                                                    <a>Browse Awards</a>
+                                                    <a>UPLOAD AWARDS</a>
 
                                                     <input type="file" name="awardsFiles" id="up1"/>
 
@@ -1821,13 +1834,13 @@
 
 
 
-                                                        <span style="float:right">
+                                                        <span class="link_btn" style="float:right">
 
-                                                                    <a target="_blank" href="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>">Download</a>
+                                                                    <a style="background:none !important;" target="_blank" href="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>">Download</a>
 
                                                                     -
 
-                                                                    <a href="#" onclick="processRemoveFile('<?php echo $aw[0]; ?>', 'awardsSaved', '<?php echo $aw[2]; ?>');">Delete</a>
+                                                                    <a style="background:none !important;" href="#" onclick="processRemoveFile('<?php echo $aw[0]; ?>', 'awardsSaved', '<?php echo $aw[2]; ?>');">Delete</a>
 
                                                         </span>
 
@@ -1885,7 +1898,7 @@
                                                     if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                     ?>
 
-                                                    <a>Browse Purchase Invoices</a>
+                                                    <a>UPLOAD PURCHASE INVOICES</a>
 
                                                     <input type="file" name="purchaseInvoiceFiles" id="up2"/>
 
@@ -1917,11 +1930,11 @@
 
                                                         <span><b><?php echo $aw[2]; ?></b></span>
 
-                                                        <span style="float:right"> <a
+                                                        <span class="link_btn" style="float:right"> <a style="background:none !important;"
 
                                                                     target="_blank"
 
-                                                                    href="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>">Download</a> - <a
+                                                                    href="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>">Download</a> - <a style="background:none !important;"
 
                                                                     href="#"
 
@@ -1957,7 +1970,7 @@
                                                     if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                     ?>
 
-                                                    <a>Browse Sales Invoices</a>
+                                                    <a>UPLOAD SALES INVOICES</a>
 
                                                     <input type="file" name="salesInvoiceFiles" id="up3"/>
 
@@ -1989,11 +2002,11 @@
 
                                                         <span><b><?php echo $aw[2]; ?></b></span>
 
-                                                        <span style="float:right"> <a
+                                                        <span class="link_btn" style="float:right"> <a style="background:none !important;"
 
                                                                     target="_blank"
 
-                                                                    href="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>">Download</a> - <a
+                                                                    href="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>">Download</a> - <a style="background:none !important;"
 
                                                                     href="#"
 
@@ -2037,7 +2050,7 @@
                                                     if(App\SpentTokens::validateAccountActivation($company_id_result) != false) { 
                                                     ?>
 
-                                                    <a>Browse Certificates</a>
+                                                    <a>UPLOAD CERTIFICATES</a>
 
                                                     <input type="file" name="certificationFiles" id="up4"/>
 
@@ -2071,13 +2084,13 @@
 
                                                         <span><b><?php echo $aw[2]; ?></b></span>
 
-                                                        <span style="float:right">
+                                                        <span class="link_btn" style="float:right">
 
-                                                                    <a target="_blank" href="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>">Download</a>
+                                                                    <a style="background:none !important;" target="_blank" href="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>">Download</a>
 
                                                                     -
 
-                                                                    <a href="#" onclick="processRemoveFile('<?php echo $aw[0]; ?>', 'certificatesSaved', '<?php echo $aw[2]; ?>');">Delete</a>
+                                                                    <a style="background:none !important;" href="#" onclick="processRemoveFile('<?php echo $aw[0]; ?>', 'certificatesSaved', '<?php echo $aw[2]; ?>');">Delete</a>
 
                                                         </span>
 
@@ -3604,9 +3617,9 @@
                                             <tr>
 
                                              <td colspan="5">
-                                                <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
+                                                <div class="alert" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
                                                     <strong>Upload CSV</strong>
-                                                <input type="file" name="uploadCSV" id="uploadCSV" class="btn btn-info" style="float:right">
+                                                <input type="file" name="uploadCSV" id="uploadCSV" class="btn btn-primary" style="float:right">
                                                  
                                                 </p>
                                                 </div>
@@ -3636,7 +3649,7 @@
 
                                    id="cancelButtonCompanyProfile"/>
 
-                            <input id="saveButtonCompanyProfile" type="submit" class="btn btn-danger" value="Save"/>
+                            <button id="saveButtonCompanyProfile" type="submit" class="btn btn-primary" ><i class="fa fa-save"></i> SAVE</button>
 
                         </div>
 

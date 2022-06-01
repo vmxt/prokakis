@@ -55,7 +55,7 @@
         }
 
         .pie {
-            background-color: #f0a22e99;
+            background-color: #7cda24;
             width: 200px;
             height: 200px;
             -moz-border-radius: 100px;
@@ -81,7 +81,7 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #F0A22E;
+            background-color: #dff7d9;
             border-color: #F0A22E;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
@@ -214,7 +214,7 @@
     margin-left: 35%;
   }
 }
-
+bg-dark
 @media (max-width: 375px) {
   #home-enhance-profile{
     margin-left: 25%;
@@ -225,6 +225,19 @@
   #home-enhance-profile{
     margin-left: 20%;
   }
+}
+
+.red-mint{
+    background-color:black !important;
+    border-color:black !important;
+}
+
+.bg-dark{
+    color:#7cda24 !important;
+}
+
+.list-group-item:hover{
+    box-shadow: 0 0 11px #7cda24 !important; 
 }
     </style>
 
@@ -273,7 +286,7 @@
                                         </div>
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">
-                                        <div class="alert alert-info"
+                                        <div class="alert bg-intellinz-light-green text-company"
                                              style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
                                                 <strong>Intellinz members are three times more likely
                                                 to engage with you if your company profile is over 30% complete.
@@ -311,7 +324,7 @@
                         <div id="home-pending" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">PENDING PROFILE REQUEST</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-clock-o"></i>
+                                <i class="widget-thumb-icon bg-dark fa fa-clock-o"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden"></span>
                                     <span class="widget-thumb-body-stat" style="margin-top: 20px;">
@@ -331,7 +344,7 @@
                         <div id="home-awaiting" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">AWAITING RESPONSE</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-reply-all"></i>
+                                <i class="widget-thumb-icon bg-dark fa fa-reply-all"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden"></span>
                                     <span class="widget-thumb-body-stat" style="margin-top: 20px;">
@@ -356,7 +369,7 @@
                             <a href='{{  url('/opportunity/chatbox') }}'>
                             <h4 class="widget-thumb-heading">OPPORTUNITY INBOX</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-envelope" aria-hidden="true"></i>
+                                <i class="widget-thumb-icon bg-dark fa fa-envelope" aria-hidden="true"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden">USD</span> <br>
                                     <span class="widget-thumb-body-stat">
@@ -379,7 +392,7 @@
                         <div id="home-ongoing" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">ONGOING MONITORING</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-eye" aria-hidden="true"></i>
+                                <i class="widget-thumb-icon bg-dark fa fa-eye" aria-hidden="true"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden">USD</span> <br>
                                     <span class="widget-thumb-body-stat">
@@ -398,7 +411,7 @@
                         <div id="home-generated" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">GENERATED REPORT</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue icon-layers"></i>
+                                <i class="widget-thumb-icon bg-dark icon-layers"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden">USD</span> <br>
                                     <span class="widget-thumb-body-stat"> <span class="counter"
@@ -416,7 +429,7 @@
                         <div id='home-completed' class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
                             <h4 class="widget-thumb-heading">COMPLETED REPORT</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-newspaper-o"></i>
+                                <i class="widget-thumb-icon bg-dark fa fa-newspaper-o"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden">USD</span> <br>
                                     <span class="widget-thumb-body-stat">
@@ -441,12 +454,12 @@
                         <div class="portlet light h-effect">
                             <div class="card" style="overflow: hidden;">
                                 <div class="card-header" style="margin-bottom: 25px;">
-                                    <center><span class="bold uppercase font-blue">Credit Status</span>
+                                    <center><span class="bold uppercase text-company ">Credit Status</span>
                                         <hr>
                                     </center>
                                 </div>
                                 <div class="card-body center" style="text-align: center;">
-                                    <b class="font-prokakis-blue" style="font-size: 20px;"> <?php
+                                    <b class="" style="font-size: 20px;"> <?php
                                         $with_s = "";
                                         
                                         $user_id = Auth::id();
@@ -488,7 +501,7 @@
 
                 <div class="panel h-effect">
                     <div class="panel-heading">
-                        <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
+                        <span class="caption-subject  bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
                     </div>
                     <div class="panel-body">
                         <?php
@@ -500,23 +513,21 @@
                         ?>
                         <ul class="feeds list-group" style="border-style:none; margin-bottom: 5px;">
                             <li class="list-group-item">
-                                <a href="javascript:;">
                                     <div class="col1">
                                         <div class="cont">
                                             <div class="cont-col1">
-                                                <div class="label label-sm label-info">
+                                                <div class="label label-sm bg-dark">
                                                     <i class="fa fa-bell-o"></i>
                                                 </div>
                                             </div>
                                             <div class="cont-col2">
-                                                <div class="desc"> <?php echo $activity?></div>
+                                                <div style="color:black !important" class="desc"> <?php echo $activity?></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col2">
                                         <div class="date"> <span style="font-size: 9px"><?php  echo $date; ?></span></div>
                                     </div>
-                                </a>
                             </li>
 
                         </ul>
@@ -537,185 +548,12 @@
 // Instance the tour
 var tour = new Tour({
   steps: [
-  {
-    element: "#nav-home-page",
-    title: "HOME",
-    content: "This is your homepage"
-  },
-  {
-    element: "#nav-system-dashboard",
-    title: "SYSTEM DASHBOARD",
-    content: "This has a list of the system dashboard links and utilities.",
-    onNext: function(){
-        $('#nav-system-dashboard').addClass('open');
-      }
-  },
-  {
-    element: "#nav-business-news",
-    title: "BUSINESS NEWS",
-    content: "Here you can create an article, or give upcoming news about your company"
-  },
-  {
-    element: "#nav-investor-alert-list",
-    title: "INVESTOR ALERT LIST",
-    content: "Here you can view a list of investors",
-    onNext: function(){
-        $('#nav-system-dashboard').removeClass('open');
-        $('#nav-system-dashboard').removeClass('active');
-    }
-  },
-  {
-    element: "#company-nav",
-    title: "COMPANY",
-    content: "This has a list of company links and utilities",
-    onNext: function(){
-        $('#company-nav').addClass('open');
-    }
-  },
-  {
-    element: "#nav-company-view",
-    title: "VIEW COMPANY",
-    content: "You can view your company profile here"
-  },
-  {
-    element: "#nav-company-edit",
-    title: "EDIT COMPANY",
-    content: "You can edit your company details here"
-  },
-  {
-    element: "#nav-company-contact",
-    title: "CONTACTS",
-    content: "You can edit company contact information here"
-  },
-  {
-    element: "#nav-company-payment",
-    title: "PAYMENT HISTORY",
-    content: "You can view your complete payment and credit history here"
-  },
-  {
-    element: "#nav-company-deactivate",
-    title: "DEACTIVATE COMPANY",
-    content: "You can completely deactivate your company here",
-    onNext: function(){
-        $('#company-nav').removeClass('open');
-        $('#company-nav').removeClass('active');
-
-    },
-  },
-  {
-    element: "#nav-opportunities",
-    title: "OPPORTUNITIES",
-    content: "This has a list of links and utilities about opportunities on the Intellinz system",
-    onNext: function(){
-        $('#nav-opportunities').addClass('open');
-    },
-  },
-  {
-    element: "#nav-my-opportunities",
-    title: "MY OPPORTUNITIES",
-    content: "Here you can view, edit or add an opportunity you have for your company"
-  },
-  {
-    element: "#nav-explore",
-    title: "EXPLORE OPPORTUNITIES",
-    content: "Here you can view the most recent build, sell and buy opportunities on the Intellinz system",
-    onNext: function(){
-        $('#nav-opportunities').removeClass('open');
-        $('#nav-opportunities').removeClass('active');
-    },
-  },
-  {
-    element: "#nav-report",
-    title: "REPORT",
-    content: "This has a list of utilities and links for reports, monitoring and your tokens",
-    onNext: function(){
-        $('#nav-report').addClass('open');
-    },
-  },
-  {
-    element: "#nav-report-status",
-    title: "REPORT STATUS",
-    content: "Here you can view the status of a requested report submission"
-  },
-  {
-    element: "#nav-ongoing-monitoring",
-    title: "ONGOING MONITORING",
-    content: "Here you can update, download and monitor your reports"
-  },
-  {
-    element: "#nav-buy-credit",
-    title: "BUY CREDITS",
-    content: "Here you can see the token packages and purchase more credits"
-  },
-  {
-    element: "#nav-report-requester",
-    title: "REPORT REQUESTER",
-    content: "Here you can view the company information of someone who is requesting a report from you",
-    onNext: function(){
-        $('#nav-report').removeClass('open');
-        $('#nav-report').removeClass('active');
-    },
-  },
-  {
-    element: "#nav-login-dropdown",
-    title: "USER MENU",
-    content: "Click here to show the links for your account",
-    placement: 'left',
-    onNext: function(){
-        $('#nav-login-dropdown').addClass('open');
-    },
-  },
-  {
-    element: "#nav-login-account-credit",
-    title: "ACCOUNT AND CREDIT",
-    content: "Here you can view your credit balance and account status",
-    placement: 'left'
-  },
-  {
-    element: "#nav-login-company",
-    title: "MY COMPANY",
-    content: "Here you can view the profile of your company",
-    placement: 'left'
-  }, 
-  {
-    element: "#nav-login-inbox",
-    title: "MY INBOX",
-    content: "Here you can view, compose and send messages to other companies on the Intellinz system",
-    placement: 'left'
-  },  
-  {
-    element: "#nav-login-switch-company",
-    title: "SWITCH A COMPANY",
-    content: "Here you can switch to one of your other registered companies",
-    placement: 'left'
-  },   
-  {
-    element: "#nav-login-referrals",
-    title: "REFERRALS",
-    content: "Here you can view the affiliate program and the status of your referrals",
-    placement: 'left'
-  },  
-  {
-    element: "#nav-login-share-friend",
-    title: "SHARE TO FRIEND",
-    content: "Here you can email a friend with your referral link so they can join you on the Intellinz system",
-    placement: 'left'
-  },  
-  {
-    element: "#nav-login-logout",
-    title: "LOGOUT",
-    content: "This will log you out of the Intellinz system",
-    placement: 'left',
-    onNext: function(){
-        $('#nav-login-dropdown').removeClass('open');
-        return false;
-    },
-  },  
+  
   {
     element: "#home-enhance-profile",
     title: "Enhance Profile",
-    content: "It will redirect you to a page where you can edit your company information"
-
+    content: "It will redirect you to a page where you can edit your company information",
+    placement: 'right',
   },  
   {
     element: "#home-topup",
@@ -726,32 +564,38 @@ var tour = new Tour({
   {
     element: "#home-pending",
     title: "Pending Profile Request",
-    content: "A notification regarding profile request that needs your approval"
+    content: "A notification regarding profile request that needs your approval",
+    placement: 'bottom',
   },  
   {
     element: "#home-awaiting",
     title: "Awaiting Response",
-    content: "A notification regarding profile request that needs your approval"
+    content: "A notification regarding profile request that needs your approval",
+    placement: 'top',
   },  
   {
     element: "#home-oppor",
     title: "Opportunity Inbox",
-    content: "A notification for incoming message reagrding your opportunity. Clicking this block will redirect you to the Intellinz chat page"
+    content: "A notification for incoming message reagrding your opportunity. Clicking this block will redirect you to the Intellinz chat page",
+    placement: 'top',
   },
   {
     element: "#home-ongoing",
     title: "Ongoing Monitoring",
-    content: "A notification for ongoing monitoring"
+    content: "A notification for ongoing monitoring",
+    placement: 'top',
   },
   {
     element: "#home-generated",
     title: "Generated Report",
-    content: "Status for total reports that being generated"
+    content: "Status for total reports that being generated",
+    placement: 'top',
   },
   {
     element: "#home-completed",
     title: "Completed Report",
-    content: "Status for total reports that being completed"
+    content: "Status for total reports that being completed",
+    placement: 'top',
   },
 ],
 
@@ -765,12 +609,12 @@ var tour = new Tour({
   backdropContainer: 'body',
   backdropPadding: 0,
   redirect: true,
-  orphan: false,
+  orphan: true,
   duration: false,
   delay: false,
   basePath: "",
-  placement: 'auto',
-
+  //placement: 'auto',
+autoscroll: true,
   afterGetState: function (key, value) {},
   afterSetState: function (key, value) {},
   afterRemoveState: function (key, value) {},

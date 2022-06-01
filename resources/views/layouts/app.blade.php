@@ -177,6 +177,27 @@ h1,
 .mega-dropdown-menu .form-group {
   margin-bottom: 3px;
 }
+
+.bg-intellinz-light-green{
+    background-color:#dff7d9 !important
+}
+
+button.bg-intellinz-light-green:hover, input.bg-intellinz-light-green:hover, a.bg-intellinz-light-green:hover{
+    background-color:#7cda24 !important;
+    color:white !important;
+}
+
+button.bg-intellinz-light-green, input.bg-intellinz-light-green, a.bg-intellinz-light-green{
+    background-color:#dff7d9 !important;
+    color:black !important;
+    border: 1px solid #7cda24 !important;
+    font-weight:bold;
+}
+
+.btn.red-mint:not(.btn-outline){
+    border-color:none !important;
+}
+
 /*
     code for mega nav
 */
@@ -425,6 +446,17 @@ span.fa, i.fa{
     background:#484848 !important;
 }
 
+.form-control:focus {
+        border-color: #28a745 !important;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+}
+
+
+option:hover {
+  background-color: #28a745 !important;
+}
+
+
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -591,16 +623,16 @@ s0.parentNode.insertBefore(s1,s0);
                                                 }
                                                 ?>
 
-                                                <span class="username username-hide-mobile"><?php
+                                                <span style="color:black" class=" username username-hide-mobile"><?php
                                                 $user_id = Auth::id();
                                                 $company_id_result = App\CompanyProfile::getCompanyId($user_id);
                                                 $usr = App\User::find($user_id);
                                                 $accStatus = '';
                                                 if ($usr->user_type == 1) {
                                                     if( App\SpentTokens::validateAccountActivation($company_id_result) == false ){
-                                                        $accStatus = '(<b>FREE</b> ACCOUNT)';   
+                                                        $accStatus = '(<b class="text-company">FREE</b> ACCOUNT)';   
                                                     } else{
-                                                        $accStatus = '(<b>PREMIUM</b> ACCOUNT)'; 
+                                                        $accStatus = '(<b class="text-company">PREMIUM</b> ACCOUNT)'; 
                                                     } 
                                                 }
                 
@@ -792,7 +824,6 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <li aria-haspopup="true" id="nav-investor-alert-list">
                                                                <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
                                                                <i class="icon-magnifier" style="color: #7cda24"></i> Investor Alert List</a>
-
                                                         </li>
                                                         
                                                         <li aria-haspopup="true" id="nav-high-risk-list">
@@ -876,7 +907,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                     <a href="{{ url('/profile/socialAccounts') }}" class="nav-link"> <i class="fa fa-facebook-official" style="color: #7cda24"></i> Social Media Accounts</a>
                                                 </li> -->
                                                 <li aria-haspopup="true" class="company-deactivate">
-                                                    <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Company</a>
+                                                    <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red !important;"></i> Deactivate Company</a>
                                                 </li>
                                             </ul>
 
@@ -906,7 +937,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                                     <a href="{{ url('/profile/socialAccounts') }}" class="nav-link"> <i class="fa fa-facebook-official" style="color: #7cda24"></i> Social Media Accounts</a>
                                                                 </li> -->
                                                                 <li aria-haspopup="true" id="nav-company-deactivate">
-                                                                    <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red;"></i> Deactivate Company</a>
+                                                                    <a href="{{ url('/profile/deactivatePage') }}" class="nav-link  "><i class="fa fa-warning" style="color: red !important;"></i> Deactivate Company</a>
                                                                 </li>
                                                               </ul>
                                                           </div>

@@ -166,8 +166,8 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <input id="saveButtonCompanyContacts" onclick="return processUpdate();"
-                                                       type="button" class="btn btn-danger" value="Save"/>
+                                                <button id="saveButtonCompanyContacts" onclick="return processUpdate();"
+                                                       type="button" class="btn btn-primary" ><i class="fa fa-save"></i> SAVE</button>
                                             </div>
 
                                         </div>

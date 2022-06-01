@@ -32,11 +32,29 @@
 
         }
 
+ .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
 
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+ .cardborder-radius{
+        border-radius: 20px !important;
+        border: 1px solid #a5a5a5; ;
+    }
+    
+     .cardborder-radius:hover{
+        box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
+    }
 
     </style>
 
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="row justify-content-center">
 
@@ -130,9 +148,10 @@
 
             </div>
 
-            <div class="portlet-body">
-
-                <div class="table-container">
+            <div class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
+                <div class="card-body" style="padding:20px">
+            
+            <div class="table-scrollable" style="border:none">
 
                     <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
 
@@ -335,7 +354,7 @@
 
                             </table>
                         </div>
-
+                     </div>
                 </div>
 
             </div>

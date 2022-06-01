@@ -81,8 +81,18 @@
         font-weight:bold !important;;
     }
    
-   .tag_txt{
-       color: blue;
+   .tag_txt, .opp_type, .hr-sect strong, .info_list, .meta, .rating_score{
+       color: black !important;
+   }
+   
+   .fa-user-minus{
+       color: #7cda24 !important
+   }
+   
+   .rating_score{
+       color: black !important;
+       font-weight:bold;
+       font-size:20px;
    }
    
 </style>
@@ -199,7 +209,7 @@
                             <div class="form-group">
                                 <label class="filter_label" for="filter_country_cb">Click the SEARCH Button to begin searching based on your selected filter parameters.</label>
                                 <button style="" id="filter_search_btn" class="btn btn-dark bg-dark text-white"><i class="icon-magnifier">&nbsp;</i>SEARCH BY FILTER</button>
-                                <button style="" id="filter_load_all_btn" class="btn btn-dark bg-dark text-white"><i class="icon-magnifier">&nbsp;</i>VIEW ALL</button>
+                                <button style="" id="filter_load_all_btn" class="btn btn-dark bg-dark text-white"><i class="fa fa-eye">&nbsp;</i>VIEW ALL</button>
                             </div>
                             
                         </div>
@@ -344,32 +354,32 @@
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
                             @endif
                         </div>
@@ -379,7 +389,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('sell','{{ $item->id }}')" class="learn_more_btn btn btn-primary "><i class="fa fa-eye"></i> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -421,35 +431,35 @@
                 <?php
                                     if ($ratingScore < 25) {
                                         ?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
 
                                             <?php }?>
@@ -825,32 +835,32 @@
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
                             @endif
                         </div>
@@ -860,7 +870,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('buy','{{ $item->id }}')" class="learn_more_btn btn btn-primary "><i class="fa fa-eye"></i> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -903,35 +913,35 @@
                 <?php
                                     if ($ratingScore < 25) {
                                         ?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
 
                                             <?php }?>
@@ -1305,32 +1315,32 @@
                     <div style="display: flex;">
                         <div>
                             @if($ratingScore < 25)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p1.png') }}">
                             @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
+                                <img width="36" height="32"
                                      src="{{  asset('public/stars/p2.png') }}">
                             @endif
                         </div>
@@ -1340,7 +1350,7 @@
                         </div>
                     </div>
                     <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('build','{{ $item->id }}')" class="learn_more_btn btn btn-primary "> Learn More</button>
+                           <button onclick="showModalContent('build','{{ $item->id }}')" class="learn_more_btn btn btn-primary "><i class="fa fa-eye"></i> Learn More</button>
                     </div>
                     <div class="bottom-space" >
                         &nbsp;
@@ -1382,35 +1392,35 @@
                 <?php
                                     if ($ratingScore < 25) {
                                         ?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p1.png') }}">
 
                                             <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="30" height="32"
+                                            <img width="36" height="32"
                                                  src="{{  asset('public/stars/p2.png') }}">
 
                                             <?php }?>
@@ -1773,35 +1783,35 @@
 
         if ($ratingScore < 25) {
             ?>
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
 
                                         <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
 
                                         <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p1.png') }}">
 
                                         <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="30" height="32"
+                                        <img width="36" height="32"
                                              src="{{  asset('public/stars/p2.png') }}">
 
                                         <?php }?>
