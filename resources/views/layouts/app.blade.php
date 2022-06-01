@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
 <html lang="{{ app()->getLocale() }}">
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
@@ -51,13 +47,10 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&display=swap&subset=all" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('public/assets/global/plugins/simple-line-icons/simple-line-icons.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('public/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        
 
         <link href="{{ asset('public/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('public/assets/global/plugins/morris/morris.css')}}" rel="stylesheet" type="text/css" />
@@ -78,6 +71,8 @@
         <!-- for new banner
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
             -->
+            
+        <link href="{{ asset('public/assets/global/css/bootstrap.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
         <!-- END HEAD -->
         <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
 
@@ -85,10 +80,9 @@
      <style>
 
         @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
-body {
-  font-family: 'Open Sans', 'sans-serif';
-  background: #f0f0f0;
-  background: url(https://pcbx.us/bfjb.jpg);
+
+.page-header{
+    margin:0px !important;
 }
 
 h1,
@@ -239,7 +233,6 @@ h1,
             transform: translate(50%, -50%);
             border-radius: 1000px;
             background: rgba(0, 0, 0, 0.8);
-            font-family: Arial, Sans-Serif;
             font-size: 20px;
             text-align: center;
             line-height: 100%;
@@ -390,6 +383,46 @@ color: white;
 
 .text-white{
     color:white !important;
+}
+
+body {
+  font-family: 'Open Sans', 'sans-serif' !important;
+  background-color: whitesmoke !important;
+}
+
+.breadcrumb{
+    background-color: white !important;
+    margin-top:6px !important;
+    margin-bottom:6px !important;
+    color:black;
+}
+
+.dropdown-menu-default > li{
+    margin-top:10px !important;
+    margin-bottom:5px !important;
+}
+
+.btn-primary{
+    background-color:black !important;
+    color:white !important;
+}
+
+.blue{
+    background-color:black !important;
+    color:white !important;
+}
+
+span.fa, i.fa{
+    color:#7cda24 !important;
+}
+
+ .btn.blue:not(.btn-outline), .btn-primary{
+        border-color: black !important;
+    }
+    
+.btn.default{
+    color:white !important;
+    background:#484848 !important;
 }
 
      </style>
@@ -759,34 +792,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <li aria-haspopup="true" id="nav-investor-alert-list">
                                                                <a href="{{ url('/alertedRecords') }}" class="nav-link  ">
                                                                <i class="icon-magnifier" style="color: #7cda24"></i> Investor Alert List</a>
+
                                                         </li>
                                                         
                                                         <li aria-haspopup="true" id="nav-investor-alert-list">
                                                                <a href="<?php echo env("APP_URL"); ?>/highRisk/panama" class="nav-link  ">
                                                                <i class="icon-magnifier" style="color: #7cda24"></i> High Risk Profile</a>
                                                         </li>
-
-                                                         <!-- <li aria-haspopup="true" class=" ">
-                                                          <a href="{{ route('panamaList') }}" class="nav-link  ">
-                                                          <i class="icon-magnifier" style="color: #7cda24"></i>Panama</a>
-                                                          </li>
-
-                                                          <li aria-haspopup="true" class=" ">
-                                                            <a href="{{ route('bahamasList') }}" class="nav-link  ">
-                                                            <i class="icon-magnifier" style="color: #7cda24"></i>Bahamas</a>
-                                                          </li>
-                                                          
-                                                          <li aria-haspopup="true" class=" ">
-                                                            <a href="{{ route('paradiseList') }}" class="nav-link  ">
-                                                              <i class="icon-magnifier" style="color: #7cda24"></i>Paradise</a>
-                                                          </li>
-                                                          
-                                                          <li aria-haspopup="true" class=" ">
-                                                            <a href="{{ route('offshoreList') }}" class="nav-link  ">
-                                                            <i class="icon-magnifier" style="color: #7cda24"></i>Offshore</a>
-                                                        </li> -->
-
-
                                                 </ul>
                                                             </div>
 
@@ -1831,31 +1843,6 @@ s0.parentNode.insertBefore(s1,s0);
         <script src="{{asset('public/assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
 
-
-
-        <!-- START OF FIXING PROFILE DROP-DOWN MENU-->
-        <!-- BEGIN CORE PLUGINS -->
-        <!-- <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script> -->
-
-        <script src="{{asset('public/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
-
-        <!--END OF FIXING PROFILE DROP-DOWN MENU-->
-
-
-
-
-
-    <!-- START NEW SCRIPTS FOR FIXING OF MENU BAR -->
-        <!-- BEGIN CORE PLUGINS -->
-        <script src="{{asset('public/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <script src="{{asset('public/assets/global/plugins/moment.min.js')}}" type="text/javascript"></script>
