@@ -52,7 +52,7 @@ class AlertedrecordsController extends Controller
 
     {
 
-      $numRows = 5000;
+      $numRows = 2000;
 
       //$response = Http::get('https://www.mas.gov.sg/api/v1/ialsearch?json.nl=map&wt=json&fq=&q=*:*&sort=date_dt+desc&rows=541&start=0');
 
@@ -83,7 +83,7 @@ class AlertedrecordsController extends Controller
       $data_ia = array();
 
 
-
+    
       foreach($res['response']['docs'] as $d)
 
       {
@@ -91,6 +91,10 @@ class AlertedrecordsController extends Controller
          $ob = new Mas();
 
          $ob->id = $d['id'];
+         
+         $ob->date_dt = (isset($d['date_dt'])) ? strtoupper(date("d/m/y", strtotime($d['date_dt']))) : "";
+         
+         $ob->date_dt_raw = (isset($d['date_dt'])) ? $d['date_dt'] : "";
 
          $ob->address_s = $d['address_s'];
 
