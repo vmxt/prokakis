@@ -484,10 +484,19 @@ bg-dark
                                            style="width: 100%;">Top Up</a>
                                     </div>
                                         @if($c_promo == 0)   
-                                        <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>    
-                                        <a onclick="PromoOne('{{ $valid_token }}')" class="btn yellow"
-                                            style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
-                                        </a>
+                                        <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>
+                                        
+                                            <?php if($valid_token >= 120){ ?>
+                                        
+                                                <a onclick="PromoOne('{{ $valid_token }}')" class="bg-intellinz-light-green btn yellow btn-full"
+                                                    style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
+                                                </a>
+                                                
+                                            <?php }else{ ?>
+                                                <a onclick="noCredits()" class="bg-intellinz-light-green btn yellow btn-full"
+                                                    style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
+                                                </a>
+                                            <?php } ?>
                                         <?php } ?>
                                         @endif
 
@@ -715,12 +724,11 @@ if( $('#is_tour').val() == 1 ){
 
 
         });
-
-    function PromoOne(token){
-            if(token <= 0){
-                swal({
+        
+    function noCredits(){
+        swal({
                       title: 'Upgrading your account to premium failed!',
-                      text: "Sorry, You dont have sufficient token to upgrade your account. Do you want to purchase a token?",
+                      text: "Sorry, You dont have sufficient credit to upgrade your account. Upgrading needs 120 credits. Do you want to purchase a credits?",
                       icon: 'warning',
                       buttons: [
                           'No, cancel it!',
@@ -734,11 +742,11 @@ if( $('#is_tour').val() == 1 ){
                             swal("Cancelled", "Upgrading to premium was cancelled :)", "error");
                         }
 
-                      })
+                      });
+    }
 
-                    return false;
-            }
-
+    function PromoOne(token){
+            
             swal({
 
                 title: "Are you sure to upgrade your account?",

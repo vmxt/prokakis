@@ -130,6 +130,7 @@ Route::get('/tokenCompany', 'SuperAdminController@getTokenCompany')->name('GetTo
 
 //chat history
 Route::post('/chatProcess', 'ChatHistoryController@process')->name('chatProcess');
+Route::post('/chatProcess2', 'ChatHistoryController@process2')->name('chatProcess2');
 Route::post('/chatHeadProcess', 'ChatHistoryController@processHead')->name('chatProcessHead');
 Route::post('/chatChangeStatus', 'ChatHistoryController@changeStatus')->name('chatSetStatus');
 

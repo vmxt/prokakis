@@ -116,6 +116,10 @@ h1,
   -webkit-box-shadow: none;
 }
 
+.md-radio label>.check{
+    background: green !important;
+}
+
 .mega-dropdown-menu:before {
   content: "";
   border-bottom: 15px solid #fff;
@@ -197,6 +201,8 @@ button.bg-intellinz-light-green, input.bg-intellinz-light-green, a.bg-intellinz-
 .btn.red-mint:not(.btn-outline){
     border-color:none !important;
 }
+
+
 
 /*
     code for mega nav
@@ -412,10 +418,32 @@ body {
 }
 
 .breadcrumb{
-    background-color: white !important;
+    background-color: none !important;
+    background: none !important;
     margin-top:6px !important;
     margin-bottom:6px !important;
     color:black;
+    list-style:none;
+}
+
+.breadcrumb i.fa-circle:before{
+    content:" / " !important;
+    color:black;
+}
+
+.breadcrumb .fa{
+    font-size:16px !important;
+    color:black !important;
+    font-weight:bolder;
+}
+
+.breadcrumb a{
+    color:black !important;
+}
+
+.breadcrumb span, .breadcrumb li:last-child{
+    font-weight:bolder;
+    color:#7cda24 !important;
 }
 
 .dropdown-menu-default > li{
@@ -456,7 +484,10 @@ option:hover {
   background-color: #28a745 !important;
 }
 
-
+.mega_small_image, .mega_large_image{
+    border: 1px solid #7cda24 !important;
+}
+ 
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -541,7 +572,27 @@ s0.parentNode.insertBefore(s1,s0);
                                         $noti = App\Mailbox::getEmailUnderNoti($user_id);
                                         
                                         ?>
+                                        <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_chat_bar">
+                                            <?php 
+                                            $company_id_result = App\CompanyProfile::getCompanyId($user_id);
+                                            
+                                            $resBuild = App\ChatHistory::getChatHistoryBuildOpportunityUnseenTotal($company_id_result);
+                                        $resSell = App\ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
+                                        $resBuy = App\ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
+                                        $oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
+                                        
+                                        if($oppoInbox == 0){
+                                            $oppoInbox = "";
+                                        }
+                                        
+                                        ?>
+                                            <a href="{{ url('/opportunity/chatbox') }}" class="dropdown-toggle text-company" data-toggle="" data-hover="" data-close-others="">
+                                                <i style="font-size:25px !important" class="fa fa-comments-o text-company"></i>
+                                                <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $oppoInbox }}</span>
+                                            </a>
+                                        </li>
                                         <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
+                                            
                                             <a href="javascript:;" class="dropdown-toggle text-company" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                 <i style="font-size:25px !important" class="icon-envelope text-company"></i>
                                                 <span class="badge badge-danger counter counter-lg mail_icon_not"><?php echo App\Mailbox::getNumberEmailWithNoti($user_id);  ?></span>
@@ -596,28 +647,39 @@ s0.parentNode.insertBefore(s1,s0);
                                         <li id='nav-login-dropdown' style="z-index:1000011010101" class="dropdown dropdown-user dropdown-dark">
                                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                                 <?php
+                                                $main_profile_pic = "";
+                                                
                                                 if($userType == 1){
                                                     $profilePic = App\CompanyProfile::getProfileImage(Auth::id());
                                                     if($profilePic != null){
+                                                        $main_profile_pic = $profilePic;
                                                     ?>
                                                     <img class="img-circle" alt="" src="{{ asset('public/images/') }}/<?php echo $profilePic; ?>">
-                                                    <?php } else { ?>
+                                                    <?php } else { 
+                                                        $main_profile_pic = "robot.jpg";
+                                                    ?>
                                                     <img  class="img-circle" alt="" src="{{ asset('public/images/robot.jpg') }}">
                                                     <?php }
-                                                } elseif($userType == 2){
+                                                } else if($userType == 2){
                                                     $profilePicSC = App\CompanyProfile::getProfileImageSC(Auth::id());
                                                     if($profilePicSC != null){
+                                                        $main_profile_pic = $profilePicSC;
                                                     ?>
                                                     <img  class="img-circle alt=" src="{{ asset('public/images/') }}/<?php echo $profilePicSC; ?>">
-                                                    <?php } else { ?>
+                                                    <?php } else {
+                                                        $main_profile_pic = "robot.jpg";
+                                                    ?>
                                                     <img  class="img-circle alt=" src="{{ asset('public/images/robot.jpg') }}">
                                                     <?php }
-                                                } elseif($userType == 3){
+                                                } else if($userType == 3){
                                                     $profilePicMC = App\CompanyProfile::getProfileImageMC(Auth::id());
                                                     if($profilePicMC != null){
+                                                        $main_profile_pic = $profilePicMC;
                                                     ?>
                                                     <img  class="img-circle" alt="" src="{{ asset('public/images/') }}/<?php echo $profilePicMC; ?>">
-                                                    <?php } else { ?>
+                                                    <?php } else { 
+                                                        $main_profile_pic = "robot.jpg";
+                                                    ?>
                                                     <img  class="img-circle" alt="" src="{{ asset('public/images/robot.jpg') }}">
                                                     <?php }
                                                 }
@@ -625,7 +687,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 <span style="color:black" class=" username username-hide-mobile"><?php
                                                 $user_id = Auth::id();
-                                                $company_id_result = App\CompanyProfile::getCompanyId($user_id);
+                                                
                                                 $usr = App\User::find($user_id);
                                                 $accStatus = '';
                                                 if ($usr->user_type == 1) {
