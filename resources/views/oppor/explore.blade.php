@@ -2218,6 +2218,7 @@
     </div>
   </div>
 </div>
+
 <!-- END Connect Me MODAL -->
 
  <div class='intro-tour-overlay'></div>
@@ -2586,7 +2587,7 @@
                           contentType: false,
   
                           success: function (data) {
-                              if(data == "ok"){
+                              /*if(data == "ok"){
                               swal({
                                 title: 'Email notification',
                                 text:  'Successfully sent email notification to this company. ',
@@ -2602,7 +2603,10 @@
                                   $( "#viewprofile_modal .modal-body" ).load( '{{ url("/profile/viewprofile/") }}' + "/" + companyOpp );
                                 updateTour('end');
                                 $('#viewprofile_modal').modal('show');
-                              }
+                              }*/
+                               $( "#viewprofile_modal .modal-body" ).load( '{{ url("/profile/viewprofile/") }}' + "/" + companyOpp );
+                                updateTour('end');
+                                $('#viewprofile_modal').modal('show');
                           }
                       });
         }
@@ -2651,7 +2655,7 @@
                           contentType: false,
   
                           success: function (data) {
-                              if(data == "ok"){
+                              /*if(data == "ok"){
                               swal({
                                 title: 'Email notification',
                                 text:  'Successfully sent email notification to this company. ',
@@ -2667,7 +2671,10 @@
                                   $( "#viewprofile_modal .modal-body" ).load( '{{ url("/profile/viewprofile/") }}' + "/" + companyOpp );
                                 updateTour('end');
                                 $('#viewprofile_modal').modal('show');
-                              }
+                              }*/
+                              $( "#viewprofile_modal .modal-body" ).load( '{{ url("/profile/viewprofile/") }}' + "/" + companyOpp );
+                                updateTour('end');
+                                $('#viewprofile_modal').modal('show');
                           }
                       });
         }
@@ -2786,10 +2793,10 @@
         }
 
         function OppVcMe(avatarUrl, title,companyOpp,companyViewer,oppId,oppType){
-
+            var base_url = "<?php echo env('APP_URL'); ?>";
             //window.open("http://localhost/prokakis/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
             // window.open("https://test.app-prokakis.com/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
-            window.open("https://app-prokakis.com/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
+            window.open(base_url + "vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
          
         }
 
@@ -3459,7 +3466,7 @@ if( $('#is_tour').val() == 1 ){
         <div class="modal-dialog" style="width:90%">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close" style="margin-top:10px !important" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title " ></h4>
                 </div>
         <div class="modal-body">
