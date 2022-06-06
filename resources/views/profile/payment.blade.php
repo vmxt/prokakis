@@ -51,9 +51,29 @@
             }
         }
 
+ .cardborder-radius{
+        border-radius: 20px !important;
+        border: 1px solid #a5a5a5; ;
+    }
+    
+     .cardborder-radius:hover{
+        box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
+    }
+    
+     .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
 
     </style>
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <div class="container">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
             <li>
@@ -122,13 +142,14 @@
                                     @endif
 
 
-                                      <div class="card">
+                                      <div class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
+                <div class="card-body" style="padding:20px">
 
-                                        <div class="card-header"><b>PURCHASED HISTORY INFORMATION</b></div>
+                                        <h4 class="card-title"><b>PURCHASED HISTORY INFORMATION</b></h4>
 
                                         <div align="right">
-                                            <a  href="{{ url('/profile/printPreviewTokenPurchased').'/'.$company_id_result }}" target="_blank"><button class="btn-info">Print Preview</button></a>
-                                            <a  href="{{ url('/profile/paymentHistoryPdf').'/'.$company_id_result.'/buyToken' }}" target="_blank"><button class="btn-info">Download PDF</button></a>
+                                            <a  href="{{ url('/profile/printPreviewTokenPurchased').'/'.$company_id_result }}" target="_blank"><button class="btn btn-primary lg">Print Preview</button></a>
+                                            <a  href="{{ url('/profile/paymentHistoryPdf').'/'.$company_id_result.'/buyToken' }}" target="_blank"><button class="btn btn-primary lg">Download PDF</button></a>
                                         </div><br />
 
                                         <table id="system_data" class="display" style="max-width: 100%;">
@@ -174,14 +195,15 @@
 
                                     </div>
                                 </div>
-                                <div class="portlet light">
-                                    <div class="card">
+                                
+                                     <div class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
+                <div class="card-body" style="padding:20px">
 
-                                        <div class="card-header"><b>CREDIT SPENT HISTORY INFORMATION</b></div>
+                                        <h4 class="card-title"><b>CREDIT SPENT HISTORY INFORMATION</b></h4>
 
                                         <div align="right">
-                                            <a  href="{{ url('/profile/printPreviewTokenSpent').'/'.$company_id_result }}" target="_blank"><button class="btn-info">Print Preview</button></a>
-                                            <a  href="{{ url('/profile/paymentHistoryPdf').'/'.$company_id_result.'/spentToken' }}" target="_blank"><button class="btn-info">Download PDF</button></a>
+                                            <a  href="{{ url('/profile/printPreviewTokenSpent').'/'.$company_id_result }}" target="_blank"><button class="btn btn-primary lg">Print Preview</button></a>
+                                            <a  href="{{ url('/profile/paymentHistoryPdf').'/'.$company_id_result.'/spentToken' }}" target="_blank"><button class="btn btn-primary lg">Download PDF</button></a>
 
                                         </div><br />
 

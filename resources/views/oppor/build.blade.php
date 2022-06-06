@@ -290,6 +290,10 @@ input::-moz-focus-inner {
 .page-wrapper-row{
     
 }
+
+.md-radio label>.check{
+    background: green !important;
+}
     </style>
 
       
@@ -524,7 +528,7 @@ input::-moz-focus-inner {
                                                           data-off="Industry Image" 
                                                           data-width="200" 
                                                           data-onstyle="success" 
-                                                          data-offstyle="info" 
+                                                          data-offstyle="primary" 
                                                           data-style="slow">
                                                 </div>
 
@@ -843,7 +847,7 @@ input::-moz-focus-inner {
 
 
 
-                                            <div class="alert alert-info">
+                                            <div class="alert bg-dark text-white">
 
                                                 <span>Characters left:</spa><span style="color:red;" id="countDesc">500</span>
 
@@ -882,7 +886,7 @@ input::-moz-focus-inner {
 
 
 
-                                            <div class="alert alert-info">
+                                            <div class="alert bg-dark text-white">
 
                                                 <span>Characters left:</spa><span style="color:red;" id="countIntro">500</span>
 
@@ -918,7 +922,7 @@ input::-moz-focus-inner {
 
 
 
-                                            <div class="alert alert-info">
+                                            <div class="alert bg-dark text-white">
 
                                                 <span>Characters left:</spa><span style="color:red;" id="countStrength">500</span>
 
@@ -1173,7 +1177,7 @@ input::-moz-focus-inner {
                                               data-on="Anywhere" 
                                               data-width="250" 
                                               data-onstyle="success" 
-                                              data-offstyle="info" 
+                                              data-offstyle="primary" 
                                               data-style="slow">
                                         </div>
                                     <br/>
@@ -1702,7 +1706,7 @@ input::-moz-focus-inner {
                                                       data-on="Publish with company Info" 
                                                       data-width="250" 
                                                       data-onstyle="success" 
-                                                      data-offstyle="info" 
+                                                      data-offstyle="primary" 
                                                       data-style="slow">
                                                 </div>
 
@@ -1713,7 +1717,7 @@ input::-moz-focus-inner {
 
                                            <br />
 
-                                <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
+                                <div class="alert bg-dark text-white" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
 
                                 <strong>Publish Anonymously -</strong>  For those who want discretion when finding a strategic partner. 
 
@@ -1777,14 +1781,14 @@ input::-moz-focus-inner {
 
 
                             <div class="form-actions" align="right">
-                                <a style="margin-right:20px;" onclick="clearForm()" class="btn btn-info">Clear Form</a>
+                                <a style="margin-right:20px;" onclick="clearForm()" class="btn btn-warning">Clear Form</a>
                                 
                                 <a style="margin-right:20px;" href="{{ url('/opportunity') }}" class="btn red">Cancel</a>
 
                                        
                                 <input id="saveButtonBuilding" type="submit"
 
-                                class="btn btn-success" value="Submit Opportunity"/>
+                                class="btn btn-primary" value="Submit Opportunity"/>
 
                             </div>
 

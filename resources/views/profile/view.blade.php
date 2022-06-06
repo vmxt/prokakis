@@ -8,6 +8,12 @@
         padding: 0px;
         overflow-x: hidden;
     }
+    
+    .progress-bar{
+    background-color:black !important;
+    color:#7cda24 !important;
+}
+
 
 </style>
 
@@ -197,7 +203,7 @@
         }
 
         .pie {
-            background-color: #f0a22e99;
+            background-color: #7cda24;
             width: 200px;
             height: 200px;
             -moz-border-radius: 100px;
@@ -223,7 +229,7 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #F0A22E;
+            background-color: #dff7d9;
             border-color: #F0A22E;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
@@ -553,6 +559,14 @@
                 }
 
             }
+            
+            .tabbable-line>.nav-tabs>li.active{
+                border-bottom:4px solid #7cda24 !important;
+            }
+            
+            .tabbable-line>.nav-tabs>li:hover{
+                border-bottom:4px solid black !important;
+            }
 
     </style>
 
@@ -656,6 +670,7 @@
                             </div>
 
                             <br/>
+                           <!-- <p><i class="fa fa-exclamation-circle" style="color:red;"> Complete your profile information to make most out of Prokakis.</i></p> -->
                             <ul class='error-list'>
                                 <?php if(isset($completenessMessages)){
                                 foreach($completenessMessages as $d){
@@ -758,16 +773,16 @@
 
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">
-                                        <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
+                                        <div class="alert bg-intellinz-light-green text-company" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
                                                 <strong>Intellinz members are three times more likely
                                                 to engage with you if your company profile is over 30% complete.
                                                 Be sure to include accurate information.</strong>
                                             </p>
                                         </div>
-                                        <a href="{{ route('editProfile') }}" class="btn red-mint btn-full" id='enhance_com_btn' style="margin-top: 15px; width: 200px;">Enhance Company
+                                        <a href="{{ route('editProfile') }}" class="btn btn-primary" id='enhance_com_btn' style="margin-top: 15px; width: 200px;">Enhance Company
                                             Profile</a>
                     
-  <a data-popup-open="popup-previewcompany" id="companyProfilePreview" class="btn yellow btn-full" style="margin-top: 15px; width: 220px; cursor: zoom-in;">
+  <a data-popup-open="popup-previewcompany" id="companyProfilePreview" class="bg-intellinz-light-green btn yellow btn-full" style="margin-top: 15px; width: 220px; cursor: zoom-in;">
                                                 Company Preview</a>
                                     </div>
                                 </div>
@@ -1414,7 +1429,7 @@
                                     <label for="awards"><b>Awards</b></label> <br />
 
                                     <div id="upload">
-                                        <div class="alert alert-info" role="alert">Saved Awards</div>
+                                        <div class="alert bg-dark text-company" role="alert">Saved Awards</div>
                                         <?php if(count((array)$profileAwards) > 0) { ?>
                                         <ol>
 
@@ -1439,7 +1454,7 @@
 
                                     <div id="upload1">
                                         <?php if(count((array)$profilePurchaseInvoice) > 0) { ?>
-                                        <div class="alert alert-info" role="alert">Saved Purchase Invoice</div>
+                                        <div class="alert bg-dark text-company" role="alert">Saved Purchase Invoice</div>
                                         <ol>
                                             <?php foreach($profilePurchaseInvoice as $aw) {  ?>
                                             <li style="padding:5px;" id="purchaseInvoiceSaved<?php echo $aw[0]; ?>">
@@ -1456,7 +1471,7 @@
 
                                     <div id="upload2">
                                         <?php if(count((array)$profileSalesInvoice) > 0) { ?>
-                                        <div class="alert alert-info" role="alert">Saved Sales Invoice</div>
+                                        <div class="alert bg-dark text-company" role="alert">Saved Sales Invoice</div>
                                         <ol>
                                             <?php foreach($profileSalesInvoice as $aw) {  ?>
                                             <li style="padding:5px;" id="salesInvoiceSaved<?php echo $aw[0]; ?>">
@@ -1477,7 +1492,7 @@
 
                                     <div id="upload3">
                                         <?php if(count((array)$profileCertifications) > 0) { ?>
-                                        <div class="alert alert-info" role="alert">Saved Certificates</b></div>
+                                        <div class="alert bg-dark text-company" role="alert">Saved Certificates</b></div>
                                         <ol>
                                             <?php foreach($profileCertifications as $aw) {  ?>
                                             <li style="padding:5px;" id="certificatesSaved<?php echo $aw[0]; ?>">

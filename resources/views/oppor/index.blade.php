@@ -34,7 +34,27 @@
     }
 }
 
+  .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+ .cardborder-radius{
+        border-radius: 20px !important;
+        border: 1px solid #a5a5a5; ;
+    }
+    
+     .cardborder-radius:hover{
+        box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
+    }
+
     </style>
+    <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -89,8 +109,8 @@
                     <div id="list_div" class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="icon-bulb font-blue"></i>
-                                <span class="caption-subject font-blue sbold uppercase">List of your submitted opportunities</span>
+                                <i class="icon-bulb "></i>
+                                <span class="caption-subject  sbold uppercase">List of your submitted opportunities</span>
                             </div>
 
                             <div class="actions">
@@ -103,8 +123,9 @@
                             </div>
 
                         </div>
-                        <div class="portlet-body">
-                            <div id="container" class="table_div table-scrollable">
+                        <div class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
+                <div class="card-body" style="padding:20px">
+                            <div id="container" style="border:none !important" class="table_div table-scrollable">
 
                                     @if (session('status'))
                                     <div class="alert alert-success">
@@ -116,8 +137,8 @@
                                         {{ session('message') }}
                                     </div>
                                 @endif
-
-                                <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
+    
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>#</th>
@@ -273,7 +294,7 @@
 
                 </div>
                 </div>
-
+</div>
         </div>
 
 
