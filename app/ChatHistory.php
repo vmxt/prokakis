@@ -39,7 +39,10 @@ class ChatHistory extends Model
                         ->join('opp_building_capability as opp', 'head.receiver', "=", 'opp.id')
                         ->where('head.opp_type',  'build')
                         ->where('head.is_deleted', 0)
-                        ->where('opp.company_id', $company_id)
+                        ->where(function ($query) use ( $company_id) {
+                            $query->where('opp.company_id', '=', $company_id);
+                            $query->orWhere('head.sender', '=', $company_id);
+                        })
                         ->where('ch.status',0)
                         ->count();    
     }
@@ -52,7 +55,10 @@ class ChatHistory extends Model
                         ->join('opp_building_capability as opp', 'head.receiver', "=", 'opp.id')
                         ->where('head.opp_type',  'build')
                         ->where('head.is_deleted', 0)
-                        ->where('opp.company_id', $company_id)
+                        ->where(function ($query) use ( $company_id) {
+                            $query->where('opp.company_id', '=', $company_id);
+                            $query->orWhere('head.sender', '=', $company_id);
+                        })
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
                         ->get();     
@@ -66,7 +72,11 @@ class ChatHistory extends Model
                         ->join('opp_sell_offer as opp', 'head.receiver', "=", 'opp.id')
                         ->where('head.opp_type', '=', 'sell')
                         ->where('head.is_deleted', 0)
-                        ->where('opp.company_id','=',$company_id)
+                        //->where('opp.company_id','=',$company_id)
+                        ->where(function ($query) use ( $company_id) {
+                            $query->where('opp.company_id', '=', $company_id);
+                            $query->orWhere('head.sender', '=', $company_id);
+                        })
                         ->where('ch.status',0)
                         ->count(); 
 
@@ -82,7 +92,11 @@ class ChatHistory extends Model
                         ->join('opp_sell_offer as opp', 'head.receiver', "=", 'opp.id')
                         ->where('head.opp_type', '=', 'sell')
                         ->where('head.is_deleted', 0)
-                        ->where('opp.company_id','=',$company_id)
+                        //->where('opp.company_id','=',$company_id)
+                        ->where(function ($query) use ( $company_id) {
+                            $query->where('opp.company_id', '=', $company_id);
+                            $query->orWhere('head.sender', '=', $company_id);
+                        })
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
                         ->get();
@@ -97,7 +111,10 @@ class ChatHistory extends Model
                         ->join('opp_buy as opp', 'head.receiver', "=", 'opp.id')
                         ->where('head.opp_type', '=', 'buy')
                         ->where('head.is_deleted', 0)
-                        ->where('opp.company_id','=',$company_id)
+                        ->where(function ($query) use ( $company_id) {
+                            $query->where('opp.company_id', '=', $company_id);
+                            $query->orWhere('head.sender', '=', $company_id);
+                        })
                         ->where('ch.status',0)
                         ->count(); 
             
@@ -111,7 +128,10 @@ class ChatHistory extends Model
                         ->join('opp_buy as opp', 'head.receiver', "=", 'opp.id')
                         ->where('head.opp_type', '=', 'buy')
                         ->where('head.is_deleted', 0)
-                        ->where('opp.company_id','=',$company_id)
+                        ->where(function ($query) use ( $company_id) {
+                            $query->where('opp.company_id', '=', $company_id);
+                            $query->orWhere('head.sender', '=', $company_id);
+                        })
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
                         ->get();

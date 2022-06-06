@@ -94,10 +94,70 @@
        font-weight:bold;
        font-size:20px;
    }
+   .modal{
+       z-index:1000011010102 !important
+   }
    
+   .modal_loader {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
+   .wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(45deg, #7cda24, #fff);
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
+ 
 
     <div class="container container-grid">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -636,7 +696,7 @@
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2', '{{ $item->id }}');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="connectme_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
 
@@ -680,9 +740,9 @@
 
                 {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="viewprofile_btn btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1', '{{ $item->id }}');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="connectme_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="connectme_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                     
                     <?php if(App\VideoChat::getVcURL($item->id, 'sell', $requestor_id) == null){ ?>
                         <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','sell');" class="videochat_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
@@ -703,7 +763,7 @@
 
       </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
         </div>
     </div>
   </div>
@@ -1114,7 +1174,7 @@
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2', '{{ $item->id }}');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="connectme_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                     
@@ -1158,9 +1218,9 @@
 
                 {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="viewprofile_btn btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1', '{{ $item->id }}');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
-                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="connectme_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="connectme_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                     
                     <?php if(App\VideoChat::getVcURL($item->id, 'buy', $requestor_id) == null){ ?>
                         <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppVcMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','buy');" class="videochat_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Video Chat Me</a>
@@ -1180,7 +1240,7 @@
 
       </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
         </div>
     </div>
   </div>
@@ -1643,7 +1703,7 @@
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a id='viewprofile_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a id='viewprofile_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2', '{{ $item->id }}');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="connectme_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                    
@@ -1685,7 +1745,7 @@
 
                 {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a id='viewprofile_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="viewprofile_btn btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a id='viewprofile_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1', '{{ $item->id }}');" class="viewprofile_btn btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                     <a id='connectme_btn_{{ $buildCount }}' href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="connectme_btn btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                     
                     <?php if(App\VideoChat::getVcURL($item->id, 'build', $requestor_id) == null){ ?>
@@ -1706,7 +1766,7 @@
 
       </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
         </div>
     </div>
   </div>
@@ -1990,7 +2050,7 @@
 
                 {{-- Requestor = Premium | Provider = Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) != false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="PremiumToPremium({{ $company->id }}, {{ $requestor_id }},'{{ url('/company/'.$viewer.'/'.$company->id) }}', '2', '{{ $item->id }}');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','{{ $opportunity_type }}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
 
@@ -2034,7 +2094,7 @@
 
                 {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1', '{{ $item->id }}');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
 
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->opp_title }}', '{{ $company->id }}', '{{ $requestor_id }}', '{{ $item->id }}','build');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                     
@@ -2055,7 +2115,7 @@
         ?>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
         {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
       </div>
     </div>
@@ -2161,8 +2221,9 @@
 <!-- END Connect Me MODAL -->
 
  <div class='intro-tour-overlay'></div>
-
+    @if( isset($tour->scope) AND strpos($tour->scope , $scope) !== false )
     <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
+    @endif
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
 
@@ -2485,22 +2546,34 @@
         function nonPremiumToNonPremium(companyOpp,companyViewer,templateType)
         {
             $('.modal_oppoBox').modal('hide');
-              swal({
-                  title:"This requires premium account to open this profile.", 
-                  text: "Are you sure to proceed?  Because we will send an email notification to this company and redirect you to Dashboard page and find the upgrade button at Credit section.",
-                  icon: "warning",
-                  buttons: [
-                    'No, cancel it!',
-                    'Yes, I am sure!'
-                  ],
-                  dangerMode: true,
+          swal({
+                title:"This requires premium account to open this profile.", 
+                text: "Are you sure to proceed?  Because we will redirect you to Dashboard page and find the upgrade button at Credit section.",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                    document.location = '{{ url("/dashboard") }}';   
+
+                } else {
+                    swal("Cancelled", "To become premium account was cancelled :)", "error");
+                }
+              });
   
-                }).then(function(isConfirm) {
+        }
   
-                  if (isConfirm) {
-  
-                      formData = new FormData();
+        function premiumToNonPremium(companyOpp,companyViewer,templateType, opp_id)
+        {
+            $('.modal_oppoBox').modal('hide');
+           formData = new FormData();
                       formData.append("companyOpp", companyOpp);
+                      formData.append("opp_id", opp_id);
                       formData.append("companyViewer", companyViewer);
                       formData.append("templateType", templateType);
                       $.ajax({
@@ -2513,80 +2586,33 @@
                           contentType: false,
   
                           success: function (data) {
+                              if(data == "ok"){
                               swal({
-                                title: 'Email notification will be sent to this profile. You need to re-fill credit to become a Premium Account',
-                                text:  'Check Credit section and look for the Upgrade To Premium Account button.',
+                                title: 'Email notification',
+                                text:  'Successfully sent email notification to this company. ',
                                 icon:  'success'
                               }).then(function() {
-                                     //document.location = '{{ url("reports/buyTokens") }}';
-                                  document.location = '{{ url("/home") }}';
+                                $( "#viewprofile_modal .modal-body" ).load( '{{ url("/profile/viewprofile/") }}' + "/" + companyOpp );
+                                updateTour('end');
+                                $('#viewprofile_modal').modal('show');
                               
                               });
+                              }
+                              else{
+                                  $( "#viewprofile_modal .modal-body" ).load( '{{ url("/profile/viewprofile/") }}' + "/" + companyOpp );
+                                updateTour('end');
+                                $('#viewprofile_modal').modal('show');
+                              }
                           }
                       });
-  
-                  } else {
-                      swal("Cancelled", "To become premium account was cancelled :)", "error");
-                  }
-                });
-  
-        }
-  
-        function premiumToNonPremium(companyOpp,companyViewer,templateType)
-        {
-            $('.modal_oppoBox').modal('hide');
-            swal({
-                title:"The provider of this opportunity is non-premium.", 
-                text: "Are you sure to proceed? Because we will send an email notification to this company and encourage them to upgrade thier account to premium.",
-                icon: "warning",
-                buttons: [
-                  'No, cancel it!',
-                  'Yes, I am sure!'
-                ],
-                dangerMode: true,
-
-              }).then(function(isConfirm) {
-
-                if (isConfirm) {
-
-                    formData = new FormData();
-                    formData.append("companyOpp", companyOpp);
-                    formData.append("companyViewer", companyViewer);
-                    formData.append("templateType", templateType);
-                    $.ajax({
-                        url: "{{ route('emailNotification') }}",
-                        type: "POST",
-                        async: true,
-                        data: formData,
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        processData: false,
-                        contentType: false,
-
-                        success: function (data) {
-                            swal({
-                              title: 'Email notification succesfully sent to the opportunity provider.',
-                              text:  'You may drop a message directly to the provider through "Connect Me"',
-                              icon:  'success'
-                            }).then(function() {
-                                   //document.location = '{{ url("reports/buyTokens") }}';
-                                //document.location = '{{ url("/home") }}';
-                            
-                            });
-                        }
-                    });
-
-                } else {
-                    swal("Cancelled", "Notifying the opportunity provider was cancelled", "error");
-                }
-              });
         }
           
         function nonPremiumToPremium(companyOpp,companyViewer,templateType)
         {
           $('.modal_oppoBox').modal('hide');
-            swal({
+          swal({
                 title:"This requires premium account to open this profile.", 
-                text: "Are you sure to proceed?  Because we will send an email notification to this profile and redirect you to Dashboard page and find the upgrade button at Credit section.",
+                text: "Are you sure to proceed?  Because we will redirect you to Dashboard page and find the upgrade button at Credit section.",
                 icon: "warning",
                 buttons: [
                   'No, cancel it!',
@@ -2597,86 +2623,53 @@
               }).then(function(isConfirm) {
 
                 if (isConfirm) {
-
-                    formData = new FormData();
-                    formData.append("companyOpp", companyOpp);
-                    formData.append("companyViewer", companyViewer);
-                    formData.append("templateType", templateType);
-                    $.ajax({
-                        url: "{{ route('emailNotification') }}",
-                        type: "POST",
-                        async: true,
-                        data: formData,
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        processData: false,
-                        contentType: false,
-
-                        success: function (data) {
-                            swal({
-                              title: 'Email notification will be sent to this profile. You need to re-fill credit to become a Premium Account',
-                              text:  'Check Credit section and look for the Upgrade To Premium Account button.',
-                              icon:  'success'
-                            }).then(function() {
-                                   //document.location = '{{ url("reports/buyTokens") }}';
-                                document.location = '{{ url("/home") }}';
-                            
-                            });
-                        }
-                    });
+                    document.location = '{{ url("/dashboard") }}';   
 
                 } else {
                     swal("Cancelled", "To become premium account was cancelled :)", "error");
                 }
               });
+            
 
         }
 
 
-        function PremiumToPremium(companyOpp,companyViewer, url, templateType){
+        function PremiumToPremium(companyOpp,companyViewer, url, templateType, opp_id){
           $('.modal_oppoBox').modal('hide');
-            swal({
-                title:"We will send an email notification to this profile", 
-                text: "Are you sure to proceed?.",
-                icon: "warning",
-                buttons: [
-                  'No, cancel it!',
-                  'Yes, I am sure!'
-                ],
-                dangerMode: true,
-
-              }).then(function(isConfirm) {
-
-                if (isConfirm) {
-
-                    formData = new FormData();
-                    formData.append("companyOpp", companyOpp);
-                    formData.append("companyViewer", companyViewer);
-                    formData.append("templateType", templateType);
-                    $.ajax({
-                        url: "{{ route('emailNotification') }}",
-                        type: "POST",
-                        async: true,
-                        data: formData,
-                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                        processData: false,
-                        contentType: false,
-
-                        success: function (data) {
-                            swal({
-                              title: 'Email notification will be sent to this profile.',
-                              text:  'You will now redirect to this profile.',
-                              icon:  'success'
-                            }).then(function() {
-                                window.open( 
-                                url , "_blank"); 
+           formData = new FormData();
+                      formData.append("companyOpp", companyOpp);
+                      formData.append("opp_id", opp_id);
+                      formData.append("companyViewer", companyViewer);
+                      formData.append("templateType", templateType);
+                      $.ajax({
+                          url: "{{ route('emailNotification') }}",
+                          type: "POST",
+                          async: true,
+                          data: formData,
+                          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                          processData: false,
+                          contentType: false,
+  
+                          success: function (data) {
+                              if(data == "ok"){
+                              swal({
+                                title: 'Email notification',
+                                text:  'Successfully sent email notification to this company. ',
+                                icon:  'success'
+                              }).then(function() {
+                                $( "#viewprofile_modal .modal-body" ).load( '{{ url("/profile/viewprofile/") }}' + "/" + companyOpp );
+                                updateTour('end');
+                                $('#viewprofile_modal').modal('show');
+                              
                               });
-                        }
-                    });
-
-                } else {
-                    swal("Cancelled", "To become premium account was cancelled :)", "error");
-                }
-              });
+                              }
+                              else{
+                                  $( "#viewprofile_modal .modal-body" ).load( '{{ url("/profile/viewprofile/") }}' + "/" + companyOpp );
+                                updateTour('end');
+                                $('#viewprofile_modal').modal('show');
+                              }
+                          }
+                      });
         }
         
         function DeductThreeInboxMe(avatarUrl, oppTitle, oppId, companyOpp, companyViewer, oppType)
@@ -3131,6 +3124,7 @@ $(document).on('show.bs.modal',function(e){
       
 var tour2;
 
+@if( isset($tour->scope) AND strpos($tour->scope , $scope) !== false )
 var tour = new Tour({
   steps: [
   {
@@ -3240,6 +3234,7 @@ var tour = new Tour({
   afterRemoveState: function (key, value) {},
   onStart: function (tour) {},
   onEnd: function (tour) {
+      if(active_modal != ""){
       $('div.learn_more').find('button').eq(0).trigger('click');
      tour2 = new Tour({
       steps: [
@@ -3414,6 +3409,15 @@ var tour = new Tour({
 
     tour2.init();
      tour2.start();
+    }
+    else{
+        $('.intro-tour-overlay').hide();
+          $('html').css('overflow','unset')
+         $('.menu-dropdown').removeClass('open');
+         $(".modal-backdrop").show();
+            $(".modal").css('z-index','10050'); 
+           $(".popover").css('z-index','1102'); 
+         updateTour('end');}
   },
   onShow: function (tour) {},
   onShown: function (tour) {},
@@ -3437,7 +3441,7 @@ if( $('#is_tour').val() == 1 ){
      $('.intro-tour-overlay').show();
     tour.start();
 }
-
+@endif
         $(document).ready(function () {
             $(".close").click(function () {
                 $(".jumbotron").remove();
@@ -3445,5 +3449,38 @@ if( $('#is_tour').val() == 1 ){
         });
 
     </script>
+
+<div 
+        class="modal fade " 
+        id="viewprofile_modal" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="" 
+        aria-hidden="true">
+        <div class="modal-dialog" style="width:90%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title " ></h4>
+                </div>
+        <div class="modal-body">
+            <div class="modal_loader center" >
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                        </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>
 
 @endsection
