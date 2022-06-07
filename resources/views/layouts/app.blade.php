@@ -206,6 +206,11 @@ button.bg-intellinz-light-green, input.bg-intellinz-light-green, a.bg-intellinz-
     border-color:none !important;
 }
 
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus{
+    border-color:black !important;
+    background-color:black !important;
+}
+
 
 
 /*
@@ -491,6 +496,11 @@ option:hover {
 .mega_small_image, .mega_large_image{
     border: 1px solid #7cda24 !important;
 }
+
+.badge-danger{
+    background:red !important;
+    font-weight:bold !important;
+}
  
      </style>
 
@@ -575,26 +585,36 @@ s0.parentNode.insertBefore(s1,s0);
                                         <?php
                                         $noti = App\Mailbox::getEmailUnderNoti($user_id);
                                         
+                                        $usr = App\User::find($user_id);
+                                        
+                                        if ($usr->user_type != 5 && $usr->user_type != 4) {
+                                        
                                         ?>
+                                        
                                         <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_chat_bar">
                                             <?php 
                                             $company_id_result = App\CompanyProfile::getCompanyId($user_id);
                                             
-                                            $resBuild = App\ChatHistory::getChatHistoryBuildOpportunityUnseenTotal($company_id_result);
-                                        $resSell = App\ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
-                                        $resBuy = App\ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
-                                        $oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
-                                        
-                                        if($oppoInbox == 0){
-                                            $oppoInbox = "";
-                                        }
+                                            if(isset($company_id_result)){
+                                                $resBuild = App\ChatHistory::getChatHistoryBuildOpportunityUnseenTotal($company_id_result);
+                                            $resSell = App\ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
+                                            $resBuy = App\ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
+                                            $oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
+                                            
+                                            if($oppoInbox == 0){
+                                                $oppoInbox = "";
+                                            }
                                         
                                         ?>
                                             <a href="{{ url('/opportunity/chatbox') }}" class="dropdown-toggle text-company" data-toggle="" data-hover="" data-close-others="">
                                                 <i style="font-size:25px !important" class="fa fa-comments-o text-company"></i>
                                                 <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $oppoInbox }}</span>
                                             </a>
+                                            <?php } ?>
                                         </li>
+                                        
+                                        <?php } ?>
+                                        
                                         <li class="dropdown dropdown-extended dropdown-inbox dropdown-dark" id="header_inbox_bar">
                                             
                                             <a href="javascript:;" class="dropdown-toggle text-company" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

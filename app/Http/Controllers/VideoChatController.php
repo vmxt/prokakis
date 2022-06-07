@@ -175,9 +175,14 @@ class VideoChatController extends Controller {
 
 		}
 
+        
+        $oppId = $request['oppId'];
+        $oppType = $request['oppType'];
+        $companyOpp = $companyOpp = $request['companyOpp'];
+        $companyViewer = $request['companyViewer'];
+        
 
-
-	    return view("videochat.videopage", compact('isOnline', 'eVC'));
+	    return view("videochat.videopage", compact('isOnline', 'eVC', 'oppId', 'oppType', 'companyOpp', 'companyViewer'));
 
 	}
 
@@ -200,19 +205,6 @@ class VideoChatController extends Controller {
 
 	 	   $channel = $rVC[1]; 
 
-
-
-		  // $oppId = (isset($rs[5]))? $rs[5] : '';
-
-		  // $oppType = (isset($rs[6]))? $rs[6] : '';
-
-		  // $companyId = (isset($rs[7]))? $rs[7] : '';
-
-		  // $viewer = (isset($rs[8]))? $rs[8] : '';
-
-		  // $viewerC = explode("#", $viewer);
-
-//to test
 		   $oppId = (isset($rs[4]))? $rs[4] : '';
 
 		   $oppType = (isset($rs[5]))? $rs[5] : '';
@@ -223,10 +215,6 @@ class VideoChatController extends Controller {
 
 		   $viewerC = explode("#", $viewer);
 
-
-		 // $rs =  VideoChat::where('opp_id', $oppId)->where('opp_type', $oppType)->where('status', 1)->first();
-
-// 		dd($rs);
 
 		  $rs = VideoChat::where('opp_id',  $oppId)
 
@@ -241,7 +229,7 @@ class VideoChatController extends Controller {
 			->first();
 
 			
-
+        $success_return = "";
 
 
 		  if($rs == null){	
@@ -310,11 +298,33 @@ class VideoChatController extends Controller {
 
 		  $req = CompanyProfile::find($viewerC[0]);
 
-		  
 
-		  $subject = "Prokakis Video Chat Invitation";	
+        $message = 'Good day, This is from Company ('.$req->company_name.'). I just want to inform you that we would like to make a video chat with you.
+        If you will accept this, please use this link (  ' .$urlvc. "  ). Thank You!";
+        
+		  $ok = Mailbox::create([
 
-		  $content = "
+					'sender_id' => Auth::id(),
+
+					'receiver_id' => $c->user_id,
+
+					'receiver_email' => $usr->email,
+
+					'subject' => 'Intellinz Video Chat Notification',
+
+					'message' => $message,
+
+					'created_at' => date('Y-m-d H:i:s'),
+
+					'status' => 1,
+
+		]);
+		
+		if ($ok) {
+
+		  $subject = "Intellinz Video Chat Invitation";	
+
+		  /*$content = "
 
 		  Hi $usr->firstname,
 
@@ -322,15 +332,15 @@ class VideoChatController extends Controller {
 
 
 
-		  You have video chat invitation from Prokakis,  <br />
+		  You have video chat invitation from Intellinz,  <br />
 
 
 
-		  Company Name: {{ $req->company_name ?? '' }} <br />
+		  Company Name: $req->company_name  <br />
 
-		  Country Code: {{ $req->primary_country ?? '' }} <br />
+		  Country Code: $req->primary_country  <br />
 
-		  Industry: {{  $req->industry ?? '' }}<br />
+		  Industry:  $req->industry <br />
 
 		  <br />
 
@@ -342,13 +352,20 @@ class VideoChatController extends Controller {
 
 		  Prokakis
 
-		  ";
+		  ";*/
 
-		  //$usr->email
+		    $appurl = env('APP_URL');
+            $message =  file_get_contents($appurl . "public/emailtemplate/vc_invitation.html");
+            $message = str_replace("[_firstname_]", $usr->firstname, $message); 
+            $message = str_replace("[appurl]", $appurl, $message);
+            $message = str_replace("[_unsubscribelink_]", $appurl . "unsubscribe/" . $ok->id, $message);
+            
+            $message = str_replace("[_companyname_]", $req->company_name, $message);
+            $message = str_replace("[_vclink_]", $urlvc, $message);
 
-		  Mailbox::sendMail_v2($content, $usr->email, $subject, '');
+		  Mailbox::sendMail_v2($message, $usr->email, $subject, '');
 
-		   
+		}
 
 		}
 

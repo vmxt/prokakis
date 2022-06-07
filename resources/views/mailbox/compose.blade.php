@@ -87,8 +87,32 @@
             background: rgba(0, 0, 0, 1);
             text-decoration: none;
         }
+        
+            .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
+.active{
+    background: #dff7d9 !important;
+    color:black !important;
+    border: 1px solid #ddd !important;
+}
+
+.active .badge{ 
+    color:white !important;
+}
 
     </style>
+    
+    <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <ul class="page-breadcrumb breadcrumb">
         <li>
@@ -115,19 +139,19 @@
                             </div>
                             <div class="col col-md-12" style="margin-top: 15px;">
                                 <div class="list-group">
-                                    <a href="{{ route('mailCompose') }}" class="list-group-item">
-                                        <i class="icon-envelope-open"></i> Inbox
+                                    <a href="{{ route('mailCompose') }}" class="list-group-item active">
+                                        <i class="fa fa-inbox"></i> <b>INBOX</b>
                                         <?php
                                         $user_id = Auth::id();
                                         $inboxCount = App\Mailbox::getNumberEmailWithNoti($user_id);
                                         if($inboxCount > 0){
                                         ?>
-                                        <span class="badge badge-warning"> <?php echo $inboxCount; ?> </span>
+                                        <span class="badge badge-danger"> <?php echo $inboxCount; ?> </span>
                                         <?php }
-                                        else?>  <span class="badge badge-warning"> 0</span>
+                                        else  { ?>  <span class="badge badge-danger"> 0</span> <?php } ?>
                                     </a>
                                     <a href="{{ route('sentMail') }}" class="list-group-item">
-                                        <i class="icon-paper-plane"></i> Sent </a>
+                                        <i class="fa fa-paper-plane"></i> <b>SENT</b> </a>
                                 </div>
                             </div>
                         </form>
@@ -140,9 +164,10 @@
                 <div class="portlet light ">
                     <div class="caption font-dark">
                         <i class="note-icon-menu-check font-dark"></i>
-                        <span class="caption-subject bold uppercase"> Inbox Messages</span>
+                        <div class="alert bg-dark text-white ">
+                            <span class="caption-subject bold uppercase"><i class="fa fa-inbox">&nbsp;</i>Inbox Messages</span>
+                        </div>
                     </div>
-                    <hr>
                     <div class="portlet-body">
                         @if (session('status'))
                             <div class="alert alert-success">
@@ -155,49 +180,20 @@
                                 {{ session('message') }}
                             </div>
                         @endif
-                        <div id="sample_1_2_wrapper" class="dataTables_wrapper">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <div class="dataTables_length" id="sample_1_2_length"><label>Show <select
-                                                    name="sample_1_2_length" aria-controls="sample_1_2"
-                                                    class="form-control input-sm input-xsmall input-inline">
-                                                <option value="5">5</option>
-                                                <option value="15">15</option>
-                                                <option value="20">20</option>
-                                                <option value="-1">All</option>
-                                            </select></label></div>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <div id="sample_1_2_filter" class="dataTables_filter"><label>Search:<input
-                                                    type="search" class="form-control input-sm input-small input-inline"
-                                                    placeholder="" aria-controls="sample_1_2"></label></div>
-                                </div>
-                            </div>
-                            <div class="table-scrollable">
-                                <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable"
+                        
+                                <table class="table pure-table pure-table-horizontal pure-table-striped"
                                        id="sample_1_2" role="grid" aria-describedby="sample_1_2_info">
                                     <thead>
                                     <tr role="row">
-                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1_2" rowspan="1"
-                                            colspan="1" aria-sort="ascending"
-                                            aria-label=" Username : activate to sort column descending"
-                                            style="width: 161px;"> Subject
+                                        <th > Subject
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1_2" rowspan="1"
-                                            colspan="1" aria-label=" Email : activate to sort column ascending"
-                                            style="width: 243px;"> Sender
+                                        <th > Sender
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1_2" rowspan="1"
-                                            colspan="1" aria-label=" Email : activate to sort column ascending"
-                                            style="width: 243px;"> Remarks
+                                        <th > Remarks
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1_2" rowspan="1"
-                                            colspan="1" aria-label=" Joined : activate to sort column ascending"
-                                            style="width: 123px;">Date
+                                        <th >Date
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1_2" rowspan="1"
-                                            colspan="1" aria-label=" Actions : activate to sort column ascending"
-                                            style="width: 126px;"> Actions
+                                        <th > Actions
                                         </th>
                                     </tr>
                                     </thead>
@@ -235,9 +231,9 @@
 
                                         <td>
                                             @if($data->is_type == 'chat')
-                                                <a href="{{ url('/opportunity/chatbox') }}" class="btn btn-success">View</a>
+                                                <a href="{{ url('/opportunity/chatbox') }}" class="btn btn-primary btn-sm"><i class="fa fa-eye">&nbsp;</i>View</a>
                                             @else
-                                            <a href="{{ url('/mailbox/setReply/'.$data->id) }}" class="btn btn-success">View</a>
+                                            <a href="{{ url('/mailbox/setReply/'.$data->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye">&nbsp;</i>View</a>
                                             @endif
                                         </td>
 
@@ -245,35 +241,6 @@
                                     <?php } ?>
                                     </tbody>
                                 </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-5 col-sm-5">
-                                    <div class="dataTables_info" id="sample_1_2_info" role="status" aria-live="polite">
-                                        Showing 1 to 5 of 25 records
-                                    </div>
-                                </div>
-                                <div class="col-md-7 col-sm-7">
-                                    <div class="dataTables_paginate paging_bootstrap_full_number"
-                                         id="sample_1_2_paginate">
-                                        <ul class="pagination" style="visibility: visible;">
-                                            <li class="prev disabled"><a href="#" title="First"><i
-                                                            class="fa fa-angle-double-left"></i></a></li>
-                                            <li class="prev disabled"><a href="#" title="Prev"><i
-                                                            class="fa fa-angle-left"></i></a></li>
-                                            <li class="active"><a href="#">1</a></li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">5</a></li>
-                                            <li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a>
-                                            </li>
-                                            <li class="next"><a href="#" title="Last"><i
-                                                            class="fa fa-angle-double-right"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -301,6 +268,10 @@
         $(document).ready(function () {
             $('#clickmewow').click(function () {
                 $('#radio1003').attr('checked', 'checked');
+            });
+            
+            $('#sample_1_2').DataTable({
+                "ordering": false
             });
         })
 

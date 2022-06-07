@@ -82,7 +82,7 @@
             -webkit-border-radius: 100px;
             border-radius: 100px;
             background-color: #dff7d9;
-            border-color: #F0A22E;
+            border-color: ##7cda24;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -106,8 +106,8 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #F0A22E;
-            border-color: #F0A22E;
+            background-color: #dff7d9;
+            border-color: ##7cda24;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -483,22 +483,22 @@ bg-dark
                                         <a id='home-topup' href="{{ route('reportsBuyCredits') }}" class="btn red-mint"
                                            style="width: 100%;">Top Up</a>
                                     </div>
-                                        @if($c_promo == 0)   
-                                        <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>
-                                        
+                                       
                                             <?php if($valid_token >= 120){ ?>
-                                        
+                                                <?php if( App\SpentTokens::validateLeftBehindToken($company_id_result) == false ){  ?>
                                                 <a onclick="PromoOne('{{ $valid_token }}')" class="bg-intellinz-light-green btn yellow btn-full"
                                                     style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
                                                 </a>
-                                                
+                                            <?php }else{ ?>
+                                                <a onclick="alreadyPremium()" class="bg-intellinz-light-green btn yellow btn-full"
+                                                    style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
+                                                </a>
+                                            <?php } ?>
                                             <?php }else{ ?>
                                                 <a onclick="noCredits()" class="bg-intellinz-light-green btn yellow btn-full"
                                                     style="margin-top: 15px; width: 90%;"> <i class="fa" style="color: white;"></i> Upgrade To Premium Account 
                                                 </a>
                                             <?php } ?>
-                                        <?php } ?>
-                                        @endif
 
                                 </div>
                             </div>
@@ -724,6 +724,10 @@ if( $('#is_tour').val() == 1 ){
 
 
         });
+        
+    function alreadyPremium(){
+        swal("Warning!", "You are already a premium account user.", "warning");
+    }
         
     function noCredits(){
         swal({

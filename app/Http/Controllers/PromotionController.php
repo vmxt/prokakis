@@ -43,19 +43,19 @@ use App\SpentTokens;
 
 class PromotionController extends Controller {
 
-	/**
+    /**
 
-	 * Create a new controller instance.
+     * Create a new controller instance.
 
-	 *
+     *
 
-	 * @return void
+     * @return void
 
-	 */
+     */
 
-	public function __construct() {
+    public function __construct() {
 
-		$this->middleware('auth');
+        $this->middleware('auth');
 
     }
 
@@ -66,7 +66,7 @@ class PromotionController extends Controller {
 
         if(SpentTokens::validateTokenStocks($company_id) == false){ 
             return redirect('/reports/buyTokens')->with('message', 'You are not elligble for this upgrade. 
-            Please buy token and activate your account to premium.');
+            Please buy credits and activate your account to premium.');
             
             exit;
         }
@@ -88,7 +88,7 @@ class PromotionController extends Controller {
 
            if($ok){   
 
-            SpentTokens::spendTokenGeneral("UPGRADE-TO-PREMIUM", $company_id, $user_id, 1); 
+            SpentTokens::spendTokenGeneral("UPGRADE-TO-PREMIUM", $company_id, $user_id, 120); 
 
             return redirect('/home')->with('status', 'You have succesfully upgrade to premium account. ');
             exit;

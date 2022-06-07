@@ -112,8 +112,6 @@
 
   <br />
 
-
-
  <?php if($eVC != ''){ ?>
   <div align="center" style="padding-bottom: 20px; padding-top: 30px; clear:both">
     <a href="<?php echo url('/vc-end/'.$eVC); ?>" class="btn btn-primary ">End Video Chat Session</a>
@@ -142,6 +140,9 @@
                 cache: false,
                 success: function (data) {
                   console.log(data);
+                },
+                error: function (data) {
+                  console.log("error:" + data);
                 }
             });
 </script>
@@ -149,7 +150,7 @@
   <script>
 
   $(document).ready(function() {
-
+     
     // var url  = window.location.href;
 
     // console.log("current url:  " + url);
@@ -186,7 +187,7 @@
 
         <?php if($eVC == ''){ ?>  
 
-        setTimeout(function () { location.reload(true); }, 5000);
+       // setTimeout(function () { location.reload(true); }, 5000);
 
         <?php } ?>  
 

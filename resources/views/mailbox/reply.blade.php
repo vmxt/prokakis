@@ -54,19 +54,19 @@
                             </div>
                             <div class="col col-md-12" style="margin-top: 15px;">
                                 <div class="list-group">
-                                    <a href="{{ route('mailCompose') }}" class="list-group-item">
-                                        <i class="icon-envelope-open"></i> Inbox
+                                    <a href="{{ route('mailCompose') }}" class="list-group-item ">
+                                        <i class="fa fa-inbox"></i> <b>INBOX</b>
                                         <?php
                                         $user_id = Auth::id();
                                         $inboxCount = App\Mailbox::getNumberEmailWithNoti($user_id);
                                         if($inboxCount > 0){
                                         ?>
-                                        <span class="badge badge-warning"> <?php echo $inboxCount; ?> </span>
+                                        <span class="badge badge-danger"> <?php echo $inboxCount; ?> </span>
                                         <?php }
-                                        else?> <span class="badge badge-warning"> 0</span>
+                                        else  { ?>  <span class="badge badge-danger"> 0</span> <?php } ?>
                                     </a>
                                     <a href="{{ route('sentMail') }}" class="list-group-item">
-                                        <i class="icon-paper-plane"></i> Sent </a>
+                                        <i class="fa fa-paper-plane"></i> <b>SENT</b> </a>
                                 </div>
                             </div>
                         </form>

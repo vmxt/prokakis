@@ -2796,6 +2796,7 @@
             var base_url = "<?php echo env('APP_URL'); ?>";
             //window.open("http://localhost/prokakis/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
             // window.open("https://test.app-prokakis.com/vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
+            
             window.open(base_url + "vc/"+oppId+"/"+oppType+"/"+companyOpp+"/"+companyViewer, '_blank');
          
         }
