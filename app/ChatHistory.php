@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Auth;
+use App\CompanyProfile;
 
 class ChatHistory extends Model
 {
@@ -43,6 +45,7 @@ class ChatHistory extends Model
                             $query->where('opp.company_id', '=', $company_id);
                             $query->orWhere('head.sender', '=', $company_id);
                         })
+                        ->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
                         ->where('ch.status',0)
                         ->count();    
     }
@@ -77,6 +80,7 @@ class ChatHistory extends Model
                             $query->where('opp.company_id', '=', $company_id);
                             $query->orWhere('head.sender', '=', $company_id);
                         })
+                        ->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
                         ->where('ch.status',0)
                         ->count(); 
 
@@ -115,6 +119,7 @@ class ChatHistory extends Model
                             $query->where('opp.company_id', '=', $company_id);
                             $query->orWhere('head.sender', '=', $company_id);
                         })
+                        ->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
                         ->where('ch.status',0)
                         ->count(); 
             
@@ -139,10 +144,20 @@ class ChatHistory extends Model
     }
 
     public static function getStatusCount($head_id){
-        return   
+        /*return   
             ChatHistory::where('head_id', $head_id)
                 ->where('status', 0)
-                ->count();
+                ->count();*/
+        $user_id = Auth::id();  
+        $company_id = CompanyProfile::getCompanyId($user_id);
+        
+        return DB::table("chat_history as ch")
+                        ->select( 'head.id as head_id', 'ch.status', 'head.sender', 'head.receiver', 'ch.text', 'ch.created_at' )
+                        ->join('chat_history_head as head', 'head.id', "=", 'ch.head_id')
+                        ->where('head_id', $head_id)
+                       ->where('status', 0)
+                       ->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
+                        ->count();
     }
             
     public static function getChatDetails($headId, $status){

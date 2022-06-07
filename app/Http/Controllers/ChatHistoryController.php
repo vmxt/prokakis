@@ -115,6 +115,7 @@ class ChatHistoryController extends Controller {
 
 	   						
 	                     	$text[] = [
+	                     	        'head_id' => $heads->head_id,
 	                     			'avatarUrl'=>$avatarUrl, 
 	                     			'opp_title'=>$heads->opp_title ? $heads->opp_title : " ", 
 	                     			'company_id'=>$heads->company_id, 
@@ -124,8 +125,8 @@ class ChatHistoryController extends Controller {
 	                     			'opp_type'=>$heads->opp_type, 
 	                     			'company_name'=> $companyName ? $companyName : " ",
 	                     			'date'=>$date,
-                     			'status'=> ChatHistory::getStatusCount($heads->head_id),
-                     			'action_code' => $action_code
+                         			'status'=> ChatHistory::getStatusCount($heads->head_id),
+                         			'action_code' => $action_code
 	                     			];
 	                    }
 	        			$log['text'] = $text; 
@@ -208,7 +209,7 @@ class ChatHistoryController extends Controller {
 					  	 		    $senderName = CompanyProfile::find($opp->company_id)->company_name;
 						  	 	}
 						  	 	$receiverName = $senderName;
-	                     	$text[] = ['text'=>$msg, 'sender'=>$senderName, 'receiver'=>$receiverName, 'action'=>$chat->action  ];
+	                     	$text[] = ['text'=>$msg, 'sender'=>$senderName, 'receiver'=>$receiverName, 'action'=>$chat->action, 'date_chat'=>$chat->created_at->format('jS F Y h:i:s A')  ];
 		                    }
 		        			$log['text'] = $text; 
 					}
@@ -249,7 +250,7 @@ class ChatHistoryController extends Controller {
 				  	 		$senderName = CompanyProfile::find($opp->company_id)->company_name;
 						  	 	}
 						  	 	$receiverName = $senderName;
-                     	$text[] = ['text'=> $msg, 'sender'=>$senderName, 'receiver'=>$receiverName, 'action'=>$chat->action ];
+                     	$text[] = ['text'=> $msg, 'sender'=>$senderName, 'receiver'=>$receiverName, 'action'=>$chat->action, 'date_chat'=>$chat->created_at->format('jS F Y h:i:s A')];
 		                    }
 		        			$log['text'] = $text; 
 		             break;

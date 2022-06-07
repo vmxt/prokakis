@@ -84,6 +84,10 @@
 .page-header{
     margin:0px !important;
 }
+  .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
 
 h1,
 .h1 {

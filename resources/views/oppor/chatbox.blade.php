@@ -86,11 +86,11 @@
         }
 
 .panel-body ul:hover {
-  -moz-box-shadow: 0 0 1px 1px #31708f !important;
+  /*-moz-box-shadow: 0 0 1px 1px #31708f !important;
   -webkit-box-shadow: 0 0 1px 1px #31708f !important;
   /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
-  box-shadow: 0 0 5px 0 #31708f !important;
-  cursor: default !important;
+  box-shadow: 0 0 5px 0 #7cda24 !important;
+  cursor: pointer !important;
 }
 .chat-head{
     min-height: 500px;
@@ -102,26 +102,27 @@
 
 #page-wrap  { 
     /*width: 85%; */
-    margin: 30px auto; 
+    margin: 10px auto; 
     position: relative; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
     /*margin-bottom: 90px;*/
 }
 
 #chat-wrap { 
     /*border: 1px solid #eee; */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
     margin: 0 0 15px 0; 
 }
 
 #chat-area { 
-    height: 400px; 
+    height: 70vh; 
     overflow: auto; 
-        border-width:5px;  
-    border-style:groove;
     padding: 20px; 
      /*background: #E5DDD5; */
+}
+
+.list-group-item:hover{
+    border-shadow:none !important
 }
 
 #chat-area span { 
@@ -165,14 +166,14 @@
 }
 
 #sendie  { 
-    border: 3px solid #999; 
+    /*border: 3px solid #999; 
     width: 360px; 
     padding: 10px; 
     font-size: 15px;
     float: right; 
 
     width: 100% !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);*/
 }
 
 #chat-area h6 {
@@ -228,11 +229,11 @@ img.chatAvatar {
 
 .chat-provider span {
      margin-left: 10em !important;
-    background: #DCF8C6; 
+    /*background: #DCF8C6; */
 }
 
 .chat-requestor span{
-  background: #FFFFFF; 
+  background: #dff7d9; 
 
 }
 
@@ -352,7 +353,7 @@ img.chatAvatar {
 
   .chat-provider span{
     margin-left: 0em !important;
-    background: #82CCDD;
+    /*background: #82CCDD;*/
   }
 
   .chat-area-text img{
@@ -432,21 +433,21 @@ img.chatAvatar {
 }
 
 .message-input .wrap input {
-    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
+    /*font-family: "proxima-nova", "Source Sans Pro", sans-serif;
     float: left;
     border: none;
     width: calc(100% - 90px);
     padding: 11px 32px 10px 8px;
     font-size: 0.8em;
-    color: #32465a;
+    color: #32465a;*/
 }
 
 #sendie {
-    box-sizing: border-box;
+    
 }
 
 #sendie {
-    -webkit-writing-mode: horizontal-tb !important;
+    /*-webkit-writing-mode: horizontal-tb !important;
     text-rendering: auto;
     color: -internal-light-dark-color(black, white);
     letter-spacing: normal;
@@ -466,7 +467,8 @@ img.chatAvatar {
     border-width: 2px;
     border-style: ridge;
     border-color: -internal-light-dark-color(rgb(118, 118, 118), rgb(195, 195, 195));
-    border-image: initial;
+    border-image: initial;*/
+    height:45px;
 }
  .message-input .wrap button {
     float: right;
@@ -477,7 +479,9 @@ img.chatAvatar {
     background: black;
     color: #f5f5f5;
 }
-
+.portlet.light{
+    padding:none !important;
+}
 .fa {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
@@ -534,11 +538,21 @@ img.chatAvatar {
 }
 
 .feeds li{
-    background-color: #dff7d9 ;
+    /*background-color: #dff7d9 ;*/
 }
+
 .chathead_selected{
-    border: 3px solid #7cda24 !important;
+    background:black !important;
+}
+.chathead_selected .my-3, .chathead_selected .company_name_label{
+    /*border: 3px solid black !important;*/
+    
     color:white !important;
+}
+
+.chat_date{
+    font-size:10px;
+    margin-left:10px;
 }
 
     </style>
@@ -572,6 +586,8 @@ $userType = App\User::validateAccountNavigations(Auth::id());
                                                      }
                                                 }
                                                 ?>
+                                                
+                                                
 
     <ul class="page-breadcrumb breadcrumb">
         <li>
@@ -583,21 +599,21 @@ $userType = App\User::validateAccountNavigations(Auth::id());
         </li>
 
     </ul>
-    <div class="container" style="margin-top: 10px;">
+    <div class="container" style="">
 
         <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="portlet light " style=";">
-                    <div class="card" style="width: 100%; margin-top: 15px;">
+                    <div class="card" style="width: 100%;">
 
-                        <div class="panel h-effect">
-                            <div class="panel-heading for-mobile" data-toggle="collapse" data-target="#chatHeads">
-                                <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i>{{ App\CompanyProfile::getCompanyName($company_id) }}</span>
+                        <div class="panel h-effect" style="border:1px solid silver !important">
+                            <div class="panel-heading for-mobile bg-dark text-white" style="border-bottom:1px solid white" data-toggle="collapse" data-target="#chatHeads">
+                                <span class="caption-subject bold uppercase"> <i class="fa fa-tv">&nbsp;</i>CHAT LIST - (Click To View)</span>
                             </div>
-                            <div class="panel-heading for-desktop">
-                                <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i>{{ App\CompanyProfile::getCompanyName($company_id) }}</span>
+                            <div class="panel-heading for-desktop bg-dark text-white" style="border-bottom:1px solid white">
+                                <span class="caption-subject bold uppercase"> <i class="fa fa-tv">&nbsp;</i>CHAT LIST</span>
                             </div>
-                            <div class="panel-body chat-head collapse"  id="chatHeads" >
+                            <div class="panel-body chat-head collapse "  id="chatHeads" >
                             <?php
                                 if ($chatHeads->count() > 0):
                                     foreach ($chatHeads as $heads):
@@ -637,7 +653,7 @@ $userType = App\User::validateAccountNavigations(Auth::id());
                                             $action_code = "2";
                                         }
                                 ?>
-                                <ul id="head_{{ $heads->head_id }}" class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $avatarUrl }}', '{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}', '{{ $heads->head_id }}', '{{ $action_code }}', '{{ $heads->opp_title }}')">
+                                <ul id="head_{{ $heads->head_id }}" class="feeds list-group" name="{{ $heads->sender }}<split>{{ $heads->receiver }}<split>{{ $heads->opp_type }}<split>{{ $heads->head_id }}" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $avatarUrl }}', '{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}', '{{ $heads->head_id }}', '{{ $action_code }}', '{{ $com_name }}')">
                                     <li class="list-group-item">
                                         
                                         <div class="card mb-4">
@@ -680,7 +696,6 @@ $userType = App\User::validateAccountNavigations(Auth::id());
                         <i class="fa fa-user"></i>
                         <span class="caption-subject bold uppercase" id="chat_name_span">Chat Box </span>
                     </div>
-                    <hr>
                     <div class="portlet-body">
                                 <div class="modal-body">
                                   <div id="page-wrap">
@@ -691,8 +706,8 @@ $userType = App\User::validateAccountNavigations(Auth::id());
                                       <div id="chat-wrap"><div id="chat-area"></div></div>
 
                                     <div class="message-input">
-                                        <div class="wrap">
-                                            <input id="sendie" type="text" class="" placeholder="Write your message here..." disabled="disabled">
+                                        <div class="wrap input-group">
+                                            <input id="sendie" type="text" class="form-control" placeholder="Write your message here..." disabled="disabled">
                                             {{-- <textarea id="sendie" placeholder="Type your message here..." maxlength = '100' rows="2" ></textarea> --}}
                                             <button title="Send" id='sendMessage' class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                         </div>
@@ -736,7 +751,7 @@ $userType = App\User::validateAccountNavigations(Auth::id());
 
         </div>
     </div>
-
+<input type="hidden" id="selected_chat_heads_hidden" />
 
     <script src="{{ asset('public/js/app.js') }}"></script>
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
@@ -754,6 +769,8 @@ $userType = App\User::validateAccountNavigations(Auth::id());
         function loadChat(avatarUrl, title,companyOpp,companyViewer,oppId,oppType,headId, action_code, company_name){
             $(".feeds li").removeClass("chathead_selected");
             $("#head_"+headId + " li").addClass("chathead_selected");
+            
+            $("#selected_chat_heads_hidden").val("head_"+headId);
             
             $('.chatOppTitle').text(title);
             $('#chatAvatar_'+companyViewer+oppId).attr('src',avatarUrl);
@@ -775,7 +792,7 @@ $userType = App\User::validateAccountNavigations(Auth::id());
                 `);
             $('#sendie').prop("disabled", false);
             
-            $("#chat_name_span").text(company_name);
+            $("#chat_name_span").html(title + " <i>(" + company_name + ")</i>");
 
             chat.onload();
             chat.getState(); 
@@ -942,7 +959,9 @@ function udpateChatHeads(){
           contentType: false,
           dataType: "json",
           success: function (data) {
-
+            if($("#selected_chat_heads_hidden").val() != ""){
+                $( "#" + $("#selected_chat_heads_hidden").val() + " li" ).addClass("chathead_selected");
+            }
             if(data.text != false){
                             console.log(data);
             console.log("udpateChatHeads");
@@ -951,14 +970,21 @@ function udpateChatHeads(){
                 for (var i = 0; i < data.text.length; i++) {
                     var message_icon = '';
                     if(parseInt(data.text[i].status) > 0){
-                        message_icon = '<i data-count="'+data.text[i].status+'" style="font-size:30px !imprtant;" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg"></i>';
+                        if($("#selected_chat_heads_hidden").val() == "head_"+data.text[i].head_id){
+                            
+                            setStatustoSeen(data.text[i].sender,data.text[i].receiver,data.text[i].opp_type,data.text[i].head_id);
+                            message_icon = '<i data-count="'+data.text[i].status+'" style="font-size:30px !imprtant;" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg2"></i>';
+                        }
+                        else{
+                            message_icon = '<i data-count="'+data.text[i].status+'" style="font-size:30px !imprtant;" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg"></i>';
+                        }
                     }
                     else{
                          message_icon = '<i data-count="'+data.text[i].status+'" style="font-size:30px !imprtant;" class="fa fa-envelope fa-2x fa-border icon-grey badge-msg2"></i>';
                     }
                     
                       $('.chat-head').append($(`
-                        <ul id="head_`+data.text[i].head_id+`" class="feeds list-group" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('`+data.text[i].avatarUrl+`', '`+data.text[i].opp_title+`', '`+data.text[i].company_id+`', '`+data.text[i].sender+`','`+data.text[i].receiver+`', '`+data.text[i].opp_type+`', '`+data.text[i].head_id+`', '`+data.text[i].action_code+`', '`+data.text[i].opp_title+`')">
+                        <ul id="head_`+data.text[i].head_id+`" class="feeds list-group" style="border-style:none; margin-bottom: 5px;" name="`+data.text[i].sender+`<split>`+data.text[i].receiver+`<split>`+data.text[i].opp_type+`<split>`+data.text[i].head_id+`" onclick="loadChat('`+data.text[i].avatarUrl+`', '`+data.text[i].opp_title+`', '`+data.text[i].company_id+`', '`+data.text[i].sender+`','`+data.text[i].receiver+`', '`+data.text[i].opp_type+`', '`+data.text[i].head_id+`', '`+data.text[i].action_code+`', '`+data.text[i].company_name+`')">
                                     <li class="list-group-item">
                                     <div class="card mb-4">
                                           <div class="card-body text-center">
@@ -1059,7 +1085,9 @@ function chatload(){
           contentType: false,
           dataType: "json",
           success: function (data) {
-            
+            if($("#selected_chat_heads_hidden").val() != ""){
+                $( "#" + $("#selected_chat_heads_hidden").val() + " li" ).addClass("chathead_selected");
+            }
             if(data.text != false){
                 $('#chat-area').empty();
                 $("#chat-area").append(`
@@ -1072,9 +1100,9 @@ function chatload(){
                 `);
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action == 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +" <b class='chat_date'><i class='fa fa-clock-o'></i> "+ data.text[i].date_chat +"</b> </p></span></div>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>{{$company_name_me}}</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='{{ asset('public/images') . "/" . $main_profile_pic }}'  /></div>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider '><span class='bg-dark text-white'><h6>{{$company_name_me}}</h6><p>"+ data.text[i].text +" <b class='chat_date'><i class='fa fa-clock-o'></i> "+ data.text[i].date_chat +"</b></p></span><img class='providerAvatar' src='{{ asset('public/images') . "/" . $main_profile_pic }}'  /></div>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;
@@ -1089,13 +1117,22 @@ function chatload(){
       setStatustoSeen(companyViewer,oppId,oppType,headId);
 }
 
+function getBackgroundImageUrl($element) {
+    if (!($element instanceof jQuery)) {
+      $element = $($element);
+    }
+
+    var imageUrl = $element.css('background-image');
+    return imageUrl.replace(/(url\(|\)|'|")/gi, ''); // Strip everything but the url itself
+  }
+
 //Updates the chat
 function updateChat(){
     var companyOpp = $("#chat-companyOpp").val();
     var companyViewer = $("#chat-companyViewer").val();
     var oppId = $("#chat-oppId").val();
     var oppType = $("#chat-oppType").val();
-    var requestorAvatar = $('#chatAvatar_'+companyViewer+oppId).attr('src');
+    var requestorAvatar = getBackgroundImageUrl('#chatAvatar_'+companyViewer+oppId);  //$('#chatAvatar_'+companyViewer+oppId).attr('src');
 
    if(!instanse){
      instanse = true;
@@ -1118,7 +1155,10 @@ function updateChat(){
           contentType: false,
           dataType: "json",
           success: function (data) {
-            
+            if($("#selected_chat_heads_hidden").val() != ""){
+                $( "#" + $("#selected_chat_heads_hidden").val() + " li" ).addClass("chathead_selected");
+                
+            }
             if(data.text != false){
                 $('#chat-area').empty();
                 $("#chat-area").append(`
@@ -1131,9 +1171,9 @@ function updateChat(){
                 `);
                 for (var i = 0; i < data.text.length; i++) {
                     if(data.text[i].action == 1){
-                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +"</p></span></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-requestor'><img class='requestorAvatar' src='"+requestorAvatar+"' /><span><h6>"+data.text[i].sender+ "</h6><p>"+ data.text[i].text +" <b class='chat_date'><i class='fa fa-clock-o'></i> "+ data.text[i].date_chat +"</b></p></span></div>"));
                     }else{
-                      $('#chat-area').append($("<div class='chat-area-text chat-provider'><span><h6>{{$company_name_me}}</h6><p>"+ data.text[i].text +"</p></span><img class='providerAvatar' src='{{ asset('public/images') . "/" . $main_profile_pic }}' /></div><hr>"));
+                      $('#chat-area').append($("<div class='chat-area-text chat-provider '><span class='bg-dark text-white'><h6>{{$company_name_me}}</h6><p>"+ data.text[i].text +" <b class='chat_date'><i class='fa fa-clock-o'></i> "+ data.text[i].date_chat +"</b></p></span><img class='providerAvatar' src='{{ asset('public/images') . "/" . $main_profile_pic }}' /></div>"));
                     }
                 }    
             document.getElementById('chat-area').scrollTop = document.getElementById('chat-area').scrollHeight;

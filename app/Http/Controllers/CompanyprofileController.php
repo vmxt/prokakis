@@ -157,6 +157,112 @@ class CompanyprofileController extends Controller {
 		}
 
 	}
+	
+	public function view_profile(Request $request) {
+	    
+		//echo $user_id; exit;
+
+		$company_id_result = $request["key"];
+
+		$company_data = CompanyProfile::find($company_id_result);
+		$user_id = $company_data->user_id;
+
+		// if($company_data == null){
+
+		//  return redirect('home')->with('message', 'You are restricted to open profile section, please check with the administrator.');
+
+		// } else {
+
+		//from system configuration
+
+		$num_of_employee = Configurations::getJsonValue('num_of_employee');
+
+		$estimated_sales = Configurations::getJsonValue('estimated_sales');
+
+		//$currency = Configurations::getJsonValue('currency');
+
+		$ownership_status = Configurations::getJsonValue('ownership_status');
+
+		$business_type = Configurations::getJsonValue('business_type');
+
+		$business_industry = Configurations::getJsonValue('business_industry');
+
+		$no_of_staff = Configurations::getJsonValue('no_of_staff');
+
+		$financial_year = Configurations::getJsonValue('financial_year');
+
+		$financial_month = Configurations::getJsonValue('financial_month');
+
+		$countries = Configurations::getJsonValue('countries');
+
+		$year_founded = Configurations::getJsonValue('year_founded');
+
+		$years_establishment = Configurations::getJsonValue('years_establishment');
+
+		$currency = Currency::all();
+
+		$gross_profit_loss = Configurations::getJsonValue('gross_profit_loss');
+
+		$net_profit_loss = Configurations::getJsonValue('net_profit_loss');
+
+		$filling_rate = Configurations::getJsonValue('filling_rate');
+
+		$asset_more_liability = Configurations::getJsonValue('asset_more_liability');
+
+		$paid_up_capital = Configurations::getJsonValue('paid_up_capital');
+
+		$countries = Countries::all();
+
+		$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
+
+		$profileAwards = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.awards'), 5);
+
+		$profilePurchaseInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.purchase_invoices'), 5);
+
+		$profileSalesInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.sales_invoices'), 5);
+
+		$profileCertifications = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.certification'), 5);
+
+		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
+
+		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
+
+			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
+
+			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+		$brand_slogan = CompanyProfile::getBrandSlogan($user_id, $company_id_result);
+
+		$viewer = base64_encode($brand_slogan[0]);
+		$urlFB = url('/fbshare'. '/' . $company_id_result . '/'.$viewer);
+		
+		$urlPreview = url('company/'.$company_id_result);
+
+		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
+	
+
+		//$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id',$user_id)->where('company_id', $company_id_result)->first();
+
+		$businessNewsOpportunity = BusinessOpportunitiesNews::orderBy('updated_at','desc')->limit(10)->get();
+
+		return view('profile.profileview', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+
+			'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+
+			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+
+			'profileCertifications', 'completenessProfile', 'profileCoverPhoto',
+
+			'completenessMessages', 'brand_slogan', 'urlFB', 'keyPersons',
+
+			'user_id', 'businessNewsOpportunity', 'urlPreview', 'company_id_result'));
+
+		//}
+
+	}
 
 	public function view(Request $request) {
 
