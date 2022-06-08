@@ -63,19 +63,19 @@
                    <div class="card-header"><b>Request Report</b> </div> <br />
             
             
-             
+			 
 
-            <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
-                                                <b>This request report requires a 120 credits, please enter your details so that we can contact you once the report is ready. </b> <br />
+			<div class="alert text-company bg-intellinz-light-green" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
+                                                <b>This request report requires a <b class="text-company">120 credits</b>, please enter your details so that we can contact you once the report is ready. </b> <br />
                                                 We preload your company data to the following text fields, if you wish to request in behalf of other company please do update
                                                 the data in the textfields.
                                             </p>
             </div>
-            
-            
-            <?php 
-            
-            $user_id = Auth::id();
+			
+			
+			<?php 
+			
+			$user_id = Auth::id();
                                         $company_id_result = App\CompanyProfile::getCompanyId($user_id);
                                         $valid_token = 0;
                                         if (App\SpentTokens::validateTokenStocks($company_id_result) == false) {
@@ -89,13 +89,13 @@
                                                 $with_s = "s";
                                             }
                                             
-                                            echo '<div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> You have <b> '.$consumedTokens.' </b>credit'.$with_s.' left. </div>';
+                                            echo '<div class="alert text-company bg-intellinz-light-green" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> You have <b class="text-dark"> '.$consumedTokens.' </b>credit'.$with_s.' left. </div>';
                                             
                                             //echo $consumedTokens;
                                         }
-            
-            ?>
-            
+			
+			?>
+			
                     <div class="card-body center">
 
                           
