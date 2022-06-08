@@ -149,12 +149,12 @@ class MasterConsultantsController extends Controller {
 		$profileAvatar = UploadImages::getFileNames($consul_id, $company_id_result, Config::get('constants.options.profileMC'), 1);
 
 		$profileCertifications = UploadImages::getFileNames($consul_id, $company_id_result, Config::get('constants.options.certificationMC'), 5);
+		
+		//echo $profileCertifications;
 
 		$completenessProfile = Consultants::getProfileCompleteness($consul_id, $profileCertifications);
 
-		return view('mconsultant.editprofile', compact('profileAvatar', 'profileCertifications', 'completenessProfile', 'company_data',
-
-			'bank_list', 'payment_method'));
+		return view('mconsultant.editprofile', compact('profileAvatar', 'profileCertifications', 'completenessProfile', 'company_data',	'bank_list', 'payment_method'));
 
 	}
 
@@ -363,7 +363,7 @@ class MasterConsultantsController extends Controller {
 		if ($usertype == 3 || $usertype == 5) {
 			//3 is master Consultant
 
-			$rs = RequestApproval::where('main_consultant', $consul_id)->where('status', 1)->get();
+			$rs = RequestApproval::where('main_consultant', $consul_id)->where('status', 1)->orderBy("created_at","desc")->get();
 
 			$subsConsultants = ConsultantMapping::getSubConsultantsByMaster($consul_id);
 				
@@ -384,7 +384,7 @@ class MasterConsultantsController extends Controller {
 
 		$consul_id = Auth::id();
 
-		$rs = ConsultantProjects::where('main_consultant_id', $consul_id)->where('project_status', 'PENDING')->get();
+		$rs = ConsultantProjects::where('main_consultant_id', $consul_id)->where('project_status', 'PENDING')->orderBy("created_at", "desc")->get();
 
 		return view('mconsultant.pendingProject', compact('rs'));
 
@@ -394,7 +394,7 @@ class MasterConsultantsController extends Controller {
 
 		$consul_id = Auth::id();
 
-		$rs = ConsultantProjects::where('main_consultant_id', $consul_id)->where('project_status', 'ONGOING')->get();
+		$rs = ConsultantProjects::where('main_consultant_id', $consul_id)->where('project_status', 'ONGOING')->orderBy("created_at", "desc")->get();
 
 		return view('mconsultant.ongoingProject', compact('rs'));
 
@@ -404,7 +404,7 @@ class MasterConsultantsController extends Controller {
 
 		$consul_id = Auth::id();
 
-		$rs = ConsultantProjects::where('main_consultant_id', $consul_id)->where('project_status', 'DONE')->get();
+		$rs = ConsultantProjects::where('main_consultant_id', $consul_id)->where('project_status', 'DONE')->orderBy("created_at", "desc")->get();
 
 		return view('mconsultant.archivedProject', compact('rs'));
 
