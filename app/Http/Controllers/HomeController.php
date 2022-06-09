@@ -176,11 +176,18 @@ class HomeController extends Controller {
 		$company_data = CompanyProfile::find($company_id_result);
 
 		//echo $company_id_result; exit;
-
-		$resBuild = ChatHistory::getChatHistoryBuildOpportunityUnseenTotal($company_id_result);
-		$resSell = ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
-		$resBuy = ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
-		$oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
+                                        
+        $usrss = User::find($user_id);
+                                        
+        if ($usrss->user_type != 5 && $usrss->user_type != 4 && $usrss->user_type != 3) {
+    		$resBuild = ChatHistory::getChatHistoryBuildOpportunityUnseenTotal($company_id_result);
+    		$resSell = ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
+    		$resBuy = ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
+    		$oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
+        }
+        else{
+            $oppoInbox = 0;
+        }
 
 		$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
 

@@ -82,7 +82,7 @@
             -webkit-border-radius: 100px;
             border-radius: 100px;
             background-color: #dff7d9;
-            border-color: ##7cda24;
+            border-color: #7cda24;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
