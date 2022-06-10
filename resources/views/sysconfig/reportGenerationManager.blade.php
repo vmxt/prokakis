@@ -86,8 +86,20 @@
             background: rgba(0, 0, 0, 1);
             text-decoration: none;
         }
+  .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
 
     </style>
+  <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <script src="{{ asset('public/js/app.js') }}"></script>
 
@@ -106,12 +118,12 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-settings font-blue"></i>
-                    <span class="caption-subject font-blue sbold uppercase">Configurations Report Template</span>
+                    <i class="icon-settings"></i>
+                    <span class="caption-subject  sbold uppercase">Configurations Report Template</span>
                 </div>
             </div>
             <div id="container" class="table-scrollable">
-                <table id="system_data" class="table table-hover table-light">
+                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -133,7 +145,7 @@
                         </td>
                         <td>
                             <a id="edit_icon"  onclick="ajxProcess('<?php echo $data->id; ?>','<?php echo $data->variable_name; ?>')"
-                               data-popup-open="popup-1" class="btn btn-outline btn-circle btn-sm blue">
+                               data-popup-open="popup-1" class="btn btn-primary bg-dark text-white btn-sm blue">
                                 <i class="fa fa-edit"></i> Edit </a>
                         </td>
 
@@ -161,7 +173,7 @@
 
             </p>
             <p>
-                <button align="right" id="ajxUpdate" type="button" class="btn btn-outline-primary">Update</button>
+                <button align="right" id="ajxUpdate" type="button" class="btn btn-primary bg-dark">Update</button>
             </p>
 
             <!--<p><a data-popup-close="popup-1" href="#">Close</a></p>-->

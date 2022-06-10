@@ -25,10 +25,78 @@
             background-color: orangered;
 
         }
+        
+            .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
+
+.center {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+.wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(45deg, #7cda24, #fff);
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
 
     </style>
 
-
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
 
@@ -66,7 +134,7 @@
 
                                 <i class="icon-users"></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">List of registered companies</span>
+                                <span class="caption-subject sbold uppercase">List of registered companies</span>
 
 
 
@@ -100,9 +168,20 @@
 
                         <div class="portlet-body">
 
-                            <div class="table-scrollable">
-
-                                <table id="system_data" class="table table-bordered table-hover">
+                            <div class="table-scrollable" style="border:none !important">
+                                 <div class="table_loader center">
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                        </div>
+                                <table id="system_data"  class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%;display:none">
 
                                         <thead>
 
@@ -148,11 +227,11 @@
 
                                                 ?>
 
-                                                    <tr class="danger">
+                                                    <tr class="">
 
 
 
-                                                    <td align="center">
+                                                    <td >
 
                                                       <?php echo $d->company_name; ?>
 
@@ -160,7 +239,7 @@
 
 
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php echo $d->description; ?>
 
@@ -168,7 +247,7 @@
 
 
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php echo $d->email; ?>
 
@@ -178,7 +257,7 @@
 
 
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php echo $d->company_website; ?>
 
@@ -186,7 +265,7 @@
 
 
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php echo $d->registered_address; ?>
 
@@ -194,7 +273,7 @@
 
 
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php echo $d->industry; ?>
 
@@ -204,7 +283,7 @@
 
 
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <a href="{{ url('/profile/viewer/'.$d->id) }}" target="_blank" class="btn btn-primary">View More</a>
 
@@ -288,7 +367,13 @@
 
         $(document).ready(function () {
 
-            $('#system_data').DataTable();
+            $('#system_data').DataTable({
+                "drawCallback": function( settings ) {
+                        $(".table_loader").fadeOut();
+                        $(".table_loader").remove();
+                        $('#system_data').show();
+                },
+            });
 
 
 

@@ -123,7 +123,7 @@ class ConfigurationController extends Controller {
 			$subCon = User::where('status', 1)->where('user_type', 2)->get(); //retrieve the consultants only
 			$consMap = ConsultantMapping::getConsulNames();
 			$countries = Countries::all();
-			return view('sysconfig.assconsultants', compact('userRecords', 'masterCon', 'subCon', 'consMap', 'dataC', 'countries'));
+			return view('sysconfig.assconsultants', compact('masterCon', 'subCon', 'consMap', 'dataC', 'countries'));
 		}
 	}
 	public function delConsultants(Request $request) {
@@ -151,8 +151,17 @@ class ConfigurationController extends Controller {
 		if (count((array) $result) > 0) {
 			$company_data2 = CompanyProfile::find($sourceID_decode);
 			if (count((array) $company_data2) > 0) {
-				$company_data = CompanyProfile::find($companyID_decode);
-				return view("sysconfig.approval", compact('company_data2', 'company_data', 'result'));
+			    
+			    $user_id = Auth::id();
+
+			    $usr = User::find($user_id);
+			    if($usr->user_type == "3"){
+    				$company_data = CompanyProfile::find($companyID_decode);
+    				return view("sysconfig.approval", compact('company_data2', 'company_data', 'result'));
+			    }
+			    else{
+			        return redirect('/logout');
+			    }
 			} else {
 				echo 'Invalid source ID.';
 			}

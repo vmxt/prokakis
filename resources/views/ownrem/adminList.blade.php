@@ -8,6 +8,21 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <style>
+         .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
+    </style>
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <div class="row justify-content-center">
 
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -66,9 +81,9 @@
 
                 <div class="caption">
 
-                    <i class="icon-settings font-green"></i>
+                    <i class="icon-settings"></i>
 
-                    <span class="caption-subject font-blue sbold uppercase">Request List of Company Ownership and Removal</span>
+                    <span class="caption-subject  sbold uppercase">Request List of Company Ownership and Removal</span>
 
                 </div>
 
@@ -80,9 +95,7 @@
                 <div class="table-container">
        
 
-                    <div class="table-scrollable">
-
-                            <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
+                            <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%">
                                 <thead>
 
                                 <tr role="row">
@@ -139,7 +152,7 @@
                                     ?></td>
 
                                     <td><?php 
-                                        $c = App\Companyprofile::find($data->subject_company_id);    
+                                        $c = App\CompanyProfile::find($data->subject_company_id);    
                                         echo '<strong>'.$c->company_name.'</strong>'.'<br />';
                                         echo $c->company_email.'<br />';
                                         echo $c->office_phone; 
@@ -152,7 +165,7 @@
                                     <td><?php echo $data->request_type; ?></td>
 
                                     <td colspan="2" style="width: 176px;" aria-label=" Rendering engine : activate to sort column descending" aria-sort="ascending"> 
-                                    <button onclick="acceptRequest({{ $data->id }}, '{{ $data->request_type }}')" class="btn btn-info"> Accept </button>
+                                    <button onclick="acceptRequest({{ $data->id }}, '{{ $data->request_type }}')" class="btn btn-primary"> Accept </button>
                                     <button onclick="rejectRequest({{ $data->id }})" class="btn btn-danger"> Reject </button>
                                      
                                    </td>
@@ -254,8 +267,8 @@
             if(ReqType == "remove")
             {  
                 swal({
-                    title: "Are you sure to approve this request number #"+ ReqNo +", Company removal from Intellinz system? ", 
-                    text: "You are about to deactivate a company in Intellinz",
+                    title: "Are you sure to approve this request number #"+ ReqNo +", Company removal from Prokakis system? ", 
+                    text: "You are about to deactivate a company in Prokakis",
                     icon: "warning",
                     buttons: [
                     'No, cancel it!',
@@ -292,7 +305,7 @@
 
                     });
                     } else {
-                    swal("Cancelled", "Request to remove a company from Intellinz system user was cancelled :)", "error");
+                    swal("Cancelled", "Request to remove a company from Prokakis system user was cancelled :)", "error");
                     }
                 });
             } 
