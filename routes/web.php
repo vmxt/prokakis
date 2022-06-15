@@ -230,6 +230,7 @@ Route::get('/opportunity/editApprovalBuild/{id}', 'OpportunityController@editApp
 Route::get('/opportunity/editApprovalSellOffer/{id}', 'OpportunityController@editApprovalSellOffer')->name('opportunityEditApprovalSellOffer');
 Route::get('/opportunity/editApprovalBuy/{id}', 'OpportunityController@editApprovalBuy')->name('opportunityEditApprovalBuy');
 Route::post('/opportunity/approved', 'OpportunityController@approved')->name('opportunityApproved');
+Route::get('/opportunity/getCurrencyBasedID/{amount}/{original_currency}/{currency_now}', 'OpportunityController@getCurrencyBasedID')->name('getCurrencyBasedID');
 
 //business news
 Route::get('/businessnews/approval/{status}', 'BusinessOpportunityNewsController@approval')->name('businessNewsApproval');
@@ -289,6 +290,7 @@ Route::get('/profile/view', 'CompanyprofileController@view')->name('viewingProfi
 Route::get('/profile/edit', 'CompanyprofileController@edit')->name('editProfile');
 Route::get('/profile/create', 'CompanyprofileController@edit')->name('editcreateProfile');
 Route::post('/profile/create', 'CompanyprofileController@store')->name('storeProfile');
+Route::post('/profile/processPDF', 'CompanyprofileController@processPDF')->name('processPDF');
 Route::post('/profile/uploadProfileImg', 'CompanyprofileController@uploadProfile')->name('uploadProfileImg');
 Route::post('/profile/uploadAwards', 'CompanyprofileController@uploadAwards')->name('uploadAwards');
 Route::post('/profile/uploadPurchaseInvoices', 'CompanyprofileController@uploadPurchaseInvoices')->name('uploadPurchaseInvoices');

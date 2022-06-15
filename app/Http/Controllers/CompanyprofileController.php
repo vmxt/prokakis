@@ -475,6 +475,142 @@ class CompanyprofileController extends Controller {
 	 * @return \Illuminate\Http\Response
 
 	 */
+	 
+	 public function processPDF(Request $request) {
+	     if ($request->isMethod('post')) {
+	        $user_id = Auth::id();
+
+    		//echo $user_id; exit;
+    		
+    		$company_id_result = CompanyProfile::getCompanyId($user_id);
+
+		$company_data = CompanyProfile::find($company_id_result);
+    
+    		$num_of_employee = Configurations::getJsonValue('num_of_employee');
+
+		$estimated_sales = Configurations::getJsonValue('estimated_sales');
+
+		//$currency = Configurations::getJsonValue('currency');
+
+		$ownership_status = Configurations::getJsonValue('ownership_status');
+
+		$business_type = Configurations::getJsonValue('business_type');
+
+		$business_industry = Configurations::getJsonValue('business_industry');
+
+		$no_of_staff = Configurations::getJsonValue('no_of_staff');
+
+		$financial_year = Configurations::getJsonValue('financial_year');
+
+		$financial_month = Configurations::getJsonValue('financial_month');
+
+		// $countries = Configurations::getJsonValue('countries');
+
+		$years_establishment = Configurations::getJsonValue('years_establishment');
+
+		$currency = Currency::all();
+
+		$gross_profit_loss = Configurations::getJsonValue('gross_profit_loss');
+
+		$net_profit_loss = Configurations::getJsonValue('net_profit_loss');
+
+		$filling_rate = Configurations::getJsonValue('filling_rate');
+
+		$asset_more_liability = Configurations::getJsonValue('asset_more_liability');
+
+		$paid_up_capital = Configurations::getJsonValue('paid_up_capital');
+
+		$countries = Countries::all();
+
+		$year_founded = Configurations::getJsonValue('year_founded');
+
+		$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
+
+		$profileAwards = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.awards'), 5);
+
+		$profilePurchaseInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.purchase_invoices'), 5);
+
+		$profileSalesInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.sales_invoices'), 5);
+
+		$profileCertifications = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.certification'), 5);
+
+		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
+
+			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
+
+			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+
+		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
+
+
+		$param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
+
+		$param_years = array();
+
+		$max_year = date('Y');
+
+		for ($i = (int) $max_year; $i >= 1900; $i--) {$param_years[] = $i;}
+    
+    		if ($request->hasfile('attachment_file')) {
+    
+        		$file = $request->file('attachment_file');
+    			$name = $user_id . '_custom_pdf.pdf';
+    			$file->move(public_path() . '/custom_pdf_upload/', $name);
+    			$filePathCsv =  asset('public/custom_pdf_upload/'.$name);
+    						
+    			$file = fopen($filePathCsv, "r") or die(" $filePathCsv file is not there! \n");
+    			
+    			if($file){
+    			    
+                    $client = new \GuzzleHttp\Client();
+                    try {
+                        $r = $client->request('POST', 'https://api.ocr.space/parse/image',[
+                            'headers' => ['apiKey' => 'd1a152930888957'],
+                            'multipart' => [
+                                [
+                                    'name' => 'file',
+                                    'contents' => $file
+                                ]
+                            ]
+                        ], ['file' => $file]);
+                        
+                        
+                        $response =  json_decode($r->getBody(),true);
+                        
+                        //echo $response->ParsedResults;
+                        //echo (is_array($response)) ? $response["ParsedResults"] : $response->ParsedResults;
+                        
+                        //if($response->ErrorMessage == "") {
+                            
+                            return view('profile.customupload', compact('num_of_employee', 'estimated_sales', 'year_founded', 'currency', 'ownership_status',
+        
+                			'business_type', 'business_industry', 'no_of_staff', 'financial_year', 'financial_month', 'countries',
+                
+                			'company_data', 'profileAvatar', 'profileAwards', 'profilePurchaseInvoice', 'profileSalesInvoice',
+                
+                			'profileCertifications', 'completenessProfile', 'user_id', 'keyPersons', 'years_establishment',
+                
+                			'gross_profit_loss', 'net_profit_loss', 'filling_rate', 'asset_more_liability', 'paid_up_capital',
+                
+                			'param_months', 'param_years', 'completenessMessages', 'response')); 
+                			//echo "yessss";
+                        //}
+        			
+        			} catch(Exception $err) {
+                        echo $err->getMessage();
+                    }
+    			}
+    			
+    	    }
+	        
+	     }
+	     else{
+	         echo "stop!";
+	     }
+	}
 
 	public function edit() {
 
@@ -677,11 +813,30 @@ class CompanyprofileController extends Controller {
 					if ($request->hasfile('uploadCSV')) {
 
 						$file = $request->file('uploadCSV');
-						$name = $user_id . '_financialStatus_' . time() . '_' . $file->getClientOriginalName();
+						$name = $user_id . '_financialStatus_' . time() . '_IntellinzFinancialStatusTemplate.csv';
 						$file->move(public_path() . '/uploads/', $name);
 						$filePathCsv =  asset('public/uploads/'.$name);
-
-						FinancialAnalysis::saveCreateCSV($filePathCsv, $company_id_result, $user_id);
+						
+						$file = fopen($filePathCsv, "r") or die(" $filePathCsv file is not there! \n");
+                	   
+                	   
+                       while(! feof($file))
+                        {
+                			$d = fgetcsv($file);
+                
+                            if(trim($d[0]) == 'Year' && trim($d[1]) == 'Month' && trim($d[2]) == 'Income')
+                            {
+                                    $not_match = FinancialAnalysis::saveCreateCSV($filePathCsv, $company_id_result, $user_id);
+                                    if($not_match != ""){
+                                        //return redirect('/profile/edit')->with('message', 'Failed to save. CSV file uploaded contains MONTH WORD that is not same in the proper format!. ' . $not_match);  
+                                    }
+                            }
+                            else{
+                                return redirect('/profile/edit')->with('message', 'Failed to save. CSV file uploaded is not the same in the downloadable Financial CSV template!.');  
+                                exit();
+                            }
+                            break;
+                        }
 		 
 					} else {
 
