@@ -29,7 +29,7 @@
     <div class="gray-box">
         <div class="row">
             <div class="col-md-12 text-center">
-                <u class="h4">Adverse Media</u>
+                <b class="h4">Adverse Media</b>
             </div>
         </div>
       
@@ -57,9 +57,9 @@
 
 <div class="row p-1">
     <div class="col-md-12 text-right">
-        PRESENTED BY: Intellinz
+        PRESENTED BY: <b>Intellinz</b>
         <br>
-        GENERATED ON: <?php echo date('Y-m-d'); ?>
+        GENERATED ON: <b><?php echo date('Y-m-d'); ?></b>
     </div>
 </div>
 {{--         <div class="row p-5 page-break">

@@ -11,9 +11,9 @@
     </div>
     <div>
       <p class="text-justify">
-        <small class="text-muted">
+        <p class="">
         {!! !empty($reportTemplates['SUBHEADER_TXT_PG6']) ? ucfirst($reportTemplates['SUBHEADER_TXT_PG6']) : 'Variable [SUBHEADER_TXT_PG6] does not exist' !!}
-        </small>
+        </p>
       </p>
     </div>
     <div class=" p-0">
@@ -71,10 +71,10 @@
 @endif
 
 @if( !empty($data['COMP_STRENGTHS']) )
-    <div class="row p-1">
-      <p class="h5">Strength(s):</p>
+    <div class="row p-2">
+      <p class="h5"><b>Strength(s):</b></p>
     </div>
-    <div class="row p-0">
+    <div class="row p-3">
         <div>{{ $data['COMP_STRENGTHS'] }}</div>
     </div>
 @endif

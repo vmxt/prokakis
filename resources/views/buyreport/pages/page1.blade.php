@@ -20,11 +20,11 @@
         <div class="row p-1">
             <hr class="report-line">
         </div>
-        <div class="row p-3">
+        <div class="row p-1">
             <div class="gray-box">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <u class="h4">Company Overview / Financial Analysis</u>
+                        <b class="h4">Company Overview / Financial Analysis</b>
                     </div>
                 </div>
                 <ul style="list-style-type: none; margin-top:20px; font-weight: bolder;">
@@ -42,13 +42,16 @@
         <div class="row p-5">
             &#160;
         </div>
+   <div class="row p-5">
+            &#160;
+        </div>
 
 
-        <div class="row p-1">
+        <div class="row ">
             <div class="col-md-12 text-right">
-                PRESENTED BY: Intellinz
+                PRESENTED BY: <b>Intellinz</b>
                 <br>
-                GENERATED ON: <?php echo date('Y-m-d'); ?>
+                GENERATED ON: <b><?php echo date('Y-m-d'); ?></b>
             </div>
         </div>
 

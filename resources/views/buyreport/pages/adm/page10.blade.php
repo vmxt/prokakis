@@ -76,12 +76,12 @@
    
 
     <div class=" p-3">
-      <p class="text-center h4">{{ $data['COMP_NAME'] }}</p>
+      <p class="text-center text-header h3">{{ $data['COMP_NAME'] }}</p>
       <p class="text-right h6"><small>2019 Feb 12 - 2019 Mar 15</small></p>
     </div>
 
     <div id="social_card">
-      <h3> Twitter Likely Match </h3> <br />
+      <h4> Twitter Likely Match </h4> <br />
       @if(!empty($response['res_search']['tw_data']))
        <?php $x = 0; ?>
     
@@ -96,17 +96,17 @@
         
                           <img src="{{ $social_val['profile_image_url'] }}" width="150px" alt="twitter_image">
         
-                          <p ><small class="h6">{{ $social_val['name'] }}</small></p>
+                          <p ><small class="h5">{{ $social_val['name'] }}</small></p>
         
-                          <p ><small class="h6">{{ $social_val['t_created_at'] }}</small></p>
+                          <p ><small class="h5">{{ $social_val['t_created_at'] }}</small></p>
         
-                          <p class="content1-link h6"><a href="#"><small class="h6">{{ $social_val['url'] }}</small></a> </p>
+                          <p class="content1-link h6"><a href="#"><small class="h5">{{ $social_val['url'] }}</small></a> </p>
         
                         </td>
         
                         <td class='social-table2'>
         
-                            <a class="h6" href="{{ $social_val['t_expanded_url'] }}">{{ $social_val['t_expanded_url'] }}</a>
+                            <a class="h5" href="{{ $social_val['t_expanded_url'] }}">{{ $social_val['t_expanded_url'] }}</a>
         
                             <p class="m-4 h6" >{{ $social_val['t_text'] }} </p>
         
@@ -128,7 +128,7 @@
 
 
     <div id="social_card">
-      <h3> Youtube Likely Match </h3> <br />
+      <h4> Youtube Likely Match </h4> <br />
       @if(!empty($response['res_search']['yt_data']))
        <?php $x = 0; ?>
        
@@ -148,9 +148,9 @@
       
                         <p >{{ $social_val['title'] }}</p>
       
-                        <p ><small class="h6">{{ $social_val['description'] }}</small></p>
+                        <p ><small class="h5">{{ $social_val['description'] }}</small></p>
       
-                        <p class="content1-link h6"><a href="{{ $social_val['video_link'] }}"><small class="h6">{{ $social_val['video_link'] }}</small></a> </p>
+                        <p class="content1-link h6"><a href="{{ $social_val['video_link'] }}"><small class="h5">{{ $social_val['video_link'] }}</small></a> </p>
       
                       </td>
       
@@ -174,7 +174,7 @@
     </div>
 
     <div id="social_card">
-      <h3> Google Search Likely Match </h3> <br />
+      <h4> Google Search Likely Match </h4> <br />
     
       @if(!empty($response['res_search']['g_data']))
        <?php $x = 0; ?>
@@ -195,9 +195,9 @@
       
                         <p >{{ $social_val['title'] }}</p>
       
-                        <p ><small class="h6">{{ $social_val['snippet'] }}</small></p>
+                        <p ><small class="h5">{{ $social_val['snippet'] }}</small></p>
       
-                        <p class="content1-link h6"><a href="{{ $social_val['link'] }}"><small class="h6">{{ $social_val['link'] }}</small></a> </p>
+                        <p class="content1-link h6"><a href="{{ $social_val['link'] }}"><small class="h5">{{ $social_val['link'] }}</small></a> </p>
       
                       </td>
       
@@ -221,7 +221,6 @@
     </div>
     
     
-
 
 
 

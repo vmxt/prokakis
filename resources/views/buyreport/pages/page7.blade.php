@@ -10,23 +10,23 @@
     </div>
     <div>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
           {!! !empty($reportTemplates['SUBHEADER_TXT_PG7']) ? ucfirst($reportTemplates['SUBHEADER_TXT_PG7']) : 'Variable [SUBHEADER_TXT_PG7] does not exist' !!}
         </small>
       </p>
     </div>
     <div class="p-0">
-      <small class="h6 text-muted"> {!! !empty($reportTemplates['TITLE1_TXT_PG7']) ? ucfirst($reportTemplates['TITLE1_TXT_PG7']) : 'Variable [TITLE1_TXT_PG7] does not exist' !!} </small>
+      <small class="h6 "> {!! !empty($reportTemplates['TITLE1_TXT_PG7']) ? ucfirst($reportTemplates['TITLE1_TXT_PG7']) : 'Variable [TITLE1_TXT_PG7] does not exist' !!} </small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! !empty($reportTemplates['SUBTITLE1_TXT_PG7']) ? ucfirst($reportTemplates['SUBTITLE1_TXT_PG7']) : 'Variable [SUBTITLE1_TXT_PG7] does not exist' !!}
         </small>
       </p>
     </div>
     <div class="p-0">
-      <small class="h6 text-muted">5.1.1 {{ strtoupper($reportTemplates['TITLE2_TXT_PG7']) }}</small>
+      <small class="h6 ">5.1.1 {{ strtoupper($reportTemplates['TITLE2_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {{ ucfirst($reportTemplates['SUBTITLE2_TXT_PG7']) }}
         </small>
       </p>
@@ -75,9 +75,9 @@
           &#160;
         </div>
       <p>Consultants’ Analysis : Financial Statement Information obtained from June 2017</p>
-      <small class="h6 text-muted">5.1.2 {{ strtoupper($reportTemplates['TITLE3_TXT_PG7']) }}</small>
+      <small class="h6 ">5.1.2 {{ strtoupper($reportTemplates['TITLE3_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {{ ucfirst($reportTemplates['SUBTITLE3_TXT_PG7']) }}
         </small>
       </p>
@@ -123,9 +123,9 @@
  
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.1.3 {{ strtoupper($reportTemplates['TITLE4_TXT_PG7']) }}</small>
+      <small class="h6 ">5.1.3 {{ strtoupper($reportTemplates['TITLE4_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {{ ucfirst($reportTemplates['SUBTITLE4_TXT_PG7']) }}
         </small>
       </p>
@@ -175,9 +175,9 @@
     <div class="bg-orange">
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.2 {{ strtoupper($reportTemplates['TITLE5_TXT_PG7']) }}</small>
+      <small class="h6 ">5.2 {{ strtoupper($reportTemplates['TITLE5_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE5_TXT_PG7']) !!}
         </small>
       </p>
@@ -186,9 +186,9 @@
         &#160;
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.2.1 {{ strtoupper($reportTemplates['TITLE6_TXT_PG7']) }}</small>
+      <small class="h6 ">5.2.1 {{ strtoupper($reportTemplates['TITLE6_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE6_TXT_PG7']) !!}
         </small>
       </p>
@@ -223,9 +223,9 @@
     
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.2.2 {{ strtoupper($reportTemplates['TITLE7_TXT_PG7']) }}</small>
+      <small class="h6 ">5.2.2 {{ strtoupper($reportTemplates['TITLE7_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE7_TXT_PG7']) !!}
         </small>
       </p>
@@ -260,9 +260,9 @@
 
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.2.3 {{ strtoupper($reportTemplates['TITLE8_TXT_PG7']) }}</small>
+      <small class="h6 ">5.2.3 {{ strtoupper($reportTemplates['TITLE8_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE8_TXT_PG7']) !!}
         </small>
       </p>
@@ -300,17 +300,17 @@
         &#160;
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.3 {{ strtoupper($reportTemplates['TITLE9_TXT_PG7']) }}</small>
+      <small class="h6 ">5.3 {{ strtoupper($reportTemplates['TITLE9_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE9_TXT_PG7']) !!}
         </small>
       </p>
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.3.1 {{ strtoupper($reportTemplates['TITLE10_TXT_PG7']) }}</small>
+      <small class="h6 ">5.3.1 {{ strtoupper($reportTemplates['TITLE10_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE10_TXT_PG7']) !!}
         </small>
       </p>
@@ -345,9 +345,9 @@
    
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.3.2 {{ strtoupper($reportTemplates['TITLE11_TXT_PG7']) }}</small>
+      <small class="h6 ">5.3.2 {{ strtoupper($reportTemplates['TITLE11_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE11_TXT_PG7']) !!}
         </small>
       </p>
@@ -383,9 +383,9 @@
 
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.3.3 {{ strtoupper($reportTemplates['TITLE12_TXT_PG7']) }}</small>
+      <small class="h6 ">5.3.3 {{ strtoupper($reportTemplates['TITLE12_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE12_TXT_PG7']) !!}
         </small>
       </p>
@@ -420,17 +420,17 @@
   
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.4 {{ strtoupper($reportTemplates['TITLE13_TXT_PG7']) }}</small>
+      <small class="h6 ">5.4 {{ strtoupper($reportTemplates['TITLE13_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE13_TXT_PG7']) !!}
         </small>
       </p>
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.4.1 {{ strtoupper($reportTemplates['TITLE14_TXT_PG7']) }}</small>
+      <small class="h6 ">5.4.1 {{ strtoupper($reportTemplates['TITLE14_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE14_TXT_PG7']) !!}
         </small>
       </p>
@@ -465,9 +465,9 @@
     
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.4.2 {{ strtoupper($reportTemplates['TITLE15_TXT_PG7']) }}</small>
+      <small class="h6 ">5.4.2 {{ strtoupper($reportTemplates['TITLE15_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE15_TXT_PG7']) !!}
         </small>
       </p>
@@ -501,9 +501,9 @@
      
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.4.3 {{ strtoupper($reportTemplates['TITLE16_TXT_PG7']) }}</small>
+      <small class="h6 ">5.4.3 {{ strtoupper($reportTemplates['TITLE16_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE16_TXT_PG7']) !!}
         </small>
       </p>
@@ -539,9 +539,9 @@
     </div>
 
     <div class="p-1">
-      <small class="h6 text-muted">5.4.4 {{ strtoupper($reportTemplates['TITLE17_TXT_PG7']) }}</small>
+      <small class="h6 ">5.4.4 {{ strtoupper($reportTemplates['TITLE17_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE17_TXT_PG7']) !!}
         </small>
       </p>
@@ -577,9 +577,9 @@
      
     </div>
     <div class="p-1">
-      <small class="h6 text-muted">5.4.5 {{ strtoupper($reportTemplates['TITLE18_TXT_PG7']) }}</small>
+      <small class="h6 ">5.4.5 {{ strtoupper($reportTemplates['TITLE18_TXT_PG7']) }}</small>
       <p class="text-justify">
-        <small class="text-muted">
+        <small class="">
         {!! ucfirst($reportTemplates['SUBTITLE18_TXT_PG7']) !!}
         </small>
       </p>

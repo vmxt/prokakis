@@ -140,9 +140,9 @@ th {
 
                 <div class="caption">
 
-                    <i class="icon-settings font-green"></i>
+                    <i class="icon-settings "></i>
 
-                    <span class="caption-subject font-blue sbold uppercase">Ongoing Monitoring Report</span>
+                    <span class="caption-subject  sbold uppercase">Ongoing Monitoring Report</span>
 
                 </div>
 
@@ -151,16 +151,8 @@ th {
             <div class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
                 <div class="card-body" style="padding:20px">
             
-            <div class="table-scrollable" style="border:none">
+            <div class="table-scrollable" style="border:none !important">
 
-                    <div id="sample_3_wrapper" class="dataTables_wrapper no-footer">
-
-                        <div class="row">
-                            
-                              
-                        </div> 
-
-                    <div class="table-scrollable">
 
                             <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
                                 <thead>
@@ -304,7 +296,7 @@ th {
                                                <a width: 150px;
                                                display: inline-block; href="{{ url('/genReportAm/') }}/<?php echo base64_encode($data->id).'-'.time(); ?>"  class="btn btn-primary"> Adverse Media </a> 
                                                <a width: 150px;
-                                               display: inline-block; href="{{ url('/genReportAll/') }}/<?php echo base64_encode($data->id).'-'.time(); ?>" onclick="return confirm('Are you sure you want to download the reports such as World-Check-Refinitiv, Investors Alert, and Adverse Media into a zip file?, this will take a while to process.')"
+                                               display: inline-block; href="{{ url('/genReportAll/') }}/<?php echo base64_encode($data->id).'-'.time(); ?>/<?php echo base64_encode($data->source_company_id) . '/' . base64_encode($req_id) .'?aprvl='.$data->approval_id ; ?>" onclick="return confirm('Are you sure you want to download the reports such as World-Check-Refinitiv, Investors Alert, and Adverse Media into a zip file?, this will take a while to process.')"
                                                 class="btn btn" style="background-color:white;">Download All</a>
                                              
                                             </div>
@@ -356,9 +348,6 @@ th {
                         </div>
                      </div>
                 </div>
-
-            </div>
-
         </div>
 
     </div>
