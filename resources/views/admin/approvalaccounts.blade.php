@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -13,9 +12,76 @@
 
 
 
+<style>
+      .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
 
 
+.center {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+.wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(45deg, #7cda24, #fff);
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
 
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+</style>
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <div class="container">
 
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -52,7 +118,7 @@
 
                                 <i class="icon-users"></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">List of registered users</span>
+                                <span class="caption-subject sbold uppercase">List of registered users</span>
 
 
 
@@ -87,8 +153,19 @@
                         <div class="portlet-body">
 
                             <!-- <div class="table-scrollable"> -->
-
-                                <table id="system_data" class="table table-striped table-bordered nowrap table-hover" style="width:100%">
+                                <div class="table_loader center">
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                        </div>
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%;display:none">
                                         <thead>
                                             <tr>
                                                 <th  class="all">First Name</th>
@@ -113,11 +190,11 @@
                                             {
 ?>
                                                 <tr class="active">
-                                                    <td align="center">
+                                                    <td align="center" class="d-inline-block text-truncate" style="max-width: 150px; overflow: hidden;">
                                                         <?php echo $d->firstname; ?>
                                                     </td>
 
-                                                    <td align="center">
+                                                    <td align="center" class="d-inline-block text-truncate" style="max-width: 150px; overflow: hidden;">
                                                         <?php echo $d->lastname; ?>
                                                     </td>
 
@@ -143,7 +220,7 @@
 ?>
 
                                                     </td>
-
+                                                    
                                                     <td align="center">
                                                         <?php echo $d->reason_heard; ?>
                                                     </td>
@@ -319,7 +396,12 @@ $(document).ready(function() {
                     tableClass: 'table'
                 } )
             }
-        }
+        },
+         "drawCallback": function( settings ) {
+                        $(".table_loader").fadeOut();
+                        $(".table_loader").remove();
+                        $('#system_data').show();
+                },
     } );
 } );
 

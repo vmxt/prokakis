@@ -71,9 +71,22 @@
             background: rgba(0, 0, 0, 1);
             text-decoration: none;
         }
+        
+        
+      .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
 
     </style>
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <script src="{{ asset('public/js/app.js') }}"></script>
 
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -91,15 +104,15 @@
         <div class="portlet light">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="icon-settings font-blue"></i>
-                    <span class="caption-subject font-blue sbold uppercase">Configurations Variables</span>
+                    <i class="icon-settings "></i>
+                    <span class="caption-subject  sbold uppercase">Configurations Variables</span>
                 </div>
             </div>
-            <div id="container" class="table-scrollable">
-                <table id="system_data" class="table table-hover table-light">
+            <div id="container" class="table-scrollable" style="border:none !important">
+                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
                     <thead>
                     <tr>
-                        <th>Id</th>
+                        <th class="hide">Id</th>
                         <th>Description</th>
                         <th>Value</th>
                         <th>Action</th>
@@ -111,13 +124,13 @@
                     $js = json_encode($data->json_value, true);
                     ?>
                     <tr>
-                        <td><?php echo $data->id; ?></td>
+                        <td class="hide"><?php echo $data->id; ?></td>
                         <td id="tdDesc<?php echo $data->id; ?>" class="wrap"><?php echo $data->description; ?></td>
                         <td id="tdJson<?php echo $data->id; ?>"><?php echo $data->json_value; ?> </td>
-                        <td>
+                        <td class="fit">
                             <a id="edit_icon"  onclick="ajxProcess('<?php echo $data->id; ?>','<?php echo $data->description; ?>')"
-                               data-popup-open="popup-1" class="btn btn-outline btn-circle btn-sm blue">
-                                <i class="fa fa-edit"></i> Edit </a>
+                               data-popup-open="popup-1" class="btn btn-primary bg-dark text-white btn-sm ">
+                                <i class="fa fa-edit text-company"></i> Edit </a>
                         </td>
 
 
@@ -137,14 +150,14 @@
     <div class="popup" data-popup="popup-1">
         <div class="popup-inner">
 
-            <h2><input type="text" id="config_desc"/></h2>
+            <h2><input type="text" class="form-control" id="config_desc"/></h2>
             <input type="hidden" name="configID" id="configID" value="">
             <p>
                 <textarea rows="5" cols="20" class="form-control" name="config_json" id="config_json"></textarea>
 
             </p>
             <p>
-                <button align="right" id="ajxUpdate" type="button" class="btn btn-outline-primary">Update</button>
+                <button align="right" id="ajxUpdate" type="button" class="btn btn-primary bg-dark text-white">Update</button>
             </p>
 
             <!--<p><a data-popup-close="popup-1" href="#">Close</a></p>-->

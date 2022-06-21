@@ -677,11 +677,30 @@ class CompanyprofileController extends Controller {
 					if ($request->hasfile('uploadCSV')) {
 
 						$file = $request->file('uploadCSV');
-						$name = $user_id . '_financialStatus_' . time() . '_' . $file->getClientOriginalName();
+						$name = $user_id . '_financialStatus_' . time() . '_IntellinzFinancialStatusTemplate.csv';
 						$file->move(public_path() . '/uploads/', $name);
 						$filePathCsv =  asset('public/uploads/'.$name);
-
-						FinancialAnalysis::saveCreateCSV($filePathCsv, $company_id_result, $user_id);
+						
+						$file = fopen($filePathCsv, "r") or die(" $filePathCsv file is not there! \n");
+                	   
+                	   
+                       while(! feof($file))
+                        {
+                			$d = fgetcsv($file);
+                
+                            if(trim($d[0]) == 'Year' && trim($d[1]) == 'Month' && trim($d[2]) == 'Income')
+                            {
+                                    $not_match = FinancialAnalysis::saveCreateCSV($filePathCsv, $company_id_result, $user_id);
+                                    if($not_match != ""){
+                                        //return redirect('/profile/edit')->with('message', 'Failed to save. CSV file uploaded contains MONTH WORD that is not same in the proper format!. ' . $not_match);  
+                                    }
+                            }
+                            else{
+                                return redirect('/profile/edit')->with('message', 'Failed to save. CSV file uploaded is not the same in the downloadable Financial CSV template!.');  
+                                exit();
+                            }
+                            break;
+                        }
 		 
 					} else {
 

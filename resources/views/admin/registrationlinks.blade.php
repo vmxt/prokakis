@@ -25,10 +25,22 @@
             background-color: orangered;
 
         }
+        
+             
+            .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
 
     </style>
 
-
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
 
@@ -60,36 +72,31 @@
 
                     <div class="portlet light ">
 
-                            <div class="portlet-title">
+                            <div class="portlet-title" style="border-bottom:none !important">
 
                                     <form action="{{ route('addRegsLink') }}" method="POST" style="display: block;" onSubmit="if(!confirm('Are you sure to add a new link?')){return false;}">
 
                                             {{ csrf_field() }}
+                                            <label> Select A Category </label>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <select style="float:right;"  name="user_type" class="form-control" >
 
-                                            <div class="form-group">
-
-                                                    <label> Select A Category </label>
-
-                                            <select style="float:right;"  name="user_type" class="form-control" >
-
-                                                    <option value="0"></option>
-
-                                                  <!--  <option value="1">Company</option> -->
-
-                                                    <option value="2">Assistant Consultant</option>
-
-                                                    <option value="3">Master Consultant</option>
-
-                                                    <option value="4">Ebos Staff</option>
-
-                                                </select>
-
-                                            </div>
-
-                                            <div class="form-group">
-
-                                            <input type="submit" style="float:right;" class="btn btn-primary" value="ADD LINK">
-
+                                                        <option value="0"></option>
+    
+                                                      <!--  <option value="1">Company</option> -->
+    
+                                                        <option value="2">Assistant Consultant</option>
+    
+                                                        <option value="3">Master Consultant</option>
+    
+                                                        <option value="4">Ebos Staff</option>
+    
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="submit" style="float:right;" class="btn btn-primary" value="ADD LINK">
+                                                </div>
                                             </div>
 
                                     </form>
@@ -104,7 +111,7 @@
 
                     <div class="portlet light ">
 
-                        <div class="portlet-title">
+                        <div class="portlet-title" style="border-bottom:none !important">
 
 
 
@@ -116,7 +123,7 @@
 
                                 <i class="icon-share"></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">List of Registration links</span>
+                                <span class="caption-subject sbold uppercase">List of Registration links</span>
 
 
 
@@ -150,9 +157,9 @@
 
                         <div class="portlet-body">
 
-                            <div class="table-scrollable">
+                            <div class="table-scrollable" style="border:none !important">
 
-                                <table id="system_data" class="table table-bordered table-hover">
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
 
                                         <thead>
 
@@ -196,7 +203,7 @@
 
                                                 ?>
 
-                                                    <tr class="active">
+                                                    <tr>
 
 
 

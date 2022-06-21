@@ -123,7 +123,7 @@ class ConfigurationController extends Controller {
 			$subCon = User::where('status', 1)->where('user_type', 2)->get(); //retrieve the consultants only
 			$consMap = ConsultantMapping::getConsulNames();
 			$countries = Countries::all();
-			return view('sysconfig.assconsultants', compact('userRecords', 'masterCon', 'subCon', 'consMap', 'dataC', 'countries'));
+			return view('sysconfig.assconsultants', compact('masterCon', 'subCon', 'consMap', 'dataC', 'countries'));
 		}
 	}
 	public function delConsultants(Request $request) {

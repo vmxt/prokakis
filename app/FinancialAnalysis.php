@@ -732,7 +732,13 @@ class FinancialAnalysis extends Model {
 
 	   $file = fopen($filePathCsv, "r") or die(" $filePathCsv file is not there! \n");
 	   $data = array();
+	   
+	   $months = array("Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec.");
+	   
 	   $i = 0;
+	   
+	   $not_match_month = "";
+	   
        while(! feof($file))
         {
 			$d = fgetcsv($file);
@@ -740,8 +746,19 @@ class FinancialAnalysis extends Model {
                 if(trim($d[0]) != 'Year')
                 {
 				 	if(isset($d)){
-					$data["fa_month".$i] = $d[0];
-					$data["fa_year".$i] = $d[1];
+				 	
+				 	if(array_search($d[1], $months) == 0){
+				 	    $data = array();
+				 	    $not_match_month = "not";
+				 	    //return redirect('/profile/edit')->with('message', 'Failed to save. CSV file uploaded contains MONTH WORD that is not same in the proper format!.');  
+				 	    //break;
+				 	    //exit();
+				 	}
+				 	else{
+				 	  $data["fa_month".$i] = array_search($d[1], $months) + 1;  
+				 	}
+				 	
+					$data["fa_year".$i] = $d[0];
 					$data["income".$i] = $d[2];
 					$data["purchase".$i] = $d[3];
 					$data["cost_good_sold".$i] = $d[4];
@@ -781,7 +798,7 @@ class FinancialAnalysis extends Model {
 			//exit;
 			FinancialAnalysis::saveCreate($data, $companyId, $userId);
 		}
-
+        return $not_match_month;
 	}
 
 

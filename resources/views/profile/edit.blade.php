@@ -3617,6 +3617,28 @@
                                             <tr>
 
                                              <td colspan="5">
+                                                 <div class="alert bg-dark text-white">
+                                                     <p><b class="text-company">TIP:</b>
+                                                     
+                                                        When inputing MONTH in the file, make sure that the month word is exactly the same in the following below:<br>
+                                                        <br>
+                                                        <ul class="text-company sbold" style="margin-20px">
+                                                            <li>Jan.</li>
+                                                            <li>Feb.</li>
+                                                            <li>Mar.</li>
+                                                            <li>Apr.</li>
+                                                            <li>May</li>
+                                                            <li>Jun.</li>
+                                                            <li>Jul.</li>
+                                                            <li>Aug.</li>
+                                                            <li>Sep.</li>
+                                                            <li>Oct.</li>
+                                                            <li>Nov.</li>
+                                                            <li>Dec.</li>
+                                                        </ul>
+                                                     
+                                                     </p>
+                                                 </div>
                                                 <div class="alert" style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
                                                     <strong>Upload CSV</strong>
                                                 <input type="file" name="uploadCSV" id="uploadCSV" class="btn btn-primary" style="float:right">

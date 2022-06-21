@@ -78,7 +78,22 @@
             text-decoration: none;
         }
 
+           .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
     </style>
+    
+    <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+    
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
         <li>
             <a href="{{ url('/home') }}">Intellinz</a>
@@ -109,8 +124,8 @@
                 <div class="portlet light">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-share font-blue"></i>
-                            <span class="caption-subject font-blue bold uppercase   " style="text-align: center">Mapping and Grouping of <center>Consultants</center></span>
+                            <i class="icon-share "></i>
+                            <span class="caption-subject bold uppercase   " style="text-align: center">Mapping and Grouping of <center>Consultants</center></span>
                         </div>
                     </div>
                     <div class="row">
@@ -233,8 +248,8 @@
                 <div class="portlet light portlet-fit ">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-map font-blue"></i>
-                            <span class="caption-subject font-blue sbold uppercase">Consultants groups and disignated countries</span>
+                            <i class="icon-map "></i>
+                            <span class="caption-subject  sbold uppercase">Consultants groups and disignated countries</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -266,7 +281,9 @@
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="edit_consul"
                                                                value="<?php echo $data->MappingId; ?>">
-                                                        <input type="submit" data-icon="fa fa-edit"  id="butEdit" value="Edit" class="btn btn-outline btn-circle btn-sm green fa fa-edit"/>
+                                                        <!--<input type="submit" data-icon="fa fa-edit"  id="butEdit" value="Edit" class="btn btn-primary  btn-sm  fa fa-edit"/>-->
+                                                        <button type="submit"  id="butEdit" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> EDIT</button>
+                                                        
                                                     </form>
                                                 </td>
 
@@ -275,8 +292,10 @@
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="del_consul"
                                                                value="<?php echo $data->MappingId; ?>">
-                                                        <input type="submit" id="butDelete" value="Delete" class="btn btn-outline btn-circle btn-sm red"
-                                                               onclick="return confirm('Are you sure to delete <?php echo $data->MainConsultant . '/' . $data->Sub1Consultant . '/' . $data->Sub2Consultant; ?> ?')"/>
+                                                        <!--<input type="submit" id="butDelete" value="Delete" class="btn btn-outline btn-circle btn-sm red"
+                                                               />-->
+                                                        <button name="del_consul" onclick="return confirm('Are you sure to delete <?php echo $data->MainConsultant . '/' . $data->Sub1Consultant . '/' . $data->Sub2Consultant; ?> ?')" type="submit" class="btn btn-danger btn-sm">
+                                                            <i class="fa fa-trash"></i> DELETE</button>
                                                     </form>
                                                 </td>
                                             </tr>

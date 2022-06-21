@@ -224,8 +224,26 @@ td{
 
     }
 
-  
+      .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
 
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
+.btn.btn-outline.red{
+    border-color:black !important;
+    color:black !important;
+}
+
+.btn.btn-outline.red:hover{
+    border-color:black !important;
+    background-color:black !important;
+    color:white !important;
+}
 </style>
 
 
@@ -306,7 +324,7 @@ td{
 
                             <label> Search Type: </label>    
 
-                            <input type="checkbox" id="SearchCategory" name="SearchCategory" data-toggle="switchbutton" checked data-onlabel="Person" data-offlabel="Company" data-onstyle="success" data-offstyle="info">
+                            <input type="checkbox" id="SearchCategory" name="SearchCategory" data-toggle="switchbutton" checked data-onlabel="Person" data-offlabel="Company" data-onstyle="success" data-offstyle="primary">
 
                         </div>
 
@@ -619,9 +637,9 @@ td{
 
                             <div class="caption">
 
-                                <i class="icon-bulb font-red"></i>
+                                <i class="icon-bulb "></i>
 
-                                <span class="caption-subject font-blue bold uppercase"><b><?php if(isset($sumRec)){ echo $sumRec . " of records found."; } ?></b> </span>
+                                <span class="caption-subject  bold uppercase"><b><?php if(isset($sumRec)){ echo $sumRec . " of records found."; } ?></b> </span>
 
                             </div>
 
@@ -673,11 +691,11 @@ td{
 
 
 
-                            <button type="button" name="forCaseReportProcess" id="forCaseReportProcess" class="btn red mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-right" data-spinner-color="#333">
+                            <button type="button" name="forCaseReportProcess" id="forCaseReportProcess" class="btn red mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
 
                                 <span class="ladda-label">
 
-                                    <i class="icon-login"></i> Case Report </span>
+                                    <i class="fa fa-list"></i> Case Report </span>
 
                                 <span class="ladda-spinner"></span>
 
@@ -689,11 +707,11 @@ td{
 
  
 
-                            <button type="button" name="forPrintingProcess" id="forPrintingProcess" style="float:right;" class="btn yellow mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-right" data-spinner-color="#333">
+                            <button type="button" name="forPrintingProcess" id="forPrintingProcess" style="float:right;" class="btn yellow mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
 
                                 <span class="ladda-label">
 
-                                    <i class="icon-login"></i> Items for PDF Download and Printing? </span>
+                                    <i class="fa fa-file-pdf-o"></i> Items for PDF Download and Printing? </span>
 
                                 <span class="ladda-spinner"></span>
 
@@ -701,11 +719,11 @@ td{
 
                      
 
-                            <button data-popup-open="popup-3" type="button" id="processSelectedItems" style="float:left;" class="btn red mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-right" data-spinner-color="#333">
+                            <button data-popup-open="popup-3" type="button" id="processSelectedItems" style="float:left;" class="btn red mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
 
                                 <span class="ladda-label">
 
-                                    <i class="icon-login"></i>  Process Selected Items for Request Report? </span>
+                                    <i class="fa fa-list"></i>  Process Selected Items for Request Report? </span>
 
                                 <span class="ladda-spinner"></span>
 
@@ -719,7 +737,7 @@ td{
 
 
 
-                                <table  class="table table-bordered table-striped table-condensed flip-content">
+                                <table  class="table pure-table pure-table-horizontal pure-table-striped">
 
                                     <thead class="flip-content">
 
@@ -849,7 +867,7 @@ td{
 
                                                 <span class="card" style="float:left;">
 
-                                                    <input data-popup-open="popup-2" onclick="openTR(<?php echo $d['UID']; ?>);" type="button" class="btn btn-danger" value="view" />
+                                                    <input data-popup-open="popup-2" onclick="openTR(<?php echo $d['UID']; ?>);" type="button" class="btn btn-primary" value="view" />
 
                                                 </span>
 
