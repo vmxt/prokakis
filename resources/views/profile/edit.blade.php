@@ -2139,7 +2139,7 @@
                                 <!-- START FINANCIAL ENTRIES TAB -->
                                 
                                 <?php 
-                                $csvLink = asset('public/assets/templates/TemplateProkakisFnancialStatus.csv');
+                                $csvLink = asset('public/assets/templates/IntellinzFinancialStatusTemplate.csv');
                                 ?>
 
                                 <div class="tab-pane" id="portlet_tab5">

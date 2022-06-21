@@ -157,7 +157,10 @@
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
 
- 
+    <?php 
+        $user_id = Auth::id();
+        $user_company_id = App\CompanyProfile::getCompanyId($user_id);
+    ?> 
 
     <div class="container container-grid">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -653,6 +656,7 @@
                 <hr class="hr-sect">
             </div> 
 
+            <?php if($user_company_id != $item->company_id){ ?>
             <div >
             @if(  !$if_premium )
                 <a onclick="notPremiumMessage();" class="dilligence_btn btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
@@ -760,7 +764,7 @@
                 <hr class="hr-sect">
 
             </div> 
-
+            <?php } ?>
       </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
@@ -1132,7 +1136,8 @@
                 </span>
                 <hr class="hr-sect">
             </div> 
-
+            
+            <?php if($user_company_id != $item->company_id){ ?>
             <div>
               @if(  !$if_premium )
                 <a onclick="notPremiumMessage();" class="dilligence_btn btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
@@ -1237,7 +1242,7 @@
                 @endif
                 <hr class="hr-sect">
             </div> 
-
+            <?php } ?>
       </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
@@ -1660,6 +1665,8 @@
                 <hr class="hr-sect">
             </div> 
 
+
+            <?php if($user_company_id != $item->company_id){ ?>
             <div>
               
               
@@ -1763,7 +1770,7 @@
                 @endif
                 <hr class="hr-sect">
             </div> 
-
+            <?php } ?>
       </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
@@ -2005,6 +2012,7 @@
             <hr>
         </div>
         
+        <?php if($user_company_id != $item->company_id){ ?>
         <div>
             <?php $opportunity_type = (isset($_GET["type"])) ? $_GET["type"] : ""; ?>
 
@@ -2109,7 +2117,7 @@
                 <hr class="hr-sect">
 
             </div> 
-
+            <?php } ?>
 <?php   
         }#end if company count
         ?>

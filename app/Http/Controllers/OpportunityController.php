@@ -254,7 +254,7 @@ class OpportunityController extends Controller {
 
 					}
 
-					return redirect('opportunity/explore')->with('message', 'Company as a request provider does not have a primary country.');
+					return redirect('opportunity/explore')->with('message', 'The company for this opportunity dont have a primary country.');
 
 					exit;
 
@@ -461,7 +461,7 @@ class OpportunityController extends Controller {
 
 					}
 
-					return redirect('/search-company')->with('message', 'Company as a request provider does not have a primary country.');
+					return redirect('/search-company')->with('message', 'The company for this opportunity dont have a primary country.');
 
 					exit;
 
@@ -909,7 +909,7 @@ class OpportunityController extends Controller {
 
 				// $buy = OpportunityBuy::where('company_id', '!=', $company_id)
 				// ->where('status', 1)
-				// ->get();
+				// ->get();company_id
 
    		$build = OpportunityBuildingCapability::where('status', 1)->where('is_verify', 1)->orderBy('id','DESC')->get();
 
@@ -1865,6 +1865,9 @@ class OpportunityController extends Controller {
 			if($whre_stat == "approved"){
 			    $redirect_url = "/opportunity/approval/approved";
 			}
+			else if($whre_stat == "own"){
+			    $redirect_url = "/opportunity";
+			}
 
 			$user_id = Auth::id();
 
@@ -1931,6 +1934,9 @@ class OpportunityController extends Controller {
 			if($whre_stat == "approved"){
 			    $redirect_url = "/opportunity/approval/approved";
 			}
+			else if($whre_stat == "own"){
+			    $redirect_url = "/opportunity";
+			}
 
 			$user_id = Auth::id();
 
@@ -1996,6 +2002,9 @@ class OpportunityController extends Controller {
 			
 			if($whre_stat == "approved"){
 			    $redirect_url = "/opportunity/approval/approved";
+			}
+			else if($whre_stat == "own"){
+			    $redirect_url = "/opportunity";
 			}
 
 			$user_id = Auth::id();
