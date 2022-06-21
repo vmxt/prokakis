@@ -98,6 +98,34 @@ class RequestReport extends Model {
 		}
 
 	}
+	
+	public static function getProjectName2($request_id) {
+
+		$req = App\RequestReport::find($request_id);
+		
+		$result = null;
+
+		if ( $req->count() > 0) {
+		    
+		    if($req->opportunity_type == "build"){
+		        $result = OpportunityBuildingCapability::find($req->fk_opportunity_id)->first();
+		    }
+		    
+		    if($req->opportunity_type == "sell"){
+		        $result = OpportunitySellOffer::find($req->fk_opportunity_id)->first();;
+		    }
+		    
+		    if($req->opportunity_type == "buy"){
+		        $result = OpportunityBuy::find($req->fk_opportunity_id)->first();;
+		    }
+		    
+		    $opp_title = ($result["opp_title"] != "") ? $result["opp_title"] : strtoupper($req->opportunity_type) . " OPPORTUNITY";
+            
+			return $req->company_name . ' - (' . strtoupper($opp_title) . ")";
+
+		}
+
+	}
 
 	public static function getProjectName($request_id) {
 

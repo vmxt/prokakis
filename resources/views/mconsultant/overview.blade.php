@@ -206,9 +206,9 @@
 
   height: 110px;
 
-  margin-top: 50px;
+  margin-top: 5px;
 
-  margin-bottom: 50px;
+  margin-bottom: 5px;
 
   text-align: center;
 
@@ -235,14 +235,93 @@
   line-height: 110px;
 
   z-index: 2;
+  font-weight:bold;
 
 }
 
+ .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
 
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
+
+.center {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+.wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(45deg, #7cda24, #fff);
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+ 
+    .cardborder-radius{
+        border-radius: 20px !important;
+        border: 1px solid #a5a5a5; ;
+    }
+    
+     .cardborder-radius:hover{
+        box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
 
     </style>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
 
@@ -280,7 +359,7 @@
 
                                 <i class="icon-notebook"></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">Project Overview</span>
+                                <span class="caption-subject  sbold uppercase">Project Overview</span>
 
 
 
@@ -312,17 +391,13 @@
 
                         </div>
 
-                        <div class="portlet-body">
-
-                            <div class="table-scrollable">
-
-                                <table class="table table-bordered table-hover">
+                                <table id="project_table" class="table pure-table pure-table-horizontal pure-table-striped">
 
                                         <thead>
 
                                                 <tr>
 
-                                                    <th>No</th>
+                                                    <th class="hide">No</th>
 
                                                     <th>Project Name</th>
 
@@ -346,7 +421,7 @@
 
                                                 <?php
 
-						
+            
                                                  if( count((array)$rs) > 0 ){
 
 
@@ -365,21 +440,21 @@
 
                                                 ?>
 
-                                                    <tr class="success">
+                                                    <tr class="">
 
-                                                    <td align="center"><?php echo $i; ?></td>
+                                                    <td class="hide" ><?php echo $i; ?></td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php
 
-                                                            echo App\RequestReport::getProjectName($cp->request_id);
+                                                            echo App\RequestReport::getProjectName2($cp->request_id);
 
                                                         ?>
 
                                                     </td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                       <span id="dueDate<?php echo $cp->id; ?>">
 
@@ -389,7 +464,7 @@
 
                                                     </td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php
 
@@ -405,7 +480,7 @@
 
                                                     </td>
 
-                                                    <td align="center">
+                                                    <td >
 
 
 
@@ -423,7 +498,7 @@
 
 
 
-                                                    <td align="center"><?php
+                                                    <td ><?php
 
                                                         if(is_numeric($cp->project_status))
 
@@ -441,7 +516,7 @@
 
 
 
-                                                    <td align="center"><a>
+                                                    <td ><a>
 
                                                         <?php
 
@@ -499,9 +574,9 @@
 
 
 
-                                                    <td align="center"><?php echo $i; ?></td>
+                                                    <td class="hide" ><?php echo $i; ?></td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                     <?php
 
@@ -519,9 +594,9 @@
 
                                                     </td>
 
-                                                    <td align="center"> <input type="text" class="form-control datepicker" name="due_date<?php echo $i; ?>"></td>
+                                                    <td  > <input type="text" class="form-control datepicker" name="due_date<?php echo $i; ?>"></td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php
 
@@ -549,7 +624,7 @@
 
                                                     </td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                        0%
 
@@ -557,7 +632,7 @@
 
                                                     <td> </td>
 
-                                                    <td align="center"><a>View Report</a></td>
+                                                    <td ><a>View Report</a></td>
 
                                                     </form>
 
@@ -593,11 +668,9 @@
 
                         </div>
 
-                    </div>
 
 
 
-                </div>
 
                 </div>
 
@@ -629,7 +702,7 @@
 
                 <p>
 
-                    <button align="right" id="ajxUpdate" type="button" class="btn btn-primary">Update</button>
+                    <button align="right" id="ajxUpdate" type="button" class="btn bg-dark text-white btn-primary">Update</button>
 
                 </p>
 
@@ -655,23 +728,44 @@
 
     <!-- <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     -->
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
-	<script src="{{ asset('public/dist-easypiechart/jquery.easypiechart.min.js') }}"></script>
+  <script src="{{ asset('public/dist-easypiechart/jquery.easypiechart.min.js') }}"></script>
 
-
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
     <script>
 
 
 
         $(document).ready(function () {
+            
+            $('#project_table').DataTable({
+                "ordering": false,
+                "drawCallback": function( settings ) {
+                    $('.chart').easyPieChart({
 
-            //$('#system_data').DataTable();
+              easing: 'easeOutBounce',
+        
+              onStep: function(from, to, percent) {
+        
+                $(this.el).find('.percent').text(Math.round(percent)+"%");
+        
+              },
+              barColor: "#7cda24"
+        
+            });
+            
+            $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+                },
+                
+                
+            });
 
             $(".popup").hide();
 
@@ -789,27 +883,27 @@
 
         $(function() {
 
-		$('.chart').easyPieChart({
+    $('.chart').easyPieChart({
 
-			easing: 'easeOutBounce',
+      easing: 'easeOutBounce',
 
-			onStep: function(from, to, percent) {
+      onStep: function(from, to, percent) {
 
-				$(this.el).find('.percent').text(Math.round(percent)+"%");
+        $(this.el).find('.percent').text(Math.round(percent)+"%");
 
-			}
+      }
 
-		});
+    });
 
-		var chart = window.chart = $('.chart').data('easyPieChart');
+    var chart = window.chart = $('.chart').data('easyPieChart');
 
-		$('.js_update').on('click', function() {
+    $('.js_update').on('click', function() {
 
-			chart.update(Math.random()*200-100);
+      chart.update(Math.random()*200-100);
 
-		});
+    });
 
-	});
+  });
 
 
 

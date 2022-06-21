@@ -25,10 +25,22 @@
             background-color: orangered;
 
         }
+        
+         .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
 
     </style>
 
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
 
@@ -66,7 +78,7 @@
 
                                 <i class="icon-notebook"></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">Pending Projects</span>
+                                <span class="caption-subject  sbold uppercase">Pending Projects</span>
 
 
 
@@ -98,17 +110,14 @@
 
                         </div>
 
-                        <div class="portlet-body">
 
-                            <div class="table-scrollable">
-
-                                <table id="system_data" class="table table-bordered table-hover">
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
 
                                         <thead>
 
                                                 <tr>
 
-                                                    <th>No</th>
+                                                    <th >No</th>
 
                                                     <th>Project Name</th>
 
@@ -142,23 +151,23 @@
 
                                                 ?>
 
-                                                    <tr class="success">
+                                                    <tr >
 
-                                                    <td align="center"><?php echo $i; ?></td>
+                                                    <td ><?php echo $i; ?></td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php
 
-                                                            echo App\RequestReport::getProjectName($d->request_id);
+                                                            echo App\RequestReport::getProjectName2($d->request_id);
 
                                                         ?>
 
                                                     </td>
 
-                                                    <td align="center"><?php echo $d->due_date; ?></td>
+                                                    <td ><?php echo $d->due_date; ?></td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php
 
@@ -174,7 +183,7 @@
 
                                                     </td>
 
-                                                    <td align="center">
+                                                    <td >
 
                                                         <?php
 
@@ -186,7 +195,7 @@
 
 
 
-                                                    <td align="center"><?php
+                                                    <td ><?php
 
                                                         if(is_numeric($d->project_status))
 
@@ -204,7 +213,7 @@
 
 
 
-                                                    <td align="center"><a>
+                                                    <td ><a>
 
                                                         <?php
 
@@ -262,9 +271,6 @@
 
                             </div>
 
-                        </div>
-
-                    </div>
 
 
 
@@ -310,7 +316,13 @@
 
         $(document).ready(function () {
 
-            $('#system_data').DataTable();
+            $('#system_data').DataTable({
+                 "drawCallback": function( settings ) {
+                    
+                
+                    $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+                },
+            });
 
 
 
