@@ -59,8 +59,20 @@
         background:rgba(0,0,0,1);
         text-decoration:none;
     }
-    </style>
+    
+        .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
 
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+    </style>
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <div class="container">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
             <li>
@@ -78,8 +90,8 @@
                     <div class="portlet light ">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="icon-bulb font-blue"></i>
-                                <span class="caption-subject font-blue sbold uppercase">Commission History</span>
+                                <i class="icon-bulb "></i>
+                                <span class="caption-subject  sbold uppercase">Commission History</span>
 
                              @if (session('status'))
                                 <div class="alert alert-success">
@@ -96,8 +108,8 @@
 
                         </div>
                         <div class="portlet-body">
-                            <div class="table-scrollable">
-                                <table id="system_data" class="table table-bordered table-hover">
+                            <div class="table-scrollable" style="border:none !important">
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped"  >
                                     <thead>
                                     <tr>
                                         <th width="10%"># Project Id</th>

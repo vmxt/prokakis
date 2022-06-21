@@ -32,7 +32,26 @@
     }
 }
 
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
+
+.center {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
     </style>
+    
+    <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -51,12 +70,12 @@
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-bulb font-blue"></i>
-                                <span class="caption-subject font-blue sbold uppercase">List of {{ $status }} Rewards</span>
+                                <span class="caption-subject  sbold uppercase">List of {{ $status }} Rewards</span>
                             </div>
 
                         </div>
                         <div class="portlet-body">
-                            <div id="container" class="table-scrollable">
+                            <div id="container" class="table-scrollable" style="border:none !important">
 
                                     @if (session('status'))
                                     <div class="alert alert-success">
@@ -69,7 +88,7 @@
                                     </div>
                                 @endif
 
-                                <table id="system_data" class="display hover row-border stripe compact" style="width:100%">
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%">
                                     <thead>
                                     <tr>
                                         <th>#</th>

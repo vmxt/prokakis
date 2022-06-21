@@ -18,7 +18,9 @@
 
     }
 
-
+    .progress-bar{
+        background-color:#7cda24 !important;
+    }
 
 </style>
 
@@ -26,219 +28,17 @@
 
 @section('content')
 
-    <?php //echo Route::getFacadeRoot()->current()->uri(); ?>
-
     <link href="{{ asset('public/mini-upload/assets/css/style.css') }}" rel="stylesheet">
 
     <link href="{{ asset('public/img-cropper/css/style.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{asset('public/css/profileedit.css')}}">
 
-
-
-
-
-    <!--I comment it the style for temporary and separate the style to public/css/profileedit.css -->
-
-    <!--
-
-<style>
-
-       .containerCimg
-
-       {
-
-
-
-       }
-
-       .actionCimg
-
-       {
-
-           width: 300px;
-
-           height: 30px;
-
-           margin: 5px 0;
-
-           float: left;
-
-       }
-
-       .croppedCimg>img
-
-       {
-
-           margin-right: 10px;
-
-       }
-
-
-
-       .niceDisplay{
-
-                  font-family: 'PT Sans Narrow', sans-serif;
-
-                   font-weight: bold;
-
-                   font-size: 15px;
-
-                   background-color: white;
-
-                   padding: 30px;
-
-                   border-radius: 3px;
-
-                   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-
-                   text-align: center;
-
-                   color: orangered;
-
-        }
-
-
-
-</style>
-
-
-
-<style>
-
-   #edit_icon{
-
-       cursor: pointer;
-
-   }
-
-
-
-   /* Outer */
-
-.popup {
-
-   width:100%;
-
-   height:100%;
-
-   display:none;
-
-   position:fixed;
-
-   top:0px;
-
-   left:0px;
-
-   background:rgba(0,0,0,0.75);
-
-}
-
-
-
-/* Inner */
-
-.popup-inner {
-
-   max-width:700px;
-
-   width:90%;
-
-   padding:40px;
-
-   position:absolute;
-
-   top:50%;
-
-   left:50%;
-
-   -webkit-transform:translate(-50%, -50%);
-
-   transform:translate(-50%, -50%);
-
-   box-shadow:0px 2px 6px rgba(0,0,0,1);
-
-   border-radius:3px;
-
-   background:#fff;
-
-}
-
-
-
-/* Close Button */
-
-.popup-close {
-
-   width:30px;
-
-   height:30px;
-
-   padding-top:4px;
-
-   display:inline-block;
-
-   position:absolute;
-
-   top:0px;
-
-   right:0px;
-
-   transition:ease 0.25s all;
-
-   -webkit-transform:translate(50%, -50%);
-
-   transform:translate(50%, -50%);
-
-   border-radius:1000px;
-
-   background:rgba(0,0,0,0.8);
-
-   font-family:Arial, Sans-Serif;
-
-   font-size:20px;
-
-   text-align:center;
-
-   line-height:100%;
-
-   color:#fff;
-
-}
-
-
-
-.popup-close:hover {
-
-   -webkit-transform:translate(50%, -50%) rotate(180deg);
-
-   transform:translate(50%, -50%) rotate(180deg);
-
-   background:rgba(0,0,0,1);
-
-   text-decoration:none;
-
-}
-
-
-
-</style> -->
-
-
-
-
-
     <link rel="stylesheet" href="{{ asset('public/js-tabs/jquery-ui.css') }}" rel="stylesheet">
-
-
-
 
 
     <div class="container">
 
-
-
-        <?php //echo Route::getFacadeRoot()->current()->uri(); ?>
 
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
 
@@ -406,15 +206,15 @@
 
                                         <div class="card-body center">
 
-                                            <div class="alert alert-info" role="alert">
+                                            <div class="alert bg-intellinz-light-green text-company" role="alert">
 
 
 
-                                                PRO TIP: Companies with filled in general company information have a
+                                                <b>PRO TIP: Companies with filled in general company information have a
 
                                                 greater chance to matched with relevant business for their business
 
-                                                objectives.
+                                                objectives</b>.
 
                                             </div>
 
@@ -554,7 +354,7 @@
 
                                                 <label for="company_website">Bank </label><br />
 
-                                                <select name="bank_id" id="bank_id">
+                                                <select class="form-control" name="bank_id" id="bank_id">
 
                                                     <option value="" id=""></option>
 

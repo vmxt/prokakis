@@ -104,7 +104,7 @@ class MasterConsultantsController extends Controller {
 
 		$consul_id = Auth::id();
 
-		echo $consul_id;
+		//echo $consul_id;
 
 		$company_id_result = CompanyProfile::getCompanyId($consul_id);
 

@@ -730,8 +730,6 @@ class ConsultantsController extends Controller {
 
 		$consul_id = Auth::id();
 
-		echo $consul_id;
-
 		$company_id_result = CompanyProfile::getCompanyId($consul_id);
 
 		$company_data = Consultants::where('consultant_id', $consul_id)->first();

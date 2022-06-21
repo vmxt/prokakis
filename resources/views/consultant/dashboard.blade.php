@@ -85,7 +85,7 @@
         }
 
         .pie {
-            background-color: #ecc0b7;
+            background-color: #7cda24;
             width: 200px;
             height: 200px;
             -moz-border-radius: 100px;
@@ -111,8 +111,8 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #f7e5e1;
-            border-color: #f7e5e1;
+            background-color: #dff7d9;
+            border-color: #dff7d9;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -136,8 +136,8 @@
             -moz-border-radius: 100px;
             -webkit-border-radius: 100px;
             border-radius: 100px;
-            background-color: #f7e5e1;
-            border-color: #f7e5e1;
+            background-color: #dff7d9;
+            border-color: #dff7d9;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -209,7 +209,7 @@
                                         </div>
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">
-                                        <div class="alert alert-info"
+                                        <div class="alert bg-intellinz-light-green"
                                              style="width: 100%; overflow: hidden; margin-left: 0px !important;"><p>
                                                 <strong>Intellinz members</strong> are three times more likely
                                                 to engage with you if your company profile is over 30% complete.
@@ -234,7 +234,7 @@
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">ONGOING PROJECT</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-clock-o"></i>
+                                <i class="widget-thumb-icon bg-dark fa fa-clock-o"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden">ONGOING PROJECTS</span>
                                     <span class="widget-thumb-body-stat" style="margin-top: 10px;">
@@ -247,7 +247,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <a href="{{ route('ongoingProjectsSC') }}"><button type="button" class="btn btn-transparent blue btn-outline btn-circle btn-xs">See projects...</button></a>
+                            <a href="{{ route('ongoingProjectsSC') }}"><button type="button" class="btn btn-transparent blue btn-primary btn-circle btn-xs">See projects...</button></a>
 
                         </div>
                         <!-- END WIDGET THUMB -->
@@ -257,7 +257,7 @@
                         <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">ASSIGNED PROJECTS IN THE LAST 2 WEEKS</h4>
                             <div class="widget-thumb-wrap">
-                                <i class="widget-thumb-icon bg-blue fa fa-calendar-o"></i>
+                                <i class="widget-thumb-icon bg-dark fa fa-calendar-o"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden"></span>
                                     <span class="widget-thumb-body-stat" style="margin-top: 10px;">
@@ -292,7 +292,7 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
+                        <span class="caption-subject bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
                     </div>
                     <div class="panel-body">
                         <?php
