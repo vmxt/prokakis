@@ -1046,13 +1046,23 @@ input::-moz-focus-inner {
                                                 <?php   
                                                     if (isset($data->currency) and $data->currency==$list->id): 
                                                         echo 'selected';
-                                                    elseif ($list->id == 3):
+                                                    elseif (!isset($data->currency) and $list->id == "3"):
                                                         echo 'selected';
                                                     endif; ?>
 
                                                 <?=(isset($data->currency) and $data->currency==$list->id)?'selected':''?> value='{{ $list->id }}'>{{  $list->c_code }} ( {{ $list->c_text }} )</option>
                                             @endforeach
                                         </select>
+                                        
+                                        <?php if(isset($data->currency)){ ?>
+                                        <br>
+                                        <label for="currency"><b>Update the value of Asking Price, Estimated Revenue per Year, Estimated Profit per Year
+                                        , and Inventory Value based on the selected currency? </b> </label>
+                                        <select  class="form-control input-text-form" id="update_currency" name="update_currency" dataName='update_currency'>
+                                            <option value="no">No</option>
+                                            <option value="yes">Yes</option>
+                                        </select>
+                                        <?php } ?>
 
                                     </div>
 
@@ -1069,7 +1079,7 @@ input::-moz-focus-inner {
                                     <div class="form-group">
 
                                         <label for="approx_large"><b>What is the asking price of this Investment? </b> <em class="setCur">{{ $curText }}</em></label>
-                                        <input type="text"   class="form-control input-text-form numberinput" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)?number_format((int)$data->approx_large):''; ?>" >
+                                        <input type="text"   class="form-control input-text-form numberinput" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)? $data->approx_large :''; ?>" >
                                     </div>
 
                                 </div>
@@ -1087,7 +1097,7 @@ input::-moz-focus-inner {
 
                                         <label for="est_revenue"><b>What is the estimated revenue per year? </b> <em class="setCur">{{ $curText }}</em></label>
 
-                                        <input type="text"   class="form-control input-text-form numberinput" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)?number_format((int)$data->est_revenue):''; ?>" >
+                                        <input type="text"   class="form-control input-text-form numberinput" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)? $data->est_revenue :''; ?>" >
 
 
                                     </div>
@@ -1106,7 +1116,7 @@ input::-moz-focus-inner {
 
                                         <label for="est_profit"><b>What is the estimated profit per year? </b><em class="setCur">{{ $curText }}</em> </label>
 
-                                        <input type="text"  class="form-control input-text-form numberinput" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)?number_format((int)$data->est_profit):'' ?>" >
+                                        <input type="text"  class="form-control input-text-form numberinput" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)? $data->est_profit:'' ?>" >
 
                                     </div>
 
@@ -1124,7 +1134,7 @@ input::-moz-focus-inner {
 
                                         <label for="inventory_value"><b>What is the inventory value? </b><em class="setCur">{{ $curText }}</em> </label>
 
-                                        <input required="required"  type="text" class="form-control input-text-form numberinput" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? number_format((int)$data->inventory_value,2) : '' ?>" >
+                                        <input required="required"  type="text" class="form-control input-text-form numberinput" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '' ?>" >
 
                                     </div>
 
@@ -2842,6 +2852,83 @@ function currencyCodeUpdate(val)
 {
     var code = $('option:selected', val).attr('code');
     $('.setCur').text('('+code+')');
+    
+    <?php if(isset($data->currency)){ ?>
+    
+    if($("#update_currency option:selected").val() == "yes"){
+        var getUrl = window.location;
+        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        
+        $.ajax({
+            url: baseUrl + "/getCurrencyBasedID/{{ $data->approx_large }}/{{ $data->currency }}/" + $('option:selected', val).val(),
+            type: 'GET',
+            cache: false,
+            success: function (response) {
+                if({{ $data->currency }} == $('option:selected', val).val()){
+                    $("#approx_large").val("{{ $data->approx_large }}");
+                }
+                else{
+                    $("#approx_large").val(response);
+                }
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+        
+        $.ajax({
+            url: baseUrl + "/getCurrencyBasedID/{{ $data->est_revenue }}/{{ $data->currency }}/" + $('option:selected', val).val(),
+            type: 'GET',
+            cache: false,
+            success: function (response) {
+                if({{ $data->currency }} == $('option:selected', val).val()){
+                    $("#est_revenue").val("{{ $data->est_revenue }}");
+                }
+                else{
+                    $("#est_revenue").val(response);
+                }
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+        
+        $.ajax({
+            url: baseUrl + "/getCurrencyBasedID/{{ $data->est_profit }}/{{ $data->currency }}/" + $('option:selected', val).val(),
+            type: 'GET',
+            cache: false,
+            success: function (response) {
+                if({{ $data->currency }} == $('option:selected', val).val()){
+                    $("#est_profit").val("{{ $data->est_profit }}");
+                }
+                else{
+                    $("#est_profit").val(response);
+                }
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+        
+        $.ajax({
+            url: baseUrl + "/getCurrencyBasedID/{{ $data->inventory_value }}/{{ $data->currency }}/" + $('option:selected', val).val(),
+            type: 'GET',
+            cache: false,
+            success: function (response) {
+                if({{ $data->currency }} == $('option:selected', val).val()){
+                    $("#inventory_value").val("{{ $data->inventory_value }}");
+                }
+                else{
+                    $("#inventory_value").val(response);
+                }
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+    }
+    
+    <?php } ?>
 }
 
     </script>

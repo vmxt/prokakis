@@ -585,7 +585,7 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
                         
                     </h4>
                 </span>
@@ -1548,7 +1548,7 @@
                 </span>
                 <span class="content-text">
                     <h4> 
-                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
+                        {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
                     </h4>
                 </span>
                 <hr>
@@ -1940,7 +1940,7 @@
             </span>
             <span class="content-text">
                 <h4> 
-                    {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, 3) }}
+                    {{ App\CurrencyMonetary::currencyConvertion($item->approx_large, $item->currency) }}
                 </h4>
             </span>
             <hr>

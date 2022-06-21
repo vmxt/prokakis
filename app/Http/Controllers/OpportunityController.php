@@ -16,6 +16,7 @@ use App\RequestReport;
 use App\SpentTokens;
 use App\OppIndustry;
 use App\User;
+use App\CurrencyMonetary;
 use App\ChatHistory;
 use Auth;
 use App\PremiumOpportunityPurchased;
@@ -38,6 +39,10 @@ class OpportunityController extends Controller {
 
 	public function __construct() {
 		$this->middleware('auth');
+	}
+	
+	public function getCurrencyBasedID(Request $request){
+	    return CurrencyMonetary::currencyConvertionBasedID($request['amount'], $request['original_currency'], $request['currency_now']);
 	}
 
 	public function index() {
