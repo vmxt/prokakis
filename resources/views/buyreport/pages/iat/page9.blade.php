@@ -18,16 +18,16 @@
 
       <p class="text-justify">
 
-        <small class="text-muted">
+        <p class="">
           We matched the company information of the report provider. 
-        </small>
+        </p>
 
       </p>
 
     </div>
 
     <?php if(!empty($MASinvestors)){  ?>
-      <center><h5 color="green"><i> MAS Investors Alert Likely Match  </i></h5></center>
+      <center><h5 class="text-header"><i> MAS Investors Alert Likely Match  </i></h5></center>
     <div class=" p-3">
         <?php foreach($MASinvestors as $d){ ?>
             <table class="table table-sm table-bordered" >

@@ -14,19 +14,19 @@
         <div class="row p-1">
             <div class="col-md-12 text-center">
                 <p  class="h1 heading1">{{ $data['COMP_NAME'] }}</p>
-                <small class="h6">REGISTRATION NUMBER: {{ $data['COMP_REGISTRATION_NUMBER'] }}</small>
+                <p class="h6">REGISTRATION NUMBER: {{ $data['COMP_REGISTRATION_NUMBER'] }}</p>
             </div>
         </div>
 
         <div class="row p-1">
             <hr class="report-line">
         </div>
-
+        <br>
         <div class="row p-3">
             <div class="gray-box">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <u class="h4">AML - World check risk intelligence by Refinitive</u>
+                        <b class="h4">AML - World check risk intelligence by Refinitive</b>
                     </div>
                 </div>
                <!-- <ul style="list-style-type: none; margin-top:20px; font-weight: bolder;">
@@ -50,25 +50,14 @@
         <div class="row p-5">
             &#160;
         </div>
-        <div class="row p-0">
-             <div class="col-md-12" style="text-align: center; line-height: 0">
-            </div>
-        </div>
-
-        <div class="row p-2">
-            &#160;
-        </div>
 
         <div class="row p-1">
             <div class="col-md-12 text-right">
-                PRESENTED BY: Intellinz
+                PRESENTED BY: <b>Intellinz</b>
                 <br>
-                GENERATED ON: <?php echo date('Y-m-d'); ?>
+                GENERATED ON: <b><?php echo date('Y-m-d'); ?></b>
             </div>
         </div>
-         <div class="row p-5 ">
-            <div class="col-md-12">
-            </div>
-        </div> 
     </div>
 </div>
+<div style = "display:block; clear:both; page-break-after:always;"></div>

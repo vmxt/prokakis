@@ -29,7 +29,7 @@
             <div class="gray-box">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <u class="h4">Investors Alert</u>
+                        <b class="h4">Investors Alert</b>
                     </div>
                 </div>
               
@@ -44,12 +44,6 @@
         <div class="row p-5">
             &#160;
         </div>
-        <div class="row p-0">
-             <div class="col-md-12" style="text-align: center; line-height: 0">
-                <span>All Rights Reserved &#169; <?php echo date("Y");?> </span><br>
-                <span>Intellinz PTE LTD</span>
-            </div>
-        </div>
 
         <div class="row p-2">
             &#160;
@@ -57,9 +51,9 @@
 
         <div class="row p-1">
             <div class="col-md-12 text-right">
-                PRESENTED BY: Intellinz
+                PRESENTED BY: <b>Intellinz</b>
                 <br>
-                GENERATED ON: <?php echo date('Y-m-d'); ?>
+                GENERATED ON: <b><?php echo date('Y-m-d'); ?></b>
             </div>
         </div>
         {{--         <div class="row p-5 page-break">
@@ -69,3 +63,4 @@
         </div> --}}
     </div>
 </div>
+<div style = "display:block; clear:both; page-break-after:always;"></div>

@@ -10,48 +10,48 @@
         </div>
         <div>
             <p class="text-justify">
-                <small class="text-muted">
+                <p class="">
                  {!! !empty($reportTemplates['HEADER_TXT_PG4']) ? ucfirst($reportTemplates['SUBHEADER_TXT_PG4']) : 'Variable [HEADER_TXT_PG4] does not exist' !!}
-                </small>
+                </p>
             </p>
         </div>
         <div class="row p-5">
             <table class="table table-sm table-bordered">
               <tbody>
                 <tr>
-                  <th scope="row">Company</th>
+                  <td scope="row">Company</th>
                   <td colspan="2">{{ strtoupper($data['COMP_NAME']) }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Registration Number:</th>
+                  <td scope="row">Registration Number:</th>
                   <td colspan="2">{{ strtoupper($data['COMP_REGISTRATION_NUMBER']) }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Business Type</th>
+                  <td scope="row">Business Type</th>
                   <td colspan="2">{{ strtoupper($data['COMP_BUSSINESS_TYPE']) }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Address</th>
+                  <td scope="row">Address</th>
                   <td colspan="2">{{ strtoupper($data['COMP_ADDRESS']) }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Industry Type: </th>
+                  <td scope="row">Industry Type: </th>
                   <td colspan="2">{{ strtoupper($data['COMP_INDUSTRY_TYPE']) }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">E-Mail:</th>
+                  <td scope="row">E-Mail:</th>
                   <td colspan="2"><a href="#">{{ strtoupper($data['COMP_EMAIL']) }}</a></td>
                 </tr>
                 <tr>
-                  <th scope="row">Website</th>
+                  <td scope="row">Website</th>
                   <td colspan="2"><a href="#">{{ strtoupper($data['COMP_WEBSITE']) }}</a></td>
                 </tr>
                 <tr>
-                  <th scope="row">Office Phone:</th>
+                  <td scope="row">Office Phone:</th>
                   <td colspan="2">{{ strtoupper($data['COMP_OFFICE_PHONE']) }}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Mobile Phone: </th>
+                  <td scope="row">Mobile Phone: </th>
                   <td colspan="2">{{ strtoupper($data['COMP_MOBILE_PHONE']) }}</td>
                 </tr>
               </tbody>

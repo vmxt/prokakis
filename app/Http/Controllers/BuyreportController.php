@@ -862,10 +862,24 @@ $Bahamas = [];
 				$tr_peps_create_date = '';
 				$tr_inserted_date = '';
 				$keyArrPersons = [];
-				$keyPersons = KeyManagement::where('company_id', $rs->source_company_id)->where('user_id', $user_id)->where('status', 1)->count();
+				
+				$source_com_id = $rs->source_company_id;
+				
+				$keyPersons = KeyManagement::
+				where(function ($query) use ( $user_id, $source_com_id ) {
+    			    $query->where('company_id', $source_com_id);
+    			    $query->orWhere('user_id', $user_id);
+    			})
+    			->where('status', 1)->count();
+				
 				if($keyPersons > 0)
 				{	$i = 0;
-					$rs_tr = KeyManagement::where('company_id', $rs->source_company_id)->where('user_id', $user_id)->where('status', 1)->get();
+					$rs_tr = KeyManagement::
+					where(function ($query) use ( $user_id, $source_com_id ) {
+        			    $query->where('company_id', $source_com_id);
+        			    $query->orWhere('user_id', $user_id);
+        			})
+        			->where('status', 1)->get();
 					foreach($rs_tr as $d)
 					{
 						$searchParam = "";
@@ -921,7 +935,6 @@ $Bahamas = [];
 				// return view('buyreport.aml_PDF', compact('company_data','reportTemplates','dateDone', 'tr_peps', 'tr_inserted_date', 'keyArrPersons'));
 				$pdf = PDF::loadView('buyreport.aml_PDF', compact('company_data','reportTemplates','dateDone', 'tr_peps', 'tr_inserted_date', 'keyArrPersons'));
 				return $pdf->download('AML_'.$company_data->company_name . '.pdf');
-
 				}
 
 			} 
@@ -998,7 +1011,7 @@ $Bahamas = [];
 				$pdf = PDF::loadView('buyreport.ia_PDF',compact('company_data', 'reportTemplates', 'dateDone', 'MASinvestors', 'Panama', 'Paradise','Offshore', 'Bahamas'));
 				//dd($pdf->output());
 				return $pdf->download('IA_'.$company_data->company_name . '.pdf');
-
+            
 				}
 
 			} 
@@ -1139,7 +1152,9 @@ $Bahamas = [];
 			$repId = base64_decode($res[0]);
 			$rs = ProcessedReport::find($repId);
 			$today = strtotime(date("Y-m-d"));
-
+			
+			$company_data = CompanyProfile::find($rs->source_company_id);
+			
 				if (isset($rs->month_subscription_start) && isset($rs->month_subscription_end)) 
 				{
 					$dStart = strtotime($rs->month_subscription_start);
@@ -1163,29 +1178,32 @@ $Bahamas = [];
 					exit;
 
 					} else {
+					    
+					    
 
 					   //mkdir(public_path('report_downloads/'.$repId));	
 					   if (!file_exists(public_path('report_downloads/'.$repId))) {
 
-						mkdir(public_path('report_downloads/'.$repId), 0777, true);
+						mkdir(public_path('report_downloads/'.$repId), 0755, true);
 					
-							//Things to do, generate report here
-							//1st report ADM
-							BuyReport::getADM($rs, $repId);
-
-							//2nd report IA
-							BuyReport::getIA($rs, $repId);	
-							
-							//3rd report AML
-							BuyReport::getAML($rs, $repId);	
-								
-							//4th report OVERVIEW
-							//BuyReport::getCompanyOverview($rs, $user_id, $repId);	
+						} 
+                        //Things to do, generate report here
+							$adm_pdf = $this->repAm($request);
+			                    file_put_contents(public_path('report_downloads/'.$repId. '/ADM_'.$company_data->company_name . '.pdf'), $adm_pdf);
+			                    
+			                    $genReportIa = $this->repIa($request);
+			                    file_put_contents(public_path('report_downloads/'.$repId. '/IA_'.$company_data->company_name . '.pdf'), $genReportIa);
+			                    
+			                    $genReportAml = $this->repAml($request);
+			                    file_put_contents(public_path('report_downloads/'.$repId. '/AML_'.$company_data->company_name . '.pdf'), $genReportAml);
+			                    
+			                    $downloadReport = $this->downloadReport($request);
+			                    file_put_contents(public_path('report_downloads/'.$repId. '/CompanyOverview_'.$company_data->company_name . '.pdf'), $downloadReport);	
 
 							//merge all into a 1 zip file
 							$zip = new ZipArchive;
 							//echo 'cant call zip'; exit;
-							$fileName = $repId.'dl.zip';
+							$fileName = $repId.'_download_all.zip';
 								
 							if ($zip->open(public_path('report_downloads/'.$fileName), ZipArchive::CREATE) === TRUE)
 							{
@@ -1198,22 +1216,17 @@ $Bahamas = [];
 								
 								$zip->close();
 							}	
-						
+						    
 							return response()->download(public_path('report_downloads/'.$fileName));
-
-
-						} else {
-
-							if (file_exists(public_path('report_downloads/'.$repId.'_download_all.zip'))) {
-							return response()->download(public_path('report_downloads/'.$repId.'_download_all.zip'));
-							}
-							
-						}		
-
 					}
 
 		   		}
-
+                else{
+                    echo "null sya jaja";
+                }
+		}
+		else{
+		    echo "no pid";
 		}
 	}
 

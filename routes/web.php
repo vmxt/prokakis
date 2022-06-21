@@ -23,7 +23,7 @@ Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken
 Route::get('/worldData', 'Test2Controller@getWorldData')->name('updateWorldData');
 Route::get('/testmail', 'Test2Controller@testMailSending')->name('testMail');
 
-Route::get('/genReportAll/{rpId}', 'BuyreportController@downloadAll')->name('reportAllDownload');
+Route::get('/genReportAll/{rpId}/{companyId}/{reqId}', 'BuyreportController@downloadAll')->name('reportAllDownload');
 Route::get('/genReportAml/{rpId}', 'BuyreportController@repAml')->name('reportAML');
 Route::get('/genReportIa/{rpId}', 'BuyreportController@repIa')->name('reportInvestorsAlert');
 Route::get('/genReportAm/{rpId}', 'BuyreportController@repAm')->name('reportAdverMedia');
