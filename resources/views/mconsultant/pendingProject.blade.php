@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -319,8 +318,8 @@ th {
             $('#system_data').DataTable({
                  "drawCallback": function( settings ) {
                     
-                
-                    $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+            
+                $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
                 },
             });
 

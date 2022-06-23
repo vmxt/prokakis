@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -261,7 +259,7 @@ td:first-child, th:first-child {
                                                                             
                                                                             <?php 
                                                     if($status == "pending"){ ?>
-                                                       <a href="{{ url('/opportunity/approvedOpportunity/'.$s->id .':build') }}"
+                                                       <a href="{{ url('/opportunity/approvedOpportunity/'.$b->id .':build') }}"
                                                          class="btn btn-info" style="color: white"
                                                          
                                                          onclick="return confirm('Are you sure you want to approve this opportunity item?')"
@@ -270,7 +268,7 @@ td:first-child, th:first-child {
                                                 <?php }
                                                 ?>
 
-                                                                                <a href="{{ url('/opportunity/editApprovalBuild/'.$b->id) }}"
+                                                                                <a href="{{ url('/opportunity/editApprovalBuild/'.$b->id.'/'.$status) }}"
                                                                                      class="btn btn-primary"
                                                                                     style="color: white">Edit</a>
 
@@ -328,7 +326,7 @@ td:first-child, th:first-child {
                                                 <?php }
                                                 ?>
 
-                                                    <a href="{{ url('/opportunity/editApprovalSellOffer/'.$s->id) }}"
+                                                    <a href="{{ url('/opportunity/editApprovalSellOffer/'.$s->id.'/'.$status) }}"
                                                          class="btn btn-primary" style="color: white">Edit</a>
 
                                             <a href="{{ url('/opportunity/deleteSell/'.$s->id.':'.$status) }}"
@@ -374,7 +372,7 @@ td:first-child, th:first-child {
                                                             
                                                             <?php 
                                                     if($status == "pending"){ ?>
-                                                       <a  href="{{ url('/opportunity/approvedOpportunity/'.$s->id .':buy') }}"
+                                                       <a  href="{{ url('/opportunity/approvedOpportunity/'.$bb->id .':buy') }}"
                                                          class="btn btn-info" style="color: white"
                                                          
                                                          onclick="return confirm('Are you sure you want to approve this opportunity item?')"
@@ -383,7 +381,7 @@ td:first-child, th:first-child {
                                                 <?php }
                                                 ?>
                                                             
-                                            <a href="{{ url('/opportunity/editApprovalBuy/'.$bb->id) }}" 
+                                            <a href="{{ url('/opportunity/editApprovalBuy/'.$bb->id.'/'.$status) }}" 
                                                                     class="btn btn-primary" style="color: white">Edit</a>
 
                                             <a href="{{ url('/opportunity/deleteBuy/'.$bb->id.':'.$status) }}"
@@ -509,3 +507,4 @@ td:first-child, th:first-child {
     </script>
 
 @endsection
+    
