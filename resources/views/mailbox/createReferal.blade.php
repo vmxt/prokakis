@@ -67,7 +67,7 @@
                       
                         <div class="panel">
                             <div class="panel-heading">
-                                <span class="caption-subject font-blue-steel bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
+                                <span class="caption-subject  bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
                             </div>
                             <div class="panel-body">
                                 <?php
@@ -145,7 +145,8 @@
 
 
                                     <div class="row justify-content-center" style="margin-left: 5px;">
-                                        <input type="submit" name="sendMessage" class="btn btn green fa fa-check" value="Send"> &nbsp;
+                                        <button type="submit" name="sendMessage" class="btn btn-primary btn green"><i class="fa fa-paper-plane"></i> SEND</button>
+                                        <!--<input type="submit" name="sendMessage" class="btn btn-primary btn green fa fa-check" value="Send"> &nbsp;-->
                                         <a href="{{ route('mailCompose') }}" class="btn default">Cancel</a>
                                     </div>
 

@@ -4,7 +4,8 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
+   <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css'>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -30,6 +31,19 @@
 
         }
   .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
+  
+  th {
+  color: #7cda24 !important;
+  background:black !important;
+  border-bottom:4px solid #9ea7af;
+  border-right: 1px solid #343a45;
+  font-weight: 100;
+  padding:24px;
+  text-align:center !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  vertical-align:middle;
+  text-transform:uppercase;
+}
     </style>
 
 
@@ -66,7 +80,7 @@
 
                             <div class="portlet-title">
 
-                            <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
+                            <div class="alert bg-dark text-company" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
 
                             <p>
 
@@ -83,13 +97,13 @@
                             </p>
 
                             </div>
-                                <div class="alert alert-info " id="refer_alert" role="alert" style="display: none">
+                                <div class="alert alert-success " id="refer_alert" role="alert" style="display: none">
                                   Copy to Clipboard!
                                 </div>
                               <div class="input-group">
                                 <div class="input-group-btn ">
-                                  <button class="btn btn-info" type="submit" onclick="myFunction()"  >
-                                    <i class="glyphicon glyphicon-page" >Copy</i>
+                                  <button class="btn btn-primary" type="submit" onclick="myFunction()"  >
+                                    <i class="fa fa-copy" ></i> Copy
                                   </button>
                                 </div>
                                 
@@ -123,7 +137,7 @@
                               data-off="PRIVATE" 
                               data-width="100" 
                               data-onstyle="success" 
-                              data-offstyle="info" 
+                              data-offstyle="primary" 
                               data-style="slow">
                             </div>
 
@@ -153,7 +167,7 @@
 
                                 <i class="icon-share"></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">List of referrals under your account. </span>
+                                <span class="caption-subject  sbold uppercase">List of referrals under your account. </span>
 
 
 
@@ -187,7 +201,7 @@
 
                         <div class="portlet-body">
 
-                            <div class="table-scrollable">
+                            <div class="table-scrollable" style="border:none !important">
 
                                 <table id="system_data" class="table table-bordered table-hover">
 
@@ -305,10 +319,10 @@
 
                     </div>
 
-                <div class="panel panel-info">
+                <div class="panel panel-success">
                     <!-- Default panel contents -->
                     <div class="panel-heading">
-                        <h3 class="panel-title">Ten Most Referrals</h3>
+                        <h3 class="panel-title"><b>Ten Most Referrals</b></h3>
                     </div>
                  
                     <!-- List group -->
@@ -341,7 +355,7 @@
                               {{ $userD->company_website }}
                             </p> 
                             <hr>
-                            <a href="#" class="btn btn-info" rel="modal:close">Close</a>
+                            <a href="#" class="btn btn-primary" rel="modal:close">Close</a>
                           </div>
                           
                         <?php
@@ -384,7 +398,8 @@
 
     <!--<script src="{{ asset('public/js/app.js') }}"></script>-->
 
-    <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+   <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
 
 

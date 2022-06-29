@@ -1,4 +1,4 @@
-@extends('layouts.app-profile-edit')
+@extends('layouts.app')
 
 @section('content')
 {{-- <script src="{{ asset('public/tinymce/js/tinymce/tinymce.min.js') }}"></script>  --}}
@@ -98,6 +98,7 @@ th {
 
     </style>
   <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
@@ -126,7 +127,7 @@ th {
                 <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
                     <thead>
                     <tr>
-                        <th>Id</th>
+                        <th class="fit">Id</th>
                         <th>Variable Name</th>
                         <th>Content</th>
                         <th>Action</th>
@@ -137,7 +138,7 @@ th {
                     <?php  foreach($rs as $data){
                     ?>
                     <tr>
-                        <td><?php echo $data->id; ?></td>
+                        <td class="fit"><?php echo $data->id; ?></td>
                         <td id="tdVarName<?php echo $data->id; ?>"><?php echo $data->variable_name; ?> </td>
                         <td id="tdContent<?php echo $data->id; ?>"><?php
                             $content = substr($data->content, 0, 200);
@@ -182,13 +183,20 @@ th {
     </div>
 
 
-<link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
-<script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
 <script>
 $(document).ready( function () {
-    $('#system_data').DataTable();
+    $('#system_data').DataTable({
+            responsive: true,
+            columnDefs: [ 
+                { targets:"_all", orderable: false },
+                { targets:[0,1,2,3], className: "desktop" },
+                { targets:[0,1], className: "tablet, mobile" }
+            ]
+            });
     $(".popup").hide();
 } );
 

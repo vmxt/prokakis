@@ -28,6 +28,15 @@
       background-size: cover;
       position: relative;
     }
+    
+    @media screen  and (max-width: 607px) and (min-width: 427px) {
+        .learn_more{
+            float: none !important;
+            margin-top:20px;
+            position:initial !important;
+            
+        }
+    }
 
 
         .intro-tour-overlay {
@@ -153,6 +162,27 @@
     transform: scale(0);
   }
 }
+
+ @media (max-width: 760px) {
+        #main_user_menu{
+            margin-top:30px !important;
+            
+        }
+        
+        #main_user_menu:after{
+                margin-top: 49px !important;
+                right: 70 !important;
+        }
+    }
+    
+    
+    .modal_oppoBox .modal-dialog{
+        width:90% !important;
+    }
+    
+    .btn_options{
+        margin-bottom:5px;
+    }
 
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
@@ -2284,14 +2314,20 @@
 
         $(document).ready(function () {
             
+            $(".image").each(function(){
+                $(this).height(parseInt($(this).closest(".post").height()));
+            });
+            
             $('#filter_country_cb').select2({
                 placeholder: "All Countries",
-                allowClear: true
+                allowClear: true,
+                 width: '100%'
             });
             
             $('#filter_ideal_partners_cb').select2({
                 placeholder: "Any Business type",
-                allowClear: true
+                allowClear: true,
+                 width: '100%'
             });
             
             <?php 

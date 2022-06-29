@@ -16,17 +16,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('public/css/dashboard.css') }}">
-{{-- 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script> --}}
         
-
-
     <style>
         .niceDisplay {
             font-family: 'PT Sans Narrow', sans-serif;
@@ -144,7 +134,7 @@
           -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
           -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
           /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
-          box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 1) !important;
+          box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.5) !important;
           cursor: default !important;
           border-radius: 20px !important;
         }
@@ -192,7 +182,7 @@
         <?php } ?>
 
         height: 300px;
-        background-position: center;
+        background-position: top -20px right;
         background-repeat: no-repeat;
         background-size: cover;
         margin-bottom: 20px;
@@ -261,7 +251,7 @@
     }
 
     @media (min-width: 320px) and (max-width: 480px) {
-        .profile-img img {
+        .profile-img img{
             margin-left: 35px;
         }
         .ctr{
@@ -272,6 +262,10 @@
             max-height: 414px;
             background: none;
 
+        }
+        
+        .hero-image{
+            background-position: left !important;
         }
 
     } 
@@ -362,6 +356,88 @@ body.loading .modal-load {
     padding:0px !important;
 }
 
+
+
+.opp_outer_div{
+        background-repeat: no-repeat;
+        background-size: 100% 355px;
+        background-position: 0 -50px;
+        width: 100%;
+        border-radius:20px;
+        border:1px solid silver !important
+    }
+    
+.image_div{
+    height:180px;
+}
+    
+.opp_inner_div{
+         height:100%;
+        width:100%;
+        background: linear-gradient(185deg,
+        transparent  0%, 
+        transparent  30%, 
+        #7cda24   30.2%, 
+        #7cda24   31%, 
+        white 31.2%, 
+        white 87%);
+        background-color:transparent !important;
+        border-radius:20px;
+        
+    }
+    
+@media (max-width: 767px){
+    
+}
+    
+@media (min-width: 768px){
+    .opp_outer_div{
+        background-position: -100px 0px;
+        background-repeat: no-repeat;
+        background-size: 43% 100%;
+    }
+    
+     .opp_inner_div{
+        background: linear-gradient(89.8deg,
+        transparent  0%, 
+        transparent  26%, 
+        #7cda24   26.1%, 
+        #7cda24   27%, 
+        white 27.1%, 
+        white 85%);
+        
+    }
+    
+    .opp_inner_div{
+        border:none !important;
+    }
+
+}
+
+hr{
+    border: 1px solid #7cda24 !important;
+}
+
+
+.story_header{
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    background:black !important;
+    
+}
+
+.story_header .bootstrap.h7.text-muted{
+    color:#7cda24 !important;
+}
+
+.hr-sect.opp_type{
+    text-transform:uppercase !important;
+    font-weight:bold;
+}
+
+.gedf-card{
+    border:1px solid silver !important;
+}
     </style>
     
     
@@ -387,10 +463,10 @@ body.loading .modal-load {
                     <div class="card-img">
                         <div class="profile-img cardborder-radius" >
                             <?php if($profileAvatar != null){  ?>
-                            <a style='background: none' href="#"><img style='border-radius: 20px; border: 1px solid #785b5b' class='' src="{{ asset('public/images/') }}/<?php echo $profileAvatar; ?>"
+                            <a style='background: none' href="#"><img style='border-radius: 20px; border: 1px solid silver' class='' src="{{ asset('public/images/') }}/<?php echo $profileAvatar; ?>"
                                              alt="Card image"> </a>
                             <?php } else { ?>
-                            <a style='background: none' href="#"><img style='border-radius: 20px; border: 1px solid #785b5b' src="{{ asset('public/images/robot.jpg') }}" alt="Card image">
+                            <a style='background: none' href="#"><img style='border-radius: 20px; border: 1px solid silver' src="{{ asset('public/images/robot.jpg') }}" alt="Card image">
                                 <?php } ?> </a>
                         </div>
 
@@ -416,17 +492,17 @@ body.loading .modal-load {
                                 <div class="bootstrap portlet light h-effect">
                                     <div class="bootstrap card gedf-card cardborder-radius">
                                         <div class="bootstrap card-body" style="text-align: center;">
-                                            <span class="bootstrap caption-subject font-blue-steel bold uppercase"> <i class="fa fa-users" style="color: black;"></i> Status</span>
+                                            <h3 class="bootstrap caption-subject font-blue-steel bold uppercase"> <i class="fa fa-users" style="color: black;"></i> Status</h3>
                                         </div>
                                         <div class="bootstrap card-body">
                                                 <ul class="bootstrap list-group list-group-flush">
                                                     <li class="bootstrap list-group-item">
-                                                        <div class="bootstrap h6 text-muted">Followers</div>
-                                                        <div class="bootstrap h5">{{ $followerCount }}</div>
+                                                        <div class="bootstrap h3 "><b>Followers</b></div>
+                                                        <div class="bootstrap h2">{{ $followerCount }}</div>
                                                     </li>
                                                     <li class="bootstrap list-group-item">
-                                                        <div class="bootstrap h6 text-muted">Following</div>
-                                                        <div class="bootstrap h5">{{ $followingCount }}</div>
+                                                        <div class="bootstrap h3 "><b>Following</b></div>
+                                                        <div class="bootstrap h2">{{ $followingCount }}</div>
                                                     </li>
                                                 </ul>
                                         </div>
@@ -442,6 +518,8 @@ body.loading .modal-load {
             <div class="bootstrap col-md-10 content-card">
                 <div id="top_opps_div">
                     <div class="hr-sect opp_type"  >Top 5 Opportunities</div>
+                
+                
                 <?php 
                     $obc = App\OpportunityBuildingCapability::where('status', 1)
                      ->where('intro_describe_business', '!=', null)
@@ -526,16 +604,13 @@ body.loading .modal-load {
                              
                              <div class="bootstrap page-content-inner">
                                 <div class="bootstrap mt-content-body">
-                                    <div class="bootstrap portlet light h-effect">
-                                        <div class="bootstrap card gedf-card cardborder-radius">
+                                    <div class="bootstrap portlet light">
+                                        <div class="opp_outer_div" style="background-image: url( <?php echo $imgSrc; ?> );">
+                                        <div class="opp_inner_div bootstrap card  cardborder-radius  h-effect">
                                             
-                                            <div class="bootstrap card-body card-flex ">
+                                            <div class=" bootstrap card-body card-flex ">
                                                 <div class="row w-100 ">
-                                                    <div class="col-md-4 p-2" style="background-image: url( <?php echo $imgSrc; ?> );
-                                                        background-size: 95% 95%;
-                                                        background-repeat: no-repeat;
-                                                        background-origin: content-box;
-                                                        background-position: center center;height:200px;width:100%;">
+                                                    <div class="image_div col-md-4 p-2" style="background:transparent">
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="row">
@@ -556,20 +631,20 @@ body.loading .modal-load {
                                                             <div class="col-md-4">
                                                                 <ul class="info_list mt-2" style="list-style-type: none;">
                                                                     <li >Est. Revenue /year</li>
-                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->est_revenue, 3) }}</b></li>
+                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->est_revenue, $d->currency) }}</b></li>
                                                                     <li>Est. Profit /year</li>
-                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->est_profit,3) }}</b></li>
+                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->est_profit,$d->currency) }}</b></li>
                                                                     <li>Inventory value</li>
-                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->inventory_value,3) }}</b></li>
+                                                                    <li class="mb-2"><b>{{ App\CurrencyMonetary::currencyConvertion($d->inventory_value,$d->currency) }}</b></li>
                                                                 </ul>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <ul class="info_list mt-2" style="list-style-type: none;">
                                                                     <li><h4 ><b class="text-company">Asking Price</b></h4></li>
-                                                                    <li class="mb-2"><b style="text-decoration:noe">{{ App\CurrencyMonetary::currencyConvertion($d->approx_large,3) }}</b></li>
+                                                                    <li class="mb-2"><b style="text-decoration:noe">{{ App\CurrencyMonetary::currencyConvertion($d->approx_large,$d->currency) }}</b></li>
                                                                     <li class="mb-2">
                                                                         <div class="learn_more" style="margin-top: 15px;">
-                                                                           <button name="{{ $d->opp_title }}" type="button" class="learn_more_btn btn btn-dark  btn-lg ">LEARN MORE</button>
+                                                                           <button name="{{ $d->opp_title }}" type="button" class="learn_more_btn btn btn-dark  btn-lg "><i class="fa fa-file-text"></i> LEARN MORE</button>
                                                                         </div>    
                                                                     </li>
                                                                 </ul>
@@ -580,6 +655,7 @@ body.loading .modal-load {
                                                     
                                                 </div>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -600,9 +676,9 @@ body.loading .modal-load {
                     @foreach($businessNewsData as $businessNews)
                         <div class="bootstrap page-content-inner">
                             <div class="bootstrap mt-content-body">
-                                <div class="bootstrap portlet light h-effect">
-                                    <div class="bootstrap card gedf-card cardborder-radius">
-                                        <div class="bootstrap card-body">
+                                <div class="bootstrap portlet light">
+                                    <div class="bootstrap card gedf-card cardborder-radius h-effect ">
+                                        <div class="bootstrap card-body story_header">
                                             <div class="bootstrap d-flex justify-content-between align-items-center">
                                                 <div class="bootstrap d-flex justify-content-between align-items-center">
                                                     <div class="bootstrap mr-2">
@@ -625,7 +701,7 @@ body.loading .modal-load {
                                                 </div>
 
                                             </div>
-                                            <hr style="width:100%; ">
+                                            
                                         </div>
                                         <div class="bootstrap card-body card-flex">
                                             
@@ -635,7 +711,7 @@ body.loading .modal-load {
 
                                             </div>
                                         <div class="bootstrap card-body">
-                                            <button style="margin-left:10px;margin-bottom:5px" data-toggle="modal" data-target="#follow_bus_news_{{ $businessNews['content']['id'] }}"  class=" btn btn-primary btn-lg "><i class="fa fa-eye"></i> MORE DETAILS</button>
+                                            <button style="margin-left:10px;margin-bottom:5px" data-toggle="modal" data-target="#follow_bus_news_{{ $businessNews['content']['id'] }}"  class="pull-right btn btn-primary btn-lg "><i class="fa fa-eye"></i> MORE DETAILS</button>
                                         </div>
                                     </div>
                                 </div>
@@ -653,43 +729,45 @@ body.loading .modal-load {
             @foreach($topBusinessNewsOpportunity as $topbusinessNews)
                 <div class="bootstrap page-content-inner">
                     <div class="bootstrap mt-content-body">
-                        <div class="bootstrap portlet light h-effect">
-                            <div class="bootstrap card gedf-card cardborder-radius">
+                        <div class="bootstrap portlet light ">
+                            <div class="bootstrap card gedf-card cardborder-radius h-effect ">
                                 
-                                <div class="bootstrap card-body ">
+                                <div class="bootstrap card-body story_header " style="">
                                     <div class="bootstrap d-flex justify-content-between align-items-center">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
                                             <div class="bootstrap mr-2">
-<?php 
-                        $avatar = $topbusinessNews->feature_image;
-                            $avat2 = asset('public/images/industry')."/guest.png";
-
-                        if (!$avatar) 
-                            $avat = asset('public/images/industry')."/guest.png";
-                        else 
-                            $avat = asset('public/company/feature_images')."/".$avatar;
-                        $avatarUrl = $avat;
-                        $dt = Carbon\Carbon::parse($topbusinessNews->updated_at);
-
-?>
+                                                <?php 
+                                                                        $avatar = $topbusinessNews->feature_image;
+                                                                            $avat2 = asset('public/images/industry')."/guest.png";
+                                                
+                                                                        if (!$avatar) 
+                                                                            $avat = asset('public/images/industry')."/guest.png";
+                                                                        else 
+                                                                            $avat = asset('public/company/feature_images')."/".$avatar;
+                                                                        $avatarUrl = $avat;
+                                                                        $dt = Carbon\Carbon::parse($topbusinessNews->updated_at);
+                                                
+                                                ?>
                                             <img class="bootstrap home_image" class="img-fluid" style="width:40px;height:35px"  src="{{ $avatarUrl }}" onerror="this.src='{{ $avat2 }}';">
                                             </div>
                                             <div style="font-weight:bold !important" class="bootstrap ml-2">
-                                                {{-- <div class="bootstrap h5 m-0">{{ $businessNews->business_title }}</div> --}}
                                                 <div class="bootstrap h7 text-muted">{{ $dt->diffForHumans() }}</div>
                                             </div>
                                         </div>
                                     
                                     </div>
-                                    <hr style="width:100%; ">
+                                    
+
+                                    </div>
+                                <div class="bootstrap card-body ">
+                                    
                                     <div style="color:black; " class="news_body bootstrap card-text">
                                         {{ $topbusinessNews->business_title }}
                                     </div>
-
-                                    </div>
-                                <div class="bootstrap card-body">
+                                </div>
+                                <div class="bootstrap card-body ">
                                          <a href="#" data-toggle="modal" 
-                                         data-target="#bus_news_{{ $topbusinessNews->id }}" style="margin-left:10px;margin-bottom:5px" class=" btn btn-primary btn-lg "><i class="fa fa-eye"></i> MORE DETAILS</a>
+                                         data-target="#bus_news_{{ $topbusinessNews->id }}" style="margin-left:10px;margin-bottom:5px" class="pull-right btn btn-primary btn-lg "><i class="fa fa-eye"></i> MORE DETAILS</a>
                                  
                                 </div>
                             </div>
@@ -708,70 +786,52 @@ body.loading .modal-load {
             @foreach($oppResultdata as $val)
                 <div class="bootstrap page-content-inner">
                     <div class="bootstrap mt-content-body">
-                        <div class="bootstrap portlet light h-effect">
+                        <div class="bootstrap portlet light ">
                                  <!--- \\\\\\\Post-->
-                                <div class="bootstrap card gedf-card cardborder-radius">
-                                    <div class="bootstrap card-body">
+                                <div class="bootstrap card gedf-card cardborder-radius h-effect">
+                                    <div class="bootstrap card-body story_header">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
                                             <div class="bootstrap d-flex justify-content-between align-items-center">
                                                 <div class="bootstrap mr-2">
-<?php 
-
-                        $industryImage = App\OppIndustry::find($val['content']['industry']);
-                        if($industryImage){
-                            $avatarName = $industryImage->image;
-                            $avatarUrl = asset('public/images/industry')."/".$avatarName;
-                        }else{
-                            $avatarUrl = asset('public/images/industry')."/guest.png";
-                        }
-                        $dt = Carbon\Carbon::parse($val['updated_at']);
-                        $oppid = $val['content']['oppo_id'];
-
-
-?>
+                                                    <?php 
+                                                    
+                                                                            $industryImage = App\OppIndustry::find($val['content']['industry']);
+                                                                            if($industryImage){
+                                                                                $avatarName = $industryImage->image;
+                                                                                $avatarUrl = asset('public/images/industry')."/".$avatarName;
+                                                                            }else{
+                                                                                $avatarUrl = asset('public/images/industry')."/guest.png";
+                                                                            }
+                                                                            $dt = Carbon\Carbon::parse($val['updated_at']);
+                                                                            $oppid = $val['content']['oppo_id'];
+                                                    
+                                                    
+                                                    ?>
                                                 <img class="bootstrap home_image" class="img-fluid" style="width:35px;height:35px" src="{{ $avatarUrl }}" alt="">
                                                 </div>
                                                 <div class="bootstrap ml-2">
-                                                    <div class="bootstrap h5 m-0 text-muted"><h4><b class="">{{ strtoupper($val['state']) }}</b></h4></div>
-                                                    <div style="color:black;text-transform:uppercase" class="bootstrap h7 ">{{ $val['content']['opp_title'] }}</div>
+                                                    <div class="bootstrap h5 m-0  text-company"><h4><b class="">{{ strtoupper($val['state']) }}</b></h4></div>
+                                                    <div style="font-weight:bold;text-transform:uppercase" class="bootstrap h7 text-white">{{ $val['content']['opp_title'] }}</div>
                                                 </div>
                 
                                             </div>
-    {{--                                         <div>
-                                                <div class="bootstrap dropdown">
-                                                    <button class="bootstrap btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-h"></i>
-                                                    </button>
-                                                    <div class="bootstrap dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                                        <a class="bootstrap dropdown-item" href="#">View Profile</a>
-                                                        <a class="bootstrap dropdown-item" href="#">Unfollow</a>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
+   
                                         </div>
-                                    <hr style="width:100%; ">
+                                    
                                     </div>
                                     <div class="follow_op_div card-body  ">
                                         
-                                        <div class="bootstrap text-muted h7 mb-2"> <i class="fa fa-clock-o">&nbsp;</i>{{ $dt->diffForHumans() }}</div>
-               {{--                          <a class="bootstrap card-link" href="#">
-                                            <h5 class="bootstrap card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
-                                        </a> --}}
+                                        <div class="bootstrap text-muted h7 mb-2 mt-4"> <i class="fa fa-clock-o">&nbsp;</i>{{ $dt->diffForHumans() }}</div>
+               
                                         <div class='card-flex'>
                                             <div class="bootstrap card-text">
                                                 {{ $val['content']['intro_describe_business']  }}
                                             </div>
-{{--                                             <div class="viewBtn ">
-                                                <a href="#"  class="btn btn-info">View</a>
-                                            </div> --}}
                                         </div>
                                     </div>
                                     <div class="bootstrap card-body">
-                                            <button name="{{ $val['content']['opp_title'] }}" style="margin-left:10px;margin-bottom:5px" class="learn_more_btn btn-primary btn-lg "><i class="fa fa-eye"></i> MORE DETAILS</button>
+                                            <button name="{{ $val['content']['opp_title'] }}" style="margin-left:10px;margin-bottom:5px" class="pull-right learn_more_btn btn-primary btn-lg "><i class="fa fa-eye"></i> MORE DETAILS</button>
                                        
-                    {{--                     <a href="#" class="bootstrap card-link"><i class="fa fa-gittip"></i> Like</a>
-                                        <a href="#" class="bootstrap card-link"><i class="fa fa-comment"></i> Comment</a>
-                                        <a href="#" class="bootstrap card-link"><i class="fa fa-mail-forward"></i> Share</a> --}}
                                     </div>
                                 </div>
                                 <!-- Post /////-->
@@ -804,9 +864,9 @@ body.loading .modal-load {
             @foreach($embedVideo2 as $val)
                 <div class="bootstrap page-content-inner">
                     <div class="bootstrap mt-content-body">
-                        <div class="bootstrap portlet light h-effect">
+                        <div class="bootstrap portlet light ">
                                  <!--- \\\\\\\Post-->
-                                <div class="bootstrap card gedf-card cardborder-radius">
+                                <div class="bootstrap card gedf-card cardborder-radius h-effect">
                                     <div class="bootstrap card-header">
                                         <div class="bootstrap d-flex justify-content-between align-items-center">
 
@@ -874,28 +934,37 @@ body.loading .modal-load {
 
 
             <div class="bootstrap col-md-2 disp-lg" style="">
-                <!-- sidebar token credit -->
-                <div class="bootstrap card gedf-card cardborder-radius h-effect">
-                    <div  class="bootstrap card-body" style="text-align: center;margin-bottom:5px;padding-bottom:1px;">
-                        <h3 class="bootstrap caption-subject font-blue-steel bold uppercase"> <i class="fa fa-users" style="color: black;"></i> Status </h3>
-                    </div>
-                    <div style="margin-top:5px;padding-top:1px;" class="bootstrap card-body">
-                        <div class="bootstrap ">
-                            <ul style="text-align:center" class="bootstrap list-group list-group-flush">
-                                <li style="border:none !important" class="bootstrap list-group-item">
-                                    <div class="bootstrap h6 text-muted"><h5><b>Followers</b></h5></div>
-                                    <div class="bootstrap h5"><h2><b>{{ $followerCount }}</b></h2></div>
-                                </li>
-                                <li style="border:none !important" class="bootstrap list-group-item">
-                                    <div class="bootstrap h6 text-muted"><h5><b>Following</b></h5></div>
-                                    <div class="bootstrap h5"><h2><b>{{ $followingCount }}</b></h2></div>
-                                </li>
-                            </ul>
+                
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="bootstrap card gedf-card cardborder-radius">
+                            <div  class="bootstrap card-body " style="text-align: center;margin-bottom:5px;padding-bottom:1px;">
+                                <h4 class="bootstrap caption-subject bold uppercase">  FOLLOWERS </h4>
+                            </div>
+                            <div style="text-align:center" class="bootstrap card-body">
+                                <div class="bootstrap h1 m-0"><h1><i class="fa fa-users" style="color: black;"></i> <b> {{ $followerCount }}</b></h1></div>
+                            </div>
+        
+        
                         </div>
                     </div>
-
-
                 </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="bootstrap card gedf-card cardborder-radius">
+                            <div  class="bootstrap card-body " style="text-align: center;margin-bottom:5px;padding-bottom:1px;">
+                                <h4 class="bootstrap caption-subject bold uppercase">  FOLLOWING </h4>
+                            </div>
+                            <div style="text-align:center" class="bootstrap card-body">
+                                <div class="bootstrap h1 m-0"><h1><i class="fa fa-user-plus" style="color: black;"></i><b> {{ $followingCount  }}</b></h1></div>
+                            </div>
+        
+        
+                        </div>
+                    </div>
+                </div>
+                
             </div>
 
 
@@ -951,7 +1020,6 @@ body.loading .modal-load {
 
 
  <div class='intro-tour-overlay'></div>
-    <script src="{{ asset('public/jq1110/jquery.min.js') }}"></script>
     <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
  <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
