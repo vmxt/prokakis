@@ -22,46 +22,208 @@
       background-size: cover;
       position: relative;
     }
-
-    .container-grid .blog-posts .row {
-        display: unset !important;
+    
+    @media screen  and (max-width: 607px) and (min-width: 427px) {
+        .learn_more{
+            float: none !important;
+            margin-top:20px;
+            position:initial !important;
+            
+        }
     }
 
-    .container-grid .blog-posts .post .image{
-        width: 20% !important;
-    }
 
-    .container-grid .blog-posts .post .content{
-        width: 65% !important;
-        height: auto !important;
-        padding-left: 100px !important;
+        .intro-tour-overlay {
+            display: none;
+            background: #666;
+            opacity: 0.5;
+            z-index: 1000;
+            min-height: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        
+    .mb-2{
+        margin-bottom: 10px
     }
-
-    .hr_title{
-        margin-bottom: 5px;
-        margin-top: 5px;
+    
+    .card-title{
+        font-weight:bold;
+        font-size:15px;
     }
+    
+    .filter_label{
+        font-size:14px;
+        margin-bottom:5px;
+    }
+    
+    .text-white{
+        color:white !important;
+    }
+    
+    .marginzero{
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+    
+    .cardborder-radius{
+        border-radius: 20px !important;
+        border: 1px solid #a5a5a5; ;
+    }
+    
+     .cardborder-radius:hover{
+        box-shadow:  0 8px 16px 0 rgb(187 187 187) !important;
+    }
+    
+    .meta{
+        font-size: 13px !important;
+        font-weight:bold !important;;
+    }
+   
+   .tag_txt, .opp_type, .hr-sect strong, .info_list, .meta, .rating_score{
+       color: black !important;
+   }
+   
+   .fa-user-minus{
+       color: #7cda24 !important
+   }
+   
+   .rating_score{
+       color: black !important;
+       font-weight:bold;
+       font-size:20px;
+   }
+   .modal{
+       z-index:1000011010102 !important
+   }
+   
+   .modal_loader {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
 
+   .wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(45deg, #7cda24, #fff);
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
+
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+ @media (max-width: 760px) {
+        #main_user_menu{
+            margin-top:30px !important;
+            
+        }
+        
+        #main_user_menu:after{
+                margin-top: 49px !important;
+                right: 70 !important;
+        }
+    }
+    
+    
+    .modal_oppoBox .modal-dialog{
+        width:90% !important;
+    }
+    
+    .btn_options{
+        margin-bottom:5px;
+    }
+    
+    .image{
+        width:30% !important;
+        border-right:5px solid #7cda24 !important;
+        
+    }
     .content{
-        text-align: center;
+        width:60% !important;
     }
-
-    .ratingScore1 {
-        margin: 8px !important;
-        position: absolute;
-        right: 210px;
-        font-size: 20px;
+    
+    .container-grid .blog-posts .post .content:before{
+        border-left: 5px solid #7cda24 !important;;
+        border-bottom: 5px solid #7cda24 !important;;
+        height:20px !important;
+        width:20px !important;
+        left:-13.5px !important;
+        
     }
-    .social-icon{
-        font-size: 30px !important;
+    
+    .pagination>li>a, .pagination>li>span{
+        color:#7cda24 !important;
+        font-weight:bold !important;
     }
-    .content-text a {
-        margin-left: 20px;
+    
+    .pagination>li{
+        display:inline !important;
     }
-
+    .content-text h5{
+        font-size:14px !important;
+        font-weight:600 !important;
+    }
+    
+    .post{
+        margin-right:0px !important;
+    }
 </style>
-<link rel="stylesheet" type="text/css" href="{{ asset('public/css/companySearch.css') }}">
 
+<link rel="stylesheet" type="text/css" href="{{ asset('public/css/explore.css') }}">
+
+<style>
+    .post p{
+        color:black !important;
+        font-size:14px !important;
+        font-weight:500 !important;
+        text-align: justify;
+    }
+</style>
 
     <div class="container container-grid">
         <div class="col-md-12" >
@@ -79,14 +241,187 @@
 <?php 
     $requestor_id = App\CompanyProfile::getCompanyId(Auth::id());
     $tokenStock = App\SpentTokens::validateTokenStocks($requestor_id);
+    $if_premium = App\SpentTokens::check_if_premium($requestor_id);
     //echo $tokenStock;
 ?>
 
         <div class="row">
-            <!-- START Search Company-->
-             {{ $companySearch->links() }}    
-            <div class="hr-sect opp_type" >Search by Company</div>
+            <!-- START Search Company--> 
+             
+            <div class="alert bg-dark text-white text-center text-bold" ><i class="fa fa-search"></i> <b style="font-weight:bold !important">SEARCH COMPANY</b></div>
+            
+            <form id="search_box2" class="search-form" action="{{ route('searchByCompany') }}" method="GET">
+                {{ csrf_field() }}
+            <div class="row" style="margin-bottom:20px">
+                <div class="col-md-12" >
+                    <div class="card cardborder-radius" style="border:1px solid silver;background:white">
+                        <div class="card-body" style="padding:20px">
+                            <h4 class="card-title mb-2"><i class="icon-magnifier">&nbsp;</i>FILTER COMPANIES BY:</h4>
+                            <div class="row">
+                                <div id="business_type_div" class="col-md-4 mb-2 ">
+                                    <div class="form-group">
+                                        <label class="filter_label" for="filter_cat_cb">Business Type:</label>
+                                        <?php $business_type = App\Configurations::getJsonValue('business_type'); ?>
+                                        <select class="form-control col-md-4" name="business_type_cb" id="business_type_cb"
+
+                                                        name="company_business_type">
+
+                                                    <option value="" id="">ALL Business Type</option>
+
+                                                    <?php foreach($business_type as $key => $value)
+
+                                                    {
+
+                                                    if (isset($_GET["business_type_cb"]) && $key == $_GET["business_type_cb"]) {
+
+                                                        $selected = 'selected';
+
+                                                    } else {
+
+                                                        $selected = '';
+
+                                                    }
+
+                                                    ?>
+
+                                                    <option
+
+                                                        <?php echo $selected; ?> value="<?php echo $key; ?>"><?php echo $value; ?></option>
+
+                                                    <?php
+
+                                                    }  ?>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="title_div" class="col-md-4 mb-2 ">
+                                    <div class="form-group">
+                                        <label class="filter_label" for="keywordSearch">Industry Type:</label>
+                                        
+                                        <select class="form-control col-md-4" id="industry_type_cb"
+
+                                                        name="industry_type_cb">
+                                                <?php $business_industry = App\Configurations::getJsonValue('business_industry'); ?>
+                                                
+                                                    <option value="" id="">All Industry</option>
+
+                                                    <?php foreach($business_industry as $key => $value)
+
+                                                    {
+
+                                                    if (isset($_GET["industry_type_cb"]) && $key == $_GET["industry_type_cb"]) {
+
+                                                        $selected = 'selected';
+
+                                                    } else {
+
+                                                        $selected = '';
+
+                                                    }
+
+                                                    ?>
+
+                                                    <option
+
+                                                        <?php echo $selected; ?> value="<?php echo $key ?>"><?php echo $value; ?></option>
+
+                                                    <?php
+
+                                                    }  ?>
+
+
+
+                                                </select>
+                                    </div>
+                                </div>
+                                <div id="title_div" class="col-md-4 mb-2 ">
+                                    <div class="form-group">
+                                        <label class="filter_label" for="keywordSearch">Primary Country:</label>
+                                        
+                                        <select class="form-control col-md-4" id="primary_country_cb"
+
+                                                        name="primary_country_cb">
+                                                    <?php $countries = App\Countries::all(); ?>
+                                                    <option value="" id="">All Countries</option>
+    
+                                                    <?php foreach($countries as $datas)
+
+                                                    {
+
+                                                    if (isset($_GET["primary_country_cb"]) && $datas->country_code == $_GET["primary_country_cb"]) {
+
+                                                        $selected = 'selected';
+
+                                                    } else {
+
+                                                        $selected = '';
+
+                                                    }
+
+                                                    ?>
+
+                                                    <option
+
+                                                        <?php echo $selected; ?> value="{{ $datas->country_code }}"><?php echo $datas->country_name; ?></option>
+
+                                                    <?php
+
+                                                    }  ?>
+
+
+
+                                                </select>
+                                        
+                                    </div>
+                                </div>
+                                <div id="title_div" class="col-md-4 mb-2 ">
+                                    <div class="form-group">
+                                        <label class="filter_label" for="keywordSearch">Company Name:</label>
+                                        <input type="text" class="form-control" name="seach_entry_key" id="company_name_txt"
+                                           placeholder="Enter company name here...."
+                                           value="<?php if (isset($_GET["seach_entry_key"])) { echo $_GET["seach_entry_key"]; }?>">
+                                    </div>
+                                </div>
+                                <div id="go_div" class="col-md-4 mb-2 ">
+                                    <div class="form-group">
+                                        <label class="filter_label" for="filter_country_cb">Click the SEARCH Button to begin searching based on your selected filter parameters.</label>
+                                        <button style="" id="filter_search_btn" name="filter_search_btn" class="btn btn-dark bg-dark text-white"><i class="icon-magnifier">&nbsp;</i>SEARCH BY FILTER</button>
+                                        <button style="" id="filter_load_all_btn" name="filter_load_all_btn" class="btn btn-dark bg-dark text-white"><i class="fa fa-eye">&nbsp;</i>VIEW ALL</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <center>
+                                    {{ $companySearch->appends(['seach_entry_key' => $_GET["seach_entry_key"], '_token' => $_GET["_token"], 
+                                    
+                                    'business_type_cb' => isset($_GET["business_type_cb"]) ? $_GET["business_type_cb"] : "" ,
+                                    'industry_type_cb' => isset($_GET["industry_type_cb"]) ? $_GET["industry_type_cb"] : "" ,
+                                    'primary_country_cb' => isset($_GET["primary_country_cb"]) ? $_GET["primary_country_cb"] : ""
+                                     ])->links() }}
+                                     </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </form>
+                
                 <div class='blog-posts'>
+                    
+                    <?php 
+                    
+                        if(count($companySearch) <= 0){ ?>
+                        
+                        <div class="alert bg-danger text-dark text-center text-bold" ><i class="fa fa-search"></i> <b style="font-weight:bold !important">NO COMPANY FOUND!</b></div>
+                            
+                    <?php }
+                    
+                    ?>
+                    
                 <?php       
                     $i = 1;
                     $build = [];
@@ -126,12 +461,7 @@
 
                     ?>
         
-        <!-- new code start -->
-        @if($i == 1)
-            <div class='row cf list-row-build '>
-        @endif
-        @if($i <= 2)
-              <div class='post company-list' >
+              <div class='post company-list cardborder-radius' >
                 <?php 
                     $followComp = App\CompanyFollow::checkFollowCompany( Auth::id(), $company->id ) ;
                     if( $followComp > 0) {
@@ -143,94 +473,78 @@
 
                     }
                 ?>
-                    <div class='follow-cont' dataVal="{{ $company->id }}">
-                        <i class="fas {{ $iconName }} fa-2x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
-                    </div>
-
-                <a href='#'>
-                    <div class='image' style='background-image: url( {{ $avatarUrl }}  )'>
-
-                        <?php if(App\InOutUsers::checkOnlineByCompany($company->id) == 1){ ?>
-                        <a target="_blank" href="{{ url('/vc-companysearch') }}/{{ $company->id }}">  
-                        <!--<img class='video-chat-icon' title="Company is Online" alt="Video Chat Company is online" src="{{ asset('public/vc_image/vc_online.png') }}">   -->
-                        </a> 
-                        <?php } else { ?>   
-                        <!--<img class='video-chat-icon' title="Company is Offline" alt="Video Chat Company" src="{{ asset('public/vc_image/vc_offline.png') }}">    -->
-                        <?php }  ?> 
-
-                @if($accStatus == 'premium')
-                    <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
-                @endif
-                    </div>
-
-
-
-                  <div class='content'>
-                    <h1 class='upperText' title="{{ $item->company_name }}"> <?= $item->company_name != "" ? $item->company_name : 'Providing Business Valuation' ?></h1>
-                    
-                    <div class="hr-sect"><strong class="hr_title">Description</strong></div>
-                         <p><?php echo $item->description?$item->description: "N/A" ; ?></p><br>
-
-                    <div class="hr-sect"><strong class="hr_title">Industry Type</strong></div>
-                         <p><?php echo $item->industry?$item->industry: "N/A" ; ?></p><br>
-        
-
-                    <div class="hr-sect"><strong class="hr_title">Rating</strong></div>
-                    <div style="display: flex;">
-                        <div style="margin: 0 auto;">
-                            @if($ratingScore < 25)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="30" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
+                             <div class='follow-cont' dataVal="{{ $company->id }}">
+                                    <i class="fas {{ $iconName }} fa-1x follow-icon followicon_{{ $company->id }}" title="{{ $iconTitle }}"  ></i>
+                                </div>
+                            <a href='#'>
+                                <div class='image' style='background-image: url( {{ $avatarUrl }} )'>
+            
+                            @if($accStatus == 'premium')
+                                <img class="premium_banner" alt="Premium Banner" src="{{ asset('public/banner/premium_banner.png') }}">
                             @endif
+                                </div>
+                        
+                            <div class='content'>
+                                <h1 class='upperText' title="{{ $item->company_name }}"> <?= $item->company_name != "" ? $item->company_name : 'Providing Business Valuation' ?></h1>
+                                
+                                <div class="hr-sect"><strong class="hr_title">Description</strong></div>
+                                     <p><?php echo $item->description?$item->description: "N/A" ; ?></p><br>
+            
+                                <div class="hr-sect"><strong class="hr_title">Industry Type</strong></div>
+                                     <p><?php echo $item->industry?$item->industry: "N/A" ; ?></p><br>
+                    
+            
+                                <div class="hr-sect"><strong class="hr_title">Rating</strong></div>
+                                <div style="display: flex;align-items: center;justify-content: center;">
+                                        @if($ratingScore < 25)
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                        @elseif($ratingScore >= 26 && $ratingScore <= 50)
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                        @elseif($ratingScore >= 51 && $ratingScore <= 75)
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p1.png') }}">
+                                        @elseif($ratingScore >= 76 && $ratingScore <= 100)
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                            <img width="30" height="32"
+                                                 src="{{  asset('public/stars/p2.png') }}">
+                                        @endif
+                                        
+                                    
+                                        <div class="rating_score ratingScore1">
+                                                <h3> {{ $ratingScore }}% </h3>
+                                        </div>
+                                </div>
+                                <br>
+                                <center>
+                                     <button onclick="showModalContent('build','{{ $item->id }}')" class="btn btn-primary "><i class="fa fa-file-text"></i> Learn More</button>
+                                </center>
+                                <div class="bottom-space" >
+                                    &nbsp;
+                                </div>
+                          </div>
+                          </a>
                         </div>
-
-                        <div class="rating_score ratingScore1">
-                            <h3> {{ $ratingScore }}% </h3>
-                        </div>
-                    </div>
-                    <div class="learn_more" style="float: right" >
-                           <button onclick="showModalContent('build','{{ $item->id }}')" class="btn btn-primary "> Learn More</button>
-                    </div>
-                    <div class="bottom-space" >
-                        &nbsp;
-                    </div>
-                  </div>
-                </a>
-              </div>
-        @endif
-        @if($i == 2)
-            </div>
-        @endif
+        
         <!-- new code end -->
 <?php      
-        if($i == 2){
-            $i = 0;
-        }
+       
          $i++; ?>
 
          {{-- Start modal click for build --}}
@@ -450,11 +764,7 @@
             </div>
 
             <div>
-              @if($tokenStock >= 12)
-                <a onclick="processReq('build', '{{ $item->id }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @else
-                <a onclick="stockTokenInfo('{{ $tokenStock }}');" class="btn blue btn_options"><span class="fa fa-check"></span> Due Diligence Report</a>
-              @endif
+                
 
                 <?php 
                 $viewer = base64_encode('viewer' . $company->id);
@@ -486,7 +796,7 @@
 
                 {{-- Requestor = Premium | Provider = Non-Premium 
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" onclick="checkAlertByPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn default btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" onclick="PremiumToPremium('{{ $company->id }}', '{{ $requestor_id }}');" class="btn blue btn_options "> <span class="fa fa-credit-card"></span> View Profile</a>
                 @endif --}}
 
                 {{-- Requestor = Non-premium | Provider = Non-Premium --}}
@@ -507,13 +817,13 @@
 
                 {{-- Requestor = Premium | Provider = Non-Premium --}}
                 @if(App\SpentTokens::validateAccountActivation($requestor_id) != false && App\SpentTokens::validateAccountActivation($provider_id) == false)
-                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn default btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
+                    <a href="#" Opptype="{{ $opportunity_type }}" onclick="premiumToNonPremium('{{ $company->id }}', '{{ $requestor_id }}','1');" class="btn blue btn_options"> <span class="fa fa-credit-card"></span> View Profile</a>
                     <a href="#" Opptype="{{ $opportunity_type }}"  onclick="OppInboxMe( '{{ $avatarUrl }}','{{  $item->company_name }}', '{{ $company->id }}', '{{ $item->user_id }}', '{{ $item->company_email}}');" class="btn blue btn_options"> <span class="fa fa-comment"></span> &nbsp; Connect Me</a>
                 @endif
 
         &nbsp;&nbsp;&nbsp; <span>
-                <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestOwnership({{ $requestor_id }}, {{ $provider_id }})"  class="btn green btn_options"> <span class="fa fa-comment"></span> &nbsp;Company Ownership </a>
-                <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestRemoval({{ $requestor_id }}, {{ $provider_id }})"  class="btn red btn_options"> <span class="fa fa-comment"></span> &nbsp; Removal in Intellinz</a>
+                <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestOwnership({{ $requestor_id }}, {{ $provider_id }})"  class="btn btn-success btn_options"> <span class="fa fa-user"></span> &nbsp;Company Ownership </a>
+                <a href="#" Opptype="{{ $opportunity_type }}" onclick="alertRequestRemoval({{ $requestor_id }}, {{ $provider_id }})"  class="btn red btn_options"> <span class="fa fa-remove"></span> &nbsp; Removal in Intellinz</a>
                 </span>
 
                 @if(App\User::getEBossStaffTrue(Auth::id()) == true)
@@ -555,7 +865,7 @@
   tabindex="-1" role="dialog" 
   aria-labelledby="Connect Me Modal" 
   aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:95% !important">
       <div class="modal-content">
         <div class="modal-header chat-header">
             <img  id='chatAvatar'>
@@ -585,13 +895,45 @@
             </div>
           <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" onclick="connectMe()" class="btn btn-success">Send message</button>
+                <button type="button" onclick="connectMe()" class="btn btn-primary ">Send message</button>
           </div>
     </div>
   </div>
 </div>
 <!-- END Connect Me MODAL -->
 
+<div 
+        class="modal fade " 
+        id="viewprofile_modal" 
+        tabindex="-1" role="dialog" 
+        aria-labelledby="" 
+        aria-hidden="true">
+        <div class="modal-dialog" style="width:90%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" style="margin-top:10px !important" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title " ></h4>
+                </div>
+        <div class="modal-body">
+            <div class="modal_loader center" >
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                        </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default " data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+</div>
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
@@ -612,6 +954,27 @@
             }
 
         $(document).ready(function () {
+            
+            $("#company_name_txt").on('keyup', function (e) {
+                if (e.keyCode === 13) {
+                    // Do something
+                      $( "#search_box2" ).submit();
+                }
+               });
+            
+            $("#filter_search_btn").click(function(){
+                $( "#search_box2" ).submit();
+            });
+            
+            $("#filter_load_all_btn").click(function(){
+                $("#business_type_cb option:eq(0), #industry_type_cb option:eq(0)").prop("selected", true).change();
+                $("#company_name_txt").val("");
+                $( "#search_box2" ).submit();
+            });
+            
+            $(".image").each(function(){
+                $(this).height(parseInt($(this).closest(".company-list").height()));
+            });
 
             $(".follow-cont").click(function (e) {
                     formData = new FormData();
@@ -818,7 +1181,7 @@
         function premiumToNonPremium(companyOpp,companyViewer,templateType)
         {
             $('.modal_oppoBox').modal('hide');
-            swal({
+            /*swal({
                 title:"The provider of this opportunity is non-premium.", 
                 text: "Are you sure to proceed? Because we will send an email notification to this company and encourage them to upgrade thier account to premium.",
                 icon: "warning",
@@ -861,7 +1224,9 @@
                 } else {
                     swal("Cancelled", "Notifying the opportunity provider was cancelled", "error");
                 }
-              });
+              });*/
+                $( "#viewprofile_modal .modal-body" ).load( '{{ env("APP_URL") . "profile/viewprofile" }}' + "/" + companyOpp );
+                $('#viewprofile_modal').modal('show');
         }
           
         function nonPremiumToPremium(companyOpp,companyViewer,templateType)
@@ -917,7 +1282,7 @@
 
         function PremiumToPremium(companyOpp,companyViewer, url, templateType){
           $('.modal_oppoBox').modal('hide');
-            swal({
+          /*  swal({
                 title:"We will send an email notification to this profile", 
                 text: "Are you sure to proceed?.",
                 icon: "warning",
@@ -959,7 +1324,10 @@
                 } else {
                     swal("Cancelled", "To become premium account was cancelled :)", "error");
                 }
-              });
+              });*/
+              
+                $( "#viewprofile_modal .modal-body" ).load( '{{ env("APP_URL") . "profile/viewprofile" }}' + "/" + companyOpp );
+                $('#viewprofile_modal').modal('show');
         }
         
         function DeductThreeInboxMe(avatarUrl, oppTitle, oppId, companyOpp, companyViewer, oppType)

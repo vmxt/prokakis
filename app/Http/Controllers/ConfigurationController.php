@@ -171,16 +171,33 @@ class ConfigurationController extends Controller {
 	}
 	public function searchCompany(Request $request) {
 		if ($request->isMethod('get')) {
-			$companySearch = '';
+			$companySearch = CompanyProfile::where('company_name', 'like', '%%');
 			$searchKey = $request->input("seach_entry_key");
-			if (trim($searchKey) != '' && trim($searchKey) != 'show-all') {
-					$companySearch = CompanyProfile::Where('company_name', 'like', '%' . $searchKey . '%')->paginate(6);
-					//$companySearch = CompanyProfile::Where('company_name', 'like', '%' . $searchKey . '%')->get();
-			} else if(trim($searchKey) == '') {
-					$companySearch = CompanyProfile::paginate(6);
-			}else if(trim($searchKey) == 'show-all') {
-					$companySearch = CompanyProfile::paginate(6);
+			
+			
+			if( null !== $request->input("business_type_cb") && $request->input("business_type_cb") != "" ){
+			    $companySearch = $companySearch->where('business_type', 'like', '%' . $request->input("business_type_cb") . '%');
 			}
+			
+			if( null !== $request->input("industry_type_cb") && $request->input("industry_type_cb") != "" ){
+			    $companySearch = $companySearch->where('industry', 'like', '%' . $request->input("industry_type_cb") . '%');
+			}
+			
+			if( null !== $request->input("primary_country_cb") && $request->input("primary_country_cb") != "" ){
+			    $companySearch = $companySearch->where('primary_country', 'like', '%' . $request->input("primary_country_cb") . '%');
+			}
+			
+			if (trim($searchKey) != '' && trim($searchKey) != 'show-all') {
+					$companySearch = $companySearch->where('company_name', 'like', '%' . $searchKey . '%');
+					//$companySearch = CompanyProfile::Where('company_name', 'like', '%' . $searchKey . '%')->get();
+			}/* else if(trim($searchKey) == '') {
+					$companySearch::paginate(6);
+			}else if(trim($searchKey) == 'show-all') {
+					$companySearch::paginate(6);
+			}*/
+			
+			$companySearch= $companySearch->paginate(5);
+			
 			return view('oppor.companysearch', compact('companySearch'));
 		}
 	}
