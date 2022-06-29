@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
    <style>

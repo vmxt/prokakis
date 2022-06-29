@@ -58,8 +58,6 @@
 
            float: left;
 
-            margin-bottom: 65px;
-
             padding: 10px;
 
        }
@@ -238,9 +236,8 @@
         }
 
         .profCompleteness{
-            margin-left: -20em ;
             display: inline-grid ;
-            margin-top: 85px !important;
+            margin-top: 25px !important;
         }
 
         .busineNews {
@@ -466,7 +463,7 @@
                                             <div id="croppedCimg" class="croppedCimg" align="center"> </div>
 
 
-
+                                            <center>
                                             <div class="imageBoxCimg">
 
                                                 <div class="thumbBoxCimg"></div>
@@ -474,9 +471,9 @@
                                                 <div class="spinnerCimg" style="display: none">Loading...</div>
 
                                             </div>
-
-
-                                            <div class="actionCimg actionImg">
+                                            
+                                            <center>
+                                            <div class="actionCimg actionImg" style="width:100%;margin-bottom:60px">
                                                 @if($validateAccount != false)
                                                 <p> You can adjust the orientation/size of the image by clicking the <strong>"+"</strong> or <strong>"-"</strong> </p>
                                                     <button class="btn btn-primary " type="button" id="btnCrop"  title="UPLOAD" ><i class="fa fa-upload"></i> UPLOAD</button>
@@ -489,13 +486,13 @@
                                                     <button class="btn btn-primary "  title="PREMIUM" />BECOME PREMIUM</button>
                                                 @endif
                                             </div>
-
-                                            <div class="actionCimg">
+                                            </center>
+                                            <div class="actionCimg" style="width:100%">
                                                 @if($validateAccount != false)
                                                     <input type="file" id="file" name="profile_img" style="float:left;">
                                                 @endif
                                             </div>
-
+                                            
 
 
 
@@ -503,14 +500,9 @@
                                         </div>
 
 
-
-                                        <div style="margin-bottom:60px;"></div>
-
-
-
                                     {{-- </div> --}}
 
-                                    <div class="card-body profCompleteness ">
+                                    <div class="card-body profCompleteness " style="width:100%">
 
                                         <h3> Profile Completeness </h3>                                                                                                                              
 
@@ -532,7 +524,7 @@
                                             ?>
 
                                             <strong><li style=" list-style-type: none; color: #000000"><?php if ($d != NULL) {
-                                                    echo '<i class="fa fa-exclamation"></i>' .$d;
+                                                    echo '<i class="fa fa-exclamation" style="color:red !important"></i>' .$d;
                                                 } ?> </li></strong>
                                             <?php
                                             }

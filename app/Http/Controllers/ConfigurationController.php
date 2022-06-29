@@ -166,7 +166,7 @@ class ConfigurationController extends Controller {
 				echo 'Invalid source ID.';
 			}
 		} else {
-			echo 'Invalid request ID and company ID.';
+			echo 'This link is already been acknowledge.';
 		}
 	}
 	public function searchCompany(Request $request) {

@@ -450,6 +450,9 @@ input::-moz-focus-inner {
                 <form id="opportunity_build_form" method="POST" enctype="multipart/form-data" action="{{ route('opportunityStoreBuy') }}">
 
                     {{ csrf_field() }}
+                    
+                    <input type="hidden" name="where_go" value="master" />
+                    <input type="hidden" name="after_edit_go" value="{{ $where_go }}" />
 
                     <div class="card" style="background:white">
 

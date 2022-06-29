@@ -71,7 +71,6 @@
         <!-- for new banner
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
             -->
-            
         <link href="{{ asset('public/assets/global/css/bootstrap.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
         <!-- END HEAD -->
         <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
@@ -87,6 +86,14 @@
   .fit {
    width:1% !important;
    white-space: nowrap !important;
+ }
+ 
+ .card{
+     border-radius:3px;
+ }
+ 
+ .btn-company{
+     background:#7cda24 !important;
  }
 
 h1,
@@ -221,6 +228,28 @@ button.bg-intellinz-light-green, input.bg-intellinz-light-green, a.bg-intellinz-
                 background: #000000;
             }
             i {color: white}
+            
+            
+    @media (max-width: 760px) {
+        #main_user_menu{
+            margin-top:30px !important;
+            
+        }
+        
+        #main_user_menu:after{
+                margin-top: 49px !important;
+                right: 70 !important;
+        }
+    }
+    
+    @media (min-width: 520px){
+        
+    }
+    
+    @media (min-width: 768px){
+        
+    }
+    
 
            @media (max-width: 991px) {
                .page-header .page-header-menu .hor-menu, .page-header .page-header-menu .hor-menu .navbar-nav {
@@ -490,7 +519,8 @@ span.fa, i.fa{
 
 
 option:hover {
-  background-color: #28a745 !important;
+  background-color: black !important;
+  color:white !important;
 }
 
 .mega_small_image, .mega_large_image{
@@ -501,7 +531,15 @@ option:hover {
     background:red !important;
     font-weight:bold !important;
 }
+ .navbar-nav .open .dropdown-menu{
+     position:absolute !important;
+ }
  
+ .page-footer{
+     background-color:black !important;
+     text-align: center;
+     color:white;
+ }
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -622,7 +660,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <span class="badge badge-danger counter counter-lg mail_icon_not"><?php echo App\Mailbox::getNumberEmailWithNoti($user_id);  ?></span>
                                             </a>
 
-                                            <ul class="dropdown-menu">
+                                            <ul class="dropdown-menu" style="z-index:121423423423">
                                                 <li class="external">
                                                     <h3>You have
                                                      <strong class="text-white"> <?php echo (App\Mailbox::getNumberEmailWithNoti($user_id) != null) ? App\Mailbox::getNumberEmailWithNoti($user_id) : "0"; ?> New</strong> Messages</h3>
@@ -724,7 +762,7 @@ s0.parentNode.insertBefore(s1,s0);
                 
                                               echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?> <?php echo $accStatus; ?></span>
                                             </a>
-                                            <ul class="dropdown-menu dropdown-menu-default">
+                                            <ul id="main_user_menu" class="dropdown-menu dropdown-menu-default">
                         <?php   
                                             $user_id = Auth::id();
                                             $u = App\User::find($user_id);
@@ -796,9 +834,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                     }else{
                                                         //default USD = 3
                                                         $currentCurrency = App\CurrencyMonetary::find(3)->c_code;
-                                                        // if(!$currentCurrency){
                                                     }
-                                                 // }
                                                     ?>
                                                   <a data-toggle="modal" data-target="#myModal-currency"  >
                                                       <i class="fa fa-dollar"></i> Currency ( {{ $currentCurrency }} )</a>
@@ -858,8 +894,8 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <input type="text" title="Click on the magnifier icon to submit search" style="background:white; font:strong;" class="form-control" placeholder="Search company..." name="seach_entry_key" id="seach_entry_key">
                                         <span class="input-group-btn" style="background:white;">
-                                            <a href="javascript:;" class="btn submit" title="After selecting an item, you may press enter in the keyboard or click on the magnifier icon to submit search">
-                                                <i class="icon-magnifier"></i>
+                                            <a href="javascript:;" class="btn submit " title="After selecting an item, you may press enter in the keyboard or click on the magnifier icon to submit search">
+                                                <i class="fa fa-search"></i>
                                             </a>
                                         </span>
 
@@ -1248,7 +1284,15 @@ s0.parentNode.insertBefore(s1,s0);
 
                                             <a href="#">
                                                 <i class="fa fa-file-text-o" style="color: #7cda24"></i> Report
-                                                <span class="arrow"></span>
+                                                
+                                                <?php 
+                                                    $process_count = App\RequestReport::getRecordsProcessedCount($company_id_result);
+                                                    
+                                                    if($process_count > 0){
+                                                ?>
+                                                <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $process_count }}</span>
+                                                
+                                                <?php } ?>
                                             </a>
 
                                             <ul class="dropdown-menu" style="min-width: 710px">
@@ -1259,7 +1303,14 @@ s0.parentNode.insertBefore(s1,s0);
                                                               <h4 class="menu_title"> Report </h4>
                                                                 <ul class="mega-menu-submenu">
                                                 <li aria-haspopup="true" id="nav-report-status">
-                                                    <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: #7cda24"></i> Report Status </a>
+                                                    <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: #7cda24"></i> Report Status
+                                                        <?php 
+                                                            if($process_count > 0){
+                                                        ?>
+                                                        <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $process_count }}</span>
+                                                        
+                                                        <?php } ?>
+                                                    </a>
                                                 </li>
                                                 <li aria-haspopup="true" id="nav-ongoing-monitoring">
                                                     <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color: #7cda24"></i> Ongoing Monitoring </a>
@@ -1399,7 +1450,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/explore') }}">
-                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Opportunities</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Opportunities</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                               <li aria-haspopup="true" class=" ">
@@ -1420,7 +1471,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Business News</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1473,7 +1524,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                                         <a href="{{ url('/opportunity/explore') }}">
-                                                            <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Opportunities</span>
+                                                            <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Opportunities</span>
                                                         </a>
                                                         <ul class="dropdown-menu pull-left">
                                                           <li aria-haspopup="true" class=" ">
@@ -1493,7 +1544,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Rewards</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Rewards</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1624,7 +1675,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                         <li aria-haspopup="true" class=" ">
                                                 <a href="{{url('/transferCompany')}}" class="nav-link  ">
-                                                    Company Transfer and Token</a>
+                                                    Company Transfer and Credit</a>
                                                </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/sysconfig')}}" class="nav-link  ">
@@ -1817,8 +1868,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                         <!-- BEGIN INNER FOOTER -->
                         <div class="page-footer">
-                            <div class="container"> <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Intellinz zz</p>
-                            </div>
+                            <p class="uppercase">Copyright <b class="text-company">&copy;</b> <script>document.write(new Date().getFullYear())</script> <b class="text-company">Intellinz</b></p>
                         </div>
                         <div class="scroll-to-top">
                             <i class="icon-arrow-up"></i>
@@ -2304,7 +2354,7 @@ function updateCurrency(){
                                             ?>            
                                                         <select  class="currency-selector" id="currency-selector">
                                                             @foreach($currencyList as $list)
-                                                            <option <?php if($currentCurrency->currency_id == $list->id){echo "selected";} ?> value='{{ $list->id }}' >{{  $list->c_code }} ( {{ $list->c_text }} )</option>
+                                                            <option <?php if(isset($currentCurrency->currency_id) && $currentCurrency->currency_id == $list->id){echo "selected";} ?> value='{{ $list->id }}' >{{  $list->c_code }} ( {{ $list->c_text }} )</option>
                                                             @endforeach
                                                         </select>
 
@@ -2325,5 +2375,5 @@ function updateCurrency(){
       </div>
     </div>
     </body>
-
+    
 </html>
