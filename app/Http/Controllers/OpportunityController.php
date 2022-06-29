@@ -289,31 +289,48 @@ class OpportunityController extends Controller {
 
 						$message = "
 
-                  Dear Consultant,
-
-                  <br />
-
-                  <br />
-
-                  We would like to inform you that there is a report request, that requires your approval.
-
-                  <br />
-
-                  To approve please open the link: <a href='".$url_to_approve."'>$url_to_approve</a>
-
-                  <br />
-
-                  <br />
-
-                  Best Regards, <br />
-
-                  Intellinz Web Admin
-
-                  ";
+                          Dear Consultant,
+        
+                          <br />
+        
+                          <br />
+        
+                          We would like to inform you that there is a report request, that requires your approval.
+        
+                          <br />
+        
+                          To approve please open the link: <a href='".$url_to_approve."'>$url_to_approve</a>
+        
+                          <br />
+        
+                          <br />
+        
+                          Best Regards, <br />
+        
+                          Intellinz Web Admin
+    
+                        ";
 
 						//send the email here
 
 						Mailbox::sendMail($message, $usr->email, "Report Request need your validation and approval.", "");
+						$mailok = Mailbox::create([
+
+        					'sender_id' => 11,
+        
+        					'receiver_id' => $usr->id,
+        
+        					'receiver_email' => $usr->email,
+        
+        					'subject' => "Report Request Approval",
+        
+        					'message' => $message,
+        
+        					'created_at' => date('Y-m-d H:i:s'),
+        
+        					'status' => 1,
+        
+        				]);
 
 						$message2 = "
 
@@ -1180,8 +1197,13 @@ class OpportunityController extends Controller {
 				if ($opp->save()) {
 
 					AuditLog::ok(array($user_id, 'opportunity', 'update build', 'edited an opportunity under build'));
-
-					return redirect('opportunity/editBuild/' . $opp->id)->with('status', 'Building capability has been succesfully saved.');
+                    
+                    if($request->input('where_go') == "master"){
+                        return redirect('opportunity/approval/' . $request->input('after_edit_go'))->with('status', 'Building capability has been succesfully saved.');
+                    }
+                    else{
+					    return redirect('opportunity/editBuild/' . $opp->id)->with('status', 'Building capability has been succesfully saved.');
+                    }
 
 				}
 
@@ -1279,7 +1301,8 @@ class OpportunityController extends Controller {
 				if ($isOk) {
 
 					AuditLog::ok(array($user_id, 'opportunity', 'Create', 'created new opportunity under Invest'));
-
+                    
+                    
 					return redirect('/opportunity')->with('status', 'Building capability has been succesfully saved.');
 
 				}
@@ -1472,7 +1495,13 @@ class OpportunityController extends Controller {
 
 				if ($opp->save()) {
 					AuditLog::ok(array($user_id, 'opportunity', 'update sell', 'edited an opportunity under sell'));
-					return redirect('opportunity/editSellOffer/' . $opp->id)->with('status', 'Sell/Offer has been succesfully saved.');
+					
+					if($request->input('where_go') == "master"){
+                        return redirect('opportunity/approval/' . $request->input('after_edit_go'))->with('status', 'Sell/Offer has been succesfully saved.');
+                    }
+                    else{
+					    return redirect('opportunity/editSellOffer/' . $opp->id)->with('status', 'Sell/Offer has been succesfully saved.');
+                    }
 				}
 
 			} else {
@@ -1754,8 +1783,13 @@ class OpportunityController extends Controller {
 				if ($opp->save()) {
 
 					AuditLog::ok(array($user_id, 'opportunity', 'update buy', 'edited an opportunity under buy'));
-
-					return redirect('opportunity/editBuy/' . $opp->id)->with('status', 'Buy opportunity has been succesfully saved.');
+                    
+                    if($request->input('where_go') == "master"){
+                        return redirect('opportunity/approval/' . $request->input('after_edit_go'))->with('status', 'Buy opportunity has been succesfully saved.');
+                    }
+                    else{
+					    return redirect('opportunity/editBuy/' . $opp->id)->with('status', 'Buy opportunity has been succesfully saved.');
+                    }
 
 				}
 
@@ -2332,16 +2366,27 @@ public static function validateAccLimits($company_id){
 
 			$data = OpportunityBuildingCapability::find($request['id']);
 
-			if ($data != NULL) {
+			if ($data != NULL) {//( type = 'custom' and id = ".$data->industry." )
 
 				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
+				$industry_list = OppIndustry::where('type', '=', "choices")
+				
+				->orWhere(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry); 
+    			})->get(); 
+    			
+    			$if_has_custom = OppIndustry::where(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry);
+    			})->get(); 
 
 				$approx_large_list = Configurations::getJsonValue('approx_large');
 
 				//$company_id = CompanyProfile::getCompanyId(Auth::id());
+				$where_go = $request['where_go'];
 
-				return view("oppor.approvalbuild", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+				return view("oppor.approvalbuild", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom','where_go'));
 
 			}
 
@@ -2361,15 +2406,24 @@ public static function validateAccLimits($company_id){
 			$data = OpportunitySellOffer::find($request['id']);
 
 			if ($data != NULL) {
-
-				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
+			    
+			    $country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::where('type', '=', "choices")
+				
+				->orWhere(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry); 
+    			})->get(); 
+    			
+    			$if_has_custom = OppIndustry::where(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry);
+    			})->get(); 
 
 				$approx_large_list = Configurations::getJsonValue('approx_large');
-
-				//$company_id = CompanyProfile::getCompanyId(Auth::id());
-
-				return view("oppor.approvalselloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+                $where_go = $request['where_go'];
+                
+				return view("oppor.approvalselloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom', 'where_go'));
 
 			}
 
@@ -2389,15 +2443,24 @@ public static function validateAccLimits($company_id){
 			$data = OpportunityBuy::find($request['id']);
 
 			if ($data != NULL) {
+			    
+			    $country_list = Countries::all(); //Configurations::getJsonValue('countries');
+				$industry_list = OppIndustry::where('type', '=', "choices")
+				
+				->orWhere(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry); 
+    			})->get(); 
+    			
+    			$if_has_custom = OppIndustry::where(function ($query) use ( $data) {
+    			    $query->where('type', '=', "custom");
+    			    $query->where('id', '=', $data->industry);
+    			})->get(); 
+    			
+    			$approx_large_list = Configurations::getJsonValue('approx_large');
+			    $where_go = $request['where_go'];
 
-				$country_list = Countries::all(); //Configurations::getJsonValue('countries');
-				$industry_list = OppIndustry::where('type', '=', "choices")->get(); 
-
-				$approx_large_list = Configurations::getJsonValue('approx_large');
-
-				//$company_id = CompanyProfile::getCompanyId(Auth::id());
-
-				return view("oppor.approvalbuy", compact('country_list', 'approx_large_list', 'data', 'industry_list'));
+				return view("oppor.approvalbuy", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom', 'where_go'));
 
 			}
 

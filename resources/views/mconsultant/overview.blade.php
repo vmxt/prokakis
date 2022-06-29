@@ -1,10 +1,9 @@
-@extends('layouts.app-profile-edit')
+@extends('layouts.app')
 
 
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -316,9 +315,9 @@ th {
 
     </style>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
@@ -397,15 +396,15 @@ th {
 
                                                 <tr>
 
-                                                    <th class="hide">No</th>
+                                                    <th >No</th>
 
                                                     <th>Project Name</th>
 
-                                                    <th>Due Date</th>
+                                                    <th class="fit">Due Date</th>
 
-                                                    <th>Assigned Consultant</th>
+                                                    <th class="fit">Assigned Consultant</th>
 
-                                                    <th>Progress</th>
+                                                    <th >Progress</th>
 
                                                     <th>Status</th>
 
@@ -442,7 +441,7 @@ th {
 
                                                     <tr class="">
 
-                                                    <td class="hide" ><?php echo $i; ?></td>
+                                                    <td  ><?php echo $i; ?></td>
 
                                                     <td >
 
@@ -561,7 +560,9 @@ th {
 
 
                                                  <tr>
-
+                                                     
+                                                    <td  ><?php echo $i; ?></td>
+                                                    
                                                     <form action="{{ route('saveProjectMC') }}" method="POST">
 
                                                     {{ csrf_field() }}
@@ -571,11 +572,7 @@ th {
                                                     <input type="hidden" name="request_id" value="<?php echo (isset($d->req_rep_id))? $d->req_rep_id : 0; ?>">
 
                                                     <input type="hidden" name="form_id" value="<?php echo $i; ?>">
-
-
-
-                                                    <td class="hide" ><?php echo $i; ?></td>
-
+                                                    
                                                     <td >
 
                                                     <?php
@@ -594,7 +591,7 @@ th {
 
                                                     </td>
 
-                                                    <td  > <input type="text" class="form-control datepicker" name="due_date<?php echo $i; ?>"></td>
+                                                    <td class="fit" > <input type="text" style="min-width:100px !important" class="form-control datepicker" placeholder="select date" name="due_date<?php echo $i; ?>"></td>
 
                                                     <td >
 
@@ -603,8 +600,8 @@ th {
                                                           if(sizeof($subsConsultants) > 0){
 
                                                         ?>
-
-                                                         <select class="form-control" name="assignedConsultants" id="assignedConsultants">
+                                                        
+                                                        <select class="form-control" name="assignedConsultants" id="assignedConsultants">
 
                                                               <!--  <option value="<?php //echo $subsConsultants[0]->MainConsultantID ?>"><?php //echo $subsConsultants[0]->MainConsultant.' '.$subsConsultants[0]->MainConsultantLastname; ?></option> -->
 
@@ -613,13 +610,7 @@ th {
                                                                 <option value="<?php echo $subsConsultants[0]->Sub2ConsultantID ?>"><?php echo $subsConsultants[0]->Sub2Consultant.' '.$subsConsultants[0]->Sub2ConsultantLastname; ?></option>
 
                                                          </select>
-
-                                                         <br />
-
-                                                         <input type="submit" value="save" class="btn btn-danger">
-
-
-
+                                                        <input type="submit" value="save" class="btn btn-primary " style="float:right;margin-top:5px">
                                                          <?php }  ?>
 
                                                     </td>
@@ -746,6 +737,12 @@ th {
         $(document).ready(function () {
             
             $('#project_table').DataTable({
+                responsive: true,
+                columnDefs: [ 
+                    { targets:"_all", orderable: false },
+                    { targets:[0,1,2,3,4,5,6], className: "desktop" },
+                    { targets:[0,1], className: "tablet, mobile" }
+                ],
                 "ordering": false,
                 "drawCallback": function( settings ) {
                     $('.chart').easyPieChart({
@@ -768,6 +765,22 @@ th {
             });
 
             $(".popup").hide();
+            
+            $('body').on('click', '#project_table > tbody > tr > td:first-child', function (){
+                
+                $(".chart").easyPieChart({
+
+              easing: 'easeOutBounce',
+        
+              onStep: function(from, to, percent) {
+        
+                $(this.el).find('.percent').text(Math.round(percent)+"%");
+        
+              },
+              barColor: "#7cda24"
+        
+            });
+            });
 
        });
 

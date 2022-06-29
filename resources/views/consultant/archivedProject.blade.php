@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -119,10 +118,23 @@
         text-decoration:none;
 
     }
+    
+     .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
 
     </style>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
 
@@ -158,9 +170,9 @@
 
                             <div class="caption">
 
-                                <i class="icon-bulb font-blue"></i>
+                                <i class="icon-bulb "></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">List of Completed Projects</span>
+                                <span class="caption-subject  sbold uppercase">List of Completed Projects</span>
 
 
 
@@ -194,15 +206,15 @@
 
                         <div class="portlet-body">
 
-                            <div class="table-scrollable">
+                            <div class="table-scrollable" style="border:none !important">
 
-                                <table id="system_data" class="table table-bordered table-hover">
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
 
                                     <thead>
 
                                     <tr>
 
-                                        <th width="10%"># Project Id</th>
+                                        <th width="10%">#</th>
 
                                         <th width="20%"> Project Name</th>
 
@@ -239,14 +251,14 @@
                                      ?>
 
                                     <tr>
-
+                                             <td align="center"><?php echo $d->id; ?></td>
 
 
                                            <input type="hidden" name="project_id" value="<?php echo $d->id; ?>">
 
 
 
-                                            <td align="center"><?php echo $d->id; ?></td>
+                                           
 
                                             <td align="center">
 
@@ -310,7 +322,7 @@
 
                                             <td align="center">
 
-                                             <input readonly type="text" style="width:100px;" name="project_progress<?php echo $d->id; ?>" value="<?php echo (isset($d->progress))?  $d->progress : 0; ?>">
+                                             <input readonly type="text" class="form-control" style="background:white !important" name="project_progress<?php echo $d->id; ?>" value="<?php echo (isset($d->progress))?  $d->progress : 0; ?>">
 
                                             </td>
 
@@ -452,7 +464,8 @@
 
     <script src="{{ asset('public/js/app.js') }}"></script>
 
-    <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+   <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
 
 
@@ -460,7 +473,15 @@
 
         $(document).ready(function () {
 
-            $('#system_data').DataTable();
+            $('#system_data').DataTable({
+                "ordering": false,
+                responsive: true,
+                columnDefs: [ 
+                    { targets:"_all", orderable: false },
+                    { targets:[0,1,2,3,4,5,6,7,8,9], className: "desktop" },
+                    { targets:[0,1], className: "tablet, mobile" }
+                ],
+            });
 
 
 

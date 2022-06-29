@@ -10,15 +10,17 @@
         background-color: white;
         padding: 30px;
         border-radius: 3px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        border:1px solid silver;
+        margin:3px;
 }  
 
 .niceDisplay2{
         font-family: 'PT Sans Narrow', sans-serif;
-        background-color: #FFE4C4;
+        background-color: white;
         padding: 10px;
         border-radius: 3px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        border:1px solid silver;
+        margin:3px;
 }  
 
     
@@ -34,15 +36,14 @@
 <br />
 <div class="container">
     <div class="row justify-content-center">
-
-      <div class="col-md-8">
         <div class="row">
-             <div class="card" style="width: 100%;">
+            <div class="col-md-2"></div>
+      <div class="col-md-8">
+        
+             <div class="card" style="width: 100%;border:1px solid silver !important;padding:10px">
             
-             <div class="card-header"><b>  Report Request Action For Consultant </b></div>
-            
-              <div id="container">
-
+              <div id="card-body">
+                    <h3 style="text-align:center"><b class="text-company">  Report Request Action For Consultant </b></h3>
                    @if (session('status'))
                                 <div class="alert alert-success">
                                     {{ session('status') }}
@@ -60,7 +61,8 @@
                    <br />
 
                      <div class="form-group">
-                             <input type="submit" name="butApprove" class="btn btn-success"  value="Acknowledge Request">
+                             <!--<input type="submit" name="butApprove" class="btn btn-primary"  value="Acknowledge Request">-->
+                             <button type="submit" class="btn btn-primary" name="butApprove" ><i class="fa fa-check"></i> Acknowledge Request</button>
                     </div>   
                    
                  </form>  
@@ -75,7 +77,8 @@
                   <br />
 
                      <div class="form-group">
-                          <input type="submit" name="butCancel" class="btn btn-alert"  value="Reject Request">
+                          <!-- <input type="submit" name="butCancel" class="btn btn-danger"  value="Reject Request"> -->
+                          <button type="submit" class="btn btn-danger" name="butCancel" ><i class="fa fa-times"></i> Reject Request</button>
                      </div>   
 
                   </form>
@@ -88,18 +91,21 @@
 
              </div>
           </div>
+          <div class="col-md-2"></div>
         </div>
 
+        <div class="row mt-2" style="margin-top:10px"> 
+        <div class="col-md-2"></div>
          <div class="col-md-8">
-         <div class="row"> 
+        
           <table style="width:100%" cellspacing="2" cellpadding="2">
              <tr>
-               <td>   <div class="card">
+               <td>   <div class="card" style="width: 100%;border:1px solid silver !important;padding:10px">
             
-             <div class="card-header"><b>Requestor</b></div>
+             
             
-              <div id="container">
-
+              <div id="card-body p5">
+                <h4 class="alert bg-dark text-company" style="text-align:center"><b> Requestor </b></h4>
                <table style="width:100%">
 
                <tr>
@@ -162,11 +168,12 @@
             <tr><td> &nbsp; </td></tr>
 
             <tr>
-               <td>  <div class="card">
+               <td>  <div class="card "  style="width: 100%;border:1px solid silver !important;padding:10px">
             
-             <div class="card-header"><b>Provider</b></div>
+             
             
-              <div id="container">
+              <div id="card-body">
+                  <h4 class="alert bg-dark text-company" style="text-align:center"><b> Provider </b></h4>
                          <div class="form-group">
                          <label for="company_description">To view full information open system profile</label>
                          <div class="niceDisplay2">
@@ -290,7 +297,7 @@
           </table>
 
           </div> 
-
+            <div class="col-md-2"></div>
          </div>  
 
           </div> 

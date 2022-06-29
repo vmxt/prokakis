@@ -61,6 +61,40 @@ class RequestReport extends Model {
 
 	];
 
+    public static function getRecordsProcessedCount($company_id){
+        $data = App\RequestReport::where("company_id","=",$company_id)
+        ->get(['request_report.id','is_approve']);
+        
+        $main_count = 0;
+        $test = "";
+        if(isset($data)){
+            if(count($data) > 0){
+                
+                foreach($data as $listData){
+                    
+                    $proc_record = App\RequestApproval::getProcessedRecord($listData->id); 
+                    
+                    $rec = App\ConsultantProjects::where('request_id', $listData->id)->where('project_status', 'DONE')->first();
+                    if (count((array) $rec) > 0) {
+
+                        if ($listData->is_approve == 'yes') {
+                            $main_count++;
+                        }
+                
+                    }
+                   
+                    if($proc_record == true){
+                        $main_count--;
+                    }
+                }
+                return $main_count;
+            }
+        }
+        else{
+            return $main_count;
+        }
+    }
+
 	public static function getRequestProviderCompanyID($opp_type_entry, $fkID) {
 
 		$result = null;
@@ -108,15 +142,15 @@ class RequestReport extends Model {
 		if ( $req->count() > 0) {
 		    
 		    if($req->opportunity_type == "build"){
-		        $result = OpportunityBuildingCapability::find($req->fk_opportunity_id)->first();
+		        $result = OpportunityBuildingCapability::where("id", $req->fk_opportunity_id)->first();
 		    }
 		    
 		    if($req->opportunity_type == "sell"){
-		        $result = OpportunitySellOffer::find($req->fk_opportunity_id)->first();;
+		        $result = OpportunitySellOffer::where("id", $req->fk_opportunity_id)->first();
 		    }
 		    
 		    if($req->opportunity_type == "buy"){
-		        $result = OpportunityBuy::find($req->fk_opportunity_id)->first();;
+		        $result = OpportunityBuy::where("id", $req->fk_opportunity_id)->first();
 		    }
 		    
 		    $opp_title = ($result["opp_title"] != "") ? $result["opp_title"] : strtoupper($req->opportunity_type) . " OPPORTUNITY";

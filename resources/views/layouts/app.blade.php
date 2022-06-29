@@ -71,7 +71,6 @@
         <!-- for new banner
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
             -->
-            
         <link href="{{ asset('public/assets/global/css/bootstrap.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
         <!-- END HEAD -->
         <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
@@ -87,6 +86,14 @@
   .fit {
    width:1% !important;
    white-space: nowrap !important;
+ }
+ 
+ .card{
+     border-radius:3px;
+ }
+ 
+ .btn-company{
+     background:#7cda24 !important;
  }
 
 h1,
@@ -221,6 +228,28 @@ button.bg-intellinz-light-green, input.bg-intellinz-light-green, a.bg-intellinz-
                 background: #000000;
             }
             i {color: white}
+            
+            
+    @media (max-width: 760px) {
+        #main_user_menu{
+            margin-top:30px !important;
+            
+        }
+        
+        #main_user_menu:after{
+                margin-top: 49px !important;
+                right: 70 !important;
+        }
+    }
+    
+    @media (min-width: 520px){
+        
+    }
+    
+    @media (min-width: 768px){
+        
+    }
+    
 
            @media (max-width: 991px) {
                .page-header .page-header-menu .hor-menu, .page-header .page-header-menu .hor-menu .navbar-nav {
@@ -490,7 +519,8 @@ span.fa, i.fa{
 
 
 option:hover {
-  background-color: #28a745 !important;
+  background-color: black !important;
+  color:white !important;
 }
 
 .mega_small_image, .mega_large_image{
@@ -501,7 +531,42 @@ option:hover {
     background:red !important;
     font-weight:bold !important;
 }
+ .navbar-nav .open .dropdown-menu{
+     position:absolute !important;
+ }
  
+ .page-footer{
+     background-color:black !important;
+     text-align: center;
+     color:white;
+ }
+ 
+ .page-header-menu span{
+     font-weight:600 !important;
+ }
+ 
+ .page-content-inner{
+     border-radius:3px;
+ }
+ .btn.btn-outline.blue{
+     border:1px solid black !important;
+ }
+ .page-header .page-header-menu .hor-menu .navbar-nav>li>a{
+     font-weight:700 !important;
+ }
+ 
+ .btn{
+     font-weight:bold !important;
+ }
+ 
+ .page-header .page-header-menu .hor-menu .navbar-nav>li.mega-menu-dropdown>.dropdown-menu .mega-menu-content .mega-menu-submenu li>a{
+     font-weight:700 !important;
+ }
+ 
+ .page-header .page-header-top .top-menu .navbar-nav>li.dropdown-user .dropdown-menu>li>a{
+     font-weight:700 !important;
+     color:white !important;
+ }
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -622,7 +687,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <span class="badge badge-danger counter counter-lg mail_icon_not"><?php echo App\Mailbox::getNumberEmailWithNoti($user_id);  ?></span>
                                             </a>
 
-                                            <ul class="dropdown-menu">
+                                            <ul class="dropdown-menu" style="z-index:121423423423">
                                                 <li class="external">
                                                     <h3>You have
                                                      <strong class="text-white"> <?php echo (App\Mailbox::getNumberEmailWithNoti($user_id) != null) ? App\Mailbox::getNumberEmailWithNoti($user_id) : "0"; ?> New</strong> Messages</h3>
@@ -724,7 +789,7 @@ s0.parentNode.insertBefore(s1,s0);
                 
                                               echo App\CompanyProfile::getProfileFirstname(Auth::id()); ?> <?php echo $accStatus; ?></span>
                                             </a>
-                                            <ul class="dropdown-menu dropdown-menu-default">
+                                            <ul id="main_user_menu" class="dropdown-menu dropdown-menu-default">
                         <?php   
                                             $user_id = Auth::id();
                                             $u = App\User::find($user_id);
@@ -796,9 +861,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                     }else{
                                                         //default USD = 3
                                                         $currentCurrency = App\CurrencyMonetary::find(3)->c_code;
-                                                        // if(!$currentCurrency){
                                                     }
-                                                 // }
                                                     ?>
                                                   <a data-toggle="modal" data-target="#myModal-currency"  >
                                                       <i class="fa fa-dollar"></i> Currency ( {{ $currentCurrency }} )</a>
@@ -849,7 +912,7 @@ s0.parentNode.insertBefore(s1,s0);
                         </div>
                         <!-- END HEADER TOP -->
                         <!-- BEGIN HEADER MENU -->
-                        <div class="page-header-menu">
+                        <div class="page-header-menu" style="height:100%">
                             <div class="container">
                                 <!-- BEGIN HEADER SEARCH BOX -->
                                 <form id="search_box" class="search-form" action="{{ route('searchByCompany') }}" method="GET">
@@ -858,8 +921,8 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <input type="text" title="Click on the magnifier icon to submit search" style="background:white; font:strong;" class="form-control" placeholder="Search company..." name="seach_entry_key" id="seach_entry_key">
                                         <span class="input-group-btn" style="background:white;">
-                                            <a href="javascript:;" class="btn submit" title="After selecting an item, you may press enter in the keyboard or click on the magnifier icon to submit search">
-                                                <i class="icon-magnifier"></i>
+                                            <a href="javascript:;" class="btn submit " title="After selecting an item, you may press enter in the keyboard or click on the magnifier icon to submit search">
+                                                <i class="fa fa-search"></i>
                                             </a>
                                         </span>
 
@@ -1099,11 +1162,11 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <i class=" fa fa-lightbulb-o" style="color: #7cda24"></i> Opportunities
                                                 <span class="arrow"></span>
                                             </a>
-                                            <ul class="dropdown-menu" style="max-width: 710px">
+                                            <ul class="dropdown-menu" style="max-width: 810px">
                                               <li>
                                                   <div class="mega-menu-content">
                                                       <div class="row">
-                                                          <div class="col-md-3">
+                                                          <div class="col-md-4">
                                                             <h4 class="menu_title"> Opportunities </h4>
                                                               <ul class="mega-menu-submenu">
                                                 <li aria-haspopup="true" id="nav-my-opportunities">
@@ -1121,7 +1184,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                           </div>
 
-                                                          <div class="col-md-9 div_right"  >
+                                                          <div class="col-md-8 div_right"  >
                                                             <h5 class="menu_title"> Build Opportunity </h5>
                                                             <?php 
                                                               $build_count = 0;
@@ -1248,7 +1311,15 @@ s0.parentNode.insertBefore(s1,s0);
 
                                             <a href="#">
                                                 <i class="fa fa-file-text-o" style="color: #7cda24"></i> Report
-                                                <span class="arrow"></span>
+                                                
+                                                <?php 
+                                                    $process_count = App\RequestReport::getRecordsProcessedCount($company_id_result);
+                                                    
+                                                    if($process_count > 0){
+                                                ?>
+                                                <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $process_count }}</span>
+                                                
+                                                <?php } ?>
                                             </a>
 
                                             <ul class="dropdown-menu" style="min-width: 710px">
@@ -1259,7 +1330,14 @@ s0.parentNode.insertBefore(s1,s0);
                                                               <h4 class="menu_title"> Report </h4>
                                                                 <ul class="mega-menu-submenu">
                                                 <li aria-haspopup="true" id="nav-report-status">
-                                                    <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: #7cda24"></i> Report Status </a>
+                                                    <a href="{{ url('/reports/status') }}" class="nav-link  "><i class="icon-hourglass" style="color: #7cda24"></i> Report Status
+                                                        <?php 
+                                                            if($process_count > 0){
+                                                        ?>
+                                                        <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $process_count }}</span>
+                                                        
+                                                        <?php } ?>
+                                                    </a>
                                                 </li>
                                                 <li aria-haspopup="true" id="nav-ongoing-monitoring">
                                                     <a href="{{ url('/monitoring/list') }}" class="nav-link  "><i class="icon-eye" style="color: #7cda24"></i> Ongoing Monitoring </a>
@@ -1338,7 +1416,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a  href="{{ url('/homeSubConsul') }}" >
-                                                    <i class="icon-grid" style="color: #7cda24"></i><span class="font-white"> Dashboard</span>
+                                                    <i class="icon-grid" style="color: #7cda24"></i><span class=""> Dashboard</span>
                                                     <span class="arrow"></span>
                                                 </a>
 
@@ -1352,7 +1430,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                 <a href="{{ url('/consultants/viewprofile') }}" >
-                                                    <i class="icon-user" style="color: #7cda24"></i> <span class="font-white"> Profile</span> <span class="arrow"></span>
+                                                    <i class="icon-user" style="color: #7cda24"></i> <span class=""> Profile</span> <span class="arrow"></span>
                                                 </a>
 
                                                 <ul class="dropdown-menu pull-left">
@@ -1376,18 +1454,40 @@ s0.parentNode.insertBefore(s1,s0);
                                             </li>
 
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+                                                
+                                                <?php 
+                                                
+                                                    $crcount = App\ConsultantProjects::where('assigned_consultant_id', Auth::id())->where('project_status', 'PENDING')->count();
+                                                    $corcount = App\ConsultantProjects::where('assigned_consultant_id', Auth::id())->where('project_status', 'ONGOING')->count();
+                                                    
+                                                    $cmain_count = ($crcount + $corcount);
+                                                    
+                                                    if($crcount <= 0){
+                                                        $crcount = "";
+                                                    }
+                                                    
+                                                    if($corcount <= 0){
+                                                        $corcount = "";
+                                                    }
+                                                    
+                                                    if($cmain_count <= 0){
+                                                        $cmain_count = "";
+                                                    }
+                                                    
+                                                
+                                                ?>
 
                                                 <a href="" >
-                                                    <i class="icon-notebook" style="color: #7cda24"></i>  <span class="font-white"> Reports</span>
+                                                    <i class="icon-notebook" style="color: #7cda24"></i>  <span class=""> Reports <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $cmain_count }}</span></span>
                                                     <span class="arrow"></span>
                                                 </a>
 
                                                 <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a  href="{{ url('/consultants/pending-projects') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24"></i> Pending Reports </a>
+                                                        <a  href="{{ url('/consultants/pending-projects') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24"></i> Pending Reports <?php if($crcount != ""){ ?> <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $crcount }}</span>  <?php } ?></a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a href="{{ url('/consultants/ongoing-projects') }}" class="nav-link  ">  <i class="icon-target" style="color: #7cda24"></i> On-Going Reports</a>
+                                                        <a href="{{ url('/consultants/ongoing-projects') }}" class="nav-link  ">  <i class="icon-target" style="color: #7cda24"></i> On-Going Reports <?php if($corcount != ""){ ?> <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $corcount }}</span>  <?php } ?></a>
                                                     </li>
                                                     <li aria-haspopup="true" class=" ">
                                                         <a href="{{ url('/consultants/archived-projects') }}" class="nav-link  "> <i class="icon-briefcase" style="color: #7cda24"></i> Archived Reports</a>
@@ -1399,7 +1499,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/explore') }}">
-                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Opportunities</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                               <li aria-haspopup="true" class=" ">
@@ -1420,7 +1520,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Business News</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1473,7 +1573,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                                         <a href="{{ url('/opportunity/explore') }}">
-                                                            <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Opportunities</span>
+                                                            <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
                                                         </a>
                                                         <ul class="dropdown-menu pull-left">
                                                           <li aria-haspopup="true" class=" ">
@@ -1493,7 +1593,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color: #7cda24""></i> <span class="font-white">Rewards</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Rewards</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1509,7 +1609,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Business News</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1528,15 +1628,28 @@ s0.parentNode.insertBefore(s1,s0);
                                         </li>
 
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
+                                                    
+                                                    <?php 
+                                                    
+                                                    $rcount = App\RequestApproval::select('request_approval.id')
+                                                        ->leftJoin('consultant_project as b','b.request_approval_id','=','request_approval.id')
+                                                        ->where("main_consultant", "=", Auth::id())
+                                                        ->whereNull('b.id')->count();
+                                                        
+                                                    if($rcount <= 0){
+                                                        $rcount = "";
+                                                    }
+                                                    
+                                                    ?>
 
                                                     <a  href="{{ url('/') }}" >
-                                                        <i class="icon-notebook" style="color: #7cda24"></i>  Reports
+                                                        <i class="icon-notebook" style="color: #7cda24"></i>  Reports <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $rcount }}</span>
                                                         <span class="arrow"></span>
                                                     </a>
 
                                                     <ul class="dropdown-menu pull-left">
                                                             <li aria-haspopup="true" class=" ">
-                                                                <a  href="{{ route('projectOverviewMC') }}" class="nav-link  "> <i class="icon-magnifier" style="color: #7cda24"></i> Overview Reports </a>
+                                                                <a  href="{{ route('projectOverviewMC') }}" class="nav-link  "> <i class="icon-magnifier" style="color: #7cda24"></i> Overview Reports <?php if($rcount != ""){ ?> <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $rcount }}</span> <?php } ?> </a> 
                                                             </li>
                                                             <li aria-haspopup="true" class=" ">
                                                                 <a  href="{{ url('/mconsultants/projectPending') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24"></i> Pending Reports </a>
@@ -1558,7 +1671,7 @@ s0.parentNode.insertBefore(s1,s0);
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 
                                                     <a href="{{ url('/home') }}" >
-                                                        <i class="icon-grid" style="color: #7cda24"></i> <span class="font-white">Dashboard</span>
+                                                        <i class="icon-grid" style="color: #7cda24"></i> <span class="">Dashboard</span>
                                                         <span class="arrow"></span>
                                                     </a>
                                                 <ul class="dropdown-menu pull-left">
@@ -1575,7 +1688,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                         <li aria-haspopup="true" class="">
                                                             <a href="{{ url('/opportunity/explore') }}">
-                                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Opportunities</span>
+                                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
                                                             </a>
                                                         </li>
                                                 </ul>
@@ -1583,7 +1696,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Business News</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1604,8 +1717,8 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown">
                                             <a href="{{ url('#') }}">
-                                                <svg color="white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="tachometer-alt" class="svg-inline--fa fa-tachometer-alt fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M288 32C128.94 32 0 160.94 0 320c0 52.8 14.25 102.26 39.06 144.8 5.61 9.62 16.3 15.2 27.44 15.2h443c11.14 0 21.83-5.58 27.44-15.2C561.75 422.26 576 372.8 576 320c0-159.06-128.94-288-288-288zm0 64c14.71 0 26.58 10.13 30.32 23.65-1.11 2.26-2.64 4.23-3.45 6.67l-9.22 27.67c-5.13 3.49-10.97 6.01-17.64 6.01-17.67 0-32-14.33-32-32S270.33 96 288 96zM96 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm48-160c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32zm246.77-72.41l-61.33 184C343.13 347.33 352 364.54 352 384c0 11.72-3.38 22.55-8.88 32H232.88c-5.5-9.45-8.88-20.28-8.88-32 0-33.94 26.5-61.43 59.9-63.59l61.34-184.01c4.17-12.56 17.73-19.45 30.36-15.17 12.57 4.19 19.35 17.79 15.17 30.36zm14.66 57.2l15.52-46.55c3.47-1.29 7.13-2.23 11.05-2.23 17.67 0 32 14.33 32 32s-14.33 32-32 32c-11.38-.01-20.89-6.28-26.57-15.22zM480 384c-17.67 0-32-14.33-32-32s14.33-32 32-32 32 14.33 32 32-14.33 32-32 32z"></path></svg>
-                                                <span class="font-white">Dashboard</span> <span class="arrow"></span>
+                                                <i class="fa fa-dashboard"></i>
+                                                <span class="">Dashboard</span> <span class="arrow"></span>
                                                    
                                             </a>
                                                 <ul class="dropdown-menu pull-left">
@@ -1617,14 +1730,14 @@ s0.parentNode.insertBefore(s1,s0);
                                         </li>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('#') }}">
-                                                <svg color="white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cogs" class="svg-inline--fa fa-cogs fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M512.1 191l-8.2 14.3c-3 5.3-9.4 7.5-15.1 5.4-11.8-4.4-22.6-10.7-32.1-18.6-4.6-3.8-5.8-10.5-2.8-15.7l8.2-14.3c-6.9-8-12.3-17.3-15.9-27.4h-16.5c-6 0-11.2-4.3-12.2-10.3-2-12-2.1-24.6 0-37.1 1-6 6.2-10.4 12.2-10.4h16.5c3.6-10.1 9-19.4 15.9-27.4l-8.2-14.3c-3-5.2-1.9-11.9 2.8-15.7 9.5-7.9 20.4-14.2 32.1-18.6 5.7-2.1 12.1.1 15.1 5.4l8.2 14.3c10.5-1.9 21.2-1.9 31.7 0L552 6.3c3-5.3 9.4-7.5 15.1-5.4 11.8 4.4 22.6 10.7 32.1 18.6 4.6 3.8 5.8 10.5 2.8 15.7l-8.2 14.3c6.9 8 12.3 17.3 15.9 27.4h16.5c6 0 11.2 4.3 12.2 10.3 2 12 2.1 24.6 0 37.1-1 6-6.2 10.4-12.2 10.4h-16.5c-3.6 10.1-9 19.4-15.9 27.4l8.2 14.3c3 5.2 1.9 11.9-2.8 15.7-9.5 7.9-20.4 14.2-32.1 18.6-5.7 2.1-12.1-.1-15.1-5.4l-8.2-14.3c-10.4 1.9-21.2 1.9-31.7 0zm-10.5-58.8c38.5 29.6 82.4-14.3 52.8-52.8-38.5-29.7-82.4 14.3-52.8 52.8zM386.3 286.1l33.7 16.8c10.1 5.8 14.5 18.1 10.5 29.1-8.9 24.2-26.4 46.4-42.6 65.8-7.4 8.9-20.2 11.1-30.3 5.3l-29.1-16.8c-16 13.7-34.6 24.6-54.9 31.7v33.6c0 11.6-8.3 21.6-19.7 23.6-24.6 4.2-50.4 4.4-75.9 0-11.5-2-20-11.9-20-23.6V418c-20.3-7.2-38.9-18-54.9-31.7L74 403c-10 5.8-22.9 3.6-30.3-5.3-16.2-19.4-33.3-41.6-42.2-65.7-4-10.9.4-23.2 10.5-29.1l33.3-16.8c-3.9-20.9-3.9-42.4 0-63.4L12 205.8c-10.1-5.8-14.6-18.1-10.5-29 8.9-24.2 26-46.4 42.2-65.8 7.4-8.9 20.2-11.1 30.3-5.3l29.1 16.8c16-13.7 34.6-24.6 54.9-31.7V57.1c0-11.5 8.2-21.5 19.6-23.5 24.6-4.2 50.5-4.4 76-.1 11.5 2 20 11.9 20 23.6v33.6c20.3 7.2 38.9 18 54.9 31.7l29.1-16.8c10-5.8 22.9-3.6 30.3 5.3 16.2 19.4 33.2 41.6 42.1 65.8 4 10.9.1 23.2-10 29.1l-33.7 16.8c3.9 21 3.9 42.5 0 63.5zm-117.6 21.1c59.2-77-28.7-164.9-105.7-105.7-59.2 77 28.7 164.9 105.7 105.7zm243.4 182.7l-8.2 14.3c-3 5.3-9.4 7.5-15.1 5.4-11.8-4.4-22.6-10.7-32.1-18.6-4.6-3.8-5.8-10.5-2.8-15.7l8.2-14.3c-6.9-8-12.3-17.3-15.9-27.4h-16.5c-6 0-11.2-4.3-12.2-10.3-2-12-2.1-24.6 0-37.1 1-6 6.2-10.4 12.2-10.4h16.5c3.6-10.1 9-19.4 15.9-27.4l-8.2-14.3c-3-5.2-1.9-11.9 2.8-15.7 9.5-7.9 20.4-14.2 32.1-18.6 5.7-2.1 12.1.1 15.1 5.4l8.2 14.3c10.5-1.9 21.2-1.9 31.7 0l8.2-14.3c3-5.3 9.4-7.5 15.1-5.4 11.8 4.4 22.6 10.7 32.1 18.6 4.6 3.8 5.8 10.5 2.8 15.7l-8.2 14.3c6.9 8 12.3 17.3 15.9 27.4h16.5c6 0 11.2 4.3 12.2 10.3 2 12 2.1 24.6 0 37.1-1 6-6.2 10.4-12.2 10.4h-16.5c-3.6 10.1-9 19.4-15.9 27.4l8.2 14.3c3 5.2 1.9 11.9-2.8 15.7-9.5 7.9-20.4 14.2-32.1 18.6-5.7 2.1-12.1-.1-15.1-5.4l-8.2-14.3c-10.4 1.9-21.2 1.9-31.7 0zM501.6 431c38.5 29.6 82.4-14.3 52.8-52.8-38.5-29.6-82.4 14.3-52.8 52.8z"></path></svg>
-                                                <span class="font-white">Settings</span> <span class="arrow"></span>
+                                                <i class="fa fa-gear"></i>
+                                                <span class="">Settings</span> <span class="arrow"></span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
 
                         <li aria-haspopup="true" class=" ">
                                                 <a href="{{url('/transferCompany')}}" class="nav-link  ">
-                                                    Company Transfer and Token</a>
+                                                    Company Transfer and Credit</a>
                                                </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/sysconfig')}}" class="nav-link  ">
@@ -1654,27 +1767,27 @@ s0.parentNode.insertBefore(s1,s0);
                                         </li>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ route('approvalPageAdmin') }}">
-                                                <svg color="white" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="users" class="svg-inline--fa fa-users fa-w-20" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M96 224c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm448 0c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm32 32h-64c-17.6 0-33.5 7.1-45.1 18.6 40.3 22.1 68.9 62 75.1 109.4h66c17.7 0 32-14.3 32-32v-32c0-35.3-28.7-64-64-64zm-256 0c61.9 0 112-50.1 112-112S381.9 32 320 32 208 82.1 208 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C179.6 288 128 339.6 128 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zm-223.7-13.4C161.5 263.1 145.6 256 128 256H64c-35.3 0-64 28.7-64 64v32c0 17.7 14.3 32 32 32h65.9c6.3-47.4 34.9-87.3 75.2-109.4z"></path></svg>
-                                                <span class="font-white">Accounts</span> <span class="arrow"></span>
+                                                <i class="fa fa-users"></i>
+                                                <span class="">Accounts</span> <span class="arrow"></span>
                                             </a>
 
                                         </li>
 
                                         <li aria-haspopup="true" class="">
                                             <a href="{{ url('/accountsCompanies') }}">
-                                                <i class="icon-bar-chart" style="color: #7cda24"></i> <span class="font-white">Companies</span>
+                                                <i class="icon-bar-chart" style="color: #7cda24"></i> <span class="">Companies</span>
                                             </a>
                                         </li>
 
                                         <li aria-haspopup="true" class="">
                                                 <a href="{{ url('/manage-registration-links') }}">
-                                                    <i class="icon-share" style="color: #7cda24"></i> <span class="font-white">Registration Links</span>
+                                                    <i class="icon-share" style="color: #7cda24"></i> <span class="">Registration Links</span>
                                                 </a>
                                         </li>
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/explore') }}">
-                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="font-white">Opportunities</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                               <li aria-haspopup="true" class=" ">
@@ -1817,8 +1930,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                         <!-- BEGIN INNER FOOTER -->
                         <div class="page-footer">
-                            <div class="container"> <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Intellinz zz</p>
-                            </div>
+                            <p class="uppercase">Copyright <b class="text-company">&copy;</b> <script>document.write(new Date().getFullYear())</script> <b class="text-company">Intellinz</b></p>
                         </div>
                         <div class="scroll-to-top">
                             <i class="icon-arrow-up"></i>
@@ -1855,7 +1967,7 @@ s0.parentNode.insertBefore(s1,s0);
 
             if(sizeof($rs_company) < $numAccount){            ?>
 
-            <button id="showProfile" class="btn">+ Create New</button>
+            <button id="showProfile" class="btn btn-primary"><i class="fa fa-plus"></i> Create New</button>
             <div id="add_company_profile">
                 <form action="{{ route('homeAddCompany') }}" method="POST">
                         {{ csrf_field() }}
@@ -1875,7 +1987,7 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
             <br /><br />
             <?php } ?>
-            <div class="alert alert-info">Select a company!</div>
+            <div class="alert bg-intellinz-light-green text-company"><b>Select a company!</b></div>
 
             <table class="table table-bordered table-striped table-condensed flip-content" style="width: 100%; padding-top: 5px;">
                     <tr>
@@ -2241,9 +2353,7 @@ $(document).ready(function()
   $("#seach_entry_key").on('keyup', function (e) {
     if (e.keyCode === 13) {
         // Do something
-        if($('#seach_entry_key').length() > 0 ){
           $( "#search_box" ).submit();
-        }
     }
    });
 
@@ -2304,7 +2414,7 @@ function updateCurrency(){
                                             ?>            
                                                         <select  class="currency-selector" id="currency-selector">
                                                             @foreach($currencyList as $list)
-                                                            <option <?php if($currentCurrency->currency_id == $list->id){echo "selected";} ?> value='{{ $list->id }}' >{{  $list->c_code }} ( {{ $list->c_text }} )</option>
+                                                            <option <?php if(isset($currentCurrency->currency_id) && $currentCurrency->currency_id == $list->id){echo "selected";} ?> value='{{ $list->id }}' >{{  $list->c_code }} ( {{ $list->c_text }} )</option>
                                                             @endforeach
                                                         </select>
 
@@ -2325,5 +2435,5 @@ function updateCurrency(){
       </div>
     </div>
     </body>
-
+    
 </html>
