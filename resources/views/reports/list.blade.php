@@ -169,7 +169,7 @@ foreach ($listData as $data) {
 
                             <tr>
 
-                                <td align="center"><?php echo $i++; ?></td>
+                                <td align="center"><?php echo $data->id; ?></td>
 
                                 <td align="center">
 
@@ -204,9 +204,7 @@ echo $data->id . '-' . $data->source_company_id . '-' . $data->fk_opportunity_id
 
 
                                 <td style="text-align: center; font-weight:bold;">
-
-
-
+                     
                                     <?php
 
 $rec = App\ConsultantProjects::where('request_id', $data->id)->where('project_status', 'DONE')->first();
@@ -239,15 +237,15 @@ $rec = App\ConsultantProjects::where('request_id', $data->id)->where('project_st
 
             if (isset($pr->report_link) && trim($pr->report_link) != '') {
 
-                echo '<i>Discontinued subscription.</i>';
+                echo '<i >Discontinued subscription.</i>';
 
             } elseif ($todayFinal > $subEnd) {
 
-                echo '<i>Subscription Ended</i>';
+                echo '<i style="color:red !important">Subscription Ended</i>';
 
             } elseif ($data->is_approve == 'yes') {
 
-                echo '<span class="btn-x3" style="color:white">Approved - Ongoing Monitoring</span>';
+                echo '<span class="btn-success" style="color:white;padding:5px;border-radius:3px">Approved - Ongoing Monitoring</span>';
 
             } else {
 
@@ -259,7 +257,7 @@ $rec = App\ConsultantProjects::where('request_id', $data->id)->where('project_st
 
         } else {
 
-            echo ($data->is_approve == 'yes') ? '<span class="btn-x3" style="color:white">Approved - Ongoing Monitoring</span>' : 'Pending';
+            echo ($data->is_approve == 'yes') ? '<span class="btn-success" style="color:white;padding:5px;border-radius:3px">Approved - Ongoing Monitoring</span>' : 'Pending';
 
         }
 
@@ -347,9 +345,9 @@ $disabled = '';
 
     ?>
 
-                                        <input type="submit" name="" <?php echo $disabled; ?> class="btn btn-primary"
+                                        <input  <?php echo $butStat; ?> type="submit" name="" <?php echo $disabled; ?> class="btn btn-primary"
 
-                                               <?php echo $butStat; ?>  value="Buy Report">
+                                                value="Buy Report">
 
 
 

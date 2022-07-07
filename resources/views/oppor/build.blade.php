@@ -449,7 +449,10 @@ input::-moz-focus-inner {
                 <form id="opportunity_build_form" method="POST" enctype="multipart/form-data" action="{{ route('opportunityStoreNewBuild') }}">
 
                     {{ csrf_field() }}
-
+                    
+                    <input type="hidden" name="where_go" value="user" />
+                    <input type="hidden" name="after_edit_go" value="user" />
+                    
                     <div class="card" style="background:white">
 
                         <div class="card-header"><center>  <h3><b class="card-title text-company">ADD A GOAL</b></h3></center></div>

@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -24,9 +23,21 @@
 
         }
 
+  .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
     </style>
 
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
 
@@ -62,9 +73,9 @@
 
                             <div class="caption">
 
-                                <i class="icon-bulb font-blue"></i>
+                                <i class="icon-bulb "></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">List of Pending Projects</span>
+                                <span class="caption-subject sbold uppercase">List of Pending Projects</span>
 
                             </div>
 
@@ -74,9 +85,9 @@
 
                         <div class="portlet-body">
 
-                            <div class="table-scrollable">
+                            <div class="table-scrollable" style="border:none !important">
 
-                                <table id="system_data" class="table table-bordered table-hover">
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
 
                                     <thead>
 

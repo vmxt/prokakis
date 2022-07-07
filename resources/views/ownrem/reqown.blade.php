@@ -93,9 +93,9 @@
 
                 <div class="caption">
 
-                    <i class="icon-settings font-green"></i>
+                    <i class="icon-settings "></i>
 
-                    <span class="caption-subject font-blue sbold uppercase">Request to own the company: <strong> {{ $provCompanyName }} </strong></span>
+                    <span class="caption-subject sbold uppercase">Request to own the company: <strong> {{ $provCompanyName }} </strong></span>
 
                 </div>
 
@@ -128,13 +128,13 @@
                 
                     <br />
 
-                    <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
+                    <div class="alert bg-dark text-white" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
                         <p> 
                             <input type="checkbox" id="agreement" name="agreement"> 
-                            &nbsp;&nbsp; I hereby declare ownership of the following company <strong>{{ $provCompanyName }}</strong> and wish to transfer all data and information of the company to my account.
+                            &nbsp;&nbsp; I hereby declare ownership of the following company <strong class="text-company">{{ $provCompanyName }}</strong> and wish to transfer all data and information of the company to my account.
                             I declare that the information provided for the ownership of the account is accurate and correct to the best of my knowledge. 
-                            By submitting the information below, I agree to abide by the terms & conditions of Intellinz privacy policy and; 
-                            I consent to allow the Intellinz to contact me and request for any additional information required for verification. <br />
+                            By submitting the information below, I agree to abide by the terms & conditions of ProKakis privacy policy and; 
+                            I consent to allow the ProKakis to contact me and request for any additional information required for verification. <br />
                         </p>
                     </div>
 
@@ -153,7 +153,7 @@
                             </div>
 
                             <div class="form-group">
-                            <center> <input type="submit" class="btn btn-success" value="Submit Request"></center>
+                            <center> <input type="submit" class="btn btn-primary" value="Submit Request"></center>
                             </div>
                     </div>
                     

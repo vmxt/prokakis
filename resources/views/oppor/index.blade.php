@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -55,7 +53,11 @@ th {
     </style>
     <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
+<?php 
 
+$status = "own";
+
+?>
     <div class="container">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
             <li>
@@ -183,7 +185,7 @@ th {
                                                                                      class="btn btn-primary"
                                                                                     style="color: white">Edit</a>
 
-                                            <a href="{{ url('/opportunity/deleteBuild/'.$b->id) }}"
+                                            <a href="{{ url('/opportunity/deleteBuild/'.$b->id.':'.$status) }}"
                                                                             class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                                             style="color: white">Delete</a>
 
@@ -228,7 +230,7 @@ th {
                                                     <a href="{{ url('/opportunity/editSellOffer/'.$s->id) }}"
                                                          class="btn btn-primary" style="color: white">Edit</a>
 
-                                            <a href="{{ url('/opportunity/deleteSell/'.$s->id) }}"
+                                            <a href="{{ url('/opportunity/deleteSell/'.$s->id.':'.$status) }}"
                                                      class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                     style="color: white">Delete</a>
 
@@ -271,7 +273,7 @@ th {
                                             <a href="{{ url('/opportunity/editBuy/'.$bb->id) }}" 
                                                                     class="btn btn-primary" style="color: white">Edit</a>
 
-                                            <a href="{{ url('/opportunity/deleteBuy/'.$bb->id) }}"
+                                            <a href="{{ url('/opportunity/deleteBuy/'.$bb->id.':'.$status) }}"
                                                              class="btn btn-danger" onclick="return confirm('Are you sure to delete an opportunity item?')"
                                                             style="color: white">Delete</a>
 
