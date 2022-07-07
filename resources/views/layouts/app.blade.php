@@ -534,7 +534,7 @@ option:hover {
  .navbar-nav .open .dropdown-menu{
      position:absolute !important;
  }
- 
+
  .page-footer{
      background-color:black !important;
      text-align: center;
@@ -566,7 +566,8 @@ option:hover {
  .page-header .page-header-top .top-menu .navbar-nav>li.dropdown-user .dropdown-menu>li>a{
      font-weight:700 !important;
      color:white !important;
- }
+     
+    }
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -1499,7 +1500,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/explore') }}">
-                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
+<i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                               <li aria-haspopup="true" class=" ">
@@ -1520,7 +1521,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Business News</span>
+ <i class="icon-layers" style="color: #7cda24"></i> <span class="">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1573,7 +1574,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                                         <a href="{{ url('/opportunity/explore') }}">
-                                                            <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
+<i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
                                                         </a>
                                                         <ul class="dropdown-menu pull-left">
                                                           <li aria-haspopup="true" class=" ">
@@ -1593,7 +1594,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Rewards</span>
+<i class="icon-layers" style="color: #7cda24"></i> <span class="">Rewards</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">

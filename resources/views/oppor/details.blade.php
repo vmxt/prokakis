@@ -1,4 +1,4 @@
-@extends('layouts.app-profile-edit')
+@extends('layouts.app')
 
 @section('content')
 
@@ -279,7 +279,6 @@ td:first-child, th:first-child {
     </div>
 
 
-<link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 

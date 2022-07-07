@@ -12,6 +12,8 @@
     .progress-bar{
     background-color:black !important;
     color:#7cda24 !important;
+    font-weight:bold;
+    border:1px solid silver;
 }
 
 
@@ -55,15 +57,15 @@
             background-color: white;
             padding: 30px;
             border-radius: 3px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border:1px solid silver;
         }
 
         /* The hero image */
         .hero-image, .fb-profile-block-thumb {
             /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
             <?php if(isset($profileCoverPhoto)){ ?>
- background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/') }}/<?php echo $profileCoverPhoto; ?>");
-        <?php } ?>
+                background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("{{ asset('public/banner/') }}/<?php echo $profileCoverPhoto; ?>");
+        <?php }else{ echo "background:gray;"; } ?>
 
  /* Set a specific height */
             height: 50%;
@@ -313,6 +315,11 @@
 
         .busineNews {
             line-height: 25px;
+            border:1px solid silver;
+            border-radius:3px;
+            padding:10px;
+            margin-bottom:5px;
+            font-size:13px;
         }
 
         .read_more {
@@ -344,7 +351,6 @@
 
             .col-record .title {
                 font-size: 13px !important;
-                margin: 0px 0 !important;
                 text-transform: uppercase;
             }
 
@@ -357,12 +363,10 @@
             }
 
             .descBox{
-                margin-left: 10px;
-                margin-right: 10px;
                 padding: 10px;
                 border-radius: 5px;
-                box-shadow: 0 0 5px rgba(0, 0, 0, 1);
                 font-size: 13px;
+                border:1px solid silver;
             }
 
 
@@ -567,7 +571,46 @@
             .tabbable-line>.nav-tabs>li:hover{
                 border-bottom:4px solid black !important;
             }
+.card{
+    border:1px solid silver;
+}
+.card-body{
+    padding:15px;
+}
 
+
+.fb-profile-block-menu .card-title{
+        font-size:22px;
+        text-transform:uppercase;
+    }
+    
+    .fb-profile-block-menu .card-text{
+        font-size:15px;
+        text-transform:uppercase;
+        font-style:italic;
+        color: #7cda24 !important;
+        font-weight:bolder;
+    }
+    
+    .pure-table td{
+        text-transform: uppercase;
+        font-size: 12px !important;
+    }
+    
+    .pure-table td:first-child{
+        font-weight:bold !important;
+    }
+    
+    
+    .pure-table-striped tr:nth-child(2n-1) td{
+        background-color:#dff7d9 !important;
+        /*color:white !important;*/
+    }
+    
+    .table{
+        border: 1px solid #ddd !important; 
+    }
+    
     </style>
 
     <div id="fb-root"></div>
@@ -614,9 +657,12 @@
         <div class="row justify-content-center">
             <!-- start new banner -->
             <div class="col-md-12" id="banner"  style="margin-bottom:80px;">
-                <div class="card text-white fb-profile-block imghov" id="theBanner" style="max-height: 380px; max-width: 1140px; position: relative;">
+                <div class="card text-white fb-profile-block imghov" id="theBanner" style="max-height: 380px; max-width: 1140px; position: relative;border:none !important">
                     <div class="fb-profile-block-thumb">
                         <!-- THIS IS WHERE THE COVER PHOTO BEING PLACED -->
+                        <?php if(!isset($profileCoverPhoto)){ ?>
+                            <h3 class="text-company bg-dark p-5" style="position:absolute; left:40%;top:100px;padding:15px;border-radius:20px">NO COVER PHOTO</h3>
+                        <?php } ?>
                         <div class="overlay ctr">
           <!--                   <?php 
                             $company_id_result = App\CompanyProfile::getCompanyId(Auth::id()); 
@@ -642,7 +688,7 @@
                         <div class="fb-profile-block-menu imghov">
                             <div class="block-menu">
                                 <h2 class="card-title" style="color: black"><b><?php echo substr($brand_slogan[0], 0, 60); ?></b></h2>
-                                <p class="card-text" style="color: black; margin-top: 0px; margin-bottom: 0px;"><?php echo substr($brand_slogan[1], 0, 70); ?></p>
+                                <b><i class="card-text text-company" style="color: black; margin-top: 0px; margin-bottom: 0px;"><?php echo substr($brand_slogan[1], 0, 70); ?></i></b>
                             </div>
                         </div>
 
@@ -655,12 +701,12 @@
             <div class="col-md-4">
                 <!-- START PROGRESS BAR -->
                 <div class="card">
-                    <div class="niceDisplay">
-                        <div class="card-title">
-                             <h1>Profile Strength</h1> <br><?php echo $completenessProfile; ?>%
-                        </div>
+                    <div class="">
+                       
                         <div class="card-body">
-
+                             <div class="note note-success">
+                            <center><h4 class=""><strong>PROFILE STRENGTH</strong></h4></center>
+                            </div>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar"
                                      style="width: <?php echo $completenessProfile; ?>%;"
@@ -676,15 +722,15 @@
                                 foreach($completenessMessages as $d){
                                 ?>
                                 <strong>
-                                <li style=" list-style-type: none; color: #000000"><?php if ($d != NULL) {
-                                        echo '<i class="fa fa-exclamation"></i>' .$d;
+                                <li style=" list-style-type: none; color: black !IMPORTANT"><?php if ($d != NULL) {
+                                        echo '<i class="fa fa-exclamation " style="color:red !important"></i>' .$d;
                                     } ?> </li></strong>
                                 <?php
                                 }
                                 } ?>
                             </ul>
                             <hr>
-                            <center><h4>Website & Social</h4></center>
+                            <center><h4><b>Website & Social</b></h4></center>
                             <!-- Your share button code -->
                             <?php //echo $urlFB . '  '. urlencode($urlFB); ?>
                             <br/>
@@ -694,7 +740,7 @@
                                    href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode($urlFB); ?>F&amp;src=sdkpreparse"
                                    class="fb-xfbml-parse-ignore">Share</a></div>
                             <hr>
-                            <center><h4> Business News</h4></center>
+                            <center><h4> <b>Business News</b></h4></center>
 
                             <?php if(count((array) $businessNewsOpportunity) > 0){
                                 $x = 0;
@@ -703,15 +749,15 @@
                                 <div class="busineNews">
                                 <?php
                                 if (isset($op->content_business)) {
-                                    echo '<br /><b>'.$op->business_title.'</b>';
+                                    echo '<b>'.$op->business_title.'</b>';
 
                                     $viewer = base64_encode('viewer'.$op->company_id);
                                     ?>
-                                <br />
+                                <br>
                                  {{-- To know more about this business news<br />  --}}
                                 {{-- <a target="_blank" href="{{ url('/company/'.$viewer.'/'.$op->company_id) }}">read more</a> --}}
 
-                                <span class="read_more"><a href="#bus_news_{{ $x }}" rel="modal:open"><em>read more >></em></a></span>
+                                <span class="read_more"><a href="#bus_news_{{ $x }}" rel="modal:open"><em><b>read more >></b></em></a></span>
 
                                 <?php
                                 }
@@ -741,19 +787,16 @@
             </div>
             <!-- START SIDE BAR -->
 
-
+<br>
             <!-- START MAIN CONTENT -->
             <div class="col-md-8">
 
                 <!-- START GRAPH CARD-->
-                <div class="page-content-inner" role="alert" style="margin-bottom: 25px">
-                    <span class="pull-right clickable" data-effect="fadeOut" style="margin-top: 10px;  margin-right: 10px;"><i class="fa fa-times"></i></span>
-                    <div class="mt-content-body" style="margin-bottom: 10px;">
-                        <div class="portlet light"
-                             style="padding-left: 12px; padding-right: 12px; padding-bottom: 12px; margin-bottom: 0px; margin-top: 10px;">
-                            <div class="card" style="margin-top: 20px;">
+                
+                            <div class="card" style=";">
+                                <div class="card-body">
                                 <div class="note note-success">
-                                    <h4 class="block"><strong>ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</strong></h4>
+                                    <h4 class=""><strong>ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</strong></h4>
 
                                 </div>
                                 <div class="row">
@@ -786,14 +829,13 @@
                                                 Company Preview</a>
                                     </div>
                                 </div>
-
+</div>
                             </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- END GRAPH CARD-->
-
+<br>
                 <!-- START METRONIC TAB -->
+                <div class="card" style=";">
+                                <div class="card-body">
                 <div class="portlet light" id="profile-tab">
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
@@ -824,251 +866,326 @@
                                 <div class="portlet light portlet-fit ">
                                     <div class="portlet-body">
                                         <div class="table-scrollable table-scrollable-borderless">
-                            <!-- This is for Mobile -->
+                                            <!-- This is for Mobile -->
                                             <div class="forMobile">
-                                                @if(isset($company_data->registered_company_name))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Propose Company Name </strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->registered_company_name))
                                                                 {{ $company_data->registered_company_name}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
-
-                                                @if(isset($company_data->unique_entity_number))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Company Registration Number (UEN) </strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->unique_entity_number))
                                                                 {{ $company_data->unique_entity_number}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->year_founded))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Year Founded </strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->year_founded))
                                                                 {{ $company_data->year_founded}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->business_type))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Business Type </strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->business_type))
                                                                 {{ $company_data->business_type}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->industry))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Industry</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->industry))
                                                                 {{ $company_data->industry}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->description))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Description</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->description))
                                                                 {{ $company_data->description}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->registered_address))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Office Address</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->registered_address))
                                                                 {{ $company_data->registered_address}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
                                     
-                                                @if(isset($company_data->office_phone))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Office Phone</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->office_phone))
                                                                 {{ $company_data->office_phone}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->mobile_phone))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Mobile Phone</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->mobile_phone))
                                                                 {{ $company_data->mobile_phone}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->company_email))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Email</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->company_email))
                                                                 {{ $company_data->company_email}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                 @endif
 
-                                                @if(isset($company_data->company_website))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Website</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->company_website))
                                                                 {{ $company_data->company_website}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->facebook))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Facebook</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->facebook))
                                                                 {{ $company_data->facebook}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                 @endif
 
-                                                @if(isset($company_data->twitter))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Twitter</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->twitter))
                                                                 {{ $company_data->twitter}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->linkedin))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Linkedin</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->linkedin))
                                                                 {{ $company_data->linkedin}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->googleplus))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Google Plus</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->googleplus))
                                                                 {{ $company_data->googleplus}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->otherlink))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Other Link</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->otherlink))
                                                                 {{ $company_data->otherlink}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->financial_year_end))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Financial Information Currency</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->financial_year_end))
                                                                 {{ $company_data->financial_year_end}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->years_establishment))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Years of establishment</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->years_establishment))
                                                                 {{ $company_data->years_establishment}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->no_of_staff))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Number of Staff</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->no_of_staff))
                                                                 {{ $company_data->no_of_staff}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->gross_profit))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Gross Profit</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->gross_profit))
                                                                 {{ $company_data->gross_profit}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->net_profit))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Net Profit</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->net_profit))
                                                                 {{ $company_data->net_profit}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->annual_tax_return))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Annual Tax Filling Rate</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->annual_tax_return))
                                                                 {{ $company_data->annual_tax_return}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->corporate_tax))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Corporate Tax Filling Rate</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->corporate_tax))
                                                                 {{ $company_data->corporate_tax}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->asset_more_liability))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Asset more than Liability</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->asset_more_liability))
                                                                 {{ $company_data->asset_more_liability}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
-                                                @if(isset($company_data->paid_up_capital))
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Paid Up Capital</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->paid_up_capital))
                                                                 {{ $company_data->paid_up_capital}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
-                                            
-                                                @if(isset($company_data->financial_year_end))
+                                                    
+                                                
                                                     <div class="col-record">
                                                         <p class="title"><strong>Financial Year End</strong></p>
                                                         <p class="desc descBox">
+                                                            @if(isset($company_data->financial_year_end))
                                                                 {{ $company_data->financial_year_end}}
+                                                            @else
+                                                                N/A
+                                                            @endif
                                                         </p>
                                                     </div>
-                                                @endif
 
                                             </div>
                             <!-- This is for Mobile -->
-
-
-
-                                            <table class="table table-hover table-light forDesktop">
+                            
+                                            <table class="table pure-table table-bordered pure-table-horizontal pure-table-striped forDesktop" style="width:100% !important">
                                                 <tbody>
                                                 <tr>
-                                                    <td><b>Propose Company Name</b></td>
+                                                    <td class="fit"><b>Propose Company Name</b></td>
                                                     <td>
                                                         @if(isset($company_data->registered_company_name))
                                                             {{ $company_data->registered_company_name}}
@@ -1247,7 +1364,7 @@
                                         if (count((array)$keyPersons) > 0) {
                                             foreach ($keyPersons as $data) {
                                                 $kp++;
-                                                $out = $out . '<table class="table table-bordered table-striped table-condensed flip-content" style="width: 100%; padding-top: 5px;">
+                                                $out = $out . '<table class="table-bordered  table pure-table pure-table-horizontal pure-table-striped" style="width: 100%; ">
                                       <tr>
                                       <th width="40%"> ' . $kp . ' </th>
                                       <th> </th>
@@ -1320,7 +1437,7 @@
                                             <?php if (isset($company_data->currency)) {
                                                 echo $company_data->currency;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1329,7 +1446,7 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->years_establishment)) {
                                                 echo $company_data->years_establishment;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1338,7 +1455,7 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->no_of_staff)) {
                                                 echo $company_data->no_of_staff;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1347,7 +1464,7 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->gross_profit)) {
                                                 echo $company_data->gross_profit;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1356,7 +1473,7 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->net_profit)) {
                                                 echo $company_data->net_profit;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1365,7 +1482,7 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->annual_tax_return)) {
                                                 echo $company_data->annual_tax_return;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1374,7 +1491,7 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->corporate_tax)) {
                                                 echo $company_data->corporate_tax;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1383,7 +1500,7 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->asset_more_liability)) {
                                                 echo $company_data->asset_more_liability;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1393,13 +1510,13 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->paid_up_capital)) {
                                                 echo $company_data->paid_up_capital;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
 
                                         <div class="niceDisplay"><?php if (isset($company_data->solvent_value)) {
                                                 echo $company_data->solvent_value;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
 
@@ -1408,7 +1525,7 @@
                                         <div class="niceDisplay"><?php if (isset($company_data->financial_year_end)) {
                                                 echo $company_data->financial_year_end;
                                             }else{
-                                                echo "&nbsp;";
+                                                echo "N/A";
                                             } ?></div>
                                     </div>
                                 </div>
@@ -1516,7 +1633,7 @@
 
                             <!-- START TAB-5 -->
                             <div class="tab-pane" id="tab-5">
-                                <div class="card">
+                                <div class="card " style="border:none !important">
                                     <div class="card-header"><b>Financial Information</b></div>
                                     <?php
                                         $param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
@@ -1550,7 +1667,7 @@
 
                                     </div>
 
-                                    <table class="table table-bordered table-striped table-condensed flip-content forDesktop" style="width: 100%; padding-top: 5px;">
+                                    <table class="table-bordered table  pure-table pure-table-horizontal pure-table-striped forDesktop" style="width: 100%; ">
                                         <?php
                                         if($fa){
                                          echo '<tr>';
@@ -1574,6 +1691,8 @@
                             <!-- END TAB-5 -->
                         </div>
                     </div>
+                </div>
+                </div>
                 </div>
                 <!--END METRONIC TAB -->
 

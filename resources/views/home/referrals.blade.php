@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -66,7 +65,7 @@
 
                             <div class="portlet-title">
 
-                            <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
+                            <div class="alert bg-dark text-company" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
 
                             <p>
 
@@ -83,12 +82,12 @@
                             </p>
 
                             </div>
-                                <div class="alert alert-info " id="refer_alert" role="alert" style="display: none">
+                                <div class="alert alert-success " id="refer_alert" role="alert" style="display: none">
                                   Copy to Clipboard!
                                 </div>
                               <div class="input-group">
                                 <div class="input-group-btn ">
-                                  <button class="btn btn-info" type="submit" onclick="myFunction()"  >
+                                  <button class="btn btn-primary" type="submit" onclick="myFunction()"  >
                                     <i class="glyphicon glyphicon-page" >Copy</i>
                                   </button>
                                 </div>
@@ -123,7 +122,7 @@
                               data-off="PRIVATE" 
                               data-width="100" 
                               data-onstyle="success" 
-                              data-offstyle="info" 
+                              data-offstyle="primary" 
                               data-style="slow">
                             </div>
 
@@ -305,7 +304,7 @@
 
                     </div>
 
-                <div class="panel panel-info">
+                <div class="panel panel-success">
                     <!-- Default panel contents -->
                     <div class="panel-heading">
                         <h3 class="panel-title">Ten Most Referrals</h3>
