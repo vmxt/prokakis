@@ -175,9 +175,6 @@ td.text-right {
   text-align: right;
 }
 
-td:first-child, th:first-child {
-  display:none;
-}
 
 
     </style>
@@ -185,6 +182,7 @@ td:first-child, th:first-child {
     <script src="{{ asset('public/js/app.js') }}"></script>
     
     <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css'>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
         <li>
@@ -228,7 +226,6 @@ td:first-child, th:first-child {
                                 <th >Company Email</th>
                                 <th >User Name</th>
                                 <th >User Email</th>
-                                <th ></th>
         
                             </tr>
                             </thead>
@@ -241,9 +238,6 @@ td:first-child, th:first-child {
                                     <td> {{ $data->company_email }} </td>
                                     <td> {{ $data->last_name.", ".$data->first_name }} </td>
                                     <td> {{ $data->user_email }} </td>
-                                    <td>
-                                        
-                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -279,12 +273,22 @@ td:first-child, th:first-child {
     </div>
 
 
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
 <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
 <script>
 $(document).ready( function () {
-    $('#system_data').DataTable();
+    $('#system_data').DataTable({
+            responsive: true,
+            columnDefs: [ 
+                { targets:"_all", orderable: false },
+                { targets:[0,1,2,3,4,5], className: "desktop" },
+                { targets:[0, 1], className: "tablet, mobile" }
+            ]
+            });
     $(".popup").hide();
 } );
 

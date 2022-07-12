@@ -1,4 +1,4 @@
-@extends('layouts.app-profile-edit')
+@extends('layouts.app')
 
 @section('content')
 
@@ -84,10 +84,13 @@ th {
 }
 
     </style>
-<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+      <script src="{{ asset('public/js/app.js') }}"></script>
+      
+        <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
-    <script src="{{ asset('public/js/app.js') }}"></script>
+  
 
     <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
         <li>
@@ -112,10 +115,10 @@ th {
                 <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
                     <thead>
                     <tr>
-                        <th class="hide">Id</th>
+                        <th class="fit">Id</th>
                         <th>Description</th>
                         <th>Value</th>
-                        <th>Action</th>
+                        <th >Action</th>
 
                     </tr>
                     </thead>
@@ -124,10 +127,10 @@ th {
                     $js = json_encode($data->json_value, true);
                     ?>
                     <tr>
-                        <td class="hide"><?php echo $data->id; ?></td>
+                        <td class="fit"><?php echo $data->id; ?></td>
                         <td id="tdDesc<?php echo $data->id; ?>" class="wrap"><?php echo $data->description; ?></td>
                         <td id="tdJson<?php echo $data->id; ?>"><?php echo $data->json_value; ?> </td>
-                        <td class="fit">
+                        <td >
                             <a id="edit_icon"  onclick="ajxProcess('<?php echo $data->id; ?>','<?php echo $data->description; ?>')"
                                data-popup-open="popup-1" class="btn btn-primary bg-dark text-white btn-sm ">
                                 <i class="fa fa-edit text-company"></i> Edit </a>
@@ -166,13 +169,20 @@ th {
     </div>
 
 
-<link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
-<script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
 <script>
 $(document).ready( function () {
-    $('#system_data').DataTable();
+    $('#system_data').DataTable({
+            responsive: true,
+            columnDefs: [ 
+                { targets:"_all", orderable: false },
+                { targets:[0,1,2,3], className: "desktop" },
+                { targets:[0,1], className: "tablet, mobile" }
+            ]
+            });
     $(".popup").hide();
 } );
 

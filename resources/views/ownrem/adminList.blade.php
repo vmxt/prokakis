@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -191,10 +190,7 @@ th {
             </div>
         </div>
     </div>
-    {{-- <script src="{{ asset('public/js/app.js') }}"></script> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
-    {{-- <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script> --}}
-
+    
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -212,7 +208,7 @@ th {
             columnDefs: [ 
                 { targets:"_all", orderable: false },
                 { targets:[0,1,2,3,4,5,6,7], className: "desktop" },
-                { targets:[0], className: "tablet, mobile" }
+                { targets:[0, 1], className: "tablet, mobile" }
             ]
             });
         });

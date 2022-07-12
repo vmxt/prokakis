@@ -42,8 +42,8 @@ Route::post('/registerconfig', 'SubaccountsController@ajxRegistration')->name('A
 Route::post('/deactivate-sa', 'SubaccountsController@ajxDeactivate')->name('AjaxSADeactivation');
 
 //for social media. public usage
-//Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing'); #old
-Route::get('/company/{brand}/{id}', 'CompanyController@index')->name('companySocialsharing');
+Route::get('/company/{brand}/{id}/{oppId}/{token}', 'CompanyController@index')->name('companySocialsharing'); #old
+//Route::get('/company/{brand}/{id}', 'CompanyController@index')->name('companySocialsharing');
 Route::get('/fbshare/{id}/{brand}', 'FbshareController@shareOnFB')->name('fbcompanyshare');
 Route::get('/company/{id}', 'CompanyController@previewPremiumCompany')->name('PreviewPremiumCompany');
 Route::post('/company/follow', 'CompanyController@followCompany')->name('updateFollowCompany');

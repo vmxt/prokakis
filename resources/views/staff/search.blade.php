@@ -246,7 +246,8 @@ th {
 }
 </style>
 
-
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css'>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
     <div class="container" >
 
@@ -685,59 +686,51 @@ th {
 
                         ?>
 
+                        <div class="row">
+                            <div class="col-md-6" style="margin-bottom:5px">
+                                <button type="button" name="forCaseReportProcess" id="forCaseReportProcess" class="btn red mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
 
+                                    <span class="ladda-label">
+    
+                                        <i class="fa fa-list"></i> Case Report </span>
+    
+                                    <span class="ladda-spinner"></span>
+    
+                                </button>
+                            </div>
+                            <div class="col-md-6" style="margin-bottom:5px">
+                                <button type="button" name="forPrintingProcess" id="forPrintingProcess" class="btn yellow mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
 
-                        <div class="portlet-body">
+                                    <span class="ladda-label">
+    
+                                        <i class="fa fa-file-pdf-o"></i> Items for PDF Download and Printing? </span>
+    
+                                    <span class="ladda-spinner"></span>
+    
+                                </button>
+                            </div>
+                            <div class="col-md-6" style="margin-bottom:5px">
+                                <button data-popup-open="popup-3" type="button" id="processSelectedItems"  class="btn red mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
 
-
-
-                            <button type="button" name="forCaseReportProcess" id="forCaseReportProcess" class="btn red mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
-
-                                <span class="ladda-label">
-
-                                    <i class="fa fa-list"></i> Case Report </span>
-
-                                <span class="ladda-spinner"></span>
-
-                            </button>
-
+                                    <span class="ladda-label">
+    
+                                        <i class="fa fa-list"></i>  Process Selected Items for Request Report? </span>
+    
+                                    <span class="ladda-spinner"></span>
+    
+                                </button>
+                            </div>
                         </div>
 
+
                         <div class="portlet-body">
 
- 
 
-                            <button type="button" name="forPrintingProcess" id="forPrintingProcess" style="float:right;" class="btn yellow mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
-
-                                <span class="ladda-label">
-
-                                    <i class="fa fa-file-pdf-o"></i> Items for PDF Download and Printing? </span>
-
-                                <span class="ladda-spinner"></span>
-
-                            </button>
-
-                     
-
-                            <button data-popup-open="popup-3" type="button" id="processSelectedItems" style="float:left;" class="btn red mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
-
-                                <span class="ladda-label">
-
-                                    <i class="fa fa-list"></i>  Process Selected Items for Request Report? </span>
-
-                                <span class="ladda-spinner"></span>
-
-                            </button>
-
-                            <br>
-
-                            <br>
-
-                            <div class="table-scrollable">
+                            <div class="table-scrollable" style="border:none !important">
 
 
 
-                                <table  class="table pure-table pure-table-horizontal pure-table-striped">
+                                <table id="mytable" class="table pure-table pure-table-horizontal pure-table-striped">
 
                                     <thead class="flip-content">
 
@@ -1114,12 +1107,22 @@ th {
 
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
-
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
 
      <script>
 
         $(document).ready(function() {  
+            
+            $('#mytable').DataTable({
+            responsive: true,
+            columnDefs: [ 
+                { targets:"_all", orderable: false },
+                { targets:[0,1,2,3,4,5,6,7], className: "desktop" },
+                { targets:[0, 1], className: "tablet, mobile" }
+            ]
+            });
 
         $("#back").fadeOut("slow");
 

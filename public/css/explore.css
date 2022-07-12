@@ -9,14 +9,12 @@
             padding: 0px;
 
             overflow-x: hidden;
-            font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
 
         }
         
 
         .niceDisplay {
 
-            font-family: 'PT Sans Narrow', sans-serif;
 
             background-color: white;
 
@@ -336,7 +334,7 @@
 .container-grid .blog-posts .post .image {
   float: left;
   width: 40%;
-  height: 250px;
+  height: 100%;
   background-size: cover;
   background-position: center center;
 }
@@ -391,7 +389,6 @@
   font-size: 0.7rem;
   line-height: 1.5;
   margin-bottom: 0.5em;
-  font-family: 'Merriweather', sans-serif;
 }
 .container-grid .blog-posts .post .content .meta .icon-comment {
   font-size: 0.7em;
@@ -401,7 +398,7 @@
 
 [class^="icon-"]:before {
   margin-right: 0.5em;
-  color: #3498db;
+  color: #7cda24;
 }
 
 img {
@@ -808,7 +805,6 @@ img#chatAvatar {
 }
 
 .message-input .wrap input {
-    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
     float: left;
     border: none;
     width: calc(100% - 90px);
