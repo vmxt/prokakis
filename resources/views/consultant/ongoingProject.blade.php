@@ -130,6 +130,7 @@ th {
 
     </style>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
@@ -212,7 +213,7 @@ th {
 
                                     <tr>
 
-                                        <th width="10%"># Project Id</th>
+                                        <th width="10%">#</th>
 
                                         <th width="20%"> Project Name</th>
 
@@ -249,7 +250,7 @@ th {
                                      ?>
 
                                     <tr>
-
+                                        <td align="center"><?php echo $d->id; ?></td>
                                         <form action="{{ route('updateOngoingProjectSC') }}" method="POST" enctype="multipart/form-data" id="form_<?php echo $d->id; ?>">
 
 
@@ -258,9 +259,6 @@ th {
 
                                            <input type="hidden" name="project_id" value="<?php echo $d->id; ?>">
 
-
-
-                                            <td align="center"><?php echo $d->id; ?></td>
 
                                             <td align="center">
 
@@ -332,7 +330,7 @@ th {
 
                                             <td align="center">
 
-                                             <input type="text" style="width:100px;" name="project_progress<?php echo $d->id; ?>" value="<?php echo (isset($d->progress))?  $d->progress : 0; ?>">
+                                             <input type="text" class="form-control" style="width:100px;" name="project_progress<?php echo $d->id; ?>" value="<?php echo (isset($d->progress))?  $d->progress : 0; ?>">
 
                                             </td>
 
@@ -382,7 +380,7 @@ th {
                                               <input type="hidden" name="confirmRP<?php echo $d->id; ?>" id="confirmRP<?php echo $d->id; ?>" />  
 
 
-                                              <input type="submit" class="btn btn-success" value="UPDATE">
+                                              <input type="submit" class="btn btn-primary" value="UPDATE">
 
 
 
@@ -476,7 +474,8 @@ th {
 
     <script src="{{ asset('public/js/app.js') }}"></script>
 
-    <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+   <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
@@ -484,7 +483,15 @@ th {
 
         $(document).ready(function () {
 
-            $('#system_data').DataTable();
+            $('#system_data').DataTable({
+                "ordering": false,
+                responsive: true,
+                columnDefs: [ 
+                    { targets:"_all", orderable: false },
+                    { targets:[0,1,2,3,4,5,6,7,8,9], className: "desktop" },
+                    { targets:[0,1], className: "tablet, mobile" }
+                ],
+            });
 
 
 

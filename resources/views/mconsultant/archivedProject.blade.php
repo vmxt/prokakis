@@ -39,6 +39,7 @@ th {
     </style>
 
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
@@ -118,7 +119,7 @@ th {
 
                                                 <tr>
 
-                                                    <th class="hide">No</th>
+                                                    <th >No</th>
 
                                                     <th>Project Name</th>
 
@@ -154,7 +155,7 @@ th {
 
                                                     <tr >
 
-                                                    <td class="hide"><?php echo $i; ?></td>
+                                                    <td ><?php echo $i; ?></td>
 
                                                     <td>
 
@@ -293,7 +294,8 @@ th {
 
     <!--<script src="{{ asset('public/js/app.js') }}"></script>-->
 
-    <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
+   <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
 
 
@@ -303,7 +305,14 @@ th {
 
         $(document).ready(function () {
 
-            $('#system_data').DataTable();
+            $('#system_data').DataTable({
+                responsive: true,
+                columnDefs: [ 
+                    { targets:"_all", orderable: false },
+                    { targets:[0,1,2,3,4,5,6], className: "desktop" },
+                    { targets:[0,1], className: "tablet, mobile" }
+                ],
+            });
 
 
 

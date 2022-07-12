@@ -1124,7 +1124,7 @@ class ConsultantsController extends Controller {
 
 
 
-		$rs = ConsultantProjects::where('assigned_consultant_id', $consul_id)->where('project_status', 'DONE')->get();
+		$rs = ConsultantProjects::where('assigned_consultant_id', $consul_id)->where('project_status', 'DONE')->orderBy("search_on", "desc")->get();
 
 
 

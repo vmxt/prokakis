@@ -289,31 +289,48 @@ class OpportunityController extends Controller {
 
 						$message = "
 
-                  Dear Consultant,
-
-                  <br />
-
-                  <br />
-
-                  We would like to inform you that there is a report request, that requires your approval.
-
-                  <br />
-
-                  To approve please open the link: <a href='".$url_to_approve."'>$url_to_approve</a>
-
-                  <br />
-
-                  <br />
-
-                  Best Regards, <br />
-
-                  Intellinz Web Admin
-
-                  ";
+                          Dear Consultant,
+        
+                          <br />
+        
+                          <br />
+        
+                          We would like to inform you that there is a report request, that requires your approval.
+        
+                          <br />
+        
+                          To approve please open the link: <a href='".$url_to_approve."'>$url_to_approve</a>
+        
+                          <br />
+        
+                          <br />
+        
+                          Best Regards, <br />
+        
+                          Intellinz Web Admin
+    
+                        ";
 
 						//send the email here
 
 						Mailbox::sendMail($message, $usr->email, "Report Request need your validation and approval.", "");
+						$mailok = Mailbox::create([
+
+        					'sender_id' => 11,
+        
+        					'receiver_id' => $usr->id,
+        
+        					'receiver_email' => $usr->email,
+        
+        					'subject' => "Report Request Approval",
+        
+        					'message' => $message,
+        
+        					'created_at' => date('Y-m-d H:i:s'),
+        
+        					'status' => 1,
+        
+        				]);
 
 						$message2 = "
 
