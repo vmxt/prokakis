@@ -58,13 +58,15 @@
 
         <meta property="og:title" content="Intellinz Ebos-SG App {{ now()->year }}" /> 
 
-        <meta property="og:url" content="https://app-prokakis.com/" /> 
+        <meta property="og:url" content="https://intellinz.com/" /> 
 
         <meta property="og:site_name" content="Intellinz"/> 
 
         <meta property="og:image" content="https://app-prokakis.com/public/img-resources/intellinz_green.png" /> 
-
+        <meta property="og:image:width" content="1200"/>
+        <meta property="og:image:height" content="481"/>
         <meta property="og:type" content="website" /> 
+
 
         <meta property="og:description" content="1st Platform to Buy / Sell / Invest / Source Fund and Market Business Online with KYB Due Diligence done all in one place to safeguard your business." />
 
@@ -153,6 +155,27 @@
                     background: #000000;
 
                 }   
+                
+                .font-green{
+                    color:black !important;
+                    text-transform: uppercase !important;
+                }
+                
+                .btn-success{
+                    background:black !important;
+                    border:1px solid black !important;
+                }
+                
+                .btn.btn-outline.green{
+                    border:1px solid #7cda24 !important;
+                    color:#7cda24 !important;
+                }
+                
+                .btn.btn-outline.green:hover{
+                    border:1px solid #7cda24 !important;
+                    background:#7cda24 !important;
+                    color:white !important;
+                }
 
          </style>    
 
@@ -174,7 +197,7 @@
 
         <a href="https://Intellinz.com/">
 
-            <img src="{{asset('public/img-resources/intellinz_green.png')}}" alt="Intellinz" id="logo" width="300px" > 
+            <img src="{{asset('public/img-resources/ProKakisNewLogo.png')}}" alt="Intellinz" id="logo" width="300px" > 
 
         </a>
 

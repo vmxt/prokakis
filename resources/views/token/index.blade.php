@@ -246,7 +246,7 @@
 
                                         <br>
 
-                                        <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
+                                        <div class="alert bg-dark text-company" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
 
                                             <p>
 
@@ -324,7 +324,7 @@
 
                                                             <div class="card-header">
 
-                                                                <center><span class="bold uppercase font-blue">You are already a premium account <br /></span>
+                                                                <center><span class="bold uppercase ">You are already a premium account <br /></span>
 
                                                                     <hr>
 
@@ -358,7 +358,7 @@
 
 
                                                        <center> 
-                                                    <a href="{{ route('reportsBuyCredits') }}" class="btn yellow"
+                                                    <a href="{{ route('reportsBuyCredits') }}" class="bg-intellinz-light-green btn yellow btn-full"
 
                                                         style="margin-top: 55px; width: 50%;"> <i class="fa" style="color: white;"></i> Change Plan
 
@@ -376,7 +376,7 @@
 
                                                         <div class="card-header">
 
-                                                            <center><span class="bold uppercase font-blue">Credit</span>
+                                                            <center><span class="bold uppercase ">Credit</span>
 
                                                                 <hr>
 

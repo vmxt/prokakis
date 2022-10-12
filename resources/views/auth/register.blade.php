@@ -231,8 +231,34 @@
                 <input id="company_website"  class="form-control placeholder-no-fix" type="text"  placeholder="Company Website" name="company_website" required autofocus>
 
             </div>
+            
+            <div class="form-group">
+
+                <label class="control-label visible-ie8 visible-ie9"></label>
+
+                <?php $countries = App\Countries::all(); ?>
+                <select required class="form-control" id="company_primary_country" name="company_primary_country">
+
+                        <option  value="" >Please Select Primary Country</option>
+
+                            <?php foreach($countries as $data)
+
+                                                    {
+
+                                                    ?>
+
+                                                    <option value="<?php echo $data->country_code; ?>"><?php echo $data->country_name; ?></option>
+
+                                                    <?php
+
+                                                    }  ?>
 
 
+
+                </select>
+
+            </div>
+            
             <p class="hint">HOW DID YOU HEARD ABOUT INTELLINZ?</p>
 
             <div class="form-group">
@@ -247,7 +273,9 @@
                     <option value="Other">Other...</option>
                 </select>
 
-            </div>            
+            </div>
+
+
 
             <div class="form-group margin-top-20 margin-bottom-20">
 

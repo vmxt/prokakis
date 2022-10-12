@@ -140,7 +140,7 @@
 
                                             <div class="form-group">
                                                 <label for="company_email">Company Email Address</label>
-                                                <input type="text" class="form-control" name="company_email"
+                                                <input type="email" class="form-control" name="company_email"
                                                        id="company_email"
                                                        value="<?php if (isset($company_data->email_address)) {
                                                            echo $company_data->email_address;
@@ -182,7 +182,6 @@
     </div>
 </div>
 
-<script src="{{ asset('public/jq1111/jquery.min.js') }}"></script>
 
 <script src="{{ asset('public/img-cropper/js/cropbox.js') }}"></script>
 <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
@@ -201,15 +200,7 @@
       dangerMode: true,
     }).then(function(isConfirm) {
       if (isConfirm) {
-        swal({
-          title: 'Success',
-          text: 'Request change for contact information has been submitted.',
-          icon: 'success'
-        }).then(function() {
-      
-            $("#company_contact_form").submit();
-              
-        });
+        $("#company_contact_form").submit();
       } else {
         swal("Cancelled", "", "error");
         return false;  

@@ -872,7 +872,7 @@ body.loading .modal-load {
 
                                             </div>
 
-                        <div class="form-group">
+					    <div class="form-group">
 
                                                 <label for="incorporation_date">Incorporation Date </label>
 

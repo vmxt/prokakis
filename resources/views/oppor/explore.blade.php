@@ -189,7 +189,7 @@
 
     <?php 
         $user_id = Auth::id();
-        $user_company_id = App\CompanyProfile::getCompanyId($user_id);
+		$user_company_id = App\CompanyProfile::getCompanyId($user_id);
     ?> 
 
     <div class="container container-grid">

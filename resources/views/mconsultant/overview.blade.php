@@ -4,6 +4,7 @@
 
 @section('content')
 
+
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -419,7 +420,7 @@ th {
 
                                                 <?php
 
-            
+						
                                                  if( count((array)$rs) > 0 ){
 
 
@@ -718,13 +719,13 @@ th {
 
     <!-- <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     -->
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
-  <script src="{{ asset('public/dist-easypiechart/jquery.easypiechart.min.js') }}"></script>
+	<script src="{{ asset('public/dist-easypiechart/jquery.easypiechart.min.js') }}"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
@@ -746,18 +747,18 @@ th {
                 "drawCallback": function( settings ) {
                     $('.chart').easyPieChart({
 
-              easing: 'easeOutBounce',
+        			easing: 'easeOutBounce',
         
-              onStep: function(from, to, percent) {
+        			onStep: function(from, to, percent) {
         
-                $(this.el).find('.percent').text(Math.round(percent)+"%");
+        				$(this.el).find('.percent').text(Math.round(percent)+"%");
         
-              },
-              barColor: "#7cda24"
+        			},
+        			barColor: "#7cda24"
         
-            });
-            
-            $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+        		});
+        		
+        		$( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
                 },
                 
                 
@@ -769,16 +770,16 @@ th {
                 
                 $(".chart").easyPieChart({
 
-              easing: 'easeOutBounce',
+        			easing: 'easeOutBounce',
         
-              onStep: function(from, to, percent) {
+        			onStep: function(from, to, percent) {
         
-                $(this.el).find('.percent').text(Math.round(percent)+"%");
+        				$(this.el).find('.percent').text(Math.round(percent)+"%");
         
-              },
-              barColor: "#7cda24"
+        			},
+        			barColor: "#7cda24"
         
-            });
+        		});
             });
 
        });
@@ -895,27 +896,27 @@ th {
 
         $(function() {
 
-    $('.chart').easyPieChart({
+		$('.chart').easyPieChart({
 
-      easing: 'easeOutBounce',
+			easing: 'easeOutBounce',
 
-      onStep: function(from, to, percent) {
+			onStep: function(from, to, percent) {
 
-        $(this.el).find('.percent').text(Math.round(percent)+"%");
+				$(this.el).find('.percent').text(Math.round(percent)+"%");
 
-      }
+			}
 
-    });
+		});
 
-    var chart = window.chart = $('.chart').data('easyPieChart');
+		var chart = window.chart = $('.chart').data('easyPieChart');
 
-    $('.js_update').on('click', function() {
+		$('.js_update').on('click', function() {
 
-      chart.update(Math.random()*200-100);
+			chart.update(Math.random()*200-100);
 
-    });
+		});
 
-  });
+	});
 
 
 

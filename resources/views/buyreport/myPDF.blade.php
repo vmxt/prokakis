@@ -84,6 +84,7 @@ $data["COMP_STRENGTHS"] = "N.A.";
 
       </div>
 
+   
 
           @if(isset($consultantFiles))
             @if(sizeof($consultantFiles) > 0) 

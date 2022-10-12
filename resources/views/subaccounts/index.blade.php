@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}">
 
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -13,6 +12,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <style>
 
@@ -30,6 +33,18 @@
 
         }
   .slow .toggle-group { transition: left 0.7s; -webkit-transition: left 0.7s; }
+  
+   
+    .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
+
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+
     </style>
 
 
@@ -67,22 +82,20 @@
                             <div class="portlet-title">
 
                             <div>
-                                <a target="_blank" href="<?php echo $url_result; ?>" class="btn btn-primary"> Add User</a>
+                                <a href="<?php echo $url_result; ?>" class="btn btn-primary"> Add User</a>
                                 <br />
                                 <br />
-                                 Your registration link, copy and give it to your personnel: <b><?php echo $url_result; ?></b>
-
+                                 <b>Your registration link, copy and give it to your personnel:</b>
+                                    <div class="input-group" style="margin-top:5px">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-warning" onclick="myFunction()">Copy Link</button>
+                                      </span>
+                                      <input type="text" class=form-control value="<?php echo $url_result; ?>" id="myInput">
+                                    </div>
                             </div>
-<!--                             <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
-
-                            <p>
-
-                              Your registration link: <b><a target="_blank" href="<?php echo $url_result; ?>"><?php echo $url_result; ?></a></b>
-
-                            </p>
-
-
-                            </div> -->
+                            
+                            
+                        
 
                     </div>
 
@@ -96,7 +109,7 @@
 
                                 <i class="icon-share"></i>
 
-                                <span class="caption-subject font-blue sbold uppercase">Your list of sub-accounts </span>
+                                <span class="caption-subject sbold uppercase">Your list of sub-accounts </span>
 
 
 
@@ -128,13 +141,11 @@
 
                         </div>
 
-                        <div class="portlet-body">
+                      <div id="table_section" class="card cardborder-radius" style="border:1px solid silver;background:white;margin-bottom:10px">
+                <div class="card-body" style="padding:20px">
+              <div id="container table-responsive table-scrollable table-scrollable-borderless" style="overflow-x:scroll">
 
-                            <div class="table-scrollable">
-                                 
-
-
-                                <table id="system_data" class="table table-bordered table-hover">
+                                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped">
 
                                         <thead>
 
@@ -256,7 +267,7 @@
 
                 </div>
 
-
+</div>
 
         </div>
 
@@ -275,8 +286,18 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
 
     <script>
+function myFunction() {
+/* Get the text field */
+  var copyText = document.getElementById("myInput");
 
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(copyText.value);
+  alert("Copied the link: " + copyText.value);
+}
         function ajxP(uid, cid, sid)
         {
           var chkbox = document.getElementById('sa'+uid+cid+sid);  
@@ -341,15 +362,15 @@
          var x = document.getElementById(tor);
          var y = document.getElementById('bsa'+vic);
 
-          if (x.style.display === "none") {
+        if (x.style.display === "none") {
              x.style.display = "block";
              y.textContent = "Close";
 
-          } else {
-            x.style.display = "none";
+        } else {
+        x.style.display = "none";
             y.textContent = "Open";
 
-          }
+        }
 
         }
 
@@ -388,6 +409,7 @@
         $(document).ready(function () {
            // $('#system_data').DataTable();
            // $("p").hide(500);
+           $('#system_data').DataTable();
         });
 
         $(function() {

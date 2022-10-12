@@ -12,40 +12,35 @@
 
 <style>
 
-    body {
-
-      display: flex;
-
-      height: 100vh;
-
-      margin: 0;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 0 50px;
-
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-
-    }
-
-    video {
-
-      max-width: calc(50% - 100px);
-
-      width: 50%;
-
-      margin: 0 50px;
-
+    .video {
+      width:100%;
+      height:60vh;
       box-sizing: border-box;
-
-      border-radius: 2px;
-
+      border-radius: 5px;
       padding: 0;
-
-      box-shadow: rgba(156, 172, 172, 0.2) 0px 2px 2px, rgba(156, 172, 172, 0.2) 0px 4px 4px, rgba(156, 172, 172, 0.2) 0px 8px 8px, rgba(156, 172, 172, 0.2) 0px 16px 16px, rgba(156, 172, 172, 0.2) 0px 32px 32px, rgba(156, 172, 172, 0.2) 0px 64px 64px;
-
+      border:1px solid silver;
+      background:black;
+      margin-bottom:5px;
+    }
+    
+    .video .name{
+      position: absolute;
+      display: block;
+      z-index: 150;
+      left: 25px;
+      top: 10px;
+      padding-top:6px;
+      padding-bottom:6px;
+      padding-left:15px;
+      padding-right:15px;
+      border-radius:5px;
+      font-weight:bold;
+    }
+    
+    video {
+      width:100%;
+      height:100%;
+      
     }
 
     .copy {
@@ -64,19 +59,15 @@
 
     }
 
+    
+
   </style>
 
 
 
+  <div class="alert bg-dark text-white" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
 
-
-  <br />
-
-  <br />
-
-  <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
-
-  <p class="chat-intro-text"> Welcome to Intellinz Video Chat! 
+  <p class="chat-intro-text"> <b class="text-company">Welcome to Intellinz Video Chat! </b>
 
     <br>
 
@@ -102,19 +93,42 @@
 
   
 
-  <div>
-
-  <video id="remoteVideo" style="float:right;" autoplay></video>  
-
-  <video id="localVideo" style="float:left;" autoplay muted></video>
-
+  <div class="row">
+    <div class="col-md-6 mb-2" >
+        <div class="video" id="local_video_div">
+            
+            <div class="name  bg-company text-dark" >
+                ME
+            </div>
+            <video id="localVideo"  autoplay muted></video>
+        </div>
+        
+    </div>
+    <div class="col-md-6 mb-2">
+        <div class="video">
+            <div class="name  bg-company text-dark">
+                <?php 
+                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                
+                if($company_id_result == $companyViewer){
+                  $company = App\CompanyProfile::where('id',  $companyOpp)->first();  
+                }
+                else{
+                    $company = App\CompanyProfile::where('id',  $companyViewer)->first();
+                }
+                    echo strtoupper($company->company_name);
+                ?>
+            </div>
+            <video id="remoteVideo"  autoplay></video>
+        </div>
+    </div>
   </div>
 
   <br />
 
  <?php if($eVC != ''){ ?>
   <div align="center" style="padding-bottom: 20px; padding-top: 30px; clear:both">
-    <a href="<?php echo url('/vc-end/'.$eVC); ?>" class="btn btn-primary ">End Video Chat Session</a>
+    <a href="<?php echo url('/vc-end/'.$eVC); ?>" class="btn btn-danger "><i class="fa fa-phone"></i> End Video Chat Session</a>
   </div>
   <?php } else { ?>
     <div align="center" style="padding-bottom: 20px; padding-top: 30px; clear:both">
@@ -124,12 +138,15 @@
  
 
   <script src="{{ asset('public/vc/script.js') }}"></script>
+  
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script src="https://heyman.github.io/jquery-draggable-touch/jquery.draggableTouch.js"></script>
 
 <script type="text/javascript">
   var url  = window.location.href;
       formData = new FormData();
 
-    formData.append("vc_url", url);
+   formData.append("vc_url", url);
               $.ajax({
                 url: "{{ route('getVideoChatDetails') }}",
                 type: "POST",
@@ -150,6 +167,27 @@
   <script>
 
   $(document).ready(function() {
+      var win = $(window); //this = window  //"position":"fixed"  //
+        
+        if (win.width() <= 991) {
+            $("#local_video_div").css({ "height":"200px", "width":"200px", "z-index":"4324325432543423", "position":"fixed", "right":"10px"});
+            $("#local_video_div").draggableTouch();
+        }
+      
+    $(window).on('resize', function(){
+        var win = $(this); //this = window
+        
+        if (win.width() <= 991) {
+            $("#local_video_div").css({ "height":"200px", "width":"200px", "z-index":"4324325432543423", "position":"fixed", "right":"10px"  });
+            $("#local_video_div").draggableTouch();
+        }
+        else{
+            
+            $("#local_video_div").css({ "height":"60vh", "width":"100%", "z-index":"4324325432543423", "position":"unset"  });
+            $("video").css({ "height":"100%", "width":"100%" });
+            $("#local_video_div").draggableTouch("disable");
+        }
+    });
      
     // var url  = window.location.href;
 

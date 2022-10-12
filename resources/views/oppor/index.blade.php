@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+ 
 @section('content')
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
@@ -148,6 +148,7 @@ $status = "own";
                                         <th>Seeking</th>
                                         <th>Expectations</th>
                                         <th>Category</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -176,9 +177,8 @@ $status = "own";
                                         <td> <?php echo $b->timeframe_goal; ?> <br/></td>
                                        
 
-                                        <td> Building Capability <br/>
-
-                                                                        </td>
+                                        <td> Building Capability </td>
+                                        <td><?php echo ( $b->is_verify == 0 ) ? "Waiting for Approval" : "Approved" ?> </td>
                                                                         <td class="btn">
 
                                                                                 <a href="{{ url('/opportunity/editBuild/'.$b->id) }}"
@@ -222,9 +222,8 @@ $status = "own";
                                         <td> <?php echo $s->timeframe_goal; ?> <br/></td>
                                       
 
-                                        <td>Sell/Offer <br/>
-
-                                            </td>
+                                        <td>Sell/Offer </td>
+                                        <td><?php echo ( $s->is_verify == 0 ) ? "Waiting for Approval" : "Approved" ?> </td>
                                             <td class="btn">
 
                                                     <a href="{{ url('/opportunity/editSellOffer/'.$s->id) }}"
@@ -266,9 +265,8 @@ $status = "own";
                                         <td> <?php echo $bb->timeframe_goal; ?> <br/></td>
                                         
 
-                                        <td>Buy <br/>
-
-                                                        </td>
+                                        <td>Buy</td>
+                                        <td><?php echo ( $bb->is_verify == 0 ) ? "Waiting for Approval" : "Approved" ?> </td>
                                                         <td class="btn">
                                             <a href="{{ url('/opportunity/editBuy/'.$bb->id) }}" 
                                                                     class="btn btn-primary" style="color: white">Edit</a>

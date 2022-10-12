@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 <style>
-    html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-        overflow-x: hidden;
-    }
+    
 
 
 </style>
@@ -82,7 +76,7 @@
             -webkit-border-radius: 100px;
             border-radius: 100px;
             background-color: #dff7d9;
-            border-color: #7cda24;
+            border-color: ##7cda24;
             -moz-transform: rotate(0);
             -webkit-transform: rotate(0);
             -o-transform: rotate(0);
@@ -131,7 +125,7 @@
         }
         .panel-body::-webkit-scrollbar { width: 0 !important }
 
-        .h-effect:hover {
+        .:hover {
           -moz-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
           -webkit-box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1) !important;
           /*box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);*/
@@ -151,7 +145,7 @@
           cursor: default !important;
         }
 
-        .h-effect a{
+        . a{
             text-decoration: none;
         }
 
@@ -190,7 +184,6 @@
   }
 
   .block-icon{
-    width: 95%;
   }
 
   .widget-thumb {
@@ -204,8 +197,6 @@
         column-count: 1;
   }
   .block-icon{
-    width: 110%;
-    padding-left: unset;
   }
 }
 
@@ -239,6 +230,23 @@ bg-dark
 .list-group-item:hover{
     box-shadow: 0 0 11px #7cda24 !important; 
 }
+
+.widget-thumb{
+    border:1px solid silver;
+}
+
+.widget-thumb-wrap{
+    
+}
+
+.widget-thumb .widget-thumb-heading{
+    color:black !important;
+    min-height:2em;
+}
+.counter{
+    color:black !important;
+    font-size:35px;
+}
     </style>
 
     <div class="container">
@@ -266,9 +274,9 @@ bg-dark
         <div class="row justify-content-center">
             <div class="col-md-8 block-icon">
                 <!-- graph card -->
-                <div class="page-content-inner">
+                <div class="page-content-inner" style="border:1px solid silver"> 
                     <div class="mt-content-body">
-                        <div class="portlet light h-effect">
+                        <div class="portlet light ">
                             <div class="card">
                                 <div class="note note-success">
                                     <h4 class="block"><strong>ENHANCE YOUR COMPANY PROFILE COMPLETION SCORE</strong></h4>
@@ -314,20 +322,20 @@ bg-dark
                         </div>
                     </div>
                 </div>
-
+                <br>
 
                 <!-- widgets -->
 
                 <div class="row widget-row">
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-pending" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-pending" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 card">
                             <h4 class="widget-thumb-heading">PENDING PROFILE REQUEST</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-dark fa fa-clock-o"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden"></span>
-                                    <span class="widget-thumb-body-stat" style="margin-top: 20px;">
+                                    <span class="widget-thumb-body-stat" style="">
                                             <span class="counter"
                                                   data-count=" <?php if (!empty($pendingRequestReport)) {
                                                       echo $pendingRequestReport;
@@ -341,13 +349,13 @@ bg-dark
                     </div>
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-awaiting" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-awaiting" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">AWAITING RESPONSE</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-dark fa fa-reply-all"></i>
                                 <div class="widget-thumb-body">
                                     <span class="widget-thumb-subtitle hidden"></span>
-                                    <span class="widget-thumb-body-stat" style="margin-top: 20px;">
+                                    <span class="widget-thumb-body-stat" style="">
                                             <span class="counter" data-count=" <?php
                                             if (!empty($awaitingresponsetogenreport)) {
                                                 if ($awaitingresponsetogenreport == 0) {
@@ -365,13 +373,13 @@ bg-dark
 
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-oppor" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-oppor" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
                             <a href='{{  url('/opportunity/chatbox') }}'>
                             <h4 class="widget-thumb-heading">OPPORTUNITY INBOX</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-dark fa fa-envelope" aria-hidden="true"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
+                                    <span class="widget-thumb-subtitle hidden">USD</span>
                                     <span class="widget-thumb-body-stat">
                                             <span class="counter">{{ $oppoInbox }}</span>
 
@@ -389,12 +397,12 @@ bg-dark
                 <div class="row widget-row">
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-ongoing" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-ongoing" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">ONGOING MONITORING</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-dark fa fa-eye" aria-hidden="true"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
+                                    <span class="widget-thumb-subtitle hidden">USD</span> 
                                     <span class="widget-thumb-body-stat">
                                             <span class="counter" data-count=" <?php if (!empty($ongoingMonitoring)) {
                                                 echo $ongoingMonitoring;
@@ -408,12 +416,12 @@ bg-dark
                     </div>
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div id="home-generated" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id="home-generated" class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">GENERATED REPORT</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-dark icon-layers"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
+                                    <span class="widget-thumb-subtitle hidden">USD</span> 
                                     <span class="widget-thumb-body-stat"> <span class="counter"
                                                                                 data-count="<?php if (!empty($generatedreport)) {
                                                                                     echo $generatedreport;
@@ -426,12 +434,12 @@ bg-dark
 
                     <div class="col-md-4">
                         <!-- BEGIN WIDGET THUMB -->
-                        <div id='home-completed' class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 h-effect">
+                        <div id='home-completed' class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 ">
                             <h4 class="widget-thumb-heading">COMPLETED REPORT</h4>
                             <div class="widget-thumb-wrap">
                                 <i class="widget-thumb-icon bg-dark fa fa-newspaper-o"></i>
                                 <div class="widget-thumb-body">
-                                    <span class="widget-thumb-subtitle hidden">USD</span> <br>
+                                    <span class="widget-thumb-subtitle hidden">USD</span> 
                                     <span class="widget-thumb-body-stat">
                                             <span class="counter" data-count=" <?php if (!empty($process_report)) {
                                                 echo $process_report;
@@ -449,9 +457,9 @@ bg-dark
 
             <div class="col-md-4 block-icon" style="min-height:800px;">
                 <!-- sidebar token credit -->
-                <div class="page-content-inner">
+                <div class="page-content-inner" style="border:1px solid silver">
                     <div class="mt-content-body">
-                        <div class="portlet light h-effect">
+                        <div class="portlet light ">
                             <div class="card" style="overflow: hidden;">
                                 <div class="card-header" style="margin-bottom: 25px;">
                                     <center><span class="bold uppercase text-company ">Credit Status</span>
@@ -505,12 +513,12 @@ bg-dark
                         </div>
                     </div>
                 </div>
-
+                <br>
                 <!-- Log activity sidebar -->
 
-                <div class="panel h-effect">
-                    <div class="panel-heading">
-                        <span class="caption-subject  bold uppercase"> <i class="fa fa-tv"></i> recent activities</span>
+                <div class="panel " style="border:1px solid silver">
+                    <div class="panel-heading bg-dark ">
+                        <span class="caption-subject  bold uppercase text-white"> <i class="fa fa-tv"></i> recent activities</span>
                     </div>
                     <div class="panel-body">
                         <?php
@@ -550,7 +558,6 @@ bg-dark
         </div>
     </div>
  {{-- <div class='intro-tour-overlay'></div> --}}
-    <script src="{{ asset('public/jq1110/jquery.min.js') }}"></script>
     <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
  <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
     <script>
@@ -655,6 +662,10 @@ if( $('#is_tour').val() == 1 ){
         $(document).ready(function () {
             $(".close").click(function () {
                 $(".jumbotron").remove();
+            });
+            
+            $(".widget-thumb").each(function() {
+                $(this).css('height', $(".widget-thumb:eq(0)").css('height'));
             });
 
             progressBarUpdate(<?php echo $completenessProfile; ?>, 100);

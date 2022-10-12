@@ -140,12 +140,12 @@ if(route('indexConsultantFAreport') == Request::url()) {
                     <!-- Branding Image -->
                     @guest
                     <a class="navbar-brand" href="{{ url('/') }}" style="color:white;">
-                        {{ config('app.name', 'Intellinz') }}
+                        {{ config('app.name', 'Prokakis') }}
                     </a>
                     @else
                     
                     <a class="navbar-brand" href="{{ url('/') }}" style="color:white;">
-                        {{ config('app.name', 'Intellinz') }}
+                        {{ config('app.name', 'Prokakis') }}
                     </a>
                     
                     <a class="navbar-brand <?php echo $activeDashboard; ?>" href="{{ url('/home') }}" style="color:white;">

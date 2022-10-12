@@ -1,16 +1,7 @@
 @extends('layouts.app')
 
 
-
 @section('content')
-
-
-    <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap.min.css">
-
-
 
 <style>
       .fit {
@@ -81,6 +72,10 @@ th {
 
 </style>
 
+    <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap.min.css">
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
     <div class="container">
 
@@ -106,7 +101,36 @@ th {
 
 
 
-       
+       <div class="modal" id="usertype_modal" style="" data-backdrop="static">
+    	<div class="modal-dialog" style="margin:50px auto !important; width:50% !important">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title usertype_modal_lbl"></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div><div class="container"></div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <input type="hidden" id="id_txt" />
+                        <label>USER TYPE</label>
+                    </div>
+                    <div class="col-md-9">
+                        <select class="form-control" id="usertype_cb">
+                            <option value="1">Company</option>
+                            <option value="4">Ebos Staff</option>
+                            <option value="3">Master Consultant</option>
+                            <option value="2">Sub Consultant</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <a href="#" data-dismiss="modal" class="btn">Close</a>
+              <button class="btn btn-primary" id="save_btn"><i class="fa fa-save"></i> Save changes</button>
+            </div>
+          </div>
+        </div>
+    </div>
 
 
 
@@ -171,8 +195,10 @@ th {
                                                 <th  class="all">First Name</th>
                                                 <th class="all">Last Name</th>
                                                 <th class="all">Email</th>
+                                                <th class="all">Country</th>
                                                 <th class="all">User Type</th>
                                                 <th class="all">Reason</th>
+                                                <th class="all"></th>
 
                                                 <th  class="none">Company Name</th>
                                                 <th  class="none">Company Website</th>
@@ -190,16 +216,26 @@ th {
                                             {
 ?>
                                                 <tr class="active">
-                                                    <td align="center" class="d-inline-block text-truncate" style="max-width: 150px; overflow: hidden;">
+                                                    <td  class="d-inline-block text-truncate" style="max-width: 150px; overflow: hidden;">
                                                         <?php echo $d->firstname; ?>
                                                     </td>
 
-                                                    <td align="center" class="d-inline-block text-truncate" style="max-width: 150px; overflow: hidden;">
+                                                    <td  class="d-inline-block text-truncate" style="max-width: 150px; overflow: hidden;">
                                                         <?php echo $d->lastname; ?>
                                                     </td>
 
-                                                    <td align="center">
+                                                    <td >
                                                             <?php echo $d->email; ?>
+                                                    </td>
+                                                    <td >
+                                                            <?php
+                                                                $country = App\CompanyProfile::select(DB::raw('group_concat(country_name SEPARATOR ", ") as countries'))
+                                                                 ->join('apps_countries as b', 'b.country_code', '=', 'company_profiles.primary_country')
+                                                                 ->where('user_id', '=', $d->id)
+                                                                 ->first();
+                                                                 
+                                                                 echo $country->countries;
+                                                            ?>
                                                     </td>
 
                                                     <td align="center">
@@ -223,6 +259,9 @@ th {
                                                     
                                                     <td align="center">
                                                         <?php echo $d->reason_heard; ?>
+                                                    </td>
+                                                    <td align="center">
+                                                       <button name="{{ $d->id }}" id="update_{{ $d->id }}_btn" class="update_usertype_btn btn btn-primary btn-sm"><i class="fa fa-edit"></i> UPDATE </button>
                                                     </td>
 
                                                     <td align="center">
@@ -325,6 +364,22 @@ th {
 
 
                                     </tbody>
+                                    <tfoot>
+                                            <tr>
+                                                <th  class="all">First Name</th>
+                                                <th class="all">Last Name</th>
+                                                <th class="all">Email</th>
+                                                <th class="all">Country</th>
+                                                <th class="all">User Type</th>
+                                                <th class="all">Reason</th>
+
+                                                <th  class="none">Company Name</th>
+                                                <th  class="none">Company Website</th>
+                                                <th  class="none">Registration Status</th>
+                                                <th  class="none">Registration Date</th>
+                                                <th  class="none">Action</th>
+                                            </tr>
+                                        </tfoot>
                                 </table>
 
                                
@@ -369,17 +424,72 @@ th {
 
     <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script>
     <!-- <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
-    <script type="text/javascript" charset="utf8" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap.min.js"></script>
 
 
 
     <script>
 
 $(document).ready(function() {
+    
+    $("#save_btn").click(function(){
+            
+            var id = $("#id_txt").val();
+            var type = $("#usertype_cb option:selected").val();
+        
+            formData = new FormData();
+            formData.append("userid", id);
+            formData.append("type", type);
+            //$(".loading").show();
+            $.ajax({
+                url: "{{ route('updateUserType') }}",
+                type: "POST",
+                data: formData,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    if(data.error == true){
+                        alert("Failed to update");
+                    }
+                    else{
+                        alert("Success");
+                        
+                        if(data.type == "2"){
+                            $("#update_"+id+"_btn").closest("tr").find("td:eq(4)").html('<span class="label label-sm label-success">Sub Consultant</span>');
+                        }
+                        
+                        if(data.type == "3"){
+                            $("#update_"+id+"_btn").closest("tr").find("td:eq(4)").html('<span class="label label-sm label-info">Master Consultant</span>');
+                        }
+                        
+                        if(data.type == "4"){
+                            $("#update_"+id+"_btn").closest("tr").find("td:eq(4)").html('<span class="label label-sm label-danger">Ebos Staff</span>');
+                        }
+                        
+                        if(data.type == "1"){
+                            $("#update_"+id+"_btn").closest("tr").find("td:eq(4)").html('<span class="label label-sm label-warning">Company </span>');
+                        }
+                        
+                        $("#usertype_modal").modal("hide");
+                    }
+                    //$(".loading").hide();
+                },
+                 error: function(jqXHR, textStatus, errorThrown) {
+                  console.log(textStatus, errorThrown);
+                }
+            });
+        });
+    
+    $("body").on("click", ".update_usertype_btn", function(){
+        $(".usertype_modal_lbl").text($(this).closest("tr").find("td:eq(2)").text());
+        $("#id_txt").val($(this).attr("name"));
+        $("#usertype_modal").modal("show");
+    });
+    
     $('#system_data').DataTable( {
         "ordering": false,
             "aSorting": [[ 3, "desc" ]],
@@ -402,6 +512,31 @@ $(document).ready(function() {
                         $(".table_loader").remove();
                         $('#system_data').show();
                 },
+                
+                initComplete: function () {
+            this.api()
+                .columns([3])
+                .every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+ 
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                            //column.search('^(' + val + ')$',true,false).draw();
+                        });
+ 
+                    column
+                        .data()
+                        .unique()
+                        .sort()
+                        .each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                        //select.append('<option value="Philippines">Philippines</option>');
+                });
+        },
     } );
 } );
 

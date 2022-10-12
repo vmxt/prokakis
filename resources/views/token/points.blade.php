@@ -238,19 +238,19 @@
 
                                         <br>
 
-                                        <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
+                                        <div class="alert bg-dark text-company" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
 
                                             <table>
                                                 <tr>
-                                                  <td valign="top">  
-                                                <b>How Do I Earn Intellinz Reward Points?</b> <br />
+                                                  <td valign="top" class="text-white">  
+                                                <b class="text-company">How Do I Earn Intellinz Reward Points?</b> <br />
                                                 - Get 0.12 points for every credit purchased. <br />
                                                 - Introduce and share to a friend or <br /> business associate and get 0.05 points. <br />
                                                 - Earn 0.01 points passively every time your <br /> referrals purchase 1 credit for Intellinz services. <br />
                                                   </td>
 
-                                                  <td valign="top">  
-                                                 <b>Cashing in Reward Points?</b> <br />
+                                                  <td valign="top" class="text-white">  
+                                                 <b class="text-company">Cashing in Reward Points?</b> <br />
                                                     - 50 Points = Advisor Level Worth USD$100 <br />
                                                     - 150 Points = Gold Advisor Worth USD$375 <br />
                                                     - 500 Points = Platinum Advisor Worth USD$1750 <br />
@@ -303,22 +303,22 @@
 
                                                         
                                                                     
-                                                                    <span class="bold font-blue">Your total credit is {{ $totalCreditPurchased }}. <br /></span>
+                                                                    <span class="bold " style="color:black"">Your total credit is {{ $totalCreditPurchased }}. <br /></span>
 
                                                                     <hr>
 
-                                                                    <span class="bold font-blue">Your total number of referrals is {{ $totalNumberOfReferrals }}. <br /></span>
+                                                                    <span class="bold " style="color:black"">Your total number of referrals is {{ $totalNumberOfReferrals }}. <br /></span>
 
 
                                                                     <hr>
 
 
-                                                                    <span class="bold font-blue">Your points on referrals credit purchased a combined total of {{ $totalNumberOfReferralsPurchasedPoints }}. <br /></span>
+                                                                    <span class="bold " style="color:black"">Your points on referrals credit purchased a combined total of {{ $totalNumberOfReferralsPurchasedPoints }}. <br /></span>
 
                                                                     
                                                                     <hr>
 
-                                                                    <span class="bold font-blue">Your points on referrals report request a combined total of {{ $totalNumberOfReferralsReportsPoints }}. <br /></span>
+                                                                    <span class="bold " style="color:black"">Your points on referrals report request a combined total of {{ $totalNumberOfReferralsReportsPoints }}. <br /></span>
 
                                                                     
                                                                     <br /><br />
@@ -348,7 +348,7 @@
 
                                                         <div class="card-header">
 
-                                                            <center><span class="bold uppercase font-blue">TOTAL POINTS EARNED</span>
+                                                            <center><span class="bold uppercase " style="color:black"">TOTAL POINTS EARNED</span>
                                                             </center>
 
                                                         </div>
@@ -368,7 +368,7 @@
                                                     @if( $nextScoreLevel >= 50 || $nextScoreLevel == 'Reached Max')
                                                         <div class="card" style="overflow: hidden;">
                                                             <div class="card-header">
-                                                                <center><span class="bold uppercase font-blue">NEEDED POINTS TO NEXT LEVEL</span>
+                                                                <center><span class="bold uppercase " style="color:black"">NEEDED POINTS TO NEXT LEVEL</span>
                                                                 </center>
                                                             </div>
 
@@ -400,7 +400,7 @@
                                                                     </center>
                                                                 @else  
                                                                 <center>
-                                                                <button class="btn red-mint btn-full" type="button" disabled>REDEEM USD $100 NOW</button> 
+                                                                <button class="btn btn-primary" type="button" disabled>REDEEM USD $100 NOW</button> 
                                                                 </center>
                                                                 @endif 
                                                             </div>

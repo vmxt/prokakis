@@ -57,6 +57,18 @@
             bottom: 0;
             left: 0;
         }
+        
+        .btn-primary-outline{
+            background-color:white !important;
+            color:black !important;
+            border:1px solid black !important;
+        }
+        
+        .btn-primary-outline:hover{
+            background-color:black !important;
+            color:white !important;
+            border:1px solid black !important;
+        }
     </style>
 
     <div class="container">
@@ -87,25 +99,25 @@
                                         <center><h2>I want to</h2></center>
                                         <div class="col col-sm-4" style="padding: 0px;" id='sect_building'>
                                             <a id="building" href="javascript:;"
-                                               class="btn green-sharp btn-outline  btn-block sbold uppercase"
+                                               class="btn btn-outline btn-primary-outline btn-block sbold uppercase"
                                                type="submit" style="height: 100px; "> <span class="wrapword"
-                                                        style="font-size: 25px;">INVEST</span> </a>
-                                            <center><span style="margin-top: 5px;">Partnerships or Investments</span>
+                                                        style="font-size: 25px;"><i class="fa fa-building"></i> INVEST</span> </a>
+                                            <center style="margin-top: 10px;"><b>Partnerships or Investments</b>
                                             </center>
                                         </div>
                                         <div  class="col col-sm-4" style="padding: 0px;" id='sect_selling'>
                                             <a id="selling" href="javascript:;"
-                                               class="btn green-sharp btn-outline  btn-block sbold uppercase"
+                                               class="btn btn-primary-outline btn-outline  btn-block sbold uppercase"
                                                type="submit" style="height: 100px; line-height: 3.5;"> <span
-                                                        style="font-size: 25px;">SELL</span> </a>
-                                            <center>Product/Service or Business</center>
+                                                        style="font-size: 25px;"><i class="fa fa-money"></i> SELL</span> </a>
+                                            <center style="margin-top: 10px;"><b>Product/Service or Business</b></center>
                                         </div>
                                         <div class="col col-sm-4" style="padding: 0px;" id='sect_buying'>
                                             <a id="buying" href="javascript:;"
-                                               class="btn green-sharp btn-outline  btn-block sbold uppercase"
+                                               class="btn btn-primary-outline btn-outline  btn-block sbold uppercase"
                                                type="submit" style="height: 100px; line-height: 3.5;"> <span
-                                                        style="font-size: 25px;">BUY</span> </a>
-                                            <center>Product/Service or Business</center>
+                                                        style="font-size: 25px;"><i class="fa fa-shopping-cart"></i> BUY</span> </a>
+                                            <center style="margin-top: 10px;"><b>Product/Service or Business</b></center>
                                         </div>
                                     </div>
                                 </div>

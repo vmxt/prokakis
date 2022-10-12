@@ -195,7 +195,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>Access to Intellinz Online Marketplace</p>
+                                                <p>Access to Prokakis Online Marketplace</p>
                                             </div>
                                         </div>
 
@@ -222,7 +222,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>one-time viewing to Intellinz profiles in explore page</p>
+                                                <p>one-time viewing to prokakis profiles in explore page</p>
                                             </div>
                                         </div>
 
@@ -231,7 +231,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>one-time access to Intellinz private chat function</p>
+                                                <p>one-time access to prokakis private chat function</p>
                                             </div>
                                         </div>
 
@@ -258,7 +258,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*Exclusive invite to Intellinz networking events</p>
+                                                <p>*Exclusive invite to prokakis networking events</p>
                                             </div>
                                         </div>
 
@@ -301,7 +301,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>Access to Intellinz Online Marketplace</p>
+                                                <p>Access to Prokakis Online Marketplace</p>
                                             </div>
                                         </div>
 
@@ -328,7 +328,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>one-time viewing to Intellinz profiles in explore page</p>
+                                                <p>one-time viewing to prokakis profiles in explore page</p>
                                             </div>
                                         </div>
 
@@ -337,7 +337,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>one-time access to Intellinz private chat function</p>
+                                                <p>one-time access to prokakis private chat function</p>
                                             </div>
                                         </div>
 
@@ -364,7 +364,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*Exclusive invite to Intellinz networking events</p>
+                                                <p>*Exclusive invite to prokakis networking events</p>
                                             </div>
                                         </div>
 
@@ -411,7 +411,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>Access to Intellinz online marketplace</p>
+                                                <p>Access to Prokakis online marketplace</p>
                                             </div>
                                         </div>
 
@@ -456,7 +456,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>unlimited access to Intellinz private chat function</p>
+                                                <p>unlimited access to prokakis private chat function</p>
                                             </div>
                                         </div>
 
@@ -501,7 +501,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*exclusive invite to Intellinz networking events</p>
+                                                <p>*exclusive invite to prokakis networking events</p>
                                             </div>
                                         </div>
 
@@ -545,7 +545,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>Access to Intellinz online marketplace</p>
+                                                <p>Access to Prokakis online marketplace</p>
                                             </div>
                                         </div>
 
@@ -590,7 +590,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>unlimited access to Intellinz private chat function</p>
+                                                <p>unlimited access to prokakis private chat function</p>
                                             </div>
                                         </div>
 
@@ -635,7 +635,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>*exclusive invite to Intellinz networking events</p>
+                                                <p>*exclusive invite to prokakis networking events</p>
                                             </div>
                                         </div>
 
@@ -710,7 +710,7 @@
                                     <img  class="advantages-img"  src="{{ asset('public/img-resources/premium.png') }}" width="96" alt="dollars" title="dollars">
                                     
                                     <h3 class='advance-title2'><strong>PREMIUM</strong></h3>
-                                    <p class="margin-right">Upgrade your FREE Account to PREMIUM with 1 Token for 6 months to access unlimited features in Intellinz</p>
+                                    <p class="margin-right">Upgrade your FREE Account to PREMIUM with 1 Token for 6 months to access unlimited features in ProKakis</p>
                                 </div>
                             </div>
                             <div class="col-4 col-foot">
@@ -968,7 +968,7 @@
                                                 <img class='img_icon' src="{{ asset('public/img-resources/check-mark-2.png') }}" width="20" height="20" />
                                             </div>
                                             <div class='check-desc'>
-                                                <p>EXCLUSIVE INVITATION TO Intellinz ADVISORS PROGRAMME</p>
+                                                <p>EXCLUSIVE INVITATION TO PROKAKIS ADVISORS PROGRAMME</p>
                                             </div>
                                         </div>
                                         <div class=" card-buyNow-bot ">

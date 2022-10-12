@@ -102,41 +102,41 @@ th {
                             <?php
 $i = 1;
 foreach ($listData as $data) {
-    ?>
+	?>
                             <tr>
                                 <td align="center"><?php echo $i++; ?></td>
 
                                 <td>
                                     <?php //echo $data->created_at;
-    //echo date("F j, Y, g:i a", strtotime($data->created_at));
-    $companyInfo = App\CompanyProfile::find($data->company_id);
-    if (count((array) $companyInfo) - 1 > 0) {
-        echo $companyInfo->registered_company_name;
-    }
-    ?>
+	//echo date("F j, Y, g:i a", strtotime($data->created_at));
+	$companyInfo = App\CompanyProfile::find($data->company_id);
+	if (count((array) $companyInfo) - 1 > 0) {
+		echo $companyInfo->registered_company_name;
+	}
+	?>
                                 </td>
 
                                 <td valign="top" align="center">
                                     <?php
 echo '<a href="https://' . $companyInfo->company_website . '">' . $companyInfo->company_website . '</a>';
-    ?>
+	?>
                                 </td>
 
                                 <td valign="top" align="center">
                                     <?php
 echo $companyInfo->registered_address;
-    ?>
+	?>
                                 </td>
 
                                 <td valign="top" align="center">
                                     <?php //echo $data->updated_at;
 
-    //$date=date_create($data->updated_at);
-    //echo date_format($date,"Y-m-d H:i:s");
+	//$date=date_create($data->updated_at);
+	//echo date_format($date,"Y-m-d H:i:s");
 
-    echo date("F j, Y, g:i a", strtotime($data->created_at));
+	echo date("F j, Y, g:i a", strtotime($data->created_at));
 
-    ?>
+	?>
                                 </td>
 
 

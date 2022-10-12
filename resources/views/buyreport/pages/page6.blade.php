@@ -60,25 +60,28 @@
 
 
 @if(!empty($profileCertifications))
+
     <div class="row p-1">
       <p class="h5">Award(s):</p>
     </div>
         @foreach($profileCertifications as $aw)
-            <div class="card p-2">
-                  <img class='img-fluid' src="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>" style='width:100%; padding-top: 100px;' border="1" alt="Null" />
+            <div class="card p-1" style="border:1px solid black">
+                  <img class='img-fluid' src="{{ asset('public/uploads/') }}/<?php echo $aw[1]; ?>" style='width:100%; padding-top: 80px;max-height:100% !important' border="1" alt="Null" />
             </div>
          @endforeach
+
 @endif
 
+
 @if( !empty($data['COMP_STRENGTHS']) )
+ <!--<div class="page-break">
     <div class="row p-2">
       <p class="h5"><b>Strength(s):</b></p>
     </div>
     <div class="row p-3">
         <div>{{ $data['COMP_STRENGTHS'] }}</div>
     </div>
+    </div>-->
 @endif
 
-
-  </div>
 </div>

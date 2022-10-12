@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -55,8 +54,6 @@ th {
 <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
 <link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
-
-    <div class="row justify-content-center">
 
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
 
@@ -134,7 +131,7 @@ th {
 
 
 
-        <div class="portlet light portlet-fit portlet-datatable">
+        <div class="portlet  portlet-datatable">
 
             <div class="portlet-title">
 
@@ -297,7 +294,7 @@ th {
                                                display: inline-block; href="{{ url('/genReportAm/') }}/<?php echo base64_encode($data->id).'-'.time(); ?>"  class="btn btn-primary"> Adverse Media </a> 
                                                <a width: 150px;
                                                display: inline-block; href="{{ url('/genReportAll/') }}/<?php echo base64_encode($data->id).'-'.time(); ?>/<?php echo base64_encode($data->source_company_id) . '/' . base64_encode($req_id) .'?aprvl='.$data->approval_id ; ?>" onclick="return confirm('Are you sure you want to download the reports such as World-Check-Refinitiv, Investors Alert, and Adverse Media into a zip file?, this will take a while to process.')"
-                                                class="btn btn" style="background-color:white;">Download All</a>
+                                                class="btn btn" style="background-color:#7cda24 !important;color:white">Download All</a>
                                              
                                             </div>
     
@@ -350,23 +347,6 @@ th {
                 </div>
         </div>
 
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-    {{-- <script src="{{ asset('public/js/app.js') }}"></script> --}}
-
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
-
-    {{-- <script type="text/javascript" charset="utf8" src="{{ asset('public/grid/jquery.dataTables.min.js') }}"></script> --}}
 
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>

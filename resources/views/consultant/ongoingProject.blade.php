@@ -4,6 +4,7 @@
 
 @section('content')
 
+
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
 

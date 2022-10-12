@@ -467,7 +467,7 @@ th {
                     <!-- List group -->
                     <ul class="list-group">
                        <?php 
-                        $bn = App\BusinessOpportunitiesNews::limit(10)->orderBy('id', 'desc')->get();
+                        $bn = App\BusinessOpportunitiesNews::where('status', '1')->limit(10)->orderBy('id', 'desc')->get();
                         $i = 1;
                         foreach($bn as $d){
                        ?>

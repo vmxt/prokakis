@@ -45,7 +45,7 @@ table td{
   word-break: break-all;
 }
 .match-result{
-  background-color:  #000000;
+  background-color:  #1A4275;
   padding: 20px;
 }
 

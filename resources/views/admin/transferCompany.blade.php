@@ -26,7 +26,7 @@
 
             display: none;
 
-            position: fixed;
+            overflow:scroll;
 
             top: 0px;
 
@@ -180,11 +180,83 @@
 
         }
 
+  .fit {
+   width:1% !important;
+   white-space: nowrap !important;
+ }
 
+th {
+  color: #7cda24 !important;
+  background:black !important;
+}
+.center {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+.wave {
+  width: 5px;
+  height: 100px;
+  background: linear-gradient(45deg, #7cda24, #fff);
+  margin: 10px;
+  animation: wave 1s linear infinite;
+  border-radius: 20px;
+}
+.wave:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.wave:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.wave:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.wave:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.wave:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.wave:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.wave:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.wave:nth-child(9) {
+  animation-delay: 0.8s;
+}
+.wave:nth-child(10) {
+  animation-delay: 0.9s;
+}
 
+@keyframes wave {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+.addCompanies table{
+    width:100% !important;
+}
+
+#usersList option{
+    margin:1px !important;
+    padding:3px !important;
+}
     </style>
 
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
 
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <script src="{{ asset('public/js/app.js') }}"></script>
 
@@ -220,17 +292,28 @@
 
                 <div class="caption">
 
-                    <i class="icon-settings font-blue"></i>
+                    <i class="icon-settings "></i>
 
-                    <span class="caption-subject font-blue sbold uppercase">Company Transfer and Add Tokens</span>
+                    <span class="caption-subject  sbold uppercase">Company Transfer and Add Credits</span>
 
                 </div>
 
             </div>
 
-            <div id="container" class="table-scrollable">
-
-                <table id="system_data" class="table table-hover table-light">
+            <div id="container" class="table-scrollable" style="border:none !important">
+                <div class="table_loader center">
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                          <div class="wave"></div>
+                        </div>
+                <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped" style="display:none">
 
                     <thead>
 
@@ -274,7 +357,7 @@
 
                             <a id="edit_icon"  onclick="ajxProcessView('<?php echo $data->id; ?>','<?php echo $data->firstname.' '.$data->lastname; ?>')"
 
-                                data-popup-open="popup-1" class="btn btn-outline btn-circle btn-sm blue">
+                                data-toggle="modal" data-target="#exampleModal" class="btn btn-outline  btn-sm blue">
 
                                 <i class="fa fa-edit"></i> View 
 
@@ -286,7 +369,7 @@
 
                                 <a id="edit_icon"  onclick="ajxProcessTransfer('<?php echo $data->id; ?>','<?php echo $data->firstname.' '.$data->lastname; ?>')"
 
-                                   data-popup-open="popup-2" class="btn btn-outline btn-circle btn-sm blue">
+                                    data-toggle="modal" data-target="#exampleModal2" class="btn btn-outline  btn-sm blue">
 
                                    <i class="fa fa-edit"></i> Transfer 
 
@@ -296,9 +379,9 @@
 
                                 <a id="edit_icon"  onclick="ajxProcessAdd('<?php echo $data->id; ?>','<?php echo $data->firstname.' '.$data->lastname; ?>')"
 
-                                    data-popup-open="popup-3" class="btn btn-outline btn-circle btn-sm blue">
+                                    data-popup-open="popup-3" class="btn btn-outline  btn-sm blue">
 
-                                    <i class="fa fa-edit"></i> Add Token 
+                                    <i class="fa fa-edit"></i> Add Credit 
 
                                  </a>
 
@@ -342,11 +425,12 @@
 
 
 
-    <div class="popup" data-popup="popup-1">
-
-        <div class="popup-inner">
-
-            <div class="col-lg-8">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width:80%">
+    <div class="modal-content">
+ <div class="modal-body">
+     <div class="row">
+            <div class="col-lg-12">
 
                 <div class="portlet light portlet-fit ">
 
@@ -357,24 +441,27 @@
             </div>
 
 
-
-            <!--<p><a data-popup-close="popup-1" href="#">Close</a></p>-->
-
-            <a class="popup-close" data-popup-close="popup-1" href="#">x</a>
+</div>
 
         </div>
-
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+  </div>
     </div>
+      </div>
 
 
 
-    <div class="popup" data-popup="popup-2">
-
-        <div class="popup-inner2" style="width:80%">
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width:80%">
+    <div class="modal-content">
+ <div class="modal-body">
+     <div class="row">
 
             <input type="hidden" id="companyTransferId" name="companyTransferId">
 
-            <div class="col-lg-8">
+            <div class="col-lg-12">
 
                 <div class="portlet light portlet-fit ">
 
@@ -386,11 +473,11 @@
 
 
 
-            <button type="button" id="processSelectedItems" class="btn red mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-right" data-spinner-color="#333">
+            <button type="button" id="processSelectedItems" class="btn btn-primary  mt-ladda-btn ladda-button btn-outline" data-style="slide-right" data-spinner-color="#333">
 
                 <span class="ladda-label">
 
-                    <i class="icon-login"></i> Save Transfer </span>
+                    <i class="fa fa-save "></i> Save Transfer </span>
 
                 <span class="ladda-spinner"></span>
 
@@ -399,17 +486,14 @@
 
 
             </div>
-
-          
-
-            <!--<p><a data-popup-close="popup-1" href="#">Close</a></p>-->
-
-            <a class="popup-close" data-popup-close="popup-2" href="#">x</a>
-
-        </div>
-
+</div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+  </div>
     </div>
-
+      </div>
+ </div>
 
 
 
@@ -418,7 +502,7 @@
 
         <div class="popup-inner">
 
-            <div class="col-lg-8">
+            <div class="col-lg-12">
 
                 <div class="portlet light portlet-fit ">
 
@@ -428,11 +512,11 @@
 
 
 
-            <button type="button" id="processSelectedCompanies" class="btn red mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-right" data-spinner-color="#333">
+            <button type="button" id="processSelectedCompanies" class="btn btn-primary mt-ladda-btn ladda-button  btn-outline" data-style="slide-right" data-spinner-color="#333">
 
                 <span class="ladda-label">
 
-                    <i class="icon-login"></i> Save Added Token </span>
+                    <i class="fa fa-save"></i> Save Added Credit </span>
 
                 <span class="ladda-spinner"></span>
 
@@ -468,7 +552,14 @@
 
 $(document).ready( function () {
 
-    $('#system_data').DataTable();
+    $('#system_data').DataTable({
+        "drawCallback": function( settings ) {
+                        $(".table_loader").fadeOut();
+                        $(".table_loader").remove();
+                        $('#system_data').show();
+                        
+                }
+    });
 
     $('#sample_1').DataTable();
 
@@ -604,7 +695,7 @@ $("#processSelectedCompanies").on('click', function(e){
 
         title: "Are you sure?",
 
-        text: "You are about to add token to the selected companies",
+        text: "You are about to add credit to the selected companies",
 
         icon: "warning",
 
@@ -628,9 +719,9 @@ $("#processSelectedCompanies").on('click', function(e){
 
         swal({
 
-            title: 'Company Adding Token',
+            title: 'Company Adding Credit',
 
-            text:  'Done on adding token',
+            text:  'Done on adding credits',
 
             icon:  'success'
 

@@ -21,6 +21,196 @@
 
 
 <style>
+.loading {
+      position: fixed;
+      z-index: 999;
+      height: 2em;
+      width: 2em;
+      overflow: show;
+      margin: auto;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+    /* Transparent Overlay */
+    .loading:before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+        background: radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0, .8));
+    
+      background: -webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8));
+    }
+    
+    /* :not(:required) hides these rules from IE9 and below */
+    .loading:not(:required) {
+      /* hide "loading..." text */
+      font: 0/0 a;
+      color: transparent;
+      text-shadow: none;
+      background-color: transparent;
+      border: 0;
+    }
+    
+    .loading:not(:required):after {
+      content: '';
+      display: block;
+      font-size: 10px;
+      width: 1em;
+      height: 1em;
+      margin-top: -0.5em;
+      -webkit-animation: spinner 150ms infinite linear;
+      -moz-animation: spinner 150ms infinite linear;
+      -ms-animation: spinner 150ms infinite linear;
+      -o-animation: spinner 150ms infinite linear;
+      animation: spinner 150ms infinite linear;
+      border-radius: 0.5em;
+      -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+    }
+    
+    /* Animation */
+    
+    @-webkit-keyframes spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+    @-moz-keyframes spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+    @-o-keyframes spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+    @keyframes spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+    
+.pie {
+            background-color: #7cda24;
+            width: 200px;
+            height: 200px;
+            -moz-border-radius: 100px;
+            -webkit-border-radius: 100px;
+            border-radius: 100px;
+            position: relative;
+        }
+
+        .clip1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            clip: rect(0px, 200px, 200px, 100px);
+        }
+
+        .slice1 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            clip: rect(0px, 100px, 200px, 0px);
+            -moz-border-radius: 100px;
+            -webkit-border-radius: 100px;
+            border-radius: 100px;
+            background-color: #dff7d9;
+            border-color: #F0A22E;
+            -moz-transform: rotate(0);
+            -webkit-transform: rotate(0);
+            -o-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        .clip2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            clip: rect(0, 100px, 200px, 0px);
+        }
+
+        .slice2 {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            clip: rect(0px, 200px, 200px, 100px);
+            -moz-border-radius: 100px;
+            -webkit-border-radius: 100px;
+            border-radius: 100px;
+            background-color: #F0A22E;
+            border-color: #F0A22E;
+            -moz-transform: rotate(0);
+            -webkit-transform: rotate(0);
+            -o-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        .status {
+            position: absolute;
+            height: 30px;
+            width: 200px;
+            line-height: 60px;
+            text-align: center;
+            top: 50%;
+            margin-top: -35px;
+            font-size: 50px;
+        }
 
         html, body {
 
@@ -52,11 +242,11 @@
 
            width: 300px;
 
-           height: 30px;
+           height: 100% !important;
 
            margin: 5px 0;
 
-           float: left;
+           float: none !important;
 
             padding: 10px;
 
@@ -237,7 +427,10 @@
 
         .profCompleteness{
             display: inline-grid ;
-            margin-top: 25px !important;
+            width:100%;
+            border:1px solid silver !important;
+            padding:15px;
+            border-radius:5px;
         }
 
         .busineNews {
@@ -253,14 +446,21 @@
             font-weight: 500;
         }
 
-        li.active {
+        /*li.active {
             background-color: black !important;
         }
 
         li.active a {
             color: #EFF3F8 !important;
             font-weight: 700 !important;
-        }
+        }*/
+        .nav-tabs>li.active{
+                border-bottom:4px solid #7cda24 !important;
+            }
+            
+            .nav-tabs>li:hover{
+                border-bottom:4px solid black !important;
+            }
 
         .actionImg input#btnCrop{
             width: 30%;
@@ -303,6 +503,11 @@
         }
     .containerCimg {
         margin: 0 auto;
+        
+    }
+    
+    .imageBoxCimg{
+        border-radius:5px !important;
     }
 
 @media (max-width: 346px){
@@ -340,10 +545,362 @@
 }
 
 
+.page-content-inner{
+    border:1px solid silver;
+    border-radius:5px;
+    padding:15px;
+}
 
+.card{
+        border:1px solid silver;
+        border-radius:5px;
+    }  
+    .card-body{
+        padding:20px;
+    }  
+    
+    .pieLabel{
+        font-weight:bold !important;
+        font-size:12px !important;
+    }
+    
+    #flotTip {
+        padding: 6px 15px;
+        background-color: black;
+        z-index: 100;
+        color: white;
+    }
+    
+    #company_primary_country_chartLegend td {display: inline-block;}
+    
+    .legendColorBox > div{
+        padding:0px !important;
+    }
+    
+    .legendColorBox > div > div{
+        border-width:8px !important;
+    }
+    
+    .mb-2{
+        margin-bottom:10px;
+    }
+    
+    #yourBtn {
+      top: 150px;
+      font-family: calibri;
+      padding: 10px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border: 1px dashed #BBB;
+      text-align: center;
+      background-color: #DDD;
+      cursor: pointer;
+    }
+    
+    .form-group label{
+        color:black !important;
+        text-transform:uppercase;
+    }
+    
+     .fit {
+       width:1% !important;
+       white-space: nowrap !important;
+     }
+    
+    .table th {
+      color: #7cda24 !important;
+      background:black !important;
+    }
+    
+    #key_personel_table th{
+        font-size:12px;
+    }
+    
+    #key_personel_table td{
+        font-size:11px;
+    }
 
+.procedure_img{
+        width:50%;margin-left:20px;
+        border:1px solid silver;
+    }
+    
+    #hidden_fullscreen {
+        z-index:9999999999999;
+        display:none;
+        background-color:rgb(0,0,0, 0.7);
+        position:fixed;
+        height:100%;
+        width:100%;
+        left: 0px;
+        top: 0px;    
+        text-align: center;
+        justify-content: center;
+    }
+    .close_fullscreen {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        background: red;
+        color: white;
+        cursor: pointer;
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        line-height: 30px;
+        border-radius:50px;
+        font-weight:bold;
+    }
+    
+     .procedure_img:hover{
+        cursor: pointer;
+     }
+     
+     .loading {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+    background: radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0, .8));
+
+  background: -webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8));
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 150ms infinite linear;
+  -moz-animation: spinner 150ms infinite linear;
+  -ms-animation: spinner 150ms infinite linear;
+  -o-animation: spinner 150ms infinite linear;
+  animation: spinner 150ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.amount_css{
+    text-align:right !important;
+}
+
+.text-center{
+    text-align:center !important;
+}
 </style>
+<div class="loading text-company" style="display:none;">Loading&#8230;</div>
+<div class="loading text-company" style="display:none;">Loading&#8230;</div>
+<!-- Modal -->
+<div class="modal fade" style="z-index:9999999999998;" id="procedure_modal" tabindex="-1" role="dialog" aria-labelledby="procedure_modal_label" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width:80%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="procedure_modal_label">How to Connect to your Xero Account <i class="text-dark">(Click the image to enlarge)</i></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 1: </b> Go to <a class="" target="_blank" href="https://developer.xero.com/">https://developer.xero.com/</a></p>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 2: </b> Click login.</p>
+                <img class="img-fluid procedure_img"  src="{{ asset('public/assets/xero_images/login1.png') }}" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 3: </b> Skip this step if you are already logged in. If not, enter your xero account.</p>
+                <img class="img-fluid procedure_img" src="{{ asset('public/assets/xero_images/login.png') }}" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 4: </b> Connect your organisation by clicking the button (Connect your Xero organisation). It will redirected you to a page which you need to allowed the API to have access to your organisation. Click the allow access to proceed.</p>
+                <img class="img-fluid procedure_img" src="{{ asset('public/assets/xero_images/step1.png') }}" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 5: </b> After that, go to "My Apps" menu and click New app.</p>
+                <img class="img-fluid procedure_img" src="{{ asset('public/assets/xero_images/step2.png') }}" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 6: </b> Provide App Name (App Name should based on your company/organisation name) and select Web App as integration type.</p>
+                <img class="img-fluid procedure_img" src="{{ asset('public/assets/xero_images/step3.png') }}" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 7: </b> In the "Company or Application URL", copy and enter this link<br>
+                
+                <b>{{ env('APP_URL') }} <button name="{{ env('APP_URL') }}" class="copy_btn btn btn-xs btn-primary">COPY</button></b> 
+                <br><br>
+                and in "Redirect URL", copy and enter this link
+                <br>
+                <b>{{ env('APP_URL') }}profile/view <button name="{{ env('APP_URL') }}" class=" copy_btn btn btn-xs btn-primary">COPY</button></b>.</p>
+                
+                <img class="img-fluid procedure_img" src="{{ asset('public/assets/xero_images/step4.png') }}" />
+                
+                <p>and click "Create App"</p>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 8: </b> Under My Apps menu, go to Configuration.</p>
+                <img class="img-fluid procedure_img" src="{{ asset('public/assets/xero_images/step5.png') }}" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 9: </b> Generate a secret id clicking "Generate a secret" <i>(Note: Please copy immediately the generated secret key and save it as it disappear once the page is loaded again).</i>.</p>
+                <img class="img-fluid procedure_img" src="{{ asset('public/assets/xero_images/step6.png') }}" />
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12 mb-2">
+                <p><b>Step 10: </b> You will now have a client id and secret id that is needed to connect your Xero account to Intellinz App.</i>.</p>
+                <img class="img-fluid procedure_img" src="{{ asset('public/assets/xero_images/step7.png') }}" />
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="hidden_fullscreen">
+    <img id="fullscreen_img" class="img-fluid" style="width:90%;height:90%;margin-top:1%" />
+<div class="close_fullscreen">X</div>
+</div>
 
+<script>
+     $('.procedure_img').click( function(e) {
+        $("#fullscreen_img").attr("src", $(this).attr("src"));
+          e.preventDefault();
+          $("#hidden_fullscreen").show();
+          $("#hidden_fullscreen").css("display","flex")
+      });
+      $('.close_fullscreen').click(function(){
+          $("#hidden_fullscreen").hide();
+      });
+      $(".copy_btn").click(function(){
+          var val = $(this).attr("name");
+          navigator.clipboard.writeText(val);
+
+          alert("Copied the text: " + val);
+      });
+</script>
+<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
 <div class="modal fade" id="upload_pdf_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -376,6 +933,13 @@
     <link rel="stylesheet" href="{{ asset('public/js-tabs/jquery-ui.css') }}" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="{{ asset('public/bootstrap-tour/bootstrap-tour.min.css') }}">
+
+<script src="{{asset('public/assets/global/plugins/flot/jquery.flot.min.js')}}" type="text/javascript"></script>
+                                    <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.pie.min.js')}}" type="text/javascript"></script>
+                                    <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.resize.min.js')}}" type="text/javascript"></script>
+                                    <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.categories.min.js')}}" type="text/javascript"></script>
+                                    <script src="https://envato.stammtec.de/themeforest/melon/plugins/flot/jquery.flot.tooltip.min.js"></script>
+                                    <script src="http://thgreasi.github.io/growraf/javascripts/jquery.flot.growraf.js"></script>
 
     <div class="container">
 
@@ -435,35 +999,35 @@
 
 
 
-        <div class="row justify-content-center">
+        <div class="row" >
 
             <!-- START IMAGE UPLOAD -->
 
-            <div class="col-md-4">
+            <div class="col-md-12 mb-2" >
 
-                <div class="page-content-inner">
-
-                                    {{-- <div class="card-header"> --}}
-
-
-                                    <?php 
-                                        $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
-                                        $validateAccount = App\SpentTokens::validateAccountActivation($company_id_result);
-                                    ?>
-                       
-
-                                            @if($validateAccount != false)
-                                        <div class="containerCimg">
-                                            @else
-                                              <div class="containerCimg"  onclick="notifytoPremium()" >
-
-                                            @endif
-                                        
-
-                                            <div id="croppedCimg" class="croppedCimg" align="center"> </div>
-
-
-                                            <center>
+                <div class="page-content-inner" >
+                    <div  class="alert bg-dark text-white text-center" role="alert">
+                        <b><i class="fa fa-edit"></i> EDIT YOUR COMPANY PROFILE</b>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-2" style="">
+                            
+                              <div class="card">
+                                <div class="card-body">    
+                            <?php 
+                                $company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+                                $validateAccount = App\SpentTokens::validateAccountActivation($company_id_result);
+                            ?>
+                            
+                            @if($validateAccount != false)
+                                <div class="containerCimg">
+                            @else
+                                <div class="containerCimg"  onclick="notifytoPremium()" >
+                            @endif
+                            
+                            <div id="croppedCimg" class="croppedCimg" align="center"> </div>
+                            
+                            <center>
                                             <div class="imageBoxCimg">
 
                                                 <div class="thumbBoxCimg"></div>
@@ -471,9 +1035,9 @@
                                                 <div class="spinnerCimg" style="display: none">Loading...</div>
 
                                             </div>
-                                            
-                                            <center>
-                                            <div class="actionCimg actionImg" style="width:100%;margin-bottom:60px">
+                                             </center>
+                                             <center>
+                                            <div class="actionCimg actionImg " style="">
                                                 @if($validateAccount != false)
                                                 <p> You can adjust the orientation/size of the image by clicking the <strong>"+"</strong> or <strong>"-"</strong> </p>
                                                     <button class="btn btn-primary " type="button" id="btnCrop"  title="UPLOAD" ><i class="fa fa-upload"></i> UPLOAD</button>
@@ -487,24 +1051,24 @@
                                                 @endif
                                             </div>
                                             </center>
-                                            <div class="actionCimg" style="width:100%">
+                                            <center>
+                                            <div class="actionCimg" >
                                                 @if($validateAccount != false)
-                                                    <input type="file" id="file" name="profile_img" style="float:left;">
+                                                    
+                                                        <div id="yourBtn" class="bg-intellinz-light-green text-dark" style="height: 50px; width: 80%;border: 1px dashed #BBB; cursor:pointer;" onclick="getFile()"><i class="fa fa-image"></i>
+                                                        <b>SELECT IMAGE!</b></div>
+                                                    
+                                                    <input type="file"  name="profile_img" id="file" style="float:left;display:none">
                                                 @endif
                                             </div>
-                                            
-
-
-
-
+                                            </center>
                                         </div>
+                            </div></div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class=" profCompleteness mb-2" style="">
 
-
-                                    {{-- </div> --}}
-
-                                    <div class="card-body profCompleteness " style="width:100%">
-
-                                        <h3> Profile Completeness </h3>                                                                                                                              
+                                        <h3 style="margin-top:0px !important" class="text-company"> PROFILE COMPLETENESS </h3>                                                                                                                              
 
                                         <div class="progress">
 
@@ -516,35 +1080,68 @@
 
                                         </div>
 
-                                        <br/>
-                                       
-                                        <ul>
-                                            <?php if(isset($completenessMessages)){
-                                            foreach($completenessMessages as $d){
-                                            ?>
-
-                                            <strong><li style=" list-style-type: none; color: #000000"><?php if ($d != NULL) {
-                                                    echo '<i class="fa fa-exclamation" style="color:red !important"></i>' .$d;
-                                                } ?> </li></strong>
-                                            <?php
-                                            }
-                                            } ?>
-                                        </ul>
+                                        <div class="row" >
+                                            <div class="col-md-5 mb-2">
+                                                <center>
+                                                <div class="pie">
+                                                    <div class="clip1">
+                                                        <div class="slice1"></div>
+                                                    </div>
+                                                    <div class="clip2">
+                                                        <div class="slice2"></div>
+                                                    </div>
+                                                    <div class="status text-dark"></div>
+                                                </div>
+                                                </center>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="alert bg-intellinz-light-green text-company" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
+                                                <strong>Intellinz members are three times more likely
+                                                to engage with you if your company profile is over 30% complete.
+                                                Be sure to include accurate information.</strong>
+                                            </p>
+                                        </div>
+                                            </div>
+                                        </div>
 
                                     </div>
+                                    
+                                
+                                                    <?php if(isset($completenessMessages)){ ?>
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <ul>
+                                                <?php    foreach($completenessMessages as $d){
+                                                    ?>
+        
+                                                    <strong><li style=" list-style-type: none; color: #000000"><?php if ($d != NULL) {
+                                                            echo '<i class="fa fa-exclamation" style="color:red !important"></i>' .$d;
+                                                        } ?> </li></strong>
+                                                    <?php
+                                                    } ?>
+                                                    </ul>
+                                                    </div></div>
+                                                <?php    } ?>
+                                                
+                        </div>
+                       
+                    </div>
+                                            
                 </div>
             </div>
 
 
-
-
             <!-- START METRONIC TAB -->
 
+            </div>
+            
+            <!-- put xero code here -->
+            
+            <div class="row">
 
+            <div class="col-md-12 mb-2">
 
-            <div class="col col-md-8">
-
-                <div class="portlet light ">
+                <div class="portlet light " style="border:1px solid silver">
 
                     <div class="portlet-title">
 
@@ -552,9 +1149,6 @@
 
                         <div class="caption" style="width:100%">
 
-                            <i class="icon-share font-dark"></i>
-
-                            <span class="caption-subject font-dark bold uppercase">Account Profile</span>
                             <button class="btn btn-primary pull-right" id="load_pdf_modal_button"><b class=" text-company">UPDATE INFO USING PDF</b></button>
                         </div>
 
@@ -623,9 +1217,9 @@
 
                                     <div id="tabs-1">
 
-                                        <div class="card-header" style="margin-bottom:10px"><b>Company Overview</b></div>
-
                                         <div class="card-body center">
+                                            
+                                            <h4 class="" style="margin-bottom:15px; margin-top:0px !important"><b><i class="fa fa-list "></i> COMPANY OVERVIEW</b></h4>
 
                                             <div  class="alert bg-dark text-white" role="alert">
 
@@ -725,7 +1319,7 @@
 
                                                 <label for="company_ownership">Business Type</label>
 
-                                                <select class="form-control col-md-4" id="company_business_type"
+                                                <select class="form-control" id="company_business_type"
 
                                                         name="company_business_type">
 
@@ -765,7 +1359,7 @@
 
                                                 <label for="company_ownership">Industry Type</label>
 
-                                                <select class="form-control col-md-4" id="company_industry"
+                                                <select class="form-control" id="company_industry"
 
                                                         name="company_industry">
 
@@ -881,7 +1475,7 @@
 
 
 
-                                      <select  class="form-control col-md-4" id="company_estmated_sales_currency" name="company_estmated_sales_currency">
+                                      <select  class="form-control" id="company_estmated_sales_currency" name="company_estmated_sales_currency">
 
                                          <option value="">Currency</option>
 
@@ -915,7 +1509,7 @@
 
                                            <br />
 
-                                           <select  class="form-control col-md-4" id="company_estmated_sales_value" name="company_estmated_sales_value">
+                                           <select  class="form-control" id="company_estmated_sales_value" name="company_estmated_sales_value">
 
                                               <option value="">Please select the following</option>
 
@@ -1007,7 +1601,7 @@
 
                                             </div>
 
-                        <div class="form-group">
+					    <div class="form-group">
 
                                                 <label for="incorporation_date">Incorporation Date </label>
 
@@ -1129,7 +1723,7 @@
 
                                                 <label for="company_primary_country">Primary Country</label>
 
-                                                <select class="form-control col-md-4" id="company_primary_country"
+                                                <select class="form-control" id="company_primary_country"
 
                                                         name="company_primary_country">
 
@@ -1189,152 +1783,65 @@
 
                                 <div class="tab-pane" id="portlet_tab2">
 
-                                    <p>
-
-                                        <input type="button" style="float:right" class="btn blue" onclick="clearKM()"
-
-                                               data-popup-open="popup-1" value="Add Key Personnel"/>
-
-                                    </p>
-
-
-
-                                    <div class="form-group">
-
-                                        <div id="keyPersonnels">
-
-                                            <?php
-
-
-
-                                            $out = '';
-
-                                            $kp = 0;
-
-                                            if (count((array) $keyPersons) > 0) {
-
-                                                foreach ($keyPersons as $data) {
-
-                                                    $kp++;
-
-                                                    $out = $out . '<table class="table table-bordered table-striped table-condensed flip-content" style="width: 100%; padding-top: 5px;">
-
-                                                  <tr>
-
-                                                  <th width="40%"> ' . $kp . ' </th>
-
-                                                  <th> <input data-popup-open="popup-1" onclick="editKM(' . $data->id . ');" type="button" class="btn" value="edit"> | <input type="button" onclick="delKM(' . $data->id . ',' . $kp . ');" class="btn" value="delete"> </th>
-
-                                                  </tr>
-
-                                              ';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                      <td> First Name   </td>
-
-                                                      <td> ' . $data->first_name . ' </td>
-
-                                                     </tr>';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                     <td> Last Name   </td>
-
-                                                     <td> ' . $data->last_name . ' </td>
-
-                                                    </tr>';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                    <td> Identification / Passport   </td>
-
-                                                    <td> ' . $data->idn_passport . ' </td>
-
-                                                   </tr>';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                   <td> Nationality   </td>
-
-                                                   <td> ' . $data->nationality . ' </td>
-
-                                                   </tr>';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                   <td> Gender   </td>
-
-                                                   <td> ' . $data->gender . ' </td>
-
-                                                   </tr>';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                   <td> Date of Birth   </td>
-
-                                                   <td> ' . $data->date_of_birth . ' </td>
-
-                                                   </tr>';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                   <td> Majority Shareholder   </td>
-
-                                                   <td> ' . $data->shareholder . ' </td>
-
-                                                   </tr>';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                   <td> Directorship   </td>
-
-                                                   <td> ' . $data->is_directorship . ' </td>
-
-                                                   </tr>';
-
-
-
-                                                    $out = $out . '<tr>
-
-                                                   <td> Position   </td>
-
-                                                   <td> ' . $data->position . ' </td>
-
-                                                     </tr>';
-
-                                                    $out = $out . '</table>';
-
-                                                }
-
-
-
-                                                echo $out;
-
-                                            }
-
-                                            ?>
-
-
-
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-8 mb-2">
+                                                    <h4 class="" style="margin-bottom:15px; margin-top:0px !important"><b><i class="fa fa-users "></i> KEY PERSONEL</b></h4>
+                                                </div>
+                                                <div class="col-md-4 mb-2">
+                                                    <button onclick="clearKM()" data-popup-open="popup-1" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> ADD KEY PERSONEL</button>
+                                                </div>
+                                            </div>
+                                            
+                                            <div id="container table-responsive table-scrollable table-scrollable-borderless" style="overflow-x:scroll">
+
+                                              <table id="key_personel_table" class="table pure-table pure-table-horizontal pure-table-striped" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="fit"></th>
+                                                            <th>FIRST NAME</th>
+                                                            <th >LAST NAME</th>
+                                                            <th>GENDER</th>
+                                                            <th>BIRTH DATE</th>
+                                                            <th >NATIONALITY</th>
+                                                            <th>IDENTIFICATION/PASSPORT</th>
+                                                            <th>MAJORITY SHAREHOLDER</th>
+                                                            <th>DIRECTORSHIP</th>
+                                                            <th>POSITION</th>
+                                                            <th>ACTION</th>
+                                                        </tr>
+                                                    </thead>    
+                                                    <tbody>
+                                                    <?php
+                                                    $count = 0;
+    
+                                                    if (count((array) $keyPersons) > 0) {
+
+                                                    foreach ($keyPersons as $data) {
+                                                        $count++; ?>
+                                                        <td class="fit">{{ $count }}</td>
+                                                        <td>{{ $data->first_name }}</td>
+                                                        <td>{{ $data->last_name }}</td>
+                                                        <td>{{ $data->gender }}</td>
+                                                        <td>{{ $data->date_of_birth }}</td>
+                                                        <td>{{ $data->nationality }}</td>
+                                                        <td>{{ $data->idn_passport }}</td>
+                                                        <td>{{ $data->shareholder }}</td>
+                                                        <td>{{ $data->is_directorship }}</td>
+                                                        <td>{{ $data->position }}</td>
+                                                        <td class="fit">
+                                                            <input data-popup-open="popup-1" onclick="editKM(' . $data->id . ');" type="button" class="btn btn-primary btn-xs" value="EDIT">
+                                                            <input type="button" onclick="delKM(' . $data->id . ',' . $kp . ');" class="btn btn-xs btn-danger" value="DELETE">
+                                                            </td>
+                                                    <?php }
+                                                    }
+                                                    ?>
+                                                    </tbody>
+                                                
+                                                 </table>
+                                              </div>
                                         </div>
-
                                     </div>
 
                                 </div>
@@ -1345,7 +1852,12 @@
 
                                 <div class="tab-pane" id="portlet_tab3">
 
-                                    <div class="card-header"><b>Financial Information</b></div>
+                                    <div class="row">
+                                                <div class="col-md-8 mb-2">
+                                                    <h4 class="" style="margin-bottom:15px; margin-top:0px !important"><b><i class="fa fa-building "></i> COMPANY INFORMATION</b></h4>
+                                                </div>
+                                                
+                                            </div>
 
                                     <div class="card-body center">
 
@@ -1355,7 +1867,7 @@
 
                                             <label for="company_financial_currency">Primary Currency</label> <br/>
 
-                                            <select class="form-control col-md-4" id="company_financial_currency"
+                                            <select class="form-control" id="company_financial_currency"
 
                                                     name="company_financial_currency">
 
@@ -1391,7 +1903,7 @@
 
                                             <label for="company_years_establishment">Years of Establishment </label>
 
-                                            <select class="form-control col-md-4" id="company_years_establishment"
+                                            <select class="form-control" id="company_years_establishment"
 
                                                     name="company_years_establishment">
 
@@ -1433,7 +1945,7 @@
 
                                             <label for="company_financial_numstaff">No. of Staff</label> <br/>
 
-                                            <select class="form-control col-md-4" id="company_financial_numstaff"
+                                            <select class="form-control" id="company_financial_numstaff"
 
                                                     name="company_financial_numstaff">
 
@@ -1471,7 +1983,7 @@
 
                                             <label for="company_gross_profit">Gross Profit / (Loss)</label>
 
-                                            <select class="form-control col-md-4" id="company_gross_profit"
+                                            <select class="form-control" id="company_gross_profit"
 
                                                     name="company_gross_profit">
 
@@ -1515,7 +2027,7 @@
 
                                             <label for="company_gross_profit">Net Profit / (Loss)</label>
 
-                                            <select class="form-control col-md-4" id="company_net_profit"
+                                            <select class="form-control" id="company_net_profit"
 
                                                     name="company_net_profit">
 
@@ -1557,7 +2069,7 @@
 
                                             <label for="company_annual_tax">Annual Return Filling Rating </label>
 
-                                            <select class="form-control col-md-4" id="company_annual_tax_return"
+                                            <select class="form-control" id="company_annual_tax_return"
 
                                                     name="company_annual_tax_return">
 
@@ -1599,7 +2111,7 @@
 
                                             <label for="company_annual_tax">Corporate Tax Filling Rating </label>
 
-                                            <select class="form-control col-md-4" id="company_corporate_tax"
+                                            <select class="form-control" id="company_corporate_tax"
 
                                                     name="company_corporate_tax">
 
@@ -1641,7 +2153,7 @@
 
                                             <label for="company_annual_tax">Asset more than Liability </label>
 
-                                            <select class="form-control col-md-4" id="company_asset_more_liability"
+                                            <select class="form-control" id="company_asset_more_liability"
 
                                                     name="company_asset_more_liability">
 
@@ -1683,7 +2195,7 @@
 
                                             <label for="company_paid_capital">Paid up capital</label>
 
-                                            <select class="form-control col-md-4" id="company_paid_up_capital"
+                                            <select class="form-control" id="company_paid_up_capital"
 
                                                     name="company_paid_up_capital">
 
@@ -1797,7 +2309,11 @@
 
                                 <div class="tab-pane" id="portlet_tab4">
 
-                                    <div class="card-header"><b>Upload Documents</b></div>
+                                    <div class="row">
+                                                <div class="col-md-8 mb-2">
+                                                    <h4 class="" style="margin-bottom:15px; margin-top:0px !important"><b><i class="fa fa-upload "></i> UPLOAD DOCUMENTS</b></h4>
+                                                </div>
+                                            </div>
 
 
 
@@ -2161,19 +2677,293 @@
                                 <?php 
                                 $csvLink = asset('public/assets/templates/IntellinzFinancialStatusTemplate.csv');
                                 ?>
-
+                                <style>
+                                
+                                    #placeholder2 div.yAxis div.tickLabel {
+                                        margin-right: 20px !important;
+                                    }
+                                    
+                                    .flot-x-axis > div{
+                                        max-width:100px !important;
+                                        margin-top:10px;
+                                        font-weight:bold !important;
+                                    }
+                                    
+                                    #legendContainer td, #legend_hide_Container td {display: inline-block;}
+                                    
+                                    #legendContainer2, #legend_hide_Container {
+                                        border:1px solid silver;
+                                        border-radius:5px;
+                                        margin:15px;
+                                    }
+                                    
+                                    #legend_hide_Container label{
+                                        margin-left:3px;
+                                        margin-right:20px;
+                                    }
+                                </style>
+                                
+                                
                                 <div class="tab-pane" id="portlet_tab5">
-
-                                    <div class="card-header"><b>Financial Entries</b>
-                    <div style="color:red">To avoid delays, please don't use comma in your numerical entries. </div>
-                     <a style="float:right" target="_blank" href="{{ $csvLink }}">Download CSV Template</a> <br />
-                   </div>
-
+                                    <h4 class=""><i class="fa fa-book"></i><b> Financial Entries</b></h4>
+                                    
+                                    <br>
+                                    
+                                    <?php $xero_info = \App\Http\Controllers\XeroController::checkIfConnected(); ?>
+                                    <?php 
+                                        $xero_id = "0";
+                                        
+                                        if($xero_info != null){
+                                            $xero_id = $xero_info->id;
+                                        }
+                                        
+                                        $token_info = App\XeroTokenInfo::where("connection_id","=",$xero_id)->where("status","=","1")->first();
+                                        $org_name = "";
+                                        $if_con = 0;
+                                    
+                                        if($xero_info != null){ 
+                                            if(time() > $token_info->expires){
+                                                $provider = new \League\OAuth2\Client\Provider\GenericProvider([
+                                                  'clientId'                => $xero_info->client_id,
+                                                  'clientSecret'            => $xero_info->secret_id,
+                                                  'redirectUri'             => env("APP_URL").'company/goXeroAnalytics',
+                                                  'urlAuthorize'            => 'https://login.xero.com/identity/connect/authorize',
+                                                  'urlAccessToken'          => 'https://identity.xero.com/connect/token',
+                                                  'urlResourceOwnerDetails' => 'https://api.xero.com/api.xro/2.0/Organisation'
+                                                ]);
+                                            
+                                                $newAccessToken = $provider->getAccessToken('refresh_token', [
+                                                  'refresh_token' => $token_info->refresh_token
+                                                ]);
+                                                
+                                                $token_info->token = $newAccessToken->getToken();
+                                                $token_info->expires = $newAccessToken->getExpires();
+                                                $token_info->refresh_token = $newAccessToken->getRefreshToken();
+                                                $token_info->id_token = $newAccessToken->getValues()["id_token"];
+                                                $token_info->save();
+                                            }
+                                            
+                                            $token_info = App\XeroTokenInfo::where("connection_id","=",$xero_info->id)->where("status","=","1")->first();
+                                            
+                                            try{
+                                                $token_info = App\XeroTokenInfo::where("connection_id","=",$xero_info->id)->where("status","=","1")->first();
+                                                
+                                                $config = XeroAPI\XeroPHP\Configuration::getDefaultConfiguration()->setAccessToken( (string)$token_info->token );
+                                                $apiInstance = new XeroAPI\XeroPHP\Api\AccountingApi(
+                                                    new GuzzleHttp\Client(),
+                                                    $config
+                                                );
+                                                
+                                                $tenant_info = App\XeroTenantId::where("token_id", "=", $token_info->id)->where("status", "=", "1")->first();
+                                                $xeroTenantId = (string)$tenant_info->tenant_id;
+                                                
+                                                $apiResponse = $apiInstance->getOrganisations($xeroTenantId);
+                                                $org_name = $apiResponse->getOrganisations()[0]->getName();
+                                                $org_id = $apiResponse->getOrganisations()[0]->getOrganisationID();
+                                                $if_con = 1;
+                                                
+                                                } catch (Exception $e) {
+                                                      //echo 'Exception when calling AccountingApi->getOrganisations: ', $e->getMessage(), PHP_EOL;
+                                                      $org_name = "Not Connected to XERO";
+                                                }
+                                        }
+                                    ?>
+                                     
+                                    <div class="card mb-2">
+                                        <div class="card-body">
+                                            <div class="row mb-2 ">
+                                                <div class="col-md-12">
+                                                    <div class=" note-success" style="margin-bottom:0px !important">
+                                                        <h4 class="xero_logo"><img src="https://edge.xero.com/images/1.0.0/logo/xero-logo.svg" class="img-fluid" style="width:60px" /><strong>&nbsp;&nbsp;XERO INTEGRATION</strong></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <?php if($if_con > 0){ ?>
+                                                    <label>STATUS: <span class="badge badge-pill "style="background:green !important">Connected</span></label>
+                                                    <?php }else{ ?>
+                                                    <label>STATUS: <span class="badge badge-pill "style="background:red !important">Not Connected</span></label>
+                                                    <?php } ?>
+                                                </div>
+                                                <div class="col-md-12">
+                                                     <h4 style="margin-top:5px !important"><b>Organization Name:  </b> <a data-toggle="modal" data-target="#org_details_modal" id="org_txt">{{ strtoupper($org_name) }}</a></h4>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mb-2">
+                                                    <div class="alert bg-dark text-white text-center">
+                                                        <b class="text-center"><i class="fa fa-download"></i> IMPORT DATA FROM XERO</b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mb-2">
+                                                    <label>Month & Year:</label>
+                                                    <input type="month" id="import_date_txt" value="<?php echo date('Y-m'); ?>" class="form-control" />
+                                                </div>
+                                                <div class="col-md-6 mb-2">
+                                                    <label>Comparison period(s), Compare with:</label>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input type="number" disabled min="1" max="11" id="import_period_no_txt" value="3" class="form-control" />
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <select class="form-control" id="import_period_type_cb">
+                                                                <option value="YEAR">YEAR</option>
+                                                                <!--<option value="QUARTER">QUARTER</option>
+                                                                <option value="MONTH">MONTH</option>-->
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                                <div class="col-md-1 mb-2">
+                                                    <label style="color:white">:</label>
+                                                    <button id="import_load_btn" class="btn btn-sm btn-primary"><i class="fa fa-spinner"></i> IMPORT</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <script>
+                                        $("#import_load_btn").click(function(){
+                                            $(".loading").show();
+                                            
+                                            var date = $("#import_date_txt").val();
+                                            var timeframe = $("#import_period_type_cb option:selected").val();
+                                            
+                                            $.ajax({
+                                                url: "<?php echo env("APP_URL"); ?>company/loadFinancialEntries/"+ date + "/" + timeframe,
+                                                type: "GET",
+                                                dataType: "json",
+                                                success: function (return_data) {
+                                                     $.each(return_data, function(key, value){
+                                                         $.each(value, function(key1, value1){
+                                                            
+                                                            for(var x = 0; x <= value1.length - 1; x++){
+                                                                
+                                                                if(key1 == "Header Titles"){
+                                                                    var splits = value1[x].split(" ");
+                                                                    $( "#fa_month"+ (x + 1) +" option:contains('"+ splits[1] +"')" ).attr("selected", true);
+                                                                    $( "#fa_year"+ (x + 1) +" option:contains('"+ splits[2] +"')" ).attr("selected", true);
+                                                                }
+                                                                
+                                                                if(key1 == "Income"){
+                                                                    $( "#income"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Purchase"){
+                                                                    $( "#purchase"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Cost of Goods Sold"){
+                                                                    $( "#cost_good_sold"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Gross Profit"){
+                                                                    $( "#gross_profit"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Directors Remuneration"){
+                                                                    $( "#directors_fee_renum"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Total Remuneration excluding"){
+                                                                    $( "#total_renum_exdirector"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Medical Expenses"){
+                                                                    $( "#medical_expense"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Travelling Expenses"){
+                                                                    $( "#transport_travelling_expenses"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Entertainment Expenses"){
+                                                                    $( "#entertainment_expense"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Debt Interest/Finance Expense"){
+                                                                    $( "#debt_interest_finance_expenses"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Net Profit"){
+                                                                    $( "#net_profit"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Net Profit before"){
+                                                                    $( "#net_profit_before_interest_tax"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Inventories"){
+                                                                    $( "#inventories_closing_stock"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                //balance sheet
+                                                                
+                                                                if(key1 == "Trade Receivable"){
+                                                                    $( "#trade_receivable"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Trade Payable"){
+                                                                    $( "#trade_payable"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Non-Current Assets"){
+                                                                    $( "#non_current_assets"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Current Assets"){
+                                                                    $( "#current_assets"+ (x + 1)).val(value1[x]);
+                                                                } 
+                                                                
+                                                                if(key1 == "Current Liabilities"){
+                                                                    $( "#current_liabilities"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Non-Current Liabilities"){
+                                                                    $( "#non_current_liabilities"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Share Capital"){
+                                                                    $( "#share_capita"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Retained Earning"){
+                                                                    $( "#retained_earning"+ (x + 1)).val(value1[x]);
+                                                                } 
+                                                                
+                                                                if(key1 == "Translation Reserves"){
+                                                                    $( "#translation_reserves"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Total Debt"){
+                                                                    $( "#total_debt"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                                
+                                                                if(key1 == "Prepaid Expenses"){
+                                                                    $( "#prepaid_expenses"+ (x + 1)).val(value1[x]);
+                                                                }
+                                                            }
+                                                         });
+                                                     });
+                                                     
+                                                     $(".loading").hide();
+                                                },
+                                                error: function(jqXHR, textStatus, errorThrown) {
+                                                    console.log(textStatus, errorThrown);
+                                                    $(".loading").hide();
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                    
+                                    <div class='card'>
                                     <div class="card-body center table-outer">
+                                        <a style="float:right" class="mb-2" target="_blank" href="{{ $csvLink }}">Download CSV Template</a> <br />
+                                        
                                         <div class='table-inner'>
 
-
-                                        <table class="table table-bordered table-striped table-condensed flip-content"
+                                        
+                                        <table id="financial_data_table" class="table table-bordered table-striped table-condensed flip-content"
 
                                                style="width: 100%; padding-top: 5px;" border="1" cellpadding="2"
 
@@ -2185,23 +2975,23 @@
 
                                                 <?php
 
-                                                //$entry1 = App\FinancialAnalysis::where('entry', 1)->where('user_id', $user_id)->first();
 
-                                                //$entry2 = App\FinancialAnalysis::where('entry', 2)->where('user_id', $user_id)->first();
+                                                $entry1 = App\FinancialAnalysis::where('entry', 1)->where('company_id',  $company_id_result)->where('user_id', $user_id)
+                                               
+                                                ->first();
+                                                
 
-                                                //$entry3 = App\FinancialAnalysis::where('entry', 3)->where('user_id', $user_id)->first();
+                                                $entry2 = App\FinancialAnalysis::where('entry', 2)->where('company_id',  $company_id_result)->where('user_id', $user_id)
+                                                
+                                                ->first();
 
-                                                //$entry4 = App\FinancialAnalysis::where('entry', 4)->where('user_id', $user_id)->first();
+                                                $entry3 = App\FinancialAnalysis::where('entry', 3)->where('company_id',  $company_id_result)->where('user_id', $user_id)
+                                               
+                                                ->first();
 
-                        $entry1 = App\FinancialAnalysis::where('entry', 1)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
-
-                                                $entry2 = App\FinancialAnalysis::where('entry', 2)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
-
-                                                $entry3 = App\FinancialAnalysis::where('entry', 3)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
-
-                                                $entry4 = App\FinancialAnalysis::where('entry', 4)->where('company_id',  $company_id_result)->where('user_id', $user_id)->first();
-
-
+                                                $entry4 = App\FinancialAnalysis::where('entry', 4)->where('company_id',  $company_id_result)->where('user_id', $user_id)
+                                               
+                                                ->first();
 
 
                                                 ?>
@@ -2508,7 +3298,7 @@
 
                                                 <td class='sticky-row' >Income</td>
 
-                                                <td><input type="text" class="form-control" id="income1" name="income1"
+                                                <td><input type="number" class="form-control" id="income1" name="income1"
 
                                                            value="<?php if (isset($entry1->income)) {
 
@@ -2516,7 +3306,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="income2" name="income2"
+                                                <td><input type="number" class="form-control" id="income2" name="income2"
 
                                                            value="<?php if (isset($entry2->income)) {
 
@@ -2524,7 +3314,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="income3" name="income3"
+                                                <td><input type="number" class="form-control" id="income3" name="income3"
 
                                                            value="<?php if (isset($entry3->income)) {
 
@@ -2532,7 +3322,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="income4" name="income4"
+                                                <td><input type="number" class="form-control" id="income4" name="income4"
 
                                                            value="<?php if (isset($entry4->income)) {
 
@@ -2548,7 +3338,7 @@
 
                                                 <td class='sticky-row'>Purchase</td>
 
-                                                <td><input type="text" class="form-control" id="purchase1"
+                                                <td><input type="number" class="form-control" id="purchase1"
 
                                                            name="purchase1"
 
@@ -2558,7 +3348,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="purchase2"
+                                                <td><input type="number" class="form-control" id="purchase2"
 
                                                            name="purchase2"
 
@@ -2568,7 +3358,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="purchase3"
+                                                <td><input type="number" class="form-control" id="purchase3"
 
                                                            name="purchase3"
 
@@ -2578,7 +3368,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="purchase4"
+                                                <td><input type="number" class="form-control" id="purchase4"
 
                                                            name="purchase4"
 
@@ -2594,7 +3384,7 @@
 
                                                 <td class='sticky-row'>Cost of Goods Sold / Cost of Sales</td>
 
-                                                <td><input type="text" class="form-control" id="cost_good_sold1"
+                                                <td><input type="number" class="form-control" id="cost_good_sold1"
 
                                                            name="cost_good_sold1"
 
@@ -2604,7 +3394,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="cost_good_sold2"
+                                                <td><input type="number" class="form-control" id="cost_good_sold2"
 
                                                            name="cost_good_sold2"
 
@@ -2614,7 +3404,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="cost_good_sold3"
+                                                <td><input type="number" class="form-control" id="cost_good_sold3"
 
                                                            name="cost_good_sold3"
 
@@ -2624,7 +3414,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="cost_good_sold4"
+                                                <td><input type="number" class="form-control" id="cost_good_sold4"
 
                                                            name="cost_good_sold4"
 
@@ -2640,7 +3430,7 @@
 
                                                 <td class='sticky-row'>Gross Profit</td>
 
-                                                <td><input type="text" class="form-control" id="gross_profit1"
+                                                <td><input type="number" class="form-control" id="gross_profit1"
 
                                                            name="gross_profit1"
 
@@ -2650,7 +3440,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="gross_profit2"
+                                                <td><input type="number" class="form-control" id="gross_profit2"
 
                                                            name="gross_profit2"
 
@@ -2660,7 +3450,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="gross_profit3"
+                                                <td><input type="number" class="form-control" id="gross_profit3"
 
                                                            name="gross_profit3"
 
@@ -2670,7 +3460,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="gross_profit4"
+                                                <td><input type="number" class="form-control" id="gross_profit4"
 
                                                            name="gross_profit4"
 
@@ -2686,7 +3476,7 @@
 
                                                 <td valign="top" class='sticky-row'>Directors’ Fees & Remuneration</td>
 
-                                                <td><input type="text" class="form-control" id="directors_fee_renum1"
+                                                <td><input type="number" class="form-control" id="directors_fee_renum1"
 
                                                            name="directors_fee_renum1"
 
@@ -2696,7 +3486,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="directors_fee_renum2"
+                                                <td><input type="number" class="form-control" id="directors_fee_renum2"
 
                                                            name="directors_fee_renum2"
 
@@ -2706,7 +3496,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="directors_fee_renum3"
+                                                <td><input type="number" class="form-control" id="directors_fee_renum3"
 
                                                            name="directors_fee_renum3"
 
@@ -2716,7 +3506,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="directors_fee_renum4"
+                                                <td><input type="number" class="form-control" id="directors_fee_renum4"
 
                                                            name="directors_fee_renum4"
 
@@ -2732,7 +3522,7 @@
 
                                                 <td class='sticky-row'>Total Remuneration excluding Directors’ Fees and Remuneration</td>
 
-                                                <td><input type="text" class="form-control" id="total_renum_exdirector1"
+                                                <td><input type="number" class="form-control" id="total_renum_exdirector1"
 
                                                            name="total_renum_exdirector1"
 
@@ -2742,7 +3532,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="total_renum_exdirector2"
+                                                <td><input type="number" class="form-control" id="total_renum_exdirector2"
 
                                                            name="total_renum_exdirector2"
 
@@ -2752,7 +3542,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="total_renum_exdirector3"
+                                                <td><input type="number" class="form-control" id="total_renum_exdirector3"
 
                                                            name="total_renum_exdirector3"
 
@@ -2762,7 +3552,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="total_renum_exdirector4"
+                                                <td><input type="number" class="form-control" id="total_renum_exdirector4"
 
                                                            name="total_renum_exdirector4"
 
@@ -2778,7 +3568,7 @@
 
                                                 <td class='sticky-row'>Medical Expenses</td>
 
-                                                <td><input type="text" class="form-control" id="medical_expense1"
+                                                <td><input type="number" class="form-control" id="medical_expense1"
 
                                                            name="medical_expense1"
 
@@ -2788,7 +3578,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="medical_expense2"
+                                                <td><input type="number" class="form-control" id="medical_expense2"
 
                                                            name="medical_expense2"
 
@@ -2798,7 +3588,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="medical_expense3"
+                                                <td><input type="number" class="form-control" id="medical_expense3"
 
                                                            name="medical_expense3"
 
@@ -2808,7 +3598,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="medical_expense4"
+                                                <td><input type="number" class="form-control" id="medical_expense4"
 
                                                            name="medical_expense4"
 
@@ -2824,7 +3614,7 @@
 
                                                 <td class='sticky-row'>Transport/Travelling Expenses</td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="transport_travelling_expenses1"
 
@@ -2836,7 +3626,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="transport_travelling_expenses2"
 
@@ -2848,7 +3638,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="transport_travelling_expenses3"
 
@@ -2860,7 +3650,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="transport_travelling_expenses4"
 
@@ -2878,7 +3668,7 @@
 
                                                 <td class='sticky-row'>Entertainment Expenses</td>
 
-                                                <td><input type="text" class="form-control" id="entertainment_expense1"
+                                                <td><input type="number" class="form-control" id="entertainment_expense1"
 
                                                            name="entertainment_expense1"
 
@@ -2888,7 +3678,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="entertainment_expense2"
+                                                <td><input type="number" class="form-control" id="entertainment_expense2"
 
                                                            name="entertainment_expense2"
 
@@ -2898,7 +3688,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="entertainment_expense3"
+                                                <td><input type="number" class="form-control" id="entertainment_expense3"
 
                                                            name="entertainment_expense3"
 
@@ -2908,7 +3698,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="entertainment_expense4"
+                                                <td><input type="number" class="form-control" id="entertainment_expense4"
 
                                                            name="entertainment_expense4"
 
@@ -2924,7 +3714,7 @@
 
                                                 <td class='sticky-row'>Debt Interest/Finance Expense</td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="debt_interest_finance_expenses1"
 
@@ -2936,7 +3726,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="debt_interest_finance_expenses2"
 
@@ -2948,7 +3738,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="debt_interest_finance_expenses3"
 
@@ -2960,7 +3750,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="debt_interest_finance_expenses4"
 
@@ -2978,7 +3768,7 @@
 
                                                 <td class='sticky-row'>Net Profit</td>
 
-                                                <td><input type="text" class="form-control" id="net_profit1"
+                                                <td><input type="number" class="form-control" id="net_profit1"
 
                                                            name="net_profit1"
 
@@ -2988,7 +3778,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="net_profit2"
+                                                <td><input type="number" class="form-control" id="net_profit2"
 
                                                            name="net_profit2"
 
@@ -2998,7 +3788,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="net_profit3"
+                                                <td><input type="number" class="form-control" id="net_profit3"
 
                                                            name="net_profit3"
 
@@ -3008,7 +3798,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="net_profit4"
+                                                <td><input type="number" class="form-control" id="net_profit4"
 
                                                            name="net_profit4"
 
@@ -3024,7 +3814,7 @@
 
                                                 <td class='sticky-row'>Net Profit Before Interest and Tax (EBIT)</td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="net_profit_before_interest_tax1"
 
@@ -3036,7 +3826,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="net_profit_before_interest_tax2"
 
@@ -3048,7 +3838,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="net_profit_before_interest_tax3"
 
@@ -3060,7 +3850,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="net_profit_before_interest_tax4"
 
@@ -3078,7 +3868,7 @@
 
                                                 <td class='sticky-row'>Inventories (Closing Stock)</td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="inventories_closing_stock1"
 
@@ -3090,7 +3880,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="inventories_closing_stock2"
 
@@ -3102,7 +3892,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="inventories_closing_stock3"
 
@@ -3114,7 +3904,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="inventories_closing_stock4"
 
@@ -3132,7 +3922,7 @@
 
                                                 <td class='sticky-row'>Trade Receivable</td>
 
-                                                <td><input type="text" class="form-control" id="trade_receivable1"
+                                                <td><input type="number" class="form-control" id="trade_receivable1"
 
                                                            name="trade_receivable1"
 
@@ -3142,7 +3932,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="trade_receivable2"
+                                                <td><input type="number" class="form-control" id="trade_receivable2"
 
                                                            name="trade_receivable2"
 
@@ -3152,7 +3942,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="trade_receivable3"
+                                                <td><input type="number" class="form-control" id="trade_receivable3"
 
                                                            name="trade_receivable3"
 
@@ -3162,7 +3952,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="trade_receivable4"
+                                                <td><input type="number" class="form-control" id="trade_receivable4"
 
                                                            name="trade_receivable4"
 
@@ -3178,7 +3968,7 @@
 
                                                 <td class='sticky-row'>Trade Payable</td>
 
-                                                <td><input type="text" class="form-control" id="trade_payable1"
+                                                <td><input type="number" class="form-control" id="trade_payable1"
 
                                                            name="trade_payable1"
 
@@ -3188,7 +3978,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="trade_payable2"
+                                                <td><input type="number" class="form-control" id="trade_payable2"
 
                                                            name="trade_payable2"
 
@@ -3198,7 +3988,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="trade_payable3"
+                                                <td><input type="number" class="form-control" id="trade_payable3"
 
                                                            name="trade_payable3"
 
@@ -3208,7 +3998,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="trade_payable4"
+                                                <td><input type="number" class="form-control" id="trade_payable4"
 
                                                            name="trade_payable4"
 
@@ -3224,7 +4014,7 @@
 
                                                 <td class='sticky-row'>Non-Current Assets</td>
 
-                                                <td><input type="text" class="form-control" id="non_current_assets1"
+                                                <td><input type="number" class="form-control" id="non_current_assets1"
 
                                                            name="non_current_assets1"
 
@@ -3234,7 +4024,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="non_current_assets2"
+                                                <td><input type="number" class="form-control" id="non_current_assets2"
 
                                                            name="non_current_assets2"
 
@@ -3244,7 +4034,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="non_current_assets3"
+                                                <td><input type="number" class="form-control" id="non_current_assets3"
 
                                                            name="non_current_assets3"
 
@@ -3254,7 +4044,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="non_current_assets4"
+                                                <td><input type="number" class="form-control" id="non_current_assets4"
 
                                                            name="non_current_assets4"
 
@@ -3270,7 +4060,7 @@
 
                                                 <td class='sticky-row'>Current Assets</td>
 
-                                                <td><input type="text" class="form-control" id="current_assets1"
+                                                <td><input type="number" class="form-control" id="current_assets1"
 
                                                            name="current_assets1"
 
@@ -3280,7 +4070,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="current_assets2"
+                                                <td><input type="number" class="form-control" id="current_assets2"
 
                                                            name="current_assets2"
 
@@ -3290,7 +4080,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="current_assets3"
+                                                <td><input type="number" class="form-control" id="current_assets3"
 
                                                            name="current_assets3"
 
@@ -3300,7 +4090,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="current_assets4"
+                                                <td><input type="number" class="form-control" id="current_assets4"
 
                                                            name="current_assets4"
 
@@ -3316,7 +4106,7 @@
 
                                                 <td class='sticky-row'>Current Liabilities</td>
 
-                                                <td><input type="text" class="form-control" id="current_liabilities1"
+                                                <td><input type="number" class="form-control" id="current_liabilities1"
 
                                                            name="current_liabilities1"
 
@@ -3326,7 +4116,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="current_liabilities2"
+                                                <td><input type="number" class="form-control" id="current_liabilities2"
 
                                                            name="current_liabilities2"
 
@@ -3336,7 +4126,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="current_liabilities3"
+                                                <td><input type="number" class="form-control" id="current_liabilities3"
 
                                                            name="current_liabilities3"
 
@@ -3346,7 +4136,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="current_liabilities4"
+                                                <td><input type="number" class="form-control" id="current_liabilities4"
 
                                                            name="current_liabilities4"
 
@@ -3362,7 +4152,7 @@
 
                                                 <td class='sticky-row'>Non-current Liabilities</td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="non_current_liabilities1" name="non_current_liabilities1"
 
@@ -3372,7 +4162,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="non_current_liabilities2" name="non_current_liabilities2"
 
@@ -3382,7 +4172,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="non_current_liabilities3" name="non_current_liabilities3"
 
@@ -3392,7 +4182,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control"
+                                                <td><input type="number" class="form-control"
 
                                                            id="non_current_liabilities4" name="non_current_liabilities4"
 
@@ -3408,7 +4198,7 @@
 
                                                 <td class='sticky-row'>Share Capital</td>
 
-                                                <td><input type="text" class="form-control" id="share_capita1"
+                                                <td><input type="number" class="form-control" id="share_capita1"
 
                                                            name="share_capita1"
 
@@ -3418,7 +4208,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="share_capita2"
+                                                <td><input type="number" class="form-control" id="share_capita2"
 
                                                            name="share_capita2"
 
@@ -3428,7 +4218,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="share_capita3"
+                                                <td><input type="number" class="form-control" id="share_capita3"
 
                                                            name="share_capita3"
 
@@ -3438,7 +4228,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="share_capita4"
+                                                <td><input type="number" class="form-control" id="share_capita4"
 
                                                            name="share_capita4"
 
@@ -3454,7 +4244,7 @@
 
                                                 <td class='sticky-row'>Retained Earning</td>
 
-                                                <td><input type="text" class="form-control" id="retained_earning1"
+                                                <td><input type="number" class="form-control" id="retained_earning1"
 
                                                            name="retained_earning1"
 
@@ -3464,7 +4254,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="retained_earning2"
+                                                <td><input type="number" class="form-control" id="retained_earning2"
 
                                                            name="retained_earning2"
 
@@ -3474,7 +4264,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="retained_earning3"
+                                                <td><input type="number" class="form-control" id="retained_earning3"
 
                                                            name="retained_earning3"
 
@@ -3484,7 +4274,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="retained_earning4"
+                                                <td><input type="number" class="form-control" id="retained_earning4"
 
                                                            name="retained_earning4"
 
@@ -3500,7 +4290,7 @@
 
                                                 <td class='sticky-row'>Translation Reserves</td>
 
-                                                <td><input type="text" class="form-control" id="translation_reserves1"
+                                                <td><input type="number" class="form-control" id="translation_reserves1"
 
                                                            name="translation_reserves1"
 
@@ -3510,7 +4300,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="translation_reserves2"
+                                                <td><input type="number" class="form-control" id="translation_reserves2"
 
                                                            name="translation_reserves2"
 
@@ -3520,7 +4310,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="translation_reserves3"
+                                                <td><input type="number" class="form-control" id="translation_reserves3"
 
                                                            name="translation_reserves3"
 
@@ -3530,7 +4320,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="translation_reserves4"
+                                                <td><input type="number" class="form-control" id="translation_reserves4"
 
                                                            name="translation_reserves4"
 
@@ -3546,7 +4336,7 @@
 
                                                 <td class='sticky-row'>Total Debt</td>
 
-                                                <td><input type="text" class="form-control" id="total_debt1"
+                                                <td><input type="number" class="form-control" id="total_debt1"
 
                                                            name="total_debt1"
 
@@ -3556,7 +4346,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="total_debt2"
+                                                <td><input type="number" class="form-control" id="total_debt2"
 
                                                            name="total_debt2"
 
@@ -3566,7 +4356,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="total_debt3"
+                                                <td><input type="number" class="form-control" id="total_debt3"
 
                                                            name="total_debt3"
 
@@ -3576,7 +4366,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="total_debt4"
+                                                <td><input type="number" class="form-control" id="total_debt4"
 
                                                            name="total_debt4"
 
@@ -3592,7 +4382,7 @@
 
                                                 <td class='sticky-row'>Prepaid Expenses</td>
 
-                                                <td><input type="text" class="form-control" id="prepaid_expenses1"
+                                                <td><input type="number" class="form-control" id="prepaid_expenses1"
 
                                                            name="prepaid_expenses1"
 
@@ -3602,7 +4392,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="prepaid_expenses2"
+                                                <td><input type="number" class="form-control" id="prepaid_expenses2"
 
                                                            name="prepaid_expenses2"
 
@@ -3612,7 +4402,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="prepaid_expenses3"
+                                                <td><input type="number" class="form-control" id="prepaid_expenses3"
 
                                                            name="prepaid_expenses3"
 
@@ -3622,7 +4412,7 @@
 
                                                            } ?>"></td>
 
-                                                <td><input type="text" class="form-control" id="prepaid_expenses4"
+                                                <td><input type="number" class="form-control" id="prepaid_expenses4"
 
                                                            name="prepaid_expenses4"
 
@@ -3674,7 +4464,7 @@
                                     </div>
 
                                     </div>
-
+                                    </div>
                                 </div>
 
                                 <!-- END FINANCIAL ENTRIES TAB -->
@@ -3685,9 +4475,9 @@
 
                         <!-- SAVE AND CANCEL BUTTON-->
 
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:15px">
 
-                            <input type="button" class="btn btn-secondary" value="Cancel"
+                            <input type="button" class="btn btn-danger" value="Cancel"
 
                                    id="cancelButtonCompanyProfile"/>
 
@@ -3702,7 +4492,6 @@
                     <!-- END FORM TAG-->
 
                 </div>
-
             </div>
 
             <!--END METRONIC TAB -->
@@ -3715,26 +4504,48 @@
 
 
 
-
-
         </div>
 
 
-
     </div>
 
 
-
-
-
+<!-- Modal -->
+<div class="modal fade" id="update_xxxx" tabindex="-1" role="dialog" aria-labelledby="update_xxxx_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="update_xxxx_label">Update Xero Client ID and Secret ID</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{{ route('saveConnection') }}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            
+                <p><i class="text-danger">If you dont have client id and secret id, please follow the procedure provided by clicking the button below: </i>
+                <button type="button" class="btn btn-info " data-toggle="modal" data-target="#procedure_modal" style="margin-top:5px">OPen XERO Connection Procedure</button></p>
+                <br>
+                <div class="form-group">
+                    <label for="company_name">CLIENT ID:</label>
+                    <input type="text"  onfocus="this.type='password'" required class="form-control" autocomplete="new-password" placeholder="Client ID" id="client_id_txt" name="client_id_txt" />
+                </div>
+                <div class="form-group">
+                    <label for="company_name">SECRET ID:</label>
+                    <input type="text"  onfocus="this.type='password'" required class="form-control" autocomplete="new-password" placeholder="Secret ID" id="secret_id_txt" name="secret_id_txt" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="xero_save_btn" name="xero_save_btn"><i class="fa fa-save"></i> SAVE</button>
+                </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
-
-
-
-    </div>
-
-    </div>
-
+  </div>
+</div>
 
 
     <!-- START MODAL FOR ADDING KEY PERSONNEL -->
@@ -3883,11 +4694,6 @@
     </div>
 
 
-
-
-
-    <script src="{{ asset('public/js-tabs/jquery-1.12.4.js') }}"></script>
-
     <script src="{{ asset('public/js-tabs/jquery-ui.js') }}"></script>
 
 
@@ -3932,6 +4738,11 @@
 
 
     <script type="text/javascript">
+    
+    
+    function getFile() {
+          document.getElementById("file").click();
+        }
 
         function notifytoPremium(){
             swal({
@@ -4633,6 +5444,7 @@
 
 
     $(document).ready(function(){
+           
         var tour = new Tour({
           steps: [
           {
@@ -4748,13 +5560,6 @@
                 // $('input[type="hidden"]').attr('type', 'text').attr('readonly', 'readonly');
             });
         </script>
-
-{{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
-    {{-- <script src="{{ asset('public/drop-date/date.format.js') }}"></script> --}}
-    {{-- <script src="{{ asset('public/drop-date/jquery-dropdate.js') }}"></script> --}}
-    {{-- <script src="{{ asset('public/drop-date/jquery.date-dropdowns.min.js') }}"></script> --}}
-
-    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> --}}
 
     <script src="{{ asset('public/drop-date/jquery.date-dropdowns.js') }}"></script>
 

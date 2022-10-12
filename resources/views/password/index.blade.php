@@ -68,9 +68,13 @@
                                     <div class="containerCimg">
                                         <div id="croppedCimg" class="croppedCimg" align="center">
                                         </div>
-
+                                        
+                                        <?php if($profileAvatar == null || $profileAvatar == ""){  
+                                            $profileAvatar = "robot.jpg";
+                                        }
+                                        ?>
                                         <div class="imageBoxCimg">
-                                            <div class="thumbBoxCimg"><img
+                                            <div class="thumbBoxCimg"><img style="width:100%;height:100%"
                                                         src="{{ asset('public/images/') }}/<?php echo $profileAvatar; ?>">
                                             </div>
 
@@ -149,7 +153,7 @@
 
 
                                             <div class="form-group">
-                                                <input type="submit" class="btn btn-info" value="Submit">
+                                                <input type="submit" class="btn btn-primary" value="Submit">
                                             </div>
 
 

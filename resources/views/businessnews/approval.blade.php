@@ -108,10 +108,11 @@ th {
                                                 class="btn btn-primary"
                                                 style="color: white">Edit
                                             </a>
-                                            <a href="{{ url('/businessnews/deleteBuild/'.$b->id) }}"
-                                                class="btn btn-danger" onclick="return confirm('Are you sure to delete business news?')"
-                                                style="color: white">Delete
-                                            </a>
+                                            
+                                            
+                                            <a href="{{ url('/businessnews/delete/'.$b->id.':'.$status) }}"
+                                                                            class="btn btn-danger" onclick="return confirm('Are you sure to delete this business news item?')"
+                                                                            style="color: white">Delete</a>
                                         </td>
                                     </tr>
 

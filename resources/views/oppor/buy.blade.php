@@ -1112,7 +1112,7 @@ input::-moz-focus-inner {
                                     <div class="form-group">
 
                                         <label for="approx_large"><b>What is the asking price of this Investment? </b> <em class="setCur">{{ $curText }}</em></label>
-                                        <input type="text"   class="form-control input-text-form numberinput" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)? $data->approx_large :''; ?>" >
+                                        <input type="text" required  class="form-control input-text-form numberinput" id="approx_large" name="approx_large" dataName='approx_large' value="<?= isset($data->approx_large)? $data->approx_large :'0'; ?>" >
                                     </div>
 
                                 </div>
@@ -1130,7 +1130,7 @@ input::-moz-focus-inner {
 
                                         <label for="est_revenue"><b>What is the estimated revenue per year? </b> <em class="setCur">{{ $curText }}</em></label>
 
-                                        <input type="text"   class="form-control input-text-form numberinput" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)? $data->est_revenue :''; ?>" >
+                                        <input type="text"  required class="form-control input-text-form numberinput" id="est_revenue" name="est_revenue" dataName='est_revenue' value="<?= isset($data->est_revenue)? $data->est_revenue :'0'; ?>" >
 
 
                                     </div>
@@ -1149,7 +1149,7 @@ input::-moz-focus-inner {
 
                                         <label for="est_profit"><b>What is the estimated profit per year? </b><em class="setCur">{{ $curText }}</em> </label>
 
-                                        <input type="text"  class="form-control input-text-form numberinput" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)? $data->est_profit :'' ?>" >
+                                        <input type="text" required class="form-control input-text-form numberinput" id="est_profit" name="est_profit" dataName='est_profit' value="<?= isset($data->est_profit)? $data->est_profit :'0' ?>" >
 
                                     </div>
 
@@ -1167,7 +1167,7 @@ input::-moz-focus-inner {
 
                                         <label for="inventory_value"><b>What is the inventory value? </b><em class="setCur">{{ $curText }}</em> </label>
 
-                                        <input required="required"  type="text" class="form-control input-text-form numberinput" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '' ?>" >
+                                        <input required type="text" class="form-control input-text-form numberinput" id="inventory_value" name="inventory_value" dataName='inventory_value' value="<?= isset($data->inventory_value) ? $data->inventory_value : '0' ?>" >
 
                                     </div>
 

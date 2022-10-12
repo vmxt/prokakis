@@ -30,7 +30,7 @@
 
         <meta property="og:description"   content="Login to Intellinz, Your Complete App to Help Protect yourself from Fraudulent Partners, Uncover Your Hidden Business Opportunities, With On-Going Business Intelligence Assessment, Find Safe and Secure Business Opportunities, Help To Form New Partnerships for Growth and Minimise Infiltration of Criminal Syndicates." />
 
-        <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/ProKakisNewLogo.png" />
+        <meta property="og:image"         content="https://app-prokakis.com/public/img-resources/intellinz_green.png" />
 
         <!-- end from the original code -->
         
@@ -79,23 +79,10 @@
 
         <link href="{{ asset('public/assets/global/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 
-        <link href="{{ asset('public/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- END GLOBAL MANDATORY STYLES -->
 
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
 
-        <link href="{{ asset('public/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css')}}" rel="stylesheet" type="text/css" />
-
-        <link href="{{ asset('public/assets/global/plugins/morris/morris.css')}}" rel="stylesheet" type="text/css" />
-
-        <link href="{{ asset('public/assets/global/plugins/fullcalendar/fullcalendar.min.css')}}" rel="stylesheet" type="text/css" />
-
-        <link href="{{ asset('public/assets/global/plugins/jqvmap/jqvmap/jqvmap.css')}}" rel="stylesheet" type="text/css" />
-
-        <!-- END PAGE LEVEL PLUGINS -->
-
-        
 
         <!-- BEGIN THEME GLOBAL STYLES -->
 
@@ -117,13 +104,8 @@
 
         <link rel="shortcut icon" href="favicon.ico" />
 
-        <!-- for new banner
-
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-
-            -->
-
-        <!-- END HEAD -->
+        
+        <script src="{{asset('public/assets/global/plugins/jquery-3.6.0.min.js')}}" type="text/javascript"></script>
 
 </head>
 
@@ -231,140 +213,8 @@
 
             </div>
 
-
-
-
-
-        <!--[if lt IE 9]>
-
-        <script src="{{asset('public/assets/global/plugins/respond.min.js')}}"></script>
-
-        <script src="{{asset('public/assets/global/plugins/excanvas.min.js')}}"></script>
-
-        <script src="{{asset('public/assets/global/plugins/ie8.fix.min.js')}}"></script>
-
-        <![endif]-->
-
-
-
-        <!-- BEGIN CORE PLUGINS -->
-
-
-
-        <!-- <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script> --> 
-
-        
-
-        <script src="{{asset('public/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>  
-
-        <script src="{{asset('public/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
-
-
-
-
-
-
-
-    <!-- START NEW SCRIPTS FOR FIXING OF MENU BAR -->
-
-        <!-- BEGIN CORE PLUGINS -->
-
-        <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jquery.blockui.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}" type="text/javascript"></script>
-
-        <!-- END CORE PLUGINS -->
-
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
-
-        <script src="{{asset('public/assets/global/plugins/moment.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/morris/morris.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/counterup/jquery.waypoints.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/counterup/jquery.counterup.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.resize.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.categories.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js')}}" type="text/javascript"></script>
-
-        <!-- END PAGE LEVEL PLUGINS -->
-
-        <!-- BEGIN THEME GLOBAL SCRIPTS -->
-
-        <script src="{{asset('public/assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
-
-        <!-- END THEME GLOBAL SCRIPTS -->
-
-        <!-- BEGIN PAGE LEVEL SCRIPTS -->
-
-        <script src="{{asset('public/assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>
-
-        <!-- END PAGE LEVEL SCRIPTS -->
-
-        <!-- BEGIN THEME LAYOUT SCRIPTS -->
-
-        <script src="{{asset('public/assets/layouts/layout3/scripts/layout.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/layouts/layout3/scripts/demo.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
-
-        <script src="{{asset('public/assets/layouts/global/scripts/quick-nav.min.js')}}" type="text/javascript"></script>
-
-        <!-- END THEME LAYOUT SCRIPTS -->
-
-        <!-- END NEW SCRIPTS FOR FIXING OF MENU BAR -->
-
-       
-
     </body>
 
-
-                        <!-- BEGIN FOOTER -->
-
-                        <!-- BEGIN INNER FOOTER -->
-<center><p style="font-size:30px; color:white;">Copyright &copy; <script>document.write(new Date().getFullYear())</script> Intellinz</p></center>
-
-                        <!-- END INNER FOOTER -->
-                        <!-- END FOOTER -->
 
 
 </html>

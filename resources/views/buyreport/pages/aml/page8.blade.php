@@ -58,7 +58,7 @@
 FATF regulation as at {{ $tr_inserted_date }}.</p>  
 
 @endif
-  
+	
 @if(sizeof($tr_peps) > 0)
      
       <p class="text-justify"><b>World-Checks Analysis:</b> There is indication that the company or the members of the company is in breach of

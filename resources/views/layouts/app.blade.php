@@ -69,13 +69,12 @@
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="https://app-prokakis.com//favicon.ico" />
         <!-- for new banner
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+        
             -->
         <link href="{{ asset('public/assets/global/css/bootstrap.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
-        <!-- END HEAD -->
-        <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
+        <!-- END HEAD --> 
+        <script src="{{asset('public/assets/global/plugins/jquery-3.6.0.min.js')}}" type="text/javascript"></script>
 
-    <!-- override the css values above -->
      <style>
 
         @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
@@ -89,13 +88,18 @@
  }
  
  .card{
-     border-radius:3px;
+     border-radius:5px;
  }
  
  .btn-company{
      background:#7cda24 !important;
  }
-
+.modal:not(#agreement_modal){
+    /*z-index:1000011010102 !important */
+}
+.loading{
+    z-index:1000011010103 !important
+}
 h1,
 .h1 {
   font-size: 36px;
@@ -129,6 +133,10 @@ h1,
 
 .md-radio label>.check{
     background: green !important;
+}
+
+.text-dark{
+    color:black !important;
 }
 
 .mega-dropdown-menu:before {
@@ -195,6 +203,10 @@ h1,
 
 .bg-intellinz-light-green{
     background-color:#dff7d9 !important
+}
+
+.bg-company{
+    background-color:#7cda24 !important;
 }
 
 button.bg-intellinz-light-green:hover, input.bg-intellinz-light-green:hover, a.bg-intellinz-light-green:hover{
@@ -344,6 +356,7 @@ button.bg-intellinz-light-green, input.bg-intellinz-light-green, a.bg-intellinz-
 .menu_title{
   color: #7cda24;
   font-weight: bolder;
+  font-size:16px !important;
 }
 
 .mega_large_image{
@@ -435,11 +448,11 @@ color: white;
 
 .mail_icon_not{
       animation: beat .55s infinite alternate;
-    transform-origin: center;
+	  transform-origin: center;
   }
   
   @keyframes beat{
-  to { transform: scale(1.4); }
+	to { transform: scale(1.4); }
 }
 
 .text-company{
@@ -452,6 +465,7 @@ color: white;
 
 body {
   font-family: 'Open Sans', 'sans-serif' !important;
+  -webkit-font-smoothing:antialiased !important;
   background-color: whitesmoke !important;
 }
 
@@ -513,8 +527,8 @@ span.fa, i.fa{
 }
 
 .form-control:focus {
-        border-color: #28a745 !important;
-        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+        border-color: #7cda24 !important;
+        /*box-shadow: 0 0 0 0.2rem #7cda24 !important;*/
 }
 
 
@@ -534,7 +548,7 @@ option:hover {
  .navbar-nav .open .dropdown-menu{
      position:absolute !important;
  }
-
+ 
  .page-footer{
      background-color:black !important;
      text-align: center;
@@ -546,7 +560,7 @@ option:hover {
  }
  
  .page-content-inner{
-     border-radius:3px;
+     border-radius:5px;
  }
  .btn.btn-outline.blue{
      border:1px solid black !important;
@@ -566,8 +580,11 @@ option:hover {
  .page-header .page-header-top .top-menu .navbar-nav>li.dropdown-user .dropdown-menu>li>a{
      font-weight:700 !important;
      color:white !important;
-     
-    }
+ }
+ 
+ .page-header .page-header-menu .hor-menu .navbar-nav>li .dropdown-menu li>a{
+     font-weight:700 !important;
+ }
      </style>
 
 <!--Start of Tawk.to Script-->
@@ -593,6 +610,19 @@ s0.parentNode.insertBefore(s1,s0);
     $scope = "";
     ?>
     </head>
+
+<?php 
+                                                $build_pending = App\OpportunityBuildingCapability::where('is_verify', "0")->where('status', 1)->get();
+                                        		$sell_pending = App\OpportunitySellOffer::where('is_verify', "0")->where('status', 1)->get();
+                                        		$buy_pending = App\OpportunityBuy::where('is_verify', "0")->where('status', 1)->get();
+                                        		
+                                        		$merged = $build_pending->merge($sell_pending)->merge($buy_pending);
+                                        		
+                                        		$pending_count = "";
+                                        		if($merged->count() > 0){
+                                        		    $pending_count = $merged->count();
+                                        		}
+                                            ?>
 
     <body class="page-container-bg-solid">
         <div class="page-wrapper">
@@ -663,15 +693,15 @@ s0.parentNode.insertBefore(s1,s0);
                                             
                                             if(isset($company_id_result)){
                                                 $resBuild = App\ChatHistory::getChatHistoryBuildOpportunityUnseenTotal($company_id_result);
-                                            $resSell = App\ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
-                                            $resBuy = App\ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
-                                            $oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
-                                            
-                                            if($oppoInbox == 0){
-                                                $oppoInbox = "";
-                                            }
-                                        
-                                        ?>
+                                        		$resSell = App\ChatHistory::getChatHistorySellOpportunityUnseenTotal($company_id_result);
+                                        		$resBuy = App\ChatHistory::getChatHistoryBuyOpportunityUnseenTotal($company_id_result);
+                                        		$oppoInbox = (int) $resBuild + (int) $resSell + (int) $resBuy;
+                                        		
+                                        		if($oppoInbox == 0){
+                                        		    $oppoInbox = "";
+                                        		}
+                                    		
+                                    		?>
                                             <a href="{{ url('/opportunity/chatbox') }}" class="dropdown-toggle text-company" data-toggle="" data-hover="" data-close-others="">
                                                 <i style="font-size:25px !important" class="fa fa-comments-o text-company"></i>
                                                 <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $oppoInbox }}</span>
@@ -1044,6 +1074,9 @@ s0.parentNode.insertBefore(s1,s0);
                                                 <li aria-haspopup="true" class="company-edit">
                                                         <a class="nav-link" href="{{ url('/profile/edit') }}"> <i class="fa fa-edit" style="color: #7cda24"></i> Edit Company</a>
                                                 </li>
+                                                <li aria-haspopup="true" class="company-edit">
+                                                        <a class="nav-link" href="{{ url('/company/goXeroAnalytics') }}"> <i class="fa fa-bar-chart" style="color: #7cda24"></i> Xero Analytics</a>
+                                                </li>
                                                 <li aria-haspopup="true" class="company-contact">
                                                     <a href="{{ url('/profile/contacts') }}" class="nav-link "><i class="fa fa-phone-square" style="color: #7cda24"></i> Contacts </a>
                                                 </li>
@@ -1074,6 +1107,9 @@ s0.parentNode.insertBefore(s1,s0);
                                                                 <li aria-haspopup="true" id="nav-company-edit">
                                                                         <a class="nav-link" href="{{ url('/profile/edit') }}"> <i class="fa fa-edit" style="color: #7cda24"></i> Edit Company</a>
                                                                 </li>
+                                                                <li aria-haspopup="true" class="company-edit">
+                                                        <a class="nav-link" href="{{ url('/company/goXeroAnalytics') }}"> <i class="fa fa-bar-chart" style="color: #7cda24"></i> Xero Analytics</a>
+                                                </li>
                                                                 <li aria-haspopup="true" id="nav-company-contact">
                                                                     <a href="{{ url('/profile/contacts') }}" class="nav-link "><i class="fa fa-phone-square" style="color: #7cda24"></i> Contacts </a>
                                                                 </li>
@@ -1423,8 +1459,11 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                  <ul class="dropdown-menu pull-left">
                                                     <li aria-haspopup="true" class=" ">
-                                                        <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="icon-pin" style="color: #7cda24"></i> View All Accounts </a>
+                                                        <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="fa fa-users" style="color: #7cda24"></i> View All Accounts </a>
                                                     </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                            <a  href="{{ url('/company/companychart?type=primary_country') }}" class="nav-link  "> <i class="fa fa-bar-chart"></i> Company Charts </a>
+                                                        </li>
                                                 </ul>
                                             </li>
 
@@ -1453,6 +1492,7 @@ s0.parentNode.insertBefore(s1,s0);
                                                 </ul>
 
                                             </li>
+                                            
 
                                             <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
                                                 
@@ -1497,10 +1537,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                 </ul>
 
                                             </li>
+                                            
+                                    
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/explore') }}">
-<i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities 
+                                                <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $pending_count }}</span></span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                               <li aria-haspopup="true" class=" ">
@@ -1509,11 +1552,19 @@ s0.parentNode.insertBefore(s1,s0);
                                                </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
-                                                    Pending Opportunities</a>
+                                                    Pending Opportunities 
+                                                    <?php if($pending_count != ""){ ?>
+                                                    <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $pending_count }}</span>
+                                                    <?php } ?>
+                                                    </span></a>
                                                 </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
                                                     Approved Opportunities</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/opportunitychart')}}" class="nav-link  ">
+                                                    Opportunity Chart</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -1521,7 +1572,7 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
- <i class="icon-layers" style="color: #7cda24"></i> <span class="">Business News</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Business News</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1549,7 +1600,10 @@ s0.parentNode.insertBefore(s1,s0);
                                                     </a>
                                                     <ul class="dropdown-menu pull-left">
                                                         <li aria-haspopup="true" class=" ">
-                                                            <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="icon-pin"></i> View All Accounts </a>
+                                                            <a  href="{{ url('/accounts') }}" class="nav-link  "> <i class="fa fa-users"></i> View All Accounts </a>
+                                                        </li>
+                                                        <li aria-haspopup="true" class=" ">
+                                                            <a  href="{{ url('/company/companychart?type=primary_country') }}" class="nav-link  "> <i class="fa fa-bar-chart"></i> Company Charts </a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -1574,7 +1628,9 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                 <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                                         <a href="{{ url('/opportunity/explore') }}">
-<i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
+                                                            <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities
+                                                                <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $pending_count }}</span></span>
+                                                            </span>
                                                         </a>
                                                         <ul class="dropdown-menu pull-left">
                                                           <li aria-haspopup="true" class=" ">
@@ -1583,18 +1639,26 @@ s0.parentNode.insertBefore(s1,s0);
                                                            </li>
                                                             <li aria-haspopup="true" class=" ">
                                                                 <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
-                                                                Pending Opportunities</a>
+                                                                Pending Opportunities 
+                                                                <?php if($pending_count != ""){ ?>
+                                                                <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $pending_count }}</span>
+                                                                <?php } ?>
+                                                                </span></a>
                                                             </li>
                                                             <li aria-haspopup="true" class=" ">
                                                                 <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
                                                                 Approved Opportunities</a>
+                                                            </li>
+                                                            <li aria-haspopup="true" class=" ">
+                                                                <a href="{{url('/opportunity/opportunitychart')}}" class="nav-link  ">
+                                                                Opportunity Chart</a>
                                                             </li>
                                                         </ul>
                                                     </li>
 
                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
-<i class="icon-layers" style="color: #7cda24"></i> <span class="">Rewards</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Rewards</span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                                 <li aria-haspopup="true" class=" ">
@@ -1727,6 +1791,13 @@ s0.parentNode.insertBefore(s1,s0);
                                                         <a href="{{url('/coreAccountsHistory')}}" class="nav-link  ">
                                                                 Core Accounts History</a>
                                                     </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                        <a href="{{url('/userAccountsHistory/All')}}" class="nav-link  ">
+                                                                User Accounts History</a>
+                                                    </li>
+                                                    <li aria-haspopup="true" class=" ">
+                                                            <a  href="{{ url('/company/companychart?type=primary_country') }}" class="nav-link  "> <i class="fa fa-bar-chart"></i> Company Charts </a>
+                                                        </li>
                                                 </ul>
                                         </li>
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
@@ -1774,10 +1845,20 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         </li>
 
-                                        <li aria-haspopup="true" class="">
-                                            <a href="{{ url('/accountsCompanies') }}">
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="#">
                                                 <i class="icon-bar-chart" style="color: #7cda24"></i> <span class="">Companies</span>
                                             </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{ url('/accountsCompanies') }}" class="nav-link  ">
+                                                    List of Companies</a>
+                                                </li>
+                                                <li aria-haspopup="true" class="nav-link  ">
+                                                    <a href="{{ url('/xero/loadAgreements') }}" class="nav-link  ">
+                                                    Xero Settings</a>
+                                                </li>
+                                            </ul>
                                         </li>
 
                                         <li aria-haspopup="true" class="">
@@ -1788,7 +1869,9 @@ s0.parentNode.insertBefore(s1,s0);
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="{{ url('/opportunity/explore') }}">
-                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities</span>
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Opportunities
+                                                    <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $pending_count }}</span></span>
+                                                </span>
                                             </a>
                                             <ul class="dropdown-menu pull-left">
                                               <li aria-haspopup="true" class=" ">
@@ -1797,11 +1880,19 @@ s0.parentNode.insertBefore(s1,s0);
                                                </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/opportunity/approval/pending')}}" class="nav-link  ">
-                                                    Pending Opportunities</a>
+                                                    Pending Opportunities 
+                                                    <?php if($pending_count != ""){ ?>
+                                                    <span class="badge badge-danger counter counter-lg mail_icon_not">{{ $pending_count }}</span>
+                                                    <?php } ?>
+                                                    </span></a>
                                                 </li>
                                                 <li aria-haspopup="true" class=" ">
                                                     <a href="{{url('/opportunity/approval/approved')}}" class="nav-link  ">
                                                     Approved Opportunities</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/opportunity/opportunitychart')}}" class="nav-link  ">
+                                                    Opportunity Chart</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -2057,16 +2148,6 @@ s0.parentNode.insertBefore(s1,s0);
 
     </script>
 
-        <!--[if lt IE 9]>
-        <script src="{{asset('public/assets/global/plugins/respond.min.js')}}"></script>
-        <script src="{{asset('public/assets/global/plugins/excanvas.min.js')}}"></script>
-        <script src="{{asset('public/assets/global/plugins/ie8.fix.min.js')}}"></script>
-        <![endif]-->
-
-        <!-- BEGIN CORE PLUGINS -->
-
-        <!-- <script src="{{asset('public/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script> -->
-
         <script src="{{asset('public/assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
@@ -2082,9 +2163,7 @@ s0.parentNode.insertBefore(s1,s0);
         <script src="{{asset('public/assets/global/plugins/counterup/jquery.waypoints.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/counterup/jquery.counterup.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/fullcalendar/fullcalendar.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.resize.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('public/assets/global/plugins/flot/jquery.flot.categories.min.js')}}" type="text/javascript"></script>
+        
         <script src="{{asset('public/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('public/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js')}}" type="text/javascript"></script>
@@ -2126,7 +2205,7 @@ function updateTour(is_end = 'none'){
       contentType: false,
 
       success: function (data) {
-        console.log(data.error);
+          
         if(is_end ==  'none'){
           location.reload();
         }
@@ -2346,6 +2425,7 @@ function autocomplete(inp, arr) {
 
 $(document).ready(function()
 {
+    
     $('[data-toggle="popover"]').popover();   
    $.getJSON('https://app-prokakis.com/getCompanyNames', function(dataA) {
      autocomplete(document.getElementById("seach_entry_key"), dataA);

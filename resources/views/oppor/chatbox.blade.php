@@ -623,7 +623,7 @@ $userType = App\User::validateAccountNavigations(Auth::id());
                                         
                                         if($company_id == $heads->sender){
                                             $avatar = \App\UploadImages::where('company_id', $heads->company_id)
-                                                ->where('file_category', 'PROFILE_AVATAR')
+                                            	->where('file_category', 'PROFILE_AVATAR')
                                                 ->orderBy('id', 'desc')
                                                 ->first();
                                                 
@@ -631,7 +631,7 @@ $userType = App\User::validateAccountNavigations(Auth::id());
                                         }
                                         else{
                                             $avatar = \App\UploadImages::where('company_id', $heads->sender)
-                                                ->where('file_category', 'PROFILE_AVATAR')
+                                            	->where('file_category', 'PROFILE_AVATAR')
                                                 ->orderBy('id', 'desc')
                                                 ->first();
                                             $com_name = App\CompanyProfile::find($heads->sender)->company_name;
@@ -647,11 +647,11 @@ $userType = App\User::validateAccountNavigations(Auth::id());
                                         
                                         $action_code = "0";
                                         if($company_id == $heads->sender ){
-                                              $action_code = "1";
-                                        }
-                                        else{
-                                            $action_code = "2";
-                                        }
+            		                          $action_code = "1";
+            		                    }
+            		                    else{
+            		                        $action_code = "2";
+            		                    }
                                 ?>
                                 <ul id="head_{{ $heads->head_id }}" class="feeds list-group" name="{{ $heads->sender }}<split>{{ $heads->receiver }}<split>{{ $heads->opp_type }}<split>{{ $heads->head_id }}" style="border-style:none; margin-bottom: 5px;" onclick="loadChat('{{ $avatarUrl }}', '{{ $heads->opp_title }}', '{{ $heads->company_id }}', '{{ $heads->sender }}','{{ $heads->receiver }}', '{{ $heads->opp_type }}', '{{ $heads->head_id }}', '{{ $action_code }}', '{{ $com_name }}')">
                                     <li class="list-group-item">

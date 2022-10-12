@@ -66,13 +66,13 @@
 
         </ul>
 
-        <div class="row justify-content-center">
+        <div class="row ">
 
             <!-- START IMAGE UPLOAD -->
 
             <div class="col-md-4">
 
-                <div class="page-content-inner">
+                <div class="card">
 
 
 
@@ -142,7 +142,7 @@
 
             <!-- START METRONIC TAB -->
 
-            <div class="col col-md-8">
+            <div class=" col-md-8">
 
                 <div class="portlet light ">
 

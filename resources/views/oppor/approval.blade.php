@@ -137,12 +137,12 @@ td.text-right {
 }
 
 td:first-child, th:first-child {
-  display:none;
 }
 
     </style>
     
     <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css' />
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.1.0/build/pure-min.css" integrity="sha384-yHIFVG6ClnONEA5yB5DJXfW2/KC173DIQrYoZMEtBvGzmf0PKiGyNEqe9N6BNDBH" crossorigin="anonymous">
 
     <div class="container">
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
@@ -203,7 +203,7 @@ td:first-child, th:first-child {
 
                         </div>
                         <div class="portlet-body">
-                            <div id="container" class="table-scrollable" style="padding:10px">
+                            <div id="container" class="table-scrollable"  style="padding:10px">
 
                                     @if (session('status'))
                                     <div class="alert alert-success">
@@ -216,11 +216,11 @@ td:first-child, th:first-child {
                                     </div>
                                 @endif
 
-                                <table id="system_data" class="display hover row-border stripe compact responsive" style="width:100%">
+                                <table id="system_data" class="table" style="width:100%;">
                                     <thead>
                                     <tr>
-                                        <th width="1%">#</th>
-                                        <th width="20%">Title</th>
+                                        <th >#</th>
+                                        <th >Title</th>
                                         <th>User</th>
                                         <th>Seeking</th>
                                         <th>Category</th>
@@ -237,7 +237,7 @@ td:first-child, th:first-child {
                                         <td><?php echo $counter; ?></td>
                                         <td><p> <?php echo $b->opp_title; ?></p></td>
                                         <td><p> @if($b->company_id != "") {{ App\CompanyProfile::find($b->company_id)->userdetail()->first()->email }} @endif </p></td>
-                                        <td>
+                                        <td style="word-break: break-all;">
                                             <ul style="list-style-type: none;">
                                                 @if($b->business_goal)
                                                 <li> {{ $b->business_goal }} </li>
@@ -295,7 +295,7 @@ td:first-child, th:first-child {
                                         <td> <?php echo $s->opp_title; ?></td>
                                         <td><p> @if($s->company_id != "") {{ App\CompanyProfile::find($s->company_id)->userdetail()->first()->email }} @endif </p></td>
                                    
-                                        <td>
+                                        <td style="word-break: break-all;">
                                             <ul>
                                                 @if($s->what_sell_offer)
                                                 <li> {{ $s->what_sell_offer }} </li>
@@ -350,7 +350,7 @@ td:first-child, th:first-child {
                                         <td><?php echo $counter; ?></td>
                                         <td> <?php echo $bb->opp_title; ?></td>
                                         <td><p> @if($bb->company_id != "") {{ App\CompanyProfile::find($bb->company_id)->userdetail()->first()->email }} @endif </p></td>
-                                        <td>
+                                        <td style="word-break: break-all;">
                                             <ul>
                                                 @if($bb->what_sell_offer)
                                                 <li>{{ $bb->what_sell_offer }}</li>
@@ -410,11 +410,10 @@ td:first-child, th:first-child {
 
         </div>
 
-
+<script src="{{ asset('public/tinymce/js/tinymce/tinymce.min.js') }}"></script> 
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    {{-- <script src="{{ asset('public/js/app.js') }}"></script> --}}
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
 
     <script>
@@ -507,4 +506,3 @@ td:first-child, th:first-child {
     </script>
 
 @endsection
-    

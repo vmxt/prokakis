@@ -7,13 +7,98 @@
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
-|mconsultants/editprofile
+|
 */
 
 Route::get('/', function () {
     // return view('welcome');
      return redirect('/login');
 });
+
+//xero
+Route::get('/company/loadProfitLossEditor/{fromdate}/{todate}/{period}/{timeframe}/{id}', 'XeroController@loadProfitLossEditor')->name('loadProfitLossEditor');
+Route::get('/company/loadBalanceSheetEditor/{date}/{period}/{ptype}/{id}', 'XeroController@loadBalanceSheetEditor')->name('loadBalanceSheetEditor');
+Route::get('/company/loadFinancialEntries/{date}/{timeframe}', 'XeroController@loadFinancialEntries')->name('loadFinancialEntries');
+Route::get('/company/businessPerformance/{date}/{period}', 'XeroController@businessPerformance')->name('businessPerformance');
+Route::get('/company/getManualJournalGraph/{from_date}/{to_date}/{timeframe}', 'XeroController@getManualJournalGraph')->name('getManualJournalGraph');
+Route::get('/company/loadProfitLossDashboard/{from_date}/{to_date}/{type}', 'XeroController@loadProfitLossDashboard')->name('loadProfitLossDashboard');
+Route::get('/company/getInvoicesGraph/{from_date}/{to_date}/{timeframe}', 'XeroController@getInvoicesGraph')->name('getInvoicesGraph');
+Route::get('/company/loadAgedData/{id}/{type}/{name}', 'XeroController@loadAgedData')->name('loadAgedData');
+Route::get('/company/getBankStatementsPlus/{fromdate}/{todate}/{id}', 'XeroController@getBankStatementsPlus')->name('getBankStatementsPlus');
+Route::get('/company/loadBalanceSheetGraph/{date}/{period}/{timeframe}', 'XeroController@loadBalanceSheetGraph')->name('loadBalanceSheetGraph');
+
+Route::post('/company/loadStatementBalanceFromBalanceSheet', 'XeroController@loadStatementBalanceFromBalanceSheet')->name('loadStatementBalanceFromBalanceSheet');
+Route::get('/company/loadExecutiveSummary/{fromdate}/{todate}/{selecttype}/{percent}', 'XeroController@loadExecutiveSummary')->name('loadExecutiveSummary');
+Route::get('/company/loadProfitAndLossGraph/{fromdate}/{todate}/{period}/{timeframe}/{selecttype}', 'XeroController@loadProfitAndLossGraph')->name('loadProfitAndLossGraph');
+Route::get('/xero/BankTransactions/{id}', 'XeroController@loadIndividualBankTransactions')->name('loadBankTransactions');
+
+Route::post('/loadCashInOut', 'XeroController@loadCashInOut')->name('loadCashInOut');
+Route::post('/loadStatementBalance', 'XeroController@loadStatementBalance')->name('loadStatementBalance');
+Route::post('/saveTrialBalance', 'XeroController@saveTrialBalance')->name('saveTrialBalance');
+//new
+Route::post('/changeOrganisation', 'XeroController@changeOrganisation')->name('changeOrganisation');
+Route::get('/company/loadListTrialBalance', 'XeroController@loadListTrialBalance')->name('loadListTrialBalance');
+
+Route::get('/company/getAccountDetailsTable/{AccountID}', 'XeroController@getAccountDetailsTable')->name('getAccountDetailsTable');
+Route::get('/company/goXeroAnalytics', 'XeroController@goXeroAnalytics')->name('goXeroAnalytics');
+
+Route::post('/saveProfitLoss', 'XeroController@saveProfitLoss')->name('saveProfitLoss');
+Route::get('/company/loadListProfitLoss', 'XeroController@loadListProfitLoss')->name('loadListProfitLoss');
+Route::get('/company/loadListBalanceSheet', 'XeroController@loadListBalanceSheet')->name('loadListBalanceSheet');
+Route::post('/saveBalanceSheet', 'XeroController@saveBalanceSheet')->name('saveBalanceSheet');
+Route::get('/company/makeAgreementActive/{id}', 'XeroController@makeAgreementActive')->name('makeAgreementActive');
+Route::post('/company/insertAgreement', 'XeroController@insertAgreement')->name('insertAgreement');
+
+Route::get('/company/loadProfitAndLoss/{fromdate}/{todate}/{period}/{timeframe}/{id}', 'XeroController@loadProfitAndLoss')->name('loadProfitAndLoss');
+
+Route::get('/company/loadTrialBalance/{date}/{if_payment}/{id}', 'XeroController@loadTrialBalance')->name('loadTrialBalance');
+
+Route::get('/xero/loadAgreements', 'XeroController@loadAgreements')->name('loadAgreements');
+
+Route::get('/company/disconnectXero/{id}', 'XeroController@disconnectXero')->name('disconnectXero');
+Route::post('/company/tryDisconnectXero', 'XeroController@tryDisconnectXero')->name('tryDisconnectXero');
+
+Route::get('/company/downloadAsPDF/{id}/{type}', 'XeroController@downloadAsPDF')->name('downloadAsPDF');
+
+Route::get('/company/loadBalanceSheet/{date}/{period}/{ptype}/{id}', 'XeroController@loadBalanceSheet')->name('loadBalanceSheet');
+
+Route::get('/company/loadTrialBalance/{date}/{if_payment}', 'XeroController@loadTrialBalance')->name('loadTrialBalance');
+
+Route::get('/company/getContactList/{status}', 'XeroController@getContactList')->name('getContactList');
+
+Route::get('/company/getItems', 'XeroController@getItems')->name('getItems');
+
+Route::get('/company/getPurchaseOrderDetails/{id}', 'XeroController@getPurchaseOrderDetails')->name('getPurchaseOrderDetails');
+Route::get('/company/getPurchaseOrders/{status}', 'XeroController@getPurchaseOrders')->name('getPurchaseOrders');
+
+Route::get('/company/getQuotesDetails/{id}', 'XeroController@getQuotesDetails')->name('getQuotesDetails');
+Route::get('/company/getQuotes/{status}', 'XeroController@getQuotes')->name('getQuotes');
+
+Route::get('/company/getInvoicesDetails/{id}', 'XeroController@getInvoicesDetails')->name('getInvoicesDetails');
+Route::get('/company/getInvoices/{status}/{type}', 'XeroController@getInvoices')->name('getInvoices');
+
+Route::get('/company/getManualJournalDetails/{id}', 'XeroController@getManualJournalDetails')->name('getManualJournalDetails');
+Route::get('/company/getManualJournal/{status}', 'XeroController@getManualJournal')->name('getManualJournal');
+Route::post('/company/saveConnection', 'XeroController@saveConnection')->name('saveConnection');
+
+//superadmin user type
+
+Route::middleware(['ifsuperadmin'])->group(function () {
+    Route::post('/updateUserType', 'SuperAdminController@updateUserType')->name('updateUserType');
+    Route::get('/userAccountsHistory/{type}', 'HomeController@userAccountsHistory')->name('userAccountsHistory');
+});
+
+// graph admin
+Route::middleware(['ifbothall'])->group(function () {
+    Route::get('/company/companychartbuy', 'OpportunityChartController@getFinancialEntriesDataBuy')->name('getFinancialEntriesDataBuy'); 
+});
+
+//chart data
+Route::get('/company/companychart', 'CompanyChartController@index')->name('CompanyChart'); 
+Route::get('/opportunity/opportunitychart', 'OpportunityChartController@index')->name('OpportunityChart'); 
+Route::get('/company/getFinancialEntriesData', 'CompanyprofileController@getFinancialEntriesData')->name('getFinancialEntriesData');
+Route::get('/company/getFinancialEntriesData_viewProfile', 'CompanyprofileController@getFinancialEntriesData_viewProfile')->name('getFinancialEntriesData_viewProfile');
+Route::get('/company/getFinancialEntriesDataInputs', 'CompanyprofileController@getFinancialEntriesDataInputs')->name('getFinancialEntriesDataInputs');
 
 Route::get('/testMail72AE25495A7981C40622D49F9A52E4F1565C90F048F59027BD9C8C8900D5C3D8', 'TestController@index')->name('testMail'); 
 Route::get('/afterUnsubscribe', 'UnsubscribeController@afterUnsubscribe')->name('afterunsubscribe');
@@ -23,11 +108,13 @@ Route::get('/promotionOne', 'PromotionController@addToken')->name('promoOneToken
 Route::get('/worldData', 'Test2Controller@getWorldData')->name('updateWorldData');
 Route::get('/testmail', 'Test2Controller@testMailSending')->name('testMail');
 
+//reports
 Route::get('/genReportAll/{rpId}/{companyId}/{reqId}', 'BuyreportController@downloadAll')->name('reportAllDownload');
 Route::get('/genReportAml/{rpId}', 'BuyreportController@repAml')->name('reportAML');
 Route::get('/genReportIa/{rpId}', 'BuyreportController@repIa')->name('reportInvestorsAlert');
 Route::get('/genReportAm/{rpId}', 'BuyreportController@repAm')->name('reportAdverMedia');
 
+//alert list
 Route::get('/panamaList', 'AlertedrecordsController@panama')->name('panamaList');
 Route::get('/offshoreList', 'AlertedrecordsController@offshore')->name('offshoreList');
 Route::get('/bahamasList', 'AlertedrecordsController@bahamas')->name('bahamasList');
@@ -113,20 +200,22 @@ Route::get('/token-confirm-index', 'TokenConfirmController@index')->name('getTok
 
 
 //superadmin
-Route::get('/accounts-approval', 'SuperAdminController@approvalPage')->name('approvalPageAdmin');
-Route::post('/accounts-saveApproval', 'SuperAdminController@storeApproval')->name('storeApprovalAdmin');
-Route::get('/accountsCompanies', 'SuperAdminController@allCompanies')->name('allCompanies');
-Route::get('/manage-registration-links', 'SuperAdminController@manageLinks')->name('manageRegsLink');
-Route::post('/add-registration-link', 'SuperAdminController@addLinks')->name('addRegsLink');
-
-Route::get('/transferCompany', 'SuperAdminController@getTransferCompany')->name('GetTransferCompany');
-Route::post('/viewUserCompany', 'SuperAdminController@viewAjxCompany')->name('ViewAjxCompany');
-Route::post('/addUserCompany', 'SuperAdminController@addAjxCompany')->name('AddAjxCompany');
-Route::post('/transferUserCompany', 'SuperAdminController@transferAjxCompany')->name('TransferAjxCompany');
-Route::post('/selectedUserCompany', 'SuperAdminController@selectedUserCompany')->name('SelectedUserCompany');
-Route::post('/transferSelectedCompany', 'SuperAdminController@transferSelectedCompany')->name('TransferSelectedCompany');
-Route::post('/addTokenSelectedCompany', 'SuperAdminController@addTokenSelectedCompany')->name('AddTokenSelectedCompany');
-Route::get('/tokenCompany', 'SuperAdminController@getTokenCompany')->name('GetTokenCompany');
+Route::middleware(['ifsuperadmin'])->group(function () {
+    Route::get('/accounts-approval', 'SuperAdminController@approvalPage')->name('approvalPageAdmin');
+    Route::post('/accounts-saveApproval', 'SuperAdminController@storeApproval')->name('storeApprovalAdmin');
+    Route::get('/accountsCompanies', 'SuperAdminController@allCompanies')->name('allCompanies');
+    Route::get('/manage-registration-links', 'SuperAdminController@manageLinks')->name('manageRegsLink');
+    Route::post('/add-registration-link', 'SuperAdminController@addLinks')->name('addRegsLink');
+    
+    Route::get('/transferCompany', 'SuperAdminController@getTransferCompany')->name('GetTransferCompany');
+    Route::post('/viewUserCompany', 'SuperAdminController@viewAjxCompany')->name('ViewAjxCompany');
+    Route::post('/addUserCompany', 'SuperAdminController@addAjxCompany')->name('AddAjxCompany');
+    Route::post('/transferUserCompany', 'SuperAdminController@transferAjxCompany')->name('TransferAjxCompany');
+    Route::post('/selectedUserCompany', 'SuperAdminController@selectedUserCompany')->name('SelectedUserCompany');
+    Route::post('/transferSelectedCompany', 'SuperAdminController@transferSelectedCompany')->name('TransferSelectedCompany');
+    Route::post('/addTokenSelectedCompany', 'SuperAdminController@addTokenSelectedCompany')->name('AddTokenSelectedCompany');
+    Route::get('/tokenCompany', 'SuperAdminController@getTokenCompany')->name('GetTokenCompany');
+});
 
 //chat history
 Route::post('/chatProcess', 'ChatHistoryController@process')->name('chatProcess');
@@ -150,30 +239,32 @@ Route::get('/redeem-accpay', 'GamificationController@finalApproverList')->name('
 Route::get('/redeem-accpay-preview/{requestId}', 'GamificationController@apPrintPreview')->name('APapproverPrintPreview');
 
 //staff
-Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');
-Route::get('/thomson/history', 'ThomsonController@history')->name('thomsonHistory');
-Route::post('/thomson', 'ThomsonController@searchFound')->name('thomsonSearchFound');
-Route::post('/thomsonCompanySearch', 'ThomsonController@searchFoundCompany')->name('searchFoundCompany');
-
-Route::post('/thomsonreuters/search', 'CompanyprofileController@searchThomsonReuters')->name('searchThomsonReuters');
-Route::get('/thomson-getNationality', 'ThomsonController@getNationality')->name('getNationality');
-Route::get('/thomson-getCountryLocation', 'ThomsonController@getCountryLocation')->name('getCountryLocation');
-Route::get('/thomson-print/{id}', 'ThomsonController@printPreview')->name('printPreview');
-Route::post('/tr-tagging', 'ThomsonController@trProcess')->name('trTagging');
-Route::post('/tr-deleting', 'ThomsonController@trDelete')->name('trDeleting');
-Route::get('/thomson-pdfprint/{ids}', 'ThomsonController@pdfPrintDownload')->name('downloadPdf');
-Route::get('/thomson-pdfcaseprint/{ids}', 'ThomsonController@pdfcasePrintDownload')->name('downloadPdf');
-
-Route::get('/refinitive/history/{ids}', 'ThomsonController@refinitiveHistory')->name('refinitiveHistory');
+Route::group(['middleware' => ['checkusetype:4']], function() {
+    Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');
+    Route::get('/thomson/history', 'ThomsonController@history')->name('thomsonHistory');
+    Route::post('/thomson', 'ThomsonController@searchFound')->name('thomsonSearchFound');
+    Route::post('/thomsonCompanySearch', 'ThomsonController@searchFoundCompany')->name('searchFoundCompany');
+    
+    Route::post('/thomsonreuters/search', 'CompanyprofileController@searchThomsonReuters')->name('searchThomsonReuters');
+    Route::get('/thomson-getNationality', 'ThomsonController@getNationality')->name('getNationality');
+    Route::get('/thomson-getCountryLocation', 'ThomsonController@getCountryLocation')->name('getCountryLocation');
+    Route::get('/thomson-print/{id}', 'ThomsonController@printPreview')->name('printPreview');
+    Route::post('/tr-tagging', 'ThomsonController@trProcess')->name('trTagging');
+    Route::post('/tr-deleting', 'ThomsonController@trDelete')->name('trDeleting');
+    Route::get('/thomson-pdfprint/{ids}', 'ThomsonController@pdfPrintDownload')->name('downloadPdf');
+    Route::get('/thomson-pdfcaseprint/{ids}', 'ThomsonController@pdfcasePrintDownload')->name('downloadPdf');
+    
+    Route::get('/refinitive/history/{ids}', 'ThomsonController@refinitiveHistory')->name('refinitiveHistory');
+});
 
 //dashboard
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
-Route::get('/homeSubConsul', 'HomeController@subConsultant')->name('homeSubConsultant');
-Route::get('/homeMasterConsul', 'HomeController@masterConsultant')->name('homeMasterConsultant');
-Route::get('/homeStaff', 'HomeController@ebosStaff')->name('ebosStaff');
-Route::get('/accounts', 'HomeController@accounts')->name('accounts');#get all accounts
-Route::get('/homeAdmin', 'HomeController@adminDashboard')->name('adminDashboard');
+Route::get('/homeSubConsul', 'HomeController@subConsultant')->name('homeSubConsultant')->middleware('ifsubconsultant');
+Route::get('/homeMasterConsul', 'HomeController@masterConsultant')->name('homeMasterConsultant')->middleware('ifmasterconsultant');
+Route::get('/homeStaff', 'HomeController@ebosStaff')->name('ebosStaff')->middleware('ifadmin');
+Route::get('/accounts', 'HomeController@accounts')->name('accounts')->middleware(['ifmasterconsultant', 'ifsuperadmin']);#get all accounts
+Route::get('/homeAdmin', 'HomeController@adminDashboard')->name('adminDashboard')->middleware('ifsuperadmin');
 Route::post('/home/companyAdd', 'HomeController@addCompany')->name('homeAddCompany');
 Route::post('/home/companySelect', 'HomeController@selectCompany')->name('homeSelectCompany');
 Route::get('/homeSales', 'HomeController@ebosSales')->name('ebosSales');
@@ -181,67 +272,82 @@ Route::get('/homeAP', 'HomeController@ebosAP')->name('ebosAP');
 Route::get('/homeSA', 'HomeController@ebosSA')->name('ebosSA');
 Route::get('/samanage/{company_id}', 'SubaccountsController@manageSelectedCompany')->name('ManageSelectedCompany');
 
-//consultant
-Route::get('/consultants', 'ConsultantsController@index')->name('indexConsultantFAreport');
-Route::get('/consultants/viewprofile', 'ConsultantsController@viewProfile')->name('viewProfileSC');
-Route::get('/consultants/editprofile', 'ConsultantsController@editProfile')->name('editProfileSC');
-Route::post('/consultants/storeprofile', 'ConsultantsController@storeProfile')->name('storeProfileSC');
-Route::get('/consultants/billing', 'ConsultantsController@billing')->name('billingSC');
-Route::post('/consultant/billing/create', 'ConsultantsController@billingStore')->name('createBillingSC');
-Route::post('/consultant/billing/update', 'ConsultantsController@billingUpdate')->name('updateBillingSC');
-
-Route::get('/consultants/commission', 'ConsultantsController@commission')->name('commissionSC');
-Route::get('/consultants/pending-projects', 'ConsultantsController@pendingProjects')->name('pendingProjectsSC');
-Route::get('/consultants/ongoing-projects', 'ConsultantsController@ongoingProjects')->name('ongoingProjectsSC');
-Route::get('/consultants/archived-projects', 'ConsultantsController@archivedProjects')->name('archivedProjectsSC');
-Route::post('/consultants/updateProject', 'ConsultantsController@updateProject')->name('updateProjectSC');
-Route::post('/consultants/updateOngoingProject', 'ConsultantsController@updateOngoingProject')->name('updateOngoingProjectSC');
-Route::post('/consultants/profile-requester', 'ConsultantsController@getRequesterInformation')->name('getRequesterInformation');
-Route::post('/consultants-profile/uploadProfileImgSC', 'ConsultantsController@uploadProfileSC')->name('uploadProfileImgSC');
-Route::post('/consultants/uploadCertificationsSC', 'ConsultantsController@uploadCertificationsSC')->name('uploadCertificationsSC');
+Route::middleware(['ifsubconsultant'])->group(function () {
+    //consultant
+    Route::get('/consultants', 'ConsultantsController@index')->name('indexConsultantFAreport');
+    Route::get('/consultants/viewprofile', 'ConsultantsController@viewProfile')->name('viewProfileSC');
+    Route::get('/consultants/editprofile', 'ConsultantsController@editProfile')->name('editProfileSC');
+    Route::post('/consultants/storeprofile', 'ConsultantsController@storeProfile')->name('storeProfileSC');
+    Route::get('/consultants/billing', 'ConsultantsController@billing')->name('billingSC');
+    Route::post('/consultant/billing/create', 'ConsultantsController@billingStore')->name('createBillingSC');
+    Route::post('/consultant/billing/update', 'ConsultantsController@billingUpdate')->name('updateBillingSC');
+    
+    Route::get('/consultants/commission', 'ConsultantsController@commission')->name('commissionSC');
+    Route::get('/consultants/pending-projects', 'ConsultantsController@pendingProjects')->name('pendingProjectsSC');
+    Route::get('/consultants/ongoing-projects', 'ConsultantsController@ongoingProjects')->name('ongoingProjectsSC');
+    Route::get('/consultants/archived-projects', 'ConsultantsController@archivedProjects')->name('archivedProjectsSC');
+    Route::post('/consultants/updateProject', 'ConsultantsController@updateProject')->name('updateProjectSC');
+    Route::post('/consultants/updateOngoingProject', 'ConsultantsController@updateOngoingProject')->name('updateOngoingProjectSC');
+    Route::post('/consultants/profile-requester', 'ConsultantsController@getRequesterInformation')->name('getRequesterInformation');
+    Route::post('/consultants-profile/uploadProfileImgSC', 'ConsultantsController@uploadProfileSC')->name('uploadProfileImgSC');
+    Route::post('/consultants/uploadCertificationsSC', 'ConsultantsController@uploadCertificationsSC')->name('uploadCertificationsSC');
+});
 
 //master consultant
-Route::get('/mconsultants/viewprofile', 'MasterConsultantsController@viewProfile')->name('viewProfileMC');
-Route::get('/mconsultants/editprofile', 'MasterConsultantsController@editProfile')->name('editProfileMC');
-Route::post('/mconsultants/storeprofile', 'MasterConsultantsController@storeProfile')->name('storeProfileMC');
-Route::get('/mconsultants/projectOverview', 'MasterConsultantsController@projectOverview')->name('projectOverviewMC');
-Route::get('/mconsultants/projectPending', 'MasterConsultantsController@projectPending')->name('projectPendingMC');
-Route::get('/mconsultants/projectOngoing', 'MasterConsultantsController@projectOngoing')->name('projectOngoingMC');
-Route::get('/mconsultants/projectCompleted', 'MasterConsultantsController@projectCompleted')->name('projectCompletedMC');
-
-Route::post('/mconsultants/saveProject', 'MasterConsultantsController@saveProject')->name('saveProjectMC');
-Route::post('/mconsultants-profile/uploadProfileImgMC', 'MasterConsultantsController@uploadProfileMC')->name('uploadProfileImgMC');
-Route::post('/mconsultants/uploadCertificationsMC', 'MasterConsultantsController@uploadCertificationsMC')->name('uploadCertificationsMC');
-Route::post('/mconsultants/updateDuedate', 'MasterConsultantsController@updateDuedate')->name('updateDuedateMC');
+Route::middleware(['ifmasterconsultant'])->group(function () {
+    Route::get('/mconsultants/viewprofile', 'MasterConsultantsController@viewProfile')->name('viewProfileMC');
+    Route::get('/mconsultants/editprofile', 'MasterConsultantsController@editProfile')->name('editProfileMC');
+    Route::post('/mconsultants/storeprofile', 'MasterConsultantsController@storeProfile')->name('storeProfileMC');
+    Route::get('/mconsultants/projectOverview', 'MasterConsultantsController@projectOverview')->name('projectOverviewMC');
+    Route::get('/mconsultants/projectPending', 'MasterConsultantsController@projectPending')->name('projectPendingMC');
+    Route::get('/mconsultants/projectOngoing', 'MasterConsultantsController@projectOngoing')->name('projectOngoingMC');
+    Route::get('/mconsultants/projectCompleted', 'MasterConsultantsController@projectCompleted')->name('projectCompletedMC');
+    
+    Route::post('/mconsultants/saveProject', 'MasterConsultantsController@saveProject')->name('saveProjectMC');
+    Route::post('/mconsultants-profile/uploadProfileImgMC', 'MasterConsultantsController@uploadProfileMC')->name('uploadProfileImgMC');
+    Route::post('/mconsultants/uploadCertificationsMC', 'MasterConsultantsController@uploadCertificationsMC')->name('uploadCertificationsMC');
+    Route::post('/mconsultants/updateDuedate', 'MasterConsultantsController@updateDuedate')->name('updateDuedateMC');
+});
 
 //business new and opportunities
 Route::get('/businessnews/list', 'BusinessOpportunityNewsController@list')->name('businessnewsList');
-Route::get('/businessnews', 'BusinessOpportunityNewsController@index')->name('businessnewsIndex');
-Route::post('/businessnews/store', 'BusinessOpportunityNewsController@store')->name('businessnewsStore');
-Route::post('/businessnews/save', 'BusinessOpportunityNewsController@saveNews')->name('saveBusinessNews');
-Route::post('/businessnews/del', 'BusinessOpportunityNewsController@delNews')->name('delBusinessNews');
-Route::get('/businessnews/retcontent/{id}', 'BusinessOpportunityNewsController@retNewsContent')->name('retNewsContent');
-Route::get('/businessnews/retNewsDetails/{id}', 'BusinessOpportunityNewsController@retNewsDetails')->name('retNewsDetails');
-Route::post('/businessnews/update', 'BusinessOpportunityNewsController@updateNews')->name('updateNews');
+//Route::group(['middleware' => ['checkusetype:5,3']], function() {
+    
+    Route::get('/businessnews', 'BusinessOpportunityNewsController@index')->name('businessnewsIndex');
+    Route::post('/businessnews/store', 'BusinessOpportunityNewsController@store')->name('businessnewsStore');
+    Route::post('/businessnews/save', 'BusinessOpportunityNewsController@saveNews')->name('saveBusinessNews');
+    Route::post('/businessnews/del', 'BusinessOpportunityNewsController@delNews')->name('delBusinessNews');
+    Route::get('/businessnews/delete/{id}', 'BusinessOpportunityNewsController@deleteNews')->name('deleteNews');
+    Route::get('/businessnews/retcontent/{id}', 'BusinessOpportunityNewsController@retNewsContent')->name('retNewsContent');
+    Route::get('/businessnews/retNewsDetails/{id}', 'BusinessOpportunityNewsController@retNewsDetails')->name('retNewsDetails');
+    Route::post('/businessnews/update', 'BusinessOpportunityNewsController@updateNews')->name('updateNews');
+//});
 
 //Staff Approval for Opportunities
-Route::get('/opportunity/approval/{status}', 'OpportunityController@approval')->name('opportunityApproval');
-Route::get('/opportunity/editApprovalBuild/{id}/{where_go}', 'OpportunityController@editApprovalBuild')->name('opportunityEditApprovalBuild');
-Route::get('/opportunity/editApprovalSellOffer/{id}/{where_go}', 'OpportunityController@editApprovalSellOffer')->name('opportunityEditApprovalSellOffer');
-Route::get('/opportunity/editApprovalBuy/{id}/{where_go}', 'OpportunityController@editApprovalBuy')->name('opportunityEditApprovalBuy');
-Route::post('/opportunity/approved', 'OpportunityController@approved')->name('opportunityApproved');
+Route::group(['middleware' => ['checkusetype:5,3']], function() {
+    Route::get('/opportunity/approval/{status}', 'OpportunityController@approval')->name('opportunityApproval');
+    Route::get('/opportunity/editApprovalBuild/{id}/{where_go}', 'OpportunityController@editApprovalBuild')->name('opportunityEditApprovalBuild');
+    Route::get('/opportunity/editApprovalSellOffer/{id}/{where_go}', 'OpportunityController@editApprovalSellOffer')->name('opportunityEditApprovalSellOffer');
+    Route::get('/opportunity/editApprovalBuy/{id}/{where_go}', 'OpportunityController@editApprovalBuy')->name('opportunityEditApprovalBuy');
+    Route::post('/opportunity/approved', 'OpportunityController@approved')->name('opportunityApproved');
+});
 Route::get('/opportunity/getCurrencyBasedID/{amount}/{original_currency}/{currency_now}', 'OpportunityController@getCurrencyBasedID')->name('getCurrencyBasedID');
 
+
 //business news
-Route::get('/businessnews/approval/{status}', 'BusinessOpportunityNewsController@approval')->name('businessNewsApproval');
-Route::get('/businessnews/editApprovalNews/{id}', 'BusinessOpportunityNewsController@editApprovalNews')->name('BusinessNewsEditApproval');
-Route::post('/businessnews/approved', 'BusinessOpportunityNewsController@approved')->name('businessNewsApproved');
+//Route::group(['middleware' => ['checkusetype:5,3']], function() {
+    Route::get('/businessnews/approval/{status}', 'BusinessOpportunityNewsController@approval')->name('businessNewsApproval');
+    Route::get('/businessnews/editApprovalNews/{id}', 'BusinessOpportunityNewsController@editApprovalNews')->name('BusinessNewsEditApproval');
+    Route::post('/businessnews/approved', 'BusinessOpportunityNewsController@approved')->name('businessNewsApproved');
+//});
 
 //rewards
-// Route::get('/rewards/approval/{status}', 'GamificationController@approval')->name('rewardApproval');
-Route::get('/rewards/approval/pending', 'GamificationController@approvalPending')->name('rewardApprovalPending');
-Route::get('/rewards/approval/approved', 'GamificationController@approvalApproved')->name('rewardApprovalApproved');
-Route::post('/rewards/approved', 'GamificationController@approved')->name('rewardApproved');
+Route::middleware(['ifmasterconsultant'])->group(function () {
+    // Route::get('/rewards/approval/{status}', 'GamificationController@approval')->name('rewardApproval');
+    Route::get('/rewards/approval/pending', 'GamificationController@approvalPending')->name('rewardApprovalPending');
+    Route::get('/rewards/approval/approved', 'GamificationController@approvalApproved')->name('rewardApprovalApproved');
+    Route::post('/rewards/approved', 'GamificationController@approved')->name('rewardApproved');
+});
 
 //opportunities
 Route::get('/opportunity', 'OpportunityController@index')->name('opportunityIndex');
@@ -263,6 +369,7 @@ Route::get('/opportunity/editSellOffer/{id}', 'OpportunityController@editSellOff
 Route::post('/opportunity/selloffer/create', 'OpportunityController@storeSellOffer')->name('opportunityStoreSellOffer');
 
 Route::get('/opportunity/deleteSell/{id}', 'OpportunityController@deleteSell')->name('opportunityDeleteSell');
+Route::get('/opportunity/approvedOpportunity/{id}', 'OpportunityController@approvedOpportunity')->name('approvedOpportunity');
 
 Route::get('/opportunity/buy', 'OpportunityController@buyNew')->name('opportunityBuy');
 Route::get('/opportunity/editBuy/{id}', 'OpportunityController@editBuy')->name('opportunityEditBuy');
@@ -271,9 +378,14 @@ Route::post('/opportunity/buy/create', 'OpportunityController@storeBuy')->name('
 Route::get('/opportunity/deleteBuy/{id}', 'OpportunityController@deleteBuy')->name('opportunityDeleteBuy');
 
 Route::get('/opportunity/explore', 'OpportunityController@explore')->name('opportunityExploreIndex');
-Route::get('/opportunity/details', 'OpportunityController@details')->name('opportunityDetailsIndex');
+
+Route::group(['middleware' => ['checkusetype:5,3,4,2']], function() {
+    Route::get('/opportunity/details', 'OpportunityController@details')->name('opportunityDetailsIndex');
+});
+
 Route::get('/opportunity/hashtag/{hashTag}', 'OpportunityController@getHashtag')->name('opportunityExploreHashtag');
 
+Route::get('/opportunity/exploreAll/{key}', 'OpportunityController@exploreAll')->name('opportunityExploreAll');
 Route::get('/opportunity/exploreKey/{key}', 'OpportunityController@exploreKey')->name('opportunityExploreKey');
 Route::get('/opportunity/exploreCountry/{key}', 'OpportunityController@exploreCountry')->name('opportunityExploreCountry');
 Route::get('/opportunity/exploreMy/{industry}/{business}', 'OpportunityController@exploreMy')->name('opportunitySearchMy');
@@ -286,6 +398,9 @@ Route::post('/approveprofile/viewUser', 'CompanyprofileController@viewUser')->na
 Route::get('/approveprofile/viewUser', 'CompanyprofileController@viewUser')->name('viewingProfileUserHome');
 Route::get('/profile/viewer/{companyId}', 'CompanyprofileController@viewer')->name('viewingUserProfile');
 Route::get('/profile/view', 'CompanyprofileController@view')->name('viewingProfile');
+Route::get('/profile/viewprofile/{key}', 'CompanyprofileController@view_profile')->name('viewingProfileExplore');
+
+Route::get('/explore/check_if_sent_mail', 'SentMailViewProfileController@check_if_sent_mail')->name('checkIfSentMail');
 
 Route::get('/profile/edit', 'CompanyprofileController@edit')->name('editProfile');
 Route::get('/profile/create', 'CompanyprofileController@edit')->name('editcreateProfile');
@@ -323,15 +438,17 @@ Route::get('/profile/printPreviewTokenSpent/{companyId}', 'CompanyPaymentControl
 
 Route::post('/profile/editFileExpiryDate', 'CompanyprofileController@updateFileExpiryDate')->name('updateFileExpiry');
 
-//configuration routes
-Route::get('/sysconfig', 'ConfigurationController@index')->name('sysIndex');
-Route::post('/sysconfig/update', 'ConfigurationController@update')->name('sysUpdate');
-Route::get('/sysconfig/assignConsultants', 'ConfigurationController@assignConsultants')->name('assignConsultants');
-Route::post('/sysconfig/storeConsultants', 'ConfigurationController@storeConsultants')->name('storeConsultants');
-Route::post('/sysconfig/editConsultants', 'ConfigurationController@editConsultants')->name('editConsultants');
-Route::post('/sysconfig/delConsultants', 'ConfigurationController@delConsultants')->name('delConsultants');
-Route::get('/sysconfig/reportTemplate', 'ConfigurationController@reportGenTemplates')->name('reportTemplates');
-Route::post('/sysconfig/reportupdate', 'ConfigurationController@reportUpdate')->name('rep_update');
+Route::middleware(['ifsuperadmin'])->group(function () {
+    //configuration routes
+    Route::get('/sysconfig', 'ConfigurationController@index')->name('sysIndex');
+    Route::post('/sysconfig/update', 'ConfigurationController@update')->name('sysUpdate');
+    Route::get('/sysconfig/assignConsultants', 'ConfigurationController@assignConsultants')->name('assignConsultants');
+    Route::post('/sysconfig/storeConsultants', 'ConfigurationController@storeConsultants')->name('storeConsultants');
+    Route::post('/sysconfig/editConsultants', 'ConfigurationController@editConsultants')->name('editConsultants');
+    Route::post('/sysconfig/delConsultants', 'ConfigurationController@delConsultants')->name('delConsultants');
+    Route::get('/sysconfig/reportTemplate', 'ConfigurationController@reportGenTemplates')->name('reportTemplates');
+    Route::post('/sysconfig/reportupdate', 'ConfigurationController@reportUpdate')->name('rep_update');
+});
 
 //mailbox
 Route::post('/mailbox/notification', 'MailboxController@notification')->name('emailNotification');
@@ -340,6 +457,7 @@ Route::get('/mailbox/compose', 'MailboxController@compose')->name('mailCompose')
 //Route::post('/mailbox/createCompose', 'MailboxController@createCompose')->name('mailCreateCompose');
 //Route::get('/mailbox/createCompose', 'MailboxController@createCompose')->name('mailCreateCompose');
 Route::post('/mailbox/storeCompose', 'MailboxController@storeCompose')->name('mailStoreCompose');
+Route::post('/mailbox/storeCompose2', 'MailboxController@storeCompose2')->name('mailStoreCompose2');
 Route::get('/mailbox/sentMail', 'MailboxController@sentMail')->name('sentMail');
 
 //buying option
@@ -379,8 +497,10 @@ Route::post('/reports/topUpTokens', 'ReportsController@topUpTokens')->name('repo
 Route::post('/currency/accountUpdate', 'CurrencyController@updateAccount')->name('updateCurrency');
 
 //Audti Trail Log
-Route::post('/auditTrail/log', 'AuditTrailerLogController@index')->name('saveAuditTrailLog');
-Route::get('/auditTrailLog/view', 'AuditTrailerLogController@view')->name('viewAuditTrailLog');
+Route::middleware(['ifsuperadmin'])->group(function () {
+    Route::post('/auditTrail/log', 'AuditTrailerLogController@index')->name('saveAuditTrailLog');
+    Route::get('/auditTrailLog/view', 'AuditTrailerLogController@view')->name('viewAuditTrailLog');
+});
 
 //report request
 Route::get('/reports/requestUpdate/{id}', 'RequestReportController@requestCompanyUpdate')->name('requestCompanyUpdate');
@@ -412,10 +532,18 @@ $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // USER CORE HISTORY
-Route::get('/coreAccountsHistory', 'HomeController@coreAccountsHistory')->name('coreAccountsHistory');
+Route::middleware(['ifsuperadmin'])->group(function () {
+    Route::get('/coreAccountsHistory', 'HomeController@coreAccountsHistory')->name('coreAccountsHistory');
+});
 
 $this->post('authlogin', 'Auth\LoginController@login')->name('authlogin');
 $this->post('login', 'Auth\AuthController@authenticate')->name('loginauth');
 
 //API 
-Route::get('refinitive', 'Api\ThomsonApiController@refinitive')->name('refinitive');
+Route::group(['middleware' => ['checkusetype:4']], function() {
+    Route::get('refinitive', 'Api\ThomsonApiController@refinitive')->name('refinitive');
+});
+
+//whatsapp integration
+// $this->post('/waintegration', 'ApiTokenController@waIntegration')->name('waIntegration');
+// Route::get('/waintegration', 'ApiTokenController@waIntegrationget')->name('waIntegrationget');

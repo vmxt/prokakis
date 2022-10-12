@@ -318,8 +318,8 @@ th {
             $('#system_data').DataTable({
                  "drawCallback": function( settings ) {
                     
-            
-                $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
+        		
+        		    $( ".datepicker" ).datepicker({ dateFormat: "yy-mm-dd" });
                 },
             });
 

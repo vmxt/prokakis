@@ -17,7 +17,7 @@
 
             {{ csrf_field() }}
 
-            <h3 class="font-green"> Add User </h3>
+            <h3 class="font-green"> <b>ADD USER</b> </h3>
 
             <input type="hidden" name="user_type" value="8">
 

@@ -18,7 +18,7 @@
     <div class="login">
         <!-- BEGIN LOGO -->
         <div class="logo">
-            <img src="public/images/smallLogo2.png" class="css-class" alt="Intellinz Logo">
+            <img src="public/images/smallLogo2.png" class="css-class" alt="Prokakis Logo">
         </div>
         <!-- END LOGO -->
         <div class="content">

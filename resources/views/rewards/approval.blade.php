@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('public/grid/jquery.dataTables.min.css') }}"> --}}
     <link rel="stylesheet" href="{{asset('public/css/opporIndex.css')}}">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
@@ -97,7 +95,7 @@ th {
                                         <th>Earned Amount</th>
                                         <th>Earned Point</th>
                                         <th>Last Update</th>
-                                        <th>Action</th>
+                                        <th >Action</th>
                                     </tr>
                                     </thead>
                                     
@@ -113,7 +111,7 @@ th {
                                         <td><p> <?php echo $b->earned_amount; ?></p></td>
                                         <td><p> <?php echo $b->earned_points; ?></p></td>
                                         <td><p> <?php echo $b->updated_at; ?></p></td>
-                                        <td class="btn">
+                                        <td class="btn" style="width:100%">
                                             <a href="#" id="a_bus_news_{{ $b->id }}"  onclick="approvedAward('<?=$b->id ?>')" 
                                                 class="btn btn-primary"
                                                 style="color: white">Approved
@@ -157,7 +155,7 @@ th {
             responsive: true,
             columnDefs: [ 
                 { targets:"_all", orderable: false },
-                { targets:[0,1,2,3,4,5], className: "desktop" },
+                { targets:[0,1,2,3,4,5, 6], className: "desktop" },
                 { targets:[0,1], className: "tablet, mobile" }
             ]
             });

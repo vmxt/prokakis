@@ -635,7 +635,7 @@
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">
                                         <div class="alert alert-info" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
-                                                <strong>Intellinz members</strong> are three times more likely
+                                                <strong>Prokakis members</strong> are three times more likely
                                                 to engage with you if your company profile is over 30% complete.
                                                 Be sure to include accurate information.
                                             </p>
