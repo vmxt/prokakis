@@ -7,7 +7,7 @@ return [
     'options' => [
         
     'er_api' => 'https://er.app-prokakis.com/',
-	'credit_point' => 0.1,
+	'credit_point' => 0.12,
 
         'referral_point' => 0.01,
 

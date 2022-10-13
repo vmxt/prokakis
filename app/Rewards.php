@@ -201,17 +201,18 @@ class Rewards
     {
       $totalPoints = $this->setTotalCredits();
       $points = 0;
-      if($totalPoints < 3){
-        $points = $totalPoints * 0.12;
-      }elseif($totalPoints < 6 && $totalPoints >= 3){
-        $points = $totalPoints * 0.12;
-      }elseif($totalPoints < 120 && $totalPoints >= 6){
-        $points = $totalPoints * 0.72;
-      }elseif($totalPoints >= 120 ){
-        $points = $totalPoints * 14.4;
-      }
-      return $points;
-      // return ($totalPoints * Config::get('constants.options.credit_point')); //0.1
+      // if($totalPoints < 3){
+      //   $points = $totalPoints * 0.12;
+      // }elseif($totalPoints < 6 && $totalPoints >= 3){
+      //   $points = $totalPoints * 0.12;
+      // }elseif($totalPoints < 120 && $totalPoints >= 6){
+      //   $points = $totalPoints * 0.72;
+      // }elseif($totalPoints >= 120 ){
+      //   $points = $totalPoints * 14.4;
+      // }
+      // return $points;
+      // return ($totalPoints * Config::get('constants.options.credit_point')); //0.12
+      return 50;
     }
 
     public function getTotalPointsScore()
@@ -234,9 +235,9 @@ class Rewards
       $n = $this->getTotalPointsScore();
       $str = 0;
       //echo $n; exit;
-       if( $n >= 50 && $n < 150 ){
+       if( $n >= 50 && $n < 200 ){
           $str = 1; //"silver";
-       } elseif($n >= 150 && $n < 500) { 
+       } elseif($n >= 200 && $n < 500) { 
          $str = 2; //"gold";
        } elseif($n >= 500){
           $str = 3; //"platinum";
@@ -252,28 +253,28 @@ class Rewards
     $n = $this->getTotalPointsScore();
     //echo  $n; exit;
     $str = 0;
-     if($n >= 50 && $n < 150 ){
-        $str = (150 - $n);
-      } elseif($n >= 150 && $n < 500) {
+     if($n >= 50 && $n < 200 ){
+        $str = (200 - $n);
+      } elseif($n >= 200 && $n < 500) {
         $str = (500 - $n);
       } elseif($n >= 500){
         $str = "Reached Max";
       } else{
-        $str = 50;
+        $str = (50 - $n);
       }
     return $str;
   }
 
 
   //get the advisor level
-  public function getAdvisorTips()
+  public function getAdvisorTips($n)
   {
-      $n = $this->getTotalPointsScore();
+      // $n = $this->getTotalPointsScore();
       $str = "";
         if($n >= 50 && $n < 150 ){
-          $str = "Or wait for the gold advisor level to be able to redeem USD $375."; 
+          $str = "Or wait for the gold advisor level to be able to redeem USD $300."; 
         } elseif($n >= 150 && $n < 500 ){
-         $str = "Or wait for the platinum advisor level to be able to redeem USD $1750"; 
+         $str = "Or wait for the platinum advisor level to be able to redeem USD $1500"; 
         } elseif($n >= 500){
           $str = "You have reached to maximum level.";
         }else{
@@ -288,13 +289,13 @@ class Rewards
    {
        $n = $this->getTotalPointsScore();
        $str = 0;
-       if($n >= 50 && $n < 150 ){
-           $str = 100.00; 
-       }elseif($n >= 150 && $n < 500 ){
+       if($n >= 50 && $n < 200 ){
+           $str = 50.00; 
+       }elseif($n >= 200 && $n < 500 ){
           //code here
-          $str = 375.00; 
+          $str = 300.00; 
        } elseif($n >= 500){
-           $str = 1750.00;
+           $str = 1500.00;
        }
        return $str;
    }

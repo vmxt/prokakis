@@ -172,8 +172,8 @@ Route::get('/psswrd-set', 'UpdatePasswordController@setData')->name('setPassword
 //for updating tour
 Route::post('/updateTour', 'TourDetailController@updateTour')->name('updateTour');
 
-//points
-Route::get('/rewards', 'TokenConfirmController@getCreditPoints')->name('CompanyCreditPoints');
+// //points
+// Route::get('/rewards', 'TokenConfirmController@getCreditPoints')->name('CompanyCreditPoints');
 
 Route::get('/api/v1/get-opportunities/{accessToken}', 'ApiTokenController@getOpportunities')->name('GetOpportunities');
 

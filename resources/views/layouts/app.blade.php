@@ -1590,7 +1590,7 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
                                         </li>
 
-                                        <?php }elseif($userType == 3){ ?>
+                                        <?php }elseif($userType != 3){ ?>
 
                                                 <li aria-haspopup="true" class="menu-dropdown classic-menu-dropdown ">
 

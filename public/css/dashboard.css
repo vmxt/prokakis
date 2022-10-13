@@ -2449,7 +2449,7 @@
 }
 .bootstrap .btn-dark {
   color: #fff;
-  background-color: #343a40;
+  background-color: #000000;
   border-color: #343a40;
 }
 .bootstrap .btn-dark:hover {
@@ -5527,7 +5527,7 @@
   background-color: #dae0e5 !important;
 }
 .bootstrap .bg-dark {
-  background-color: #343a40 !important;
+  background-color: #000000 !important;
 }
 .bootstrap a.bg-dark:focus,
 .bootstrap a.bg-dark:hover,

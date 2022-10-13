@@ -238,29 +238,35 @@
 
                                         <br>
 
-                                        <div class="alert bg-dark text-company" style="width: 100%; overflow: hidden; margin-left: 0px !important;">
+                                        <div class="alert bg-dark text-company" style="overflow: hidden; ">
 
-                                            <table>
-                                                <tr>
-                                                  <td valign="top" class="text-white">  
-                                                <b class="text-company">How Do I Earn Intellinz Reward Points?</b> <br />
-                                                - Get 0.12 points for every credit purchased. <br />
-                                                - Introduce and share to a friend or <br /> business associate and get 0.05 points. <br />
-                                                - Earn 0.01 points passively every time your <br /> referrals purchase 1 credit for Intellinz services. <br />
-                                                  </td>
+                                            <div class="col-sm-6">
+                                                <div class="card" >
+                                                  <div class="card-body">
+                                                    <h5 class="card-title"><b class="text-company">How Do I Earn Intellinz Reward Points?</b></h5>
+                                                        <ul class="text-white" style="line-height: 25px">
+                                                            <li>Get 0.12 points for every credit purchased.</li>
+                                                            <li>Introduce and share to a friend or business associate and get 0.05 points.</li>
+                                                            <li>Earn 0.01 points passively every time your. referrals purchase 1 credit for Intellinz services</li>
+                                                        </ul>
+                                                  </div>
+                                                </div>
+                                            </div>
 
-                                                  <td valign="top" class="text-white">  
-                                                 <b class="text-company">Cashing in Reward Points?</b> <br />
-                                                    - 50 Points = Advisor Level Worth USD$100 <br />
-                                                    - 150 Points = Gold Advisor Worth USD$375 <br />
-                                                    - 500 Points = Platinum Advisor Worth USD$1750 <br />
-                                                    - ONLY ADVISORS LEVEL CAN REDEEM POINTS <br />
-                                                 </td>
 
-                                                </tr> 
-                                                  
-                                            </table>
-
+                                            <div class="col-sm-6">
+                                                <div class="card" >
+                                                  <div class="card-body">
+                                                    <h5 class="card-title"><b class="text-company">Cashing in Reward Points?</b></h5>
+                                                        <ul class="text-white" style="line-height: 25px;">
+                                                            <li>50 Points = Advisor Level Worth USD$50.</li>
+                                                            <li>200 Points = Gold Advisor Worth USD$300.</li>
+                                                            <li>500 Points = Platinum Advisor Worth USD $1500</li>
+                                                            <li>ONLY ADVISORS LEVEL CAN REDEEM POINTS</li>
+                                                        </ul>
+                                                  </div>
+                                                </div>
+                                            </div>
                                        </div>
 
 
@@ -288,37 +294,27 @@
                                         </div>        
 
                                         <table class="table table-hover table-light">
-
-                                        
-
                                             <tr>
-
                                                 <td style="width:70%">
-
-
-
                                                         <div class="card" style="overflow: hidden;">
-
                                                             <div class="card-header">
-
-                                                        
                                                                     
-                                                                    <span class="bold " style="color:black"">Your total credit is {{ $totalCreditPurchased }}. <br /></span>
+                                                                    <span class="bold " style="color:black">Your total credit is {{ $totalCreditPurchased }}. <br /></span>
 
                                                                     <hr>
 
-                                                                    <span class="bold " style="color:black"">Your total number of referrals is {{ $totalNumberOfReferrals }}. <br /></span>
+                                                                    <span class="bold " style="color:black">Your total number of referrals is {{ $totalNumberOfReferrals }}. <br /></span>
 
 
                                                                     <hr>
 
 
-                                                                    <span class="bold " style="color:black"">Your points on referrals credit purchased a combined total of {{ $totalNumberOfReferralsPurchasedPoints }}. <br /></span>
+                                                                    <span class="bold " style="color:black">Your points on referrals credit purchased a combined total of {{ $totalNumberOfReferralsPurchasedPoints }}. <br /></span>
 
                                                                     
                                                                     <hr>
 
-                                                                    <span class="bold " style="color:black"">Your points on referrals report request a combined total of {{ $totalNumberOfReferralsReportsPoints }}. <br /></span>
+                                                                    <span class="bold " style="color:black">Your points on referrals report request a combined total of {{ $totalNumberOfReferralsReportsPoints }}. <br /></span>
 
                                                                     
                                                                     <br /><br />
@@ -348,7 +344,7 @@
 
                                                         <div class="card-header">
 
-                                                            <center><span class="bold uppercase " style="color:black"">TOTAL POINTS EARNED</span>
+                                                            <center><span class="bold uppercase " style="color:black">TOTAL POINTS EARNED</span>
                                                             </center>
 
                                                         </div>
@@ -365,10 +361,9 @@
                                                     </div>
 
 
-                                                    @if( $nextScoreLevel >= 50 || $nextScoreLevel == 'Reached Max')
                                                         <div class="card" style="overflow: hidden;">
                                                             <div class="card-header">
-                                                                <center><span class="bold uppercase " style="color:black"">NEEDED POINTS TO NEXT LEVEL</span>
+                                                                <center><span class="bold uppercase " style="color:black">POINTS NEEDED TO NEXT LEVEL</span>
                                                                 </center>
                                                             </div>
 
@@ -377,9 +372,16 @@
                                                                 <br/>
                                                             </div>
                                                         </div>
-                                                    @endif
 
-                                                    <div class="card" style="overflow: hidden;">
+                                                    <div class="card">
+                                                        <div class="card-header" style="text-align: center;"> 
+                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                                REDEEM
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style="display: none;" class="card" style="overflow: hidden;">
                                                         @if($countAd > 0)
                                                             <div class="card-header"> 
 
@@ -399,19 +401,75 @@
                                                                     </form>    
                                                                     </center>
                                                                 @else  
-                                                                <center>
+                                                              <!--   <center>
                                                                 <button class="btn btn-primary" type="button" disabled>REDEEM USD $100 NOW</button> 
-                                                                </center>
+                                                                </center> -->
                                                                 @endif 
+                                                               
+
                                                             </div>
                                                         @endif
-                                                        <div class="card-body center" style="text-align: center;">
-                                                           {{ $advisorTips }}
-                                                        </div>
+                                                   
 
                                                     </div>
 
-
+                    <!-- MODAL FOR REDEEM -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Redeem Points Earned</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                        <div class="modal-body col-sm-12" >
+                            <div class="col-sm-4">
+                                <div class="card" >
+                                  <div class="card-body">
+                                    <h5 class="text-company card-title "><b>Advisor Level</b></h5>
+                                    <p class="card-text">{{ $advisorTips1 }}</p>
+                                    @if($totalScore >= 50)
+                                    <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
+                                        {{ csrf_field() }}  
+                                        <input type="hidden" name="amount_to_redeem" value="{{ $amountToRedemp }}">
+                                        <input type="hidden" name="advisor_level" value="{{ $amountToRedemp }}">
+                                        <input type="button" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD ${{ $amountToRedemp }} NOW">
+                                    </form>
+                                    @else
+                                        <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>REDEEM USD $50 NOW</button> 
+                                    @endif
+                                    <!-- <a href="#" class="btn btn-primary" style="font-size: 12px;">REDEEM USD $50 NOW</a> -->
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="text-company card-title"><b>Gold Advisor</b></h5>
+                                    <p class="card-text">{{ $advisorTips2 }}</p>
+                                    <a href="#" class="btn btn-primary" style="font-size: 12px;">REDEEM USD $300 NOW</a>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <h5 class="text-company card-title"><b>Platinum Advisor</b></h5>
+                                    <p class="card-text">{{ $advisorTips3 }}</p>
+                                    <a href="#" class="btn btn-primary" style="font-size: 12px;">REDEEM USD $1500 NOW</a>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                                    <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- MODAL FOR REDEEM -->
 
                                                 </td>
 
