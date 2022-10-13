@@ -73,7 +73,21 @@ class CompanyContactsController extends Controller
                 
                 return redirect('profile/contacts')->with('status', 'Company contact information has been succesfully saved.');
              }
-           
+             else{
+                $com_concat = CompanyContacts::create([
+    			 	'user_id'=>$user_id,
+    			 	'company_id'=>$company_id,
+    			 	'email_address'=>$request->input('company_email'),
+    			 	'mobile_number'=>$request->input('company_mobile'),
+    			 	'office_number'=>$request->input('company_phone'),
+    			 	'added_by' => $user_id
+    			 ]);
+    			 AuditLog::ok(array($user_id, 'contacts', 'add', 'new info'));
+    			 return redirect('profile/contacts')->with('status', 'Company contact information has been succesfully saved.');
+             }
+         }
+         else{
+             return redirect('profile/contacts')->with('status', 'Failed to save.');
          }
       }
     }

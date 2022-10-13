@@ -1,5 +1,5 @@
 <?php
-https://github.com/ajaxorg/ace/wiki/Default-Keyboard-Shortcuts
+
 namespace App;
 
 use App;
@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 
-class OppIndustry extends Model
+class XeroTokenInfo extends Model
 {
-     
-     protected $table = 'opp_industry';
+
+     protected $table = 'xero_token_info';
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +19,7 @@ class OppIndustry extends Model
      * @var array
      */
     protected $fillable = [
-        'text', 'image', 'type', 'opp_type', 'active', 'updated_at', 'created_at'
+        'connection_id', 'token', 'expires', 'tenant_id', 'refresh_token', 'id_token', 'created_at', 'updated_at', 'status'
     ];
 
     /**
@@ -28,7 +28,6 @@ class OppIndustry extends Model
      * @var array
      */
     protected $hidden = [
-        'id',  
+       'id' 
     ];
-   
 }

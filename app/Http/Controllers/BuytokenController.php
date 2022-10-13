@@ -57,7 +57,7 @@ class BuytokenController extends Controller
                         //recurring
                         $tokenID=$result['TOKEN'];
                         $recurrStartDate = date('Y-m-d', strtotime(' + 1 months')); 
-                        $recurrStartDate = date('Y-m-d', strtotime($recurrStartDate.' + 14 days')); 
+                        //$recurrStartDate = date('Y-m-d', strtotime($recurrStartDate.' + 14 days')); 
                         if(strtolower($doEx['ACK']) == 'success') 
                         {
 

@@ -30,7 +30,7 @@ class OngoingMonitoringController extends Controller
     {
         $user_id = Auth::id(); 
         $company_id_result = CompanyProfile::getCompanyId($user_id);
-        $listData = ProcessedReport::where('requester_company_id', $company_id_result)->where('report_link', NULL)->get();
+        $listData = ProcessedReport::where('requester_company_id', $company_id_result)->where('report_link', NULL)->orderBy("created_at","desc")->get();
         return view('monitoring.list', compact('listData'));
     }
 

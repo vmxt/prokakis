@@ -11,6 +11,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\User;
 use App\CoreLoginHistory;
+use App\UserHistory;
 use Carbon\Carbon;
 class AuthController extends Controller
 {
@@ -68,6 +69,19 @@ class AuthController extends Controller
                     'user_email'    => $user->email
                 ];
                 $details = CoreLoginHistory::create($data);
+            }
+            else{
+                $data = [
+                    'event'      => "Logged In",
+                    'url'        => request()->fullUrl(),
+                    'ip_address' => request()->getClientIp(),
+                    'user_agent' => request()->userAgent(),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                    'user_id'    => Auth::id(),
+                    'user_email'    => $user->email
+                ];
+                $details = UserHistory::create($data);
             }
                 return redirect()->intended('home');
         }

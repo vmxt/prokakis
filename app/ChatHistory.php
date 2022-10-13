@@ -42,10 +42,10 @@ class ChatHistory extends Model
                         ->where('head.opp_type',  'build')
                         ->where('head.is_deleted', 0)
                         ->where(function ($query) use ( $company_id) {
-                            $query->where('opp.company_id', '=', $company_id);
-                            $query->orWhere('head.sender', '=', $company_id);
-                        })
-                        ->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
+            			    $query->where('opp.company_id', '=', $company_id);
+            			    $query->orWhere('head.sender', '=', $company_id);
+            			})
+            			->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
                         ->where('ch.status',0)
                         ->count();    
     }
@@ -59,9 +59,9 @@ class ChatHistory extends Model
                         ->where('head.opp_type',  'build')
                         ->where('head.is_deleted', 0)
                         ->where(function ($query) use ( $company_id) {
-                            $query->where('opp.company_id', '=', $company_id);
-                            $query->orWhere('head.sender', '=', $company_id);
-                        })
+            			    $query->where('opp.company_id', '=', $company_id);
+            			    $query->orWhere('head.sender', '=', $company_id);
+            			})
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
                         ->get();     
@@ -77,10 +77,10 @@ class ChatHistory extends Model
                         ->where('head.is_deleted', 0)
                         //->where('opp.company_id','=',$company_id)
                         ->where(function ($query) use ( $company_id) {
-                            $query->where('opp.company_id', '=', $company_id);
-                            $query->orWhere('head.sender', '=', $company_id);
-                        })
-                        ->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
+            			    $query->where('opp.company_id', '=', $company_id);
+            			    $query->orWhere('head.sender', '=', $company_id);
+            			})
+            			->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
                         ->where('ch.status',0)
                         ->count(); 
 
@@ -98,9 +98,9 @@ class ChatHistory extends Model
                         ->where('head.is_deleted', 0)
                         //->where('opp.company_id','=',$company_id)
                         ->where(function ($query) use ( $company_id) {
-                            $query->where('opp.company_id', '=', $company_id);
-                            $query->orWhere('head.sender', '=', $company_id);
-                        })
+            			    $query->where('opp.company_id', '=', $company_id);
+            			    $query->orWhere('head.sender', '=', $company_id);
+            			})
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
                         ->get();
@@ -116,10 +116,10 @@ class ChatHistory extends Model
                         ->where('head.opp_type', '=', 'buy')
                         ->where('head.is_deleted', 0)
                         ->where(function ($query) use ( $company_id) {
-                            $query->where('opp.company_id', '=', $company_id);
-                            $query->orWhere('head.sender', '=', $company_id);
-                        })
-                        ->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
+            			    $query->where('opp.company_id', '=', $company_id);
+            			    $query->orWhere('head.sender', '=', $company_id);
+            			})
+            			->whereRaw(" if(head.sender = ".$company_id.", action = 2, action = 1) ")
                         ->where('ch.status',0)
                         ->count(); 
             
@@ -134,9 +134,9 @@ class ChatHistory extends Model
                         ->where('head.opp_type', '=', 'buy')
                         ->where('head.is_deleted', 0)
                         ->where(function ($query) use ( $company_id) {
-                            $query->where('opp.company_id', '=', $company_id);
-                            $query->orWhere('head.sender', '=', $company_id);
-                        })
+            			    $query->where('opp.company_id', '=', $company_id);
+            			    $query->orWhere('head.sender', '=', $company_id);
+            			})
                         ->groupBy('sender','receiver')
                         ->orderBy('created_at','desc')
                         ->get();
@@ -148,9 +148,9 @@ class ChatHistory extends Model
             ChatHistory::where('head_id', $head_id)
                 ->where('status', 0)
                 ->count();*/
-        $user_id = Auth::id();  
-        $company_id = CompanyProfile::getCompanyId($user_id);
-        
+        $user_id = Auth::id();	
+		$company_id = CompanyProfile::getCompanyId($user_id);
+		
         return DB::table("chat_history as ch")
                         ->select( 'head.id as head_id', 'ch.status', 'head.sender', 'head.receiver', 'ch.text', 'ch.created_at' )
                         ->join('chat_history_head as head', 'head.id', "=", 'ch.head_id')

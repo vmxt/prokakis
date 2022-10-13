@@ -168,11 +168,11 @@ class CompanyOwningRemovalController extends Controller
 
     public function adminReqList()
     {
-        if(User::getEBossStaffTrue(Auth::id()) == true)
-        {
+        //if(User::getEBossStaffTrue(Auth::id()) == true)
+    //    {
            $rs = CompanyOwningRemoval::where('status', 1)->get();
            return view('ownrem.adminList', compact('rs'));
-        }
+      //  }
     }
 
     public function adminApproveCompanyReq(Request $request)
@@ -204,7 +204,7 @@ class CompanyOwningRemovalController extends Controller
                                 $usr = User::find($reqUserId);
                                 $urlvc = url('login');
                             
-                                $subject = "Prokakis Request of Company Transfer";	
+                                $subject = "Intellinze Request of Company Transfer";	
                                 $content = "
                                 Hi $usr->firstname,
                                 <br /><br />
@@ -215,15 +215,15 @@ class CompanyOwningRemovalController extends Controller
                                 Description: $compToGet->description <br />
                             
                                 <br />
-                                To verify you may login to Prokakis and open 'Switch a Company' : $urlvc <br />
+                                To verify you may login to Intellinze and open 'Switch a Company' : $urlvc <br />
                                 <br />
 
                                 Thank you, <br />
-                                Prokakis Admin
+                                Intellinze Admin
                                 ";
 
                                 //$usr->email
-                                Mailbox::sendMail_v2($content, 'it@ebos-sg.com', $subject, '');
+                                Mailbox::sendMail_v2($content, $usr->email, $subject, '');
                             }
 
                         }

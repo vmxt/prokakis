@@ -58,6 +58,7 @@ use App\InOutUsers;
 
 use App\SAaccess;
 use App\CoreLoginHistory;
+use App\UserHistory;
 
 
 class HomeController extends Controller {
@@ -265,7 +266,7 @@ public function index() {
 		$followingCount = $company_follow->count();
 		$followerCount = CompanyFollow::checkFollowerCompany($company_id_result);
 		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
-		$topBusinessNewsOpportunity = BusinessOpportunitiesNews::orderBy('updated_at','desc')->limit(5)->get();
+		$topBusinessNewsOpportunity = BusinessOpportunitiesNews::where('status', '1')->orderBy('updated_at','desc')->limit(5)->get();
 
 		$profileAvatar = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.profile'), 1);
 
@@ -785,8 +786,20 @@ public function index() {
     }
 
     function coreAccountsHistory(){
-    	$result = CoreLoginHistory::all();
+    	$result = CoreLoginHistory::orderBy("created_at","desc")->get();
     	return view('dashboard.userhistory', compact('result'));
+    }
+    
+    public function userAccountsHistory(Request $request){
+    	$result = UserHistory::where("event", "!=" , "");
+    	if( $request["type"] != "All" && $request["type"] != "" ){
+    	    $result = $result->where("event", "=" , $request["type"]);
+    	}
+    	$result = $result->orderBy("created_at","desc")->get();
+    	
+    	$type = $request["type"];
+    	
+    	return view('dashboard.loggedinhistory', compact('result', 'type'));
     }
 
 }

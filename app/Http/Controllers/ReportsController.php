@@ -104,7 +104,7 @@ class ReportsController extends Controller
 
         
 
-        $listData = RequestReport::where('company_id', $company_id_result)->get();
+        $listData = RequestReport::where('company_id', $company_id_result)->orderBy("created_at","desc")->get();
 
         $viewedMe = WhoViewedMe::where('presenter_company_id', $company_id_result)->get();
 
@@ -159,7 +159,7 @@ class ReportsController extends Controller
 
                             Session::put('PaypalToken', $rs['TOKEN']);
                             sleep(2);
-                            if(!is_null( Session::get('TopUp')  ) && Session::get('TopUp') != 'null' )
+                            if(!is_null( session('TopUp')  ) )
                             return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
 
                         }    
@@ -182,7 +182,7 @@ class ReportsController extends Controller
 
                           Session::put('PaypalToken', $rs['TOKEN']);
                           sleep(2);
-                          if(!is_null( Session::get('TopUp')) && Session::get('TopUp') != 'null'  )
+                          if(!is_null( session('TopUp')  ) )
                           return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN'].'&tp='.Session::get('TopUp') );
                        
                         } 
@@ -204,7 +204,7 @@ class ReportsController extends Controller
 
                             Session::put('PaypalToken', $rs['TOKEN']);
                             sleep(2);
-                            if(!is_null( Session::get('TopUp')  ) )
+                            if(!is_null( session('TopUp')  ) )
                             return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
                             
                         } 
@@ -226,7 +226,7 @@ class ReportsController extends Controller
 
                             Session::put('PaypalToken', $rs['TOKEN']);
                             sleep(2);
-                            if(!is_null( Session::get('TopUp')  ) )
+                            if(!is_null( session('TopUp')  ) )
                             return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
 
                         }   
@@ -248,7 +248,7 @@ class ReportsController extends Controller
 
                             Session::put('PaypalToken', $rs['TOKEN']);
                             sleep(2);
-                            if(!is_null(Session::get('TopUp')  ) )
+                            if(!is_null( session('TopUp')  ) )
                             return redirect(Config::get('constants.options.PAYPAL_API_REDIRECT').$rs['TOKEN']);
 
                         } 

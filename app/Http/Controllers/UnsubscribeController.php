@@ -121,6 +121,3 @@ class UnsubscribeController extends Controller
 
 
 }
-
-
-

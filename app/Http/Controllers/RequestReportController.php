@@ -540,7 +540,7 @@ class RequestReportController extends Controller {
 
 		$company_id_result = CompanyProfile::getCompanyId($user_id);
 
-		$listData = RequestReport::where('source_company_id', $company_id_result)->get();
+		$listData = RequestReport::where('source_company_id', $company_id_result)->orderBy("created_at","desc")->get();
 
 		return view('reports.requesters', compact('listData'));
 

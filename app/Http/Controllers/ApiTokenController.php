@@ -444,7 +444,23 @@ class ApiTokenController extends Controller
 
     }
 
+    public function waIntegration(Request $request, $token){
+        //MHGmPClSOUpn9K5b2xNEA0ANLu0QUAqRDtjP
+        // mail("darylyrad.cabz@gmail.com","My subject12",$request);
+    //   return true;
+        echo json_encode("MHGmPClSOUpn9K5b2xNEA0ANLu0QUAqRDtjP"); 
+      
+        //return true;
+    }
+    public function waIntegrationget(Request $request){
+        $allParams = $request->all();
+//     //$refParam = $request->ref;        
+        mail("darylyrad.cabz@gmail.com","My subject123",$request->hub_challenge );
+//         //echo json_encode($request->hub_challenge);
+    //   echo response()->json($request->hub_challenge, 200);
+       return response($request->hub_challenge, 200);
 
+    }
 
 
 

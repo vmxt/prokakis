@@ -10,6 +10,7 @@ use Auth;
 use App\CompanyProfile;
 use App\User;
 use App\Buytoken;
+use App\AuditLog;
 
 class SuperAdminController extends Controller
 
@@ -33,6 +34,30 @@ class SuperAdminController extends Controller
 
    }
 
+    
+     public function updateUserType(Request $request ){
+         //if ($request->isMethod('post')) {
+             if(null !== $request->input('userid') && null !== $request->input('type')){
+                 $user = User::find($request->input('userid'));
+                 $user->user_type = $request->input('type');
+                 if($user->save()){
+                    $log['error'] = false;
+                    $log['type'] = $request->input('type');
+                    AuditLog::ok(array(Auth::id(), 'user type', 'updated usertype ', 'updated the user type of:' . $request->input('userid') . " to:" . $request->input('type')));
+                }
+                else{
+                    $log['error'] = true;
+                    $log['type'] = "";
+                }
+                echo json_encode($log);
+             }
+             else{
+                 $log['error'] = true;
+                 $log['type'] = "";
+                 echo json_encode($log);
+             }
+         //}
+     }
   
    public function getTransferCompany(Request $request)
    {
@@ -138,14 +163,14 @@ class SuperAdminController extends Controller
       $usr = User::find($usrId);
       $allUsr = User::where('user_type', '=', '1')->get();
       ?>
-      <div class="alert alert-info" style=" overflow: hidden; margin-left: 0px !important;">
+      <div class="alert bg-intellinz-light-green text-dark" style=" overflow: hidden; margin-left: 0px !important;">
       <p>
-      User account <strong><?php echo $usr->firstname .', '.$usr->lastname; ?></strong> 
+      User account <strong class="text-company"><?php echo $usr->firstname .', '.$usr->lastname; ?></strong> 
         is the end receiver of the company that would be selected for transfer.
       </p>
       </div>
 
-      <table style="width:800px;" class="table table-striped table-bordered table-hover order-column" cellpadding="5" cellspacing="5"> 
+      <table style="width:100%;" class="table table-striped table-bordered table-hover order-column" cellpadding="5" cellspacing="5"> 
       <tr>
         <th style="width:60%">Select a user account to load companies.</th>
       
@@ -154,7 +179,7 @@ class SuperAdminController extends Controller
       </tr>
       <tr>
           <td> 
-            <select class="multi-select" id="usersList" size="15"  onchange="usrCompany(this)"> 
+            <select class="multi-select form-control" id="usersList" size="15"  onchange="usrCompany(this)"> 
               <?php foreach($allUsr as $d){ ?>
                 <option value="<?php echo $d->id; ?>"><?php echo  substr($d->firstname.'-'.$d->lastname.'-'.$d->email, 0, 50); ?></option>
               <?php } ?>
@@ -186,17 +211,17 @@ class SuperAdminController extends Controller
         $usr = User::find($usrId);
         ?>
 
-      <div class="alert alert-info" style=" overflow: hidden; margin-left: 0px !important;">
+      <div class="alert bg-intellinz-light-green text-dark" style=" overflow: hidden; margin-left: 0px !important;">
       <p>
-      User account <strong><?php echo $usr->firstname .', '.$usr->lastname; ?></strong> 
+      User account <strong class="text-company"><?php echo $usr->firstname .', '.$usr->lastname; ?></strong> 
         is the owner of the following companies.
       </p>
       </div>
 
-          <table style="width:500px;" class="table table-striped table-bordered table-hover order-column" cellpadding="5" cellspacing="5"> 
+          <table  class="table table-striped table-bordered table-hover order-column" cellpadding="5" cellspacing="5"> 
           <tr>
             <th style="width:60%">Company List</th>
-            <th style="width:40%">Token</th>
+            <th style="width:40%">Credit</th>
        
           </tr>
           <tr>
@@ -220,7 +245,7 @@ class SuperAdminController extends Controller
               </td>
 
               <td>
-                <input type="text" name="companyAmount" id="companyAmount">
+                <input type="text" class="form-control" placeholder="Credit Amount Here" name="companyAmount" id="companyAmount">
               </td>  
           </tr>  
           </table>
@@ -247,9 +272,9 @@ class SuperAdminController extends Controller
             </div>
                   <div class="portlet-body">
                         <div class="mt-element-list">
-                            <div class="mt-list-head list-news font-white bg-blue">
+                            <div class="mt-list-head list-news bg-dark text-company">
                                 <div class="list-head-title-container">
-                                    <span class="badge badge-primary pull-right"><?php echo sizeof($dc); ?></span>
+                                    <span class="badge badge-danger pull-right"><?php echo sizeof($dc); ?></span>
                                     <h4 class="list-title">Company List</h4>
                                 </div>
                             </div>

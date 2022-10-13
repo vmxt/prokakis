@@ -112,35 +112,35 @@ class WeeklyTopOpportunities extends Command
                              $hashKey .= '#'.str_replace(' ','_',$val)." ";
                          }
                      }
-                     
-                     $appurl = env('APP_URL');
-                     
                     $ttitle = substr($d->opp_title, 0, 33).'..';   
                      $ind =  OppIndustry::find($d->industry);
-                     $imgSrc = $appurl.'public/images/industry/'.$ind->image;
-                     $ret[] = array('business_description'=>$d->intro_describe_business, 
+                     $imgSrc = 'https://app.intellinz.com/public/images/industry/'.isset( $ind->image ) ?  $ind->image : "";
+                     $ret[] = array('business_description'=>isset(  $d->intro_describe_business ) ?  $d->intro_describe_business : "", 
                      'country'=>$c_country, 
                      'keyword'=>$hashKey ,
-                     'keyword_raw'=>$d->relevant_describing_partner ,
-                     'industry_category'=>$ind->text, 
+                     'keyword_raw'=> isset( $d->relevant_describing_partner ) ? $d->relevant_describing_partner : ""  ,
+                     'industry_category'=> isset( $ind->text ) ? $ind->text : "", 
                      'industry_image'=>$imgSrc,
-                     'est_revenue'=>$d->est_revenue,
-                     'est_profit'=>$d->est_profit,
-                     'inventory_value'=>$d->inventory_vaue,
-                     'title'=> strtoupper($d->opp_title) );
+                     'est_revenue'=> isset(  $d->est_revenue ) ?  $d->est_revenue : ""  ,
+                     'est_profit'=> isset(  $d->est_profit ) ?  $d->est_profit : "" ,
+                     'inventory_value'=> isset(  $d->inventory_vaue ) ?  $d->inventory_vaue : "",
+                     'title'=> strtoupper(isset(  $d->opp_title ) ?  $d->opp_title : "") );
                     
                      }
                   $oppCount++;
             }
 
-             $users = User::all()->pluck('email');
-             foreach($users as $emailAdd){
-                 Mailbox::sendMail_weeklyOpp( $ret, $emailAdd->email,  "Weekly Top Opportunity", ""); 
-             }
+            $users = User::all()->pluck('email');
+            foreach($users as $emailAdd){
+                Mailbox::sendMail_weeklyOpp( $ret, $users,  "Weekly Top Opportunity", ""); 
+            }
             
             //Mailbox::sendMail_weeklyOpp( $ret, 'darylyrad.cabz@gmail.com',  "Weekly Top Opportunity", ""); 
             //Mailbox::sendMail_weeklyOpp( $ret, 'knlgfx@gmail.com',  "Weekly Top Opportunity", "");
-
+            // Mailbox::sendMail_weeklyOpp( $ret, 'elisha@ebos-sg.com',  "Weekly Top Opportunity", "");
+            // Mailbox::sendMail_weeklyOpp( $ret, 'sales@ebos-sg.com',  "Weekly Top Opportunity", "");
+            // Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@gmail.com',  "Weekly Top Opportunity", "");
+            // Mailbox::sendMail_weeklyOpp( $ret, 'vicsaints3rd@mailinator.com',  "Weekly Top Opportunity", "");
         //code here
         //gather all 
       // $as =  ProcessedReport::activeSubscriptionsCompanyName();
@@ -149,7 +149,7 @@ class WeeklyTopOpportunities extends Command
 
       // }
     
-      //echo "Sending of email notification finished.. \n";
+      echo "Sending of email notification finished.. \n";
       echo "Done ..."."\n";
     }
 

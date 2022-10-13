@@ -32,6 +32,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 use App\Mailbox; 
 
+use App\UserHistory;
+
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+
 use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
@@ -202,7 +207,7 @@ class RegisterController extends Controller
 
             'activation_code' => str_random(30).time(),
 
-            'user_type' => $data['user_type'],
+            'user_type' => 1,
 
             'status' => $user_status,
 
@@ -221,12 +226,25 @@ class RegisterController extends Controller
             'company_name' => $data['company_name'],
 
             'company_website' => $data['company_website'],
+            'primary_country' => $data['company_primary_country'],
 
             'added_by' => $userResult->id,
 
             'status' => '1',
 
         ]);
+        
+        $accessdata = [
+                    'event'      => "Registered",
+                    'url'        => request()->fullUrl(),
+                    'ip_address' => request()->getClientIp(),
+                    'user_agent' => request()->userAgent(),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                    'user_id'    => $userResult->id,
+                    'user_email'    => $data['email']
+                ];
+                UserHistory::create($accessdata);
 
        
 

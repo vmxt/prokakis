@@ -153,6 +153,39 @@ class BusinessOpportunityNewsController extends Controller {
 
 
 	}
+	
+	public function deleteNews(Request $request){
+	    if (isset($request['id'])) {
+		    
+		    $exploded = explode(":",$request['id']);
+
+			$itemId = $exploded[0];
+			$whre_stat = $exploded[1];
+			$redirect_url = "/businessnews/approval/pending";
+			
+			if($whre_stat == "approved"){
+			    $redirect_url = "/businessnews/approval/approved";
+			}
+			else if($whre_stat == "rejected"){
+			    $redirect_url = "/opportunity/approval/rejected";
+			}
+
+			$user_id = Auth::id();
+
+			$rs = BusinessOpportunitiesNews::where('id', $itemId)->first();
+
+				if (count((array)$rs) > 0) {
+
+					$rs->status = 0;
+
+					$rs->save();
+
+					return redirect($redirect_url)->with('status', 'Selected business news has been successfully removed.');
+
+				}
+
+		}
+	}
 
 	public function delNews(Request $request){
 

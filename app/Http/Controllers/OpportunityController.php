@@ -83,10 +83,34 @@ class OpportunityController extends Controller {
             }
 			
 			if (count((array)$rs) > 0) {
+			    
+			    $company_id_opp = $rs->company_id;
+			    $opp_title = $rs->opp_title;
+			    
+			    $company_rs = CompanyProfile::find($company_id_opp);
+			    $usr = User::find($company_rs->user_id);
 
     			$rs->is_verify = 1;
     
     			$rs->save();
+    			
+    			$ok = Mailbox::create([
+
+					'sender_id' => Auth::id(),
+
+					'receiver_id' => $company_rs->user_id,
+
+					'receiver_email' => $usr->email,
+
+					'subject' => "Opportunity Approved",
+
+					'message' => "Your Opportunity: <b>" . $opp_title . "</b> has been approved. Thank You!",
+
+					'created_at' => date('Y-m-d H:i:s'),
+
+					'status' => 1,
+
+				]);
     
     			return redirect("/opportunity/approval/pending")->with('status', 'Opportunity has been successfully approved.');
 
@@ -1016,8 +1040,10 @@ class OpportunityController extends Controller {
     	})->get(); 
 
 		$data = [];
+		
+		$where_go = "";
 
-		return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
+		return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom', 'where_go'));
 
 	}
 
@@ -1047,8 +1073,10 @@ class OpportunityController extends Controller {
 				$approx_large_list = Configurations::getJsonValue('approx_large');
 
 				//$company_id = CompanyProfile::getCompanyId(Auth::id());
+				
+				$where_go = "";
 
-				return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
+				return view("oppor.build", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom', 'where_go'));
 
 			}
 
@@ -1326,8 +1354,10 @@ class OpportunityController extends Controller {
     	})->get(); 
 
 		$data = [];
+		
+		$where_go = "";
 
-		return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
+		return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom', 'where_go'));
 
 	}
 
@@ -1353,8 +1383,10 @@ class OpportunityController extends Controller {
     			})->get(); 
 
 				$approx_large_list = Configurations::getJsonValue('approx_large');
+				
+				$where_go = "";
 
-				return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
+				return view("oppor.selloffer", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom', 'where_go'));
 
 			}
 
@@ -1614,8 +1646,10 @@ class OpportunityController extends Controller {
     	})->get(); 
 
 		$data = [];
+		
+		$where_go = "";
 
-		return view("oppor.buy", compact('country_list', 'approx_large_list', 'data','industry_list', 'if_has_custom'));
+		return view("oppor.buy", compact('country_list', 'approx_large_list', 'data','industry_list', 'if_has_custom', 'where_go'));
 
 	}
 
@@ -1642,8 +1676,9 @@ class OpportunityController extends Controller {
     			
     			$approx_large_list = Configurations::getJsonValue('approx_large');
 			    
+			    $where_go = "";
 
-				return view("oppor.buy", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom'));
+				return view("oppor.buy", compact('country_list', 'approx_large_list', 'data', 'industry_list', 'if_has_custom', 'where_go'));
 
 			}
 
@@ -1911,8 +1946,10 @@ class OpportunityController extends Controller {
 			$user_id = Auth::id();
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
+			
+			$usr = User::find($id);
 
-			if (User::getMasterOrSubConsultant($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false && User::getEBossStaffTrue($user_id) == false) {
 
 				$rs = OpportunityBuildingCapability::find($itemId);
 
@@ -1981,7 +2018,7 @@ class OpportunityController extends Controller {
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			if (User::getMasterOrSubConsultant($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false && User::getEBossStaffTrue($user_id) == false) {
 
 				$rs = OpportunitySellOffer::find($itemId);
 
@@ -2050,7 +2087,7 @@ class OpportunityController extends Controller {
 
 			$company_id = CompanyProfile::getCompanyId($user_id);
 
-			if (User::getMasterOrSubConsultant($user_id) == false) {
+			if (User::getMasterOrSubConsultant($user_id) == false && User::getEBossStaffTrue($user_id) == false) {
 
 				$rs = OpportunityBuy::find($itemId);
 

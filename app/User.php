@@ -69,24 +69,6 @@ class User extends Authenticatable {
 
 	}
 
-	public static function getUserEmail($id) {
-
-		$usr = User::find($id);
-
-		if (count((array) $usr) > 0) {
-
-			return $usr->email;
-
-		}
-
-	}
-
-	public function companies()
-    {
-        return $this->hasMany('CompanyProfile');
-    }
-
-
 	public static function validateAccountNavigations($id) {
 
 		$usr = User::find($id);
@@ -124,6 +106,32 @@ class User extends Authenticatable {
 		if (count((array) $usr) > 0) {
 
 			if ($usr->user_type == 5 || $usr->user_type == 4) {
+
+				return true;
+
+			} else {
+
+				return false;
+
+			}
+
+		} else {
+
+			return false;
+
+		}
+
+	}
+	
+	//return true only if the user is master or sub consultang
+
+	public static function getMasterOrSubConsultant($id) {
+
+		$usr = User::find($id);
+
+		if (count((array) $usr) > 0) {
+
+			if ($usr->user_type == 3 || $usr->user_type == 2) {
 
 				return true;
 
