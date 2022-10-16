@@ -95,6 +95,7 @@ th {
                                         <th>Earned Amount</th>
                                         <th>Earned Point</th>
                                         <th>Last Update</th>
+                                        <th >Action</th>
                                     </tr>
                                     </thead>
                                     
@@ -110,6 +111,16 @@ th {
                                         <td><p> <?php echo $b->earned_amount; ?></p></td>
                                         <td><p> <?php echo $b->earned_points; ?></p></td>
                                         <td><p> <?php echo $b->updated_at; ?></p></td>
+                                        <td class="btn" style="width:100%">
+                                            <a href="#"   onclick="approvedAward('<?=$b->id ?>')" 
+                                                class="btn btn-primary"
+                                                style="color: white">Approved
+                                            </a>
+                                            <a href="#" onclick="rejectAward('<?=$b->id ?>')" 
+                                                class="btn btn-danger" onclick="return confirm('Are you sure to reject this request?')"
+                                                style="color: white">Reject
+                                            </a>
+                                        </td>
                                     </tr>
 
                                     <?php
@@ -144,7 +155,7 @@ th {
             responsive: true,
             columnDefs: [ 
                 { targets:"_all", orderable: false },
-                { targets:[0,1,2,3,4,5], className: "desktop" },
+                { targets:[0,1,2,3,4,5, 6], className: "desktop" },
                 { targets:[0,1], className: "tablet, mobile" }
             ]
             });
@@ -218,6 +229,50 @@ th {
               })
         }
 
+
+        function rejectAward(id){
+            swal({
+                title: "Are you sure?",
+                text: "You are about to reject this Reward!",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: false,
+
+              }).then(function(isConfirm) {
+
+                if (isConfirm) {
+                  swal({
+                    title: 'Reject',
+                    text: 'Done on rejecting this reward!',
+                    icon: 'success'
+                  }).then(function(isConfirm) {
+                    //form.submit(); // <--- submit form programmatically
+
+                    formData = new FormData();
+                    formData.append("reward_id", id);
+
+                        $.ajax({
+                            url: "{{ route('rewardReject') }}",
+                            type: "POST",
+                            data: formData,
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            processData: false,
+                            contentType: false,
+
+                            success: function (data) {
+                                document.location = "{{ route('rewardApprovalPending') }}"
+                            }
+                        });
+
+                  });
+                } else {
+                  swal("Cancelled", "Privacy option to the opportunity was cancelled :)", "error");
+                }
+              })
+        }
 
     </script>
 

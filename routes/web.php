@@ -347,6 +347,7 @@ Route::middleware(['ifmasterconsultant'])->group(function () {
     Route::get('/rewards/approval/pending', 'GamificationController@approvalPending')->name('rewardApprovalPending');
     Route::get('/rewards/approval/approved', 'GamificationController@approvalApproved')->name('rewardApprovalApproved');
     Route::post('/rewards/approved', 'GamificationController@approved')->name('rewardApproved');
+    Route::post('/rewards/reject', 'GamificationController@reject')->name('rewardReject');
 });
 
 //opportunities

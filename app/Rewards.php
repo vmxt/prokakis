@@ -9,7 +9,7 @@ use App\Buytoken;
 use App\RequestReport;
 use Illuminate\Support\Facades\DB;
 use App\AdvisorLevels;
-
+use Auth;
 class Rewards 
 {
     public $user_id;
@@ -63,28 +63,40 @@ class Rewards
             foreach($company_refs as $c){
                       $ref = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
                       ->select(DB::raw('SUM(num_tokens) as TotalCredit'))
-                      ->whereNotIn('id', $this->user_credit_ids_x)
+                    #  ->whereNotIn('id', $this->user_credit_ids_x)
                       ->first();
-
                       $sum = ($sum + $ref->TotalCredit); 
             }
-            foreach($company_refs as $c){
-
-                $bIds = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
-                ->whereNotIn('id', $this->user_credit_ids_x)
-                ->get();
-                if($bIds != null){
-                      foreach($bIds as $d){
-                        $this->user_credit_ids[] = $d->id; 
-                      } 
-                }
-            }
-
-
+            // foreach($company_refs as $c){
+            //     $bIds = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
+            //   #  ->whereNotIn('id', $this->user_credit_ids_x)
+            //     ->get();
+            //     if($bIds != null){
+            //           foreach($bIds as $d){
+            //             $this->user_credit_ids[] = $d->id; 
+            //           } 
+            //     }
+            // }
           }
       return $sum;
     }
     
+    //companies of the main user
+    public function fetchTotalCreditsPoints()
+    {
+      $sum = 0;
+      $company_refs = CompanyProfile::where('user_id', $this->user_id)->get();
+          if(!empty($company_refs)){
+            foreach($company_refs as $c){
+                      $ref = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
+                      ->select(DB::raw('SUM(amount) as amount'))
+                      ->first();
+                      $sum = ($sum + $ref->amount); 
+            }
+          }
+      return $sum;
+    }
+
     //set counting the actuial referrals
     public function setTotalReferrals()
     {
@@ -197,21 +209,33 @@ class Rewards
       return ($totalPoints * Config::get('constants.options.referral_purchased_per_credit')); //0.1
     }
 
+    public function getRemainingAdvisorPoints(){
+      $usr =  User::find(Auth::id());
+      if($usr != null){
+          $ad =  AdvisorLevels::where('user_id', $usr->id)
+          ->select(DB::raw('SUM(earned_amount) as earned_amount'))
+          ->where('status','<>',2)
+          ->first();
+          return $ad->earned_amount;
+      }
+    }
+
     public function getTotalCredits()
     {
-      $totalPoints = $this->setTotalCredits();
+      $totalPoints = $this->fetchTotalCreditsPoints();
       $points = 0;
-      if($totalPoints < 3){
-        $points = $totalPoints * 0.12;
-      }elseif($totalPoints < 6 && $totalPoints >= 3){
-        $points = $totalPoints * 0.12;
-      }elseif($totalPoints < 120 && $totalPoints >= 6){
-        $points = $totalPoints * 0.72;
-      }elseif($totalPoints >= 120 ){
-        $points = $totalPoints * 14.4;
-      }
-      return $points;
-      // return ($totalPoints * Config::get('constants.options.credit_point')); //0.1
+      // if($totalPoints < 3){
+      //   $points = $totalPoints * 0.12;
+      // }elseif($totalPoints < 6 && $totalPoints >= 3){
+      //   $points = $totalPoints * 0.12;
+      // }elseif($totalPoints < 120 && $totalPoints >= 6){
+      //   $points = $totalPoints * 0.72;
+      // }elseif($totalPoints >= 120 ){
+      //   $points = $totalPoints * 14.4;
+      // }
+      // return $points;
+      return ($totalPoints * Config::get('constants.options.credit_point')); //0.12
+      // return 50;
     }
 
     public function getTotalPointsScore()
@@ -225,7 +249,7 @@ class Rewards
       $indReportsReferralsPurchasedPoints = $this->getTotalReportsCombinedReferrals();
 
       $this->total_score = ($indCreditsPoints + $indReferralsPoints + $indReferralsPurchasedPoints + $indReportsReferralsPurchasedPoints);
-      return $this->total_score;
+      return $this->total_score - $this->getRemainingAdvisorPoints();
     }
 
     //get the advisor level
@@ -234,9 +258,9 @@ class Rewards
       $n = $this->getTotalPointsScore();
       $str = 0;
       //echo $n; exit;
-       if( $n >= 50 && $n < 150 ){
+       if( $n >= 50 && $n < 200 ){
           $str = 1; //"silver";
-       } elseif($n >= 150 && $n < 500) { 
+       } elseif($n >= 200 && $n < 500) { 
          $str = 2; //"gold";
        } elseif($n >= 500){
           $str = 3; //"platinum";
@@ -252,28 +276,28 @@ class Rewards
     $n = $this->getTotalPointsScore();
     //echo  $n; exit;
     $str = 0;
-     if($n >= 50 && $n < 150 ){
-        $str = (150 - $n);
-      } elseif($n >= 150 && $n < 500) {
+     if($n >= 50 && $n < 200 ){
+        $str = (200 - $n);
+      } elseif($n >= 200 && $n < 500) {
         $str = (500 - $n);
       } elseif($n >= 500){
         $str = "Reached Max";
       } else{
-        $str = 50;
+        $str = (50 - $n);
       }
     return $str;
   }
 
 
   //get the advisor level
-  public function getAdvisorTips()
+  public function getAdvisorTips($n)
   {
-      $n = $this->getTotalPointsScore();
+      // $n = $this->getTotalPointsScore();
       $str = "";
         if($n >= 50 && $n < 150 ){
-          $str = "Or wait for the gold advisor level to be able to redeem USD $375."; 
+          $str = "Or wait for the gold advisor level to be able to redeem USD $300."; 
         } elseif($n >= 150 && $n < 500 ){
-         $str = "Or wait for the platinum advisor level to be able to redeem USD $1750"; 
+         $str = "Or wait for the platinum advisor level to be able to redeem USD $1500"; 
         } elseif($n >= 500){
           $str = "You have reached to maximum level.";
         }else{
@@ -288,13 +312,13 @@ class Rewards
    {
        $n = $this->getTotalPointsScore();
        $str = 0;
-       if($n >= 50 && $n < 150 ){
-           $str = 100.00; 
-       }elseif($n >= 150 && $n < 500 ){
+       if($n >= 50 && $n < 200 ){
+           $str = 50.00; 
+       }elseif($n >= 200 && $n < 500 ){
           //code here
-          $str = 375.00; 
+          $str = 300.00; 
        } elseif($n >= 500){
-           $str = 1750.00;
+           $str = 1500.00;
        }
        return $str;
    }

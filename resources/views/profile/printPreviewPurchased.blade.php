@@ -91,7 +91,7 @@
                                     <tr>
                                         <?php $grandTotal += $data->amount ?>
                                         <td>{{ $data->id }}</td>
-                                        <td>{{ 'Token Purchased: '. $data->num_tokens }}</td>
+                                        <td>{{ 'Credit Purchased: '. $data->num_tokens }}</td>
                                         <td>{{ $data->amount }}</td>
                                         <td><?php $dateFinal = date_format($data->created_at,"Y-m-d");
                                             echo date("F j, Y", strtotime($dateFinal));?>

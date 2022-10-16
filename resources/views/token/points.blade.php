@@ -202,21 +202,9 @@
 
                                 
 
-                                @if (session('status'))
-
-                                    <div class="alert alert-success">
-
-                                        {{ session('status') }}
-
-                                    </div>
-
-                                @endif
-
-
-
                                 @if (session('message'))
 
-                                    <div class="alert alert-danger">
+                                    <div class="alert alert-success">
 
                                         {{ session('message') }}
 
@@ -226,6 +214,7 @@
 
 
 
+                  
                                 <!-- sidebar token credit -->
 
 
@@ -376,7 +365,7 @@
                                                     <div class="card">
                                                         <div class="card-header" style="text-align: center;"> 
                                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                                REDEEM
+                                                                REDEEM 
                                                             </button>
                                                         </div>
                                                     </div>
@@ -428,18 +417,26 @@
                                 <div class="card" >
                                   <div class="card-body">
                                     <h5 class="text-company card-title "><b>Advisor Level</b></h5>
-                                    <p class="card-text">{{ $advisorTips1 }}</p>
-                                    @if($totalScore >= 50)
+                                    @if(app\AdvisorLevels::getAdvisorLevelStatus(0))
+                                        <p> You're request still in review</p>
+                                        <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>PENDING</button> 
+                                    @elseif(app\AdvisorLevels::getAdvisorLevelStatus(1))
+                                        <p>You already redeem this level</p>
+                                    @elseif($totalScore >= 50 AND !app\AdvisorLevels::getAdvisorCurrentLevel(1))
                                     <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
+                                        <p class="card-text">You reached Advisor Level. You can able to redeem USD $50</p>
                                         {{ csrf_field() }}  
-                                        <input type="hidden" name="amount_to_redeem" value="{{ $amountToRedemp }}">
-                                        <input type="hidden" name="advisor_level" value="{{ $amountToRedemp }}">
-                                        <input type="button" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD ${{ $amountToRedemp }} NOW">
+                                        <input type="hidden" name="amount_to_redeem" value="50">
+                                        <input type="hidden" name="earned_points" value="50">
+                                        <input type="hidden" name="advisor_level" value="1">
+                                        <input type="submit" id="submit_button"  style="font-size: 12px;" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $50 NOW">
                                     </form>
                                     @else
+                                        @if($totalScore < 50)
+                                           <p> You need to have {{$nextScoreLevel}} more points to get to the first level Advisor and be able to redeem USD $50</p>
+                                        @endif
                                         <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>REDEEM USD $50 NOW</button> 
                                     @endif
-                                    <!-- <a href="#" class="btn btn-primary" style="font-size: 12px;">REDEEM USD $50 NOW</a> -->
                                   </div>
                                 </div>
                             </div>
@@ -447,8 +444,29 @@
                                 <div class="card">
                                   <div class="card-body">
                                     <h5 class="text-company card-title"><b>Gold Advisor</b></h5>
-                                    <p class="card-text">{{ $advisorTips2 }}</p>
-                                    <a href="#" class="btn btn-primary" style="font-size: 12px;">REDEEM USD $300 NOW</a>
+                                    @if(app\AdvisorLevels::getAdvisorLevelStatus(0))
+                                        <p> You're request still in review</p>
+                                        <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>PENDING</button> 
+                                    @elseif($totalScore >= 200 AND app\AdvisorLevels::getAdvisorCurrentLevel(1) AND !app\AdvisorLevels::getAdvisorCurrentLevel(2))
+                                    <p class="card-text">You reached Gold Advisor Level. You can able to redeem USD $300</p>
+                                    <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
+                                        {{ csrf_field() }}  
+                                        <input type="hidden" name="amount_to_redeem" value="300">
+                                        <input type="hidden" name="earned_points" value="200">
+                                        <input type="hidden" name="advisor_level" value="2">
+                                        <input type="submit"  style="font-size: 12px;" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $300 NOW">
+                                    </form>
+                                    @else
+                                        <p class="card-text">
+                                        @if(!app\AdvisorLevels::getAdvisorLevelStatus(1))
+                                            You need to redeem Advisor Level first before you can claim Gold Advisor. <br>
+                                        @endif
+                                        @if($totalScore < 200)
+                                            You need to have {{$nextScoreLevel+150}} more points to get to the second level Gold Advisor and be able to redeem USD $300</p>
+                                        @endif
+                                        <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>REDEEM USD $300 NOW</button> 
+                                    @endif
+                                    <!-- <a href="#" class="btn btn-primary" style="font-size: 12px;">REDEEM USD $300 NOW</a> -->
                                   </div>
                                 </div>
                             </div>
@@ -456,8 +474,25 @@
                                 <div class="card">
                                   <div class="card-body">
                                     <h5 class="text-company card-title"><b>Platinum Advisor</b></h5>
-                                    <p class="card-text">{{ $advisorTips3 }}</p>
-                                    <a href="#" class="btn btn-primary" style="font-size: 12px;">REDEEM USD $1500 NOW</a>
+                                    @if($totalScore >= 500 AND app\AdvisorLevels::getAdvisorCurrentLevel(1) AND app\AdvisorLevels::getAdvisorCurrentLevel(2))
+                                    <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
+                                        {{ csrf_field() }}  
+                                        <input type="hidden" name="amount_to_redeem" value="1500">
+                                        <input type="hidden" name="earned_points" value="500">
+                                        <input type="hidden" name="advisor_level" value="3">
+                                        <input type="submit" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $1500 NOW">
+                                    </form>
+                                    @else
+                                        <p class="card-text">
+                                        @if(!app\AdvisorLevels::getAdvisorLevelStatus(2))
+                                            You need to redeem Gold Advisor Level first before you can claim Platinum Advisor. <br>
+                                        @endif
+                                        @if($totalScore < 500)
+                                            You need to have {{$nextScoreLevel+300}} more points to get to the third level Platinum Advisor and be able to redeem USD $500</p>
+                                        @endif
+                                        <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>REDEEM USD $500 NOW</button> 
+                                    @endif
+                                    <!-- <a href="#" class="btn btn-primary" style="font-size: 12px;">REDEEM USD $1500 NOW</a> -->
                                   </div>
                                 </div>
                             </div>
@@ -516,32 +551,32 @@
 <script type="text/javascript">
 
     $("#submit_button").click(function(){
-        swal({
+        // swal({
 
-            title: "Redeeming your points now will reset them to zero",
-            text: "Are you sure you want to proceed?",
-            icon: "warning",
+        //     title: "Redeeming your points now will reset them to zero",
+        //     text: "Are you sure you want to proceed?",
+        //     icon: "warning",
 
-            buttons: [
-              'No, cancel it!',
-              'Yes, I am sure!'
-            ],
-            dangerMode: true,
+        //     buttons: [
+        //       'No, cancel it!',
+        //       'Yes, I am sure!'
+        //     ],
+        //     dangerMode: true,
 
-          }).then(function(isConfirm) {
+        //   }).then(function(isConfirm) {
 
-            if (isConfirm) {
-                $("#redeemForm").submit();  
-                $("#redeemBtn").text('Pending');  
+        //     if (isConfirm) {
+        //         $("#redeemForm").submit();  
+        //         $("#redeemBtn").text('Pending');  
 
-            } else {
+        //     } else {
 
-              swal("Cancelled", "Redeeming pprocess was cancelled :)", "error");
-               return false; 
+        //       swal("Cancelled", "Redeeming pprocess was cancelled :)", "error");
+        //        return false; 
 
-            }
+        //     }
 
-          })
+        //   })
 
       });    
 

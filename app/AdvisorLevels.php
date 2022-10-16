@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Auth;
 
 class AdvisorLevels extends Model
 {
@@ -29,4 +29,24 @@ class AdvisorLevels extends Model
         'id',  
     ];
    
+    public static function getAdvisorCurrentLevel($level){
+      $usr =  User::find(Auth::id());
+      if($usr != null){
+          $ad =  AdvisorLevels::where('user_id', $usr->id)
+          ->where('advisor_level',$level)
+          ->first();
+          return $ad;
+      }
+    }
+
+    public static function getAdvisorLevelStatus($status){
+      $usr =  User::find(Auth::id());
+      if($usr != null){
+          $ad =  AdvisorLevels::where('user_id', $usr->id)
+          ->where('status',$status)
+          ->first();
+          return $ad;
+      }
+    }
+
 }

@@ -71,12 +71,16 @@ class TokenConfirmController extends Controller {
         
         $rw = new Rewards($user_id);
         $totalCreditPurchased = $rw->setTotalCredits();
+        $totalScoreByPurchased = $rw->fetchTotalCreditsPoints();
+
         $totalNumberOfReferrals = $rw->getTotalReferrals();
         $totalNumberOfReferralsReportsPoints = $rw->getTotalReportsCombinedReferrals(); //earned from referrals report
         $totalNumberOfReferralsPurchasedPoints = $rw->getTotalPointsByReferralsPurchased();
         $totalScore = $rw->getTotalPointsScore();
         $nextScoreLevel = $rw->getAdvisorNextLevel();
-        $advisorTips = $rw->getAdvisorTips();
+        $advisorTips1 = $rw->getAdvisorTips($totalScore);
+        $advisorTips2 = $rw->getAdvisorTips(200);
+        $advisorTips3 = $rw->getAdvisorTips(500);
         $amountToRedemp = $rw->getAdvisorAmountToRedeem();
         $currentAdvisorLevel = $rw->getAdvisorLevel();
         $rw->removeDuplicatesIds();
@@ -99,8 +103,8 @@ class TokenConfirmController extends Controller {
         
         return view('token.points', compact('profileAvatar', 'brand_slogan', 'c_promo', 
         'totalNumberOfReferralsPurchasedPoints', 'totalCreditPurchased', 'totalNumberOfReferrals', 
-        'totalNumberOfReferralsReportsPoints', 'totalScore', 'company_id_result',
-        'nextScoreLevel', 'advisorTips', 'amountToRedemp' ,'currentAdvisorLevel', 'countAd'));
+        'totalNumberOfReferralsReportsPoints', 'totalScore', 'company_id_result', 'totalScoreByPurchased',
+        'nextScoreLevel', 'advisorTips1', 'advisorTips2', 'advisorTips3', 'amountToRedemp' ,'currentAdvisorLevel', 'countAd'));
 
     }
 

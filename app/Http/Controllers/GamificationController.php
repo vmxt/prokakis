@@ -47,6 +47,10 @@ class GamificationController extends Controller {
 				$ep = Session::get('total_score_points');
 				$ra = Session::get('amount_redeem');
 
+				$amountToRedeem = $request->input('amount_to_redeem');
+				$advisorLevel = $request->input('advisor_level');
+				$earnedPoints = $request->input('earned_points');
+
 				$user_credit_ids = Session::get('user_credit_ids');
 				$user_referral_ids = Session::get('user_referral_ids');
 				$referral_pur_ids = Session::get('referral_pur_ids');
@@ -58,9 +62,9 @@ class GamificationController extends Controller {
 					AdvisorLevels::create([
 						'company_id'     	=> $company_id_result, 
 						'user_id'  		 	=> $user_id, 
-						'advisor_level'  	=> $al, 
-						'earned_points'  	=> $ep, 
-						'earned_amount'	 	=> $ra, 
+						'advisor_level'  	=> $advisorLevel, 
+						'earned_points'  	=> $earnedPoints, 
+						'earned_amount'	 	=> $amountToRedeem, 
 						'user_referral_ids' => trim($user_referral_ids), 
 						'user_credit_ids'	=> trim($user_credit_ids), 
 						'referral_pur_ids'  => trim($referral_pur_ids), 
@@ -72,7 +76,7 @@ class GamificationController extends Controller {
 					// //sending of email notification
 					// $usr = User::where('user_type', '5')->get();
 				
-					// $subject = "Prokakis rewards redemption request";	
+					// $subject = "Intellinz rewards redemption request";	
 					// foreach($usr as $d){
 					// 	$receiver = $d->email;
 
@@ -80,14 +84,14 @@ class GamificationController extends Controller {
 					// 	Hi Admin,
 					// 	<br /><br />
 
-					// 	We have recieved a redemption request of Prokakis rewards, from <br />
+					// 	We have recieved a redemption request of Intellinz rewards, from <br />
 					// 	Company Name: $company->company_name <br />
 					// 	Earned Points: $ep <br />
 					// 	Advisor Level: $al <br />
 					// 	Amount: $ra <br /><br />
 						
 					// 	Thank you, <br />
-					// 	Prokakis Mailer
+					// 	Intellinz Mailer
 					// 	";
 					// 	Mailbox::sendMail_v2($content, $receiver, $subject, '');
 					return Redirect::to('/rewards')->with(['type' => 'success','message' => 'You have successfully submitted your redemption request.']);
@@ -414,7 +418,7 @@ class GamificationController extends Controller {
 				return redirect('/advisor')->with('status', 'You have successfully approved a redemption request.');
 
 			} else {
-				return redirect('/home')->with('status', 'The page is restricted, only for Prokakis administrator.');
+				return redirect('/home')->with('status', 'The page is restricted, only for Intellinz administrator.');
 			}	
 		}
 
@@ -424,7 +428,7 @@ class GamificationController extends Controller {
 	public function approvalPending(Request $request, $status = 'pending') {
 		$isverify = 0;
 		$news = AdvisorLevels::where('status', $isverify)->get();
-		return view("rewards.approval", compact('news', 'status'));
+		return view("rewards.pending", compact('news', 'status'));
 	}
     
 	#for approvalApproved pending
@@ -443,15 +447,25 @@ class GamificationController extends Controller {
 		$this->redeemApprovedRewards($result->user_id);
 	}
 
-	public function redeemApprovedRewards($id)
+    public function reject(Request $request) {
+		if ($request->isMethod('post')) {
+			$ids = $request->input('reward_id');
+			$result = AdvisorLevels::find($ids);
+			$result->status = 2;
+			$result->save();
+		}
+		$this->redeemRejectRewards($result->user_id);
+	}
+
+	public function requestRedeemRewards($id)
 	{ 
 			$company_id_result = CompanyProfile::getCompanyId($id);
 			$company = CompanyProfile::find($company_id_result);
 
 								//sending of email notification
-					$usr = User::where('user_id', $id)->get();
+					$usr = User::find($id);
 				
-					$subject = "Prokakis rewards redemption request";	
+					$subject = "Intellinz rewards redemption request";	
 					foreach($usr as $d){
 						$receiver = $d->email;
 
@@ -459,17 +473,67 @@ class GamificationController extends Controller {
 						Hi Admin,
 						<br /><br />
 
-						We have recieved a redemption request of Prokakis rewards, from <br />
+						We have recieved a redemption request of Intellinz rewards, from <br />
 						Company Name: $company->company_name <br />
 						Earned Points: $ep <br />
 						Advisor Level: $al <br />
 						Amount: $ra <br /><br />
 						
 						Thank you, <br />
-						Prokakis Mailer
+						Intellinz Mailer
 						";
 						Mailbox::sendMail_v2($content, $receiver, $subject, '');
 					}
 	}
+
+
+		public function redeemApprovedRewards($id)
+	{ 
+			$company_id_result = CompanyProfile::getCompanyId($id);
+			$company = CompanyProfile::find($company_id_result);
+
+					//sending of email notification
+					$usr = User::find($id);
+				
+					$subject = "Intellinz rewards redemption request";	
+						$receiver = $usr->email;
+						$fullname = $usr->firstname." ".$usr->lastname;
+						$content = "
+						Hi $fullname,
+						<br /><br />
+
+						We are happy to inform you that your request have been approved. 
+						
+						Thank you, <br />
+						Intellinz Mailer
+						";
+						Mailbox::sendMail_v2($content, $receiver, $subject, '');
+	}
+
+
+
+		public function redeemRejectRewards($id)
+	{ 
+			$company_id_result = CompanyProfile::getCompanyId($id);
+			$company = CompanyProfile::find($company_id_result);
+
+					//sending of email notification
+					$usr = User::find($id);
+				
+					$subject = "Intellinz rewards redemption request";	
+						$receiver = $usr->email;
+						$fullname = $usr->firstname." ".$usr->lastname;
+						$content = "
+						Hi $fullname,
+						<br /><br />
+
+						We are sad to inform you that your request have been approved. 
+						
+						Thank you, <br />
+						Intellinz Mailer
+						";
+						Mailbox::sendMail_v2($content, $receiver, $subject, '');
+	}
+
 
 }
