@@ -95,21 +95,26 @@ th {
                                         <th>Earned Amount</th>
                                         <th>Earned Point</th>
                                         <th>Last Update</th>
+                                        <th>Updated By</th>
+                                        <th>IP ADDRESS</th>
                                     </tr>
                                     </thead>
                                     
                                     <tbody>
                                     <?php
+
                                     $counter = 1;
                                     if(count((array)$news) > 0){
                                         foreach($news as $b){  ?>
                                     <tr>
                                         <td><?php echo $counter; ?></td>
-                                        <td><p> <?php echo App\User::getFullnameUser($b->user_id)  ?></p></td>
+                                        <td><a onclick="RedeemDetails('<?=$b->user_id?>','<?=$b->company_id?>')"><p> <?php echo App\User::getFullnameUser($b->user_id)  ?></p></a></td>
                                         <td><p> <?php echo App\CompanyProfile::getCompanyName($b->company_id) ?></p></td>
                                         <td><p> <?php echo $b->earned_amount; ?></p></td>
                                         <td><p> <?php echo $b->earned_points; ?></p></td>
                                         <td><p> <?php echo $b->updated_at; ?></p></td>
+                                        <td><p> <?php echo App\User::find($b->updated_by)->email; ?></p></td>
+                                        <td><p> <?php echo $b->ip_address; ?></p></td>
                                     </tr>
 
                                     <?php
@@ -128,6 +133,34 @@ th {
 
                 </div>
                 </div>
+
+            
+                        <!-- The Modal -->
+                        <div class="modal" id="redeemModal">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                <h4 class="modal-title">Modal Heading</h4>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                    <table id="system_data_tbl" class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%">
+
+                                    </table>
+                              </div>
+
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+ 
 
         </div>
 
@@ -173,6 +206,28 @@ th {
             });
 
         });
+
+        function RedeemDetails(id,comp_id){
+            formData = new FormData();
+            formData.append("user_id", id);
+            formData.append("comp_id", comp_id);
+
+                $.ajax({
+                    url: "{{ route('rewardDetailsRedeem') }}",
+                    type: "POST",
+                    data: formData,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    processData: false,
+                    contentType: false,
+
+                    success: function (data) {
+                        $('#system_data_tbl').empty();
+
+                        $('#system_data_tbl').append(data);
+                        $('#redeemModal').modal('show');
+                    }
+                });
+        }
 
         function approvedAward(id){
             swal({

@@ -81,6 +81,33 @@ class Rewards
       return $sum;
     }
     
+
+    //companies of the main user
+    public function setTotalPoints()
+    {
+      $sum = 0;
+      $company_refs = CompanyProfile::where('user_id', $this->user_id)->get();
+          if(!empty($company_refs)){
+            foreach($company_refs as $c){
+                      $ref = AdvisorLevels::where('company_id', $c->id)->where('status', 1)
+                      ->select(DB::raw('SUM(earned_points) as earned_points'))
+                    #  ->whereNotIn('id', $this->user_credit_ids_x)
+                      ->first();
+                      $sum = ($sum + $ref->earned_points); 
+            }
+            // foreach($company_refs as $c){
+            //     $bIds = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
+            //   #  ->whereNotIn('id', $this->user_credit_ids_x)
+            //     ->get();
+            //     if($bIds != null){
+            //           foreach($bIds as $d){
+            //             $this->user_credit_ids[] = $d->id; 
+            //           } 
+            //     }
+            // }
+          }
+      return $sum;
+    }
     //companies of the main user
     public function fetchTotalCreditsPoints()
     {
@@ -119,7 +146,8 @@ class Rewards
     public function getTotalReferrals()
     {
      $this->setTotalReferrals(); 
-     return ($this->total_referrals != null)? $this->total_referrals : 0;
+     $total = ($this->total_referrals != null)? $this->total_referrals : 0;
+     return ($total > 1) ? 1 : 0;
     }
    
     public function getReferralsPoints()

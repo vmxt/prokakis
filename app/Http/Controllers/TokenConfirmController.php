@@ -73,6 +73,7 @@ class TokenConfirmController extends Controller {
         $totalCreditPurchased = $rw->setTotalCredits();
         $totalScoreByPurchased = $rw->fetchTotalCreditsPoints();
         $totalCreditPurchased = $totalScoreByPurchased;
+        $setTotalPoints = $rw->setTotalPoints();
 
         $totalNumberOfReferrals = $rw->getTotalReferrals();
         $totalNumberOfReferralsReportsPoints = $rw->getTotalReportsCombinedReferrals(); //earned from referrals report
@@ -99,7 +100,7 @@ class TokenConfirmController extends Controller {
             $platinum_advisor_lvl_approved = 1; #false
         }elseif(AdvisorLevels::getAdvisorStatus(3,1)){#advisor level approved
             $platinum_advisor_lvl_approved = 2; #true
-            $nextScoreLevel = $rw->getAdvisorNextLevel(500, 1);
+            // $nextScoreLevel = $rw->getAdvisorNextLevel(500, 1);
         }
 
         $advisorTips1 = $rw->getAdvisorTips($totalScore);
@@ -128,9 +129,15 @@ class TokenConfirmController extends Controller {
         return view('token.points', compact('profileAvatar', 'brand_slogan', 'c_promo', 
         'totalNumberOfReferralsPurchasedPoints', 'totalCreditPurchased', 'totalNumberOfReferrals', 
         'totalNumberOfReferralsReportsPoints', 'totalScore', 'company_id_result', 'totalScoreByPurchased',
-        'nextScoreLevel', 'advisor_lvl_approved', 'gold_advisor_lvl_approved', 'platinum_advisor_lvl_approved', 'amountToRedemp' ,'currentAdvisorLevel', 'advisorDetails'));
+        'nextScoreLevel', 'advisor_lvl_approved', 'gold_advisor_lvl_approved', 'platinum_advisor_lvl_approved', 'amountToRedemp' ,'currentAdvisorLevel', 'advisorDetails', 'setTotalPoints'));
 
     }
 
+    function rewardDetailsRedeem(Request $request){
+        $user_id = $request->input('user_id');
+        $company_id_result = $request->input('comp_id');
+        $advisorDetails = AdvisorLevels::where('company_id', $company_id_result)->where('user_id', $user_id)->get();
+        return view('snippets.rewardDetailsRedeem',compact('advisorDetails'));
+    }
 
 }

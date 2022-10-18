@@ -164,6 +164,9 @@ Route::get('/vc-end-companysearch/{channel}', 'VideoChatController@endVideoCompa
 
 //points
 Route::get('/rewards', 'TokenConfirmController@getCreditPoints')->name('CompanyCreditPoints');
+Route::post('/reward-details', 'TokenConfirmController@rewardDetailsRedeem')->name('rewardDetailsRedeem');
+
+
 
 //update password
 Route::post('/psswrd-update', 'UpdatePasswordController@getData')->name('getPasswordData');

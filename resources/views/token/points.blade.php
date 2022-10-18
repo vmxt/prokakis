@@ -8,6 +8,7 @@
 
 <link href="{{ asset('public/img-cropper/css/style.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
 
 <style>
@@ -288,15 +289,17 @@
                                                         <div class="card" style="overflow: hidden;">
                                                             <div class="card-header">
                                                                     
-                                                                    <span class="bold " style="color:black">Total amount of points you have is: {{ $totalCreditPurchased }} <br /></span>
+                                                                    <span class="bold " style="color:black">Total Amount of dollars spent so far: {{ $totalCreditPurchased }} <br /></span>
 
                                                                     <hr>
 
-                                                                    <span class="bold " style="color:black">Your total number of referrals is {{ $totalNumberOfReferrals }}. <br /></span>
-
+                                                                    <span class="bold " style="color:black">Total number of referrals: {{ $totalNumberOfReferrals }}. <br /></span>
 
                                                                     <hr>
 
+                                                                    <span class="bold " style="color:black">Total Number of points already redeemed: {{ $setTotalPoints }}. <br /></span>
+
+                                                                    <hr>
 
                                                                     <span class="bold " style="color:black">Your points earned from referrals purchases equals a combined total of {{ $totalNumberOfReferralsPurchasedPoints }}. <br /></span>
 
@@ -309,13 +312,12 @@
                                                                     <br /><br />
 
                                                                     <?php 
-
-                                                                    $ed = App\SpentTokens::getPremiumExpiryDate($company_id_result);
-
-                                                                    if($ed != false){
-                                                                    echo ' Premium account expires on ' . $ed;
-                                                                    }
+                                                                    $ed = App\SpentTokens::getPremiumExpiryDate(129);
                                                                     ?>
+                                                                    @if($ed != false)
+                                                                        <h4> Premium account expires on {{$ed}} </h4>
+                                                                    @endif
+                                                             
 
                                                             </div>
 
@@ -426,13 +428,17 @@
                                         <p>You already redeem this level</p>
                                     @elseif($totalScore >= 200 )
                                     <p class="card-text">You reached Gold Advisor Level. You can able to redeem USD $300</p>
-                                    <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
-                                        {{ csrf_field() }}  
-                                        <input type="hidden" name="amount_to_redeem" value="300">
-                                        <input type="hidden" name="earned_points" value="200">
-                                        <input type="hidden" name="advisor_level" value="2">
-                                        <input type="submit"  style="font-size: 12px;" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $300 NOW">
-                                    </form>
+                                        @if($advisor_lvl_approved != 2)
+                                            <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>REDEEM USD $300 NOW</button>
+                                        @else
+                                            <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
+                                                {{ csrf_field() }}  
+                                                <input type="hidden" name="amount_to_redeem" value="300">
+                                                <input type="hidden" name="earned_points" value="200">
+                                                <input type="hidden" name="advisor_level" value="2">
+                                                <input type="submit" <?=$advisor_lvl_approved!=2?'disabled':''?> style="font-size: 12px;" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $300 NOW">
+                                            </form>
+                                        @endif
                                     @else
                                         <p class="card-text">
                                         @if($advisor_lvl_approved == 1)
@@ -458,13 +464,17 @@
                                         <p>You already redeem this level</p>
                                     @elseif($totalScore >= 500)
                                     <p class="card-text">You reached Platinum Advisor Level. You can able to redeem USD $500</p>
-                                    <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
-                                        {{ csrf_field() }}  
-                                        <input type="hidden" name="amount_to_redeem" value="1500">
-                                        <input type="hidden" name="earned_points" value="500">
-                                        <input type="hidden" name="advisor_level" value="3">
-                                        <input type="submit"  style="font-size: 12px;" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $1500 NOW">
-                                    </form>
+                                        @if($gold_advisor_lvl_approved != 2)
+                                            <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>REDEEM USD $500 NOW</button> 
+                                        @else
+                                            <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
+                                                {{ csrf_field() }}  
+                                                <input type="hidden" name="amount_to_redeem" value="1500">
+                                                <input type="hidden" name="earned_points" value="500">
+                                                <input type="hidden" name="advisor_level" value="3">
+                                                <input type="submit"  style="font-size: 12px;" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $1500 NOW">
+                                            </form>
+                                        @endif
                                     @else
                                         <p class="card-text">
                                         @if($gold_advisor_lvl_approved == 1)
@@ -499,49 +509,7 @@
 
                                     </div>
 
-                                <div>
-                                    <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Earned Amount</th>
-                                                <th>Earned Point</th>
-                                                <th>Last Update</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                    
-                                    <tbody>
-                                    <?php
-                                    $counter = 1;
-                                    if(count((array)$advisorDetails) > 0){
-                                        foreach($advisorDetails as $b){  ?>
-                                    <tr>
-                                        <td><?php echo $counter; ?></td>
-                                        <td><p> <?php echo $b->earned_amount; ?></p></td>
-                                        <td><p> <?php echo $b->earned_points; ?></p></td>
-                                        <td><p> <?php echo $b->updated_at; ?></p></td>
-                                        <td><p>
-                                            @if($b->status == 0)
-                                                Pending
-                                            @elseif($b->status == 1)
-                                                Approved
-                                            @else
-                                                Rejected
-                                            @endif
-
-                                    </tr>
-
-                                    <?php
-                                    $counter++;
-                                        }
-
-                                    } ?>
-
-                                    </tbody>
-                                 
-                                </table>
-                                </div>
+                                
 
 
 
@@ -557,16 +525,59 @@
             </div>
 
         </div>
-
+                 
     </div>
 
 </div>
+               <div class="container" style="margin-bottom: 10%;">
+                    <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Earned Amount</th>
+                                <th>Earned Point</th>
+                                <th>Last Update</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                    
+                        <tbody>
+                        <?php
+                        $counter = 1;
+                        if(count((array)$advisorDetails) > 0){
+                            foreach($advisorDetails as $b){  ?>
+                        <tr>
+                            <td><?php echo $counter; ?></td>
+                            <td><p> <?php echo $b->earned_amount; ?></p></td>
+                            <td><p> <?php echo $b->earned_points; ?></p></td>
+                            <td><p> <?php echo $b->updated_at; ?></p></td>
+                            <td><p>
+                                @if($b->status == 0)
+                                    Pending
+                                @elseif($b->status == 1)
+                                    Approved
+                                @else
+                                    Rejected
+                                @endif
 
+                        </tr>
+
+                        <?php
+                        $counter++;
+                            }
+
+                        } ?>
+
+                        </tbody>
+                 
+                    </table>
+                </div>
 
 
 <script src="{{ asset('public/jq1111/jquery.min.js') }}"></script>
 
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
 <script src="{{ asset('public/img-cropper/js/cropbox.js') }}"></script>
 
@@ -577,6 +588,15 @@
 <script type="text/javascript">
 
 $( document ).ready(function() {
+                  $('#system_data').DataTable({
+            responsive: true,
+            columnDefs: [ 
+                { targets:"_all", orderable: false },
+                { targets:[0,1,2,3,4], className: "desktop" },
+                { targets:[0,1], className: "tablet, mobile" }
+            ]
+            });
+
      $(".redeemBtn").prop("disabled",true);
 
 });

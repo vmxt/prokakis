@@ -17,7 +17,7 @@ class AdvisorLevels extends Model
      */
     protected $fillable = [
        'company_id', 'user_id', 'advisor_level', 'earned_points', 'earned_amount', 'status', 'created_at', 'updated_at',
-        'approver1', 'approver2', 'user_referral_ids', 'user_credit_ids', 'referral_pur_ids', 'referral_rep_ids',
+        'approver1', 'approver2', 'user_referral_ids', 'user_credit_ids', 'referral_pur_ids', 'referral_rep_ids', 'updated_by', 'ip_address'
     ];
 
     /**

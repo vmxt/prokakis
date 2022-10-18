@@ -442,6 +442,8 @@ class GamificationController extends Controller {
 			$ids = $request->input('reward_id');
 			$result = AdvisorLevels::find($ids);
 			$result->status = 1;
+			$result->updated_by =  Auth::id();
+			$result->ip_address = $this->getIpAddress();
 			$result->save();
 		}
 		$this->redeemApprovedRewards($result->user_id);
@@ -487,7 +489,29 @@ class GamificationController extends Controller {
 	}
 
 
+	public function getIpAddress()
+{
+
+		//whether ip is from share internet
+	if (!empty($_SERVER['HTTP_CLIENT_IP']))   
+	  {
+	    $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+	  }
+	//whether ip is from proxy
+	elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
+	  {
+	    $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	  }
+	//whether ip is from remote address
+	else
+	  {
+	    $ip_address = $_SERVER['REMOTE_ADDR'];
+	  
+	  return $ip_address;
+	}
+}
 		public function redeemApprovedRewards($id)
+
 	{ 
 			$company_id_result = CompanyProfile::getCompanyId($id);
 			$company = CompanyProfile::find($company_id_result);
