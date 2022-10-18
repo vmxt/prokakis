@@ -72,12 +72,36 @@ class TokenConfirmController extends Controller {
         $rw = new Rewards($user_id);
         $totalCreditPurchased = $rw->setTotalCredits();
         $totalScoreByPurchased = $rw->fetchTotalCreditsPoints();
+        $totalCreditPurchased = $totalScoreByPurchased;
 
         $totalNumberOfReferrals = $rw->getTotalReferrals();
         $totalNumberOfReferralsReportsPoints = $rw->getTotalReportsCombinedReferrals(); //earned from referrals report
         $totalNumberOfReferralsPurchasedPoints = $rw->getTotalPointsByReferralsPurchased();
         $totalScore = $rw->getTotalPointsScore();
         $nextScoreLevel = $rw->getAdvisorNextLevel();
+
+        $advisor_lvl_approved = 0; #void
+        if(AdvisorLevels::getAdvisorStatus(1,0)){#advisor level pending
+            $advisor_lvl_approved = 1; #false
+        }elseif(AdvisorLevels::getAdvisorStatus(1,1)){#advisor level approved
+            $advisor_lvl_approved = 2; #true
+        }
+
+        $gold_advisor_lvl_approved = 0; #void
+        if(AdvisorLevels::getAdvisorStatus(2,0)){#advisor level pending
+            $gold_advisor_lvl_approved = 1; #false
+        }elseif(AdvisorLevels::getAdvisorStatus(2,1)){#advisor level approved
+            $gold_advisor_lvl_approved = 2; #true
+        }
+
+        $platinum_advisor_lvl_approved = 0; #void
+        if(AdvisorLevels::getAdvisorStatus(3,0)){#advisor level pending
+            $platinum_advisor_lvl_approved = 1; #false
+        }elseif(AdvisorLevels::getAdvisorStatus(3,1)){#advisor level approved
+            $platinum_advisor_lvl_approved = 2; #true
+            $nextScoreLevel = $rw->getAdvisorNextLevel(500, 1);
+        }
+
         $advisorTips1 = $rw->getAdvisorTips($totalScore);
         $advisorTips2 = $rw->getAdvisorTips(200);
         $advisorTips3 = $rw->getAdvisorTips(500);
@@ -85,7 +109,7 @@ class TokenConfirmController extends Controller {
         $currentAdvisorLevel = $rw->getAdvisorLevel();
         $rw->removeDuplicatesIds();
 
-        $countAd = AdvisorLevels::where('company_id', $company_id_result)->where('user_id', $user_id)->where('status', 0)->count();
+        $advisorDetails = AdvisorLevels::where('company_id', $company_id_result)->where('user_id', $user_id)->get();
         //echo $rw->user_credit_ids_str .'<br />';
         //echo $rw->user_referral_ids_str.'<br />';
         //echo $rw->referral_pur_ids_str.'<br />';
@@ -104,7 +128,7 @@ class TokenConfirmController extends Controller {
         return view('token.points', compact('profileAvatar', 'brand_slogan', 'c_promo', 
         'totalNumberOfReferralsPurchasedPoints', 'totalCreditPurchased', 'totalNumberOfReferrals', 
         'totalNumberOfReferralsReportsPoints', 'totalScore', 'company_id_result', 'totalScoreByPurchased',
-        'nextScoreLevel', 'advisorTips1', 'advisorTips2', 'advisorTips3', 'amountToRedemp' ,'currentAdvisorLevel', 'countAd'));
+        'nextScoreLevel', 'advisor_lvl_approved', 'gold_advisor_lvl_approved', 'platinum_advisor_lvl_approved', 'amountToRedemp' ,'currentAdvisorLevel', 'advisorDetails'));
 
     }
 

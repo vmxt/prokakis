@@ -234,9 +234,9 @@
                                                   <div class="card-body">
                                                     <h5 class="card-title"><b class="text-company">How Do I Earn Intellinz Reward Points?</b></h5>
                                                         <ul class="text-white" style="line-height: 25px">
-                                                            <li>Get 0.12 points for every credit purchased.</li>
-                                                            <li>Introduce and share to a friend or business associate and get 0.05 points.</li>
-                                                            <li>Earn 0.01 points passively every time your. referrals purchase 1 credit for Intellinz services</li>
+                                                            <li>Get 0.02 points for every dollar spent.</li>
+                                                            <li>Introduce and share to a friend or business associate and get 1 points. (one-time only) </li>
+                                                            <li>Earn 0.01 points passively every time your. referrals spent every 1 dollar for Intellinz services</li>
                                                         </ul>
                                                   </div>
                                                 </div>
@@ -288,7 +288,7 @@
                                                         <div class="card" style="overflow: hidden;">
                                                             <div class="card-header">
                                                                     
-                                                                    <span class="bold " style="color:black">Your total credit is {{ $totalCreditPurchased }}. <br /></span>
+                                                                    <span class="bold " style="color:black">Total amount of points you have is: {{ $totalCreditPurchased }} <br /></span>
 
                                                                     <hr>
 
@@ -298,12 +298,12 @@
                                                                     <hr>
 
 
-                                                                    <span class="bold " style="color:black">Your points on referrals credit purchased a combined total of {{ $totalNumberOfReferralsPurchasedPoints }}. <br /></span>
+                                                                    <span class="bold " style="color:black">Your points earned from referrals purchases equals a combined total of {{ $totalNumberOfReferralsPurchasedPoints }}. <br /></span>
 
                                                                     
                                                                     <hr>
 
-                                                                    <span class="bold " style="color:black">Your points on referrals report request a combined total of {{ $totalNumberOfReferralsReportsPoints }}. <br /></span>
+                                                                   <!--  <span class="bold " style="color:black">Your points on referrals report request equals a combined total of {{ $totalNumberOfReferralsReportsPoints }}. <br /></span> -->
 
                                                                     
                                                                     <br /><br />
@@ -370,37 +370,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <div style="display: none;" class="card" style="overflow: hidden;">
-                                                        @if($countAd > 0)
-                                                            <div class="card-header"> 
-
-                                                                <center>
-                                                                <button class="btn red-mint btn-full" type="button" disabled>PENDING</button> 
-                                                                </center>
-                                                            </div>
-                                                        @else
-                                                            <div class="card-header"> 
-                                                                @if( $currentAdvisorLevel >= 1 )
-                                                                    <center>
-                                                                    <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
-                                                                    {{ csrf_field() }}  
-                                                                    <input type="hidden" name="amount_to_redeem" value="{{ $amountToRedemp }}">
-                                                                    <input type="hidden" name="advisor_level" value="{{ $amountToRedemp }}">
-                                                                    <input type="button" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD ${{ $amountToRedemp }} NOW">
-                                                                    </form>    
-                                                                    </center>
-                                                                @else  
-                                                              <!--   <center>
-                                                                <button class="btn btn-primary" type="button" disabled>REDEEM USD $100 NOW</button> 
-                                                                </center> -->
-                                                                @endif 
-                                                               
-
-                                                            </div>
-                                                        @endif
-                                                   
-
-                                                    </div>
 
                     <!-- MODAL FOR REDEEM -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -412,17 +381,23 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
+                        <div class="modal-body col-sm-12" style="padding-left: 10%;padding-top: 25px;padding-right: 10%;margin-bottom: -30px;" >
+                            <div class="form-group form-check">
+                               
+                                <label class="form-check-label alert alert-info" for="validationCheck">  <input type="checkbox" class="form-check-input" id="validationCheck"> <span style="padding: 5px"> I hereby authorize intellinz to process my reward and redeem my points.</span></label>
+                            </div>
+                        </div>
                         <div class="modal-body col-sm-12" >
                             <div class="col-sm-4">
                                 <div class="card" >
                                   <div class="card-body">
                                     <h5 class="text-company card-title "><b>Advisor Level</b></h5>
-                                    @if(app\AdvisorLevels::getAdvisorLevelStatus(0))
+                                    @if($advisor_lvl_approved == 1)
                                         <p> You're request still in review</p>
                                         <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>PENDING</button> 
-                                    @elseif(app\AdvisorLevels::getAdvisorLevelStatus(1))
+                                    @elseif($advisor_lvl_approved == 2)
                                         <p>You already redeem this level</p>
-                                    @elseif($totalScore >= 50 AND !app\AdvisorLevels::getAdvisorCurrentLevel(1))
+                                    @elseif($totalScore >= 50)
                                     <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
                                         <p class="card-text">You reached Advisor Level. You can able to redeem USD $50</p>
                                         {{ csrf_field() }}  
@@ -444,10 +419,12 @@
                                 <div class="card">
                                   <div class="card-body">
                                     <h5 class="text-company card-title"><b>Gold Advisor</b></h5>
-                                    @if(app\AdvisorLevels::getAdvisorLevelStatus(0))
+                                    @if($gold_advisor_lvl_approved == 1)
                                         <p> You're request still in review</p>
                                         <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>PENDING</button> 
-                                    @elseif($totalScore >= 200 AND app\AdvisorLevels::getAdvisorCurrentLevel(1) AND !app\AdvisorLevels::getAdvisorCurrentLevel(2))
+                                    @elseif($gold_advisor_lvl_approved == 2)
+                                        <p>You already redeem this level</p>
+                                    @elseif($totalScore >= 200 )
                                     <p class="card-text">You reached Gold Advisor Level. You can able to redeem USD $300</p>
                                     <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
                                         {{ csrf_field() }}  
@@ -458,11 +435,11 @@
                                     </form>
                                     @else
                                         <p class="card-text">
-                                        @if(!app\AdvisorLevels::getAdvisorLevelStatus(1))
+                                        @if($advisor_lvl_approved == 1)
                                             You need to redeem Advisor Level first before you can claim Gold Advisor. <br>
                                         @endif
                                         @if($totalScore < 200)
-                                            You need to have {{$nextScoreLevel+150}} more points to get to the second level Gold Advisor and be able to redeem USD $300</p>
+                                            You need to have @if($totalScore >= 50){{$nextScoreLevel}}@else{{$nextScoreLevel+150}}@endif more points to get to the second level Gold Advisor and be able to redeem USD $300</p>
                                         @endif
                                         <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>REDEEM USD $300 NOW</button> 
                                     @endif
@@ -474,21 +451,27 @@
                                 <div class="card">
                                   <div class="card-body">
                                     <h5 class="text-company card-title"><b>Platinum Advisor</b></h5>
-                                    @if($totalScore >= 500 AND app\AdvisorLevels::getAdvisorCurrentLevel(1) AND app\AdvisorLevels::getAdvisorCurrentLevel(2))
+                                    @if($platinum_advisor_lvl_approved == 1)
+                                        <p> You're request still in review</p>
+                                        <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>PENDING</button> 
+                                    @elseif($platinum_advisor_lvl_approved == 2)
+                                        <p>You already redeem this level</p>
+                                    @elseif($totalScore >= 500)
+                                    <p class="card-text">You reached Platinum Advisor Level. You can able to redeem USD $500</p>
                                     <form id="redeemForm" class="redeem-form" action="{{ route('redeemRewards') }}" method="post">
                                         {{ csrf_field() }}  
                                         <input type="hidden" name="amount_to_redeem" value="1500">
                                         <input type="hidden" name="earned_points" value="500">
                                         <input type="hidden" name="advisor_level" value="3">
-                                        <input type="submit" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $1500 NOW">
+                                        <input type="submit"  style="font-size: 12px;" id="submit_button" name="submit_button" class="btn red-mint btn-full redeemBtn" value="REDEEM USD $1500 NOW">
                                     </form>
                                     @else
                                         <p class="card-text">
-                                        @if(!app\AdvisorLevels::getAdvisorLevelStatus(2))
+                                        @if($gold_advisor_lvl_approved == 1)
                                             You need to redeem Gold Advisor Level first before you can claim Platinum Advisor. <br>
                                         @endif
                                         @if($totalScore < 500)
-                                            You need to have {{$nextScoreLevel+300}} more points to get to the third level Platinum Advisor and be able to redeem USD $500</p>
+                                            You need to have @if($totalScore >= 200){{$nextScoreLevel}}@else{{$nextScoreLevel+300}}@endif more points to get to the third level Platinum Advisor and be able to redeem USD $500</p>
                                         @endif
                                         <button class="btn btn-primary"   style="font-size: 12px;" type="button" disabled>REDEEM USD $500 NOW</button> 
                                     @endif
@@ -516,6 +499,49 @@
 
                                     </div>
 
+                                <div>
+                                    <table id="system_data" class="table pure-table pure-table-horizontal pure-table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Earned Amount</th>
+                                                <th>Earned Point</th>
+                                                <th>Last Update</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                    
+                                    <tbody>
+                                    <?php
+                                    $counter = 1;
+                                    if(count((array)$advisorDetails) > 0){
+                                        foreach($advisorDetails as $b){  ?>
+                                    <tr>
+                                        <td><?php echo $counter; ?></td>
+                                        <td><p> <?php echo $b->earned_amount; ?></p></td>
+                                        <td><p> <?php echo $b->earned_points; ?></p></td>
+                                        <td><p> <?php echo $b->updated_at; ?></p></td>
+                                        <td><p>
+                                            @if($b->status == 0)
+                                                Pending
+                                            @elseif($b->status == 1)
+                                                Approved
+                                            @else
+                                                Rejected
+                                            @endif
+
+                                    </tr>
+
+                                    <?php
+                                    $counter++;
+                                        }
+
+                                    } ?>
+
+                                    </tbody>
+                                 
+                                </table>
+                                </div>
 
 
 
@@ -549,6 +575,20 @@
 
 
 <script type="text/javascript">
+
+$( document ).ready(function() {
+     $(".redeemBtn").prop("disabled",true);
+
+});
+
+    $("#validationCheck").click(function(){
+        if($('#validationCheck').is(':checked') ){
+            $(".redeemBtn").prop("disabled",false);
+         }else{
+            $(".redeemBtn").prop("disabled",true);
+         }
+
+    });   
 
     $("#submit_button").click(function(){
         // swal({

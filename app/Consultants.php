@@ -30,8 +30,7 @@ class Consultants extends Model {
 	];
 
 	public static function getProfileCompleteness($consul_id, $certificate) {
-		$cp = Consultants::where('consultant_id', $consul_id)->first();
-		if ($cp->count() > 0) {
+		if ($cp = Consultants::where('consultant_id', $consul_id)->first()) {
 			$n = 1;
 			$runSum = 0;
 			$runSum = (isset($cp->name) && strlen($cp->name) > 0) ? ($runSum + $n) : ($runSum + 0);

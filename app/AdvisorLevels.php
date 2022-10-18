@@ -29,6 +29,18 @@ class AdvisorLevels extends Model
         'id',  
     ];
    
+
+    public static function getAdvisorStatus($level=1, $status=0){
+      $usr =  User::find(Auth::id());
+      if($usr != null){
+          $ad =  AdvisorLevels::where('user_id', $usr->id)
+          ->where('advisor_level',$level)
+          ->where('status',$status)
+          ->first();
+          return $ad;
+      }
+    }
+
     public static function getAdvisorCurrentLevel($level){
       $usr =  User::find(Auth::id());
       if($usr != null){

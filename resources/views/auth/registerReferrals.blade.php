@@ -172,13 +172,20 @@
 
             </div>
 
+            <div class="form-group margin-top-20 margin-bottom-20 div-captcha">
+                <label>Enter the security code</label>
+                      <p class="img_captcha"><?= captcha_img() ?></p>
+                      <p><input type="text" name="captcha"></p>
+            </div>
+
             <div class="form-actions">
 
-                <a href="{{ url('login') }}" id="register-back-btn" class="btn green btn-outline">Login?</a>
+                <a href="{{ url('login') }}" id="register-back-btn" class="btn" style="background-color:#34893e; color:white;" >Back</a>
 
-                <button type="submit" id="registerbtn" class="btn btn-success uppercase pull-right"> Create </button>
+                <button type="submit" id="registerbtn" class="btn uppercase pull-right" style="background-color:#34893e; color:white;"> Create </button>
 
             </div>
+
 
         </form>
 

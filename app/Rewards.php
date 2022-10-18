@@ -101,12 +101,12 @@ class Rewards
     public function setTotalReferrals()
     {
       $refCount = User::where('referral_id', $this->user_id)
-      ->whereNotIn('id', $this->user_referral_ids_x)
+      #->whereNotIn('id', $this->user_referral_ids_x)
       ->count();
       $this->total_referrals = ($refCount > 0)? $refCount : 0;
 
       $refData = User::where('referral_id', $this->user_id)
-      ->whereNotIn('id', $this->user_referral_ids_x)
+      #->whereNotIn('id', $this->user_referral_ids_x)
       ->get();
 
       foreach($refData as $d){
@@ -140,15 +140,15 @@ class Rewards
               {
                   foreach($company_refs as $c){
                       $ref = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
-                      ->select(DB::raw('SUM(num_tokens) as TotalCredit'))
-                      ->whereNotIn('id', $this->referral_pur_ids_x)
+                      ->select(DB::raw('SUM(amount) as TotalCredit'))
+                      # ->whereNotIn('id', $this->referral_pur_ids_x)
                       ->first();
                       $sumCredit = ($sumCredit + $ref->TotalCredit); 
                   }
 
                   foreach($company_refs as $c){
                       $bIds = Buytoken::where('company_id', $c->id)->where('amount', '!=', 0)
-                      ->whereNotIn('id', $this->referral_pur_ids_x)
+                     # ->whereNotIn('id', $this->referral_pur_ids_x)
                       ->get();
                       if($bIds != null){
                             foreach($bIds as $d){
@@ -166,7 +166,7 @@ class Rewards
     public function getTotalPointsByReferralsPurchased()
     {
       $totalPoints = $this->setTotalPurchasedByCombinedReferrals();
-      return ($totalPoints * Config::get('constants.options.referral_purchased_per_credit')); //0.1
+      return ($totalPoints * Config::get('constants.options.referral_purchased_point')); //0.1
     }
 
     //total reports of referrals combined
@@ -182,14 +182,14 @@ class Rewards
                 {
                     foreach($company_refs as $c){
                         $countReports = RequestReport::where('company_id', $c->id)
-                        ->whereNotIn('id', $this->referral_rep_ids_x)
+                        #->whereNotIn('id', $this->referral_rep_ids_x)
                         ->count();
                         $sumReports = ($sumReports + $countReports); 
                     }
 
                     foreach($company_refs as $c){
                       $bIds = RequestReport::where('company_id', $c->id)
-                      ->whereNotIn('id', $this->referral_rep_ids_x)
+                      #->whereNotIn('id', $this->referral_rep_ids_x)
                       ->get();
                       if($bIds != null){
                             foreach($bIds as $d){
@@ -213,10 +213,10 @@ class Rewards
       $usr =  User::find(Auth::id());
       if($usr != null){
           $ad =  AdvisorLevels::where('user_id', $usr->id)
-          ->select(DB::raw('SUM(earned_amount) as earned_amount'))
+          ->select(DB::raw('SUM(earned_points) as earned_points'))
           ->where('status','<>',2)
           ->first();
-          return $ad->earned_amount;
+          return $ad->earned_points;
       }
     }
 
@@ -240,6 +240,7 @@ class Rewards
 
     public function getTotalPointsScore()
     {
+
       $indCreditsPoints = $this->getTotalCredits();
       //echo 'Credits from Rewards: '. $indCreditsPoints; exit;
       $indReferralsPoints = $this->getReferralsPoints();
@@ -271,9 +272,13 @@ class Rewards
       return $str;
   }
 
-  public function getAdvisorNextLevel()
+  public function getAdvisorNextLevel($score=0, $max=0)
   {
-    $n = $this->getTotalPointsScore();
+    if($score == 0){
+      $n = $this->getTotalPointsScore();
+    }else{
+      $n = $score;
+    }
     //echo  $n; exit;
     $str = 0;
      if($n >= 50 && $n < 200 ){
@@ -285,6 +290,11 @@ class Rewards
       } else{
         $str = (50 - $n);
       }
+
+if($max!=0){
+  $str = 500 - $this->getTotalPointsScore();
+}
+
     return $str;
   }
 

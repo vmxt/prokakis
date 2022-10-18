@@ -274,12 +274,14 @@ class ApiTokenController extends Controller
                      $obc = OpportunityBuildingCapability::where('status', 1)
                      ->where('intro_describe_business', '!=', null)
                      ->where('ideal_partner_base', '!=', null)
+                     ->where('ideal_partner_base', '!=', null)
                      ->orderBy('id', 'desc')
                      ->limit(5)
                      ->get();
                      
                      $ob =  OpportunityBuy::where('status', 1)
                      ->where('intro_describe_business', '!=', null)
+                     ->where('ideal_partner_base', '!=', null)
                      ->where('ideal_partner_base', '!=', null)
                      ->orderBy('id', 'desc')
                      ->limit(5)
@@ -288,6 +290,7 @@ class ApiTokenController extends Controller
                      $oso = OpportunitySellOffer::where('status', 1)
                      ->where('intro_describe_business', '!=', null)
                      ->where('ideal_partner_base', '!=', null)
+                     ->where('industry', '!=',0)
                      ->orderBy('id', 'desc')
                      ->limit(5)
                      ->get();

@@ -9,7 +9,9 @@ return [
     'er_api' => 'https://er.app-prokakis.com/',
 	'credit_point' => 0.02,
 
-        'referral_point' => 0.01,
+        'referral_point' => 1,
+
+        'referral_purchased_point' => 0.01,
 
         'profile' => 'PROFILE_AVATAR',
 

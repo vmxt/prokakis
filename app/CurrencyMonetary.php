@@ -183,7 +183,7 @@ class CurrencyMonetary extends Model
             $ccode = $curr_to->c_code;
         }
         
-        if($acc->currency_id == $currencyNow){
+        if(isset($acc->currency_id) AND $acc->currency_id == $currencyNow){
             return number_format((float)str_replace(",","",$amount), 2, '.', ',')." ".$ccode;
         }
         else{
