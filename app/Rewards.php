@@ -147,7 +147,7 @@ class Rewards
     {
      $this->setTotalReferrals(); 
      $total = ($this->total_referrals != null)? $this->total_referrals : 0;
-     return ($total > 1) ? 1 : 0;
+     return ($total >= 1) ? 1 : 0;
     }
    
     public function getReferralsPoints()
