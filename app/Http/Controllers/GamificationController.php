@@ -69,6 +69,8 @@ class GamificationController extends Controller {
 						'user_credit_ids'	=> trim($user_credit_ids), 
 						'referral_pur_ids'  => trim($referral_pur_ids), 
 						'referral_rep_ids'	=> trim($referral_rep_ids),
+						'referral_rep_ids'	=> trim($referral_rep_ids),
+						'ip_address' = $this->getIpAddress();
 						'status'		 => 0, 
 						'created_at'	 => date('Y-m-d'),
 					]);
@@ -443,7 +445,6 @@ class GamificationController extends Controller {
 			$result = AdvisorLevels::find($ids);
 			$result->status = 1;
 			$result->updated_by =  Auth::id();
-			$result->ip_address = $this->getIpAddress();
 			$result->save();
 		}
 		$this->redeemApprovedRewards($result->user_id);

@@ -2425,7 +2425,11 @@ function autocomplete(inp, arr) {
 
 $(document).ready(function()
 {
-    
+        $(function() {
+    $.fn.size = function() {
+        return this.length;
+    }
+});
     $('[data-toggle="popover"]').popover();   
    $.getJSON('https://app-prokakis.com/getCompanyNames', function(dataA) {
      autocomplete(document.getElementById("seach_entry_key"), dataA);

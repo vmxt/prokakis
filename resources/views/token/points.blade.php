@@ -588,6 +588,9 @@
 <script type="text/javascript">
 
 $( document ).ready(function() {
+
+
+    
                   $('#system_data').DataTable({
             responsive: true,
             columnDefs: [ 
