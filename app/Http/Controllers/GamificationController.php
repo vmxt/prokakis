@@ -70,7 +70,7 @@ class GamificationController extends Controller {
 						'referral_pur_ids'  => trim($referral_pur_ids), 
 						'referral_rep_ids'	=> trim($referral_rep_ids),
 						'referral_rep_ids'	=> trim($referral_rep_ids),
-						'ip_address' = $this->getIpAddress();
+						'ip_address' => $this->getIpAddress(),
 						'status'		 => 0, 
 						'created_at'	 => date('Y-m-d'),
 					]);
