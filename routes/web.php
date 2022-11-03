@@ -244,6 +244,7 @@ Route::get('/redeem-accpay-preview/{requestId}', 'GamificationController@apPrint
 //staff
 Route::group(['middleware' => ['checkusetype:4']], function() {
     Route::get('/thomson', 'ThomsonController@search')->name('thomsonSearch');
+    // Route::get('/thomson-company', 'ThomsonController@search')->name('thomsonSearch');
     Route::get('/thomson/history', 'ThomsonController@history')->name('thomsonHistory');
     Route::post('/thomson', 'ThomsonController@searchFound')->name('thomsonSearchFound');
     Route::post('/thomsonCompanySearch', 'ThomsonController@searchFoundCompany')->name('searchFoundCompany');

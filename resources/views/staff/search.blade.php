@@ -247,154 +247,66 @@ th {
 </style>
 
 <link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css'>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
     <div class="container" >
-
         <ul class="page-breadcrumb breadcrumb" style="margin-top: 10px;">
-
             <li>
-
                 <a href="{{ url('/home') }}">Dashboard</a>
-
                 <i class="fa fa-circle"></i>
-
             </li>
-
             <li>
-
                 <span>Refinitiv</span>
-
             </li>
-
         </ul>
 
         <div class="row justify-content-center">
-
             <div class="col-md-3">
-
                 <div class="portlet light">
-
                     <div class="portlet-body light">
-
-
-
                         <div class="loader"></div>
-
-
-
-                @if ($errors->any())
-
-
-
-                <div class="alert alert-danger">
-
-
-
-                    <ul>
-
-
-
-                        @foreach ($errors->all() as $error)
-
-
-
-                            <li>{{ $error }}</li>
-
-
-
-                        @endforeach
-
-
-
-                    </ul>
-
-
-
-                </div>
-
-
-
-            @endif
-
-
-
-                    <div class="card">
-
-                        <div class="form-group">
-
-                            <label> Search Type: </label>    
-
-                            <input type="checkbox" id="SearchCategory" name="SearchCategory" data-toggle="switchbutton" checked data-onlabel="Person" data-offlabel="Company" data-onstyle="success" data-offstyle="primary">
-
-                        </div>
-
-                           
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                        <div class="card">
+                            <div class="form-group">
+                                <label> Search Type: </label>    
+                                <input type="checkbox" id="SearchCategory" name="SearchCategory" data-toggle="switchbutton" checked data-onlabel="Person" data-offlabel="Company" data-onstyle="success" data-offstyle="primary">
+                                <input type="hidden" id="is_company" value="<?= isset($iscompany) ? 1 : 0 ?>" >
+                            </div>
 
                         <div id="front"> 
-
-                            <form id="thomson_search" method="POST" action="{{ route('thomsonSearchFound') }}">
-
-                            {{ csrf_field() }}
-
-
-
-                         
-
+                            <form  class="thomson_search" method="POST" action="{{ route('thomsonSearchFound') }}">
+                                {{ csrf_field() }}
                                 <div class="form-group">
-
                                     <label> First Name </label>
-
                                     <input id="first_name" name="first_name" minlength="2" class="form-control placeholder-no-fix form-body" type="text" placeholder="Write First Name" autofocus>
-
-               
-
                                 </div>
-
                                 
-
                                 <div class="form-group">
-
-                                        <label> Last Name </label>
-
-                                        <input id="last_name" name="last_name" minlength="2"  class="form-control placeholder-no-fix" type="text" placeholder="Write Last Name"  autofocus>
-
+                                    <label> Last Name </label>
+                                    <input id="last_name" name="last_name" minlength="2"  class="form-control placeholder-no-fix" type="text" placeholder="Write Last Name"  autofocus>
                                 </div>
-
                                 
-
                                 <div class="form-group">
-
-                                        <label> Gender <code>required *</code></label>
-
-                                        <select name="gender" multiple="" class="form-control" style="height:90px">
-
-                                                <option value="M">Male</option>
-
-                                                <option value="F">Female</option>
-
-                                                <option value="E">Others - as a company, corp, group </option>
-                                        </select>
-
-                            
-
+                                    <label> Gender </label>
+                                    <select name="gender" multiple="" class="form-control" style="height:90px">
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                        <option value="E">Others - as a company, corp, group </option>
+                                    </select>
                                 </div>
 
-
-
-                                   
-
                                 <div class="form-group">
-
                                     <label> Other Names (Alias) </label>
-
                                     <input style="text-transform:capitalize;" minlength="3" id="alias" name="alias" class="form-control" type="text" placeholder="Alias">
-
                                 </div>
-
-
-
-                                   
 
                                 <div class="form-group">
 
@@ -406,24 +318,15 @@ th {
 
                                 </div>
 
- <?php
-
+                                    <?php
                                             $locations = array();
-
                                             foreach ($country_list as $d) {
-
                                                 $arr = $d['COUNTRIES'];
-
                                                 // echo $arr.'<br />';
-
                                                 $ar = explode(",", $arr);
-
                                                 if (count((array) $ar) > 0) {
-
                                                     foreach ($ar as $b) {
-
                                                         $c = trim($b);
-
                                                         if ($c != '-') {
                                                             $res = explode(';', $c);
                                                             if(isset($res[1])){
@@ -431,61 +334,35 @@ th {
                                                             }else{
                                                                 $locations[] = $c;
                                                             }
-
                                                         }
-
                                                     }
-
                                                 }
-
                                             }
 
                                             $country_arr = array_unique($locations);
-
                                             sort($country_arr);
-
                                             $citizenship = array();
-
                                             foreach ($citenzenship_list as $d) {
-
                                                 $arr = $d['CITIZENSHIP'];
-
                                                 // echo $arr.'<br />';
-
                                                 $ar = explode(";", $arr);
-
                                                 if (count((array) $ar) > 0) {
-
                                                     foreach ($ar as $b) {
-
                                                         $c = trim($b);
-
                                                         if ($c != '-') {
-
                                                             $citizenship[] = $c;
-
                                                         }
-
                                                     }
-
                                                 }
-
                                             }
 
                                             $citizenship_arr = array_unique($citizenship);
-
                                             sort($citizenship_arr);
 
-
-
-?>
+                                    ?>
 
                                 <div class="form-group">
-
-                                    <label> Country <code>required *</code></label>
-
-                                    <!-- <input style="text-transform:capitalize;" id="country_location" name="country_location" class="form-control" type="text" placeholder="Write Country Location"> -->
-
+                                  
                                     <select style="text-transform:capitalize;" class="form-control placeholder-no-fix" id="country_location"  dataName="country_location" placeholder="Write Country Location" name="country_location">
 
                                             <option value="" id="">Please select the following</option>
@@ -505,35 +382,18 @@ th {
                                 </div>
 
 
-
-                                
-
-
-
                                 <div class="form-group">
 
                                     <label> Nationality </label>
 
-                                  <!--   <input style="text-transform:capitalize;" id="nationality" name="nationality" class="form-control placeholder-no-fix" type="text" placeholder="Write Nationality" autofocus> -->
-
-
-
                                     <select style="text-transform:capitalize;" class="form-control placeholder-no-fix" id="nationality"  dataName="nationality" placeholder="Write Nationality" name="nationality">
-
                                             <option value="" id="">Please select the following</option>
-
                                             @foreach($citizenship_arr as $citizenship)
-
                                             <option
-
                                                  value="<?php echo $citizenship  ?>"><?php echo $citizenship; ?>
-
                                             </option>
-
                                             @endforeach
-
                                     </select>
-
                                 </div>
 
 
@@ -566,7 +426,7 @@ th {
 
                         <div id="back">
 
-                            <form id="thomson_search" method="POST" action="{{ route('searchFoundCompany') }}">
+                            <form class="thomson_search" method="POST" action="{{ route('searchFoundCompany') }}">
 
                                 {{ csrf_field() }}
 
@@ -586,7 +446,7 @@ th {
 
                                 <div class="form-group">
 
-                                    <label> Country <code>required *</code></label>
+                                    <label> Country </label>
 
                                     <select style="text-transform:capitalize;" class="form-control placeholder-no-fix" id="country_location2"  dataName="country_location" placeholder="Write Country Location" name="country_location">
 
@@ -620,8 +480,6 @@ th {
 
                         </div> 
 
-
-
                     </div>
 
                 </div>
@@ -631,22 +489,16 @@ th {
             </div>
 
             <div class="col-md-9">
+                <div class="portlet light scrollable">
+                    <div class="portlet-title">
 
+                        <div class="caption">
 
+                            <i class="icon-bulb "></i>
 
-                    <div class="portlet light scrollable">
+                            <span class="caption-subject  bold uppercase"><b><?php if(isset($sumRec)){ echo $sumRec . " of records found."; } ?></b> </span>
 
-                        <div class="portlet-title">
-
-
-
-                            <div class="caption">
-
-                                <i class="icon-bulb "></i>
-
-                                <span class="caption-subject  bold uppercase"><b><?php if(isset($sumRec)){ echo $sumRec . " of records found."; } ?></b> </span>
-
-                            </div>
+                        </div>
 
                           
 
@@ -930,9 +782,27 @@ th {
 
 
 
+<!-- The Modal -->
+<div class="modal" id="tr_result_modal">
+  <div class="modal-dialog" style="width: 900px">
+    <div class="modal-content">
+
+      <!-- Modal body -->
+      <div class="modal-body" id="tr_result">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
      
 
-     <div class="popup" data-popup="popup-2">
+<!--      <div class="popup" data-popup="popup-2">
 
                 <div class="popup-inner" style="overflow: scroll;height: -webkit-fill-available;">
 
@@ -942,7 +812,7 @@ th {
 
                 </div>
 
-     </div>    
+     </div>   -->  
 
 
 
@@ -1118,7 +988,7 @@ th {
      <script>
 
         $(document).ready(function() {  
-            
+
             $('#mytable').DataTable({
             responsive: true,
             columnDefs: [ 
@@ -1128,7 +998,7 @@ th {
             ]
             });
 
-        $("#back").fadeOut("slow");
+        // $("#back").fadeOut("slow");
 
         $('#dob').mask('0000-00-00');
 
@@ -1140,131 +1010,7 @@ th {
 
         });    
 
-            // var options = {
-
-            //     url: "{{ route('getCountryLocation') }}",
-
-            //     getValue: "LOCATIONS",
-
-            //     list: {
-
-            //         maxNumberOfElements: 5,
-
-            //         match: {
-
-            //             enabled: true
-
-            //         },
-
-            //         sort: {
-
-            //             enabled: true
-
-            //         },
-
-            //         onClickEvent: function() {
-
-            //             console.log('click');
-
-
-
-            //         },
-
-            //         showAnimation: {
-
-            //             type: "fade", //normal|slide|fade
-
-            //             time: 400,
-
-            //             callback: function() {}
-
-            //         },
-
-            
-
-            //         hideAnimation: {
-
-            //             type: "slide", //normal|slide|fade
-
-            //             time: 400,
-
-            //             callback: function() {}
-
-            //         }    
-
-
-
-            //     }
-
-            // };
-
-            // $("#country_location").easyAutocomplete(options); 
-
-            
-
-            
-
-            // var optionsNationality = {
-
-            //     url: "{{ route('getNationality') }}",
-
-            //     getValue: "CITIZENSHIP",
-
-            //     list: {
-
-            //         maxNumberOfElements: 5,
-
-            //         match: {
-
-            //             enabled: true
-
-            //         },
-
-            //         sort: {
-
-            //             enabled: true
-
-            //         },
-
-            //         onClickEvent: function() {
-
-            //             console.log('click');
-
-
-
-            //         },
-
-            //         showAnimation: {
-
-            //             type: "fade", //normal|slide|fade
-
-            //             time: 400,
-
-            //             callback: function() {}
-
-            //         },
-
-            
-
-            //         hideAnimation: {
-
-            //             type: "slide", //normal|slide|fade
-
-            //             time: 400,
-
-            //             callback: function() {}
-
-            //         }    
-
-            //     }
-
-            // };
-
-            // $("#nationality").easyAutocomplete(optionsNationality); 
-
-            
-
-
+          
 
                 $(".easy-autocomplete-container").on("show.eac", function(e) {
 
@@ -1467,6 +1213,7 @@ th {
                 
 
                     success: function(data){
+                        $("#tr_result_modal").modal('show');
 
                         $("#tr_result").html(data);
 
@@ -1702,7 +1449,7 @@ th {
 
 
 
-                  $("#thomson_search").submit(function(){
+                  $(".thomson_search").submit(function(){
 
                     $(".loader").fadeIn("slow");
 
@@ -1713,36 +1460,27 @@ th {
        
 
               $('#SearchCategory').change(function() {
-
-               
-
-                if(this.checked) {
-
-                
-
-                    $("#back").fadeOut("slow");
-
-                    $("#front").fadeIn("slow");
-
-                    
-
-                }else {
-
-                    $("#back").fadeIn("slow");
-
-                    $("#front").fadeOut("slow");
-
-                }
-
-                
-
+                    checkToggle(this.checked);
               });
 
 
+              function checkToggle(data){
+                if(data) {
+                    $("#back").fadeOut("slow");
+                    $("#front").fadeIn("slow");
+                }else {
+                    $("#back").fadeIn("slow");
+                    $("#front").fadeOut("slow");
+                }
+              }
 
            
 
-
+        if($('#is_company').val() == 1 ){
+                    $( "#SearchCategory" ).prop('checked',false);
+                    $("#back").show();
+                    $("#front").hide();
+            }
 
     </script>
 
