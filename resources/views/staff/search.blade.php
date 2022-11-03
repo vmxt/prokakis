@@ -263,7 +263,7 @@ th {
 
             <li>
 
-                <span>Thomson Reuters</span>
+                <span>Refinitiv</span>
 
             </li>
 
@@ -425,8 +425,12 @@ th {
                                                         $c = trim($b);
 
                                                         if ($c != '-') {
-
-                                                            $locations[] = $c;
+                                                            $res = explode(';', $c);
+                                                            if(isset($res[1])){
+                                                                $locations[] = $res[0];
+                                                            }else{
+                                                                $locations[] = $c;
+                                                            }
 
                                                         }
 

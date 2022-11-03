@@ -1569,6 +1569,21 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
                                         </li>
                                         
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="#">
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Rewards</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/rewards/approval/pending')}}" class="nav-link  ">
+                                                    Pending Rewards</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/rewards/approval/approved')}}" class="nav-link  ">
+                                                    Approved Rewards</a>
+                                                </li>
+                                            </ul>
+                                        </li>
 
                                         <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
                                             <a href="#">
@@ -1743,12 +1758,12 @@ s0.parentNode.insertBefore(s1,s0);
 
                                                         <li aria-haspopup="true" class=" ">
                                                                 <a href="{{ url('/thomson') }}" class="nav-link  ">
-                                                                <i class="icon-bulb" style="color: #7cda24"></i> Refinitive </a>
+                                                                <i class="icon-bulb" style="color: #7cda24"></i> Refinitiv </a>
                                                         </li>
 
                                                         <li aria-haspopup="true" class=" ">
                                                                 <a href="{{ url('/thomson/history') }}" class="nav-link  ">
-                                                                <i class="icon-bulb" style="color: #7cda24"></i> Refinitive History </a>
+                                                                <i class="icon-bulb" style="color: #7cda24"></i> Refinitiv History </a>
                                                         </li>
 
                                                         <li aria-haspopup="true" class="">
@@ -1897,6 +1912,21 @@ s0.parentNode.insertBefore(s1,s0);
                                             </ul>
                                         </li>
                                         
+                                        <li aria-haspopup="true" class="menu-dropdown mega-menu-dropdown">
+                                            <a href="#">
+                                                <i class="icon-layers" style="color: #7cda24"></i> <span class="">Rewards</span>
+                                            </a>
+                                            <ul class="dropdown-menu pull-left">
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/rewards/approval/pending')}}" class="nav-link  ">
+                                                    Pending Rewards</a>
+                                                </li>
+                                                <li aria-haspopup="true" class=" ">
+                                                    <a href="{{url('/rewards/approval/approved')}}" class="nav-link  ">
+                                                    Approved Rewards</a>
+                                                </li>
+                                            </ul>
+                                        </li>
                                         
 
 
