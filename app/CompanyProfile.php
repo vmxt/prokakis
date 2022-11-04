@@ -267,25 +267,59 @@ class CompanyProfile extends Model {
 
 	}
 
-	public static function profileCompleteness($overview, $profileAvatar) {
+	public static function profileCompleteness($companyData, $profileAvatar, $keyManagement, $awards, $pinvoice, $sinvoice, $cert, $xero) {
 
 		$overall_count = 0;
 
-		#overview
+		#OVERVIEW
 		$overview_count = 0; $overview_total = 10; $overview_percentage = 30;
-		$overview_count = (isset($overview->registered_company_name) && strlen($overview->registered_company_name) > 0) ? ($overview_count + 1) : ($overview_count + 0);
-		$overview_count = (isset($overview->unique_entity_number) && strlen($overview->unique_entity_number) > 0) ? ($overview_count + 1) : ($overview_count + 0);
-		$overview_count = (isset($overview->business_type) && strlen($overview->business_type) > 0) ? ($overview_count + 1) : ($overview_count + 0);
-		$overview_count = (isset($overview->industry) && strlen($overview->industry) > 0) ? ($overview_count + 1) : ($overview_count + 0);
-		$overview_count = (isset($overview->description) && strlen($overview->description) > 0) ? ($overview_count + 1) : ($overview_count + 0);
-		$overview_count = (isset($overview->registered_address) && strlen($overview->registered_address) > 0) ? ($overview_count + 1) : ($overview_count + 0);
-		$overview_count = (isset($overview->primary_country) && strlen($overview->primary_country) > 0) ? ($overview_count + 1) : ($overview_count + 0);
-		$overview_count = (isset($overview->incorporation_date) && strlen($overview->incorporation_date) > 0) ? ($overview_count + 1) : ($overview_count + 0);
-		$overview_count = (isset($overview->company_email) && strlen($overview->company_email) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->registered_company_name) && strlen($companyData->registered_company_name) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->unique_entity_number) && strlen($companyData->unique_entity_number) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->business_type) && strlen($companyData->business_type) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->industry) && strlen($companyData->industry) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->description) && strlen($companyData->description) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->registered_address) && strlen($companyData->registered_address) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->primary_country) && strlen($companyData->primary_country) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->incorporation_date) && strlen($companyData->incorporation_date) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($companyData->company_email) && strlen($companyData->company_email) > 0) ? ($overview_count + 1) : ($overview_count + 0);
 		$overview_count = (isset($profileAvatar) && strlen($profileAvatar) > 0) ? ($overview_count + 1) : ($overview_count + 0);
 		$overview_count = round(( $overview_count / $overview_total ) * $overview_percentage ,2 );
 
-		return $overview_count;
+		#KEY MANAGEMENT
+		$management_count = 0; $management_total = 1; $management_percentage = 15;
+		$management_count = ($keyManagement >= 1)  ? ($management_count + 1) : ($management_count + 0);
+		$management_count = round(( $management_count / $management_total ) * $management_percentage ,2 );
+		
+		#company information
+		$compinfo_count = 0; $compinfo_total = 9; $compinfo_percentage = 30;
+		$compinfo_count = (isset($companyData->currency) && strlen($companyData->currency) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = (isset($companyData->years_establishment) && strlen($companyData->years_establishment) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = (isset($companyData->no_of_staff) && strlen($companyData->no_of_staff) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = (isset($companyData->gross_profit) && strlen($companyData->gross_profit) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = (isset($companyData->net_profit) && strlen($companyData->net_profit) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = (isset($companyData->paid_up_capital) && strlen($companyData->paid_up_capital) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = (isset($companyData->financial_year_end) && strlen($companyData->financial_year_end) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = (isset($companyData->annual_tax_return) && strlen($companyData->annual_tax_return) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = (isset($companyData->solvent_value) && strlen($companyData->solvent_value) > 0) ? ($compinfo_count + 1) : ($compinfo_count + 0);
+		$compinfo_count = round(( $compinfo_count / $compinfo_total ) * $compinfo_percentage ,2 );
+
+		#strenth
+		$strenth_count = 0; $strenth_total = 4; $strenth_percentage = 15;
+		$strenth_count = (isset($awards) && count((array) $awards) > 0) ? ($strenth_count + 1) : ($strenth_count + 0);
+		$strenth_count = (isset($pinvoice) && count((array) $pinvoice) > 0) ? ($strenth_count + 1) : ($strenth_count + 0);
+		$strenth_count = (isset($sinvoice) && count((array) $sinvoice) > 0) ? ($strenth_count + 1) : ($strenth_count + 0);
+		$strenth_count = (isset($cert) && count((array) $cert) > 0) ? ($strenth_count + 1) : ($strenth_count + 0);
+		$strenth_count = round(( $strenth_count / $strenth_total ) * $strenth_percentage ,2 );
+
+		#FINANCIAL STATUS
+		$financial_count = 0; $financial_total = 1; $financial_percentage = 10;
+		$financial_count = (isset($xero) && $xero == true) ? ($financial_count + 1) : ($financial_count + 0);
+		$financial_count = round(( $financial_count / $strenth_total ) * $strenth_percentage ,2 );
+
+
+		$overall_count = $overview_count + $management_count + $compinfo_count + $strenth_count + $financial_count;
+
+		return $overall_count;
 
 		//16.7 each out of 6
 
@@ -395,15 +429,17 @@ class CompanyProfile extends Model {
 
 		//$runSum[] = (isset($cp[0]->financial_month) && strlen($cp[0]->financial_month) > 0)? null : "Add financial month";
 
+		$runSum[] = (isset($cp[0]->currency) && strlen($cp[0]->currency) > 0) ? null : "Add company primary currency";
+
 		$runSum[] = (isset($cp[0]->years_establishment) && strlen($cp[0]->years_establishment) > 0) ? null : "Add company year of establishment";
+
+		$runSum[] = (isset($cp[0]->no_of_staff) && strlen($cp[0]->no_of_staff) > 0) ? null : "Add Number of Staff";
 
 		$runSum[] = (isset($cp[0]->annual_tax_return) && strlen($cp[0]->annual_tax_return) > 0) ? null : "Add company annual tax return";
 
 		$runSum[] = (isset($cp[0]->gross_profit) && strlen($cp[0]->gross_profit) > 0) ? null : "Add company gross profit";
 
 		$runSum[] = (isset($cp[0]->net_profit) && strlen($cp[0]->net_profit) > 0) ? null : "Add company net profit";
-
-		$runSum[] = (isset($cp[0]->currency) && strlen($cp[0]->currency) > 0) ? null : "Add company currency";
 
 		$runSum[] = (isset($cp[0]->no_of_staff) && strlen($cp[0]->no_of_staff) > 0) ? null : "Add company number of staff";
 

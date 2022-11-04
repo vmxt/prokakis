@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <?php //echo Route::getFacadeRoot()->current()->uri(); ?>
+
 
     <link href="{{ asset('public/mini-upload/assets/css/style.css') }}" rel="stylesheet">
 
@@ -15,8 +15,12 @@
 
 
     <link rel="stylesheet" href="{{asset('public/css/edit-profile.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
 
+    <link rel="stylesheet" href="{{asset('public/canva/css/piechart.css')}}">
+    <script src="{{ asset('public/canva/js/donutty.js') }}"></script>
+    <script src="{{ asset('public/canva/js/vanilla.js') }}"></script>
 
 
 
@@ -1074,7 +1078,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
 
 
-                                            <div class="progress-bar" role="progressbar" style="width: <?php echo $completenessProfile; ?>%;" aria-valuenow="<?php echo $completenessProfile; ?>" aria-valuemin="0"
+                                            <div class="progress-bar" role="progressbar" style="width:  <?= $completenessProfile; ?>%;" aria-valuenow="{{$completenessProfile}}" aria-valuemin="0"
 
                                                  aria-valuemax="100"><?php echo $completenessProfile; ?>%</div>
 
@@ -1082,17 +1086,24 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
                                         <div class="row" >
                                             <div class="col-md-5 mb-2">
-                                                <center>
-                                                <div class="pie">
-                                                    <div class="clip1">
-                                                        <div class="slice1"></div>
+                                                    <div class="piechart" >
+                                                            <div class="wrapper">
+                                                                <div title="{{$completenessProfile}}%"
+                                                                    data-donutty 
+                                                                    data-radius=20
+                                                                    data-thickness=20
+                                                                    data-padding=0
+                                                                    data-round=false
+                                                                    data-color="lightgreen"
+                                                                    data-text="{{$completenessProfile}}" 
+                                                                    data-title="{{$completenessProfile}}%" 
+                                                                    data-value="{{$completenessProfile}}" 
+                                                                    dir="rtl"  
+                                                                    data-anchor="top" ></div>
+                                                            </div>
                                                     </div>
-                                                    <div class="clip2">
-                                                        <div class="slice2"></div>
-                                                    </div>
-                                                    <div class="status text-dark"></div>
-                                                </div>
-                                                </center>
+
+    
                                             </div>
                                             <div class="col-md-7">
                                                 <div class="alert bg-intellinz-light-green text-company" style="width: 100%; overflow: hidden; margin-left: 0px !important;"> <p>
@@ -5444,7 +5455,24 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
 
     $(document).ready(function(){
-           
+      
+      const myChart = $("#piechart").donutty({
+
+      text: function( state ) {
+        return ( state.value / ( state.max - state.min ) * 100 ) + "%";
+        // return the percentage of the donut
+      },
+
+      title: function() { 
+        return "Donut Chart Graphic"; 
+      },
+
+      desc: function( v ) { 
+        return "A donut chart ranging from " + v.min + " to " + v.max + " with a current value of " + v.value + "."; 
+      };
+      
+});
+
         var tour = new Tour({
           steps: [
           {
@@ -5562,6 +5590,8 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
         </script>
 
     <script src="{{ asset('public/drop-date/jquery.date-dropdowns.js') }}"></script>
+        <!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
+
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 @endsection

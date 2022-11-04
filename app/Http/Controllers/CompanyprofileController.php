@@ -21,6 +21,7 @@ use Auth;
 use Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\XeroController;
 
 use App\ProkakisAccessToken;
 use GuzzleHttp\Client;
@@ -226,9 +227,8 @@ class CompanyprofileController extends Controller {
 
 		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
 
-		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
+		
 
-			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
 
 		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
 
@@ -244,6 +244,9 @@ class CompanyprofileController extends Controller {
 		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
 	
+		$isXeroValidConnection = (new XeroController)->checkIfConnected();
+
+		$completenessProfile = CompanyProfile::profileCompleteness($company_data, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
 		//$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id',$user_id)->where('company_id', $company_id_result)->first();
 
@@ -333,9 +336,11 @@ class CompanyprofileController extends Controller {
 
 		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
 
-		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
 
-			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+		$isXeroValidConnection = (new XeroController)->checkIfConnected();
+
+		$completenessProfile = CompanyProfile::profileCompleteness($company_data, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
 		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
 
@@ -349,7 +354,7 @@ class CompanyprofileController extends Controller {
 		$urlPreview = url('company/'.$company_id_result);
 
 		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
-		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
+
 	
 
 		//$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id',$user_id)->where('company_id', $company_id_result)->first();
@@ -429,9 +434,11 @@ class CompanyprofileController extends Controller {
 
 		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
 
-		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
 
-		$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+		$isXeroValidConnection = (new XeroController)->checkIfConnected();
+
+		$completenessProfile = CompanyProfile::profileCompleteness($company_data, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
 		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
 
@@ -445,7 +452,6 @@ class CompanyprofileController extends Controller {
 		$urlPreview = url('company/'.$company_id_result);
 
 	
-		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
 	
 
 		//$businessNewsOpportunity = BusinessOpportunitiesNews::where('user_id',$user_id)->where('company_id', $company_id_result)->first();
@@ -533,18 +539,19 @@ class CompanyprofileController extends Controller {
 
 		$profileSalesInvoice = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.sales_invoices'), 5);
 
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
+
 		$profileCertifications = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.certification'), 5);
 
-		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
+		$isXeroValidConnection = (new XeroController)->checkIfConnected();
 
-			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+		$completenessProfile = CompanyProfile::profileCompleteness($company_data, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
 		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
 
 			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
 
 		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
-		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
 
 
 		$param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
@@ -677,12 +684,6 @@ class CompanyprofileController extends Controller {
 
 		$profileCertifications = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.certification'), 5);
 
-		// $completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
-
-		// 	$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-		// dd($user_id);
-		$completenessProfile = CompanyProfile::profileCompleteness($company_data, $profileAvatar);
-
 		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
 
 			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
@@ -690,6 +691,9 @@ class CompanyprofileController extends Controller {
 		//$keyPersons = KeyManagement::where('user_id', $user_id)->where('status', 1)->get();
 		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
 
+		$isXeroValidConnection = (new XeroController)->checkIfConnected();
+
+		$completenessProfile = CompanyProfile::profileCompleteness($company_data, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
 		$param_months = array(1 => 'Jan.', 2 => 'Feb.', 3 => 'Mar.', 4 => 'Apr.', 5 => 'May', 6 => 'Jun.', 7 => 'Jul.', 8 => 'Aug.', 9 => 'Sep.', 10 => 'Oct.', 11 => 'Nov.', 12 => 'Dec.');
 

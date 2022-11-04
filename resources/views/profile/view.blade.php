@@ -36,6 +36,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
+   <link rel="stylesheet" href="{{asset('public/canva/css/piechart.css')}}">
+    <script src="{{ asset('public/canva/js/donutty.js') }}"></script>
+    <script src="{{ asset('public/canva/js/vanilla.js') }}"></script>
+    
     <style>
         html, body {
 
@@ -803,8 +807,24 @@
 
 
                                     <div class="col col-md-4">
-
-                                        <div class="pie">
+                                             <div class="piechart">
+                                                            <div class="wrapper">
+                                                                <div 
+                                                                    data-donutty 
+                                                                    data-radius=20
+                                                                    data-thickness=20
+                                                                    data-padding=0
+                                                                    data-round=false
+                                                                    data-color="lightgreen"
+                                                                    data-text="{{$completenessProfile}}" 
+                                                                    data-title="{{$completenessProfile}}%" 
+                                                                    data-value="{{$completenessProfile}}" 
+                                                                    dir="rtl"  
+                                                                    data-text=""
+                                                                    data-anchor="top" ></div>
+                                                            </div>
+                                                    </div>
+               <!--                          <div class="pie">
                                             <div class="clip1">
                                                 <div class="slice1"></div>
                                             </div>
@@ -812,7 +832,7 @@
                                                 <div class="slice2"></div>
                                             </div>
                                             <div class="status"></div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">
