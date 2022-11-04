@@ -267,7 +267,25 @@ class CompanyProfile extends Model {
 
 	}
 
-	public static function profileCompleteness($cp) {
+	public static function profileCompleteness($overview, $profileAvatar) {
+
+		$overall_count = 0;
+
+		#overview
+		$overview_count = 0; $overview_total = 10; $overview_percentage = 30;
+		$overview_count = (isset($overview->registered_company_name) && strlen($overview->registered_company_name) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($overview->unique_entity_number) && strlen($overview->unique_entity_number) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($overview->business_type) && strlen($overview->business_type) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($overview->industry) && strlen($overview->industry) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($overview->description) && strlen($overview->description) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($overview->registered_address) && strlen($overview->registered_address) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($overview->primary_country) && strlen($overview->primary_country) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($overview->incorporation_date) && strlen($overview->incorporation_date) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($overview->company_email) && strlen($overview->company_email) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = (isset($profileAvatar) && strlen($profileAvatar) > 0) ? ($overview_count + 1) : ($overview_count + 0);
+		$overview_count = round(( $overview_count / $overview_total ) * $overview_percentage ,2 );
+
+		return $overview_count;
 
 		//16.7 each out of 6
 

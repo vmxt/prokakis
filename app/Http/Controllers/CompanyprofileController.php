@@ -677,9 +677,11 @@ class CompanyprofileController extends Controller {
 
 		$profileCertifications = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.certification'), 5);
 
-		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
+		// $completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
 
-			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+		// 	$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+		// dd($user_id);
+		$completenessProfile = CompanyProfile::profileCompleteness($company_data, $profileAvatar);
 
 		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
 

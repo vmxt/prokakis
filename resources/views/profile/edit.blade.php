@@ -4904,7 +4904,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
                         swal("Good job!", "Success updating profile image!", "success");
 
 
-
+                        location.reload();
                         // var elements = document.getElementsByClassName('imageBoxCimg');
 
                         // while (elements.length > 0) {
