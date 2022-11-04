@@ -36,7 +36,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
-   <link rel="stylesheet" href="{{asset('public/canva/css/piechart.css')}}">
+    <link rel="stylesheet" href="{{asset('public/canva/css/piechart.css')}}">
     <script src="{{ asset('public/canva/js/donutty.js') }}"></script>
     <script src="{{ asset('public/canva/js/vanilla.js') }}"></script>
     
@@ -275,8 +275,10 @@
             line-height: 60px;
             text-align: center;
             top: 50%;
+            color: black;
             margin-top: -35px;
-            font-size: 50px;
+            font-size: 35px;
+            font-weight: 600;
         }
 
         .coverArr {
@@ -807,9 +809,10 @@
 
 
                                     <div class="col col-md-4">
-                                             <div class="piechart">
+
+                                                    <div class="piechart" >
                                                             <div class="wrapper">
-                                                                <div 
+                                                                <div title="{{$completenessProfile}}%"
                                                                     data-donutty 
                                                                     data-radius=20
                                                                     data-thickness=20
@@ -820,19 +823,10 @@
                                                                     data-title="{{$completenessProfile}}%" 
                                                                     data-value="{{$completenessProfile}}" 
                                                                     dir="rtl"  
-                                                                    data-text=""
                                                                     data-anchor="top" ></div>
                                                             </div>
+                                                             <div class="status">{{$completenessProfile}}%</div>
                                                     </div>
-               <!--                          <div class="pie">
-                                            <div class="clip1">
-                                                <div class="slice1"></div>
-                                            </div>
-                                            <div class="clip2">
-                                                <div class="slice2"></div>
-                                            </div>
-                                            <div class="status"></div>
-                                        </div> -->
 
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">

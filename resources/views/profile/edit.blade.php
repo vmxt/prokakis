@@ -212,8 +212,10 @@
             line-height: 60px;
             text-align: center;
             top: 50%;
+            color: black;
             margin-top: -35px;
-            font-size: 50px;
+            font-size: 25px;
+            font-weight: 600;
         }
 
         html, body {
@@ -1101,6 +1103,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
                                                                     dir="rtl"  
                                                                     data-anchor="top" ></div>
                                                             </div>
+                                                             <div class="status">{{$completenessProfile}}%</div>
                                                     </div>
 
     
