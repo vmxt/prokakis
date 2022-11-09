@@ -15,10 +15,9 @@
 
 
     <link rel="stylesheet" href="{{asset('public/css/edit-profile.css')}}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
 
-    <link rel="stylesheet" href="{{asset('public/canva/css/piechart.css')}}">
+    <link href="{{asset('public/canva/css/piechart.css')}}">
     <script src="{{ asset('public/canva/js/donutty.js') }}"></script>
     <script src="{{ asset('public/canva/js/vanilla.js') }}"></script>
 
@@ -2784,6 +2783,9 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
                                     ?>
                                      
                                     <div class="card mb-2">
+                                        <?php 
+                                            $ifpremium = App\SpentTokens::check_if_premium($company_id_result);
+                                        ?>
                                         <div class="card-body">
                                             <div class="row mb-2 ">
                                                 <div class="col-md-12">
@@ -2791,6 +2793,11 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
                                                         <h4 class="xero_logo"><img src="https://edge.xero.com/images/1.0.0/logo/xero-logo.svg" class="img-fluid" style="width:60px" /><strong>&nbsp;&nbsp;XERO INTEGRATION</strong></h4>
                                                     </div>
                                                 </div>
+                                                <?php if(!$ifpremium){ ?>
+                                                    <div class="col-md-12">
+                                                    <h3 class="text-danger">Your Account is Free. Please Purchase Premium Account to use the XERO Integration.</h3>
+                                                    </div>
+                                                <?php }else{ ?>
                                                 <div class="col-md-12">
                                                     <?php if($if_con > 0){ ?>
                                                     <label>STATUS: <span class="badge badge-pill "style="background:green !important">Connected</span></label>
@@ -2801,7 +2808,11 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
                                                 <div class="col-md-12">
                                                      <h4 style="margin-top:5px !important"><b>Organization Name:  </b> <a data-toggle="modal" data-target="#org_details_modal" id="org_txt">{{ strtoupper($org_name) }}</a></h4>
                                                 </div>
+                                                <?php } ?>
                                             </div>
+                                            
+                                            <?php if($ifpremium){ ?>
+                                            
                                             <div class="row">
                                                 <div class="col-md-12 mb-2">
                                                     <div class="alert bg-dark text-white text-center">
@@ -2833,6 +2844,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
                                                     <button id="import_load_btn" class="btn btn-sm btn-primary"><i class="fa fa-spinner"></i> IMPORT</button>
                                                 </div>
                                             </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     
@@ -3488,7 +3500,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
                                             <tr>
 
-                                                <td valign="top" class='sticky-row'>Directorsâ€™ Fees & Remuneration</td>
+                                                <td valign="top" class='sticky-row'>Directors’ Fees & Remuneration</td>
 
                                                 <td><input type="number" class="form-control" id="directors_fee_renum1"
 
@@ -3534,7 +3546,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
                                             <tr>
 
-                                                <td class='sticky-row'>Total Remuneration excluding Directorsâ€™ Fees and Remuneration</td>
+                                                <td class='sticky-row'>Total Remuneration excluding Directors’ Fees and Remuneration</td>
 
                                                 <td><input type="number" class="form-control" id="total_renum_exdirector1"
 
@@ -5459,23 +5471,6 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
     $(document).ready(function(){
       
-      const myChart = $("#piechart").donutty({
-
-      text: function( state ) {
-        return ( state.value / ( state.max - state.min ) * 100 ) + "%";
-        // return the percentage of the donut
-      },
-
-      title: function() { 
-        return "Donut Chart Graphic"; 
-      },
-
-      desc: function( v ) { 
-        return "A donut chart ranging from " + v.min + " to " + v.max + " with a current value of " + v.value + "."; 
-      };
-      
-});
-
         var tour = new Tour({
           steps: [
           {
@@ -5593,8 +5588,6 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
         </script>
 
     <script src="{{ asset('public/drop-date/jquery.date-dropdowns.js') }}"></script>
-        <!-- <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
-
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 @endsection

@@ -1,5 +1,3 @@
-// jquery constructor
-
 ( function( Donutty, $ ) {
 
     if ( typeof window.$ !== "undefined" ) {

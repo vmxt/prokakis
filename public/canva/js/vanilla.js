@@ -1,5 +1,3 @@
-// ie9+
-
 ( function( Donutty ) {
 
     var doc = document,

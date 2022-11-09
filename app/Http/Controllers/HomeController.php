@@ -59,6 +59,8 @@ use App\InOutUsers;
 use App\SAaccess;
 use App\CoreLoginHistory;
 use App\UserHistory;
+use App\KeyManagement;
+use App\Http\Controllers\XeroController;
 
 
 class HomeController extends Controller {
@@ -204,12 +206,9 @@ class HomeController extends Controller {
 
 		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
 
-
-
-		$completenessProfile = CompanyProfile::profileCompleteness(array($company_data, $profileAvatar, $profileAwards,
-
-			$profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
-
+		$keyPersons = KeyManagement::where('user_id', $user_id)->where('company_id', $company_id_result)->where('status', 1)->get();
+		$isXeroValidConnection = (new XeroController)->checkIfConnected();
+		$completenessProfile = CompanyProfile::profileCompleteness($company_data, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
 
 		$res = RequestReport::where('company_id', $company_id_result)->where('is_approve', NULL)->get();
