@@ -1101,7 +1101,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
                                                                     data-value="{{$completenessProfile}}" 
                                                                     dir="rtl"  
                                                                     data-anchor="top" ></div>
-                                                            </div>
+                                                    </div>
                                                              <div class="status">{{$completenessProfile}}%</div>
                                                     </div>
 
@@ -3500,7 +3500,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
                                             <tr>
 
-                                                <td valign="top" class='sticky-row'>Directors’ Fees & Remuneration</td>
+                                                <td valign="top" class='sticky-row'>Directorsâ€™ Fees & Remuneration</td>
 
                                                 <td><input type="number" class="form-control" id="directors_fee_renum1"
 
@@ -3546,7 +3546,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
                                             <tr>
 
-                                                <td class='sticky-row'>Total Remuneration excluding Directors’ Fees and Remuneration</td>
+                                                <td class='sticky-row'>Total Remuneration excluding Directorsâ€™ Fees and Remuneration</td>
 
                                                 <td><input type="number" class="form-control" id="total_renum_exdirector1"
 
@@ -5470,7 +5470,7 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
 
 
     $(document).ready(function(){
-      
+           
         var tour = new Tour({
           steps: [
           {

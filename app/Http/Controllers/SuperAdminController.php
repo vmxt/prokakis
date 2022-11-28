@@ -328,10 +328,15 @@ class SuperAdminController extends Controller
     {
 
       //$rs = User::whereIn('user_type', array(1, 2, 3, 4))->get();
+        $user_id = Auth::id();
+        $usr = User::find($user_id);
+        $isAdmin = 0;
+        if($usr->email == 'admin@app.intellinz.com'){
+            $isAdmin = 1;
+        }
+        $rs = User::whereIn('user_type', array(1, 2, 3, 4))->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->get();
 
-      $rs = User::whereIn('user_type', array(1, 2, 3, 4))->orderBy('created_at', 'DESC')->orderBy('id', 'DESC')->get();
-
-      return view('admin.approvalaccounts', compact('rs')); 
+      return view('admin.approvalaccounts', compact('rs','isAdmin')); 
 
     }
 

@@ -34,7 +34,7 @@
             <div class="card">
                 <div class="card-body ">
                     <div class="row ">
-                         <p class="h4">TOKEN SPENT HISTORY INFORMATION</p>
+                         <p class="h4">CREDIT SPENT HISTORY INFORMATION</p>
                     </div>
                     <div class="row ">
                          <img class='header-image' src="{{ asset('public/img-resources/intellinz_green.png') }}" width="35%">
@@ -78,7 +78,7 @@
                                     <tr>
                                         <th class="border-0 text-uppercase text-center small font-weight-bold">ID</th>
                                         <th class="border-0 text-uppercase text-center small font-weight-bold">Request ID</th>
-                                        <th class="border-0 text-uppercase text-center small font-weight-bold">Number of Tokens</th>
+                                        <th class="border-0 text-uppercase text-center small font-weight-bold">Number of Credit</th>
                                         <th class="border-0 text-uppercase text-center small font-weight-bold">Date Created</th>
                                     </tr>
                                 </thead>

@@ -546,7 +546,7 @@
         }
 
         @media (min-width: 320px) and (max-width: 480px) {
-            .profile-img img�{
+            .profile-img img{
                 margin-left: 35px;
             }
             .ctr{
@@ -824,9 +824,9 @@
                                                                     data-value="{{$completenessProfile}}" 
                                                                     dir="rtl"  
                                                                     data-anchor="top" ></div>
-                                                            </div>
+                                            </div>
                                                              <div class="status">{{$completenessProfile}}%</div>
-                                                    </div>
+                                        </div>
 
                                     </div>
                                     <div class="col col-lg-8" style="margin-top: 5px;">

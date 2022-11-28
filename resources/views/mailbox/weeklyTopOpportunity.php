@@ -138,8 +138,8 @@ a[x-apple-data-detectors='true'] {
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="left">
-      <a href="https://app-prokakis.com/" target="_blank">
-      <img align="left" border="0" src="images/image-2.png" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 200px;" width="200"/>
+      <a href="https://app.intellinz.com/" target="_blank">
+      <img align="left" border="0" src="https://app.intellinz.com/public/img-resources/intellinz-mail-icon.png" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 200px;" width="200"/>
       </a>
     </td>
   </tr>
@@ -251,14 +251,11 @@ a[x-apple-data-detectors='true'] {
   </div>
 </div>
 
+@foreach($ret as $list)
+@include('mailbox.oppolist',$list)
+@endforeach
 
-<?php 
-  for ($i=0; $i < 10 ; $i++) { 
-      include('oppolist.php'); 
-  echo "<br>";
-  }
 
-?>
 
 
 
@@ -282,7 +279,7 @@ a[x-apple-data-detectors='true'] {
         
 <div align="center">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;font-family:arial,helvetica,sans-serif;"><tr><td style="font-family:arial,helvetica,sans-serif;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:37px; v-text-anchor:middle; width:120px;" arcsize="54%" stroke="f" fillcolor="#54ae0c"><w:anchorlock/><center style="color:#FFFFFF;font-family:arial,helvetica,sans-serif;"><![endif]-->
-    <a href="" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #54ae0c; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
+    <a href="https://app.intellinz.com/" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #54ae0c; border-radius: 20px; -webkit-border-radius: 20px; -moz-border-radius: 20px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
       <span style="display:block;padding:10px 20px;line-height:120%;"><span style="font-size: 14px; line-height: 16.8px;">Add a Listing</span></span>
     </a>
   <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->

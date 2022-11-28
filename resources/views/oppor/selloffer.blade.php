@@ -2676,7 +2676,7 @@ var tour = new Tour({
     {
     element: "#sect_title_opportunity",
     title: "Title",
-    content: "Set the title of the Opportunity you wnat to create",
+    content: "Set the title of the Opportunity you want to create",
      placement: "bottom"
   },
   {

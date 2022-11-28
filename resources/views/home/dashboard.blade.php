@@ -303,7 +303,7 @@ bg-dark
                                                         data-value="{{$completenessProfile}}" 
                                                         dir="rtl"  
                                                         data-anchor="top" ></div>
-                                                </div>
+                                            </div>
                                                  <div class="status">{{$completenessProfile}}%</div>
                                         </div>
                                     </div>

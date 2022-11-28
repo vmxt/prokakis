@@ -27,4 +27,7 @@ class Unsubscribe extends Model
     protected $hidden = [
        'id' 
     ];
+    
+    
+
 }

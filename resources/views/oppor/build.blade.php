@@ -717,7 +717,7 @@ input::-moz-focus-inner {
 
                                                     <span class="check"></span>
 
-                                                    <span class="box"></span> <b>Develop a product or service with another company)</b> <br />
+                                                    <span class="box"></span> <b>Develop a product or service with another company</b> <br />
 
                                                 </label>
 
@@ -2643,7 +2643,7 @@ var tour = new Tour({
     {
     element: "#sect_title_opportunity",
     title: "Title",
-    content: "Set the title of the Opportunity you wnat to create",
+    content: "Set the title of the Opportunity you want to create",
      placement: "bottom"
   },
   {

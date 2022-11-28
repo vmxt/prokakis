@@ -440,12 +440,8 @@ public function searchFound(Request $request){
 				}
 
 				$inserted_prokakis = '';
-
-
 				if ($data['CREATED_AT'] != NULL) {
-
-					// $date1 = Carbon::createFromFormat('Y-m-d', $data['CREATED_AT']  );
-					$date1 = str_replace('/','-',$data['CREATED_AT']) ;
+					$date1 = Carbon::createFromFormat('Y-m-d', str_replace('/','-',$data['CREATED_AT'])  );
 					// $date = date_create($data['CREATED_AT']);
 					// $dateFinal = date_format($date, "Y-m-d");
 					$dateFinal = Carbon::parse($date1)->format('Y-m-d');
@@ -454,8 +450,8 @@ public function searchFound(Request $request){
 
 				$updated_prokakis = '';
 				if ($data['UPDATED'] != NULL) {
+					$date2 = Carbon::createFromFormat('Y-m-d', str_replace('/','-',$data['UPDATED']) );
 
-					$date2 = str_replace('/','-',$data['UPDATED']) ;
 					// $date2 = date_create($data->UPDATED);
 					// $dateFinal2 = date_format($date2, "Y-m-d");
 					$dateFinal2 =  Carbon::parse($date2)->format('Y-m-d');

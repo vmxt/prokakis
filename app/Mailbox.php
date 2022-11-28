@@ -57,19 +57,21 @@ class Mailbox extends Model {
 
 	}
 	
-	public static function sendMail_weeklyOpp($emailtext, $recipients, $subject, $bcc) {
-		Mail::send(array('html' => 'mailbox.weeklyTopOpportunity'), array('ret' => $emailtext),
-			function ($message) use ($recipients, $subject, $bcc) {
-				$message->from('support@intellinz.com', 'Intellinz Web Admin');
-
-				if ($bcc != '') {
-					$message->to($recipients)->$message->bcc($bcc)->subject($subject);
-				} else {
-					$message->to($recipients)->subject($subject);
-				}
-			}
-		);
-
+	public static function sendMail_weeklyOpp($emailtext, $uemail, $uid,  $subject, $bcc) {
+	    try{
+    		Mail::send(array('html' => 'mailbox.weeklyTopOpportunity'), array('ret' => $emailtext, 'uid'=>$uid),
+    			function ($message) use ($uemail, $subject, $bcc) {
+    				$message->from(env('MAIL_FROM_ADDRESS'), 'Intellinz Web Admin');
+    				if ($bcc != '') {
+    					$message->to($uemail)->$message->bcc($bcc)->subject($subject);
+    				} else {
+    					$message->to($uemail)->subject($subject);
+    				}
+    			}
+    		);
+	    }catch(Exception  $e){
+            echo "hello";
+        }
 	}
 
 	public static function sendMail($emailtext, $recipients, $subject, $bcc) {

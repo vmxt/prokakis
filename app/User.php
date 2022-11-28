@@ -149,4 +149,9 @@ class User extends Authenticatable {
 
 	}
 
+    public function mu_user()
+    {
+      return $this->hasMany(\App\Unsubscribe::class, 'user_id');
+    }
+    
 }

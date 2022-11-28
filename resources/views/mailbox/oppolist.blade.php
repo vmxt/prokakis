@@ -131,7 +131,7 @@
 <!--[if (mso)|(IE)]><td align="center" width="396" style="background-color: #ffffff;width: 396px;padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
 <div class="u-col u-col-67p5" style="max-width: 320px;min-width: 405px;display: table-cell;vertical-align: top;">
   <div style="background-color: #ffffff;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 0px solid transparent;border-bottom: 0px solid transparent;"><!--<![endif]-->
+  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;"><!--<![endif]-->
   
 <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
   <tbody>
@@ -139,7 +139,10 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>Estimated Revenue /year</strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;">
+        <span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>Estimated Revenue /year: </strong></span>
+        <span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px; margin-left: 10%"><strong>$ {{$list['est_revenue']}}</strong></span>
+    </p>
   </div>
 
       </td>
@@ -152,27 +155,6 @@
 </div>
 <!--[if (mso)|(IE)]></td><![endif]-->
 <!--[if (mso)|(IE)]><td align="center" width="186" style="background-color: #ffffff;width: 186px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
-<div class="u-col u-col-32p5" style="max-width: 320px;min-width: 195px;display: table-cell;vertical-align: top;">
-  <div style="background-color: #ffffff;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;"><!--<![endif]-->
-  
-<table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-  <tbody>
-    <tr>
-      <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-        
-  <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ {{$list['est_revenue']}}</strong></span></p>
-  </div>
-
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
-  </div>
-</div>
 <!--[if (mso)|(IE)]></td><![endif]-->
       <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
     </div>
@@ -189,7 +171,7 @@
 <!--[if (mso)|(IE)]><td align="center" width="396" style="background-color: #ffffff;width: 396px;padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
 <div class="u-col u-col-67p5" style="max-width: 320px;min-width: 405px;display: table-cell;vertical-align: top;">
   <div style="background-color: #ffffff;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 0px solid transparent;border-bottom: 0px solid transparent;"><!--<![endif]-->
+  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;"><!--<![endif]-->
   
 <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
   <tbody>
@@ -197,7 +179,10 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>Estimated Profit/year</strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;">
+        <span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>Estimated Profit/year:</strong></span>
+        <span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px; margin-left: 15%"><strong>$ {{$list['est_profit']}}</strong></span>
+    </p>
   </div>
 
       </td>
@@ -210,27 +195,7 @@
 </div>
 <!--[if (mso)|(IE)]></td><![endif]-->
 <!--[if (mso)|(IE)]><td align="center" width="186" style="background-color: #ffffff;width: 186px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
-<div class="u-col u-col-32p5" style="max-width: 320px;min-width: 195px;display: table-cell;vertical-align: top;">
-  <div style="background-color: #ffffff;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;"><!--<![endif]-->
-  
-<table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-  <tbody>
-    <tr>
-      <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-        
-  <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ {{$list['est_profit']}}</strong></span></p>
-  </div>
 
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
-  </div>
-</div>
 <!--[if (mso)|(IE)]></td><![endif]-->
       <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
     </div>
@@ -247,7 +212,7 @@
 <!--[if (mso)|(IE)]><td align="center" width="396" style="background-color: #ffffff;width: 396px;padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
 <div class="u-col u-col-67p5" style="max-width: 320px;min-width: 405px;display: table-cell;vertical-align: top;">
   <div style="background-color: #ffffff;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 0px solid transparent;border-bottom: 0px solid transparent;"><!--<![endif]-->
+  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;"><!--<![endif]-->
   
 <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
   <tbody>
@@ -255,7 +220,10 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>Inventory Value</strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;">
+        <span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>Inventory Value: </strong></span>
+        <span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px; margin-left: 21%"><strong>$ {{$list['inventory_value']}}</strong></span>
+    </p>
   </div>
 
       </td>
@@ -268,27 +236,7 @@
 </div>
 <!--[if (mso)|(IE)]></td><![endif]-->
 <!--[if (mso)|(IE)]><td align="center" width="186" style="background-color: #ffffff;width: 186px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
-<div class="u-col u-col-32p5" style="max-width: 320px;min-width: 195px;display: table-cell;vertical-align: top;">
-  <div style="background-color: #ffffff;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;"><!--<![endif]-->
-  
-<table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-  <tbody>
-    <tr>
-      <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-        
-  <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="color: #7e8c8d; font-size: 14px; line-height: 19.6px;"><strong>$ {{$list['inventory_value']}}</strong></span></p>
-  </div>
 
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
-  </div>
-</div>
 <!--[if (mso)|(IE)]></td><![endif]-->
       <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
     </div>
@@ -346,7 +294,7 @@
 <!--[if (mso)|(IE)]><td align="center" width="396" style="background-color: #ffffff;width: 396px;padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 0px solid transparent;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
 <div class="u-col u-col-67p5" style="max-width: 320px;min-width: 405px;display: table-cell;vertical-align: top;">
   <div style="background-color: #ffffff;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 0px solid transparent;border-bottom: 0px solid transparent;"><!--<![endif]-->
+  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px 0px 0px 15px;border-top: 0px solid transparent;border-left: 9px solid #cccccc;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;"><!--<![endif]-->
   
 <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
   <tbody>
@@ -354,9 +302,12 @@
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
         
   <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 16px; line-height: 22.4px;"><strong>Asking Price</strong></span></p>
+    <p style="font-size: 14px; line-height: 140%;">
+        <span style="font-size: 16px; line-height: 22.4px;"><strong>Asking Price: </strong></span>
+        <span style=" font-size: 14px; line-height: 19.6px; margin-left: 10%"><strong>$ {{$list['approx_large']}}</strong></span>
+    </p>
   </div>
-
+<br>
       </td>
     </tr>
   </tbody>
@@ -367,27 +318,7 @@
 </div>
 <!--[if (mso)|(IE)]></td><![endif]-->
 <!--[if (mso)|(IE)]><td align="center" width="186" style="background-color: #ffffff;width: 186px;padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;" valign="top"><![endif]-->
-<div class="u-col u-col-32p5" style="max-width: 320px;min-width: 195px;display: table-cell;vertical-align: top;">
-  <div style="background-color: #ffffff;width: 100% !important;">
-  <!--[if (!mso)&(!IE)]><!--><div style="padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 9px solid #cccccc;border-bottom: 0px solid transparent;"><!--<![endif]-->
-  
-<table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-  <tbody>
-    <tr>
-      <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:arial,helvetica,sans-serif;" align="left">
-        
-  <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 16px; line-height: 22.4px;"><strong>$ 100,000</strong></span></p>
-  </div>
 
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-  <!--[if (!mso)&(!IE)]><!--></div><!--<![endif]-->
-  </div>
-</div>
 <!--[if (mso)|(IE)]></td><![endif]-->
       <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
     </div>
@@ -411,7 +342,7 @@
         
 <div align="center">
   <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;font-family:arial,helvetica,sans-serif;"><tr><td style="font-family:arial,helvetica,sans-serif;" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:34px; v-text-anchor:middle; width:449px;" arcsize="29.5%" stroke="f" fillcolor="#54ae0c"><w:anchorlock/><center style="color:#FFFFFF;font-family:arial,helvetica,sans-serif;"><![endif]-->
-    <a href="https://app-prokakis.com/" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #54ae0c; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; width:80%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
+    <a href="https://app.intellinz.com/" target="_blank" style="box-sizing: border-box;display: inline-block;font-family:arial,helvetica,sans-serif;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #54ae0c; border-radius: 10px; -webkit-border-radius: 10px; -moz-border-radius: 10px; width:80%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;">
       <span style="display:block;padding:10px 20px;line-height:110%;">View Listing</span>
     </a>
   <!--[if mso]></center></v:roundrect></td></tr></table><![endif]-->

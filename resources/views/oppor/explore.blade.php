@@ -20,6 +20,9 @@
 
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
 
+<link href="{{ asset('public/ratings/star-rating-svg.css') }}" rel="stylesheet" type="text/css"/>
+    <script src="{{ asset('public/ratings/jquery.star-rating-svg.js') }}"></script>
+
 <style>
     #chat-wrap {
       background-image: url("{{ asset('public/img-resources/chat-backdrop.png') }}");
@@ -30,11 +33,18 @@
     }
     
     @media screen  and (max-width: 607px) and (min-width: 427px) {
-        .learn_more{
-            float: none !important;
-            margin-top:20px;
-            position:initial !important;
+        /*.learn_more{*/
+        /*    float: none !important;*/
+        /*    margin-top:20px;*/
+        /*    position:initial !important;*/
             
+        /*}*/
+        .learn_more {
+            float: right;
+            position: absolute;
+            bottom: 0px;
+            right: -40px;
+            /* left: 20%; */
         }
     }
 
@@ -101,7 +111,7 @@
    .rating_score{
        color: black !important;
        font-weight:bold;
-       font-size:20px;
+       font-size:15px;
    }
    .modal{
        z-index:1000011010102 !important
@@ -189,7 +199,7 @@
 
     <?php 
         $user_id = Auth::id();
-		$user_company_id = App\CompanyProfile::getCompanyId($user_id);
+        $user_company_id = App\CompanyProfile::getCompanyId($user_id);
     ?> 
 
     <div class="container container-grid">
@@ -365,8 +375,9 @@
                         $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
                         $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
 
-                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+                        $keyPersons = App\KeyManagement::where('user_id', $user_id)->where('company_id', $company->id)->where('status', 1)->get();
+                        $isXeroValidConnection = App\Http\Controllers\XeroController::checkIfConnected();
+                        $ratingScore = App\CompanyProfile::profileCompleteness($company, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
                         $industryImage = App\OppIndustry::find($item->industry);
                         if($industryImage){
@@ -444,42 +455,35 @@
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
                         <p class='meta'> {{ $item->timeframe_goal }}
                         {{ $item->approx_large }} opportunity. </p>
-                    <div style="display: flex;">
+                    <div>
+                        <div class="hr-sect"><strong class="hr_title"></strong></div>
+
                         <div>
-                            @if($ratingScore < 25)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                            @endif
+                            
+                            <div class="my-rating jq-stars"></div>
+                            <div class="rating_score" style="text-align: center;width: 50%;">
+                                <h3> {{ $ratingScore }}% </h3>
+                            </div>
+                            <script type="text/javascript">
+                                $(".my-rating").starRating({
+                                    totalStars: 3,
+                                    starSize: 40,
+                                     starGradient: {
+                                      start: '#2f8f0d',
+                                      end: '#40ed02'
+                                    },
+                                    starShape: 'rounded',
+                                        readOnly: true,
+                                        useGradient: true,
+                                    initialRating: <?=3*($ratingScore*.01)?>,
+                                        strokeWidth: 9,
+                                    strokeColor: 'black',
+
+                                  });
+                            </script>
                         </div>
 
-                        <div class="rating_score">
-                            <h3> {{ $ratingScore }}% </h3>
-                        </div>
+                        
                     </div>
                     <div class="learn_more" style="float: right" >
                            <button onclick="showModalContent('sell','{{ $item->id }}')" class="learn_more_btn btn btn-primary "><i class="fa fa-eye"></i> Learn More</button>
@@ -521,41 +525,24 @@
                     <h4><strong> Company Strength </strong></h4>
                 </span>
                 <div class="content-text" style="display: flex;">
-                <?php
-                                    if ($ratingScore < 25) {
-                                        ?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
+                <div class="my-rating jq-stars"></div>
+                            <script type="text/javascript">
+                                $(".my-rating").starRating({
+                                    totalStars: 3,
+                                    starSize: 40,
+                                     starGradient: {
+                                      start: '#2f8f0d',
+                                      end: '#40ed02'
+                                    },
+                                    starShape: 'rounded',
+                                        readOnly: true,
+                                        useGradient: true,
+                                    initialRating: <?=3*($ratingScore*.01)?>,
+                                        strokeWidth: 9,
+                                    strokeColor: 'black',
 
-                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-
-                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-
-                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-
-                                            <?php }?>
+                                  });
+                            </script>
                                        
                     <h2  class="rating_score" > {{ $ratingScore }} % </h2>
                 </div>
@@ -845,8 +832,9 @@
                         $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
                         $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
 
-                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+                        $keyPersons = App\KeyManagement::where('user_id', $user_id)->where('company_id', $company->id)->where('status', 1)->get();
+                        $isXeroValidConnection = App\Http\Controllers\XeroController::checkIfConnected();
+                        $ratingScore = App\CompanyProfile::profileCompleteness($company, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
                         $industryImage = App\OppIndustry::find($item->industry);
                         if($industryImage){
@@ -926,43 +914,30 @@
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
                         <p class='meta'> {{ $item->timeframe_goal }}
                         {{ $item->approx_large }} opportunity. </p>
-                    <div style="display: flex;">
                         <div>
-                            @if($ratingScore < 25)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                            @endif
-                        </div>
+                            
+                            <div class="my-rating jq-stars"></div>
+                            <div class="rating_score" style="text-align: center;width: 50%;">
+                                <h3> {{ $ratingScore }}% </h3>
+                            </div>
+                            <script type="text/javascript">
+                                $(".my-rating").starRating({
+                                    totalStars: 3,
+                                    starSize: 40,
+                                     starGradient: {
+                                      start: '#2f8f0d',
+                                      end: '#40ed02'
+                                    },
+                                    starShape: 'rounded',
+                                        readOnly: true,
+                                        useGradient: true,
+                                    initialRating: <?=3*($ratingScore*.01)?>,
+                                        strokeWidth: 9,
+                                    strokeColor: 'black',
 
-                        <div class="rating_score">
-                            <h3> {{ $ratingScore }}% </h3>
+                                  });
+                            </script>
                         </div>
-                    </div>
                     <div class="learn_more" style="float: right" >
                            <button onclick="showModalContent('buy','{{ $item->id }}')" class="learn_more_btn btn btn-primary "><i class="fa fa-eye"></i> Learn More</button>
                     </div>
@@ -1004,41 +979,33 @@
                     <h4><strong> Ratings </strong></h4>
                 </span>
                 <div class="content-text" style="display: flex;">
-                <?php
-                                    if ($ratingScore < 25) {
-                                        ?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
 
-                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
+                    <div>
+                        <div>
+                            
+                            <div class="my-rating jq-stars"></div>
+                
+                            <script type="text/javascript">
+                                $(".my-rating").starRating({
+                                    totalStars: 3,
+                                    starSize: 40,
+                                     starGradient: {
+                                      start: '#2f8f0d',
+                                      end: '#40ed02'
+                                    },
+                                    starShape: 'rounded',
+                                        readOnly: true,
+                                        useGradient: true,
+                                    initialRating: <?=3*($ratingScore*.01)?>,
+                                        strokeWidth: 9,
+                                    strokeColor: 'black',
 
-                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
+                                  });
+                            </script>
+                        </div>
 
-                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-
-                                            <?php }?>
+                        
+                    </div>
                                        
                     <h2  class="rating_score" > {{ $ratingScore }} % </h2>
                 </div>
@@ -1327,8 +1294,9 @@
                         $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
                         $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
 
-                        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-                        $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+                        $keyPersons = App\KeyManagement::where('user_id', $user_id)->where('company_id', $company->id)->where('status', 1)->get();
+                        $isXeroValidConnection = App\Http\Controllers\XeroController::checkIfConnected();
+                        $ratingScore = App\CompanyProfile::profileCompleteness($company, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  );
 
                         $industryImage = App\OppIndustry::find($item->industry);
                         if($industryImage){
@@ -1407,42 +1375,35 @@
                     <div class="hr-sect"><strong class="hr_title">Expectation</strong></div>
                         <p class='meta'> {{ $item->timeframe_goal }}
                         {{ $item->approx_large }} opportunity. </p>
-                    <div style="display: flex;">
+                    <div>
+                        <div class="hr-sect"><strong class="hr_title"></strong></div>
+
                         <div>
-                            @if($ratingScore < 25)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 26 && $ratingScore <= 50)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 51 && $ratingScore <= 75)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p1.png') }}">
-                            @elseif($ratingScore >= 76 && $ratingScore <= 100)
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                                <img width="36" height="32"
-                                     src="{{  asset('public/stars/p2.png') }}">
-                            @endif
+                            
+                            <div class="my-rating jq-stars"></div>
+                            <div class="rating_score" style="text-align: center;width: 50%;">
+                                <h3> {{ $ratingScore }}% </h3>
+                            </div>
+                            <script type="text/javascript">
+                                $(".my-rating").starRating({
+                                    totalStars: 3,
+                                    starSize: 40,
+                                     starGradient: {
+                                      start: '#2f8f0d',
+                                      end: '#40ed02'
+                                    },
+                                    starShape: 'rounded',
+                                        readOnly: true,
+                                        useGradient: true,
+                                    initialRating: <?=3*($ratingScore*.01)?>,
+                                        strokeWidth: 9,
+                                    strokeColor: 'black',
+
+                                  });
+                            </script>
                         </div>
 
-                        <div class="rating_score">
-                            <h3> {{ $ratingScore }}% </h3>
-                        </div>
+                        
                     </div>
                     <div class="learn_more" style="float: right" >
                            <button onclick="showModalContent('build','{{ $item->id }}')" class="learn_more_btn btn btn-primary "><i class="fa fa-eye"></i> Learn More</button>
@@ -1484,42 +1445,35 @@
                     <h4><strong> Ratings </strong></h4>
                 </span>
                 <div class="content-text" style="display: flex;">
-                <?php
-                                    if ($ratingScore < 25) {
-                                        ?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
 
-                                            <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
+                    <div>
+                    
+                        <div>
+                            
+                            <div class="my-rating jq-stars"></div>
 
-                                            <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p1.png') }}">
+                            <script type="text/javascript">
+                                $(".my-rating").starRating({
+                                    totalStars: 3,
+                                    starSize: 40,
+                                     starGradient: {
+                                      start: '#2f8f0d',
+                                      end: '#40ed02'
+                                    },
+                                    starShape: 'rounded',
+                                        readOnly: true,
+                                        useGradient: true,
+                                    initialRating: <?=3*($ratingScore*.01)?>,
+                                        strokeWidth: 9,
+                                    strokeColor: 'black',
 
-                                            <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
-                                            <img width="36" height="32"
-                                                 src="{{  asset('public/stars/p2.png') }}">
+                                  });
+                            </script>
+                        </div>
 
-                                            <?php }?>
-                                       
+                        
+                    </div>
+                            
                     <h2 class="rating_score"  > {{ $ratingScore }} % </h2>
                 </div>
                 <hr>
@@ -1875,43 +1829,38 @@
         $profileSalesInvoice = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.sales_invoices'), 5);
         $profileCertifications = App\UploadImages::getFileNames($company->user_id, $company->id, Config::get('constants.options.certification'), 5);
 
-        $ratingScore = App\CompanyProfile::profileCompleteness(array($company, $profileAvatar, $profileAwards,
-            $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications));
+                        $keyPersons = App\KeyManagement::where('user_id', $user_id)->where('company_id', $company->id)->where('status', 1)->get();
+                        $isXeroValidConnection = App\Http\Controllers\XeroController::checkIfConnected();
+                        $ratingScore = App\CompanyProfile::profileCompleteness($company, $profileAvatar, count($keyPersons), $profileAwards, $profilePurchaseInvoice, $profileSalesInvoice, $profileCertifications, $isXeroValidConnection  ); ?>
 
-        if ($ratingScore < 25) {
-            ?>
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p1.png') }}">
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p1.png') }}">
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p1.png') }}">
+                    <div>
+                        <div class="hr-sect"><strong class="hr_title"></strong></div>
 
-                                        <?php } elseif ($ratingScore >= 26 && $ratingScore <= 50) {?>
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p1.png') }}">
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p1.png') }}">
+                        <div>
+                            
+                            <div class="my-rating jq-stars"></div>
+                            <script type="text/javascript">
+                                $(".my-rating").starRating({
+                                    totalStars: 3,
+                                    starSize: 40,
+                                     starGradient: {
+                                      start: '#2f8f0d',
+                                      end: '#40ed02'
+                                    },
+                                    starShape: 'rounded',
+                                        readOnly: true,
+                                        useGradient: true,
+                                    initialRating: <?=3*($ratingScore*.01)?>,
+                                        strokeWidth: 9,
+                                    strokeColor: 'black',
 
-                                        <?php } elseif ($ratingScore >= 51 && $ratingScore <= 75) {?>
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p1.png') }}">
+                                  });
+                            </script>
+                        </div>
 
-                                        <?php } elseif ($ratingScore >= 76 && $ratingScore <= 100) {?>
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p2.png') }}">
-                                        <img width="36" height="32"
-                                             src="{{  asset('public/stars/p2.png') }}">
+                        
+                    </div>
 
-                                        <?php }?>
                                         <br/>
                 <h4 class="rating_score"> {{ $ratingScore }} % </h4>
             </span>
@@ -2264,6 +2213,7 @@
     <script src="{{ asset('public/bootstrap-tour/bootstrap-tour.min.js') }}"></script>
     @endif
     <script src="{{ asset('public/sweet-alert/sweetalert.min.js') }}"></script>
+
     <script>
 
 
@@ -3159,7 +3109,7 @@ function sendChat(message, nickname)
 
 
     </script>
-{{-- <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script> --}}
+
 
  <script>
 // Instance the tour

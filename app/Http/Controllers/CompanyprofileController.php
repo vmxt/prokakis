@@ -227,7 +227,7 @@ class CompanyprofileController extends Controller {
 
 		$profileCoverPhoto = UploadImages::getFileNames($user_id, $company_id_result, Config::get('constants.options.banner'), 1);
 
-		
+
 
 
 		$completenessMessages = CompanyProfile::profileStrengthMessages(array($company_data, $profileAvatar, $profileAwards,
@@ -1853,7 +1853,7 @@ public function searchThomsonReuters(Request $request) {
 
 				if ($data != null) {
 					return view('snippets.refinitivSearchResultById',compact('data'));
-	
+
 				} else {
 					return 'no data';
 				}

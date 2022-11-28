@@ -260,10 +260,13 @@ th {
                                                     <td align="center">
                                                         <?php echo $d->reason_heard; ?>
                                                     </td>
+                                                   
                                                     <td align="center">
-                                                       <button name="{{ $d->id }}" id="update_{{ $d->id }}_btn" class="update_usertype_btn btn btn-primary btn-sm"><i class="fa fa-edit"></i> UPDATE </button>
+                                                        @if($isAdmin == 0)
+                                                            <button name="{{ $d->id }}" id="update_{{ $d->id }}_btn" class="update_usertype_btn btn btn-primary btn-sm"><i class="fa fa-edit"></i> UPDATE </button>
+                                                        @endif
                                                     </td>
-
+                                                   
                                                     <td align="center">
 <?php                                               $company_id_result = App\CompanyProfile::getCompanyId($d->id); ?>
                                                         <a href="{{ url('/profile/viewer/'.$company_id_result) }}" target="_blank"><?php echo $d->company_name; ?></a>

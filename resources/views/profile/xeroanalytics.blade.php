@@ -201,8 +201,34 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.8/semantic.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
-<?php session_start(); ?>
+<?php session_start(); 
 
+$company_id_result = App\CompanyProfile::getCompanyId(Auth::id());
+
+?>
+
+<?php if(!App\SpentTokens::check_if_premium($company_id_result)){ ?>
+
+<div class="container container-grid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-2">
+                    <div class="col-md-12">
+                        <div class=" note-success" style="margin-bottom:0px !important">
+                            <h4 class="xero_logo"><img src="https://edge.xero.com/images/1.0.0/logo/xero-logo.svg" class="img-fluid" style="width:60px" /><strong>&nbsp;&nbsp;XERO INTEGRATION</strong></h4>
+                        </div>
+                    </div>
+            
+            </div>
+            <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="text-danger">Your Account is Free. Please Purchase Premium Account to use the XERO Integration.</h3>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<?php }else{ ?>
 <div class="loading text-company" style="display:none;">Loading&#8230;</div>
 <!-- Modal -->
 <div class="modal fade" style="z-index:9999999999998;" id="procedure_modal" tabindex="-1" role="dialog" aria-labelledby="procedure_modal_label" aria-hidden="true">
@@ -3944,5 +3970,5 @@
     });
 </script>
 </div>
-
+<?php } ?>
 @endsection
